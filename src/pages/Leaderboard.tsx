@@ -32,11 +32,10 @@ const Leaderboard = () => {
   }, [user]);
 
   const fetchLeaderboard = async () => {
-    // Fetch top profiles by XP
+    // Use secure leaderboard view (no sensitive profile data exposed)
     const { data: profiles } = await supabase
-      .from('profiles')
+      .from('leaderboard_view')
       .select('user_id, username, display_name, xp, current_cefr')
-      .order('xp', { ascending: false })
       .limit(50);
 
     if (!profiles) {

@@ -32,6 +32,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
+// Safe question interface (no answers exposed)
 interface Question {
   id: number;
   cefr: CEFRLevel;
@@ -42,9 +43,14 @@ interface Question {
   options_b: string | null;
   options_c: string | null;
   options_d: string | null;
-  correct_answer: string | null;
-  explanation: string | null;
   tags: string | null;
+}
+
+// Answer validation result from server
+interface AnswerResult {
+  is_correct: boolean;
+  correct_answer: string;
+  explanation: string | null;
 }
 
 type PracticeState = 'setup' | 'practicing' | 'feedback' | 'results';
@@ -64,6 +70,7 @@ const Practice = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [answerResult, setAnswerResult] = useState<AnswerResult | null>(null);
   const [answers, setAnswers] = useState<{ questionId: number; answer: string; correct: boolean }[]>([]);
   
   const [timeLeft, setTimeLeft] = useState(TIMED_DURATION_SECONDS);
@@ -91,8 +98,9 @@ const Practice = () => {
     setLoading(true);
     const limit = mode === PRACTICE_MODES.TEN_QUESTIONS ? 10 : 50;
     
+    // Use secure view that doesn't expose answers
     const { data, error } = await supabase
-      .from('questions')
+      .from('questions_safe')
       .select('*')
       .eq('cefr', selectedLevel)
       .limit(limit);
@@ -133,11 +141,21 @@ const Practice = () => {
     if (selectedAnswer) return;
     
     const question = questions[currentIndex];
-    const correct = answer.toUpperCase() === question.correct_answer?.toUpperCase();
     const timeSpent = Math.round((Date.now() - questionStartTime) / 1000);
     
     setSelectedAnswer(answer);
+    
+    // Validate answer server-side using secure function
+    const { data: result } = await supabase.rpc('check_answer', {
+      p_question_id: question.id,
+      p_chosen_answer: answer,
+    });
+    
+    const answerData = result?.[0] as AnswerResult | undefined;
+    const correct = answerData?.is_correct ?? false;
+    
     setIsCorrect(correct);
+    setAnswerResult(answerData || null);
     setAnswers([...answers, { questionId: question.id, answer, correct }]);
 
     // Record attempt
@@ -160,6 +178,7 @@ const Practice = () => {
       setCurrentIndex(currentIndex + 1);
       setSelectedAnswer(null);
       setIsCorrect(null);
+      setAnswerResult(null);
       setState('practicing');
       setQuestionStartTime(Date.now());
     }
@@ -393,7 +412,7 @@ const Practice = () => {
             <div className="space-y-3">
               {options.map((option) => {
                 const isSelected = selectedAnswer === option.key;
-                const isCorrectAnswer = option.key.toUpperCase() === currentQuestion.correct_answer?.toUpperCase();
+                const isCorrectAnswer = state === 'feedback' && option.key.toUpperCase() === answerResult?.correct_answer?.toUpperCase();
                 const showCorrect = state === 'feedback' && isCorrectAnswer;
                 const showWrong = state === 'feedback' && isSelected && !isCorrectAnswer;
 
@@ -440,9 +459,9 @@ const Practice = () => {
                   )}>
                     {isCorrect ? "Correct! +10 XP" : "Incorrect +2 XP"}
                   </p>
-                  {currentQuestion.explanation && (
+                  {answerResult?.explanation && (
                     <p className="text-sm text-muted-foreground">
-                      {currentQuestion.explanation}
+                      {answerResult.explanation}
                     </p>
                   )}
                 </div>
