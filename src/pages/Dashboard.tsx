@@ -7,7 +7,8 @@ import {
   Clock, 
   TrendingUp,
   Play,
-  Timer
+  Timer,
+  Flame
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -18,7 +19,7 @@ import { DonationButton } from '@/components/DonationButton';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { LEVEL_DESCRIPTIONS, type CEFRLevel, CEFR_LEVELS } from '@/lib/constants';
-import { format } from 'date-fns';
+import { format, isToday, isYesterday, parseISO } from 'date-fns';
 
 interface PracticeSession {
   id: string;
@@ -84,6 +85,16 @@ const Dashboard = () => {
 
   const currentLevel = (profile?.current_cefr || 'A1') as CEFRLevel;
   const currentXP = profile?.xp || 0;
+  const currentStreak = profile?.streak || 0;
+  const lastPracticeDate = profile?.last_practice_date;
+  
+  const getStreakStatus = () => {
+    if (!lastPracticeDate) return 'Start your streak today!';
+    const date = parseISO(lastPracticeDate);
+    if (isToday(date)) return 'Keep it going!';
+    if (isYesterday(date)) return 'Practice today to keep your streak!';
+    return 'Start a new streak today!';
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -228,6 +239,24 @@ const Dashboard = () => {
 
           {/* Sidebar */}
           <div className="space-y-6">
+            {/* Streak Card */}
+            <Card className="overflow-hidden">
+              <div className="bg-gradient-to-r from-orange-500 to-red-500 p-4 text-white">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Flame className="w-8 h-8" />
+                    <div>
+                      <p className="text-3xl font-bold">{currentStreak}</p>
+                      <p className="text-sm opacity-90">Day Streak</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <CardContent className="p-4">
+                <p className="text-sm text-muted-foreground">{getStreakStatus()}</p>
+              </CardContent>
+            </Card>
+
             {/* Stats Card */}
             <Card>
               <CardHeader>

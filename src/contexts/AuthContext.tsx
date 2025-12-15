@@ -9,6 +9,8 @@ interface Profile {
   display_name: string | null;
   current_cefr: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
   xp: number;
+  streak: number;
+  last_practice_date: string | null;
   created_at: string;
 }
 
