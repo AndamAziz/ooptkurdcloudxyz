@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { BookOpen, LogOut, Settings, User, LayoutDashboard } from 'lucide-react';
+import { BookOpen, LogOut, User, LayoutDashboard, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -47,6 +47,12 @@ export const Header = () => {
         </Link>
 
         <nav className="flex items-center gap-4">
+          <Button asChild variant="ghost" size="sm">
+            <Link to="/leaderboard">
+              <Trophy className="w-4 h-4 mr-2" />
+              Leaderboard
+            </Link>
+          </Button>
           <DonationButton variant="ghost" size="sm" />
           
           {user ? (
