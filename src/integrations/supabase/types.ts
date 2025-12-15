@@ -50,6 +50,13 @@ export type Database = {
             referencedRelation: "questions"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "attempts_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions_safe"
+            referencedColumns: ["id"]
+          },
         ]
       }
       levels: {
@@ -219,9 +226,85 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      leaderboard_view: {
+        Row: {
+          current_cefr: Database["public"]["Enums"]["cefr_level"] | null
+          display_name: string | null
+          user_id: string | null
+          username: string | null
+          xp: number | null
+        }
+        Insert: {
+          current_cefr?: Database["public"]["Enums"]["cefr_level"] | null
+          display_name?: string | null
+          user_id?: string | null
+          username?: string | null
+          xp?: number | null
+        }
+        Update: {
+          current_cefr?: Database["public"]["Enums"]["cefr_level"] | null
+          display_name?: string | null
+          user_id?: string | null
+          username?: string | null
+          xp?: number | null
+        }
+        Relationships: []
+      }
+      questions_safe: {
+        Row: {
+          cefr: Database["public"]["Enums"]["cefr_level"] | null
+          created_at: string | null
+          difficulty: number | null
+          id: number | null
+          options_a: string | null
+          options_b: string | null
+          options_c: string | null
+          options_d: string | null
+          prompt: string | null
+          q_type: string | null
+          source: string | null
+          tags: string | null
+        }
+        Insert: {
+          cefr?: Database["public"]["Enums"]["cefr_level"] | null
+          created_at?: string | null
+          difficulty?: number | null
+          id?: number | null
+          options_a?: string | null
+          options_b?: string | null
+          options_c?: string | null
+          options_d?: string | null
+          prompt?: string | null
+          q_type?: string | null
+          source?: string | null
+          tags?: string | null
+        }
+        Update: {
+          cefr?: Database["public"]["Enums"]["cefr_level"] | null
+          created_at?: string | null
+          difficulty?: number | null
+          id?: number | null
+          options_a?: string | null
+          options_b?: string | null
+          options_c?: string | null
+          options_d?: string | null
+          prompt?: string | null
+          q_type?: string | null
+          source?: string | null
+          tags?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
+      check_answer: {
+        Args: { p_chosen_answer: string; p_question_id: number }
+        Returns: {
+          correct_answer: string
+          explanation: string
+          is_correct: boolean
+        }[]
+      }
       get_cefr_for_xp: {
         Args: { xp_value: number }
         Returns: Database["public"]["Enums"]["cefr_level"]
