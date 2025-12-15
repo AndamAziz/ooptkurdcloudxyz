@@ -118,6 +118,8 @@ export type Database = {
           current_cefr: Database["public"]["Enums"]["cefr_level"] | null
           display_name: string | null
           id: string
+          last_practice_date: string | null
+          streak: number | null
           user_id: string
           username: string | null
           xp: number | null
@@ -127,6 +129,8 @@ export type Database = {
           current_cefr?: Database["public"]["Enums"]["cefr_level"] | null
           display_name?: string | null
           id?: string
+          last_practice_date?: string | null
+          streak?: number | null
           user_id: string
           username?: string | null
           xp?: number | null
@@ -136,6 +140,8 @@ export type Database = {
           current_cefr?: Database["public"]["Enums"]["cefr_level"] | null
           display_name?: string | null
           id?: string
+          last_practice_date?: string | null
+          streak?: number | null
           user_id?: string
           username?: string | null
           xp?: number | null
