@@ -206,6 +206,27 @@ export type Database = {
         }
         Relationships: []
       }
+      rate_limits: {
+        Row: {
+          action: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
@@ -305,9 +326,45 @@ export type Database = {
           is_correct: boolean
         }[]
       }
+      check_rate_limit: {
+        Args: {
+          p_action?: string
+          p_max_count?: number
+          p_user_id: string
+          p_window_minutes?: number
+        }
+        Returns: boolean
+      }
       get_cefr_for_xp: {
         Args: { xp_value: number }
         Returns: Database["public"]["Enums"]["cefr_level"]
+      }
+      get_random_questions: {
+        Args: {
+          p_cefr: Database["public"]["Enums"]["cefr_level"]
+          p_limit?: number
+          p_user_id: string
+        }
+        Returns: {
+          cefr: Database["public"]["Enums"]["cefr_level"] | null
+          created_at: string | null
+          difficulty: number | null
+          id: number | null
+          options_a: string | null
+          options_b: string | null
+          options_c: string | null
+          options_d: string | null
+          prompt: string | null
+          q_type: string | null
+          source: string | null
+          tags: string | null
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "questions_safe"
+          isOneToOne: false
+          isSetofReturn: true
+        }
       }
       has_role: {
         Args: {
