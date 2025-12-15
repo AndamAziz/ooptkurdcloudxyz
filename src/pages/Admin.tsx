@@ -82,8 +82,9 @@ const Admin = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterLevel, setFilterLevel] = useState<string>('all');
-  const [importResults, setImportResults] = useState<{ inserted: number; failed: number } | null>(null);
+  const [importResults, setImportResults] = useState<{ inserted: number; skipped: number; failed: number } | null>(null);
   const [isImporting, setIsImporting] = useState(false);
+  const [importProgress, setImportProgress] = useState({ current: 0, total: 0 });
 
   useEffect(() => {
     fetchData();
@@ -136,17 +137,37 @@ const Admin = () => {
 
     setIsImporting(true);
     setImportResults(null);
+    setImportProgress({ current: 0, total: 0 });
 
     try {
       const text = await file.text();
       const lines = text.split('\n');
       const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
 
+      // Filter out empty lines
+      const dataLines = lines.slice(1).filter(line => line.trim());
+      const totalRows = dataLines.length;
+      setImportProgress({ current: 0, total: totalRows });
+
+      // Fetch existing prompts to check for duplicates
+      const { data: existingQuestions } = await supabase
+        .from('questions')
+        .select('prompt');
+      
+      const existingPrompts = new Set(
+        existingQuestions?.map(q => q.prompt.trim().toLowerCase()) || []
+      );
+
       let inserted = 0;
+      let skipped = 0;
       let failed = 0;
 
-      for (let i = 1; i < lines.length; i++) {
-        const line = lines[i].trim();
+      // Process in batches for better performance
+      const batchSize = 50;
+      const questionsToInsert: any[] = [];
+
+      for (let i = 0; i < dataLines.length; i++) {
+        const line = dataLines[i].trim();
         if (!line) continue;
 
         // Parse CSV line (handling quoted values)
@@ -175,14 +196,32 @@ const Admin = () => {
         const cefrValue = row.cefr?.toUpperCase();
         if (!CEFR_LEVELS.includes(cefrValue as CEFRLevel)) {
           failed++;
+          setImportProgress({ current: i + 1, total: totalRows });
           continue;
         }
+
+        const prompt = row.prompt?.trim() || '';
+        if (!prompt) {
+          failed++;
+          setImportProgress({ current: i + 1, total: totalRows });
+          continue;
+        }
+
+        // Check for duplicate
+        if (existingPrompts.has(prompt.toLowerCase())) {
+          skipped++;
+          setImportProgress({ current: i + 1, total: totalRows });
+          continue;
+        }
+
+        // Add to existing prompts to avoid duplicates within same file
+        existingPrompts.add(prompt.toLowerCase());
 
         const question = {
           cefr: cefrValue as CEFRLevel,
           difficulty: parseInt(row.difficulty) || 2,
           q_type: row.q_type || 'MCQ',
-          prompt: row.prompt || '',
+          prompt,
           options_a: row.options_a || row['options a'] || null,
           options_b: row.options_b || row['options b'] || null,
           options_c: row.options_c || row['options c'] || null,
@@ -193,24 +232,36 @@ const Admin = () => {
           source: row.source || null,
         };
 
-        if (!question.prompt) {
-          failed++;
-          continue;
-        }
+        questionsToInsert.push(question);
 
-        const { error } = await supabase.from('questions').insert(question);
-        
-        if (error) {
-          failed++;
-        } else {
-          inserted++;
+        // Insert in batches
+        if (questionsToInsert.length >= batchSize) {
+          const { error } = await supabase.from('questions').insert(questionsToInsert);
+          if (error) {
+            failed += questionsToInsert.length;
+          } else {
+            inserted += questionsToInsert.length;
+          }
+          questionsToInsert.length = 0;
+          setImportProgress({ current: i + 1, total: totalRows });
         }
       }
 
-      setImportResults({ inserted, failed });
+      // Insert remaining questions
+      if (questionsToInsert.length > 0) {
+        const { error } = await supabase.from('questions').insert(questionsToInsert);
+        if (error) {
+          failed += questionsToInsert.length;
+        } else {
+          inserted += questionsToInsert.length;
+        }
+      }
+
+      setImportProgress({ current: totalRows, total: totalRows });
+      setImportResults({ inserted, skipped, failed });
       toast({
         title: 'Import Complete',
-        description: `${inserted} questions imported, ${failed} failed`,
+        description: `${inserted} new, ${skipped} duplicates skipped, ${failed} failed`,
       });
 
       fetchData();
@@ -421,20 +472,48 @@ const Admin = () => {
                 </div>
 
                 {isImporting && (
-                  <div className="text-center py-4">
-                    <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full mx-auto mb-2" />
-                    <p>Importing questions...</p>
+                  <div className="space-y-4 py-4">
+                    <div className="flex items-center justify-between text-sm">
+                      <span>Importing questions...</span>
+                      <span className="font-mono font-semibold">
+                        {importProgress.total > 0 
+                          ? `${Math.round((importProgress.current / importProgress.total) * 100)}%` 
+                          : '0%'}
+                      </span>
+                    </div>
+                    <div className="h-3 bg-muted rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-primary transition-all duration-300 ease-out"
+                        style={{ 
+                          width: importProgress.total > 0 
+                            ? `${(importProgress.current / importProgress.total) * 100}%` 
+                            : '0%' 
+                        }}
+                      />
+                    </div>
+                    <p className="text-sm text-muted-foreground text-center">
+                      {importProgress.current.toLocaleString()} / {importProgress.total.toLocaleString()} rows processed
+                    </p>
                   </div>
                 )}
 
                 {importResults && (
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <div className="grid gap-4 md:grid-cols-3">
                     <Card className="bg-success/10 border-success/20">
                       <CardContent className="p-4 flex items-center gap-4">
                         <CheckCircle2 className="w-8 h-8 text-success" />
                         <div>
-                          <p className="text-2xl font-bold">{importResults.inserted}</p>
-                          <p className="text-sm text-muted-foreground">Questions imported</p>
+                          <p className="text-2xl font-bold">{importResults.inserted.toLocaleString()}</p>
+                          <p className="text-sm text-muted-foreground">New questions</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                    <Card className="bg-warning/10 border-warning/20">
+                      <CardContent className="p-4 flex items-center gap-4">
+                        <AlertCircle className="w-8 h-8 text-warning" />
+                        <div>
+                          <p className="text-2xl font-bold">{importResults.skipped.toLocaleString()}</p>
+                          <p className="text-sm text-muted-foreground">Duplicates skipped</p>
                         </div>
                       </CardContent>
                     </Card>
@@ -442,7 +521,7 @@ const Admin = () => {
                       <CardContent className="p-4 flex items-center gap-4">
                         <AlertCircle className="w-8 h-8 text-destructive" />
                         <div>
-                          <p className="text-2xl font-bold">{importResults.failed}</p>
+                          <p className="text-2xl font-bold">{importResults.failed.toLocaleString()}</p>
                           <p className="text-sm text-muted-foreground">Failed rows</p>
                         </div>
                       </CardContent>
