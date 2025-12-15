@@ -83,6 +83,7 @@ const Admin = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterLevel, setFilterLevel] = useState<string>('all');
   const [importResults, setImportResults] = useState<{ inserted: number; skipped: number; failed: number } | null>(null);
+  const [importFailures, setImportFailures] = useState<Array<{ rowNumber: number; reason: string; promptPreview: string }>>([]);
   const [isImporting, setIsImporting] = useState(false);
   const [importProgress, setImportProgress] = useState({ current: 0, total: 0 });
 
@@ -193,16 +194,73 @@ const Admin = () => {
 
     setIsImporting(true);
     setImportResults(null);
+    setImportFailures([]);
     setImportProgress({ current: 0, total: 0 });
+
+    const normalizeHeader = (h: string) =>
+      h
+        .replace(/^\uFEFF/, '')
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, '_');
+
+    const parseCSV = (csvText: string) => {
+      const rows: string[][] = [];
+      let row: string[] = [];
+      let field = '';
+      let inQuotes = false;
+
+      for (let i = 0; i < csvText.length; i++) {
+        const char = csvText[i];
+        const next = i + 1 < csvText.length ? csvText[i + 1] : '';
+
+        if (char === '"') {
+          // Escaped quote inside a quoted field
+          if (inQuotes && next === '"') {
+            field += '"';
+            i++;
+            continue;
+          }
+          inQuotes = !inQuotes;
+          continue;
+        }
+
+        if (char === ',' && !inQuotes) {
+          row.push(field);
+          field = '';
+          continue;
+        }
+
+        if ((char === '\n' || char === '\r') && !inQuotes) {
+          // Handle CRLF
+          if (char === '\r' && next === '\n') i++;
+          row.push(field);
+          field = '';
+
+          // Skip completely empty trailing rows
+          if (row.some((c) => c.trim() !== '')) rows.push(row);
+          row = [];
+          continue;
+        }
+
+        field += char;
+      }
+
+      // Flush last field/row
+      row.push(field);
+      if (row.some((c) => c.trim() !== '')) rows.push(row);
+
+      return rows;
+    };
 
     try {
       const text = await file.text();
-      const lines = text.split('\n');
-      const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+      const rows = parseCSV(text);
+      if (rows.length < 2) throw new Error('CSV has no data rows');
 
-      // Filter out empty lines
-      const dataLines = lines.slice(1).filter(line => line.trim());
-      const totalRows = dataLines.length;
+      const headers = rows[0].map(normalizeHeader);
+      const dataRows = rows.slice(1);
+      const totalRows = dataRows.length;
       setImportProgress({ current: 0, total: totalRows });
 
       // Fetch existing prompts to check for duplicates (paginate because of 1000-row default limit)
@@ -211,60 +269,78 @@ const Admin = () => {
       let inserted = 0;
       let skipped = 0;
       let failed = 0;
+      const failures: Array<{ rowNumber: number; reason: string; promptPreview: string }> = [];
 
-      // Process in batches for better performance
       const batchSize = 50;
-      const questionsToInsert: any[] = [];
+      const batch: Array<{ question: any; rowNumber: number; promptPreview: string }> = [];
 
-      for (let i = 0; i < dataLines.length; i++) {
-        const line = dataLines[i].trim();
-        if (!line) continue;
+      const flushBatch = async () => {
+        if (batch.length === 0) return;
 
-        // Parse CSV line (handling quoted values)
-        const values: string[] = [];
-        let current = '';
-        let inQuotes = false;
-        
-        for (const char of line) {
-          if (char === '"') {
-            inQuotes = !inQuotes;
-          } else if (char === ',' && !inQuotes) {
-            values.push(current.trim());
-            current = '';
+        const payload = batch.map((b) => b.question);
+        const { error } = await supabase.from('questions').insert(payload);
+
+        if (!error) {
+          inserted += batch.length;
+          batch.length = 0;
+          return;
+        }
+
+        // If the batch fails, fall back to per-row inserts so we can log the exact failures.
+        for (const item of batch) {
+          const { error: rowError } = await supabase.from('questions').insert(item.question);
+          if (rowError) {
+            failed++;
+            failures.push({
+              rowNumber: item.rowNumber,
+              reason: rowError.message,
+              promptPreview: item.promptPreview,
+            });
           } else {
-            current += char;
+            inserted++;
           }
         }
-        values.push(current.trim());
+
+        batch.length = 0;
+      };
+
+      for (let i = 0; i < dataRows.length; i++) {
+        const values = dataRows[i];
+        const rowNumber = i + 2; // 1-based, includes header row
 
         const row: Record<string, string> = {};
         headers.forEach((h, idx) => {
-          row[h] = values[idx] || '';
+          row[h] = (values[idx] ?? '').trim();
         });
 
-        // Map to question schema
-        const cefrValue = row.cefr?.toUpperCase();
+        const cefrValue = (row.cefr || '').toUpperCase();
+        const prompt = (row.prompt || '').trim();
+        const promptPreview = prompt ? prompt.slice(0, 80) : '(empty)';
+
         if (!CEFR_LEVELS.includes(cefrValue as CEFRLevel)) {
           failed++;
+          failures.push({
+            rowNumber,
+            reason: `Invalid CEFR level: "${row.cefr || ''}"`,
+            promptPreview,
+          });
           setImportProgress({ current: i + 1, total: totalRows });
           continue;
         }
 
-        const prompt = row.prompt?.trim() || '';
         if (!prompt) {
           failed++;
+          failures.push({ rowNumber, reason: 'Missing prompt', promptPreview });
           setImportProgress({ current: i + 1, total: totalRows });
           continue;
         }
 
-        // Check for duplicate
         if (existingPrompts.has(prompt.toLowerCase())) {
           skipped++;
           setImportProgress({ current: i + 1, total: totalRows });
           continue;
         }
 
-        // Add to existing prompts to avoid duplicates within same file
         existingPrompts.add(prompt.toLowerCase());
 
         const question = {
@@ -272,50 +348,37 @@ const Admin = () => {
           difficulty: parseInt(row.difficulty) || 2,
           q_type: row.q_type || 'MCQ',
           prompt,
-          options_a: row.options_a || row['options a'] || null,
-          options_b: row.options_b || row['options b'] || null,
-          options_c: row.options_c || row['options c'] || null,
-          options_d: row.options_d || row['options d'] || null,
+          options_a: row.options_a || row['options_a'] || row['options a'] || null,
+          options_b: row.options_b || row['options_b'] || row['options b'] || null,
+          options_c: row.options_c || row['options_c'] || row['options c'] || null,
+          options_d: row.options_d || row['options_d'] || row['options d'] || null,
           correct_answer: row.correct_answer || null,
           explanation: row.explanation || null,
           tags: row.tags || null,
           source: row.source || null,
         };
 
-        questionsToInsert.push(question);
-
-        // Insert in batches
-        if (questionsToInsert.length >= batchSize) {
-          const { error } = await supabase.from('questions').insert(questionsToInsert);
-          if (error) {
-            failed += questionsToInsert.length;
-          } else {
-            inserted += questionsToInsert.length;
-          }
-          questionsToInsert.length = 0;
-          setImportProgress({ current: i + 1, total: totalRows });
+        batch.push({ question, rowNumber, promptPreview });
+        if (batch.length >= batchSize) {
+          await flushBatch();
         }
+
+        setImportProgress({ current: i + 1, total: totalRows });
       }
 
-      // Insert remaining questions
-      if (questionsToInsert.length > 0) {
-        const { error } = await supabase.from('questions').insert(questionsToInsert);
-        if (error) {
-          failed += questionsToInsert.length;
-        } else {
-          inserted += questionsToInsert.length;
-        }
-      }
+      await flushBatch();
 
       setImportProgress({ current: totalRows, total: totalRows });
       setImportResults({ inserted, skipped, failed });
+      setImportFailures(failures);
+
       toast({
         title: 'Import Complete',
         description: `${inserted} new, ${skipped} duplicates skipped, ${failed} failed`,
       });
 
       fetchData();
-    } catch (error) {
+    } catch {
       toast({
         title: 'Import Failed',
         description: 'Error parsing CSV file',
@@ -548,34 +611,59 @@ const Admin = () => {
                 )}
 
                 {importResults && (
-                  <div className="grid gap-4 md:grid-cols-3">
-                    <Card className="bg-success/10 border-success/20">
-                      <CardContent className="p-4 flex items-center gap-4">
-                        <CheckCircle2 className="w-8 h-8 text-success" />
-                        <div>
-                          <p className="text-2xl font-bold">{importResults.inserted.toLocaleString()}</p>
-                          <p className="text-sm text-muted-foreground">New questions</p>
+                  <div className="space-y-4">
+                    <div className="grid gap-4 md:grid-cols-3">
+                      <Card className="bg-success/10 border-success/20">
+                        <CardContent className="p-4 flex items-center gap-4">
+                          <CheckCircle2 className="w-8 h-8 text-success" />
+                          <div>
+                            <p className="text-2xl font-bold">{importResults.inserted.toLocaleString()}</p>
+                            <p className="text-sm text-muted-foreground">New questions</p>
+                          </div>
+                        </CardContent>
+                      </Card>
+                      <Card className="bg-warning/10 border-warning/20">
+                        <CardContent className="p-4 flex items-center gap-4">
+                          <AlertCircle className="w-8 h-8 text-warning" />
+                          <div>
+                            <p className="text-2xl font-bold">{importResults.skipped.toLocaleString()}</p>
+                            <p className="text-sm text-muted-foreground">Duplicates skipped</p>
+                          </div>
+                        </CardContent>
+                      </Card>
+                      <Card className="bg-destructive/10 border-destructive/20">
+                        <CardContent className="p-4 flex items-center gap-4">
+                          <AlertCircle className="w-8 h-8 text-destructive" />
+                          <div>
+                            <p className="text-2xl font-bold">{importResults.failed.toLocaleString()}</p>
+                            <p className="text-sm text-muted-foreground">Failed rows</p>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    {importFailures.length > 0 && (
+                      <div className="rounded-lg border bg-card p-4">
+                        <p className="font-medium">Failed rows (first 20)</p>
+                        <p className="text-sm text-muted-foreground mb-3">
+                          These rows are usually malformed CSV (commas/newlines inside quotes) or missing required fields.
+                        </p>
+                        <div className="max-h-56 overflow-auto text-sm rounded-md border">
+                          {importFailures.slice(0, 20).map((f) => (
+                            <div
+                              key={`${f.rowNumber}-${f.promptPreview}`}
+                              className="grid grid-cols-[80px_1fr] gap-3 px-3 py-2 border-b last:border-b-0"
+                            >
+                              <div className="font-mono text-muted-foreground">Row {f.rowNumber}</div>
+                              <div>
+                                <div className="font-medium">{f.reason}</div>
+                                <div className="text-muted-foreground truncate">{f.promptPreview}</div>
+                              </div>
+                            </div>
+                          ))}
                         </div>
-                      </CardContent>
-                    </Card>
-                    <Card className="bg-warning/10 border-warning/20">
-                      <CardContent className="p-4 flex items-center gap-4">
-                        <AlertCircle className="w-8 h-8 text-warning" />
-                        <div>
-                          <p className="text-2xl font-bold">{importResults.skipped.toLocaleString()}</p>
-                          <p className="text-sm text-muted-foreground">Duplicates skipped</p>
-                        </div>
-                      </CardContent>
-                    </Card>
-                    <Card className="bg-destructive/10 border-destructive/20">
-                      <CardContent className="p-4 flex items-center gap-4">
-                        <AlertCircle className="w-8 h-8 text-destructive" />
-                        <div>
-                          <p className="text-2xl font-bold">{importResults.failed.toLocaleString()}</p>
-                          <p className="text-sm text-muted-foreground">Failed rows</p>
-                        </div>
-                      </CardContent>
-                    </Card>
+                      </div>
+                    )}
                   </div>
                 )}
 
