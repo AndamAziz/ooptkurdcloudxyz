@@ -90,45 +90,101 @@ const Admin = () => {
     fetchData();
   }, []);
 
+  const QUESTIONS_PAGE_SIZE = 1000;
+
+  const fetchQuestionCountsByLevel = async () => {
+    const questionsByLevel: Record<string, number> = {};
+
+    let offset = 0;
+    while (true) {
+      const { data, error } = await supabase
+        .from('questions')
+        .select('cefr')
+        .range(offset, offset + QUESTIONS_PAGE_SIZE - 1);
+
+      if (error) throw error;
+      if (!data || data.length === 0) break;
+
+      data.forEach((q) => {
+        const level = q.cefr as string;
+        questionsByLevel[level] = (questionsByLevel[level] || 0) + 1;
+      });
+
+      if (data.length < QUESTIONS_PAGE_SIZE) break;
+      offset += QUESTIONS_PAGE_SIZE;
+    }
+
+    return questionsByLevel;
+  };
+
+  const fetchExistingPrompts = async () => {
+    const prompts = new Set<string>();
+
+    let offset = 0;
+    while (true) {
+      const { data, error } = await supabase
+        .from('questions')
+        .select('prompt')
+        .range(offset, offset + QUESTIONS_PAGE_SIZE - 1);
+
+      if (error) throw error;
+      if (!data || data.length === 0) break;
+
+      data.forEach((q) => {
+        if (q.prompt) prompts.add(q.prompt.trim().toLowerCase());
+      });
+
+      if (data.length < QUESTIONS_PAGE_SIZE) break;
+      offset += QUESTIONS_PAGE_SIZE;
+    }
+
+    return prompts;
+  };
+
   const fetchData = async () => {
     setLoading(true);
 
-    // Fetch questions count by level
-    const { data: questionsData } = await supabase
-      .from('questions')
-      .select('cefr');
+    try {
+      // Accurate totals (PostgREST defaults to 1000 rows per request)
+      const [{ count: totalQuestionsCount }, questionsByLevel] = await Promise.all([
+        supabase.from('questions').select('*', { count: 'exact', head: true }),
+        fetchQuestionCountsByLevel(),
+      ]);
 
-    const questionsByLevel: Record<string, number> = {};
-    questionsData?.forEach((q) => {
-      questionsByLevel[q.cefr] = (questionsByLevel[q.cefr] || 0) + 1;
-    });
+      // Fetch students count
+      const { count: studentsCount } = await supabase
+        .from('profiles')
+        .select('*', { count: 'exact', head: true });
 
-    // Fetch students count
-    const { count: studentsCount } = await supabase
-      .from('profiles')
-      .select('*', { count: 'exact', head: true });
+      // Fetch attempts count
+      const { count: attemptsCount } = await supabase
+        .from('attempts')
+        .select('*', { count: 'exact', head: true });
 
-    // Fetch attempts count
-    const { count: attemptsCount } = await supabase
-      .from('attempts')
-      .select('*', { count: 'exact', head: true });
+      setStats({
+        totalQuestions: totalQuestionsCount || 0,
+        totalStudents: studentsCount || 0,
+        totalAttempts: attemptsCount || 0,
+        questionsByLevel,
+      });
 
-    setStats({
-      totalQuestions: questionsData?.length || 0,
-      totalStudents: studentsCount || 0,
-      totalAttempts: attemptsCount || 0,
-      questionsByLevel,
-    });
+      // Fetch questions for table
+      const { data: allQuestions } = await supabase
+        .from('questions')
+        .select('*')
+        .order('id', { ascending: false })
+        .limit(100);
 
-    // Fetch questions for table
-    const { data: allQuestions } = await supabase
-      .from('questions')
-      .select('*')
-      .order('id', { ascending: false })
-      .limit(100);
-
-    setQuestions((allQuestions as Question[]) || []);
-    setLoading(false);
+      setQuestions((allQuestions as Question[]) || []);
+    } catch {
+      toast({
+        title: 'Error',
+        description: 'Failed to load admin data',
+        variant: 'destructive',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -149,14 +205,8 @@ const Admin = () => {
       const totalRows = dataLines.length;
       setImportProgress({ current: 0, total: totalRows });
 
-      // Fetch existing prompts to check for duplicates
-      const { data: existingQuestions } = await supabase
-        .from('questions')
-        .select('prompt');
-      
-      const existingPrompts = new Set(
-        existingQuestions?.map(q => q.prompt.trim().toLowerCase()) || []
-      );
+      // Fetch existing prompts to check for duplicates (paginate because of 1000-row default limit)
+      const existingPrompts = await fetchExistingPrompts();
 
       let inserted = 0;
       let skipped = 0;
