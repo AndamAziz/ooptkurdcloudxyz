@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
+import { Trophy } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Header } from '@/components/Header';
+import { DonationButton } from '@/components/DonationButton';
 import { SpeedometerGauge } from '@/components/SpeedometerGauge';
 
 import { PracticeModes } from '@/components/dashboard/PracticeModes';
@@ -56,8 +58,7 @@ const Dashboard = () => {
 
             <PracticeModes 
               displayName={displayName} 
-              currentLevel={currentLevel}
-              currentXP={currentXP}
+              currentLevel={currentLevel} 
               levelProgress={questionProgress.map(p => ({
                 level: p.cefr,
                 remaining: p.remaining_questions,
@@ -97,6 +98,18 @@ const Dashboard = () => {
             
             <LevelProgressCard levelStats={levelStats} />
             <CertificatesCard userId={user?.id} />
+
+            {/* Donation Card */}
+            <Card className="border-2 border-dashed">
+              <CardContent className="p-4 md:p-6 text-center">
+                <Trophy className="w-8 h-8 md:w-10 md:h-10 mx-auto mb-3 text-warning" />
+                <h3 className="font-semibold mb-2 text-sm md:text-base">Support Our Mission</h3>
+                <p className="text-xs md:text-sm text-muted-foreground mb-4">
+                  Help us keep this resource free for all learners
+                </p>
+                <DonationButton size="default" className="w-full" />
+              </CardContent>
+            </Card>
           </div>
         </div>
       </main>
