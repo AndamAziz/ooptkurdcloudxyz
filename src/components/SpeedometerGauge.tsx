@@ -10,19 +10,19 @@ interface SpeedometerGaugeProps {
 }
 
 const ZONES = [
-  { min: 0, max: 20, color: '#EF4444', label: 'لاواز' },
-  { min: 20, max: 40, color: '#F97316', label: 'پێویستی بە کار هەیە' },
-  { min: 40, max: 60, color: '#EAB308', label: 'مامناوەند' },
-  { min: 60, max: 80, color: '#84CC16', label: 'باش' },
-  { min: 80, max: 100, color: '#22C55E', label: 'نایاب' },
+  { min: 0, max: 20, color: '#EF4444', label: 'Poor' },
+  { min: 20, max: 40, color: '#F97316', label: 'Needs Improvement' },
+  { min: 40, max: 60, color: '#EAB308', label: 'Average' },
+  { min: 60, max: 80, color: '#84CC16', label: 'Good' },
+  { min: 80, max: 100, color: '#22C55E', label: 'Excellent' },
 ];
 
 const MOTIVATIONAL_MESSAGES: Record<string, string> = {
-  'لاواز': "بەردەوام بە ڕاهێنان! باشتر دەبیت.",
-  'پێویستی بە کار هەیە': "لە ڕێگادایت. وازمەهێنە!",
-  'مامناوەند': "هەوڵێکی باش! بەردەوام بە.",
-  'باش': "بە باشی پێشکەوتن دەکەیت. بەردەوام بە!",
-  'نایاب': "کاری نایاب! زۆر جوان!",
+  Poor: "Keep practicing! You'll improve.",
+  'Needs Improvement': "Getting there. Don't give up!",
+  Average: "Good effort! Keep going.",
+  Good: "You're progressing well. Keep going!",
+  Excellent: "Excellent work! Outstanding!",
 };
 
 const getZone = (percentage: number) => {
