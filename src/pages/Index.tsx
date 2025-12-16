@@ -236,64 +236,54 @@ const Index = () => {
       <TestimonialsSection />
 
       {/* Combined CTA & Bot Section */}
-      <section className="py-8 md:py-12 bg-primary text-primary-foreground">
+      <section className="py-6 md:py-10 bg-primary text-primary-foreground">
         <div className="container px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="font-serif text-xl md:text-2xl font-bold text-center mb-4 md:mb-6">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="font-serif text-lg md:text-xl lg:text-2xl font-bold text-center mb-4">
               Ready to Improve Your English?
             </h2>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-              {/* Get Started Card */}
-              {!user && (
-                <Link to="/auth" className="block">
-                  <Card className="h-full bg-white/10 border-white/20 hover:bg-white/20 transition-all cursor-pointer group">
-                    <CardContent className="p-3 sm:p-4 flex items-center gap-3">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
-                        <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-bold text-sm sm:text-base text-white">Get Started Free</h3>
-                        <p className="text-[10px] sm:text-xs text-white/70">Join 500+ learners today</p>
-                      </div>
-                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-white/70 group-hover:translate-x-1 transition-transform" />
-                    </CardContent>
-                  </Card>
+            <div className="flex flex-col sm:flex-row items-stretch justify-center gap-2 md:gap-3">
+              {/* Get Started / Support Button */}
+              {!user ? (
+                <Link to="/auth">
+                  <Button 
+                    size="lg" 
+                    className="w-full sm:w-auto bg-white text-primary hover:bg-white/90 font-semibold px-6"
+                  >
+                    <Sparkles className="w-4 h-4 mr-2" />
+                    Get Started Free
+                  </Button>
                 </Link>
+              ) : (
+                <DonationButton 
+                  variant="outline" 
+                  size="lg"
+                  className="border-white/30 text-white hover:bg-white/10"
+                />
               )}
               
-              {/* Telegram Bot Card */}
+              {/* Telegram Bot Button */}
               <a 
                 href="https://t.me/ALLINONEBIGBOSSbot" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="block"
               >
-                <Card className="h-full bg-white/10 border-white/20 hover:bg-white/20 transition-all cursor-pointer group">
-                  <CardContent className="p-3 sm:p-4 flex items-center gap-3">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#0088cc] flex items-center justify-center flex-shrink-0">
-                      <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-bold text-sm sm:text-base text-white flex items-center gap-1">
-                        All-in-One Bot <span className="text-xs">🚀</span>
-                      </h3>
-                      <p className="text-[10px] sm:text-xs text-white/70 truncate">AI Chat • Translation • Downloads</p>
-                    </div>
-                    <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 text-white/70 group-hover:translate-x-1 transition-transform" />
-                  </CardContent>
-                </Card>
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 font-semibold px-6"
+                >
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  All-in-One Bot
+                  <ExternalLink className="w-3 h-3 ml-2 opacity-70" />
+                </Button>
               </a>
-              
-              {/* Support Card - shows when user is logged in OR as third option */}
-              <div className={cn(!user ? "sm:col-span-2 flex justify-center" : "")}>
-                <DonationButton 
-                  variant="outline" 
-                  size="default"
-                  className="border-white/20 text-white hover:bg-white/10 w-full sm:w-auto min-h-[44px]"
-                />
-              </div>
             </div>
+            
+            <p className="text-center text-white/60 text-xs mt-3">
+              AI Chat • Translation • Downloads • Weather • Currency
+            </p>
           </div>
         </div>
       </section>
