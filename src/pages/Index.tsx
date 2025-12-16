@@ -290,9 +290,14 @@ const Index = () => {
             <BookOpen className="w-4 h-4 md:w-5 md:h-5 text-primary" />
             <span className="font-semibold text-sm md:text-base">CEFR Practice</span>
           </div>
-          <p className="text-xs md:text-sm text-muted-foreground text-center">
-            © {new Date().getFullYear()} CEFR Practice. All rights reserved.
-          </p>
+          <div className="text-center">
+            <p className="text-xs md:text-sm text-muted-foreground">
+              © {new Date().getFullYear()} CEFR Practice. All rights reserved.
+            </p>
+            <p className="text-xs text-muted-foreground/70 mt-1">
+              Designed by <span className="font-medium text-primary">Andam Aziz</span>
+            </p>
+          </div>
           <DonationButton variant="ghost" size="sm" />
         </div>
       </footer>
