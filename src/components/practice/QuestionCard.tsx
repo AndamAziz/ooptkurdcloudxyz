@@ -1,10 +1,10 @@
-import { CheckCircle2, XCircle, ArrowRight, Volume2, VolumeX, Loader2, ChevronDown, ChevronUp } from 'lucide-react';
+import { CheckCircle2, XCircle, ArrowRight, Volume2, VolumeX, Loader2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import type { Question, AnswerResult } from '@/hooks/useQuestions';
 import { useVoiceReader } from '@/hooks/useVoiceReader';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 interface QuestionCardProps {
   question: Question;
@@ -26,7 +26,6 @@ export const QuestionCard = ({
   isLastQuestion,
 }: QuestionCardProps) => {
   const { isMuted, isSpeaking, readQuestion, speakFeedback, toggleMute, stop } = useVoiceReader();
-  const [showExplanation, setShowExplanation] = useState(false);
   const isFeedback = selectedAnswer !== null && answerResult !== null;
 
   // Clean prompt: remove identifiers like (v443), (v147), (q123), etc.
@@ -46,9 +45,8 @@ export const QuestionCard = ({
     }
   }, [isFeedback, isCorrect, speakFeedback]);
 
-  // Stop speaking and reset explanation when moving to next question
+  // Stop speaking when moving to next question
   useEffect(() => {
-    setShowExplanation(false);
     return () => stop();
   }, [question.id, stop]);
 
@@ -144,29 +142,9 @@ export const QuestionCard = ({
               )}
               
               {answerResult?.explanation && (
-                <div className="mt-2">
-                  <button
-                    onClick={() => setShowExplanation(!showExplanation)}
-                    className="flex items-center gap-1 text-xs md:text-sm text-primary hover:text-primary/80 transition-colors font-medium"
-                  >
-                    {showExplanation ? (
-                      <>
-                        <ChevronUp className="w-4 h-4" />
-                        Hide Explanation
-                      </>
-                    ) : (
-                      <>
-                        <ChevronDown className="w-4 h-4" />
-                        Show Explanation
-                      </>
-                    )}
-                  </button>
-                  {showExplanation && (
-                    <p className="text-xs md:text-sm text-muted-foreground mt-2 animate-fade-in">
-                      {answerResult.explanation}
-                    </p>
-                  )}
-                </div>
+                <p className="text-xs md:text-sm text-muted-foreground mt-2 animate-fade-in">
+                  {answerResult.explanation}
+                </p>
               )}
             </div>
             
