@@ -83,9 +83,9 @@ export const MobileStatsHeader = ({
             <div className="w-px h-14 sm:h-16 bg-white/20 flex-shrink-0" />
             
             {/* Current Level Accuracy Gauge */}
-            <div className="flex-1 flex flex-col justify-center items-center">
+            <div className="flex-1 flex flex-col justify-center items-center min-w-0">
               {currentLevelAnswered > 0 ? (
-                <div className="max-w-[140px] sm:max-w-[160px] md:max-w-[200px]">
+                <div className="w-full flex justify-center">
                   <SpeedometerGauge 
                     percentage={currentLevelAccuracy} 
                     size="xs"
@@ -99,7 +99,7 @@ export const MobileStatsHeader = ({
                   <p className="text-[10px] sm:text-xs text-white/40">No data yet</p>
                 </div>
               )}
-              <p className="text-[9px] sm:text-[10px] text-white/70 mt-1">
+              <p className="text-[9px] sm:text-[10px] text-white/70 mt-1 text-center">
                 {currentLevel} Level ({currentLevelAnswered}/{currentLevelTotal})
               </p>
             </div>
