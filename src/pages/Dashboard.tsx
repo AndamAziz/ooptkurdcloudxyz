@@ -9,6 +9,7 @@ import { RecentSessions } from '@/components/dashboard/RecentSessions';
 import { StreakCard } from '@/components/dashboard/StreakCard';
 import { StatsCard } from '@/components/dashboard/StatsCard';
 import { CertificatesCard } from '@/components/dashboard/CertificatesCard';
+import { MobileStatsHeader } from '@/components/dashboard/MobileStatsHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProgress } from '@/hooks/useProgress';
 import type { CEFRLevel } from '@/lib/constants';
@@ -37,31 +38,29 @@ const Dashboard = () => {
         <div className="grid gap-4 md:gap-6 lg:grid-cols-3">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-4 md:space-y-6">
+            {/* Mobile Stats Header - Combined Streak + Stats at top */}
+            <div className="lg:hidden">
+              <MobileStatsHeader
+                streak={currentStreak}
+                lastPracticeDate={profile?.last_practice_date || null}
+                totalXP={currentXP}
+                totalAttempts={stats.totalAttempts}
+                totalCorrect={stats.totalCorrect}
+                accuracy={stats.accuracy}
+              />
+            </div>
+
             <WelcomeCard
               displayName={displayName}
               currentLevel={currentLevel}
               currentXP={currentXP}
             />
             
-            {/* Streak Card - Mobile only (shows above practice modes) */}
-            <div className="lg:hidden">
-              <StreakCard 
-                streak={currentStreak} 
-                lastPracticeDate={profile?.last_practice_date || null} 
-              />
-            </div>
-            
             <PracticeModes />
             <RecentSessions sessions={sessions} />
             
-            {/* Stats & Certificates - Mobile only */}
-            <div className="lg:hidden space-y-4">
-              <StatsCard
-                totalXP={currentXP}
-                totalAttempts={stats.totalAttempts}
-                totalCorrect={stats.totalCorrect}
-                accuracy={stats.accuracy}
-              />
+            {/* Certificates - Mobile only */}
+            <div className="lg:hidden">
               <CertificatesCard userId={user?.id} />
             </div>
           </div>
