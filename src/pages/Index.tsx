@@ -260,54 +260,44 @@ const Index = () => {
       <TestimonialsSection />
 
       {/* Telegram Bot Section */}
-      <section className="py-12 md:py-16 bg-gradient-to-br from-[#0088cc]/5 via-background to-[#0088cc]/5">
+      <section className="py-8 md:py-12">
         <div className="container px-4">
-          <div className="max-w-2xl mx-auto">
-            <Card className="overflow-hidden border-2 border-[#0088cc]/20 shadow-xl hover:shadow-2xl transition-all duration-500 group">
-              <div className="bg-gradient-to-r from-[#0088cc] to-[#0077b5] p-4 sm:p-6">
-                <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center">
-                    <MessageCircle className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
-                  </div>
-                  <div className="text-white">
-                    <h3 className="text-lg sm:text-xl font-bold">Practice on Telegram!</h3>
-                    <p className="text-sm sm:text-base text-white/80">Learn English with our interactive bot</p>
-                  </div>
-                </div>
-              </div>
-              <CardContent className="p-4 sm:p-6">
-                <div className="space-y-4">
-                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                    بۆ فێربوونی زمانی ئینگلیزی لە ڕێگەی تێلەگرامەوە، بۆتەکەمان بەکاربهێنە. پرسیار و وەڵام، تێست، و فێرکاری بە شێوەیەکی ئاسان.
-                  </p>
-                  
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <a 
-                      href="https://t.me/ALLINONEBIGBOSSbot" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex-1"
-                    >
-                      <Button 
-                        size="lg" 
-                        className="w-full bg-[#0088cc] hover:bg-[#0077b5] text-white min-h-[52px] group/btn"
-                      >
-                        <MessageCircle className="w-5 h-5 mr-2" />
-                        Open Telegram Bot
-                        <ExternalLink className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
-                      </Button>
-                    </a>
+          <div className="max-w-xl mx-auto">
+            <a 
+              href="https://t.me/ALLINONEBIGBOSSbot" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <Card className="overflow-hidden border border-[#0088cc]/30 hover:border-[#0088cc]/60 shadow-md hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4">
+                  {/* Icon */}
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-[#0088cc] to-[#0077b5] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#0088cc]/20">
+                    <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                   </div>
                   
-                  <div className="flex items-center justify-center gap-2 pt-2">
-                    <span className="text-xs text-muted-foreground">Bot:</span>
-                    <code className="text-xs sm:text-sm font-mono bg-muted px-2 py-1 rounded text-primary">
-                      @ALLINONEBIGBOSSbot
-                    </code>
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="font-bold text-sm sm:text-base">All-in-One Bot</h3>
+                      <span className="text-xs">🚀</span>
+                    </div>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground leading-relaxed line-clamp-2">
+                      AI Chat • Voice-to-Text • Translation (12 languages) • YouTube & Instagram Download • Weather • Currency
+                    </p>
+                  </div>
+                  
+                  {/* Arrow */}
+                  <div className="flex-shrink-0">
+                    <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 text-[#0088cc] transition-transform group-hover:translate-x-1" />
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </Card>
+            </a>
+            
+            <p className="text-center text-[10px] sm:text-xs text-muted-foreground mt-2">
+              <code className="font-mono bg-muted px-1.5 py-0.5 rounded">@ALLINONEBIGBOSSbot</code>
+            </p>
           </div>
         </div>
       </section>
