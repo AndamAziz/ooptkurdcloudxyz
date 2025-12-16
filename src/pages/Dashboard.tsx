@@ -8,6 +8,7 @@ import { PracticeModes } from '@/components/dashboard/PracticeModes';
 import { RecentSessions } from '@/components/dashboard/RecentSessions';
 import { StreakCard } from '@/components/dashboard/StreakCard';
 import { StatsCard } from '@/components/dashboard/StatsCard';
+import { CertificatesCard } from '@/components/dashboard/CertificatesCard';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProgress } from '@/hooks/useProgress';
 import type { CEFRLevel } from '@/lib/constants';
@@ -53,14 +54,15 @@ const Dashboard = () => {
             <PracticeModes />
             <RecentSessions sessions={sessions} />
             
-            {/* Stats Card - Mobile only */}
-            <div className="lg:hidden">
+            {/* Stats & Certificates - Mobile only */}
+            <div className="lg:hidden space-y-4">
               <StatsCard
                 totalXP={currentXP}
                 totalAttempts={stats.totalAttempts}
                 totalCorrect={stats.totalCorrect}
                 accuracy={stats.accuracy}
               />
+              <CertificatesCard userId={user?.id} />
             </div>
           </div>
 
@@ -76,6 +78,7 @@ const Dashboard = () => {
               totalCorrect={stats.totalCorrect}
               accuracy={stats.accuracy}
             />
+            <CertificatesCard userId={user?.id} />
 
             {/* Donation Card */}
             <Card className="border-2 border-dashed">

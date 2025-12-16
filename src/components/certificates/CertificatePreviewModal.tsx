@@ -8,7 +8,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { CertificateTemplate } from './CertificateTemplate';
 import type { Certificate } from '@/hooks/useCertificates';
-import type { CEFRLevel } from '@/lib/constants';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 
@@ -62,11 +61,6 @@ export const CertificatePreviewModal = ({
     window.print();
   };
 
-  const certificateData = {
-    ...certificate,
-    cefr_level: certificate.cefr_level as CEFRLevel,
-  };
-
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-[95vw] max-h-[95vh] overflow-auto p-4 md:p-6">
@@ -89,7 +83,7 @@ export const CertificatePreviewModal = ({
         <div className="mt-4 overflow-auto">
           <div className="transform scale-[0.35] sm:scale-[0.4] md:scale-[0.5] lg:scale-[0.6] origin-top-left inline-block">
             <CertificateTemplate
-              certificate={certificateData}
+              certificate={certificate}
               studentName={studentName}
               verificationUrl={verificationUrl}
             />
