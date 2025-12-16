@@ -3,9 +3,14 @@ import { Play, Target, Timer } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CEFRBadge } from '@/components/CEFRBadge';
-import { CEFR_LEVELS } from '@/lib/constants';
+import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
 
-export const PracticeModes = () => {
+interface PracticeModesProps {
+  displayName?: string;
+  currentLevel?: CEFRLevel;
+}
+
+export const PracticeModes = ({ displayName, currentLevel }: PracticeModesProps) => {
   return (
     <Card className="w-full max-w-full">
       <CardHeader className="p-4 md:p-6">
@@ -49,7 +54,19 @@ export const PracticeModes = () => {
         </div>
 
         <div className="mt-4 md:mt-6">
-          <p className="text-xs md:text-sm font-medium mb-2 md:mb-3">Select Level:</p>
+          <div className="flex flex-wrap items-center gap-2 mb-2 md:mb-3">
+            <p className="text-xs md:text-sm font-medium">Select Level:</p>
+            {displayName && (
+              <span className="text-xs text-muted-foreground ml-auto">
+                Welcome, <span className="font-medium text-foreground">{displayName}</span>
+                {currentLevel && (
+                  <span className="ml-2">
+                    <CEFRBadge level={currentLevel} size="sm" />
+                  </span>
+                )}
+              </span>
+            )}
+          </div>
           <div className="flex flex-wrap gap-2">
             {CEFR_LEVELS.map((level) => (
               <Link key={level} to={`/practice?level=${level}`}>

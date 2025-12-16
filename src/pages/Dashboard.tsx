@@ -3,7 +3,7 @@ import { Trophy } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Header } from '@/components/Header';
 import { DonationButton } from '@/components/DonationButton';
-import { WelcomeCard } from '@/components/dashboard/WelcomeCard';
+
 import { PracticeModes } from '@/components/dashboard/PracticeModes';
 import { RecentSessions } from '@/components/dashboard/RecentSessions';
 import { StreakCard } from '@/components/dashboard/StreakCard';
@@ -50,13 +50,7 @@ const Dashboard = () => {
               />
             </div>
 
-            <WelcomeCard
-              displayName={displayName}
-              currentLevel={currentLevel}
-              currentXP={currentXP}
-            />
-            
-            <PracticeModes />
+            <PracticeModes displayName={displayName} currentLevel={currentLevel} />
             <RecentSessions sessions={sessions} />
             
             {/* Certificates - Mobile only */}
