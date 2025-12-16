@@ -5,7 +5,9 @@ import {
   Target, 
   ArrowRight,
   Sparkles,
-  ChevronRight
+  ChevronRight,
+  MessageCircle,
+  ExternalLink
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -256,6 +258,59 @@ const Index = () => {
 
       {/* Testimonials Section */}
       <TestimonialsSection />
+
+      {/* Telegram Bot Section */}
+      <section className="py-12 md:py-16 bg-gradient-to-br from-[#0088cc]/5 via-background to-[#0088cc]/5">
+        <div className="container px-4">
+          <div className="max-w-2xl mx-auto">
+            <Card className="overflow-hidden border-2 border-[#0088cc]/20 shadow-xl hover:shadow-2xl transition-all duration-500 group">
+              <div className="bg-gradient-to-r from-[#0088cc] to-[#0077b5] p-4 sm:p-6">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center">
+                    <MessageCircle className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                  </div>
+                  <div className="text-white">
+                    <h3 className="text-lg sm:text-xl font-bold">Practice on Telegram!</h3>
+                    <p className="text-sm sm:text-base text-white/80">Learn English with our interactive bot</p>
+                  </div>
+                </div>
+              </div>
+              <CardContent className="p-4 sm:p-6">
+                <div className="space-y-4">
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                    بۆ فێربوونی زمانی ئینگلیزی لە ڕێگەی تێلەگرامەوە، بۆتەکەمان بەکاربهێنە. پرسیار و وەڵام، تێست، و فێرکاری بە شێوەیەکی ئاسان.
+                  </p>
+                  
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <a 
+                      href="https://t.me/ALLINONEBIGBOSSbot" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex-1"
+                    >
+                      <Button 
+                        size="lg" 
+                        className="w-full bg-[#0088cc] hover:bg-[#0077b5] text-white min-h-[52px] group/btn"
+                      >
+                        <MessageCircle className="w-5 h-5 mr-2" />
+                        Open Telegram Bot
+                        <ExternalLink className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
+                      </Button>
+                    </a>
+                  </div>
+                  
+                  <div className="flex items-center justify-center gap-2 pt-2">
+                    <span className="text-xs text-muted-foreground">Bot:</span>
+                    <code className="text-xs sm:text-sm font-mono bg-muted px-2 py-1 rounded text-primary">
+                      @ALLINONEBIGBOSSbot
+                    </code>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section 
