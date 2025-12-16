@@ -38,16 +38,25 @@ export const useVoiceReader = () => {
     window.speechSynthesis.speak(utterance);
   }, [isMuted, stop]);
 
+  const sanitizeForTTS = useCallback((text: string) => {
+    return text
+      .replace(/_+/g, ' blank ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }, []);
+
   const readQuestion = useCallback((prompt: string, options: { key: string; value: string }[]) => {
     if (isMuted) return;
 
+    const safePrompt = sanitizeForTTS(prompt);
+
     const optionsText = options
-      .map(o => `Option ${o.key}: ${o.value}`)
+      .map(o => `Option ${o.key}: ${sanitizeForTTS(o.value)}`)
       .join('. ');
 
-    const fullText = `${prompt}. ${optionsText}`;
+    const fullText = optionsText ? `${safePrompt}. ${optionsText}` : safePrompt;
     speak(fullText);
-  }, [isMuted, speak]);
+  }, [isMuted, speak, sanitizeForTTS]);
 
   const speakFeedback = useCallback((isCorrect: boolean) => {
     speak(isCorrect ? 'Correct!' : 'Incorrect.');
