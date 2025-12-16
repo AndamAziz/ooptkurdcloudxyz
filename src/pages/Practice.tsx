@@ -14,6 +14,8 @@ import { useQuestionProgress } from '@/hooks/useQuestionProgress';
 import { useCertificates, type Certificate } from '@/hooks/useCertificates';
 import { useToast } from '@/hooks/use-toast';
 import { 
+  PRACTICE_MODES, 
+  TIMED_DURATION_SECONDS, 
   XP_REWARDS,
   QUESTIONS_PER_SESSION,
   type CEFRLevel 
@@ -53,6 +55,7 @@ const Practice = () => {
   const certificatesBeforeSession = useRef<string[]>([]);
 
   const [state, setState] = useState<PracticeState>('setup');
+  const [mode, setMode] = useState(searchParams.get('mode') || PRACTICE_MODES.FIFTY_QUESTIONS);
   const [selectedLevel, setSelectedLevel] = useState<CEFRLevel>(
     (searchParams.get('level') as CEFRLevel) || (profile?.current_cefr as CEFRLevel) || 'A1'
   );
@@ -63,6 +66,7 @@ const Practice = () => {
   const [answerResult, setAnswerResult] = useState<AnswerResult | null>(null);
   const [answers, setAnswers] = useState<{ questionId: number; answer: string; correct: boolean }[]>([]);
   
+  const [timeLeft, setTimeLeft] = useState(TIMED_DURATION_SECONDS);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [questionStartTime, setQuestionStartTime] = useState<number>(0);
 
@@ -70,6 +74,22 @@ const Practice = () => {
   const [earnedCertificate, setEarnedCertificate] = useState<Certificate | null>(null);
   const [showCertificateModal, setShowCertificateModal] = useState(false);
   const [isResettingProgress, setIsResettingProgress] = useState(false);
+
+  // Timer for timed mode
+  useEffect(() => {
+    if (state === 'practicing' && mode === PRACTICE_MODES.TIMED && timeLeft > 0) {
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            handleEndSession();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [state, mode, timeLeft]);
 
   const startSession = async () => {
     if (!user) return;
@@ -100,7 +120,8 @@ const Practice = () => {
       return;
     }
 
-    await fetchRandomQuestions(user.id, selectedLevel, QUESTIONS_PER_SESSION);
+    const limit = mode === PRACTICE_MODES.FIFTY_QUESTIONS ? QUESTIONS_PER_SESSION : 50;
+    await fetchRandomQuestions(user.id, selectedLevel, limit);
     
     // Check if questions were fetched
     if (questions.length === 0) {
@@ -113,7 +134,7 @@ const Practice = () => {
       return;
     }
     
-    const newSessionId = await createSession(selectedLevel, '50_questions');
+    const newSessionId = await createSession(selectedLevel, mode);
     if (newSessionId) {
       setSessionId(newSessionId);
     }
@@ -145,7 +166,7 @@ const Practice = () => {
   };
 
   const nextQuestion = () => {
-    const maxQuestions = Math.min(QUESTIONS_PER_SESSION, questions.length);
+    const maxQuestions = mode === PRACTICE_MODES.FIFTY_QUESTIONS ? QUESTIONS_PER_SESSION : questions.length;
     
     if (currentIndex >= questions.length - 1 || currentIndex >= maxQuestions - 1) {
       handleEndSession();
@@ -206,6 +227,7 @@ const Practice = () => {
     setSelectedAnswer(null);
     setIsCorrect(null);
     setAnswerResult(null);
+    setTimeLeft(TIMED_DURATION_SECONDS);
     setSessionId(null);
     setState('setup');
     // Refresh progress after practice
@@ -229,7 +251,7 @@ const Practice = () => {
 
   const studentName = profile?.display_name || profile?.username || 'Student';
   const currentQuestion = questions[currentIndex];
-  const maxQuestions = Math.min(QUESTIONS_PER_SESSION, questions.length);
+  const maxQuestions = mode === PRACTICE_MODES.FIFTY_QUESTIONS ? QUESTIONS_PER_SESSION : questions.length;
   const progress = ((currentIndex + 1) / maxQuestions) * 100;
 
   if (state === 'setup') {
@@ -239,9 +261,11 @@ const Practice = () => {
         <main className="container max-w-2xl py-6 md:py-12 px-4">
           <PracticeSetup
             selectedLevel={selectedLevel}
+            mode={mode}
             loading={questionsLoading}
             levelProgress={levelProgress}
             onLevelChange={setSelectedLevel}
+            onModeChange={setMode}
             onStart={startSession}
             onResetProgress={handleResetProgress}
             isResetting={isResettingProgress}
@@ -294,8 +318,8 @@ const Practice = () => {
           currentIndex={currentIndex}
           totalQuestions={maxQuestions}
           progress={progress}
-          showTimer={false}
-          timeLeft={0}
+          showTimer={mode === PRACTICE_MODES.TIMED}
+          timeLeft={timeLeft}
         />
 
         <QuestionCard

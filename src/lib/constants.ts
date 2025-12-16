@@ -28,9 +28,11 @@ export const XP_REWARDS = {
 
 export const PRACTICE_MODES = {
   FIFTY_QUESTIONS: '50_questions',
+  TIMED: 'timed',
 } as const;
 
 export const QUESTIONS_PER_SESSION = 50;
+export const TIMED_DURATION_SECONDS = 1800; // 30 minutes for 50 questions
 
 export const getCEFRColor = (level: CEFRLevel): string => {
   const colors: Record<CEFRLevel, string> = {
