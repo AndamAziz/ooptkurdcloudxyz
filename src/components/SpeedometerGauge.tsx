@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 
 interface SpeedometerGaugeProps {
   percentage: number;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   showLabel?: boolean;
   showPercentage?: boolean;
   className?: string;
@@ -70,6 +70,7 @@ export const SpeedometerGauge = ({
   const needleRotation = -90 + (animatedPercentage / 100) * 180;
 
   const sizes = {
+    xs: { width: 100, height: 60, fontSize: 'text-lg', needleLength: 40 },
     sm: { width: 160, height: 90, fontSize: 'text-xl', needleLength: 55 },
     md: { width: 250, height: 135, fontSize: 'text-3xl', needleLength: 85 },
     lg: { width: 320, height: 170, fontSize: 'text-4xl', needleLength: 110 },
