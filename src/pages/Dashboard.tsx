@@ -13,19 +13,22 @@ import { CertificatesCard } from '@/components/dashboard/CertificatesCard';
 import { MobileStatsHeader } from '@/components/dashboard/MobileStatsHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProgress } from '@/hooks/useProgress';
+import { useQuestionProgress } from '@/hooks/useQuestionProgress';
 import type { CEFRLevel } from '@/lib/constants';
 
 const Dashboard = () => {
   const { profile, user } = useAuth();
   const { sessions, stats, levelStats, fetchRecentSessions, fetchStats, fetchLevelStats } = useProgress(user?.id);
+  const { progress: questionProgress, fetchProgress } = useQuestionProgress(user?.id);
 
   useEffect(() => {
     if (user) {
       fetchRecentSessions();
       fetchStats();
       fetchLevelStats();
+      fetchProgress();
     }
-  }, [user, fetchRecentSessions, fetchStats, fetchLevelStats]);
+  }, [user, fetchRecentSessions, fetchStats, fetchLevelStats, fetchProgress]);
 
   const currentLevel = (profile?.current_cefr || 'A1') as CEFRLevel;
   const currentXP = profile?.xp || 0;
@@ -53,7 +56,16 @@ const Dashboard = () => {
               />
             </div>
 
-            <PracticeModes displayName={displayName} currentLevel={currentLevel} />
+            <PracticeModes 
+              displayName={displayName} 
+              currentLevel={currentLevel} 
+              levelProgress={questionProgress.map(p => ({
+                level: p.cefr,
+                remaining: p.remaining_questions,
+                total: p.total_questions,
+                accuracy: p.accuracy
+              }))}
+            />
             <RecentSessions sessions={sessions} />
             
             {/* Certificates - Mobile only */}
