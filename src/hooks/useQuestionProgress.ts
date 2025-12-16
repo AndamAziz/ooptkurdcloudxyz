@@ -8,7 +8,12 @@ export interface LevelProgress {
   answered_questions: number;
   remaining_questions: number;
   correct_count: number;
+  wrong_count: number;
   accuracy: number;
+  completion_percent: number;
+  certificate_target: number;
+  correct_needed_for_cert: number;
+  can_earn_certificate: boolean;
 }
 
 export const useQuestionProgress = (userId?: string) => {

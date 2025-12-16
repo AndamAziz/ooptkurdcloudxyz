@@ -444,10 +444,15 @@ export type Database = {
         Returns: {
           accuracy: number
           answered_questions: number
+          can_earn_certificate: boolean
           cefr: Database["public"]["Enums"]["cefr_level"]
+          certificate_target: number
+          completion_percent: number
           correct_count: number
+          correct_needed_for_cert: number
           remaining_questions: number
           total_questions: number
+          wrong_count: number
         }[]
       }
       get_random_questions: {

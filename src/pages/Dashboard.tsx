@@ -10,28 +10,28 @@ import { RecentSessions } from '@/components/dashboard/RecentSessions';
 import { StreakCard } from '@/components/dashboard/StreakCard';
 import { LevelProgressCard } from '@/components/dashboard/LevelProgressCard';
 import { CertificateProgressCard } from '@/components/dashboard/CertificateProgressCard';
+import { CurrentLevelDetailsCard } from '@/components/dashboard/CurrentLevelDetailsCard';
 import { MobileStatsHeader } from '@/components/dashboard/MobileStatsHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProgress } from '@/hooks/useProgress';
 import { useQuestionProgress } from '@/hooks/useQuestionProgress';
-import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
-
-// Threshold for considering a level "completed" (accuracy percentage)
-const LEVEL_COMPLETION_THRESHOLD = 60;
+import { useCertificates } from '@/hooks/useCertificates';
+import { type CEFRLevel } from '@/lib/constants';
 
 const Dashboard = () => {
   const { profile, user } = useAuth();
-  const { sessions, stats, levelStats, fetchRecentSessions, fetchStats, fetchLevelStats } = useProgress(user?.id);
+  const { sessions, stats, fetchRecentSessions, fetchStats } = useProgress(user?.id);
   const { progress: questionProgress, fetchProgress, getLevelProgress } = useQuestionProgress(user?.id);
+  const { certificates, fetchUserCertificates } = useCertificates(user?.id);
 
   useEffect(() => {
     if (user) {
       fetchRecentSessions();
       fetchStats();
-      fetchLevelStats();
       fetchProgress();
+      fetchUserCertificates();
     }
-  }, [user, fetchRecentSessions, fetchStats, fetchLevelStats, fetchProgress]);
+  }, [user, fetchRecentSessions, fetchStats, fetchProgress, fetchUserCertificates]);
 
   // Calculate the effective current level based on profile
   const currentLevel = useMemo((): CEFRLevel => {
@@ -42,6 +42,15 @@ const Dashboard = () => {
   const currentLevelStats = useMemo(() => {
     return getLevelProgress(currentLevel);
   }, [currentLevel, getLevelProgress]);
+
+  // Get earned certificate levels
+  const earnedCertificates = useMemo(() => {
+    return certificates
+      .filter(c => c.status === 'earned')
+      .map(c => c.cefr_level);
+  }, [certificates]);
+
+  const hasCertificateForCurrentLevel = earnedCertificates.includes(currentLevel);
 
   const currentXP = profile?.xp || 0;
   const currentStreak = profile?.streak || 0;
@@ -74,6 +83,7 @@ const Dashboard = () => {
                 currentLevelAnswered={currentLevelAnswered}
                 currentLevelTotal={currentLevelTotal}
                 questionProgress={questionProgress}
+                earnedCertificates={earnedCertificates}
               />
             </div>
 
@@ -120,8 +130,19 @@ const Dashboard = () => {
               </CardContent>
             </Card>
             
+            {/* Current Level Details */}
+            <CurrentLevelDetailsCard 
+              level={currentLevel}
+              progress={currentLevelStats}
+              hasCertificate={hasCertificateForCurrentLevel}
+            />
+            
             {/* Level Progress with per-level accuracy */}
-            <LevelProgressCard levelStats={levelStats} questionProgress={questionProgress} />
+            <LevelProgressCard 
+              questionProgress={questionProgress} 
+              currentLevel={currentLevel} 
+              userId={user?.id} 
+            />
             <CertificateProgressCard userId={user?.id} />
 
             {/* Donation Card */}
