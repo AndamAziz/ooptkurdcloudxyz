@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BookOpen, LogOut, User, LayoutDashboard, Trophy, Menu, Award, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -22,12 +22,60 @@ import { DonationButton } from './DonationButton';
 import { CEFRBadge } from './CEFRBadge';
 import { ThemeToggle } from './ThemeToggle';
 import { useAuth } from '@/contexts/AuthContext';
-import type { CEFRLevel } from '@/lib/constants';
+import { useQuestionProgress } from '@/hooks/useQuestionProgress';
+import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
+
+// Threshold for considering a level "completed" (accuracy percentage)
+const LEVEL_COMPLETION_THRESHOLD = 60;
 
 export const Header = () => {
   const { user, profile, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { progress: questionProgress } = useQuestionProgress(user?.id);
+
+  // Calculate the effective current level based on question progress
+  const effectiveCurrentLevel = useMemo((): CEFRLevel => {
+    if (!questionProgress || questionProgress.length === 0) {
+      return (profile?.current_cefr as CEFRLevel) || 'A1';
+    }
+
+    // Find the highest unlocked level
+    // A level is unlocked if all previous levels have >= threshold accuracy
+    let currentLevel: CEFRLevel = 'A1';
+    
+    for (let i = 0; i < CEFR_LEVELS.length; i++) {
+      const level = CEFR_LEVELS[i];
+      const levelProgress = questionProgress.find(p => p.cefr === level);
+      
+      if (i === 0) {
+        // A1 is always unlocked, check if we can move to next
+        if (levelProgress && levelProgress.accuracy >= LEVEL_COMPLETION_THRESHOLD && levelProgress.answered_questions > 0) {
+          currentLevel = CEFR_LEVELS[i + 1] || level;
+        } else {
+          currentLevel = level;
+          break;
+        }
+      } else {
+        // Check if previous level is completed
+        const prevLevel = CEFR_LEVELS[i - 1];
+        const prevProgress = questionProgress.find(p => p.cefr === prevLevel);
+        
+        if (prevProgress && prevProgress.accuracy >= LEVEL_COMPLETION_THRESHOLD && prevProgress.answered_questions > 0) {
+          currentLevel = level;
+          // If this level is also completed, continue to next
+          if (levelProgress && levelProgress.accuracy >= LEVEL_COMPLETION_THRESHOLD && levelProgress.answered_questions > 0) {
+            continue;
+          }
+          break;
+        } else {
+          break;
+        }
+      }
+    }
+    
+    return currentLevel;
+  }, [questionProgress, profile?.current_cefr]);
 
   const handleSignOut = async () => {
     await signOut();
@@ -82,8 +130,8 @@ export const Header = () => {
           
           {user ? (
             <div className="flex items-center gap-3">
-              {profile && (
-                <CEFRBadge level={profile.current_cefr as CEFRLevel} size="sm" />
+              {user && (
+                <CEFRBadge level={effectiveCurrentLevel} size="sm" />
               )}
               
               <DropdownMenu>
@@ -143,8 +191,8 @@ export const Header = () => {
 
         {/* Mobile Navigation */}
         <div className="flex md:hidden items-center gap-2">
-          {user && profile && (
-            <CEFRBadge level={profile.current_cefr as CEFRLevel} size="sm" />
+          {user && (
+            <CEFRBadge level={effectiveCurrentLevel} size="sm" />
           )}
           
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
@@ -179,7 +227,7 @@ export const Header = () => {
                           </p>
                           <p className="text-xs text-muted-foreground truncate">{user.email}</p>
                           <div className="flex items-center gap-2 mt-1.5">
-                            <CEFRBadge level={profile?.current_cefr as CEFRLevel || 'A1'} size="sm" />
+                            <CEFRBadge level={effectiveCurrentLevel} size="sm" />
                             <div className="flex items-center gap-1 text-xs text-muted-foreground">
                               <Zap className="w-3 h-3 text-primary" />
                               <span className="font-medium text-foreground">{profile?.xp || 0}</span>
