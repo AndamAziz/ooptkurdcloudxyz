@@ -34,14 +34,15 @@ const Dashboard = () => {
     }
   }, [user, fetchRecentSessions, fetchStats, fetchProgress, fetchUserCertificates]);
 
-  // Calculate the default level - show the level with most recent activity or profile level
+  // Calculate the default level - show the level with highest accuracy
   const defaultLevel = useMemo((): CEFRLevel => {
-    const levelWithProgress = questionProgress.find(p => p.answered_questions > 0);
-    if (levelWithProgress && (profile?.current_cefr as CEFRLevel) !== levelWithProgress.cefr) {
-      const profileLevelProgress = questionProgress.find(p => p.cefr === profile?.current_cefr);
-      if (profileLevelProgress && profileLevelProgress.answered_questions === 0) {
-        return levelWithProgress.cefr;
-      }
+    const levelsWithProgress = questionProgress.filter(p => p.answered_questions > 0);
+    if (levelsWithProgress.length > 0) {
+      // Find the level with highest accuracy
+      const highestAccuracyLevel = levelsWithProgress.reduce((prev, curr) => 
+        curr.accuracy > prev.accuracy ? curr : prev
+      );
+      return highestAccuracyLevel.cefr;
     }
     return (profile?.current_cefr as CEFRLevel) || 'A1';
   }, [profile?.current_cefr, questionProgress]);
