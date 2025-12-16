@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BookOpen, LogOut, User, LayoutDashboard, Trophy, Menu, X } from 'lucide-react';
+import { BookOpen, LogOut, User, LayoutDashboard, Trophy, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -19,6 +19,7 @@ import {
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { DonationButton } from './DonationButton';
 import { CEFRBadge } from './CEFRBadge';
+import { ThemeToggle } from './ThemeToggle';
 import { useAuth } from '@/contexts/AuthContext';
 import type { CEFRLevel } from '@/lib/constants';
 
@@ -68,6 +69,7 @@ export const Header = () => {
               Leaderboard
             </Link>
           </Button>
+          <ThemeToggle />
           <DonationButton variant="ghost" size="sm" />
           
           {user ? (
@@ -180,6 +182,11 @@ export const Header = () => {
                     <div className="my-2 border-t" />
                     
                     <DonationButton variant="outline" className="justify-start h-12" />
+
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-muted">
+                      <span className="text-sm">Dark Mode</span>
+                      <ThemeToggle />
+                    </div>
                     
                     <div className="my-2 border-t" />
                     
