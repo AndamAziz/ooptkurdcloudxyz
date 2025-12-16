@@ -67,7 +67,9 @@ export const SpeedometerGauge = ({
   }, [percentage]);
 
   const zone = getZone(Math.round(animatedPercentage));
-  const needleRotation = -90 + (animatedPercentage / 100) * 180;
+  // The arc goes from -180° (left/0%) to 0° (right/100%)
+  // Needle should rotate from pointing left (-180°) to pointing right (0°)
+  const needleRotation = -180 + (animatedPercentage / 100) * 180;
 
   const sizes = {
     xs: { width: 100, height: 60, fontSize: 'text-lg', needleLength: 40 },
