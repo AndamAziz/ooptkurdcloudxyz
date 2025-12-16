@@ -144,6 +144,23 @@ export const useCertificateAward = (userId: string | undefined) => {
       return { awarded: false, certificate: null };
     }
 
+    // Send notification email
+    try {
+      await supabase.functions.invoke('certificate-notification', {
+        body: {
+          type: 'earned',
+          userId,
+          certificateNumber: newCert.certificate_number,
+          cefrLevel: newLevel,
+          certificateType,
+          scorePercentage: overallAccuracy,
+        },
+      });
+    } catch (notifyError) {
+      console.error('Failed to send certificate notification:', notifyError);
+      // Don't fail the award if notification fails
+    }
+
     return {
       awarded: true,
       certificate: newCert as AwardResult['certificate'],
