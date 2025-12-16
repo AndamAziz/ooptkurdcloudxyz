@@ -10,16 +10,14 @@ import {
 } from '@/components/ui/select';
 import { CEFRBadge } from '@/components/CEFRBadge';
 import { QuestionProgressCard } from './QuestionProgressCard';
-import { PRACTICE_MODES, CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
+import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
 import type { LevelProgress } from '@/hooks/useQuestionProgress';
 
 interface PracticeSetupProps {
   selectedLevel: CEFRLevel;
-  mode: string;
   loading: boolean;
   levelProgress?: LevelProgress;
   onLevelChange: (level: CEFRLevel) => void;
-  onModeChange: (mode: string) => void;
   onStart: () => void;
   onResetProgress: () => void;
   isResetting?: boolean;
@@ -27,11 +25,9 @@ interface PracticeSetupProps {
 
 export const PracticeSetup = ({
   selectedLevel,
-  mode,
   loading,
   levelProgress,
   onLevelChange,
-  onModeChange,
   onStart,
   onResetProgress,
   isResetting = false,
@@ -42,6 +38,7 @@ export const PracticeSetup = ({
     <Card className="animate-fade-in w-full max-w-full overflow-hidden">
       <CardHeader className="text-center p-3 sm:p-4 md:p-6">
         <CardTitle className="font-serif text-lg sm:text-xl md:text-2xl">Start Practice Session</CardTitle>
+        <p className="text-sm text-muted-foreground mt-1">50 questions per session</p>
       </CardHeader>
       <CardContent className="space-y-3 sm:space-y-4 md:space-y-6 p-3 sm:p-4 md:p-6 pt-0">
         <div>
@@ -61,32 +58,6 @@ export const PracticeSetup = ({
               ))}
             </SelectContent>
           </Select>
-        </div>
-
-        <div>
-          <label className="text-xs sm:text-sm font-medium mb-1.5 sm:mb-2 block">Select Mode</label>
-          <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
-            <Button
-              variant={mode === PRACTICE_MODES.FIFTY_QUESTIONS ? 'default' : 'outline'}
-              className="h-auto py-3 sm:py-4 min-h-[60px] sm:min-h-[72px]"
-              onClick={() => onModeChange(PRACTICE_MODES.FIFTY_QUESTIONS)}
-            >
-              <div className="text-center">
-                <p className="font-semibold text-xs sm:text-sm md:text-base">50 Questions</p>
-                <p className="text-[10px] sm:text-xs opacity-80">Full practice</p>
-              </div>
-            </Button>
-            <Button
-              variant={mode === PRACTICE_MODES.TIMED ? 'default' : 'outline'}
-              className="h-auto py-3 sm:py-4 min-h-[60px] sm:min-h-[72px]"
-              onClick={() => onModeChange(PRACTICE_MODES.TIMED)}
-            >
-              <div className="text-center">
-                <p className="font-semibold text-xs sm:text-sm md:text-base">Timed Mode</p>
-                <p className="text-[10px] sm:text-xs opacity-80">30 minutes</p>
-              </div>
-            </Button>
-          </div>
         </div>
 
         <Button 
