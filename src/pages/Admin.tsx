@@ -11,7 +11,8 @@ import {
   AlertCircle,
   Award,
   Activity,
-  Download
+  Download,
+  AlertTriangle
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -32,6 +33,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 import { Header } from '@/components/Header';
 import { CEFRBadge } from '@/components/CEFRBadge';
 import { AdminCertificates } from '@/components/admin/AdminCertificates';
@@ -81,6 +93,7 @@ const Admin = () => {
   const [importFailures, setImportFailures] = useState<Array<{ rowNumber: number; reason: string; promptPreview: string }>>([]);
   const [isImporting, setIsImporting] = useState(false);
   const [importProgress, setImportProgress] = useState({ current: 0, total: 0 });
+  const [isDeletingAll, setIsDeletingAll] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -445,6 +458,36 @@ const Admin = () => {
     }
   };
 
+  const deleteAllQuestions = async () => {
+    setIsDeletingAll(true);
+    try {
+      const { error } = await supabase.from('questions').delete().neq('id', 0);
+      
+      if (error) {
+        toast({
+          title: 'Error',
+          description: 'Failed to delete questions',
+          variant: 'destructive',
+        });
+      } else {
+        toast({ 
+          title: 'All questions deleted',
+          description: 'The question bank has been cleared',
+        });
+        setQuestions([]);
+        fetchData();
+      }
+    } catch {
+      toast({
+        title: 'Error',
+        description: 'Failed to delete questions',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsDeletingAll(false);
+    }
+  };
+
   const filteredQuestions = questions.filter(q => {
     const matchesSearch = q.prompt.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesLevel = filterLevel === 'all' || q.cefr === filterLevel;
@@ -503,8 +546,46 @@ const Admin = () => {
           <TabsContent value="questions">
             <Card>
               <CardHeader className="p-3 md:p-6">
-                <CardTitle className="text-base md:text-lg">Questions Database</CardTitle>
-                <CardDescription className="text-xs md:text-sm">Manage your question bank</CardDescription>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <div>
+                    <CardTitle className="text-base md:text-lg">Questions Database</CardTitle>
+                    <CardDescription className="text-xs md:text-sm">Manage your question bank</CardDescription>
+                  </div>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button 
+                        variant="destructive" 
+                        size="sm"
+                        disabled={isDeletingAll || stats.totalQuestions === 0}
+                        className="gap-2"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                        Delete All ({stats.totalQuestions})
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle className="flex items-center gap-2 text-destructive">
+                          <AlertTriangle className="w-5 h-5" />
+                          Delete All Questions?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                          This will permanently delete <strong>{stats.totalQuestions.toLocaleString()}</strong> questions from the database. 
+                          This action cannot be undone.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={deleteAllQuestions}
+                          className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        >
+                          {isDeletingAll ? 'Deleting...' : 'Yes, Delete All'}
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
               </CardHeader>
               <CardContent className="p-3 md:p-6 pt-0">
                 <div className="flex flex-col sm:flex-row gap-2 md:gap-4 mb-4 md:mb-6">
