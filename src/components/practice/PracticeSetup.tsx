@@ -67,13 +67,13 @@ export const PracticeSetup = ({
           <label className="text-xs sm:text-sm font-medium mb-1.5 sm:mb-2 block">Select Mode</label>
           <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
             <Button
-              variant={mode === PRACTICE_MODES.TEN_QUESTIONS ? 'default' : 'outline'}
+              variant={mode === PRACTICE_MODES.FIFTY_QUESTIONS ? 'default' : 'outline'}
               className="h-auto py-3 sm:py-4 min-h-[60px] sm:min-h-[72px]"
-              onClick={() => onModeChange(PRACTICE_MODES.TEN_QUESTIONS)}
+              onClick={() => onModeChange(PRACTICE_MODES.FIFTY_QUESTIONS)}
             >
               <div className="text-center">
-                <p className="font-semibold text-xs sm:text-sm md:text-base">10 Questions</p>
-                <p className="text-[10px] sm:text-xs opacity-80">Quick practice</p>
+                <p className="font-semibold text-xs sm:text-sm md:text-base">50 Questions</p>
+                <p className="text-[10px] sm:text-xs opacity-80">Full practice</p>
               </div>
             </Button>
             <Button
@@ -83,7 +83,7 @@ export const PracticeSetup = ({
             >
               <div className="text-center">
                 <p className="font-semibold text-xs sm:text-sm md:text-base">Timed Mode</p>
-                <p className="text-[10px] sm:text-xs opacity-80">10 minutes</p>
+                <p className="text-[10px] sm:text-xs opacity-80">30 minutes</p>
               </div>
             </Button>
           </div>

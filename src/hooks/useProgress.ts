@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { isToday, parseISO, isYesterday } from 'date-fns';
 import type { CEFRLevel } from '@/lib/constants';
 
 export interface PracticeSession {
@@ -144,9 +145,12 @@ export const useProgress = (userId: string | undefined) => {
     xpEarned: number,
     summary: string
   ) => {
+    if (!userId) return;
+    
     const accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
 
     try {
+      // Update session
       await supabase
         .from('practice_sessions')
         .update({
@@ -158,10 +162,50 @@ export const useProgress = (userId: string | undefined) => {
           summary_text: summary,
         })
         .eq('id', sessionId);
+
+      // Update streak if completed 50 questions
+      if (totalQuestions >= 50) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('streak, longest_streak, last_practice_date')
+          .eq('user_id', userId)
+          .maybeSingle();
+
+        if (profile) {
+          const today = new Date().toISOString().split('T')[0];
+          const lastPractice = profile.last_practice_date;
+          
+          let newStreak = 1;
+          
+          if (lastPractice) {
+            const lastDate = parseISO(lastPractice);
+            if (isToday(lastDate)) {
+              // Already practiced today, keep current streak
+              newStreak = profile.streak || 1;
+            } else if (isYesterday(lastDate)) {
+              // Practiced yesterday, increment streak
+              newStreak = (profile.streak || 0) + 1;
+            }
+            // If more than 1 day ago, reset to 1
+          }
+
+          const newLongestStreak = Math.max(newStreak, profile.longest_streak || 0);
+
+          await supabase
+            .from('profiles')
+            .update({
+              streak: newStreak,
+              longest_streak: newLongestStreak,
+              last_practice_date: today,
+              last_active_at: new Date().toISOString(),
+            })
+            .eq('user_id', userId);
+        }
+      }
     } catch (err) {
       console.error('Error ending session:', err);
     }
-  }, []);
+  }, [userId]);
 
   const recordAttempt = useCallback(async (
     questionId: number,

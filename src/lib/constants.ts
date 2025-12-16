@@ -22,16 +22,17 @@ export const LEVEL_DESCRIPTIONS: Record<CEFRLevel, string> = {
 };
 
 export const XP_REWARDS = {
-  CORRECT: 10,
-  INCORRECT: 2,
+  CORRECT: 5,
+  INCORRECT: 1,
 } as const;
 
 export const PRACTICE_MODES = {
-  TEN_QUESTIONS: '10_questions',
+  FIFTY_QUESTIONS: '50_questions',
   TIMED: 'timed',
 } as const;
 
-export const TIMED_DURATION_SECONDS = 600; // 10 minutes
+export const QUESTIONS_PER_SESSION = 50;
+export const TIMED_DURATION_SECONDS = 1800; // 30 minutes for 50 questions
 
 export const getCEFRColor = (level: CEFRLevel): string => {
   const colors: Record<CEFRLevel, string> = {
