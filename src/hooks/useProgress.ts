@@ -162,41 +162,7 @@ export const useProgress = (userId: string | undefined) => {
           summary_text: summary,
         })
         .eq('id', sessionId);
-
-      // Update streak with bonus based on accuracy when completing 50+ questions
-      if (totalQuestions >= 50) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('streak, longest_streak, last_practice_date')
-          .eq('user_id', userId)
-          .maybeSingle();
-
-        if (profile) {
-          const today = new Date().toISOString().split('T')[0];
-          const currentStreak = profile.streak || 0;
-          
-          // Calculate bonus streak based on accuracy
-          let bonusStreak = 0;
-          if (accuracy === 100) {
-            bonusStreak = 10; // Perfect score: +10 streak
-          } else if (accuracy >= 70) {
-            bonusStreak = 5; // Good score (70%+): +5 streak
-          }
-          
-          const newStreak = currentStreak + bonusStreak;
-          const newLongestStreak = Math.max(newStreak, profile.longest_streak || 0);
-
-          await supabase
-            .from('profiles')
-            .update({
-              streak: newStreak,
-              longest_streak: newLongestStreak,
-              last_practice_date: today,
-              last_active_at: new Date().toISOString(),
-            })
-            .eq('user_id', userId);
-        }
-      }
+      // Note: Streak is now handled by database trigger (update_streak_on_practice)
     } catch (err) {
       console.error('Error ending session:', err);
     }
