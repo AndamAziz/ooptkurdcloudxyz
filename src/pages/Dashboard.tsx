@@ -33,10 +33,23 @@ const Dashboard = () => {
     }
   }, [user, fetchRecentSessions, fetchStats, fetchProgress, fetchUserCertificates]);
 
-  // Calculate the effective current level based on profile
+  // Calculate the effective current level - show the level with most recent activity
+  // or fall back to profile level
   const currentLevel = useMemo((): CEFRLevel => {
+    // Find the level with actual progress (most answered questions)
+    const levelWithProgress = questionProgress.find(p => p.answered_questions > 0);
+    
+    // If they have progress, use that level; otherwise use profile level
+    if (levelWithProgress && (profile?.current_cefr as CEFRLevel) !== levelWithProgress.cefr) {
+      // Check if profile level has no progress but another level does
+      const profileLevelProgress = questionProgress.find(p => p.cefr === profile?.current_cefr);
+      if (profileLevelProgress && profileLevelProgress.answered_questions === 0) {
+        return levelWithProgress.cefr;
+      }
+    }
+    
     return (profile?.current_cefr as CEFRLevel) || 'A1';
-  }, [profile?.current_cefr]);
+  }, [profile?.current_cefr, questionProgress]);
 
   // Get current level stats from questionProgress
   const currentLevelStats = useMemo(() => {
