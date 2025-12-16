@@ -3,15 +3,17 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CEFRBadge } from '@/components/CEFRBadge';
 import { Progress } from '@/components/ui/progress';
 import type { LevelStats } from '@/hooks/useProgress';
+import type { LevelProgress } from '@/hooks/useQuestionProgress';
 import { cn } from '@/lib/utils';
 
 interface LevelProgressCardProps {
   levelStats: LevelStats[];
+  questionProgress?: LevelProgress[];
   compact?: boolean;
   currentLevel?: string;
 }
 
-export const LevelProgressCard = ({ levelStats, compact = false, currentLevel }: LevelProgressCardProps) => {
+export const LevelProgressCard = ({ levelStats, questionProgress, compact = false, currentLevel }: LevelProgressCardProps) => {
   const getProgressColor = (accuracy: number) => {
     if (accuracy >= 80) return 'bg-green-500';
     if (accuracy >= 60) return 'bg-emerald-400';
@@ -37,14 +39,21 @@ export const LevelProgressCard = ({ levelStats, compact = false, currentLevel }:
 
   const currentLevelIndex = getCurrentLevelIndex();
 
+  // Helper to get question progress for a level
+  const getQuestionProgressForLevel = (level: string) => {
+    return questionProgress?.find(p => p.cefr === level);
+  };
+
   if (compact) {
     return (
       <div className="grid grid-cols-6 gap-1 sm:gap-1.5">
         {levelStats.map((level, index) => {
           const unlocked = isLevelUnlocked(index);
-          const hasProgress = level.attempts > 0;
+          const qProgress = getQuestionProgressForLevel(level.level);
+          const hasProgress = qProgress ? qProgress.answered_questions > 0 : level.attempts > 0;
+          const accuracy = qProgress?.accuracy ?? level.accuracy;
           const isCurrentLevel = index === currentLevelIndex;
-          const isCompleted = unlocked && hasProgress && level.accuracy >= 60 && level.attempts >= 10;
+          const isCompleted = unlocked && hasProgress && accuracy >= 60 && (qProgress ? qProgress.answered_questions >= 10 : level.attempts >= 10);
           
           return (
             <div 
@@ -86,16 +95,21 @@ export const LevelProgressCard = ({ levelStats, compact = false, currentLevel }:
                   {/* Mini progress bar */}
                   <div className="w-full h-1 sm:h-1.5 rounded-full bg-muted mt-1 overflow-hidden">
                     <div 
-                      className={cn("h-full rounded-full transition-all", getProgressColor(level.accuracy))}
-                      style={{ width: `${Math.min(level.accuracy, 100)}%` }}
+                      className={cn("h-full rounded-full transition-all", getProgressColor(accuracy))}
+                      style={{ width: `${Math.min(accuracy, 100)}%` }}
                     />
                   </div>
                   <span className={cn(
                     "text-[10px] sm:text-xs mt-0.5 font-medium",
-                    level.accuracy >= 60 ? "text-green-600 dark:text-green-400" : "text-muted-foreground"
+                    accuracy >= 60 ? "text-green-600 dark:text-green-400" : "text-muted-foreground"
                   )}>
-                    {level.accuracy}%
+                    {accuracy}%
                   </span>
+                  {qProgress && (
+                    <span className="text-[8px] text-muted-foreground">
+                      {qProgress.answered_questions}/{qProgress.total_questions}
+                    </span>
+                  )}
                 </>
               ) : !unlocked ? (
                 <div className="flex flex-col items-center mt-1">
@@ -117,20 +131,26 @@ export const LevelProgressCard = ({ levelStats, compact = false, currentLevel }:
       <CardHeader className="p-4 md:p-6">
         <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
           <TrendingUp className="w-5 h-5" />
-          Your Stats
+          Level Progress
         </CardTitle>
       </CardHeader>
       <CardContent className="p-4 md:p-6 pt-0 space-y-4">
         <p className="text-sm text-muted-foreground">
-          Progress through each CEFR level by practicing and achieving 60%+ accuracy.
+          Answer all questions in each level with 90%+ accuracy to earn a certificate.
         </p>
         
         <div className="space-y-3">
           {levelStats.map((level, index) => {
             const unlocked = isLevelUnlocked(index);
-            const hasProgress = level.attempts > 0;
+            const qProgress = getQuestionProgressForLevel(level.level);
+            const hasProgress = qProgress ? qProgress.answered_questions > 0 : level.attempts > 0;
+            const accuracy = qProgress?.accuracy ?? level.accuracy;
+            const answered = qProgress?.answered_questions ?? level.attempts;
+            const total = qProgress?.total_questions ?? 0;
+            const correct = qProgress?.correct_count ?? level.correct;
+            const remaining = qProgress?.remaining_questions ?? 0;
             const isCurrentLevelItem = index === currentLevelIndex;
-            const isCompleted = unlocked && hasProgress && level.accuracy >= 60 && level.attempts >= 10;
+            const isCompleted = unlocked && hasProgress && accuracy >= 60 && answered >= 10;
             
             return (
               <div 
@@ -158,9 +178,17 @@ export const LevelProgressCard = ({ levelStats, compact = false, currentLevel }:
                   </div>
                   <div className="text-right text-sm">
                     {hasProgress ? (
-                      <span className="font-medium">
-                        {level.correct}/{level.attempts} ({level.accuracy}%)
-                      </span>
+                      <div className="flex flex-col items-end">
+                        <span className={cn(
+                          "font-bold",
+                          accuracy >= 90 ? "text-green-500" : accuracy >= 70 ? "text-yellow-500" : "text-orange-500"
+                        )}>
+                          {accuracy}% accuracy
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          {answered}/{total} answered • {remaining} left
+                        </span>
+                      </div>
                     ) : (
                       <span className="text-muted-foreground">Not started</span>
                     )}
@@ -168,10 +196,15 @@ export const LevelProgressCard = ({ levelStats, compact = false, currentLevel }:
                 </div>
                 
                 {unlocked && (
-                  <Progress 
-                    value={level.accuracy} 
-                    className="h-2"
-                  />
+                  <div className="space-y-1">
+                    <Progress 
+                      value={total > 0 ? (answered / total) * 100 : 0} 
+                      className="h-2"
+                    />
+                    <p className="text-xs text-muted-foreground text-right">
+                      {correct} correct of {answered} answered
+                    </p>
+                  </div>
                 )}
               </div>
             );
