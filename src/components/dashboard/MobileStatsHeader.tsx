@@ -1,8 +1,10 @@
 import { Flame, Target, CheckCircle, Zap } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { SpeedometerGauge } from '@/components/SpeedometerGauge';
+import { LevelProgressCard } from './LevelProgressCard';
 import { isToday, isYesterday, parseISO } from 'date-fns';
 import { cn } from '@/lib/utils';
+import type { LevelStats } from '@/hooks/useProgress';
 
 interface MobileStatsHeaderProps {
   streak: number;
@@ -11,6 +13,7 @@ interface MobileStatsHeaderProps {
   totalAttempts: number;
   totalCorrect: number;
   accuracy: number;
+  levelStats: LevelStats[];
 }
 
 export const MobileStatsHeader = ({
@@ -20,6 +23,7 @@ export const MobileStatsHeader = ({
   totalAttempts,
   totalCorrect,
   accuracy,
+  levelStats,
 }: MobileStatsHeaderProps) => {
   const getStreakStatus = () => {
     if (!lastPracticeDate) return 'Start your streak today!';
@@ -72,6 +76,14 @@ export const MobileStatsHeader = ({
                 showLabel={true}
                 showPercentage={true}
               />
+            </div>
+          )}
+
+          {/* Level Progress */}
+          {levelStats.length > 0 && (
+            <div>
+              <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">Level Progress</p>
+              <LevelProgressCard levelStats={levelStats} compact />
             </div>
           )}
 

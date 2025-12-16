@@ -21,9 +21,17 @@ export interface UserStats {
   accuracy: number;
 }
 
+export interface LevelStats {
+  level: CEFRLevel;
+  attempts: number;
+  correct: number;
+  accuracy: number;
+}
+
 export const useProgress = (userId: string | undefined) => {
   const [sessions, setSessions] = useState<PracticeSession[]>([]);
   const [stats, setStats] = useState<UserStats>({ totalAttempts: 0, totalCorrect: 0, accuracy: 0 });
+  const [levelStats, setLevelStats] = useState<LevelStats[]>([]);
   const [loading, setLoading] = useState(false);
 
   const fetchRecentSessions = useCallback(async (limit: number = 5) => {
@@ -68,6 +76,36 @@ export const useProgress = (userId: string | undefined) => {
       }
     } catch (err) {
       console.error('Error fetching stats:', err);
+    }
+  }, [userId]);
+
+  const fetchLevelStats = useCallback(async () => {
+    if (!userId) return;
+
+    try {
+      const { data: sessionsData } = await supabase
+        .from('practice_sessions')
+        .select('cefr, total_questions, correct_count')
+        .eq('user_id', userId)
+        .not('ended_at', 'is', null);
+
+      if (sessionsData) {
+        const levels: CEFRLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+        const statsPerLevel = levels.map(level => {
+          const levelSessions = sessionsData.filter(s => s.cefr === level);
+          const attempts = levelSessions.reduce((sum, s) => sum + (s.total_questions || 0), 0);
+          const correct = levelSessions.reduce((sum, s) => sum + (s.correct_count || 0), 0);
+          return {
+            level,
+            attempts,
+            correct,
+            accuracy: attempts > 0 ? Math.round((correct / attempts) * 100) : 0,
+          };
+        });
+        setLevelStats(statsPerLevel);
+      }
+    } catch (err) {
+      console.error('Error fetching level stats:', err);
     }
   }, [userId]);
 
@@ -161,9 +199,11 @@ export const useProgress = (userId: string | undefined) => {
   return {
     sessions,
     stats,
+    levelStats,
     loading,
     fetchRecentSessions,
     fetchStats,
+    fetchLevelStats,
     createSession,
     endSession,
     recordAttempt,
