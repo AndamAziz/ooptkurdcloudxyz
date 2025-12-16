@@ -103,6 +103,15 @@ export const useProgress = (userId: string | undefined) => {
           };
         });
         setLevelStats(statsPerLevel);
+
+        // Also update overall stats from sessions data for consistency
+        const totalAttempts = sessionsData.reduce((sum, s) => sum + (s.total_questions || 0), 0);
+        const totalCorrect = sessionsData.reduce((sum, s) => sum + (s.correct_count || 0), 0);
+        setStats({
+          totalAttempts,
+          totalCorrect,
+          accuracy: totalAttempts > 0 ? Math.round((totalCorrect / totalAttempts) * 100) : 0,
+        });
       }
     } catch (err) {
       console.error('Error fetching level stats:', err);
