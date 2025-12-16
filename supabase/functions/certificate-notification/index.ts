@@ -21,15 +21,54 @@ serve(async (req) => {
   }
 
   try {
-    const { type, userId, certificateNumber, cefrLevel, certificateType, scorePercentage }: NotificationRequest = await req.json();
+    // Verify JWT authentication
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) {
+      console.error('Missing authorization header');
+      return new Response(
+        JSON.stringify({ error: 'Missing authorization header' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
 
-    console.log('Certificate notification request:', { type, userId, certificateNumber, cefrLevel });
-
-    // Get user profile
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
+    // Verify the user token
+    const token = authHeader.replace('Bearer ', '');
+    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+
+    if (authError || !user) {
+      console.error('Invalid authentication token:', authError);
+      return new Response(
+        JSON.stringify({ error: 'Invalid authentication token' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const { type, userId, certificateNumber, cefrLevel, certificateType, scorePercentage }: NotificationRequest = await req.json();
+
+    console.log('Certificate notification request:', { type, userId, certificateNumber, cefrLevel, authenticatedUser: user.id });
+
+    // Verify the authenticated user owns the certificate or is an admin
+    if (userId !== user.id) {
+      const { data: roleData } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', user.id)
+        .single();
+
+      if (roleData?.role !== 'admin') {
+        console.error('Unauthorized: User does not own certificate and is not admin');
+        return new Response(
+          JSON.stringify({ error: 'Unauthorized: Cannot send notification for another user' }),
+          { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    }
+
+    // Get user profile
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select('display_name, username')
@@ -94,9 +133,6 @@ serve(async (req) => {
       body: emailBody,
       certificateNumber,
     });
-
-    // Store notification for in-app display (optional enhancement)
-    // For now, just return success
 
     return new Response(
       JSON.stringify({ 
