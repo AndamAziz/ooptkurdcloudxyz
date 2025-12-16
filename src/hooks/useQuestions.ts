@@ -84,6 +84,54 @@ export const useQuestions = () => {
     }
   }, []);
 
+  // Fetch mixed questions from all levels for placement test
+  const fetchPlacementQuestions = useCallback(async (
+    userId: string,
+    questionsPerLevel: number = 5
+  ): Promise<Question[]> => {
+    setLoading(true);
+    setError(null);
+
+    const levels: CEFRLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+    const allQuestions: Question[] = [];
+
+    try {
+      // Fetch questions from each level
+      for (const level of levels) {
+        const { data, error: fetchError } = await supabase.rpc('get_random_questions', {
+          p_user_id: userId,
+          p_cefr: level,
+          p_limit: questionsPerLevel,
+        });
+
+        if (!fetchError && data) {
+          allQuestions.push(...(data as Question[]));
+        } else {
+          // Fallback for each level
+          const { data: fallbackData } = await supabase
+            .from('questions_safe')
+            .select('*')
+            .eq('cefr', level)
+            .limit(questionsPerLevel);
+          
+          if (fallbackData) {
+            allQuestions.push(...(fallbackData as Question[]));
+          }
+        }
+      }
+
+      // Shuffle all questions together
+      const shuffled = allQuestions.sort(() => Math.random() - 0.5);
+      setQuestions(shuffled);
+      return shuffled;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch placement questions');
+      return [];
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   const checkAnswer = useCallback(async (
     questionId: number,
     chosenAnswer: string
@@ -127,6 +175,7 @@ export const useQuestions = () => {
     loading,
     error,
     fetchRandomQuestions,
+    fetchPlacementQuestions,
     checkAnswer,
     checkRateLimit,
   };

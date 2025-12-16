@@ -1,14 +1,26 @@
 import { useNavigate } from 'react-router-dom';
-import { Home, RotateCcw, Trophy } from 'lucide-react';
+import { Home, RotateCcw, Trophy, GraduationCap, TrendingUp } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { SpeedometerGauge } from '@/components/SpeedometerGauge';
+import { CEFRBadge } from '@/components/CEFRBadge';
+import type { CEFRLevel } from '@/lib/constants';
+
+interface LevelBreakdown {
+  level: CEFRLevel;
+  correct: number;
+  total: number;
+  accuracy: number;
+}
 
 interface PracticeResultsProps {
   totalQuestions: number;
   correctCount: number;
   xpEarned: number;
   onPracticeAgain: () => void;
+  isPlacementMode?: boolean;
+  recommendedLevel?: CEFRLevel;
+  levelBreakdown?: LevelBreakdown[];
 }
 
 export const PracticeResults = ({
@@ -16,6 +28,9 @@ export const PracticeResults = ({
   correctCount,
   xpEarned,
   onPracticeAgain,
+  isPlacementMode = false,
+  recommendedLevel,
+  levelBreakdown,
 }: PracticeResultsProps) => {
   const navigate = useNavigate();
   const accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
@@ -23,12 +38,65 @@ export const PracticeResults = ({
   return (
     <Card className="animate-scale-in w-full max-w-full">
       <CardHeader className="text-center pb-2 p-4 md:p-6">
-        <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-3 md:mb-4">
-          <Trophy className="w-8 h-8 md:w-10 md:h-10 text-success" />
-        </div>
-        <CardTitle className="font-serif text-xl md:text-2xl">Session Complete!</CardTitle>
+        {isPlacementMode ? (
+          <>
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center mx-auto mb-3 md:mb-4 shadow-lg shadow-primary/30">
+              <GraduationCap className="w-8 h-8 md:w-10 md:h-10 text-primary-foreground" />
+            </div>
+            <CardTitle className="font-serif text-xl md:text-2xl">Placement Test Complete!</CardTitle>
+          </>
+        ) : (
+          <>
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-3 md:mb-4">
+              <Trophy className="w-8 h-8 md:w-10 md:h-10 text-success" />
+            </div>
+            <CardTitle className="font-serif text-xl md:text-2xl">Session Complete!</CardTitle>
+          </>
+        )}
       </CardHeader>
       <CardContent className="space-y-4 md:space-y-6 p-4 md:p-6 pt-0">
+        {/* Recommended Level for Placement Mode */}
+        {isPlacementMode && recommendedLevel && (
+          <div className="p-4 md:p-5 rounded-xl bg-gradient-to-r from-primary/15 via-primary/10 to-transparent border-2 border-primary/30 text-center">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <TrendingUp className="w-5 h-5 text-primary" />
+              <span className="text-sm font-medium text-primary">Your Recommended Level</span>
+            </div>
+            <div className="flex items-center justify-center gap-3">
+              <CEFRBadge level={recommendedLevel} size="lg" />
+              <span className="text-2xl md:text-3xl font-bold text-foreground">{recommendedLevel}</span>
+            </div>
+            <p className="text-xs text-muted-foreground mt-2">
+              Based on your performance across all levels
+            </p>
+          </div>
+        )}
+
+        {/* Level Breakdown for Placement Mode */}
+        {isPlacementMode && levelBreakdown && levelBreakdown.length > 0 && (
+          <div className="space-y-2">
+            <h4 className="text-sm font-medium text-muted-foreground text-center">Performance by Level</h4>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {levelBreakdown.map((item) => (
+                <div 
+                  key={item.level} 
+                  className={`p-2.5 rounded-lg border text-center ${
+                    item.accuracy >= 70 
+                      ? 'bg-green-500/10 border-green-500/30' 
+                      : item.accuracy >= 50 
+                        ? 'bg-yellow-500/10 border-yellow-500/30' 
+                        : 'bg-muted/50 border-border'
+                  }`}
+                >
+                  <CEFRBadge level={item.level} size="sm" />
+                  <p className="text-lg font-bold mt-1">{item.accuracy}%</p>
+                  <p className="text-[10px] text-muted-foreground">{item.correct}/{item.total}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Speedometer Gauge */}
         <div className="flex justify-center py-2 w-full">
           <SpeedometerGauge 
@@ -57,7 +125,7 @@ export const PracticeResults = ({
           </Button>
           <Button className="flex-1 min-h-[48px]" onClick={onPracticeAgain}>
             <RotateCcw className="w-4 h-4 mr-2" />
-            Practice Again
+            {isPlacementMode ? 'Retake Test' : 'Practice Again'}
           </Button>
         </div>
       </CardContent>
