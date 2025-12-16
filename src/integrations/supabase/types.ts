@@ -439,6 +439,17 @@ export type Database = {
         Args: { xp_value: number }
         Returns: Database["public"]["Enums"]["cefr_level"]
       }
+      get_question_progress: {
+        Args: { p_user_id: string }
+        Returns: {
+          accuracy: number
+          answered_questions: number
+          cefr: Database["public"]["Enums"]["cefr_level"]
+          correct_count: number
+          remaining_questions: number
+          total_questions: number
+        }[]
+      }
       get_random_questions: {
         Args: {
           p_cefr: Database["public"]["Enums"]["cefr_level"]
@@ -472,6 +483,13 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      reset_level_progress: {
+        Args: {
+          p_cefr: Database["public"]["Enums"]["cefr_level"]
+          p_user_id: string
+        }
+        Returns: undefined
       }
     }
     Enums: {
