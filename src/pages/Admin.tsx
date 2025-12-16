@@ -10,7 +10,8 @@ import {
   CheckCircle2,
   AlertCircle,
   Award,
-  Activity
+  Activity,
+  Download
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -393,6 +394,42 @@ const Admin = () => {
     }
   };
 
+  const downloadTemplate = () => {
+    const headers = ['cefr', 'prompt', 'options_a', 'options_b', 'options_c', 'options_d', 'correct_answer', 'explanation', 'difficulty', 'q_type', 'tags', 'source'];
+    const exampleRow = [
+      'A1',
+      'What is the correct form? "She ___ to school every day."',
+      'go',
+      'goes',
+      'going',
+      'went',
+      'B',
+      'Third person singular requires "goes"',
+      '2',
+      'MCQ',
+      'grammar,present-simple',
+      'Team Import'
+    ];
+    
+    const csvContent = [
+      headers.join(','),
+      exampleRow.map(cell => `"${cell.replace(/"/g, '""')}"`).join(',')
+    ].join('\n');
+    
+    const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'questions_template.csv';
+    link.click();
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: 'Template Downloaded',
+      description: 'Fill in your questions and upload the file',
+    });
+  };
+
   const deleteQuestion = async (id: number) => {
     const { error } = await supabase.from('questions').delete().eq('id', id);
     
@@ -552,11 +589,38 @@ const Admin = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="border-2 border-dashed rounded-lg p-8 text-center">
-                  <FileSpreadsheet className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-                  <p className="mb-2 font-medium">Upload CSV File</p>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Required columns: cefr, prompt, options_a, options_b, options_c, options_d, correct_answer
+                {/* Download Template Section */}
+                <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 md:p-6">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                      <h3 className="font-semibold text-sm md:text-base flex items-center gap-2">
+                        <Download className="w-4 h-4" />
+                        Step 1: Download Template
+                      </h3>
+                      <p className="text-xs md:text-sm text-muted-foreground mt-1">
+                        Get the standard CSV template with correct format and example
+                      </p>
+                    </div>
+                    <Button onClick={downloadTemplate} variant="outline" className="shrink-0">
+                      <Download className="w-4 h-4 mr-2" />
+                      Download Template
+                    </Button>
+                  </div>
+                  
+                  <div className="mt-4 text-xs text-muted-foreground space-y-1">
+                    <p><strong>Required columns:</strong> cefr, prompt, options_a, options_b, options_c, options_d, correct_answer</p>
+                    <p><strong>Optional columns:</strong> explanation, difficulty (1-5), q_type, tags, source</p>
+                    <p><strong>CEFR levels:</strong> A1, A2, B1, B2, C1, C2</p>
+                    <p><strong>correct_answer:</strong> A, B, C, or D</p>
+                  </div>
+                </div>
+
+                {/* Upload Section */}
+                <div className="border-2 border-dashed rounded-lg p-6 md:p-8 text-center">
+                  <FileSpreadsheet className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-4 text-muted-foreground" />
+                  <p className="mb-2 font-medium text-sm md:text-base">Step 2: Upload Your CSV</p>
+                  <p className="text-xs md:text-sm text-muted-foreground mb-4">
+                    Fill the template with your questions and upload
                   </p>
                   <Input
                     type="file"
