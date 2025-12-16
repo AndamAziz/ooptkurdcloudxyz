@@ -1,80 +1,123 @@
 import { Link } from 'react-router-dom';
-import { Play, Target, Timer } from 'lucide-react';
+import { Play, Target, Timer, BookOpen } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CEFRBadge } from '@/components/CEFRBadge';
 import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
+import { cn } from '@/lib/utils';
 
 interface PracticeModesProps {
   displayName?: string;
   currentLevel?: CEFRLevel;
+  levelProgress?: {
+    level: CEFRLevel;
+    remaining: number;
+    total: number;
+    accuracy: number;
+  }[];
 }
 
-export const PracticeModes = ({ displayName, currentLevel }: PracticeModesProps) => {
+export const PracticeModes = ({ displayName, currentLevel, levelProgress }: PracticeModesProps) => {
+  // Get remaining questions for current level
+  const currentLevelProgress = levelProgress?.find(p => p.level === currentLevel);
+  const remainingQuestions = currentLevelProgress?.remaining || 0;
+  const totalQuestions = currentLevelProgress?.total || 0;
+
   return (
     <Card className="w-full max-w-full">
-      <CardHeader className="p-4 md:p-6">
-        <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
-          <Play className="w-5 h-5" />
+      <CardHeader className="p-3 sm:p-4 md:p-6">
+        <CardTitle className="flex items-center gap-2 text-base sm:text-lg md:text-xl">
+          <Play className="w-4 h-4 sm:w-5 sm:h-5" />
           Start Practice
         </CardTitle>
-        <CardDescription className="text-sm">
+        <CardDescription className="text-xs sm:text-sm">
           Choose your practice mode and level
         </CardDescription>
       </CardHeader>
-      <CardContent className="p-4 md:p-6 pt-0">
-        <div className="grid gap-3 md:gap-4 grid-cols-1 sm:grid-cols-2">
+      <CardContent className="p-3 sm:p-4 md:p-6 pt-0">
+        {/* Current level info banner */}
+        {currentLevel && (
+          <div className="mb-3 sm:mb-4 p-2.5 sm:p-3 rounded-lg bg-primary/5 border border-primary/20 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <BookOpen className="w-4 h-4 text-primary flex-shrink-0" />
+              <span className="text-xs sm:text-sm text-muted-foreground truncate">
+                Selected: <span className="font-medium text-foreground">{currentLevel}</span>
+              </span>
+            </div>
+            {totalQuestions > 0 && (
+              <span className="text-[10px] sm:text-xs text-primary font-medium whitespace-nowrap">
+                {remainingQuestions > 0 
+                  ? `${remainingQuestions} remaining`
+                  : 'All completed!'
+                }
+              </span>
+            )}
+          </div>
+        )}
+
+        <div className="grid gap-2 sm:gap-3 md:gap-4 grid-cols-2">
           <Link to="/practice?mode=10_questions" className="block">
-            <Card className="card-hover cursor-pointer border-2 hover:border-primary h-full">
-              <CardContent className="p-4 md:p-6 text-center">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3 md:mb-4">
-                  <Target className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+            <Card className="card-hover cursor-pointer border-2 hover:border-primary h-full transition-all active:scale-[0.98]">
+              <CardContent className="p-3 sm:p-4 md:p-6 text-center">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4">
+                  <Target className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-primary" />
                 </div>
-                <h3 className="font-semibold mb-1 text-sm md:text-base">10 Questions</h3>
-                <p className="text-xs md:text-sm text-muted-foreground">
-                  Quick practice session
+                <h3 className="font-semibold mb-0.5 sm:mb-1 text-xs sm:text-sm md:text-base">10 Questions</h3>
+                <p className="text-[10px] sm:text-xs md:text-sm text-muted-foreground">
+                  Quick practice
                 </p>
               </CardContent>
             </Card>
           </Link>
           
           <Link to="/practice?mode=timed" className="block">
-            <Card className="card-hover cursor-pointer border-2 hover:border-primary h-full">
-              <CardContent className="p-4 md:p-6 text-center">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-warning/10 flex items-center justify-center mx-auto mb-3 md:mb-4">
-                  <Timer className="w-5 h-5 md:w-6 md:h-6 text-warning" />
+            <Card className="card-hover cursor-pointer border-2 hover:border-primary h-full transition-all active:scale-[0.98]">
+              <CardContent className="p-3 sm:p-4 md:p-6 text-center">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-warning/10 flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4">
+                  <Timer className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-warning" />
                 </div>
-                <h3 className="font-semibold mb-1 text-sm md:text-base">Timed Mode</h3>
-                <p className="text-xs md:text-sm text-muted-foreground">
-                  10 minutes challenge
+                <h3 className="font-semibold mb-0.5 sm:mb-1 text-xs sm:text-sm md:text-base">Timed Mode</h3>
+                <p className="text-[10px] sm:text-xs md:text-sm text-muted-foreground">
+                  10 min challenge
                 </p>
               </CardContent>
             </Card>
           </Link>
         </div>
 
-        <div className="mt-4 md:mt-6">
-          <div className="flex flex-wrap items-center gap-2 mb-2 md:mb-3">
-            <p className="text-xs md:text-sm font-medium">Select Level:</p>
+        <div className="mt-3 sm:mt-4 md:mt-6">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
+            <p className="text-[10px] sm:text-xs md:text-sm font-medium">Select Level:</p>
             {displayName && (
-              <span className="text-xs text-muted-foreground ml-auto">
-                Welcome, <span className="font-medium text-foreground">{displayName}</span>
-                {currentLevel && (
-                  <span className="ml-2">
-                    <CEFRBadge level={currentLevel} size="sm" />
-                  </span>
-                )}
+              <span className="text-[10px] sm:text-xs text-muted-foreground ml-auto">
+                <span className="hidden sm:inline">Welcome, </span>
+                <span className="font-medium text-foreground">{displayName}</span>
               </span>
             )}
           </div>
-          <div className="flex flex-wrap gap-2">
-            {CEFR_LEVELS.map((level) => (
-              <Link key={level} to={`/practice?level=${level}`}>
-                <Button variant="outline" size="sm" className="min-h-[44px] touch-target">
-                  <CEFRBadge level={level} size="sm" />
-                </Button>
-              </Link>
-            ))}
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
+            {CEFR_LEVELS.map((level) => {
+              const progress = levelProgress?.find(p => p.level === level);
+              const isCurrentLevel = level === currentLevel;
+              
+              return (
+                <Link key={level} to={`/practice?level=${level}`}>
+                  <Button 
+                    variant={isCurrentLevel ? "default" : "outline"} 
+                    size="sm" 
+                    className={cn(
+                      "min-h-[40px] sm:min-h-[44px] touch-target px-2 sm:px-3 transition-all active:scale-[0.96]",
+                      isCurrentLevel && "ring-2 ring-primary ring-offset-2 ring-offset-background"
+                    )}
+                  >
+                    <CEFRBadge level={level} size="sm" />
+                    {progress && progress.remaining === 0 && (
+                      <span className="ml-1 text-[10px]">✓</span>
+                    )}
+                  </Button>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </CardContent>

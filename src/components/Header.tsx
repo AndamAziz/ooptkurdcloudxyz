@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BookOpen, LogOut, User, LayoutDashboard, Trophy, Menu, Award } from 'lucide-react';
+import { BookOpen, LogOut, User, LayoutDashboard, Trophy, Menu, Award, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -17,6 +17,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Separator } from '@/components/ui/separator';
 import { DonationButton } from './DonationButton';
 import { CEFRBadge } from './CEFRBadge';
 import { ThemeToggle } from './ThemeToggle';
@@ -154,84 +155,126 @@ export const Header = () => {
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[280px] bg-card">
-              <SheetHeader>
+            <SheetContent side="right" className="w-[300px] sm:w-[320px] bg-card p-0">
+              <SheetHeader className="p-4 pb-0">
                 <SheetTitle className="text-left flex items-center gap-2">
                   <BookOpen className="w-5 h-5 text-primary" />
                   CEFR Practice
                 </SheetTitle>
               </SheetHeader>
               
-              <nav className="flex flex-col gap-2 mt-6">
+              <nav className="flex flex-col mt-4">
                 {user ? (
                   <>
-                    <div className="p-3 rounded-lg bg-muted mb-2">
-                      <p className="font-medium">{profile?.display_name || profile?.username || 'Student'}</p>
-                      <p className="text-sm text-muted-foreground">{user.email}</p>
+                    {/* Enhanced Profile Section */}
+                    <div className="px-4 pb-4">
+                      <div className="flex items-start gap-3 p-3 rounded-xl bg-gradient-to-br from-muted/80 to-muted/40 border">
+                        <Avatar className="h-12 w-12 border-2 border-primary/20">
+                          <AvatarFallback className="bg-primary text-primary-foreground text-lg">
+                            {getInitials()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold text-sm truncate">
+                            {profile?.display_name || profile?.username || 'Student'}
+                          </p>
+                          <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                          <div className="flex items-center gap-2 mt-1.5">
+                            <CEFRBadge level={profile?.current_cefr as CEFRLevel || 'A1'} size="sm" />
+                            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                              <Zap className="w-3 h-3 text-primary" />
+                              <span className="font-medium text-foreground">{profile?.xp || 0}</span>
+                              <span>XP</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     
-                    <Button asChild variant="ghost" className="justify-start h-12" onClick={closeMobileMenu}>
-                      <Link to="/dashboard">
-                        <User className="mr-3 h-5 w-5" />
-                        Dashboard
-                      </Link>
-                    </Button>
+                    <Separator />
                     
-                    <Button asChild variant="ghost" className="justify-start h-12" onClick={closeMobileMenu}>
-                      <Link to="/certificates">
-                        <Award className="mr-3 h-5 w-5" />
-                        Certificates
-                      </Link>
-                    </Button>
-                    
-                    <Button asChild variant="ghost" className="justify-start h-12" onClick={closeMobileMenu}>
-                      <Link to="/leaderboard">
-                        <Trophy className="mr-3 h-5 w-5" />
-                        Leaderboard
-                      </Link>
-                    </Button>
-                    
-                    {isAdmin && (
-                      <Button asChild variant="ghost" className="justify-start h-12" onClick={closeMobileMenu}>
-                        <Link to="/admin">
-                          <LayoutDashboard className="mr-3 h-5 w-5" />
-                          Admin Panel
+                    {/* Navigation Links */}
+                    <div className="p-2">
+                      <Button asChild variant="ghost" className="w-full justify-start h-12 px-4" onClick={closeMobileMenu}>
+                        <Link to="/dashboard">
+                          <User className="mr-3 h-5 w-5" />
+                          Dashboard
                         </Link>
                       </Button>
-                    )}
-                    
-                    <div className="my-2 border-t" />
-                    
-                    <DonationButton variant="outline" className="justify-start h-12" />
-
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-muted">
-                      <span className="text-sm">Dark Mode</span>
-                      <ThemeToggle />
+                      
+                      <Button asChild variant="ghost" className="w-full justify-start h-12 px-4" onClick={closeMobileMenu}>
+                        <Link to="/certificates">
+                          <Award className="mr-3 h-5 w-5" />
+                          Certificates
+                        </Link>
+                      </Button>
+                      
+                      <Button asChild variant="ghost" className="w-full justify-start h-12 px-4" onClick={closeMobileMenu}>
+                        <Link to="/leaderboard">
+                          <Trophy className="mr-3 h-5 w-5" />
+                          Leaderboard
+                        </Link>
+                      </Button>
+                      
+                      {isAdmin && (
+                        <Button asChild variant="ghost" className="w-full justify-start h-12 px-4" onClick={closeMobileMenu}>
+                          <Link to="/admin">
+                            <LayoutDashboard className="mr-3 h-5 w-5" />
+                            Admin Panel
+                          </Link>
+                        </Button>
+                      )}
                     </div>
                     
-                    <div className="my-2 border-t" />
+                    <Separator />
                     
-                    <Button variant="ghost" className="justify-start h-12 text-destructive" onClick={handleSignOut}>
-                      <LogOut className="mr-3 h-5 w-5" />
-                      Sign out
-                    </Button>
+                    {/* Support & Settings */}
+                    <div className="p-2">
+                      <DonationButton variant="ghost" className="w-full justify-start h-12 px-4" />
+
+                      <div className="flex items-center justify-between h-12 px-4 rounded-md hover:bg-muted/50">
+                        <span className="text-sm flex items-center gap-3">
+                          <span className="text-lg">🌙</span>
+                          Dark Mode
+                        </span>
+                        <ThemeToggle />
+                      </div>
+                    </div>
+                    
+                    <Separator />
+                    
+                    {/* Sign Out */}
+                    <div className="p-2">
+                      <Button 
+                        variant="ghost" 
+                        className="w-full justify-start h-12 px-4 text-destructive hover:text-destructive hover:bg-destructive/10" 
+                        onClick={handleSignOut}
+                      >
+                        <LogOut className="mr-3 h-5 w-5" />
+                        Sign out
+                      </Button>
+                    </div>
                   </>
                 ) : (
                   <>
-                    <Button asChild variant="ghost" className="justify-start h-12" onClick={closeMobileMenu}>
-                      <Link to="/leaderboard">
-                        <Trophy className="mr-3 h-5 w-5" />
-                        Leaderboard
-                      </Link>
-                    </Button>
+                    <div className="p-2">
+                      <Button asChild variant="ghost" className="w-full justify-start h-12 px-4" onClick={closeMobileMenu}>
+                        <Link to="/leaderboard">
+                          <Trophy className="mr-3 h-5 w-5" />
+                          Leaderboard
+                        </Link>
+                      </Button>
+                      
+                      <DonationButton variant="ghost" className="w-full justify-start h-12 px-4" />
+                    </div>
                     
-                    <DonationButton variant="outline" className="justify-start h-12" />
+                    <Separator />
                     
-                    <div className="my-2 border-t" />
-                    
-                    <Button asChild className="h-12" onClick={closeMobileMenu}>
-                      <Link to="/auth">Sign In</Link>
-                    </Button>
+                    <div className="p-4">
+                      <Button asChild className="w-full h-12" onClick={closeMobileMenu}>
+                        <Link to="/auth">Sign In</Link>
+                      </Button>
+                    </div>
                   </>
                 )}
               </nav>
