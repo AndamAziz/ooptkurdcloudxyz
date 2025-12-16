@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Play, Target, Timer } from 'lucide-react';
+import { Play, Target, Timer, GraduationCap, Sparkles } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CEFRBadge } from '@/components/CEFRBadge';
@@ -78,6 +78,50 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress }: Prac
             )}
           </div>
         )}
+
+        {/* Placement Test - Featured Button */}
+        <Link to="/practice?mode=placement" className="block mb-3 sm:mb-4">
+          <Card className="relative overflow-hidden cursor-pointer border-2 border-primary/50 hover:border-primary bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 transition-all hover:shadow-lg hover:shadow-primary/20 active:scale-[0.98]">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-xl" />
+            <CardContent className="relative p-4 sm:p-5 md:p-6">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg shadow-primary/30">
+                  <GraduationCap className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-primary-foreground" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="font-bold text-sm sm:text-base md:text-lg text-foreground">
+                      Placement Test
+                    </h3>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/20 text-primary text-[10px] sm:text-xs font-medium">
+                      <Sparkles className="w-3 h-3" />
+                      All Levels
+                    </span>
+                  </div>
+                  <p className="text-[11px] sm:text-xs md:text-sm text-muted-foreground line-clamp-2">
+                    Mixed questions from A1 to C2 to determine your exact level
+                  </p>
+                </div>
+                <div className="hidden sm:flex items-center gap-1 text-primary">
+                  <span className="text-xs font-medium">Start</span>
+                  <Play className="w-4 h-4 fill-current" />
+                </div>
+              </div>
+              {/* Level badges row */}
+              <div className="flex items-center gap-1.5 mt-3 pt-3 border-t border-border/50">
+                {CEFR_LEVELS.map((level) => (
+                  <span 
+                    key={level} 
+                    className="px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-medium bg-muted/50 text-muted-foreground"
+                  >
+                    {level}
+                  </span>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
 
         <div className="grid gap-2 sm:gap-3 md:gap-4 grid-cols-2">
           <Link to="/practice?mode=10_questions" className="block">

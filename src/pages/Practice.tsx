@@ -18,6 +18,7 @@ import {
   TIMED_DURATION_SECONDS, 
   XP_REWARDS,
   QUESTIONS_PER_SESSION,
+  CEFR_LEVELS,
   type CEFRLevel 
 } from '@/lib/constants';
 
@@ -31,7 +32,8 @@ const Practice = () => {
   const { 
     questions, 
     loading: questionsLoading, 
-    fetchRandomQuestions, 
+    fetchRandomQuestions,
+    fetchPlacementQuestions,
     checkAnswer,
     checkRateLimit 
   } = useQuestions();
@@ -55,7 +57,9 @@ const Practice = () => {
   const certificatesBeforeSession = useRef<string[]>([]);
 
   const [state, setState] = useState<PracticeState>('setup');
-  const [mode, setMode] = useState(searchParams.get('mode') || PRACTICE_MODES.FIFTY_QUESTIONS);
+  const initialMode = searchParams.get('mode') || PRACTICE_MODES.FIFTY_QUESTIONS;
+  const [mode, setMode] = useState(initialMode);
+  const isPlacementMode = mode === 'placement';
   const [selectedLevel, setSelectedLevel] = useState<CEFRLevel>(
     (searchParams.get('level') as CEFRLevel) || (profile?.current_cefr as CEFRLevel) || 'A1'
   );
@@ -109,22 +113,31 @@ const Practice = () => {
       return;
     }
 
-    // Fetch fresh questions - returns the questions directly
-    const limit = mode === PRACTICE_MODES.FIFTY_QUESTIONS ? QUESTIONS_PER_SESSION : 50;
-    const fetchedQuestions = await fetchRandomQuestions(user.id, selectedLevel, limit);
+    let fetchedQuestions;
+    
+    if (isPlacementMode) {
+      // For placement test, fetch 5 questions from each level (30 total)
+      fetchedQuestions = await fetchPlacementQuestions(user.id, 5);
+    } else {
+      // Fetch fresh questions - returns the questions directly
+      const limit = mode === PRACTICE_MODES.FIFTY_QUESTIONS ? QUESTIONS_PER_SESSION : 50;
+      fetchedQuestions = await fetchRandomQuestions(user.id, selectedLevel, limit);
+    }
     
     // Check if questions were fetched using the returned value
     if (fetchedQuestions.length === 0) {
       toast({
         title: 'No new questions',
-        description: `All questions in ${selectedLevel} have been completed. Reset your progress to try again.`,
+        description: isPlacementMode 
+          ? 'No questions available for placement test.'
+          : `All questions in ${selectedLevel} have been completed. Reset your progress to try again.`,
         variant: 'destructive',
       });
       await fetchProgress();
       return;
     }
     
-    const newSessionId = await createSession(selectedLevel, mode);
+    const newSessionId = await createSession(isPlacementMode ? 'A1' : selectedLevel, mode);
     if (newSessionId) {
       setSessionId(newSessionId);
     }
@@ -274,6 +287,7 @@ const Practice = () => {
             onStart={startSession}
             onResetProgress={handleResetProgress}
             isResetting={isResettingProgress}
+            isPlacementMode={isPlacementMode}
           />
         </main>
       </div>
@@ -285,6 +299,36 @@ const Practice = () => {
     const correctCount = answers.filter(a => a.correct).length;
     const xpEarned = (correctCount * XP_REWARDS.CORRECT) + ((totalQuestions - correctCount) * XP_REWARDS.INCORRECT);
 
+    // Calculate level breakdown for placement mode
+    const levelBreakdown = isPlacementMode ? CEFR_LEVELS.map(level => {
+      const levelQuestions = questions.filter(q => q.cefr === level);
+      const levelAnswers = answers.filter((a, idx) => questions[idx]?.cefr === level);
+      const correct = levelAnswers.filter(a => a.correct).length;
+      const total = levelQuestions.length;
+      return {
+        level,
+        correct,
+        total,
+        accuracy: total > 0 ? Math.round((correct / total) * 100) : 0,
+      };
+    }).filter(item => item.total > 0) : undefined;
+
+    // Calculate recommended level for placement mode
+    const recommendedLevel = isPlacementMode && levelBreakdown ? (() => {
+      // Find highest level with >= 60% accuracy
+      const passingLevels = levelBreakdown.filter(item => item.accuracy >= 60);
+      if (passingLevels.length === 0) return 'A1' as CEFRLevel;
+      
+      // Get the highest passing level
+      const levelOrder: CEFRLevel[] = ['C2', 'C1', 'B2', 'B1', 'A2', 'A1'];
+      for (const level of levelOrder) {
+        if (passingLevels.some(p => p.level === level)) {
+          return level;
+        }
+      }
+      return 'A1' as CEFRLevel;
+    })() : undefined;
+
     return (
       <div className="min-h-screen bg-background overflow-x-hidden">
         <Header />
@@ -294,6 +338,9 @@ const Practice = () => {
             correctCount={correctCount}
             xpEarned={xpEarned}
             onPracticeAgain={handlePracticeAgain}
+            isPlacementMode={isPlacementMode}
+            recommendedLevel={recommendedLevel}
+            levelBreakdown={levelBreakdown}
           />
         </main>
 
@@ -325,6 +372,8 @@ const Practice = () => {
           progress={progress}
           showTimer={mode === PRACTICE_MODES.TIMED}
           timeLeft={timeLeft}
+          isPlacementMode={isPlacementMode}
+          currentQuestionLevel={currentQuestion?.cefr}
         />
 
         <QuestionCard
