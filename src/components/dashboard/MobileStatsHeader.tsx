@@ -20,6 +20,7 @@ interface MobileStatsHeaderProps {
   currentLevelTotal: number;
   questionProgress: LevelProgress[];
   earnedCertificates?: CEFRLevel[];
+  onLevelChange?: (level: CEFRLevel) => void;
 }
 
 export const MobileStatsHeader = ({
@@ -34,6 +35,7 @@ export const MobileStatsHeader = ({
   currentLevelTotal,
   questionProgress,
   earnedCertificates = [],
+  onLevelChange,
 }: MobileStatsHeaderProps) => {
   const getStreakStatus = () => {
     if (!lastPracticeDate) return 'Start your streak!';

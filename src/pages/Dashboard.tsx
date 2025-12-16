@@ -1,6 +1,7 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Trophy } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Header } from '@/components/Header';
 import { DonationButton } from '@/components/DonationButton';
 import { SpeedometerGauge } from '@/components/SpeedometerGauge';
@@ -16,7 +17,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useProgress } from '@/hooks/useProgress';
 import { useQuestionProgress } from '@/hooks/useQuestionProgress';
 import { useCertificates } from '@/hooks/useCertificates';
-import { type CEFRLevel } from '@/lib/constants';
+import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
 
 const Dashboard = () => {
   const { profile, user } = useAuth();
@@ -33,28 +34,30 @@ const Dashboard = () => {
     }
   }, [user, fetchRecentSessions, fetchStats, fetchProgress, fetchUserCertificates]);
 
-  // Calculate the effective current level - show the level with most recent activity
-  // or fall back to profile level
-  const currentLevel = useMemo((): CEFRLevel => {
-    // Find the level with actual progress (most answered questions)
+  // Calculate the default level - show the level with most recent activity or profile level
+  const defaultLevel = useMemo((): CEFRLevel => {
     const levelWithProgress = questionProgress.find(p => p.answered_questions > 0);
-    
-    // If they have progress, use that level; otherwise use profile level
     if (levelWithProgress && (profile?.current_cefr as CEFRLevel) !== levelWithProgress.cefr) {
-      // Check if profile level has no progress but another level does
       const profileLevelProgress = questionProgress.find(p => p.cefr === profile?.current_cefr);
       if (profileLevelProgress && profileLevelProgress.answered_questions === 0) {
         return levelWithProgress.cefr;
       }
     }
-    
     return (profile?.current_cefr as CEFRLevel) || 'A1';
   }, [profile?.current_cefr, questionProgress]);
 
-  // Get current level stats from questionProgress
-  const currentLevelStats = useMemo(() => {
-    return getLevelProgress(currentLevel);
-  }, [currentLevel, getLevelProgress]);
+  // Selected level state for the dropdown
+  const [selectedLevel, setSelectedLevel] = useState<CEFRLevel>(defaultLevel);
+
+  // Update selected level when default changes
+  useEffect(() => {
+    setSelectedLevel(defaultLevel);
+  }, [defaultLevel]);
+
+  // Get selected level stats from questionProgress
+  const selectedLevelStats = useMemo(() => {
+    return getLevelProgress(selectedLevel);
+  }, [selectedLevel, getLevelProgress]);
 
   // Get earned certificate levels
   const earnedCertificates = useMemo(() => {
@@ -63,16 +66,16 @@ const Dashboard = () => {
       .map(c => c.cefr_level);
   }, [certificates]);
 
-  const hasCertificateForCurrentLevel = earnedCertificates.includes(currentLevel);
+  const hasCertificateForSelectedLevel = earnedCertificates.includes(selectedLevel);
 
   const currentXP = profile?.xp || 0;
   const currentStreak = profile?.streak || 0;
   const displayName = profile?.display_name || profile?.username || 'Student';
 
-  // Current level accuracy (not overall)
-  const currentLevelAccuracy = currentLevelStats?.accuracy || 0;
-  const currentLevelAnswered = currentLevelStats?.answered_questions || 0;
-  const currentLevelTotal = currentLevelStats?.total_questions || 0;
+  // Selected level accuracy
+  const selectedLevelAccuracy = selectedLevelStats?.accuracy || 0;
+  const selectedLevelAnswered = selectedLevelStats?.answered_questions || 0;
+  const selectedLevelTotal = selectedLevelStats?.total_questions || 0;
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -91,18 +94,19 @@ const Dashboard = () => {
                 totalAttempts={stats.totalAttempts}
                 totalCorrect={stats.totalCorrect}
                 overallAccuracy={stats.accuracy}
-                currentLevel={currentLevel}
-                currentLevelAccuracy={currentLevelAccuracy}
-                currentLevelAnswered={currentLevelAnswered}
-                currentLevelTotal={currentLevelTotal}
+                currentLevel={selectedLevel}
+                currentLevelAccuracy={selectedLevelAccuracy}
+                currentLevelAnswered={selectedLevelAnswered}
+                currentLevelTotal={selectedLevelTotal}
                 questionProgress={questionProgress}
                 earnedCertificates={earnedCertificates}
+                onLevelChange={setSelectedLevel}
               />
             </div>
 
             <PracticeModes 
               displayName={displayName} 
-              currentLevel={currentLevel} 
+              currentLevel={selectedLevel} 
               levelProgress={questionProgress.map(p => ({
                 level: p.cefr,
                 remaining: p.remaining_questions,
@@ -125,35 +129,49 @@ const Dashboard = () => {
               lastPracticeDate={profile?.last_practice_date || null} 
             />
             
-            {/* Current Level Stats Gauge Card */}
+            {/* Current Level Stats Gauge Card with Selector */}
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-lg">{currentLevel} Level Accuracy</CardTitle>
+                <div className="flex items-center justify-between gap-2">
+                  <CardTitle className="text-lg">Level Accuracy</CardTitle>
+                  <Select value={selectedLevel} onValueChange={(v) => setSelectedLevel(v as CEFRLevel)}>
+                    <SelectTrigger className="w-20 h-8 text-sm">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-popover border shadow-lg z-50">
+                      {CEFR_LEVELS.map((level) => (
+                        <SelectItem key={level} value={level}>
+                          {level}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </CardHeader>
               <CardContent className="flex flex-col items-center gap-2">
                 <SpeedometerGauge 
-                  percentage={currentLevelAccuracy} 
+                  percentage={selectedLevelAccuracy} 
                   size="md" 
                   showLabel={true}
                   showPercentage={true}
                 />
                 <p className="text-sm text-muted-foreground">
-                  {currentLevelAnswered}/{currentLevelTotal} questions answered
+                  {selectedLevelAnswered}/{selectedLevelTotal} questions answered
                 </p>
               </CardContent>
             </Card>
             
             {/* Current Level Details */}
             <CurrentLevelDetailsCard 
-              level={currentLevel}
-              progress={currentLevelStats}
-              hasCertificate={hasCertificateForCurrentLevel}
+              level={selectedLevel}
+              progress={selectedLevelStats}
+              hasCertificate={hasCertificateForSelectedLevel}
             />
             
             {/* Level Progress with per-level accuracy */}
             <LevelProgressCard 
               questionProgress={questionProgress} 
-              currentLevel={currentLevel} 
+              currentLevel={selectedLevel} 
               userId={user?.id} 
             />
             <CertificateProgressCard userId={user?.id} />
