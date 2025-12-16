@@ -112,23 +112,47 @@ export const useQuestions = () => {
   // Fetch ALL questions from all levels for placement test
   const fetchPlacementQuestions = useCallback(async (
     userId: string,
-    _questionsPerLevel: number = 50 // Ignored - we fetch all questions
+    _questionsPerLevel: number = 50 // Ignored - placement test uses all available questions
   ): Promise<Question[]> => {
     setLoading(true);
     setError(null);
 
     try {
-      // Fetch ALL questions from questions_safe view (no limit, no exclusion)
-      const { data, error: fetchError } = await supabase
-        .from('questions_safe')
-        .select('*')
-        .order('cefr')
-        .order('id');
+      // Prefer backend function (more reliable permissions than direct view SELECT)
+      const { data: rpcData, error: rpcError } = await supabase.rpc('get_placement_questions', {
+        p_user_id: userId,
+      });
 
-      if (fetchError) throw fetchError;
+      let allQuestions: Question[] = [];
 
-      const allQuestions = (data || []) as Question[];
-      
+      if (rpcError) {
+        console.error('get_placement_questions RPC failed, using fallback:', rpcError);
+
+        // Fallback: Fetch from questions_safe view
+        const { data: fallbackData, error: fetchError } = await supabase
+          .from('questions_safe')
+          .select('*')
+          .order('cefr')
+          .order('id');
+
+        if (fetchError) throw fetchError;
+        allQuestions = (fallbackData || []) as Question[];
+      } else {
+        // Map RPC shape into our Question interface
+        allQuestions = (rpcData || []).map((q) => ({
+          id: q.id,
+          cefr: q.cefr as CEFRLevel,
+          difficulty: q.difficulty ?? null,
+          q_type: null,
+          prompt: q.prompt ?? null,
+          options_a: q.options_a ?? null,
+          options_b: q.options_b ?? null,
+          options_c: q.options_c ?? null,
+          options_d: q.options_d ?? null,
+          tags: null,
+        }));
+      }
+
       // Use seeded shuffle based on user_id for consistent order
       const shuffled = seededShuffle(allQuestions, userId);
       setQuestions(shuffled);
