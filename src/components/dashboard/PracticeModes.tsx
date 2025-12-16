@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 interface PracticeModesProps {
   displayName?: string;
   currentLevel?: CEFRLevel;
+  currentXP?: number;
   levelProgress?: {
     level: CEFRLevel;
     remaining: number;
@@ -17,16 +18,39 @@ interface PracticeModesProps {
   }[];
 }
 
-export const PracticeModes = ({ displayName, currentLevel, levelProgress }: PracticeModesProps) => {
-  // Get remaining questions for current level
-  const currentLevelProgress = levelProgress?.find(p => p.level === currentLevel);
-  const remainingQuestions = currentLevelProgress?.remaining || 0;
-  const totalQuestions = currentLevelProgress?.total || 0;
+// XP thresholds for each level
+const LEVEL_XP_THRESHOLDS: Record<CEFRLevel, number> = {
+  'A1': 0,
+  'A2': 800,
+  'B1': 1800,
+  'B2': 3200,
+  'C1': 4800,
+  'C2': 6500,
+};
+
+export const PracticeModes = ({ displayName, currentLevel, currentXP = 0, levelProgress }: PracticeModesProps) => {
+  // Find recommended level based on practice progress (first incomplete level)
+  const recommendedLevel = levelProgress?.find(p => p.remaining > 0)?.level || currentLevel;
+  
+  // Get remaining questions for recommended level
+  const recommendedLevelProgress = levelProgress?.find(p => p.level === recommendedLevel);
+  const remainingQuestions = recommendedLevelProgress?.remaining || 0;
+  const totalQuestions = recommendedLevelProgress?.total || 0;
   const answeredQuestions = totalQuestions - remainingQuestions;
 
-  // Reorder levels: current level first, then others in order
-  const orderedLevels = currentLevel 
-    ? [currentLevel, ...CEFR_LEVELS.filter(l => l !== currentLevel)]
+  // Calculate XP progress to next level
+  const nextLevelIndex = CEFR_LEVELS.indexOf(currentLevel || 'A1') + 1;
+  const nextLevel = CEFR_LEVELS[nextLevelIndex] as CEFRLevel | undefined;
+  const nextLevelXP = nextLevel ? LEVEL_XP_THRESHOLDS[nextLevel] : LEVEL_XP_THRESHOLDS['C2'];
+  const currentLevelXP = currentLevel ? LEVEL_XP_THRESHOLDS[currentLevel] : 0;
+  const xpForNextLevel = nextLevelXP - currentLevelXP;
+  const xpProgress = currentXP - currentLevelXP;
+  const xpProgressPercent = xpForNextLevel > 0 ? Math.min((xpProgress / xpForNextLevel) * 100, 100) : 100;
+
+  // Reorder levels: recommended/current level first, then others in order
+  const primaryLevel = recommendedLevel || currentLevel;
+  const orderedLevels = primaryLevel 
+    ? [primaryLevel, ...CEFR_LEVELS.filter(l => l !== primaryLevel)]
     : CEFR_LEVELS;
 
   return (
@@ -41,41 +65,49 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress }: Prac
         </CardDescription>
       </CardHeader>
       <CardContent className="p-3 sm:p-4 md:p-6 pt-0">
-        {/* Current level highlight banner */}
-        {currentLevel && (
-          <div className="mb-3 sm:mb-4 p-3 sm:p-4 rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20">
-            <div className="flex items-center justify-between gap-2 mb-2">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/20 flex items-center justify-center">
-                  <Target className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-[10px] sm:text-xs text-muted-foreground">Your Current Level</p>
-                  <p className="font-bold text-sm sm:text-base text-primary">{currentLevel}</p>
-                </div>
+        {/* Current Level & XP Progress */}
+        <div className="mb-3 sm:mb-4 p-3 sm:p-4 rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20">
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                <Target className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               </div>
-              <CEFRBadge level={currentLevel} size="lg" />
+              <div>
+                <p className="text-[10px] sm:text-xs text-muted-foreground">Your Level (XP Based)</p>
+                <p className="font-bold text-sm sm:text-base text-primary">{currentLevel}</p>
+              </div>
             </div>
-            {totalQuestions > 0 && (
-              <div className="mt-2">
-                <div className="flex justify-between text-[10px] sm:text-xs mb-1">
-                  <span className="text-muted-foreground">Progress</span>
-                  <span className="font-medium">{answeredQuestions}/{totalQuestions}</span>
-                </div>
-                <div className="h-1.5 bg-muted rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-primary rounded-full transition-all duration-500"
-                    style={{ width: `${(answeredQuestions / totalQuestions) * 100}%` }}
-                  />
-                </div>
-                <p className="text-[9px] sm:text-[10px] text-muted-foreground mt-1">
-                  {remainingQuestions > 0 
-                    ? `${remainingQuestions} questions remaining`
-                    : '✓ All questions completed! Choose another level or reset.'
-                  }
+            <div className="text-right">
+              <p className="text-xs sm:text-sm font-bold text-foreground">{currentXP} XP</p>
+              {nextLevel && (
+                <p className="text-[9px] sm:text-[10px] text-muted-foreground">
+                  {nextLevelXP - currentXP} XP to {nextLevel}
                 </p>
+              )}
+            </div>
+          </div>
+          {nextLevel && (
+            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-primary rounded-full transition-all duration-500"
+                style={{ width: `${xpProgressPercent}%` }}
+              />
+            </div>
+          )}
+        </div>
+
+        {/* Recommended Practice Level */}
+        {recommendedLevel && recommendedLevel !== currentLevel && totalQuestions > 0 && (
+          <div className="mb-3 sm:mb-4 p-2.5 sm:p-3 rounded-lg bg-green-500/10 border border-green-500/20">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <CEFRBadge level={recommendedLevel} size="sm" />
+                <span className="text-xs sm:text-sm font-medium">Practice: {recommendedLevel}</span>
               </div>
-            )}
+              <span className="text-[10px] sm:text-xs text-green-600 font-medium">
+                {remainingQuestions > 0 ? `${answeredQuestions}/${totalQuestions}` : '✓ Complete'}
+              </span>
+            </div>
           </div>
         )}
 
