@@ -70,7 +70,7 @@ export const PracticeSetup = ({
               </p>
             </div>
             <div className="text-xs sm:text-sm text-muted-foreground text-center space-y-1">
-              <p className="font-medium text-foreground">130 Total Questions</p>
+              <p className="font-medium text-foreground">230 Total Questions</p>
               <p>• Questions from all levels: A1, A2, B1, B2, C1, C2</p>
               <p>• Consistent order for each user</p>
               <p>• Results determine your recommended level</p>
