@@ -5,12 +5,11 @@ import {
   BarChart3, 
   Upload,
   Search,
-  Plus,
-  Pencil,
   Trash2,
   FileSpreadsheet,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Award
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -31,18 +30,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Header } from '@/components/Header';
 import { CEFRBadge } from '@/components/CEFRBadge';
+import { AdminCertificates } from '@/components/admin/AdminCertificates';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
@@ -146,18 +136,15 @@ const Admin = () => {
     setLoading(true);
 
     try {
-      // Accurate totals (PostgREST defaults to 1000 rows per request)
       const [{ count: totalQuestionsCount }, questionsByLevel] = await Promise.all([
         supabase.from('questions').select('*', { count: 'exact', head: true }),
         fetchQuestionCountsByLevel(),
       ]);
 
-      // Fetch students count
       const { count: studentsCount } = await supabase
         .from('profiles')
         .select('*', { count: 'exact', head: true });
 
-      // Fetch attempts count
       const { count: attemptsCount } = await supabase
         .from('attempts')
         .select('*', { count: 'exact', head: true });
@@ -169,7 +156,6 @@ const Admin = () => {
         questionsByLevel,
       });
 
-      // Fetch questions for table
       const { data: allQuestions } = await supabase
         .from('questions')
         .select('*')
@@ -215,7 +201,6 @@ const Admin = () => {
         const next = i + 1 < csvText.length ? csvText[i + 1] : '';
 
         if (char === '"') {
-          // Escaped quote inside a quoted field
           if (inQuotes && next === '"') {
             field += '"';
             i++;
@@ -232,12 +217,10 @@ const Admin = () => {
         }
 
         if ((char === '\n' || char === '\r') && !inQuotes) {
-          // Handle CRLF
           if (char === '\r' && next === '\n') i++;
           row.push(field);
           field = '';
 
-          // Skip completely empty trailing rows
           if (row.some((c) => c.trim() !== '')) rows.push(row);
           row = [];
           continue;
@@ -246,7 +229,6 @@ const Admin = () => {
         field += char;
       }
 
-      // Flush last field/row
       row.push(field);
       if (row.some((c) => c.trim() !== '')) rows.push(row);
 
@@ -263,7 +245,6 @@ const Admin = () => {
       const totalRows = dataRows.length;
       setImportProgress({ current: 0, total: totalRows });
 
-      // Fetch existing prompts to check for duplicates (paginate because of 1000-row default limit)
       const existingPrompts = await fetchExistingPrompts();
 
       let inserted = 0;
@@ -286,7 +267,6 @@ const Admin = () => {
           return;
         }
 
-        // If the batch fails, fall back to per-row inserts so we can log the exact failures.
         for (const item of batch) {
           const { error: rowError } = await supabase.from('questions').insert(item.question);
           if (rowError) {
@@ -306,7 +286,7 @@ const Admin = () => {
 
       for (let i = 0; i < dataRows.length; i++) {
         const values = dataRows[i];
-        const rowNumber = i + 2; // 1-based, includes header row
+        const rowNumber = i + 2;
 
         const row: Record<string, string> = {};
         headers.forEach((h, idx) => {
@@ -417,18 +397,21 @@ const Admin = () => {
       <main className="container py-8">
         <div className="mb-8">
           <h1 className="font-serif text-3xl font-bold">Admin Dashboard</h1>
-          <p className="text-muted-foreground">Manage questions and monitor usage</p>
+          <p className="text-muted-foreground">Manage questions, certificates, and monitor usage</p>
         </div>
 
         <Tabs defaultValue="overview" className="space-y-6">
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="questions">Questions</TabsTrigger>
+            <TabsTrigger value="certificates">
+              <Award className="w-4 h-4 mr-2" />
+              Certificates
+            </TabsTrigger>
             <TabsTrigger value="import">Import</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview">
-            {/* Stats Grid */}
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -490,7 +473,6 @@ const Admin = () => {
                 </div>
               </CardHeader>
               <CardContent>
-                {/* Filters */}
                 <div className="flex gap-4 mb-6">
                   <div className="flex-1 relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -514,7 +496,6 @@ const Admin = () => {
                   </Select>
                 </div>
 
-                {/* Table */}
                 <div className="rounded-md border">
                   <Table>
                     <TableHeader>
@@ -555,6 +536,10 @@ const Admin = () => {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="certificates">
+            <AdminCertificates />
           </TabsContent>
 
           <TabsContent value="import">
