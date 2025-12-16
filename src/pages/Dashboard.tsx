@@ -7,7 +7,7 @@ import { DonationButton } from '@/components/DonationButton';
 import { PracticeModes } from '@/components/dashboard/PracticeModes';
 import { RecentSessions } from '@/components/dashboard/RecentSessions';
 import { StreakCard } from '@/components/dashboard/StreakCard';
-import { StatsCard } from '@/components/dashboard/StatsCard';
+import { LevelProgressCard } from '@/components/dashboard/LevelProgressCard';
 import { CertificatesCard } from '@/components/dashboard/CertificatesCard';
 import { MobileStatsHeader } from '@/components/dashboard/MobileStatsHeader';
 import { useAuth } from '@/contexts/AuthContext';
@@ -16,14 +16,15 @@ import type { CEFRLevel } from '@/lib/constants';
 
 const Dashboard = () => {
   const { profile, user } = useAuth();
-  const { sessions, stats, fetchRecentSessions, fetchStats } = useProgress(user?.id);
+  const { sessions, stats, levelStats, fetchRecentSessions, fetchStats, fetchLevelStats } = useProgress(user?.id);
 
   useEffect(() => {
     if (user) {
       fetchRecentSessions();
       fetchStats();
+      fetchLevelStats();
     }
-  }, [user, fetchRecentSessions, fetchStats]);
+  }, [user, fetchRecentSessions, fetchStats, fetchLevelStats]);
 
   const currentLevel = (profile?.current_cefr || 'A1') as CEFRLevel;
   const currentXP = profile?.xp || 0;
@@ -47,6 +48,7 @@ const Dashboard = () => {
                 totalAttempts={stats.totalAttempts}
                 totalCorrect={stats.totalCorrect}
                 accuracy={stats.accuracy}
+                levelStats={levelStats}
               />
             </div>
 
@@ -65,12 +67,7 @@ const Dashboard = () => {
               streak={currentStreak} 
               lastPracticeDate={profile?.last_practice_date || null} 
             />
-            <StatsCard
-              totalXP={currentXP}
-              totalAttempts={stats.totalAttempts}
-              totalCorrect={stats.totalCorrect}
-              accuracy={stats.accuracy}
-            />
+            <LevelProgressCard levelStats={levelStats} />
             <CertificatesCard userId={user?.id} />
 
             {/* Donation Card */}
