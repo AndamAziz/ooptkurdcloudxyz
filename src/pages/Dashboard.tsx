@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { Trophy } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Header } from '@/components/Header';
 import { DonationButton } from '@/components/DonationButton';
+import { SpeedometerGauge } from '@/components/SpeedometerGauge';
 
 import { PracticeModes } from '@/components/dashboard/PracticeModes';
 import { RecentSessions } from '@/components/dashboard/RecentSessions';
@@ -67,6 +68,22 @@ const Dashboard = () => {
               streak={currentStreak} 
               lastPracticeDate={profile?.last_practice_date || null} 
             />
+            
+            {/* Your Stats Gauge Card */}
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg">Your Stats</CardTitle>
+              </CardHeader>
+              <CardContent className="flex justify-center">
+                <SpeedometerGauge 
+                  percentage={stats.accuracy} 
+                  size="md" 
+                  showLabel={true}
+                  showPercentage={true}
+                />
+              </CardContent>
+            </Card>
+            
             <LevelProgressCard levelStats={levelStats} />
             <CertificatesCard userId={user?.id} />
 
