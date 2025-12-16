@@ -94,6 +94,7 @@ const Admin = () => {
   const [isImporting, setIsImporting] = useState(false);
   const [importProgress, setImportProgress] = useState({ current: 0, total: 0 });
   const [isDeletingAll, setIsDeletingAll] = useState(false);
+  const [deleteLevelFilter, setDeleteLevelFilter] = useState<string>('all');
 
   useEffect(() => {
     fetchData();
@@ -458,10 +459,18 @@ const Admin = () => {
     }
   };
 
-  const deleteAllQuestions = async () => {
+  const deleteAllQuestions = async (level?: string) => {
     setIsDeletingAll(true);
     try {
-      const { error } = await supabase.from('questions').delete().neq('id', 0);
+      let query = supabase.from('questions').delete();
+      
+      if (level && level !== 'all') {
+        query = query.eq('cefr', level as CEFRLevel);
+      } else {
+        query = query.neq('id', 0);
+      }
+      
+      const { error } = await query;
       
       if (error) {
         toast({
@@ -470,12 +479,20 @@ const Admin = () => {
           variant: 'destructive',
         });
       } else {
+        const levelText = level && level !== 'all' ? `${level} level` : 'All';
         toast({ 
-          title: 'All questions deleted',
-          description: 'The question bank has been cleared',
+          title: `${levelText} questions deleted`,
+          description: level && level !== 'all' 
+            ? `All ${level} questions have been removed` 
+            : 'The question bank has been cleared',
         });
-        setQuestions([]);
+        if (level && level !== 'all') {
+          setQuestions(questions.filter(q => q.cefr !== level));
+        } else {
+          setQuestions([]);
+        }
         fetchData();
+        setDeleteLevelFilter('all');
       }
     } catch {
       toast({
@@ -486,6 +503,13 @@ const Admin = () => {
     } finally {
       setIsDeletingAll(false);
     }
+  };
+
+  const getDeleteCount = () => {
+    if (deleteLevelFilter === 'all') {
+      return stats.totalQuestions;
+    }
+    return stats.questionsByLevel[deleteLevelFilter] || 0;
   };
 
   const filteredQuestions = questions.filter(q => {
@@ -560,27 +584,48 @@ const Admin = () => {
                         className="gap-2"
                       >
                         <Trash2 className="w-4 h-4" />
-                        Delete All ({stats.totalQuestions})
+                        Delete Questions
                       </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
                         <AlertDialogTitle className="flex items-center gap-2 text-destructive">
                           <AlertTriangle className="w-5 h-5" />
-                          Delete All Questions?
+                          Delete Questions
                         </AlertDialogTitle>
-                        <AlertDialogDescription>
-                          This will permanently delete <strong>{stats.totalQuestions.toLocaleString()}</strong> questions from the database. 
-                          This action cannot be undone.
+                        <AlertDialogDescription asChild>
+                          <div className="space-y-4">
+                            <p>Select which questions to delete:</p>
+                            <Select value={deleteLevelFilter} onValueChange={setDeleteLevelFilter}>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select level" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="all">
+                                  All Levels ({stats.totalQuestions.toLocaleString()} questions)
+                                </SelectItem>
+                                {CEFR_LEVELS.map(level => (
+                                  <SelectItem key={level} value={level}>
+                                    {level} ({(stats.questionsByLevel[level] || 0).toLocaleString()} questions)
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <p className="text-destructive font-medium">
+                              This will permanently delete <strong>{getDeleteCount().toLocaleString()}</strong> questions. 
+                              This action cannot be undone.
+                            </p>
+                          </div>
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel onClick={() => setDeleteLevelFilter('all')}>Cancel</AlertDialogCancel>
                         <AlertDialogAction
-                          onClick={deleteAllQuestions}
+                          onClick={() => deleteAllQuestions(deleteLevelFilter)}
+                          disabled={getDeleteCount() === 0}
                           className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                         >
-                          {isDeletingAll ? 'Deleting...' : 'Yes, Delete All'}
+                          {isDeletingAll ? 'Deleting...' : `Delete ${deleteLevelFilter === 'all' ? 'All' : deleteLevelFilter} (${getDeleteCount()})`}
                         </AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
