@@ -42,6 +42,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Header } from '@/components/Header';
 import { CEFRBadge } from '@/components/CEFRBadge';
+import { SpeedometerGauge } from '@/components/SpeedometerGauge';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -388,22 +389,16 @@ const AdminStudentProfile = () => {
             </CardContent>
           </Card>
 
+          {/* Accuracy Gauge Card */}
           <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 rounded-full bg-yellow-500/10">
-                  <TrendingUp className="w-6 h-6 text-yellow-500" />
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Total XP</p>
-                  <p className="text-2xl font-bold">{profile.xp.toLocaleString()}</p>
-                </div>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Accuracy: <span className={attemptStats.accuracy >= 70 ? 'text-green-500' : 'text-yellow-500'}>
-                  {attemptStats.accuracy}%
-                </span>
-              </p>
+            <CardContent className="p-6 flex flex-col items-center justify-center">
+              <p className="text-sm text-muted-foreground mb-2">Overall Accuracy</p>
+              <SpeedometerGauge
+                percentage={attemptStats.accuracy}
+                size="sm"
+                showLabel={false}
+                showPercentage={true}
+              />
             </CardContent>
           </Card>
 

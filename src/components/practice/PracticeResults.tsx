@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle2, Home, RotateCcw } from 'lucide-react';
+import { Home, RotateCcw, Trophy } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { SpeedometerGauge } from '@/components/SpeedometerGauge';
 
 interface PracticeResultsProps {
   totalQuestions: number;
@@ -23,22 +24,27 @@ export const PracticeResults = ({
     <Card className="animate-scale-in w-full max-w-full">
       <CardHeader className="text-center pb-2 p-4 md:p-6">
         <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-3 md:mb-4">
-          <CheckCircle2 className="w-8 h-8 md:w-10 md:h-10 text-success" />
+          <Trophy className="w-8 h-8 md:w-10 md:h-10 text-success" />
         </div>
         <CardTitle className="font-serif text-xl md:text-2xl">Session Complete!</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4 md:space-y-6 p-4 md:p-6 pt-0">
-        <div className="grid grid-cols-2 gap-3 md:gap-4 text-center">
-          <div className="p-3 md:p-4 rounded-lg bg-muted">
-            <p className="text-2xl md:text-3xl font-bold">{correctCount}/{totalQuestions}</p>
-            <p className="text-xs md:text-sm text-muted-foreground">Correct</p>
-          </div>
-          <div className="p-3 md:p-4 rounded-lg bg-muted">
-            <p className="text-2xl md:text-3xl font-bold">{accuracy}%</p>
-            <p className="text-xs md:text-sm text-muted-foreground">Accuracy</p>
-          </div>
+        {/* Speedometer Gauge */}
+        <div className="flex justify-center py-2">
+          <SpeedometerGauge 
+            percentage={accuracy} 
+            size="md"
+            showLabel={true}
+            showPercentage={true}
+          />
         </div>
 
+        {/* Score breakdown */}
+        <div className="text-center text-muted-foreground">
+          You scored <span className="font-semibold text-foreground">{correctCount}</span> out of <span className="font-semibold text-foreground">{totalQuestions}</span> correct
+        </div>
+
+        {/* XP earned */}
         <div className="p-3 md:p-4 rounded-lg bg-success/10 text-center">
           <p className="text-xl md:text-2xl font-bold text-success">+{xpEarned} XP</p>
           <p className="text-xs md:text-sm text-muted-foreground">Experience earned</p>
