@@ -22,7 +22,7 @@ const LEVEL_COMPLETION_THRESHOLD = 60;
 const Dashboard = () => {
   const { profile, user } = useAuth();
   const { sessions, stats, levelStats, fetchRecentSessions, fetchStats, fetchLevelStats } = useProgress(user?.id);
-  const { progress: questionProgress, fetchProgress } = useQuestionProgress(user?.id);
+  const { progress: questionProgress, fetchProgress, getLevelProgress } = useQuestionProgress(user?.id);
 
   useEffect(() => {
     if (user) {
@@ -33,42 +33,24 @@ const Dashboard = () => {
     }
   }, [user, fetchRecentSessions, fetchStats, fetchLevelStats, fetchProgress]);
 
-  // Calculate the effective current level based on levelStats (same data as sidebar)
+  // Calculate the effective current level based on profile
   const currentLevel = useMemo((): CEFRLevel => {
-    if (!levelStats || levelStats.length === 0) {
-      return (profile?.current_cefr as CEFRLevel) || 'A1';
-    }
+    return (profile?.current_cefr as CEFRLevel) || 'A1';
+  }, [profile?.current_cefr]);
 
-    // Use the same logic as LevelProgressCard for consistency
-    const isLevelUnlocked = (index: number): boolean => {
-      if (index === 0) return true;
-      const prevLevel = levelStats[index - 1];
-      return prevLevel.attempts >= 10 && prevLevel.accuracy >= LEVEL_COMPLETION_THRESHOLD;
-    };
-
-    const isLevelCompleted = (index: number): boolean => {
-      if (!isLevelUnlocked(index)) return false;
-      const level = levelStats[index];
-      return level.attempts >= 10 && level.accuracy >= LEVEL_COMPLETION_THRESHOLD;
-    };
-
-    // Find the first unlocked level that isn't completed
-    for (let i = 0; i < levelStats.length; i++) {
-      if (!isLevelUnlocked(i)) {
-        return levelStats[Math.max(0, i - 1)].level;
-      }
-      if (!isLevelCompleted(i)) {
-        return levelStats[i].level;
-      }
-    }
-    
-    // All levels completed, return last level
-    return levelStats[levelStats.length - 1].level;
-  }, [levelStats, profile?.current_cefr]);
+  // Get current level stats from questionProgress
+  const currentLevelStats = useMemo(() => {
+    return getLevelProgress(currentLevel);
+  }, [currentLevel, getLevelProgress]);
 
   const currentXP = profile?.xp || 0;
   const currentStreak = profile?.streak || 0;
   const displayName = profile?.display_name || profile?.username || 'Student';
+
+  // Current level accuracy (not overall)
+  const currentLevelAccuracy = currentLevelStats?.accuracy || 0;
+  const currentLevelAnswered = currentLevelStats?.answered_questions || 0;
+  const currentLevelTotal = currentLevelStats?.total_questions || 0;
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -86,8 +68,12 @@ const Dashboard = () => {
                 totalXP={currentXP}
                 totalAttempts={stats.totalAttempts}
                 totalCorrect={stats.totalCorrect}
-                accuracy={stats.accuracy}
-                levelStats={levelStats}
+                overallAccuracy={stats.accuracy}
+                currentLevel={currentLevel}
+                currentLevelAccuracy={currentLevelAccuracy}
+                currentLevelAnswered={currentLevelAnswered}
+                currentLevelTotal={currentLevelTotal}
+                questionProgress={questionProgress}
               />
             </div>
 
@@ -116,22 +102,26 @@ const Dashboard = () => {
               lastPracticeDate={profile?.last_practice_date || null} 
             />
             
-            {/* Your Stats Gauge Card */}
+            {/* Current Level Stats Gauge Card */}
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-lg">Your Stats</CardTitle>
+                <CardTitle className="text-lg">{currentLevel} Level Accuracy</CardTitle>
               </CardHeader>
-              <CardContent className="flex justify-center">
+              <CardContent className="flex flex-col items-center gap-2">
                 <SpeedometerGauge 
-                  percentage={stats.accuracy} 
+                  percentage={currentLevelAccuracy} 
                   size="md" 
                   showLabel={true}
                   showPercentage={true}
                 />
+                <p className="text-sm text-muted-foreground">
+                  {currentLevelAnswered}/{currentLevelTotal} questions answered
+                </p>
               </CardContent>
             </Card>
             
-            <LevelProgressCard levelStats={levelStats} />
+            {/* Level Progress with per-level accuracy */}
+            <LevelProgressCard levelStats={levelStats} questionProgress={questionProgress} />
             <CertificateProgressCard userId={user?.id} />
 
             {/* Donation Card */}
