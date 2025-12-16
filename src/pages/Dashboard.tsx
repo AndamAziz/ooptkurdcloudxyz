@@ -9,7 +9,7 @@ import { PracticeModes } from '@/components/dashboard/PracticeModes';
 import { RecentSessions } from '@/components/dashboard/RecentSessions';
 import { StreakCard } from '@/components/dashboard/StreakCard';
 import { LevelProgressCard } from '@/components/dashboard/LevelProgressCard';
-import { CertificatesCard } from '@/components/dashboard/CertificatesCard';
+import { CertificateProgressCard } from '@/components/dashboard/CertificateProgressCard';
 import { MobileStatsHeader } from '@/components/dashboard/MobileStatsHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProgress } from '@/hooks/useProgress';
@@ -103,9 +103,9 @@ const Dashboard = () => {
             />
             <RecentSessions sessions={sessions} />
             
-            {/* Certificates - Mobile only */}
+            {/* Certificate Progress - Mobile only */}
             <div className="lg:hidden">
-              <CertificatesCard userId={user?.id} />
+              <CertificateProgressCard userId={user?.id} />
             </div>
           </div>
 
@@ -132,7 +132,7 @@ const Dashboard = () => {
             </Card>
             
             <LevelProgressCard levelStats={levelStats} />
-            <CertificatesCard userId={user?.id} />
+            <CertificateProgressCard userId={user?.id} />
 
             {/* Donation Card */}
             <Card className="border-2 border-dashed">

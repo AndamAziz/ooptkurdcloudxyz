@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { PracticeSetup } from '@/components/practice/PracticeSetup';
@@ -11,9 +11,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useQuestions, type AnswerResult } from '@/hooks/useQuestions';
 import { useProgress } from '@/hooks/useProgress';
 import { useQuestionProgress } from '@/hooks/useQuestionProgress';
-import { useCertificateAward } from '@/hooks/useCertificateAward';
+import { useCertificates, type Certificate } from '@/hooks/useCertificates';
 import { useToast } from '@/hooks/use-toast';
-import type { Certificate } from '@/hooks/useCertificates';
 import { 
   PRACTICE_MODES, 
   TIMED_DURATION_SECONDS, 
@@ -43,13 +42,16 @@ const Practice = () => {
     updateUserXP 
   } = useProgress(user?.id);
 
-  const { checkAndAwardCertificate } = useCertificateAward(user?.id);
+  const { certificates, fetchUserCertificates } = useCertificates(user?.id);
   
   const { 
     getLevelProgress, 
     resetLevelProgress, 
     fetchProgress 
   } = useQuestionProgress(user?.id);
+
+  // Store certificates count before session to detect new ones
+  const certificatesBeforeSession = useRef<string[]>([]);
 
   const [state, setState] = useState<PracticeState>('setup');
   const [mode, setMode] = useState(searchParams.get('mode') || PRACTICE_MODES.TEN_QUESTIONS);
@@ -90,6 +92,10 @@ const Practice = () => {
 
   const startSession = async () => {
     if (!user) return;
+
+    // Store current certificates before session starts
+    await fetchUserCertificates();
+    certificatesBeforeSession.current = certificates.map(c => c.id);
 
     // Check if there are remaining questions
     const currentLevelProgress = getLevelProgress(selectedLevel);
@@ -184,46 +190,31 @@ const Practice = () => {
       await endSession(sessionId, totalQuestions, correctCount, xpEarned, summary);
     }
 
-    const oldXP = profile?.xp || 0;
-    const newXP = oldXP + xpEarned;
-
     if (profile) {
       await updateUserXP(profile.xp, xpEarned);
       await refreshProfile();
     }
 
-    // Check if user earned a certificate
-    const awardResult = await checkAndAwardCertificate(
-      oldXP,
-      newXP,
-      accuracy,
-      totalQuestions,
-      correctCount
+    // Wait a moment for the database trigger to potentially create a certificate
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // Fetch certificates again to check for new ones
+    await fetchUserCertificates();
+    
+    // Check if a new certificate was awarded for the current level
+    const newCert = certificates.find(c => 
+      !certificatesBeforeSession.current.includes(c.id) && 
+      c.cefr_level === selectedLevel &&
+      c.status === 'earned'
     );
 
-    if (awardResult.awarded && awardResult.certificate) {
-      const now = new Date().toISOString();
-      // Cast the certificate to the full Certificate type
-      const fullCertificate: Certificate = {
-        id: awardResult.certificate.id,
-        user_id: user?.id || '',
-        certificate_type: awardResult.certificate.certificate_type as 'level_completion' | 'course_completion' | 'excellence',
-        cefr_level: awardResult.certificate.cefr_level,
-        issued_at: now,
-        certificate_number: awardResult.certificate.certificate_number,
-        score_percentage: awardResult.certificate.score_percentage,
-        total_questions_answered: totalQuestions,
-        total_correct: correctCount,
-        study_hours: 0,
-        status: 'earned',
-        pdf_url: null,
-        verified_by_admin: false,
-        admin_notes: null,
-        created_at: now,
-        updated_at: now,
-      };
-      setEarnedCertificate(fullCertificate);
+    if (newCert) {
+      setEarnedCertificate(newCert);
       setShowCertificateModal(true);
+      toast({
+        title: '🎉 Certificate Earned!',
+        description: `Congratulations! You earned your ${selectedLevel} certificate!`,
+      });
     }
 
     setState('results');
@@ -240,6 +231,7 @@ const Practice = () => {
     setState('setup');
     // Refresh progress after practice
     fetchProgress();
+    fetchUserCertificates();
   };
 
   const handleResetProgress = async () => {
