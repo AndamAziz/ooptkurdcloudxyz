@@ -48,7 +48,13 @@ export const QuestionCard = ({
   }, [question.id, stop]);
 
   const handleReadQuestion = () => {
-    readQuestion(question.prompt, options);
+    if (isMuted) {
+      toggleMute();
+      return;
+    }
+    // Clean prompt: remove identifiers like (v443), (q123), etc.
+    const cleanPrompt = question.prompt.replace(/\s*\([a-zA-Z]*\d+\)\s*$/, '').trim();
+    readQuestion(cleanPrompt, options);
   };
 
   return (
@@ -56,35 +62,21 @@ export const QuestionCard = ({
       <CardContent className="p-4 md:p-6 lg:p-8">
         <div className="flex items-start justify-between gap-2 mb-6 md:mb-8">
           <p className="text-base md:text-lg leading-relaxed flex-1">{question.prompt}</p>
-          <div className="flex gap-1 flex-shrink-0">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleReadQuestion}
-              disabled={isMuted}
-              className="h-8 w-8"
-              title="Read question aloud"
-            >
-              {isSpeaking ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <Volume2 className="h-4 w-4" />
-              )}
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleMute}
-              className="h-8 w-8"
-              title={isMuted ? "Unmute voice" : "Mute voice"}
-            >
-              {isMuted ? (
-                <VolumeX className="h-4 w-4 text-muted-foreground" />
-              ) : (
-                <Volume2 className="h-4 w-4 text-primary" />
-              )}
-            </Button>
-          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleReadQuestion}
+            className="h-8 w-8 flex-shrink-0"
+            title={isMuted ? "Unmute and read question" : "Read question aloud"}
+          >
+            {isSpeaking ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : isMuted ? (
+              <VolumeX className="h-4 w-4 text-muted-foreground" />
+            ) : (
+              <Volume2 className="h-4 w-4" />
+            )}
+          </Button>
         </div>
 
         <div className="space-y-2 md:space-y-3">
