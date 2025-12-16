@@ -1,8 +1,10 @@
-import { CheckCircle2, XCircle, ArrowRight } from 'lucide-react';
+import { CheckCircle2, XCircle, ArrowRight, Volume2, VolumeX, Loader2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import type { Question, AnswerResult } from '@/hooks/useQuestions';
+import { useVoiceReader } from '@/hooks/useVoiceReader';
+import { useEffect } from 'react';
 
 interface QuestionCardProps {
   question: Question;
@@ -23,6 +25,7 @@ export const QuestionCard = ({
   onNext,
   isLastQuestion,
 }: QuestionCardProps) => {
+  const { isMuted, isSpeaking, readQuestion, speakFeedback, toggleMute, stop } = useVoiceReader();
   const isFeedback = selectedAnswer !== null && answerResult !== null;
 
   const options = [
@@ -30,12 +33,59 @@ export const QuestionCard = ({
     { key: 'B', value: question.options_b },
     { key: 'C', value: question.options_c },
     { key: 'D', value: question.options_d },
-  ].filter(o => o.value);
+  ].filter(o => o.value) as { key: string; value: string }[];
+
+  // Speak feedback when answer is submitted
+  useEffect(() => {
+    if (isFeedback && isCorrect !== null) {
+      speakFeedback(isCorrect);
+    }
+  }, [isFeedback, isCorrect, speakFeedback]);
+
+  // Stop speaking when moving to next question
+  useEffect(() => {
+    return () => stop();
+  }, [question.id, stop]);
+
+  const handleReadQuestion = () => {
+    readQuestion(question.prompt, options);
+  };
 
   return (
     <Card className="animate-fade-in w-full max-w-full">
       <CardContent className="p-4 md:p-6 lg:p-8">
-        <p className="text-base md:text-lg leading-relaxed mb-6 md:mb-8">{question.prompt}</p>
+        <div className="flex items-start justify-between gap-2 mb-6 md:mb-8">
+          <p className="text-base md:text-lg leading-relaxed flex-1">{question.prompt}</p>
+          <div className="flex gap-1 flex-shrink-0">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleReadQuestion}
+              disabled={isMuted}
+              className="h-8 w-8"
+              title="Read question aloud"
+            >
+              {isSpeaking ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Volume2 className="h-4 w-4" />
+              )}
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleMute}
+              className="h-8 w-8"
+              title={isMuted ? "Unmute voice" : "Mute voice"}
+            >
+              {isMuted ? (
+                <VolumeX className="h-4 w-4 text-muted-foreground" />
+              ) : (
+                <Volume2 className="h-4 w-4 text-primary" />
+              )}
+            </Button>
+          </div>
+        </div>
 
         <div className="space-y-2 md:space-y-3">
           {options.map((option) => {
