@@ -116,7 +116,7 @@ const Practice = () => {
     let fetchedQuestions;
     
     if (isPlacementMode) {
-      // For placement test, fetch 50 questions from each level (300 total)
+      // For placement test, fetch all available questions across all levels (currently 230)
       fetchedQuestions = await fetchPlacementQuestions(user.id, 50);
     } else {
       // Fetch fresh questions - returns the questions directly
