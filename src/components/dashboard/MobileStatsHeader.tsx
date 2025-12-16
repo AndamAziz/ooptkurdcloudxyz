@@ -1,12 +1,13 @@
-import { Flame, Target, CheckCircle, Zap, TrendingUp, Award, Lock } from 'lucide-react';
+import { Flame, Target, CheckCircle, Zap, TrendingUp, Award, Lock, ChevronDown } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { SpeedometerGauge } from '@/components/SpeedometerGauge';
 import { Progress } from '@/components/ui/progress';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { isToday, isYesterday, parseISO } from 'date-fns';
 import { cn } from '@/lib/utils';
 import type { LevelProgress } from '@/hooks/useQuestionProgress';
 import type { CEFRLevel } from '@/lib/constants';
-
+import { CEFR_LEVELS } from '@/lib/constants';
 interface MobileStatsHeaderProps {
   streak: number;
   lastPracticeDate: string | null;
@@ -101,9 +102,24 @@ export const MobileStatsHeader = ({
                   <p className="text-[10px] sm:text-xs text-white/40">No data yet</p>
                 </div>
               )}
-              <p className="text-[9px] sm:text-[10px] text-white/70 mt-1 text-center">
-                {currentLevel} Level ({currentLevelAnswered}/{currentLevelTotal})
-              </p>
+              {onLevelChange ? (
+                <Select value={currentLevel} onValueChange={(val) => onLevelChange(val as CEFRLevel)}>
+                  <SelectTrigger className="h-5 w-auto min-w-[80px] bg-white/10 border-white/20 text-white text-[9px] sm:text-[10px] px-2 py-0 mt-1">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {CEFR_LEVELS.map((level) => (
+                      <SelectItem key={level} value={level} className="text-xs">
+                        {level} ({questionProgress.find(p => p.cefr === level)?.answered_questions || 0}/{questionProgress.find(p => p.cefr === level)?.total_questions || 0})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : (
+                <p className="text-[9px] sm:text-[10px] text-white/70 mt-1 text-center">
+                  {currentLevel} Level ({currentLevelAnswered}/{currentLevelTotal})
+                </p>
+              )}
             </div>
           </div>
         </div>
