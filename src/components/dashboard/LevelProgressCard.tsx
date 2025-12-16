@@ -8,9 +8,10 @@ import { cn } from '@/lib/utils';
 interface LevelProgressCardProps {
   levelStats: LevelStats[];
   compact?: boolean;
+  currentLevel?: string;
 }
 
-export const LevelProgressCard = ({ levelStats, compact = false }: LevelProgressCardProps) => {
+export const LevelProgressCard = ({ levelStats, compact = false, currentLevel }: LevelProgressCardProps) => {
   const getProgressColor = (accuracy: number) => {
     if (accuracy >= 80) return 'bg-green-500';
     if (accuracy >= 60) return 'bg-emerald-400';
@@ -25,39 +26,84 @@ export const LevelProgressCard = ({ levelStats, compact = false }: LevelProgress
     return prevLevel.attempts >= 10 && prevLevel.accuracy >= 60;
   };
 
+  // Find current level index (first unlocked level without 60%+ accuracy)
+  const getCurrentLevelIndex = () => {
+    for (let i = 0; i < levelStats.length; i++) {
+      if (!isLevelUnlocked(i)) return i - 1;
+      if (levelStats[i].accuracy < 60 || levelStats[i].attempts < 10) return i;
+    }
+    return levelStats.length - 1;
+  };
+
+  const currentLevelIndex = getCurrentLevelIndex();
+
   if (compact) {
     return (
-      <div className="grid grid-cols-6 gap-1.5">
+      <div className="grid grid-cols-6 gap-1 sm:gap-1.5">
         {levelStats.map((level, index) => {
           const unlocked = isLevelUnlocked(index);
           const hasProgress = level.attempts > 0;
+          const isCurrentLevel = index === currentLevelIndex;
+          const isCompleted = unlocked && hasProgress && level.accuracy >= 60 && level.attempts >= 10;
           
           return (
             <div 
               key={level.level}
               className={cn(
-                "relative flex flex-col items-center p-2 rounded-lg border transition-all",
-                !unlocked && "opacity-50 bg-muted/50",
-                unlocked && hasProgress && "bg-gradient-to-b from-primary/10 to-transparent border-primary/30",
-                unlocked && !hasProgress && "border-dashed border-muted-foreground/30"
+                "relative flex flex-col items-center p-1.5 sm:p-2 rounded-lg border transition-all min-w-[48px] sm:min-w-[60px] min-h-[58px] sm:min-h-[70px]",
+                // Locked state
+                !unlocked && "opacity-50 bg-muted/50 border-muted",
+                // Current level - glowing blue border
+                isCurrentLevel && unlocked && "ring-2 ring-primary ring-offset-1 ring-offset-background bg-gradient-to-b from-primary/15 to-primary/5 border-primary/40 shadow-lg shadow-primary/20",
+                // Completed level
+                isCompleted && !isCurrentLevel && "bg-gradient-to-b from-green-500/10 to-transparent border-green-500/30",
+                // Unlocked but not started
+                unlocked && !hasProgress && !isCurrentLevel && "border-dashed border-muted-foreground/30 hover:border-primary/50"
               )}
             >
+              {/* Lock icon for locked levels */}
               {!unlocked && (
-                <Lock className="w-3 h-3 absolute top-1 right-1 text-muted-foreground" />
+                <Lock className="w-3 h-3 sm:w-3.5 sm:h-3.5 absolute top-0.5 right-0.5 text-muted-foreground" />
               )}
-              <span className="text-xs font-bold">{level.level}</span>
-              {hasProgress ? (
+              
+              {/* Checkmark for completed levels */}
+              {isCompleted && (
+                <CheckCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5 absolute top-0.5 right-0.5 text-green-500" />
+              )}
+              
+              {/* Level name */}
+              <span className={cn(
+                "text-xs sm:text-sm font-bold",
+                isCurrentLevel && "text-primary",
+                isCompleted && "text-green-600 dark:text-green-400"
+              )}>
+                {level.level}
+              </span>
+              
+              {/* Progress indicator */}
+              {hasProgress && unlocked ? (
                 <>
-                  <div className={cn(
-                    "w-6 h-1 rounded-full mt-1",
-                    getProgressColor(level.accuracy)
-                  )} />
-                  <span className="text-[10px] text-muted-foreground mt-0.5">
+                  {/* Mini progress bar */}
+                  <div className="w-full h-1 sm:h-1.5 rounded-full bg-muted mt-1 overflow-hidden">
+                    <div 
+                      className={cn("h-full rounded-full transition-all", getProgressColor(level.accuracy))}
+                      style={{ width: `${Math.min(level.accuracy, 100)}%` }}
+                    />
+                  </div>
+                  <span className={cn(
+                    "text-[10px] sm:text-xs mt-0.5 font-medium",
+                    level.accuracy >= 60 ? "text-green-600 dark:text-green-400" : "text-muted-foreground"
+                  )}>
                     {level.accuracy}%
                   </span>
                 </>
+              ) : !unlocked ? (
+                <div className="flex flex-col items-center mt-1">
+                  <Lock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground/60" />
+                  <span className="text-[9px] sm:text-[10px] text-muted-foreground mt-0.5">Locked</span>
+                </div>
               ) : (
-                <span className="text-[10px] text-muted-foreground mt-1">-</span>
+                <span className="text-[10px] sm:text-xs text-muted-foreground mt-1">-</span>
               )}
             </div>
           );
@@ -83,6 +129,8 @@ export const LevelProgressCard = ({ levelStats, compact = false }: LevelProgress
           {levelStats.map((level, index) => {
             const unlocked = isLevelUnlocked(index);
             const hasProgress = level.attempts > 0;
+            const isCurrentLevelItem = index === currentLevelIndex;
+            const isCompleted = unlocked && hasProgress && level.accuracy >= 60 && level.attempts >= 10;
             
             return (
               <div 
@@ -90,16 +138,22 @@ export const LevelProgressCard = ({ levelStats, compact = false }: LevelProgress
                 className={cn(
                   "p-3 rounded-lg border transition-all",
                   !unlocked && "opacity-60 bg-muted/30",
-                  unlocked && hasProgress && "bg-card",
-                  unlocked && !hasProgress && "border-dashed"
+                  isCurrentLevelItem && unlocked && "ring-2 ring-primary border-primary/40 bg-primary/5",
+                  isCompleted && !isCurrentLevelItem && "border-green-500/30 bg-green-500/5",
+                  unlocked && !hasProgress && !isCurrentLevelItem && "border-dashed"
                 )}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <CEFRBadge level={level.level} size="sm" />
                     {!unlocked && <Lock className="w-3.5 h-3.5 text-muted-foreground" />}
-                    {hasProgress && level.accuracy >= 60 && (
+                    {isCompleted && (
                       <CheckCircle className="w-4 h-4 text-green-500" />
+                    )}
+                    {isCurrentLevelItem && unlocked && (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary/20 text-primary font-medium">
+                        Current
+                      </span>
                     )}
                   </div>
                   <div className="text-right text-sm">
