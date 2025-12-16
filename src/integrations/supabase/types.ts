@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_logs: {
+        Row: {
+          action_type: string
+          admin_id: string
+          created_at: string
+          details: Json | null
+          id: string
+          target_user_id: string | null
+        }
+        Insert: {
+          action_type: string
+          admin_id: string
+          created_at?: string
+          details?: Json | null
+          id?: string
+          target_user_id?: string | null
+        }
+        Update: {
+          action_type?: string
+          admin_id?: string
+          created_at?: string
+          details?: Json | null
+          id?: string
+          target_user_id?: string | null
+        }
+        Relationships: []
+      }
       attempts: {
         Row: {
           chosen_answer: string | null
@@ -178,34 +205,49 @@ export type Database = {
       }
       profiles: {
         Row: {
+          account_status: string | null
           created_at: string
           current_cefr: Database["public"]["Enums"]["cefr_level"] | null
           display_name: string | null
           id: string
+          last_active_at: string | null
           last_practice_date: string | null
+          longest_streak: number | null
+          registration_source: string | null
           streak: number | null
+          total_practice_time_minutes: number | null
           user_id: string
           username: string | null
           xp: number | null
         }
         Insert: {
+          account_status?: string | null
           created_at?: string
           current_cefr?: Database["public"]["Enums"]["cefr_level"] | null
           display_name?: string | null
           id?: string
+          last_active_at?: string | null
           last_practice_date?: string | null
+          longest_streak?: number | null
+          registration_source?: string | null
           streak?: number | null
+          total_practice_time_minutes?: number | null
           user_id: string
           username?: string | null
           xp?: number | null
         }
         Update: {
+          account_status?: string | null
           created_at?: string
           current_cefr?: Database["public"]["Enums"]["cefr_level"] | null
           display_name?: string | null
           id?: string
+          last_active_at?: string | null
           last_practice_date?: string | null
+          longest_streak?: number | null
+          registration_source?: string | null
           streak?: number | null
+          total_practice_time_minutes?: number | null
           user_id?: string
           username?: string | null
           xp?: number | null

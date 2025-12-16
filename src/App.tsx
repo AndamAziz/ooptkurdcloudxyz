@@ -11,6 +11,7 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Practice from "./pages/Practice";
 import Admin from "./pages/Admin";
+import AdminStudentProfile from "./pages/AdminStudentProfile";
 import Leaderboard from "./pages/Leaderboard";
 import Install from "./pages/Install";
 import Certificates from "./pages/Certificates";
@@ -62,6 +63,14 @@ const App = () => (
                 element={
                   <ProtectedRoute requireAdmin>
                     <Admin />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/students/:userId"
+                element={
+                  <ProtectedRoute requireAdmin>
+                    <AdminStudentProfile />
                   </ProtectedRoute>
                 }
               />
