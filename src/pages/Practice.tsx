@@ -10,6 +10,7 @@ import { CertificateEarnedModal } from '@/components/certificates/CertificateEar
 import { useAuth } from '@/contexts/AuthContext';
 import { useQuestions, type AnswerResult } from '@/hooks/useQuestions';
 import { useProgress } from '@/hooks/useProgress';
+import { useQuestionProgress } from '@/hooks/useQuestionProgress';
 import { useCertificateAward } from '@/hooks/useCertificateAward';
 import { useToast } from '@/hooks/use-toast';
 import type { Certificate } from '@/hooks/useCertificates';
@@ -43,6 +44,12 @@ const Practice = () => {
   } = useProgress(user?.id);
 
   const { checkAndAwardCertificate } = useCertificateAward(user?.id);
+  
+  const { 
+    getLevelProgress, 
+    resetLevelProgress, 
+    fetchProgress 
+  } = useQuestionProgress(user?.id);
 
   const [state, setState] = useState<PracticeState>('setup');
   const [mode, setMode] = useState(searchParams.get('mode') || PRACTICE_MODES.TEN_QUESTIONS);
@@ -63,6 +70,7 @@ const Practice = () => {
   // Certificate modal state
   const [earnedCertificate, setEarnedCertificate] = useState<Certificate | null>(null);
   const [showCertificateModal, setShowCertificateModal] = useState(false);
+  const [isResettingProgress, setIsResettingProgress] = useState(false);
 
   // Timer for timed mode
   useEffect(() => {
@@ -83,6 +91,17 @@ const Practice = () => {
   const startSession = async () => {
     if (!user) return;
 
+    // Check if there are remaining questions
+    const currentLevelProgress = getLevelProgress(selectedLevel);
+    if (currentLevelProgress && currentLevelProgress.remaining_questions === 0) {
+      toast({
+        title: 'No questions available',
+        description: `You've completed all questions in ${selectedLevel}. Reset your progress or try another level.`,
+        variant: 'destructive',
+      });
+      return;
+    }
+
     // Check rate limit
     const withinLimit = await checkRateLimit(user.id);
     if (!withinLimit) {
@@ -96,6 +115,17 @@ const Practice = () => {
 
     const limit = mode === PRACTICE_MODES.TEN_QUESTIONS ? 10 : 50;
     await fetchRandomQuestions(user.id, selectedLevel, limit);
+    
+    // Check if questions were fetched
+    if (questions.length === 0) {
+      toast({
+        title: 'No new questions',
+        description: `All questions in ${selectedLevel} have been completed. Reset your progress to try again.`,
+        variant: 'destructive',
+      });
+      await fetchProgress();
+      return;
+    }
     
     const newSessionId = await createSession(selectedLevel, mode);
     if (newSessionId) {
@@ -208,7 +238,23 @@ const Practice = () => {
     setTimeLeft(TIMED_DURATION_SECONDS);
     setSessionId(null);
     setState('setup');
+    // Refresh progress after practice
+    fetchProgress();
   };
+
+  const handleResetProgress = async () => {
+    setIsResettingProgress(true);
+    const success = await resetLevelProgress(selectedLevel);
+    setIsResettingProgress(false);
+    if (success) {
+      toast({
+        title: 'Progress Reset',
+        description: `Your ${selectedLevel} progress has been reset. You can now practice all questions again.`,
+      });
+    }
+  };
+
+  const levelProgress = getLevelProgress(selectedLevel);
 
   const studentName = profile?.display_name || profile?.username || 'Student';
   const currentQuestion = questions[currentIndex];
@@ -224,9 +270,12 @@ const Practice = () => {
             selectedLevel={selectedLevel}
             mode={mode}
             loading={questionsLoading}
+            levelProgress={levelProgress}
             onLevelChange={setSelectedLevel}
             onModeChange={setMode}
             onStart={startSession}
+            onResetProgress={handleResetProgress}
+            isResetting={isResettingProgress}
           />
         </main>
       </div>

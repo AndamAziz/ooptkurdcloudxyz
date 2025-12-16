@@ -1,4 +1,4 @@
-import { Loader2 } from 'lucide-react';
+import { Loader2, AlertTriangle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {
@@ -9,25 +9,35 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { CEFRBadge } from '@/components/CEFRBadge';
+import { QuestionProgressCard } from './QuestionProgressCard';
 import { PRACTICE_MODES, CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
+import type { LevelProgress } from '@/hooks/useQuestionProgress';
 
 interface PracticeSetupProps {
   selectedLevel: CEFRLevel;
   mode: string;
   loading: boolean;
+  levelProgress?: LevelProgress;
   onLevelChange: (level: CEFRLevel) => void;
   onModeChange: (mode: string) => void;
   onStart: () => void;
+  onResetProgress: () => void;
+  isResetting?: boolean;
 }
 
 export const PracticeSetup = ({
   selectedLevel,
   mode,
   loading,
+  levelProgress,
   onLevelChange,
   onModeChange,
   onStart,
+  onResetProgress,
+  isResetting = false,
 }: PracticeSetupProps) => {
+  const hasQuestionsRemaining = !levelProgress || levelProgress.remaining_questions > 0;
+
   return (
     <Card className="animate-fade-in w-full max-w-full">
       <CardHeader className="text-center p-4 md:p-6">
@@ -83,13 +93,30 @@ export const PracticeSetup = ({
           className="w-full min-h-[52px]" 
           size="lg" 
           onClick={onStart}
-          disabled={loading}
+          disabled={loading || !hasQuestionsRemaining}
         >
           {loading ? (
             <Loader2 className="w-4 h-4 mr-2 animate-spin" />
           ) : null}
-          Start Practice
+          {!hasQuestionsRemaining ? 'All Questions Completed' : 'Start Practice'}
         </Button>
+
+        {!hasQuestionsRemaining && (
+          <div className="flex items-center gap-2 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400">
+            <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+            <p className="text-xs">
+              You've completed all questions in {selectedLevel}. Reset your progress or try another level!
+            </p>
+          </div>
+        )}
+
+        {/* Question Progress Card */}
+        <QuestionProgressCard
+          levelProgress={levelProgress}
+          selectedLevel={selectedLevel}
+          onResetProgress={onResetProgress}
+          isResetting={isResetting}
+        />
       </CardContent>
     </Card>
   );
