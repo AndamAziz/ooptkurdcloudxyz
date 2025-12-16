@@ -9,7 +9,8 @@ import {
   FileSpreadsheet,
   CheckCircle2,
   AlertCircle,
-  Award
+  Award,
+  Activity
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -33,6 +34,9 @@ import {
 import { Header } from '@/components/Header';
 import { CEFRBadge } from '@/components/CEFRBadge';
 import { AdminCertificates } from '@/components/admin/AdminCertificates';
+import { AdminOverview } from '@/components/admin/AdminOverview';
+import { AdminStudentList } from '@/components/admin/AdminStudentList';
+import { AdminActivityFeed } from '@/components/admin/AdminActivityFeed';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
@@ -401,8 +405,12 @@ const Admin = () => {
         </div>
 
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList>
+          <TabsList className="flex-wrap">
             <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="students">
+              <Users className="w-4 h-4 mr-2" />
+              Students
+            </TabsTrigger>
             <TabsTrigger value="questions">Questions</TabsTrigger>
             <TabsTrigger value="certificates">
               <Award className="w-4 h-4 mr-2" />
@@ -412,54 +420,18 @@ const Admin = () => {
           </TabsList>
 
           <TabsContent value="overview">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-sm font-medium">Total Questions</CardTitle>
-                  <BookOpen className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{stats.totalQuestions.toLocaleString()}</div>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-sm font-medium">Total Students</CardTitle>
-                  <Users className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{stats.totalStudents.toLocaleString()}</div>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-sm font-medium">Total Attempts</CardTitle>
-                  <BarChart3 className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{stats.totalAttempts.toLocaleString()}</div>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-sm font-medium">Questions by Level</CardTitle>
-                  <BarChart3 className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {CEFR_LEVELS.map(level => (
-                      <div key={level} className="text-xs">
-                        <CEFRBadge level={level} size="sm" />
-                        <span className="ml-1">{stats.questionsByLevel[level] || 0}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+            <div className="grid gap-6 lg:grid-cols-3">
+              <div className="lg:col-span-2">
+                <AdminOverview />
+              </div>
+              <div>
+                <AdminActivityFeed />
+              </div>
             </div>
+          </TabsContent>
+
+          <TabsContent value="students">
+            <AdminStudentList />
           </TabsContent>
 
           <TabsContent value="questions">
