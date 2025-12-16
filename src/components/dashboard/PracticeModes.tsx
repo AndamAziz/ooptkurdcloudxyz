@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Play, Target, Timer, BookOpen } from 'lucide-react';
+import { Play, Target, Timer } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CEFRBadge } from '@/components/CEFRBadge';
@@ -22,6 +22,12 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress }: Prac
   const currentLevelProgress = levelProgress?.find(p => p.level === currentLevel);
   const remainingQuestions = currentLevelProgress?.remaining || 0;
   const totalQuestions = currentLevelProgress?.total || 0;
+  const answeredQuestions = totalQuestions - remainingQuestions;
+
+  // Reorder levels: current level first, then others in order
+  const orderedLevels = currentLevel 
+    ? [currentLevel, ...CEFR_LEVELS.filter(l => l !== currentLevel)]
+    : CEFR_LEVELS;
 
   return (
     <Card className="w-full max-w-full">
@@ -35,22 +41,40 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress }: Prac
         </CardDescription>
       </CardHeader>
       <CardContent className="p-3 sm:p-4 md:p-6 pt-0">
-        {/* Current level info banner */}
+        {/* Current level highlight banner */}
         {currentLevel && (
-          <div className="mb-3 sm:mb-4 p-2.5 sm:p-3 rounded-lg bg-primary/5 border border-primary/20 flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2 min-w-0">
-              <BookOpen className="w-4 h-4 text-primary flex-shrink-0" />
-              <span className="text-xs sm:text-sm text-muted-foreground truncate">
-                Selected: <span className="font-medium text-foreground">{currentLevel}</span>
-              </span>
+          <div className="mb-3 sm:mb-4 p-3 sm:p-4 rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20">
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                  <Target className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">Your Current Level</p>
+                  <p className="font-bold text-sm sm:text-base text-primary">{currentLevel}</p>
+                </div>
+              </div>
+              <CEFRBadge level={currentLevel} size="lg" />
             </div>
             {totalQuestions > 0 && (
-              <span className="text-[10px] sm:text-xs text-primary font-medium whitespace-nowrap">
-                {remainingQuestions > 0 
-                  ? `${remainingQuestions} remaining`
-                  : 'All completed!'
-                }
-              </span>
+              <div className="mt-2">
+                <div className="flex justify-between text-[10px] sm:text-xs mb-1">
+                  <span className="text-muted-foreground">Progress</span>
+                  <span className="font-medium">{answeredQuestions}/{totalQuestions}</span>
+                </div>
+                <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-primary rounded-full transition-all duration-500"
+                    style={{ width: `${(answeredQuestions / totalQuestions) * 100}%` }}
+                  />
+                </div>
+                <p className="text-[9px] sm:text-[10px] text-muted-foreground mt-1">
+                  {remainingQuestions > 0 
+                    ? `${remainingQuestions} questions remaining`
+                    : '✓ All questions completed! Choose another level or reset.'
+                  }
+                </p>
+              </div>
             )}
           </div>
         )}
@@ -96,9 +120,10 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress }: Prac
             )}
           </div>
           <div className="flex flex-wrap gap-1.5 sm:gap-2">
-            {CEFR_LEVELS.map((level) => {
+            {orderedLevels.map((level) => {
               const progress = levelProgress?.find(p => p.level === level);
               const isCurrentLevel = level === currentLevel;
+              const isCompleted = progress && progress.remaining === 0;
               
               return (
                 <Link key={level} to={`/practice?level=${level}`}>
@@ -107,12 +132,13 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress }: Prac
                     size="sm" 
                     className={cn(
                       "min-h-[40px] sm:min-h-[44px] touch-target px-2 sm:px-3 transition-all active:scale-[0.96]",
-                      isCurrentLevel && "ring-2 ring-primary ring-offset-2 ring-offset-background"
+                      isCurrentLevel && "ring-2 ring-primary ring-offset-2 ring-offset-background shadow-lg",
+                      isCompleted && !isCurrentLevel && "bg-green-500/10 border-green-500/30"
                     )}
                   >
                     <CEFRBadge level={level} size="sm" />
-                    {progress && progress.remaining === 0 && (
-                      <span className="ml-1 text-[10px]">✓</span>
+                    {isCompleted && (
+                      <span className="ml-1 text-[10px] text-green-500">✓</span>
                     )}
                   </Button>
                 </Link>
