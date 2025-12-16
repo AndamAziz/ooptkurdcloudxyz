@@ -1,4 +1,4 @@
-import { CheckCircle2, XCircle } from 'lucide-react';
+import { CheckCircle2, XCircle, ArrowRight } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -33,11 +33,11 @@ export const QuestionCard = ({
   ].filter(o => o.value);
 
   return (
-    <Card className="animate-fade-in">
-      <CardContent className="p-8">
-        <p className="text-lg leading-relaxed mb-8">{question.prompt}</p>
+    <Card className="animate-fade-in w-full max-w-full">
+      <CardContent className="p-4 md:p-6 lg:p-8">
+        <p className="text-base md:text-lg leading-relaxed mb-6 md:mb-8">{question.prompt}</p>
 
-        <div className="space-y-3">
+        <div className="space-y-2 md:space-y-3">
           {options.map((option) => {
             const isSelected = selectedAnswer === option.key;
             const isCorrectAnswer = isFeedback && option.key.toUpperCase() === answerResult?.correct_answer?.toUpperCase();
@@ -50,25 +50,25 @@ export const QuestionCard = ({
                 onClick={() => onAnswer(option.key)}
                 disabled={isFeedback}
                 className={cn(
-                  "w-full p-4 rounded-lg border-2 text-left transition-all",
-                  "flex items-center gap-4",
-                  !isFeedback && "hover:border-primary hover:bg-primary/5",
+                  "w-full p-3 md:p-4 rounded-lg border-2 text-left transition-all min-h-[52px]",
+                  "flex items-center gap-3 md:gap-4",
+                  !isFeedback && "hover:border-primary hover:bg-primary/5 active:bg-primary/10",
                   showCorrect && "border-success bg-success/10",
                   showWrong && "border-destructive bg-destructive/10",
                   !showCorrect && !showWrong && isSelected && "border-primary bg-primary/10"
                 )}
               >
                 <span className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold",
+                  "w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm font-semibold flex-shrink-0",
                   showCorrect ? "bg-success text-success-foreground" : 
                   showWrong ? "bg-destructive text-destructive-foreground" :
                   "bg-muted"
                 )}>
                   {option.key}
                 </span>
-                <span className="flex-1">{option.value}</span>
-                {showCorrect && <CheckCircle2 className="w-5 h-5 text-success" />}
-                {showWrong && <XCircle className="w-5 h-5 text-destructive" />}
+                <span className="flex-1 text-sm md:text-base">{option.value}</span>
+                {showCorrect && <CheckCircle2 className="w-5 h-5 text-success flex-shrink-0" />}
+                {showWrong && <XCircle className="w-5 h-5 text-destructive flex-shrink-0" />}
               </button>
             );
           })}
@@ -76,26 +76,27 @@ export const QuestionCard = ({
 
         {/* Feedback */}
         {isFeedback && (
-          <div className="mt-6 animate-slide-up">
+          <div className="mt-4 md:mt-6 animate-slide-up">
             <div className={cn(
-              "p-4 rounded-lg mb-4",
+              "p-3 md:p-4 rounded-lg mb-3 md:mb-4",
               isCorrect ? "bg-success/10" : "bg-destructive/10"
             )}>
               <p className={cn(
-                "font-semibold mb-1",
+                "font-semibold mb-1 text-sm md:text-base",
                 isCorrect ? "text-success" : "text-destructive"
               )}>
                 {isCorrect ? "Correct! +10 XP" : "Incorrect +2 XP"}
               </p>
               {answerResult?.explanation && (
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs md:text-sm text-muted-foreground">
                   {answerResult.explanation}
                 </p>
               )}
             </div>
             
-            <Button onClick={onNext} className="w-full">
+            <Button onClick={onNext} className="w-full min-h-[48px]">
               {isLastQuestion ? 'See Results' : 'Next Question'}
+              <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
         )}

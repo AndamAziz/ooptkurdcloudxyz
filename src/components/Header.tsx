@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BookOpen, LogOut, User, LayoutDashboard, Trophy } from 'lucide-react';
+import { BookOpen, LogOut, User, LayoutDashboard, Trophy, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -8,6 +9,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { DonationButton } from './DonationButton';
 import { CEFRBadge } from './CEFRBadge';
@@ -17,10 +25,12 @@ import type { CEFRLevel } from '@/lib/constants';
 export const Header = () => {
   const { user, profile, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
     await signOut();
     navigate('/auth');
+    setMobileMenuOpen(false);
   };
 
   const getInitials = () => {
@@ -36,17 +46,22 @@ export const Header = () => {
     return 'U';
   };
 
+  const closeMobileMenu = () => setMobileMenuOpen(false);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container flex h-14 md:h-16 items-center justify-between">
+        {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary">
-            <BookOpen className="w-6 h-6 text-primary-foreground" />
+          <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-lg bg-primary">
+            <BookOpen className="w-4 h-4 md:w-6 md:h-6 text-primary-foreground" />
           </div>
-          <span className="font-serif text-xl font-bold">CEFR Practice</span>
+          <span className="font-serif text-lg md:text-xl font-bold hidden sm:inline">CEFR Practice</span>
+          <span className="font-serif text-lg font-bold sm:hidden">CEFR</span>
         </Link>
 
-        <nav className="flex items-center gap-4">
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-4">
           <Button asChild variant="ghost" size="sm">
             <Link to="/leaderboard">
               <Trophy className="w-4 h-4 mr-2" />
@@ -71,7 +86,7 @@ export const Header = () => {
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end">
+                <DropdownMenuContent className="w-56 bg-popover" align="end">
                   <div className="flex items-center justify-start gap-2 p-2">
                     <div className="flex flex-col space-y-1 leading-none">
                       {profile?.display_name && (
@@ -109,6 +124,92 @@ export const Header = () => {
             </Button>
           )}
         </nav>
+
+        {/* Mobile Navigation */}
+        <div className="flex md:hidden items-center gap-2">
+          {user && profile && (
+            <CEFRBadge level={profile.current_cefr as CEFRLevel} size="sm" />
+          )}
+          
+          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-10 w-10">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Toggle menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[280px] bg-card">
+              <SheetHeader>
+                <SheetTitle className="text-left flex items-center gap-2">
+                  <BookOpen className="w-5 h-5 text-primary" />
+                  CEFR Practice
+                </SheetTitle>
+              </SheetHeader>
+              
+              <nav className="flex flex-col gap-2 mt-6">
+                {user ? (
+                  <>
+                    <div className="p-3 rounded-lg bg-muted mb-2">
+                      <p className="font-medium">{profile?.display_name || profile?.username || 'Student'}</p>
+                      <p className="text-sm text-muted-foreground">{user.email}</p>
+                    </div>
+                    
+                    <Button asChild variant="ghost" className="justify-start h-12" onClick={closeMobileMenu}>
+                      <Link to="/dashboard">
+                        <User className="mr-3 h-5 w-5" />
+                        Dashboard
+                      </Link>
+                    </Button>
+                    
+                    <Button asChild variant="ghost" className="justify-start h-12" onClick={closeMobileMenu}>
+                      <Link to="/leaderboard">
+                        <Trophy className="mr-3 h-5 w-5" />
+                        Leaderboard
+                      </Link>
+                    </Button>
+                    
+                    {isAdmin && (
+                      <Button asChild variant="ghost" className="justify-start h-12" onClick={closeMobileMenu}>
+                        <Link to="/admin">
+                          <LayoutDashboard className="mr-3 h-5 w-5" />
+                          Admin Panel
+                        </Link>
+                      </Button>
+                    )}
+                    
+                    <div className="my-2 border-t" />
+                    
+                    <DonationButton variant="outline" className="justify-start h-12" />
+                    
+                    <div className="my-2 border-t" />
+                    
+                    <Button variant="ghost" className="justify-start h-12 text-destructive" onClick={handleSignOut}>
+                      <LogOut className="mr-3 h-5 w-5" />
+                      Sign out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button asChild variant="ghost" className="justify-start h-12" onClick={closeMobileMenu}>
+                      <Link to="/leaderboard">
+                        <Trophy className="mr-3 h-5 w-5" />
+                        Leaderboard
+                      </Link>
+                    </Button>
+                    
+                    <DonationButton variant="outline" className="justify-start h-12" />
+                    
+                    <div className="my-2 border-t" />
+                    
+                    <Button asChild className="h-12" onClick={closeMobileMenu}>
+                      <Link to="/auth">Sign In</Link>
+                    </Button>
+                  </>
+                )}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
   );
