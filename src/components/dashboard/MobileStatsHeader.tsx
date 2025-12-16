@@ -22,6 +22,7 @@ interface MobileStatsHeaderProps {
   questionProgress: LevelProgress[];
   earnedCertificates?: CEFRLevel[];
   onLevelChange?: (level: CEFRLevel) => void;
+  highestAccuracyLevel?: CEFRLevel | null;
 }
 
 export const MobileStatsHeader = ({
@@ -37,6 +38,7 @@ export const MobileStatsHeader = ({
   questionProgress,
   earnedCertificates = [],
   onLevelChange,
+  highestAccuracyLevel,
 }: MobileStatsHeaderProps) => {
   const getStreakStatus = () => {
     if (!lastPracticeDate) return 'Start your streak!';
@@ -107,10 +109,15 @@ export const MobileStatsHeader = ({
                   <SelectTrigger className="h-5 w-auto min-w-[80px] bg-white/10 border-white/20 text-white text-[9px] sm:text-[10px] px-2 py-0 mt-1">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                <SelectContent>
                     {CEFR_LEVELS.map((level) => (
                       <SelectItem key={level} value={level} className="text-xs">
-                        {level} ({questionProgress.find(p => p.cefr === level)?.answered_questions || 0}/{questionProgress.find(p => p.cefr === level)?.total_questions || 0})
+                        <span className="flex items-center gap-1.5">
+                          {level} ({questionProgress.find(p => p.cefr === level)?.answered_questions || 0}/{questionProgress.find(p => p.cefr === level)?.total_questions || 0})
+                          {highestAccuracyLevel === level && (
+                            <span className="text-[8px] bg-green-500/20 text-green-600 px-1 py-0.5 rounded font-medium">Best</span>
+                          )}
+                        </span>
                       </SelectItem>
                     ))}
                   </SelectContent>
