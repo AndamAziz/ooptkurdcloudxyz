@@ -9,7 +9,6 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useCertificates, type Certificate } from '@/hooks/useCertificates';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-import type { CEFRLevel } from '@/lib/constants';
 
 const Certificates = () => {
   const { user, profile } = useAuth();
@@ -143,10 +142,7 @@ const Certificates = () => {
         <div className="fixed -left-[9999px] top-0">
           <div id="certificate-download-template">
             <CertificateTemplate
-              certificate={{
-                ...selectedCertificate,
-                cefr_level: selectedCertificate.cefr_level as CEFRLevel,
-              }}
+              certificate={selectedCertificate}
               studentName={studentName}
               verificationUrl={`${window.location.origin}/verify/${selectedCertificate.certificate_number}`}
             />

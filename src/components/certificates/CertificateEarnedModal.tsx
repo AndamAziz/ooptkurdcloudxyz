@@ -102,11 +102,6 @@ export const CertificateEarnedModal = ({
     onClose();
   };
 
-  const certificateData = {
-    ...certificate,
-    cefr_level: certificate.cefr_level as CEFRLevel,
-  };
-
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-lg">
@@ -172,7 +167,7 @@ export const CertificateEarnedModal = ({
         <div className="fixed -left-[9999px] top-0">
           <div id="certificate-earned-template">
             <CertificateTemplate
-              certificate={certificateData}
+              certificate={certificate}
               studentName={studentName}
               verificationUrl={verificationUrl}
             />

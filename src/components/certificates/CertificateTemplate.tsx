@@ -1,35 +1,15 @@
 import { QRCodeSVG } from 'qrcode.react';
 import { Award, CheckCircle2 } from 'lucide-react';
-import type { CEFRLevel } from '@/lib/constants';
 import { format } from 'date-fns';
-
-export type CertificateType = 'level_completion' | 'course_completion' | 'excellence';
-export type CertificateStatus = 'earned' | 'pending' | 'revoked';
-
-export interface CertificateData {
-  id: string;
-  user_id: string;
-  certificate_type: CertificateType;
-  cefr_level: CEFRLevel;
-  issued_at: string;
-  certificate_number: string;
-  score_percentage: number;
-  total_questions_answered: number;
-  total_correct: number;
-  study_hours: number;
-  status: CertificateStatus;
-  pdf_url: string | null;
-  verified_by_admin: boolean;
-  admin_notes: string | null;
-}
+import type { Certificate } from '@/hooks/useCertificates';
 
 interface CertificateTemplateProps {
-  certificate: CertificateData;
+  certificate: Certificate;
   studentName: string;
   verificationUrl: string;
 }
 
-const getLevelTheme = (level: CEFRLevel) => {
+const getLevelTheme = (level: string) => {
   if (['A1', 'A2'].includes(level)) {
     return {
       borderColor: '#CD7F32',
@@ -67,7 +47,7 @@ const getCertificateTitle = (type: string) => {
   }
 };
 
-const getCertificateSubtitle = (type: string, level: CEFRLevel) => {
+const getCertificateSubtitle = (type: string, level: string) => {
   switch (type) {
     case 'level_completion':
       return `CEFR Level ${level} English Proficiency`;

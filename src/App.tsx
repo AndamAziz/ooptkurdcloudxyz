@@ -13,6 +13,8 @@ import Practice from "./pages/Practice";
 import Admin from "./pages/Admin";
 import Leaderboard from "./pages/Leaderboard";
 import Install from "./pages/Install";
+import Certificates from "./pages/Certificates";
+import VerifyCertificate from "./pages/VerifyCertificate";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +32,7 @@ const App = () => (
               <Route path="/auth" element={<Auth />} />
               <Route path="/leaderboard" element={<Leaderboard />} />
               <Route path="/install" element={<Install />} />
+              <Route path="/verify/:certificateNumber?" element={<VerifyCertificate />} />
               <Route
                 path="/dashboard"
                 element={
@@ -43,6 +46,14 @@ const App = () => (
                 element={
                   <ProtectedRoute>
                     <Practice />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/certificates"
+                element={
+                  <ProtectedRoute>
+                    <Certificates />
                   </ProtectedRoute>
                 }
               />
