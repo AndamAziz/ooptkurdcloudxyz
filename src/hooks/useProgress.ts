@@ -189,14 +189,14 @@ export const useProgress = (userId: string | undefined) => {
     }
   }, [userId]);
 
-  const updateUserXP = useCallback(async (currentXP: number, xpEarned: number) => {
+  const updateUserXP = useCallback(async (xpEarned: number) => {
     if (!userId) return;
 
     try {
-      await supabase
-        .from('profiles')
-        .update({ xp: currentXP + xpEarned })
-        .eq('user_id', userId);
+      await supabase.rpc('increment_user_xp', { 
+        _user_id: userId, 
+        _xp_increment: xpEarned 
+      });
     } catch (err) {
       console.error('Error updating XP:', err);
     }

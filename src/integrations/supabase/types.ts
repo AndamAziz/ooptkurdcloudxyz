@@ -489,6 +489,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      increment_user_xp: {
+        Args: { _user_id: string; _xp_increment: number }
+        Returns: undefined
+      }
       reset_level_progress: {
         Args: {
           p_cefr: Database["public"]["Enums"]["cefr_level"]
