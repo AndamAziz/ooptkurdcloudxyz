@@ -60,6 +60,15 @@ const Dashboard = () => {
     return getLevelProgress(selectedLevel);
   }, [selectedLevel, getLevelProgress]);
 
+  // Find the level with highest accuracy
+  const highestAccuracyLevel = useMemo((): CEFRLevel | null => {
+    const levelsWithProgress = questionProgress.filter(p => p.answered_questions > 0);
+    if (levelsWithProgress.length === 0) return null;
+    return levelsWithProgress.reduce((prev, curr) => 
+      curr.accuracy > prev.accuracy ? curr : prev
+    ).cefr;
+  }, [questionProgress]);
+
   // Get earned certificate levels
   const earnedCertificates = useMemo(() => {
     return certificates
@@ -102,6 +111,7 @@ const Dashboard = () => {
                 questionProgress={questionProgress}
                 earnedCertificates={earnedCertificates}
                 onLevelChange={setSelectedLevel}
+                highestAccuracyLevel={highestAccuracyLevel}
               />
             </div>
 
@@ -142,7 +152,12 @@ const Dashboard = () => {
                     <SelectContent className="bg-popover border shadow-lg z-50">
                       {CEFR_LEVELS.map((level) => (
                         <SelectItem key={level} value={level}>
-                          {level}
+                          <span className="flex items-center gap-1.5">
+                            {level}
+                            {highestAccuracyLevel === level && (
+                              <span className="text-[9px] bg-green-500/20 text-green-600 px-1 py-0.5 rounded font-medium">Best</span>
+                            )}
+                          </span>
                         </SelectItem>
                       ))}
                     </SelectContent>
