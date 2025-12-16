@@ -29,13 +29,13 @@ export const useQuestions = () => {
   const fetchRandomQuestions = useCallback(async (
     userId: string,
     level: CEFRLevel,
-    limit: number = 10
-  ) => {
+    limit: number = 50
+  ): Promise<Question[]> => {
     setLoading(true);
     setError(null);
 
     try {
-      // Use the new get_random_questions function that excludes already answered questions
+      // Use the get_random_questions function that excludes already answered questions
       const { data, error: fetchError } = await supabase.rpc('get_random_questions', {
         p_user_id: userId,
         p_cefr: level,
@@ -70,11 +70,15 @@ export const useQuestions = () => {
         // Shuffle the results
         const shuffled = [...(fallbackData || [])].sort(() => Math.random() - 0.5);
         setQuestions(shuffled as Question[]);
+        return shuffled as Question[];
       } else {
-        setQuestions((data || []) as Question[]);
+        const fetchedQuestions = (data || []) as Question[];
+        setQuestions(fetchedQuestions);
+        return fetchedQuestions;
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch questions');
+      return [];
     } finally {
       setLoading(false);
     }

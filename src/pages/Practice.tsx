@@ -98,17 +98,6 @@ const Practice = () => {
     await fetchUserCertificates();
     certificatesBeforeSession.current = certificates.map(c => c.id);
 
-    // Check if there are remaining questions
-    const currentLevelProgress = getLevelProgress(selectedLevel);
-    if (currentLevelProgress && currentLevelProgress.remaining_questions === 0) {
-      toast({
-        title: 'No questions available',
-        description: `You've completed all questions in ${selectedLevel}. Reset your progress or try another level.`,
-        variant: 'destructive',
-      });
-      return;
-    }
-
     // Check rate limit
     const withinLimit = await checkRateLimit(user.id);
     if (!withinLimit) {
@@ -120,11 +109,12 @@ const Practice = () => {
       return;
     }
 
+    // Fetch fresh questions - returns the questions directly
     const limit = mode === PRACTICE_MODES.FIFTY_QUESTIONS ? QUESTIONS_PER_SESSION : 50;
-    await fetchRandomQuestions(user.id, selectedLevel, limit);
+    const fetchedQuestions = await fetchRandomQuestions(user.id, selectedLevel, limit);
     
-    // Check if questions were fetched
-    if (questions.length === 0) {
+    // Check if questions were fetched using the returned value
+    if (fetchedQuestions.length === 0) {
       toast({
         title: 'No new questions',
         description: `All questions in ${selectedLevel} have been completed. Reset your progress to try again.`,
