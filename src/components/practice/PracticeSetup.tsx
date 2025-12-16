@@ -1,5 +1,4 @@
-import { Loader2, AlertTriangle, GraduationCap } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Loader2, AlertTriangle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {
@@ -118,16 +117,6 @@ export const PracticeSetup = ({
           onResetProgress={onResetProgress}
           isResetting={isResetting}
         />
-
-        {/* Retake Placement Test */}
-        <div className="pt-2 border-t border-border">
-          <Link to="/placement">
-            <Button variant="ghost" className="w-full text-muted-foreground hover:text-foreground">
-              <GraduationCap className="w-4 h-4 mr-2" />
-              تاقیکردنەوەی ئاستی نوێ / Retake Placement Test
-            </Button>
-          </Link>
-        </div>
       </CardContent>
     </Card>
   );

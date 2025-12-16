@@ -17,7 +17,6 @@ import Leaderboard from "./pages/Leaderboard";
 import Install from "./pages/Install";
 import Certificates from "./pages/Certificates";
 import VerifyCertificate from "./pages/VerifyCertificate";
-import PlacementTest from "./pages/PlacementTest";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,14 +36,6 @@ const App = () => (
               <Route path="/leaderboard" element={<Leaderboard />} />
               <Route path="/install" element={<Install />} />
               <Route path="/verify/:certificateNumber?" element={<VerifyCertificate />} />
-              <Route
-                path="/placement"
-                element={
-                  <ProtectedRoute skipPlacementCheck>
-                    <PlacementTest />
-                  </ProtectedRoute>
-                }
-              />
               <Route
                 path="/dashboard"
                 element={

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Play, Target, Timer, GraduationCap } from 'lucide-react';
+import { Play, Target, Timer } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CEFRBadge } from '@/components/CEFRBadge';
@@ -145,16 +145,6 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress }: Prac
               );
             })}
           </div>
-        </div>
-
-        {/* Retake Placement Test */}
-        <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-border">
-          <Link to="/placement">
-            <Button variant="ghost" className="w-full text-muted-foreground hover:text-foreground text-xs sm:text-sm">
-              <GraduationCap className="w-4 h-4 mr-2" />
-              تاقیکردنەوەی ئاستی نوێ / Retake Placement Test
-            </Button>
-          </Link>
         </div>
       </CardContent>
     </Card>
