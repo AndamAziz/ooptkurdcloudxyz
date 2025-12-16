@@ -182,7 +182,7 @@ const Practice = () => {
     }
 
     if (profile) {
-      await updateUserXP(profile.xp, xpEarned);
+      await updateUserXP(xpEarned);
       await refreshProfile();
     }
 
