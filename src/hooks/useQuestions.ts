@@ -43,15 +43,31 @@ export const useQuestions = () => {
       });
 
       if (fetchError) {
-        // Fallback to regular query if function fails
-        const { data: fallbackData, error: fallbackError } = await supabase
+        console.error('RPC failed, using fallback:', fetchError);
+        
+        // Fallback: Get already answered question IDs
+        const { data: attemptedData } = await supabase
+          .from('attempts')
+          .select('question_id')
+          .eq('user_id', userId);
+        
+        const attemptedIds = attemptedData?.map(a => a.question_id) || [];
+        
+        // Fetch questions excluding answered ones
+        let query = supabase
           .from('questions_safe')
           .select('*')
-          .eq('cefr', level)
-          .limit(limit);
+          .eq('cefr', level);
+        
+        if (attemptedIds.length > 0) {
+          query = query.not('id', 'in', `(${attemptedIds.join(',')})`);
+        }
+        
+        const { data: fallbackData, error: fallbackError } = await query.limit(limit);
 
         if (fallbackError) throw fallbackError;
         
+        // Shuffle the results
         const shuffled = [...(fallbackData || [])].sort(() => Math.random() - 0.5);
         setQuestions(shuffled as Question[]);
       } else {
