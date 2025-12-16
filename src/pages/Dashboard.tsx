@@ -150,16 +150,28 @@ const Dashboard = () => {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-popover border shadow-lg z-50">
-                      {CEFR_LEVELS.map((level) => (
-                        <SelectItem key={level} value={level}>
-                          <span className="flex items-center gap-1.5">
-                            {level}
-                            {highestAccuracyLevel === level && (
-                              <span className="text-[9px] bg-green-500/20 text-green-600 px-1 py-0.5 rounded font-medium">Best</span>
-                            )}
-                          </span>
-                        </SelectItem>
-                      ))}
+                      {CEFR_LEVELS.map((level) => {
+                        const levelData = questionProgress.find(p => p.cefr === level);
+                        const accuracy = levelData?.accuracy || 0;
+                        const hasProgress = (levelData?.answered_questions || 0) > 0;
+                        const colorClass = !hasProgress ? 'text-muted-foreground' 
+                          : accuracy >= 80 ? 'text-green-600' 
+                          : accuracy >= 60 ? 'text-yellow-600' 
+                          : 'text-orange-600';
+                        return (
+                          <SelectItem key={level} value={level}>
+                            <span className="flex items-center gap-1.5">
+                              <span className={colorClass}>{level}</span>
+                              {hasProgress && (
+                                <span className={`text-[9px] ${colorClass}`}>({accuracy}%)</span>
+                              )}
+                              {highestAccuracyLevel === level && (
+                                <span className="text-[9px] bg-green-500/20 text-green-600 px-1 py-0.5 rounded font-medium">Best</span>
+                              )}
+                            </span>
+                          </SelectItem>
+                        );
+                      })}
                     </SelectContent>
                   </Select>
                 </div>

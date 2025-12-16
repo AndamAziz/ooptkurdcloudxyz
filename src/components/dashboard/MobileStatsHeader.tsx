@@ -110,16 +110,29 @@ export const MobileStatsHeader = ({
                     <SelectValue />
                   </SelectTrigger>
                 <SelectContent>
-                    {CEFR_LEVELS.map((level) => (
-                      <SelectItem key={level} value={level} className="text-xs">
-                        <span className="flex items-center gap-1.5">
-                          {level} ({questionProgress.find(p => p.cefr === level)?.answered_questions || 0}/{questionProgress.find(p => p.cefr === level)?.total_questions || 0})
-                          {highestAccuracyLevel === level && (
-                            <span className="text-[8px] bg-green-500/20 text-green-600 px-1 py-0.5 rounded font-medium">Best</span>
-                          )}
-                        </span>
-                      </SelectItem>
-                    ))}
+                    {CEFR_LEVELS.map((level) => {
+                      const levelData = questionProgress.find(p => p.cefr === level);
+                      const accuracy = levelData?.accuracy || 0;
+                      const hasProgress = (levelData?.answered_questions || 0) > 0;
+                      const colorClass = !hasProgress ? 'text-muted-foreground' 
+                        : accuracy >= 80 ? 'text-green-600' 
+                        : accuracy >= 60 ? 'text-yellow-600' 
+                        : 'text-orange-600';
+                      return (
+                        <SelectItem key={level} value={level} className="text-xs">
+                          <span className="flex items-center gap-1.5">
+                            <span className={colorClass}>{level}</span>
+                            <span className="text-muted-foreground">({levelData?.answered_questions || 0}/{levelData?.total_questions || 0})</span>
+                            {hasProgress && (
+                              <span className={`text-[8px] ${colorClass}`}>{accuracy}%</span>
+                            )}
+                            {highestAccuracyLevel === level && (
+                              <span className="text-[8px] bg-green-500/20 text-green-600 px-1 py-0.5 rounded font-medium">Best</span>
+                            )}
+                          </span>
+                        </SelectItem>
+                      );
+                    })}
                   </SelectContent>
                 </Select>
               ) : (
