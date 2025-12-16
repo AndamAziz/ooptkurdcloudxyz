@@ -153,32 +153,32 @@ export const AdminActivityFeed = () => {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle className="text-base flex items-center gap-2">
-          <Activity className="w-4 h-4" />
-          Live Activity Feed
-          <Badge variant="outline" className="ml-2">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse mr-1" />
+      <CardHeader className="p-3 md:p-4 pb-2">
+        <CardTitle className="text-xs md:text-base flex items-center gap-1 md:gap-2">
+          <Activity className="w-3 h-3 md:w-4 md:h-4" />
+          Activity
+          <Badge variant="outline" className="ml-1 md:ml-2 text-[9px] md:text-xs px-1 py-0">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse mr-0.5" />
             Live
           </Badge>
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-2 md:p-4 pt-0">
         {activities.length === 0 ? (
-          <p className="text-center text-muted-foreground py-4">No recent activity</p>
+          <p className="text-center text-muted-foreground text-xs py-4">No recent activity</p>
         ) : (
-          <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2">
+          <div className="space-y-2 max-h-[300px] md:max-h-[400px] overflow-y-auto pr-1">
             {activities.map((activity) => (
               <div
                 key={activity.id}
-                className="flex items-start gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors"
+                className="flex items-start gap-2 p-1.5 md:p-2 rounded-lg hover:bg-muted/50 transition-colors"
               >
-                <div className="p-2 rounded-full bg-muted">
+                <div className="p-1.5 md:p-2 rounded-full bg-muted flex-shrink-0">
                   {getActivityIcon(activity.type)}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm truncate">{activity.message}</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-[11px] md:text-sm truncate">{activity.message}</p>
+                  <p className="text-[9px] md:text-xs text-muted-foreground">
                     {formatDistanceToNow(new Date(activity.timestamp), { addSuffix: true })}
                   </p>
                 </div>
