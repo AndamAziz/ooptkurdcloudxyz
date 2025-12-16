@@ -6,10 +6,13 @@ import { PracticeResults } from '@/components/practice/PracticeResults';
 import { PracticeHeader } from '@/components/practice/PracticeHeader';
 import { QuestionCard } from '@/components/practice/QuestionCard';
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
+import { CertificateEarnedModal } from '@/components/certificates/CertificateEarnedModal';
 import { useAuth } from '@/contexts/AuthContext';
 import { useQuestions, type AnswerResult } from '@/hooks/useQuestions';
 import { useProgress } from '@/hooks/useProgress';
+import { useCertificateAward } from '@/hooks/useCertificateAward';
 import { useToast } from '@/hooks/use-toast';
+import type { Certificate } from '@/hooks/useCertificates';
 import { 
   PRACTICE_MODES, 
   TIMED_DURATION_SECONDS, 
@@ -39,6 +42,8 @@ const Practice = () => {
     updateUserXP 
   } = useProgress(user?.id);
 
+  const { checkAndAwardCertificate } = useCertificateAward(user?.id);
+
   const [state, setState] = useState<PracticeState>('setup');
   const [mode, setMode] = useState(searchParams.get('mode') || PRACTICE_MODES.TEN_QUESTIONS);
   const [selectedLevel, setSelectedLevel] = useState<CEFRLevel>(
@@ -54,6 +59,10 @@ const Practice = () => {
   const [timeLeft, setTimeLeft] = useState(TIMED_DURATION_SECONDS);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [questionStartTime, setQuestionStartTime] = useState<number>(0);
+
+  // Certificate modal state
+  const [earnedCertificate, setEarnedCertificate] = useState<Certificate | null>(null);
+  const [showCertificateModal, setShowCertificateModal] = useState(false);
 
   // Timer for timed mode
   useEffect(() => {
@@ -137,16 +146,54 @@ const Practice = () => {
   const handleEndSession = async () => {
     const totalQuestions = answers.length;
     const correctCount = answers.filter(a => a.correct).length;
+    const accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
     const xpEarned = (correctCount * XP_REWARDS.CORRECT) + ((totalQuestions - correctCount) * XP_REWARDS.INCORRECT);
-    const summary = `Completed ${totalQuestions} questions at ${selectedLevel} with ${Math.round((correctCount / totalQuestions) * 100)}% accuracy.`;
+    const summary = `Completed ${totalQuestions} questions at ${selectedLevel} with ${accuracy}% accuracy.`;
 
     if (sessionId) {
       await endSession(sessionId, totalQuestions, correctCount, xpEarned, summary);
     }
 
+    const oldXP = profile?.xp || 0;
+    const newXP = oldXP + xpEarned;
+
     if (profile) {
       await updateUserXP(profile.xp, xpEarned);
       await refreshProfile();
+    }
+
+    // Check if user earned a certificate
+    const awardResult = await checkAndAwardCertificate(
+      oldXP,
+      newXP,
+      accuracy,
+      totalQuestions,
+      correctCount
+    );
+
+    if (awardResult.awarded && awardResult.certificate) {
+      const now = new Date().toISOString();
+      // Cast the certificate to the full Certificate type
+      const fullCertificate: Certificate = {
+        id: awardResult.certificate.id,
+        user_id: user?.id || '',
+        certificate_type: awardResult.certificate.certificate_type as 'level_completion' | 'course_completion' | 'excellence',
+        cefr_level: awardResult.certificate.cefr_level,
+        issued_at: now,
+        certificate_number: awardResult.certificate.certificate_number,
+        score_percentage: awardResult.certificate.score_percentage,
+        total_questions_answered: totalQuestions,
+        total_correct: correctCount,
+        study_hours: 0,
+        status: 'earned',
+        pdf_url: null,
+        verified_by_admin: false,
+        admin_notes: null,
+        created_at: now,
+        updated_at: now,
+      };
+      setEarnedCertificate(fullCertificate);
+      setShowCertificateModal(true);
     }
 
     setState('results');
@@ -163,6 +210,7 @@ const Practice = () => {
     setState('setup');
   };
 
+  const studentName = profile?.display_name || profile?.username || 'Student';
   const currentQuestion = questions[currentIndex];
   const maxQuestions = mode === PRACTICE_MODES.TEN_QUESTIONS ? 10 : questions.length;
   const progress = ((currentIndex + 1) / maxQuestions) * 100;
@@ -201,6 +249,14 @@ const Practice = () => {
             onPracticeAgain={handlePracticeAgain}
           />
         </main>
+
+        {/* Certificate Earned Modal */}
+        <CertificateEarnedModal
+          certificate={earnedCertificate}
+          studentName={studentName}
+          open={showCertificateModal}
+          onClose={() => setShowCertificateModal(false)}
+        />
       </div>
     );
   }

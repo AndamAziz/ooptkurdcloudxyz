@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BookOpen, LogOut, User, LayoutDashboard, Trophy, Menu } from 'lucide-react';
+import { BookOpen, LogOut, User, LayoutDashboard, Trophy, Menu, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -69,6 +69,14 @@ export const Header = () => {
               Leaderboard
             </Link>
           </Button>
+          {user && (
+            <Button asChild variant="ghost" size="sm">
+              <Link to="/certificates">
+                <Award className="w-4 h-4 mr-2" />
+                Certificates
+              </Link>
+            </Button>
+          )}
           <ThemeToggle />
           <DonationButton variant="ghost" size="sm" />
           
@@ -102,6 +110,12 @@ export const Header = () => {
                     <Link to="/dashboard" className="cursor-pointer">
                       <User className="mr-2 h-4 w-4" />
                       Dashboard
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/certificates" className="cursor-pointer">
+                      <Award className="mr-2 h-4 w-4" />
+                      Certificates
                     </Link>
                   </DropdownMenuItem>
                   {isAdmin && (
@@ -160,6 +174,13 @@ export const Header = () => {
                       <Link to="/dashboard">
                         <User className="mr-3 h-5 w-5" />
                         Dashboard
+                      </Link>
+                    </Button>
+                    
+                    <Button asChild variant="ghost" className="justify-start h-12" onClick={closeMobileMenu}>
+                      <Link to="/certificates">
+                        <Award className="mr-3 h-5 w-5" />
+                        Certificates
                       </Link>
                     </Button>
                     
