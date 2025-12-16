@@ -186,6 +186,21 @@ const Practice = () => {
       await refreshProfile();
     }
 
+    // Show streak bonus notification for 50+ question sessions
+    if (totalQuestions >= 50) {
+      if (accuracy === 100) {
+        toast({
+          title: '🔥 +10 Streak Bonus!',
+          description: 'Perfect score! You earned 10 bonus streak points!',
+        });
+      } else if (accuracy >= 70) {
+        toast({
+          title: '🔥 +5 Streak Bonus!',
+          description: 'Great job! You earned 5 bonus streak points!',
+        });
+      }
+    }
+
     // Wait a moment for the database trigger to potentially create a certificate
     await new Promise(resolve => setTimeout(resolve, 500));
     
