@@ -79,7 +79,6 @@ export const Header = () => {
             </Button>
           )}
           <ThemeToggle />
-          <DonationButton variant="ghost" size="sm" />
           
           {user ? (
             <div className="flex items-center gap-3">
