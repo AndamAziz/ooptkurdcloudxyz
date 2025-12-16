@@ -28,6 +28,9 @@ export const QuestionCard = ({
   const { isMuted, isSpeaking, readQuestion, speakFeedback, toggleMute, stop } = useVoiceReader();
   const isFeedback = selectedAnswer !== null && answerResult !== null;
 
+  // Clean prompt: remove identifiers like (v443), (v147), (q123), etc.
+  const cleanPrompt = question.prompt.replace(/\s*\([vVqQ]\d+\)\s*$/, '').trim();
+
   const options = [
     { key: 'A', value: question.options_a },
     { key: 'B', value: question.options_b },
@@ -52,8 +55,6 @@ export const QuestionCard = ({
       toggleMute();
       return;
     }
-    // Clean prompt: remove identifiers like (v443), (q123), etc.
-    const cleanPrompt = question.prompt.replace(/\s*\([a-zA-Z]*\d+\)\s*$/, '').trim();
     readQuestion(cleanPrompt, options);
   };
 
@@ -61,7 +62,7 @@ export const QuestionCard = ({
     <Card className="animate-fade-in w-full max-w-full">
       <CardContent className="p-4 md:p-6 lg:p-8">
         <div className="flex items-start justify-between gap-2 mb-6 md:mb-8">
-          <p className="text-base md:text-lg leading-relaxed flex-1">{question.prompt}</p>
+          <p className="text-base md:text-lg leading-relaxed flex-1">{cleanPrompt}</p>
           <Button
             variant="ghost"
             size="icon"
