@@ -84,45 +84,53 @@ export const useQuestions = () => {
     }
   }, []);
 
-  // Fetch mixed questions from all levels for placement test (50 per level = 300 total)
+  // Seeded shuffle function - produces consistent order based on seed
+  const seededShuffle = (array: Question[], seed: string): Question[] => {
+    const result = [...array];
+    // Simple hash function to convert string to number
+    let hash = 0;
+    for (let i = 0; i < seed.length; i++) {
+      const char = seed.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    
+    // Seeded random number generator
+    const seededRandom = () => {
+      hash = (hash * 1103515245 + 12345) & 0x7fffffff;
+      return hash / 0x7fffffff;
+    };
+    
+    // Fisher-Yates shuffle with seeded random
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = Math.floor(seededRandom() * (i + 1));
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+    return result;
+  };
+
+  // Fetch ALL questions from all levels for placement test
   const fetchPlacementQuestions = useCallback(async (
     userId: string,
-    questionsPerLevel: number = 50
+    _questionsPerLevel: number = 50 // Ignored - we fetch all questions
   ): Promise<Question[]> => {
     setLoading(true);
     setError(null);
 
-    const levels: CEFRLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
-    const allQuestions: Question[] = [];
-
     try {
-      // Fetch questions from each level in parallel
-      const levelPromises = levels.map(async (level) => {
-        const { data, error: fetchError } = await supabase.rpc('get_random_questions', {
-          p_user_id: userId,
-          p_cefr: level,
-          p_limit: questionsPerLevel,
-        });
+      // Fetch ALL questions from questions_safe view (no limit, no exclusion)
+      const { data, error: fetchError } = await supabase
+        .from('questions_safe')
+        .select('*')
+        .order('cefr')
+        .order('id');
 
-        if (!fetchError && data) {
-          return data as Question[];
-        } else {
-          // Fallback for each level
-          const { data: fallbackData } = await supabase
-            .from('questions_safe')
-            .select('*')
-            .eq('cefr', level)
-            .limit(questionsPerLevel);
-          
-          return (fallbackData || []) as Question[];
-        }
-      });
+      if (fetchError) throw fetchError;
 
-      const levelResults = await Promise.all(levelPromises);
-      levelResults.forEach(questions => allQuestions.push(...questions));
-
-      // Shuffle all questions together for mixed order
-      const shuffled = allQuestions.sort(() => Math.random() - 0.5);
+      const allQuestions = (data || []) as Question[];
+      
+      // Use seeded shuffle based on user_id for consistent order
+      const shuffled = seededShuffle(allQuestions, userId);
       setQuestions(shuffled);
       return shuffled;
     } catch (err) {
