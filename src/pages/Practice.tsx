@@ -17,6 +17,7 @@ import {
   PRACTICE_MODES, 
   TIMED_DURATION_SECONDS, 
   XP_REWARDS,
+  QUESTIONS_PER_SESSION,
   type CEFRLevel 
 } from '@/lib/constants';
 
@@ -54,7 +55,7 @@ const Practice = () => {
   const certificatesBeforeSession = useRef<string[]>([]);
 
   const [state, setState] = useState<PracticeState>('setup');
-  const [mode, setMode] = useState(searchParams.get('mode') || PRACTICE_MODES.TEN_QUESTIONS);
+  const [mode, setMode] = useState(searchParams.get('mode') || PRACTICE_MODES.FIFTY_QUESTIONS);
   const [selectedLevel, setSelectedLevel] = useState<CEFRLevel>(
     (searchParams.get('level') as CEFRLevel) || (profile?.current_cefr as CEFRLevel) || 'A1'
   );
@@ -119,7 +120,7 @@ const Practice = () => {
       return;
     }
 
-    const limit = mode === PRACTICE_MODES.TEN_QUESTIONS ? 10 : 50;
+    const limit = mode === PRACTICE_MODES.FIFTY_QUESTIONS ? QUESTIONS_PER_SESSION : 50;
     await fetchRandomQuestions(user.id, selectedLevel, limit);
     
     // Check if questions were fetched
@@ -165,7 +166,7 @@ const Practice = () => {
   };
 
   const nextQuestion = () => {
-    const maxQuestions = mode === PRACTICE_MODES.TEN_QUESTIONS ? 10 : questions.length;
+    const maxQuestions = mode === PRACTICE_MODES.FIFTY_QUESTIONS ? QUESTIONS_PER_SESSION : questions.length;
     
     if (currentIndex >= questions.length - 1 || currentIndex >= maxQuestions - 1) {
       handleEndSession();
@@ -250,7 +251,7 @@ const Practice = () => {
 
   const studentName = profile?.display_name || profile?.username || 'Student';
   const currentQuestion = questions[currentIndex];
-  const maxQuestions = mode === PRACTICE_MODES.TEN_QUESTIONS ? 10 : questions.length;
+  const maxQuestions = mode === PRACTICE_MODES.FIFTY_QUESTIONS ? QUESTIONS_PER_SESSION : questions.length;
   const progress = ((currentIndex + 1) / maxQuestions) * 100;
 
   if (state === 'setup') {
