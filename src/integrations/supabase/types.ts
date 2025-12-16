@@ -59,6 +59,63 @@ export type Database = {
           },
         ]
       }
+      certificates: {
+        Row: {
+          admin_notes: string | null
+          cefr_level: Database["public"]["Enums"]["cefr_level"]
+          certificate_number: string
+          certificate_type: Database["public"]["Enums"]["certificate_type"]
+          created_at: string
+          id: string
+          issued_at: string
+          pdf_url: string | null
+          score_percentage: number
+          status: Database["public"]["Enums"]["certificate_status"]
+          study_hours: number
+          total_correct: number
+          total_questions_answered: number
+          updated_at: string
+          user_id: string
+          verified_by_admin: boolean
+        }
+        Insert: {
+          admin_notes?: string | null
+          cefr_level: Database["public"]["Enums"]["cefr_level"]
+          certificate_number?: string
+          certificate_type: Database["public"]["Enums"]["certificate_type"]
+          created_at?: string
+          id?: string
+          issued_at?: string
+          pdf_url?: string | null
+          score_percentage?: number
+          status?: Database["public"]["Enums"]["certificate_status"]
+          study_hours?: number
+          total_correct?: number
+          total_questions_answered?: number
+          updated_at?: string
+          user_id: string
+          verified_by_admin?: boolean
+        }
+        Update: {
+          admin_notes?: string | null
+          cefr_level?: Database["public"]["Enums"]["cefr_level"]
+          certificate_number?: string
+          certificate_type?: Database["public"]["Enums"]["certificate_type"]
+          created_at?: string
+          id?: string
+          issued_at?: string
+          pdf_url?: string | null
+          score_percentage?: number
+          status?: Database["public"]["Enums"]["certificate_status"]
+          study_hours?: number
+          total_correct?: number
+          total_questions_answered?: number
+          updated_at?: string
+          user_id?: string
+          verified_by_admin?: boolean
+        }
+        Relationships: []
+      }
       levels: {
         Row: {
           cefr: Database["public"]["Enums"]["cefr_level"]
@@ -335,6 +392,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      generate_certificate_number: { Args: never; Returns: string }
       get_cefr_for_xp: {
         Args: { xp_value: number }
         Returns: Database["public"]["Enums"]["cefr_level"]
@@ -377,6 +435,8 @@ export type Database = {
     Enums: {
       app_role: "student" | "admin"
       cefr_level: "A1" | "A2" | "B1" | "B2" | "C1" | "C2"
+      certificate_status: "earned" | "pending" | "revoked"
+      certificate_type: "level_completion" | "course_completion" | "excellence"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -506,6 +566,8 @@ export const Constants = {
     Enums: {
       app_role: ["student", "admin"],
       cefr_level: ["A1", "A2", "B1", "B2", "C1", "C2"],
+      certificate_status: ["earned", "pending", "revoked"],
+      certificate_type: ["level_completion", "course_completion", "excellence"],
     },
   },
 } as const
