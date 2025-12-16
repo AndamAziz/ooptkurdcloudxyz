@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { isToday, parseISO, isYesterday } from 'date-fns';
+
 import type { CEFRLevel } from '@/lib/constants';
 
 export interface PracticeSession {
@@ -163,7 +163,7 @@ export const useProgress = (userId: string | undefined) => {
         })
         .eq('id', sessionId);
 
-      // Update streak if completed 50 questions
+      // Update streak with bonus based on accuracy when completing 50+ questions
       if (totalQuestions >= 50) {
         const { data: profile } = await supabase
           .from('profiles')
@@ -173,22 +173,17 @@ export const useProgress = (userId: string | undefined) => {
 
         if (profile) {
           const today = new Date().toISOString().split('T')[0];
-          const lastPractice = profile.last_practice_date;
+          const currentStreak = profile.streak || 0;
           
-          let newStreak = 1;
-          
-          if (lastPractice) {
-            const lastDate = parseISO(lastPractice);
-            if (isToday(lastDate)) {
-              // Already practiced today, keep current streak
-              newStreak = profile.streak || 1;
-            } else if (isYesterday(lastDate)) {
-              // Practiced yesterday, increment streak
-              newStreak = (profile.streak || 0) + 1;
-            }
-            // If more than 1 day ago, reset to 1
+          // Calculate bonus streak based on accuracy
+          let bonusStreak = 0;
+          if (accuracy === 100) {
+            bonusStreak = 10; // Perfect score: +10 streak
+          } else if (accuracy >= 70) {
+            bonusStreak = 5; // Good score (70%+): +5 streak
           }
-
+          
+          const newStreak = currentStreak + bonusStreak;
           const newLongestStreak = Math.max(newStreak, profile.longest_streak || 0);
 
           await supabase
