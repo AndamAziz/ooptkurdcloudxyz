@@ -100,7 +100,7 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress }: Prac
                     </span>
                   </div>
                   <p className="text-[11px] sm:text-xs md:text-sm text-muted-foreground line-clamp-2">
-                    Mixed questions from A1 to C2 to determine your exact level
+                    300 questions (50 per level) to determine your exact level
                   </p>
                 </div>
                 <div className="hidden sm:flex items-center gap-1 text-primary">
@@ -115,7 +115,7 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress }: Prac
                     key={level} 
                     className="px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-medium bg-muted/50 text-muted-foreground"
                   >
-                    {level}
+                    {level}: 50
                   </span>
                 ))}
               </div>

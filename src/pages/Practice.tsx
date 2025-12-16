@@ -116,8 +116,8 @@ const Practice = () => {
     let fetchedQuestions;
     
     if (isPlacementMode) {
-      // For placement test, fetch 5 questions from each level (30 total)
-      fetchedQuestions = await fetchPlacementQuestions(user.id, 5);
+      // For placement test, fetch 50 questions from each level (300 total)
+      fetchedQuestions = await fetchPlacementQuestions(user.id, 50);
     } else {
       // Fetch fresh questions - returns the questions directly
       const limit = mode === PRACTICE_MODES.FIFTY_QUESTIONS ? QUESTIONS_PER_SESSION : 50;
