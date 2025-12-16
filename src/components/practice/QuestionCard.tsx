@@ -130,8 +130,19 @@ export const QuestionCard = ({
               )}>
                 {isCorrect ? "Correct! +10 XP" : "Incorrect +2 XP"}
               </p>
+              
+              {/* Always show the correct answer */}
+              {answerResult?.correct_answer && (
+                <p className="text-sm md:text-base font-medium text-foreground mt-2">
+                  <span className="text-success">✓ Correct answer: </span>
+                  <span className="font-semibold">
+                    {answerResult.correct_answer}) {options.find(o => o.key.toUpperCase() === answerResult.correct_answer?.toUpperCase())?.value}
+                  </span>
+                </p>
+              )}
+              
               {answerResult?.explanation && (
-                <p className="text-xs md:text-sm text-muted-foreground">
+                <p className="text-xs md:text-sm text-muted-foreground mt-2">
                   {answerResult.explanation}
                 </p>
               )}
