@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Trophy } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Header } from '@/components/Header';
@@ -14,7 +14,10 @@ import { MobileStatsHeader } from '@/components/dashboard/MobileStatsHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProgress } from '@/hooks/useProgress';
 import { useQuestionProgress } from '@/hooks/useQuestionProgress';
-import type { CEFRLevel } from '@/lib/constants';
+import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
+
+// Threshold for considering a level "completed" (accuracy percentage)
+const LEVEL_COMPLETION_THRESHOLD = 60;
 
 const Dashboard = () => {
   const { profile, user } = useAuth();
@@ -30,7 +33,44 @@ const Dashboard = () => {
     }
   }, [user, fetchRecentSessions, fetchStats, fetchLevelStats, fetchProgress]);
 
-  const currentLevel = (profile?.current_cefr || 'A1') as CEFRLevel;
+  // Calculate the effective current level based on question progress
+  const currentLevel = useMemo((): CEFRLevel => {
+    if (!questionProgress || questionProgress.length === 0) {
+      return (profile?.current_cefr as CEFRLevel) || 'A1';
+    }
+
+    let level: CEFRLevel = 'A1';
+    
+    for (let i = 0; i < CEFR_LEVELS.length; i++) {
+      const cefrLevel = CEFR_LEVELS[i];
+      const levelProgress = questionProgress.find(p => p.cefr === cefrLevel);
+      
+      if (i === 0) {
+        if (levelProgress && levelProgress.accuracy >= LEVEL_COMPLETION_THRESHOLD && levelProgress.answered_questions > 0) {
+          level = CEFR_LEVELS[i + 1] || cefrLevel;
+        } else {
+          level = cefrLevel;
+          break;
+        }
+      } else {
+        const prevLevel = CEFR_LEVELS[i - 1];
+        const prevProgress = questionProgress.find(p => p.cefr === prevLevel);
+        
+        if (prevProgress && prevProgress.accuracy >= LEVEL_COMPLETION_THRESHOLD && prevProgress.answered_questions > 0) {
+          level = cefrLevel;
+          if (levelProgress && levelProgress.accuracy >= LEVEL_COMPLETION_THRESHOLD && levelProgress.answered_questions > 0) {
+            continue;
+          }
+          break;
+        } else {
+          break;
+        }
+      }
+    }
+    
+    return level;
+  }, [questionProgress, profile?.current_cefr]);
+
   const currentXP = profile?.xp || 0;
   const currentStreak = profile?.streak || 0;
   const displayName = profile?.display_name || profile?.username || 'Student';
