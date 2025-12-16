@@ -33,43 +33,38 @@ const Dashboard = () => {
     }
   }, [user, fetchRecentSessions, fetchStats, fetchLevelStats, fetchProgress]);
 
-  // Calculate the effective current level based on question progress
+  // Calculate the effective current level based on levelStats (same data as sidebar)
   const currentLevel = useMemo((): CEFRLevel => {
-    if (!questionProgress || questionProgress.length === 0) {
+    if (!levelStats || levelStats.length === 0) {
       return (profile?.current_cefr as CEFRLevel) || 'A1';
     }
 
-    let level: CEFRLevel = 'A1';
-    
-    for (let i = 0; i < CEFR_LEVELS.length; i++) {
-      const cefrLevel = CEFR_LEVELS[i];
-      const levelProgress = questionProgress.find(p => p.cefr === cefrLevel);
-      
-      if (i === 0) {
-        if (levelProgress && levelProgress.accuracy >= LEVEL_COMPLETION_THRESHOLD && levelProgress.answered_questions > 0) {
-          level = CEFR_LEVELS[i + 1] || cefrLevel;
-        } else {
-          level = cefrLevel;
-          break;
-        }
-      } else {
-        const prevLevel = CEFR_LEVELS[i - 1];
-        const prevProgress = questionProgress.find(p => p.cefr === prevLevel);
-        
-        if (prevProgress && prevProgress.accuracy >= LEVEL_COMPLETION_THRESHOLD && prevProgress.answered_questions > 0) {
-          level = cefrLevel;
-          if (levelProgress && levelProgress.accuracy >= LEVEL_COMPLETION_THRESHOLD && levelProgress.answered_questions > 0) {
-            continue;
-          }
-          break;
-        } else {
-          break;
-        }
+    // Use the same logic as LevelProgressCard for consistency
+    const isLevelUnlocked = (index: number): boolean => {
+      if (index === 0) return true;
+      const prevLevel = levelStats[index - 1];
+      return prevLevel.attempts >= 10 && prevLevel.accuracy >= LEVEL_COMPLETION_THRESHOLD;
+    };
+
+    const isLevelCompleted = (index: number): boolean => {
+      if (!isLevelUnlocked(index)) return false;
+      const level = levelStats[index];
+      return level.attempts >= 10 && level.accuracy >= LEVEL_COMPLETION_THRESHOLD;
+    };
+
+    // Find the first unlocked level that isn't completed
+    for (let i = 0; i < levelStats.length; i++) {
+      if (!isLevelUnlocked(i)) {
+        return levelStats[Math.max(0, i - 1)].level;
+      }
+      if (!isLevelCompleted(i)) {
+        return levelStats[i].level;
       }
     }
     
-    return level;
-  }, [questionProgress, profile?.current_cefr]);
+    // All levels completed, return last level
+    return levelStats[levelStats.length - 1].level;
+  }, [levelStats, profile?.current_cefr]);
 
   const currentXP = profile?.xp || 0;
   const currentStreak = profile?.streak || 0;

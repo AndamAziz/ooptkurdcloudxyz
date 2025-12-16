@@ -40,41 +40,36 @@ export const Header = () => {
       return (profile?.current_cefr as CEFRLevel) || 'A1';
     }
 
-    // Find the highest unlocked level
-    // A level is unlocked if all previous levels have >= threshold accuracy
-    let currentLevel: CEFRLevel = 'A1';
-    
+    // Use the same logic as LevelProgressCard/Dashboard for consistency
+    // Requires 10+ attempts AND 60%+ accuracy to unlock next level
+    const isLevelUnlocked = (index: number): boolean => {
+      if (index === 0) return true;
+      const prevLevelName = CEFR_LEVELS[index - 1];
+      const prevLevel = questionProgress.find(p => p.cefr === prevLevelName);
+      if (!prevLevel) return false;
+      return prevLevel.answered_questions >= 10 && prevLevel.accuracy >= LEVEL_COMPLETION_THRESHOLD;
+    };
+
+    const isLevelCompleted = (index: number): boolean => {
+      if (!isLevelUnlocked(index)) return false;
+      const levelName = CEFR_LEVELS[index];
+      const level = questionProgress.find(p => p.cefr === levelName);
+      if (!level) return false;
+      return level.answered_questions >= 10 && level.accuracy >= LEVEL_COMPLETION_THRESHOLD;
+    };
+
+    // Find the first unlocked level that isn't completed
     for (let i = 0; i < CEFR_LEVELS.length; i++) {
-      const level = CEFR_LEVELS[i];
-      const levelProgress = questionProgress.find(p => p.cefr === level);
-      
-      if (i === 0) {
-        // A1 is always unlocked, check if we can move to next
-        if (levelProgress && levelProgress.accuracy >= LEVEL_COMPLETION_THRESHOLD && levelProgress.answered_questions > 0) {
-          currentLevel = CEFR_LEVELS[i + 1] || level;
-        } else {
-          currentLevel = level;
-          break;
-        }
-      } else {
-        // Check if previous level is completed
-        const prevLevel = CEFR_LEVELS[i - 1];
-        const prevProgress = questionProgress.find(p => p.cefr === prevLevel);
-        
-        if (prevProgress && prevProgress.accuracy >= LEVEL_COMPLETION_THRESHOLD && prevProgress.answered_questions > 0) {
-          currentLevel = level;
-          // If this level is also completed, continue to next
-          if (levelProgress && levelProgress.accuracy >= LEVEL_COMPLETION_THRESHOLD && levelProgress.answered_questions > 0) {
-            continue;
-          }
-          break;
-        } else {
-          break;
-        }
+      if (!isLevelUnlocked(i)) {
+        return CEFR_LEVELS[Math.max(0, i - 1)];
+      }
+      if (!isLevelCompleted(i)) {
+        return CEFR_LEVELS[i];
       }
     }
     
-    return currentLevel;
+    // All levels completed, return last level
+    return CEFR_LEVELS[CEFR_LEVELS.length - 1];
   }, [questionProgress, profile?.current_cefr]);
 
   const handleSignOut = async () => {
