@@ -84,10 +84,10 @@ export const useQuestions = () => {
     }
   }, []);
 
-  // Fetch mixed questions from all levels for placement test
+  // Fetch mixed questions from all levels for placement test (50 per level = 300 total)
   const fetchPlacementQuestions = useCallback(async (
     userId: string,
-    questionsPerLevel: number = 5
+    questionsPerLevel: number = 50
   ): Promise<Question[]> => {
     setLoading(true);
     setError(null);
@@ -96,8 +96,8 @@ export const useQuestions = () => {
     const allQuestions: Question[] = [];
 
     try {
-      // Fetch questions from each level
-      for (const level of levels) {
+      // Fetch questions from each level in parallel
+      const levelPromises = levels.map(async (level) => {
         const { data, error: fetchError } = await supabase.rpc('get_random_questions', {
           p_user_id: userId,
           p_cefr: level,
@@ -105,7 +105,7 @@ export const useQuestions = () => {
         });
 
         if (!fetchError && data) {
-          allQuestions.push(...(data as Question[]));
+          return data as Question[];
         } else {
           // Fallback for each level
           const { data: fallbackData } = await supabase
@@ -114,13 +114,14 @@ export const useQuestions = () => {
             .eq('cefr', level)
             .limit(questionsPerLevel);
           
-          if (fallbackData) {
-            allQuestions.push(...(fallbackData as Question[]));
-          }
+          return (fallbackData || []) as Question[];
         }
-      }
+      });
 
-      // Shuffle all questions together
+      const levelResults = await Promise.all(levelPromises);
+      levelResults.forEach(questions => allQuestions.push(...questions));
+
+      // Shuffle all questions together for mixed order
       const shuffled = allQuestions.sort(() => Math.random() - 0.5);
       setQuestions(shuffled);
       return shuffled;

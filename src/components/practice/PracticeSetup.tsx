@@ -63,7 +63,7 @@ export const PracticeSetup = ({
             <div className="p-3 sm:p-4 rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20">
               <div className="flex items-center gap-2 mb-2">
                 <Sparkles className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-primary">All Levels Included</span>
+                <span className="text-sm font-medium text-primary">Comprehensive Level Assessment</span>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {CEFR_LEVELS.map((level) => (
@@ -71,14 +71,16 @@ export const PracticeSetup = ({
                     key={level} 
                     className="px-2 py-1 rounded-md text-xs font-medium bg-muted/50 text-muted-foreground"
                   >
-                    {level}
+                    {level}: 50
                   </span>
                 ))}
               </div>
             </div>
             <div className="text-xs sm:text-sm text-muted-foreground text-center space-y-1">
-              <p>• 30 questions (5 from each level)</p>
-              <p>• Results will show your recommended level</p>
+              <p className="font-medium text-foreground">300 Total Questions</p>
+              <p>• 50 questions from each level (A1 - C2)</p>
+              <p>• Only unanswered questions will be shown</p>
+              <p>• Results determine your recommended level</p>
             </div>
           </div>
         ) : (
