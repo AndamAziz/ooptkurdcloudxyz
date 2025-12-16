@@ -117,7 +117,7 @@ const Auth = () => {
       emailSchema.parse(forgotPasswordEmail);
 
       const { error } = await supabase.auth.resetPasswordForEmail(forgotPasswordEmail, {
-        redirectTo: `${window.location.origin}/auth`,
+        redirectTo: `${window.location.origin}/reset-password`,
       });
 
       if (error) {
