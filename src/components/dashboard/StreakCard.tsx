@@ -17,20 +17,20 @@ export const StreakCard = ({ streak, lastPracticeDate }: StreakCardProps) => {
   };
 
   return (
-    <Card className="overflow-hidden">
-      <div className="bg-gradient-to-r from-orange-500 to-red-500 p-4 text-white">
+    <Card className="overflow-hidden w-full max-w-full">
+      <div className="bg-gradient-to-r from-orange-500 to-red-500 p-3 md:p-4 text-white">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Flame className="w-8 h-8" />
+          <div className="flex items-center gap-2 md:gap-3">
+            <Flame className="w-6 h-6 md:w-8 md:h-8" />
             <div>
-              <p className="text-3xl font-bold">{streak}</p>
-              <p className="text-sm opacity-90">Day Streak</p>
+              <p className="text-2xl md:text-3xl font-bold">{streak}</p>
+              <p className="text-xs md:text-sm opacity-90">Day Streak</p>
             </div>
           </div>
         </div>
       </div>
-      <CardContent className="p-4">
-        <p className="text-sm text-muted-foreground">{getStreakStatus()}</p>
+      <CardContent className="p-3 md:p-4">
+        <p className="text-xs md:text-sm text-muted-foreground">{getStreakStatus()}</p>
       </CardContent>
     </Card>
   );

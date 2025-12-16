@@ -10,29 +10,29 @@ interface StatsCardProps {
 
 export const StatsCard = ({ totalXP, totalAttempts, totalCorrect, accuracy }: StatsCardProps) => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+    <Card className="w-full max-w-full">
+      <CardHeader className="p-4 md:p-6">
+        <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
           <TrendingUp className="w-5 h-5" />
           Your Stats
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="p-4 md:p-6 pt-0 space-y-3 md:space-y-4">
         <div className="flex items-center justify-between">
-          <span className="text-muted-foreground">Total XP</span>
-          <span className="font-bold text-lg">{totalXP.toLocaleString()}</span>
+          <span className="text-muted-foreground text-sm md:text-base">Total XP</span>
+          <span className="font-bold text-base md:text-lg">{totalXP.toLocaleString()}</span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-muted-foreground">Questions Answered</span>
-          <span className="font-bold text-lg">{totalAttempts}</span>
+          <span className="text-muted-foreground text-sm md:text-base">Questions Answered</span>
+          <span className="font-bold text-base md:text-lg">{totalAttempts}</span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-muted-foreground">Correct Answers</span>
-          <span className="font-bold text-lg text-success">{totalCorrect}</span>
+          <span className="text-muted-foreground text-sm md:text-base">Correct Answers</span>
+          <span className="font-bold text-base md:text-lg text-success">{totalCorrect}</span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-muted-foreground">Accuracy</span>
-          <span className="font-bold text-lg">{accuracy}%</span>
+          <span className="text-muted-foreground text-sm md:text-base">Accuracy</span>
+          <span className="font-bold text-base md:text-lg">{accuracy}%</span>
         </div>
       </CardContent>
     </Card>

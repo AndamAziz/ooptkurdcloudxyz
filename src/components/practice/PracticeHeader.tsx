@@ -28,25 +28,25 @@ export const PracticeHeader = ({
   timeLeft = 0,
 }: PracticeHeaderProps) => {
   return (
-    <div className="mb-6 space-y-3">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+    <div className="mb-4 md:mb-6 space-y-2 md:space-y-3">
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 md:gap-3">
           <CEFRBadge level={level} />
-          <span className="text-sm text-muted-foreground">
-            Question {currentIndex + 1} of {totalQuestions}
+          <span className="text-xs md:text-sm text-muted-foreground">
+            Q {currentIndex + 1}/{totalQuestions}
           </span>
         </div>
         {showTimer && (
           <div className={cn(
-            "flex items-center gap-2 px-3 py-1 rounded-full",
+            "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1 rounded-full text-sm",
             timeLeft < 60 ? "bg-destructive/10 text-destructive" : "bg-muted"
           )}>
-            <Clock className="w-4 h-4" />
-            <span className="font-mono font-medium">{formatTime(timeLeft)}</span>
+            <Clock className="w-3.5 h-3.5 md:w-4 md:h-4" />
+            <span className="font-mono font-medium text-xs md:text-sm">{formatTime(timeLeft)}</span>
           </div>
         )}
       </div>
-      <Progress value={progress} className="h-2" />
+      <Progress value={progress} className="h-1.5 md:h-2" />
     </div>
   );
 };

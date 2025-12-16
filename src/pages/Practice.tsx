@@ -169,9 +169,9 @@ const Practice = () => {
 
   if (state === 'setup') {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background overflow-x-hidden">
         <Header />
-        <main className="container max-w-2xl py-12">
+        <main className="container max-w-2xl py-6 md:py-12 px-4">
           <PracticeSetup
             selectedLevel={selectedLevel}
             mode={mode}
@@ -191,9 +191,9 @@ const Practice = () => {
     const xpEarned = (correctCount * XP_REWARDS.CORRECT) + ((totalQuestions - correctCount) * XP_REWARDS.INCORRECT);
 
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background overflow-x-hidden">
         <Header />
-        <main className="container max-w-2xl py-12">
+        <main className="container max-w-2xl py-6 md:py-12 px-4">
           <PracticeResults
             totalQuestions={totalQuestions}
             correctCount={correctCount}
@@ -212,9 +212,9 @@ const Practice = () => {
   const isLastQuestion = currentIndex >= maxQuestions - 1 || currentIndex >= questions.length - 1;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <Header />
-      <main className="container max-w-3xl py-8">
+      <main className="container max-w-3xl py-4 md:py-8 px-4">
         <PracticeHeader
           level={selectedLevel}
           currentIndex={currentIndex}
