@@ -518,6 +518,54 @@ const Admin = () => {
     return matchesSearch && matchesLevel;
   });
 
+  const exportAllQuestions = async () => {
+    try {
+      toast({ title: 'Exporting...', description: 'Preparing CSV file' });
+      
+      const allQuestions: Question[] = [];
+      let offset = 0;
+      
+      while (true) {
+        const { data, error } = await supabase
+          .from('questions')
+          .select('*')
+          .order('cefr', { ascending: true })
+          .order('id', { ascending: true })
+          .range(offset, offset + QUESTIONS_PAGE_SIZE - 1);
+        
+        if (error) throw error;
+        if (!data || data.length === 0) break;
+        
+        allQuestions.push(...(data as Question[]));
+        if (data.length < QUESTIONS_PAGE_SIZE) break;
+        offset += QUESTIONS_PAGE_SIZE;
+      }
+
+      const headers = ['cefr', 'prompt', 'options_a', 'options_b', 'options_c', 'options_d', 'correct_answer', 'explanation', 'difficulty', 'q_type', 'tags', 'source'];
+      
+      const csvRows = allQuestions.map(q => 
+        headers.map(h => {
+          const value = q[h as keyof Question];
+          const str = value?.toString() || '';
+          return `"${str.replace(/"/g, '""')}"`;
+        }).join(',')
+      );
+      
+      const csvContent = [headers.join(','), ...csvRows].join('\n');
+      const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `questions_export_${new Date().toISOString().split('T')[0]}.csv`;
+      link.click();
+      URL.revokeObjectURL(url);
+      
+      toast({ title: 'Export Complete', description: `${allQuestions.length} questions exported` });
+    } catch {
+      toast({ title: 'Export Failed', variant: 'destructive' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -554,7 +602,33 @@ const Admin = () => {
 
           <TabsContent value="overview">
             <div className="grid gap-4 md:gap-6 lg:grid-cols-3">
-              <div className="lg:col-span-2">
+              <div className="lg:col-span-2 space-y-4">
+                {/* Questions Summary Card */}
+                <Card>
+                  <CardHeader className="p-3 md:p-4 pb-2">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-sm md:text-base flex items-center gap-2">
+                        <BookOpen className="w-4 h-4" />
+                        Questions Bank
+                      </CardTitle>
+                      <div className="text-lg md:text-2xl font-bold text-primary">
+                        {stats.totalQuestions.toLocaleString()}
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-3 md:p-4 pt-0">
+                    <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
+                      {CEFR_LEVELS.map(level => (
+                        <div key={level} className="text-center p-2 rounded-lg bg-muted/50">
+                          <CEFRBadge level={level} size="sm" />
+                          <div className="text-sm md:text-lg font-bold mt-1">
+                            {(stats.questionsByLevel[level] || 0).toLocaleString()}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
                 <AdminOverview />
               </div>
               <div>
@@ -575,18 +649,29 @@ const Admin = () => {
                     <CardTitle className="text-base md:text-lg">Questions Database</CardTitle>
                     <CardDescription className="text-xs md:text-sm">Manage your question bank</CardDescription>
                   </div>
-                  <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                      <Button 
-                        variant="destructive" 
-                        size="sm"
-                        disabled={isDeletingAll || stats.totalQuestions === 0}
-                        className="gap-2"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                        Delete Questions
-                      </Button>
-                    </AlertDialogTrigger>
+                  <div className="flex gap-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={exportAllQuestions}
+                      disabled={stats.totalQuestions === 0}
+                      className="gap-2"
+                    >
+                      <Download className="w-4 h-4" />
+                      Export CSV
+                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button 
+                          variant="destructive" 
+                          size="sm"
+                          disabled={isDeletingAll || stats.totalQuestions === 0}
+                          className="gap-2"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                          Delete
+                        </Button>
+                      </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
                         <AlertDialogTitle className="flex items-center gap-2 text-destructive">
@@ -629,7 +714,8 @@ const Admin = () => {
                         </AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
-                  </AlertDialog>
+                    </AlertDialog>
+                  </div>
                 </div>
               </CardHeader>
               <CardContent className="p-3 md:p-6 pt-0">
