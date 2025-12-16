@@ -398,29 +398,38 @@ const Admin = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="container py-8">
-        <div className="mb-8">
-          <h1 className="font-serif text-3xl font-bold">Admin Dashboard</h1>
-          <p className="text-muted-foreground">Manage questions, certificates, and monitor usage</p>
+      <main className="container py-4 md:py-8 px-3 md:px-4">
+        <div className="mb-4 md:mb-8">
+          <h1 className="font-serif text-xl md:text-3xl font-bold">Admin Dashboard</h1>
+          <p className="text-xs md:text-base text-muted-foreground">Manage questions, certificates, and monitor usage</p>
         </div>
 
-        <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="flex-wrap">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="students">
-              <Users className="w-4 h-4 mr-2" />
-              Students
+        <Tabs defaultValue="overview" className="space-y-4 md:space-y-6">
+          <TabsList className="w-full grid grid-cols-5 h-auto p-1">
+            <TabsTrigger value="overview" className="text-[10px] md:text-sm px-1 md:px-3 py-1.5 md:py-2">
+              <BarChart3 className="w-3 h-3 md:w-4 md:h-4 md:mr-1" />
+              <span className="hidden md:inline">Overview</span>
             </TabsTrigger>
-            <TabsTrigger value="questions">Questions</TabsTrigger>
-            <TabsTrigger value="certificates">
-              <Award className="w-4 h-4 mr-2" />
-              Certificates
+            <TabsTrigger value="students" className="text-[10px] md:text-sm px-1 md:px-3 py-1.5 md:py-2">
+              <Users className="w-3 h-3 md:w-4 md:h-4 md:mr-1" />
+              <span className="hidden md:inline">Students</span>
             </TabsTrigger>
-            <TabsTrigger value="import">Import</TabsTrigger>
+            <TabsTrigger value="questions" className="text-[10px] md:text-sm px-1 md:px-3 py-1.5 md:py-2">
+              <BookOpen className="w-3 h-3 md:w-4 md:h-4 md:mr-1" />
+              <span className="hidden md:inline">Questions</span>
+            </TabsTrigger>
+            <TabsTrigger value="certificates" className="text-[10px] md:text-sm px-1 md:px-3 py-1.5 md:py-2">
+              <Award className="w-3 h-3 md:w-4 md:h-4 md:mr-1" />
+              <span className="hidden md:inline">Certificates</span>
+            </TabsTrigger>
+            <TabsTrigger value="import" className="text-[10px] md:text-sm px-1 md:px-3 py-1.5 md:py-2">
+              <Upload className="w-3 h-3 md:w-4 md:h-4 md:mr-1" />
+              <span className="hidden md:inline">Import</span>
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview">
-            <div className="grid gap-6 lg:grid-cols-3">
+            <div className="grid gap-4 md:gap-6 lg:grid-cols-3">
               <div className="lg:col-span-2">
                 <AdminOverview />
               </div>
@@ -436,31 +445,27 @@ const Admin = () => {
 
           <TabsContent value="questions">
             <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle>Questions Database</CardTitle>
-                    <CardDescription>Manage your question bank</CardDescription>
-                  </div>
-                </div>
+              <CardHeader className="p-3 md:p-6">
+                <CardTitle className="text-base md:text-lg">Questions Database</CardTitle>
+                <CardDescription className="text-xs md:text-sm">Manage your question bank</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="flex gap-4 mb-6">
+              <CardContent className="p-3 md:p-6 pt-0">
+                <div className="flex flex-col sm:flex-row gap-2 md:gap-4 mb-4 md:mb-6">
                   <div className="flex-1 relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
-                      placeholder="Search questions..."
-                      className="pl-10"
+                      placeholder="Search..."
+                      className="pl-10 text-sm"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                     />
                   </div>
                   <Select value={filterLevel} onValueChange={setFilterLevel}>
-                    <SelectTrigger className="w-32">
+                    <SelectTrigger className="w-full sm:w-24">
                       <SelectValue placeholder="Level" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Levels</SelectItem>
+                      <SelectItem value="all">All</SelectItem>
                       {CEFR_LEVELS.map(level => (
                         <SelectItem key={level} value={level}>{level}</SelectItem>
                       ))}
@@ -468,37 +473,38 @@ const Admin = () => {
                   </Select>
                 </div>
 
-                <div className="rounded-md border">
+                <div className="rounded-md border overflow-x-auto">
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead className="w-16">ID</TableHead>
-                        <TableHead className="w-20">Level</TableHead>
-                        <TableHead>Prompt</TableHead>
-                        <TableHead className="w-20">Answer</TableHead>
-                        <TableHead className="w-24">Actions</TableHead>
+                        <TableHead className="w-10 md:w-16 text-xs">ID</TableHead>
+                        <TableHead className="w-12 md:w-20 text-xs">Level</TableHead>
+                        <TableHead className="text-xs">Prompt</TableHead>
+                        <TableHead className="w-10 md:w-20 text-xs hidden sm:table-cell">Ans</TableHead>
+                        <TableHead className="w-10 md:w-24 text-xs"></TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {filteredQuestions.map((question) => (
                         <TableRow key={question.id}>
-                          <TableCell className="font-mono text-sm">{question.id}</TableCell>
-                          <TableCell>
+                          <TableCell className="font-mono text-xs p-2">{question.id}</TableCell>
+                          <TableCell className="p-2">
                             <CEFRBadge level={question.cefr} size="sm" />
                           </TableCell>
-                          <TableCell className="max-w-md truncate">
+                          <TableCell className="max-w-[120px] md:max-w-md truncate text-xs p-2">
                             {question.prompt}
                           </TableCell>
-                          <TableCell className="font-semibold">
+                          <TableCell className="font-semibold text-xs p-2 hidden sm:table-cell">
                             {question.correct_answer || '-'}
                           </TableCell>
-                          <TableCell>
+                          <TableCell className="p-1">
                             <Button
                               variant="ghost"
                               size="icon"
+                              className="h-7 w-7"
                               onClick={() => deleteQuestion(question.id)}
                             >
-                              <Trash2 className="w-4 h-4 text-destructive" />
+                              <Trash2 className="w-3 h-3 text-destructive" />
                             </Button>
                           </TableCell>
                         </TableRow>

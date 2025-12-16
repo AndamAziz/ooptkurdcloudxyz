@@ -14,7 +14,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Legend,
 } from 'recharts';
 import { useAdminStats } from '@/hooks/useAdminStats';
 
@@ -63,19 +62,19 @@ export const AdminOverview = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Students</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
+      <div className="grid grid-cols-2 gap-2 md:gap-4 lg:grid-cols-4">
+        <Card className="p-0">
+          <CardHeader className="flex flex-row items-center justify-between p-3 md:p-4 pb-1 md:pb-2">
+            <CardTitle className="text-[10px] md:text-sm font-medium">Students</CardTitle>
+            <Users className="h-3 w-3 md:h-4 md:w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.totalStudents.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground flex items-center gap-1">
+          <CardContent className="p-3 md:p-4 pt-0">
+            <div className="text-lg md:text-2xl font-bold">{stats.totalStudents.toLocaleString()}</div>
+            <p className="text-[9px] md:text-xs text-muted-foreground flex items-center gap-0.5">
               <span className="text-green-500 flex items-center">
-                <ArrowUp className="h-3 w-3" />
+                <ArrowUp className="h-2 w-2 md:h-3 md:w-3" />
                 {stats.newThisWeek}
               </span>
               this week
@@ -83,16 +82,16 @@ export const AdminOverview = () => {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Active Today</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+        <Card className="p-0">
+          <CardHeader className="flex flex-row items-center justify-between p-3 md:p-4 pb-1 md:pb-2">
+            <CardTitle className="text-[10px] md:text-sm font-medium">Active</CardTitle>
+            <TrendingUp className="h-3 w-3 md:h-4 md:w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.activeToday.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground flex items-center gap-1">
+          <CardContent className="p-3 md:p-4 pt-0">
+            <div className="text-lg md:text-2xl font-bold">{stats.activeToday.toLocaleString()}</div>
+            <p className="text-[9px] md:text-xs text-muted-foreground flex items-center gap-0.5">
               <span className={`flex items-center ${stats.activeDiff >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                {stats.activeDiff >= 0 ? <ArrowUp className="h-3 w-3" /> : <ArrowDown className="h-3 w-3" />}
+                {stats.activeDiff >= 0 ? <ArrowUp className="h-2 w-2 md:h-3 md:w-3" /> : <ArrowDown className="h-2 w-2 md:h-3 md:w-3" />}
                 {Math.abs(stats.activeDiff)}
               </span>
               vs yesterday
@@ -100,16 +99,16 @@ export const AdminOverview = () => {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Attempts</CardTitle>
-            <Target className="h-4 w-4 text-muted-foreground" />
+        <Card className="p-0">
+          <CardHeader className="flex flex-row items-center justify-between p-3 md:p-4 pb-1 md:pb-2">
+            <CardTitle className="text-[10px] md:text-sm font-medium">Attempts</CardTitle>
+            <Target className="h-3 w-3 md:h-4 md:w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.totalAttempts.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground flex items-center gap-1">
+          <CardContent className="p-3 md:p-4 pt-0">
+            <div className="text-lg md:text-2xl font-bold">{stats.totalAttempts.toLocaleString()}</div>
+            <p className="text-[9px] md:text-xs text-muted-foreground flex items-center gap-0.5">
               <span className="text-green-500 flex items-center">
-                <ArrowUp className="h-3 w-3" />
+                <ArrowUp className="h-2 w-2 md:h-3 md:w-3" />
                 {stats.attemptsToday}
               </span>
               today
@@ -117,16 +116,16 @@ export const AdminOverview = () => {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Certificates Issued</CardTitle>
-            <Award className="h-4 w-4 text-muted-foreground" />
+        <Card className="p-0">
+          <CardHeader className="flex flex-row items-center justify-between p-3 md:p-4 pb-1 md:pb-2">
+            <CardTitle className="text-[10px] md:text-sm font-medium">Certificates</CardTitle>
+            <Award className="h-3 w-3 md:h-4 md:w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.totalCertificates.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground flex items-center gap-1">
+          <CardContent className="p-3 md:p-4 pt-0">
+            <div className="text-lg md:text-2xl font-bold">{stats.totalCertificates.toLocaleString()}</div>
+            <p className="text-[9px] md:text-xs text-muted-foreground flex items-center gap-0.5">
               <span className="text-green-500 flex items-center">
-                <ArrowUp className="h-3 w-3" />
+                <ArrowUp className="h-2 w-2 md:h-3 md:w-3" />
                 {stats.certsThisWeek}
               </span>
               this week
@@ -136,28 +135,29 @@ export const AdminOverview = () => {
       </div>
 
       {/* Charts */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-3 md:gap-4 grid-cols-1 md:grid-cols-2">
         {/* Registration Trend */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Registration Trend (30 days)</CardTitle>
+          <CardHeader className="p-3 md:p-4 pb-2">
+            <CardTitle className="text-xs md:text-base">Registrations (30d)</CardTitle>
           </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={200}>
+          <CardContent className="p-2 md:p-4 pt-0">
+            <ResponsiveContainer width="100%" height={140}>
               <LineChart data={registrationTrend}>
                 <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
                 <XAxis 
                   dataKey="date" 
-                  fontSize={10} 
+                  fontSize={8} 
                   tickLine={false}
                   interval="preserveStartEnd"
                 />
-                <YAxis fontSize={10} tickLine={false} />
+                <YAxis fontSize={8} tickLine={false} width={25} />
                 <Tooltip 
                   contentStyle={{ 
                     backgroundColor: 'hsl(var(--card))',
                     border: '1px solid hsl(var(--border))',
                     borderRadius: '8px',
+                    fontSize: '11px',
                   }}
                 />
                 <Line 
@@ -166,7 +166,7 @@ export const AdminOverview = () => {
                   stroke="hsl(var(--primary))" 
                   strokeWidth={2}
                   dot={false}
-                  name="New Registrations"
+                  name="New"
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -175,11 +175,11 @@ export const AdminOverview = () => {
 
         {/* Level Distribution */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Students by Level</CardTitle>
+          <CardHeader className="p-3 md:p-4 pb-2">
+            <CardTitle className="text-xs md:text-base">Students by Level</CardTitle>
           </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={200}>
+          <CardContent className="p-2 md:p-4 pt-0">
+            <ResponsiveContainer width="100%" height={140}>
               <PieChart>
                 <Pie
                   data={levelDistribution}
@@ -187,9 +187,10 @@ export const AdminOverview = () => {
                   nameKey="level"
                   cx="50%"
                   cy="50%"
-                  outerRadius={70}
+                  outerRadius={45}
                   label={({ level, count }) => `${level}: ${count}`}
                   labelLine={false}
+                  fontSize={9}
                 >
                   {levelDistribution.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -200,9 +201,9 @@ export const AdminOverview = () => {
                     backgroundColor: 'hsl(var(--card))',
                     border: '1px solid hsl(var(--border))',
                     borderRadius: '8px',
+                    fontSize: '11px',
                   }}
                 />
-                <Legend />
               </PieChart>
             </ResponsiveContainer>
           </CardContent>
@@ -210,32 +211,33 @@ export const AdminOverview = () => {
 
         {/* Daily Active Users */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Daily Active Users (14 days)</CardTitle>
+          <CardHeader className="p-3 md:p-4 pb-2">
+            <CardTitle className="text-xs md:text-base">Active Users (14d)</CardTitle>
           </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={200}>
+          <CardContent className="p-2 md:p-4 pt-0">
+            <ResponsiveContainer width="100%" height={140}>
               <BarChart data={dailyActiveUsers}>
                 <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
                 <XAxis 
                   dataKey="date" 
-                  fontSize={10} 
+                  fontSize={8} 
                   tickLine={false}
                   interval="preserveStartEnd"
                 />
-                <YAxis fontSize={10} tickLine={false} />
+                <YAxis fontSize={8} tickLine={false} width={25} />
                 <Tooltip 
                   contentStyle={{ 
                     backgroundColor: 'hsl(var(--card))',
                     border: '1px solid hsl(var(--border))',
                     borderRadius: '8px',
+                    fontSize: '11px',
                   }}
                 />
                 <Bar 
                   dataKey="count" 
                   fill="hsl(var(--primary))" 
                   radius={[4, 4, 0, 0]}
-                  name="Active Users"
+                  name="Active"
                 />
               </BarChart>
             </ResponsiveContainer>
@@ -244,20 +246,21 @@ export const AdminOverview = () => {
 
         {/* Accuracy by Level */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Average Accuracy by Level</CardTitle>
+          <CardHeader className="p-3 md:p-4 pb-2">
+            <CardTitle className="text-xs md:text-base">Accuracy by Level</CardTitle>
           </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={200}>
+          <CardContent className="p-2 md:p-4 pt-0">
+            <ResponsiveContainer width="100%" height={140}>
               <BarChart data={accuracyByLevel} layout="vertical">
                 <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                <XAxis type="number" domain={[0, 100]} fontSize={10} tickLine={false} />
-                <YAxis type="category" dataKey="level" fontSize={10} tickLine={false} width={30} />
+                <XAxis type="number" domain={[0, 100]} fontSize={8} tickLine={false} />
+                <YAxis type="category" dataKey="level" fontSize={8} tickLine={false} width={22} />
                 <Tooltip 
                   contentStyle={{ 
                     backgroundColor: 'hsl(var(--card))',
                     border: '1px solid hsl(var(--border))',
                     borderRadius: '8px',
+                    fontSize: '11px',
                   }}
                   formatter={(value) => [`${value}%`, 'Accuracy']}
                 />
@@ -265,7 +268,7 @@ export const AdminOverview = () => {
                   dataKey="accuracy" 
                   fill="hsl(var(--chart-2))" 
                   radius={[0, 4, 4, 0]}
-                  name="Accuracy %"
+                  name="Accuracy"
                 />
               </BarChart>
             </ResponsiveContainer>
