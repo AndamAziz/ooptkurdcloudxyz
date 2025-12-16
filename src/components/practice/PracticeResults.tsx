@@ -30,10 +30,10 @@ export const PracticeResults = ({
       </CardHeader>
       <CardContent className="space-y-4 md:space-y-6 p-4 md:p-6 pt-0">
         {/* Speedometer Gauge */}
-        <div className="flex justify-center py-2">
+        <div className="flex justify-center py-2 w-full">
           <SpeedometerGauge 
             percentage={accuracy} 
-            size="md"
+            size="sm"
             showLabel={true}
             showPercentage={true}
           />

@@ -72,10 +72,10 @@ export const SpeedometerGauge = ({
   const needleRotation = -180 + (animatedPercentage / 100) * 180;
 
   const sizes = {
-    xs: { width: 100, height: 60, fontSize: 'text-lg', needleLength: 40 },
-    sm: { width: 160, height: 90, fontSize: 'text-xl', needleLength: 55 },
-    md: { width: 250, height: 135, fontSize: 'text-3xl', needleLength: 85 },
-    lg: { width: 320, height: 170, fontSize: 'text-4xl', needleLength: 110 },
+    xs: { width: '80px', height: '48px', fontSize: 'text-base', needleLength: 40 },
+    sm: { width: '120px', height: '70px', fontSize: 'text-lg', needleLength: 55 },
+    md: { width: '180px', height: '100px', fontSize: 'text-2xl', needleLength: 85 },
+    lg: { width: '240px', height: '130px', fontSize: 'text-3xl', needleLength: 110 },
   };
 
   const currentSize = sizes[size];
@@ -102,13 +102,13 @@ export const SpeedometerGauge = ({
   const strokeWidth = 20;
 
   return (
-    <div className={cn('flex flex-col items-center', className)}>
-      <div className="flex items-center gap-4 md:gap-6">
+    <div className={cn('flex flex-col items-center w-full', className)}>
+      <div className="flex items-center gap-2 sm:gap-4 md:gap-6 w-full justify-center">
         {/* SVG Gauge */}
         <svg
           viewBox="0 0 200 110"
-          style={{ width: currentSize.width, height: currentSize.height }}
-          className="drop-shadow-md"
+          style={{ width: currentSize.width, height: currentSize.height, minWidth: '60px' }}
+          className="drop-shadow-md flex-shrink-0"
         >
           {/* Background track */}
           <path
@@ -211,14 +211,14 @@ export const SpeedometerGauge = ({
 
         {/* Percentage display on the right */}
         {showPercentage && (
-          <div className="flex flex-col items-start">
+          <div className="flex flex-col items-start flex-shrink-0">
             <span
               className={cn(currentSize.fontSize, 'font-bold tabular-nums transition-colors duration-300')}
               style={{ color: zone.color }}
             >
               {Math.round(animatedPercentage)}%
             </span>
-            <span className="text-xs text-muted-foreground uppercase tracking-wide">
+            <span className="text-[9px] sm:text-xs text-muted-foreground uppercase tracking-wide">
               {zone.label}
             </span>
           </div>
