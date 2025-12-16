@@ -161,6 +161,54 @@ export type Database = {
         }
         Relationships: []
       }
+      placement_results: {
+        Row: {
+          completed_at: string | null
+          correct_answers: number | null
+          created_at: string | null
+          id: string
+          level_scores: Json | null
+          recommended_level: Database["public"]["Enums"]["cefr_level"]
+          total_questions: number | null
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          correct_answers?: number | null
+          created_at?: string | null
+          id?: string
+          level_scores?: Json | null
+          recommended_level?: Database["public"]["Enums"]["cefr_level"]
+          total_questions?: number | null
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          correct_answers?: number | null
+          created_at?: string | null
+          id?: string
+          level_scores?: Json | null
+          recommended_level?: Database["public"]["Enums"]["cefr_level"]
+          total_questions?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "placement_results_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "leaderboard_view"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "placement_results_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       practice_sessions: {
         Row: {
           accuracy: number | null
@@ -213,6 +261,9 @@ export type Database = {
           last_active_at: string | null
           last_practice_date: string | null
           longest_streak: number | null
+          placement_completed: boolean | null
+          placement_date: string | null
+          placement_score: number | null
           registration_source: string | null
           streak: number | null
           total_practice_time_minutes: number | null
@@ -229,6 +280,9 @@ export type Database = {
           last_active_at?: string | null
           last_practice_date?: string | null
           longest_streak?: number | null
+          placement_completed?: boolean | null
+          placement_date?: string | null
+          placement_score?: number | null
           registration_source?: string | null
           streak?: number | null
           total_practice_time_minutes?: number | null
@@ -245,6 +299,9 @@ export type Database = {
           last_active_at?: string | null
           last_practice_date?: string | null
           longest_streak?: number | null
+          placement_completed?: boolean | null
+          placement_date?: string | null
+          placement_score?: number | null
           registration_source?: string | null
           streak?: number | null
           total_practice_time_minutes?: number | null
@@ -434,10 +491,32 @@ export type Database = {
         }
         Returns: boolean
       }
+      complete_placement_test: {
+        Args: {
+          p_correct_answers: number
+          p_level_scores: Json
+          p_recommended_level: Database["public"]["Enums"]["cefr_level"]
+          p_user_id: string
+        }
+        Returns: string
+      }
       generate_certificate_number: { Args: never; Returns: string }
       get_cefr_for_xp: {
         Args: { xp_value: number }
         Returns: Database["public"]["Enums"]["cefr_level"]
+      }
+      get_placement_questions: {
+        Args: { p_user_id: string }
+        Returns: {
+          cefr: Database["public"]["Enums"]["cefr_level"]
+          difficulty: number
+          id: number
+          options_a: string
+          options_b: string
+          options_c: string
+          options_d: string
+          prompt: string
+        }[]
       }
       get_question_progress: {
         Args: { p_user_id: string }
@@ -500,6 +579,7 @@ export type Database = {
         }
         Returns: undefined
       }
+      skip_placement_test: { Args: { p_user_id: string }; Returns: undefined }
     }
     Enums: {
       app_role: "student" | "admin"

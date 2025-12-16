@@ -12,6 +12,9 @@ interface Profile {
   streak: number;
   last_practice_date: string | null;
   created_at: string;
+  placement_completed: boolean | null;
+  placement_score: number | null;
+  placement_date: string | null;
 }
 
 interface AuthContextType {
