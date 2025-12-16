@@ -289,21 +289,17 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-6 md:py-8 border-t">
-        <div className="container flex flex-col md:flex-row items-center justify-between gap-4 px-4">
-          <div className="flex items-center gap-2">
-            <BookOpen className="w-4 h-4 md:w-5 md:h-5 text-primary" />
-            <span className="font-semibold text-sm md:text-base">CEFR Practice</span>
-          </div>
-          <div className="text-center">
-            <p className="text-xs md:text-sm text-muted-foreground">
-              © {new Date().getFullYear()} CEFR Practice. All rights reserved.
-            </p>
-            <p className="text-xs text-muted-foreground/70 mt-1">
-              Designed by <span className="font-medium text-primary">Andam Aziz</span>
+      <footer className="py-4 md:py-6 border-t">
+        <div className="container px-4">
+          <div className="flex flex-col items-center gap-2 text-center">
+            <div className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-primary" />
+              <span className="font-semibold text-sm">CEFR Practice</span>
+            </div>
+            <p className="text-[11px] md:text-xs text-muted-foreground">
+              © {new Date().getFullYear()} CEFR Practice · Designed by <span className="text-primary">Andam Aziz</span>
             </p>
           </div>
-          <DonationButton variant="ghost" size="sm" />
         </div>
       </footer>
     </div>
