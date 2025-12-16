@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 import { 
   Search, 
   CheckCircle2, 
@@ -121,6 +122,21 @@ export const AdminCertificates = () => {
     
     const success = await verifyCertificate(selectedCertificate.id, adminNotes);
     if (success) {
+      // Send notification email
+      try {
+        await supabase.functions.invoke('certificate-notification', {
+          body: {
+            type: 'verified',
+            userId: selectedCertificate.user_id,
+            certificateNumber: selectedCertificate.certificate_number,
+            cefrLevel: selectedCertificate.cefr_level,
+            certificateType: selectedCertificate.certificate_type,
+            scorePercentage: selectedCertificate.score_percentage,
+          },
+        });
+      } catch (notifyError) {
+        console.error('Failed to send verification notification:', notifyError);
+      }
       toast({ title: 'Certificate verified successfully' });
       fetchAllCertificates();
     } else {
