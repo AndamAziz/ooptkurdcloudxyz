@@ -1,5 +1,5 @@
 import { QRCodeSVG } from 'qrcode.react';
-import { Award, CheckCircle2 } from 'lucide-react';
+import { Award, CheckCircle2, Medal, Trophy, Crown, Star } from 'lucide-react';
 import { format } from 'date-fns';
 import type { Certificate } from '@/hooks/useCertificates';
 
@@ -10,28 +10,71 @@ interface CertificateTemplateProps {
 }
 
 const getLevelTheme = (level: string) => {
-  if (['A1', 'A2'].includes(level)) {
-    return {
-      borderColor: '#CD7F32',
-      accentColor: '#8B4513',
-      bgGradient: 'linear-gradient(135deg, #FDF5E6 0%, #F5DEB3 100%)',
-      ribbonColor: '#CD7F32',
-    };
+  switch (level) {
+    case 'A1':
+      return {
+        borderColor: '#CD7F32',
+        accentColor: '#8B4513',
+        bgGradient: 'linear-gradient(135deg, #FDF5E6 0%, #F5DEB3 100%)',
+        ribbonColor: '#CD7F32',
+        badgeEmoji: '🥉',
+        levelTitle: 'Beginner',
+      };
+    case 'A2':
+      return {
+        borderColor: '#D2691E',
+        accentColor: '#A0522D',
+        bgGradient: 'linear-gradient(135deg, #FFF8DC 0%, #FFDEAD 100%)',
+        ribbonColor: '#D2691E',
+        badgeEmoji: '🥉',
+        levelTitle: 'Elementary',
+      };
+    case 'B1':
+      return {
+        borderColor: '#C0C0C0',
+        accentColor: '#708090',
+        bgGradient: 'linear-gradient(135deg, #F8F8FF 0%, #E8E8E8 100%)',
+        ribbonColor: '#A8A8A8',
+        badgeEmoji: '🥈',
+        levelTitle: 'Intermediate',
+      };
+    case 'B2':
+      return {
+        borderColor: '#4682B4',
+        accentColor: '#2F4F4F',
+        bgGradient: 'linear-gradient(135deg, #F0F8FF 0%, #B0C4DE 100%)',
+        ribbonColor: '#4682B4',
+        badgeEmoji: '🥈',
+        levelTitle: 'Upper Intermediate',
+      };
+    case 'C1':
+      return {
+        borderColor: '#D4AF37',
+        accentColor: '#B8860B',
+        bgGradient: 'linear-gradient(135deg, #FFFAF0 0%, #FDF8E8 100%)',
+        ribbonColor: '#D4AF37',
+        badgeEmoji: '🥇',
+        levelTitle: 'Advanced',
+      };
+    case 'C2':
+      return {
+        borderColor: '#9B59B6',
+        accentColor: '#6C3483',
+        bgGradient: 'linear-gradient(135deg, #F5EEF8 0%, #E8DAEF 100%)',
+        ribbonColor: '#9B59B6',
+        badgeEmoji: '👑',
+        levelTitle: 'Mastery',
+      };
+    default:
+      return {
+        borderColor: '#D4AF37',
+        accentColor: '#B8860B',
+        bgGradient: 'linear-gradient(135deg, #FFFAF0 0%, #FDF8E8 100%)',
+        ribbonColor: '#D4AF37',
+        badgeEmoji: '🎓',
+        levelTitle: '',
+      };
   }
-  if (['B1', 'B2'].includes(level)) {
-    return {
-      borderColor: '#C0C0C0',
-      accentColor: '#708090',
-      bgGradient: 'linear-gradient(135deg, #F8F8FF 0%, #E8E8E8 100%)',
-      ribbonColor: '#A8A8A8',
-    };
-  }
-  return {
-    borderColor: '#D4AF37',
-    accentColor: '#B8860B',
-    bgGradient: 'linear-gradient(135deg, #FFFAF0 0%, #FDF8E8 100%)',
-    ribbonColor: '#D4AF37',
-  };
 };
 
 const getCertificateTitle = (type: string) => {
@@ -48,9 +91,10 @@ const getCertificateTitle = (type: string) => {
 };
 
 const getCertificateSubtitle = (type: string, level: string) => {
+  const theme = getLevelTheme(level);
   switch (type) {
     case 'level_completion':
-      return `CEFR Level ${level} English Proficiency`;
+      return `CEFR Level ${level} - ${theme.levelTitle}`;
     case 'course_completion':
       return 'Complete CEFR English Mastery (A1-C2)';
     case 'excellence':
@@ -131,22 +175,34 @@ export const CertificateTemplate = ({
           textAlign: 'center',
         }}
       >
-        {/* Header with Logo */}
+        {/* Header with Level Badge */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
           <div
             style={{
-              width: '60px',
-              height: '60px',
-              borderRadius: '12px',
-              background: '#1E3A5F',
+              width: '80px',
+              height: '80px',
+              borderRadius: '50%',
+              background: `linear-gradient(135deg, ${theme.borderColor}, ${theme.accentColor})`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              boxShadow: `0 4px 20px ${theme.borderColor}40`,
+              border: `3px solid ${theme.borderColor}`,
             }}
           >
-            <Award style={{ width: '36px', height: '36px', color: '#D4AF37' }} />
+            <span style={{ fontSize: '40px' }}>{theme.badgeEmoji}</span>
           </div>
-          <span style={{ fontSize: '14px', color: '#1E3A5F', fontWeight: 500 }}>CEFR Practice</span>
+          <div style={{ 
+            padding: '4px 16px', 
+            background: theme.borderColor, 
+            borderRadius: '20px',
+            color: 'white',
+            fontSize: '12px',
+            fontWeight: 600,
+            letterSpacing: '1px'
+          }}>
+            CEFR {certificate.cefr_level} - {theme.levelTitle}
+          </div>
         </div>
 
         {/* Title */}
