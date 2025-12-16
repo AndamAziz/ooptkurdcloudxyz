@@ -85,6 +85,26 @@ const Admin = () => {
     fetchData();
   }, []);
 
+  // Fetch questions when filter changes
+  useEffect(() => {
+    const fetchFilteredQuestions = async () => {
+      let query = supabase
+        .from('questions')
+        .select('*')
+        .order('id', { ascending: false })
+        .limit(100);
+
+      if (filterLevel !== 'all') {
+        query = query.eq('cefr', filterLevel as CEFRLevel);
+      }
+
+      const { data } = await query;
+      setQuestions((data as Question[]) || []);
+    };
+
+    fetchFilteredQuestions();
+  }, [filterLevel]);
+
   const QUESTIONS_PAGE_SIZE = 1000;
 
   const fetchQuestionCountsByLevel = async () => {
