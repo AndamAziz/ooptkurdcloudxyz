@@ -6,6 +6,20 @@ import { CEFRBadge } from '@/components/CEFRBadge';
 import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
+const PLACEMENT_QUESTION_COUNTS: Record<CEFRLevel, number> = {
+  A1: 20,
+  A2: 20,
+  B1: 20,
+  B2: 15,
+  C1: 15,
+  C2: 10,
+};
+
+const PLACEMENT_TOTAL_QUESTIONS = Object.values(PLACEMENT_QUESTION_COUNTS).reduce(
+  (sum, n) => sum + n,
+  0
+);
+
 interface PracticeModesProps {
   displayName?: string;
   currentLevel?: CEFRLevel;
@@ -100,7 +114,7 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress }: Prac
                     </span>
                   </div>
                   <p className="text-[11px] sm:text-xs md:text-sm text-muted-foreground line-clamp-2">
-                    300 questions (50 per level) to determine your exact level
+                    {PLACEMENT_TOTAL_QUESTIONS} questions across A1–C2 to determine your level
                   </p>
                 </div>
                 <div className="hidden sm:flex items-center gap-1 text-primary">
@@ -111,11 +125,11 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress }: Prac
               {/* Level badges row */}
               <div className="flex items-center gap-1.5 mt-3 pt-3 border-t border-border/50">
                 {CEFR_LEVELS.map((level) => (
-                  <span 
-                    key={level} 
+                  <span
+                    key={level}
                     className="px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-medium bg-muted/50 text-muted-foreground"
                   >
-                    {level}: 50
+                    {level}: {PLACEMENT_QUESTION_COUNTS[level]}
                   </span>
                 ))}
               </div>
