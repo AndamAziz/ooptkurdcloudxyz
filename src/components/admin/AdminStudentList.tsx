@@ -113,9 +113,25 @@ export const AdminStudentList = () => {
     setSelectedIds(newSelected);
   };
 
+  const isInvalidTokenError = (err: any) => {
+    const msg = String(err?.message || '').toLowerCase();
+    return msg.includes('invalid token') || msg.includes('session_not_found') || msg.includes('401') || msg.includes('unauthorized');
+  };
+
+  const handleAuthExpired = async () => {
+    toast({
+      title: 'Session Expired',
+      description: 'Please log in again to continue.',
+      variant: 'destructive',
+    });
+
+    await supabase.auth.signOut();
+    navigate('/auth', { replace: true });
+  };
+
   const handleBulkAction = async (action: 'suspend' | 'activate') => {
     if (selectedIds.size === 0) return;
-    
+
     setBulkLoading(true);
     const actionType = action === 'suspend' ? 'suspend_user' : 'activate_user';
     let successCount = 0;
@@ -126,12 +142,23 @@ export const AdminStudentList = () => {
         const { error } = await supabase.functions.invoke('admin-user-management', {
           body: { action: actionType, userId },
         });
+
         if (error) {
+          if (isInvalidTokenError(error)) {
+            setBulkLoading(false);
+            await handleAuthExpired();
+            return;
+          }
           failCount++;
         } else {
           successCount++;
         }
-      } catch {
+      } catch (err: any) {
+        if (isInvalidTokenError(err)) {
+          setBulkLoading(false);
+          await handleAuthExpired();
+          return;
+        }
         failCount++;
       }
     }
@@ -229,9 +256,9 @@ export const AdminStudentList = () => {
     setSuspendingUserId(student.user_id);
     const action = student.account_status === 'suspended' ? 'activate_user' : 'suspend_user';
     const actionLabel = student.account_status === 'suspended' ? 'activated' : 'suspended';
-    
+
     try {
-      const { data, error } = await supabase.functions.invoke('admin-user-management', {
+      const { error } = await supabase.functions.invoke('admin-user-management', {
         body: {
           action,
           userId: student.user_id,
@@ -239,9 +266,9 @@ export const AdminStudentList = () => {
       });
 
       if (error) {
-        const errorMessage = error.message || 'Failed to update status';
-        if (errorMessage.includes('401') || errorMessage.includes('token')) {
-          throw new Error('Session expired. Please log in again.');
+        if (isInvalidTokenError(error)) {
+          await handleAuthExpired();
+          return;
         }
         throw error;
       }
@@ -250,7 +277,7 @@ export const AdminStudentList = () => {
         title: 'Status Updated',
         description: `Student has been ${actionLabel} successfully.`,
       });
-      
+
       handleActionsSuccess();
     } catch (error: any) {
       console.error('Error toggling suspend:', error);
