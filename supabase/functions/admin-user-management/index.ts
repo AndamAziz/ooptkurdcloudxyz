@@ -14,6 +14,7 @@ Deno.serve(async (req) => {
   try {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
 
     // Create admin client with service role key
     const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
@@ -32,11 +33,22 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Verify the caller's token and check if they're an admin
-    const token = authHeader.replace('Bearer ', '');
-    const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser(token);
+    // Create a client with the user's token to verify their identity
+    const supabaseUser = createClient(supabaseUrl, supabaseAnonKey, {
+      global: {
+        headers: { Authorization: authHeader },
+      },
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    });
+
+    // Verify the caller's token
+    const { data: { user }, error: authError } = await supabaseUser.auth.getUser();
     
     if (authError || !user) {
+      console.error('Auth error:', authError);
       return new Response(
         JSON.stringify({ error: 'Invalid token' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
