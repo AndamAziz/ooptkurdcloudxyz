@@ -213,6 +213,11 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress, onLeve
                 >
                   <Play className="w-3.5 h-3.5" />
                   <span className="text-xs sm:text-sm">Start</span>
+                  {remainingQuestions > 0 && (
+                    <span className="text-[10px] sm:text-xs bg-primary-foreground/20 px-1.5 py-0.5 rounded-full">
+                      {remainingQuestions}
+                    </span>
+                  )}
                 </Button>
               </Link>
             )}
