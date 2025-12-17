@@ -491,7 +491,7 @@ export const CertificateTemplate = ({
               Scan to Verify
             </p>
             <p style={{ fontSize: '8px', color: '#666', marginTop: '2px', fontFamily: "'Arial', sans-serif", fontWeight: 500 }}>
-              {new URL(verificationUrl).host}
+              cefr-english.app/verify
             </p>
           </div>
 
