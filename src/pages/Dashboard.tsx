@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Trophy } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Trophy, Ban } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Header } from '@/components/Header';
 import { DonationButton } from '@/components/DonationButton';
 import { SpeedometerGauge } from '@/components/SpeedometerGauge';
@@ -82,6 +83,9 @@ const Dashboard = () => {
   const currentStreak = profile?.streak || 0;
   const displayName = profile?.display_name || profile?.username || 'Student';
 
+  const isSuspended = profile?.account_status === 'suspended';
+  const suspendReason = profile?.suspend_reason;
+
   // Selected level accuracy
   const selectedLevelAccuracy = selectedLevelStats?.accuracy || 0;
   const selectedLevelAnswered = selectedLevelStats?.answered_questions || 0;
@@ -92,6 +96,23 @@ const Dashboard = () => {
       <Header />
       
       <main className="container py-4 md:py-8">
+        {/* Suspension Alert Banner */}
+        {isSuspended && (
+          <Alert variant="destructive" className="mb-4 md:mb-6">
+            <Ban className="h-4 w-4" />
+            <AlertTitle>Your account is suspended</AlertTitle>
+            <AlertDescription className="mt-1">
+              {suspendReason ? (
+                <>
+                  <span className="font-medium">Reason:</span> {suspendReason}
+                </>
+              ) : (
+                'You cannot practice or earn XP while your account is suspended. Please contact support if you have questions.'
+              )}
+            </AlertDescription>
+          </Alert>
+        )}
+
         <div className="grid gap-4 md:gap-6 lg:grid-cols-3">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-4 md:space-y-6">
@@ -125,6 +146,7 @@ const Dashboard = () => {
                 accuracy: p.accuracy
               }))}
               onLevelChange={setSelectedLevel}
+              disabled={isSuspended}
             />
             <RecentSessions sessions={sessions} />
             
