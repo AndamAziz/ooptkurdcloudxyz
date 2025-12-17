@@ -21,19 +21,21 @@ import { useCertificates } from '@/hooks/useCertificates';
 import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
 
 const Dashboard = () => {
-  const { profile, user } = useAuth();
+  const { profile, user, refreshProfile } = useAuth();
   const { sessions, stats, fetchRecentSessions, fetchStats } = useProgress(user?.id);
   const { progress: questionProgress, fetchProgress, getLevelProgress } = useQuestionProgress(user?.id);
   const { certificates, fetchUserCertificates } = useCertificates(user?.id);
 
   useEffect(() => {
     if (user) {
+      // Ensure XP/Streak are always fresh when returning to dashboard (especially on mobile)
+      refreshProfile();
       fetchRecentSessions();
       fetchStats();
       fetchProgress();
       fetchUserCertificates();
     }
-  }, [user, fetchRecentSessions, fetchStats, fetchProgress, fetchUserCertificates]);
+  }, [user, refreshProfile, fetchRecentSessions, fetchStats, fetchProgress, fetchUserCertificates]);
 
   // Calculate the default level - show the level with highest accuracy
   const defaultLevel = useMemo((): CEFRLevel => {
