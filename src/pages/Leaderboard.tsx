@@ -9,6 +9,7 @@ import { CEFRBadge } from '@/components/CEFRBadge';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
+import { FloatingBackButton } from '@/components/shared/FloatingBackButton';
 import type { CEFRLevel } from '@/lib/constants';
 
 interface LeaderboardEntry {
@@ -290,6 +291,8 @@ const Leaderboard = () => {
           </Card>
         </div>
       </main>
+
+      <FloatingBackButton />
     </div>
   );
 };

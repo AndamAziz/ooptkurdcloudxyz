@@ -6,6 +6,7 @@ import { CertificateCard } from '@/components/certificates/CertificateCard';
 import { CertificatePreviewModal } from '@/components/certificates/CertificatePreviewModal';
 import { CertificateTemplate } from '@/components/certificates/CertificateTemplate';
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
+import { FloatingBackButton } from '@/components/shared/FloatingBackButton';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
@@ -300,6 +301,8 @@ const Certificates = () => {
           </div>
         </div>
       )}
+
+      <FloatingBackButton />
     </div>
   );
 };
