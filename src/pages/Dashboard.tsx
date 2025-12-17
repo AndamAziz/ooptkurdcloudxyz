@@ -124,6 +124,7 @@ const Dashboard = () => {
                 total: p.total_questions,
                 accuracy: p.accuracy
               }))}
+              onLevelChange={setSelectedLevel}
             />
             <RecentSessions sessions={sessions} />
             

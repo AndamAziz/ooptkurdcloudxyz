@@ -29,9 +29,10 @@ interface PracticeModesProps {
     total: number;
     accuracy: number;
   }[];
+  onLevelChange?: (level: CEFRLevel) => void;
 }
 
-export const PracticeModes = ({ displayName, currentLevel, levelProgress }: PracticeModesProps) => {
+export const PracticeModes = ({ displayName, currentLevel, levelProgress, onLevelChange }: PracticeModesProps) => {
   // Get remaining questions for current level
   const currentLevelProgress = levelProgress?.find(p => p.level === currentLevel);
   const remainingQuestions = currentLevelProgress?.remaining || 0;
@@ -184,22 +185,22 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress }: Prac
               const isCompleted = progress && progress.remaining === 0;
               
               return (
-                <Link key={level} to={`/practice?level=${level}`}>
-                  <Button 
-                    variant={isCurrentLevel ? "default" : "outline"} 
-                    size="sm" 
-                    className={cn(
-                      "min-h-[40px] sm:min-h-[44px] touch-target px-2 sm:px-3 transition-all active:scale-[0.96]",
-                      isCurrentLevel && "ring-2 ring-primary ring-offset-2 ring-offset-background shadow-lg",
-                      isCompleted && !isCurrentLevel && "bg-green-500/10 border-green-500/30"
-                    )}
-                  >
-                    <CEFRBadge level={level} size="sm" />
-                    {isCompleted && (
-                      <span className="ml-1 text-[10px] text-green-500">✓</span>
-                    )}
-                  </Button>
-                </Link>
+                <Button 
+                  key={level}
+                  variant={isCurrentLevel ? "default" : "outline"} 
+                  size="sm" 
+                  onClick={() => onLevelChange?.(level)}
+                  className={cn(
+                    "min-h-[40px] sm:min-h-[44px] touch-target px-2 sm:px-3 transition-all active:scale-[0.96]",
+                    isCurrentLevel && "ring-2 ring-primary ring-offset-2 ring-offset-background shadow-lg",
+                    isCompleted && !isCurrentLevel && "bg-green-500/10 border-green-500/30"
+                  )}
+                >
+                  <CEFRBadge level={level} size="sm" />
+                  {isCompleted && (
+                    <span className="ml-1 text-[10px] text-green-500">✓</span>
+                  )}
+                </Button>
               );
             })}
           </div>
