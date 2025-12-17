@@ -82,6 +82,10 @@ const Practice = () => {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [questionStartTime, setQuestionStartTime] = useState<number>(0);
 
+  // Real-time XP tracking during session
+  const [sessionXp, setSessionXp] = useState(0);
+  const [lastXpChange, setLastXpChange] = useState<number | null>(null);
+
   // Certificate modal state
   const [earnedCertificate, setEarnedCertificate] = useState<Certificate | null>(null);
   const [showCertificateModal, setShowCertificateModal] = useState(false);
@@ -140,6 +144,8 @@ const Practice = () => {
       streakXpBank: (statusData as any)?.streak_xp_bank ?? 0,
     };
     setStreakEarnedThisSession(0);
+    setSessionXp(0);
+    setLastXpChange(null);
 
     // Store current certificates before session starts
     await fetchUserCertificates();
@@ -209,6 +215,11 @@ const Practice = () => {
 
     setIsCorrect(correct);
     setAnswerResult(result);
+
+    // Update real-time XP display
+    const xpChange = correct ? XP_REWARDS.CORRECT : XP_REWARDS.WRONG;
+    setLastXpChange(xpChange);
+    setSessionXp(prev => Math.max(0, prev + xpChange));
 
     // Record attempt
     const recorded = await recordAttempt(question.id, answer, correct, timeSpent);
@@ -305,6 +316,8 @@ const Practice = () => {
     setSessionId(null);
     setStreakEarnedThisSession(0);
     setStreakXpBankAfterSession(0);
+    setSessionXp(0);
+    setLastXpChange(null);
     profileBeforeSession.current = null;
     setState('setup');
     // Refresh progress after practice
@@ -456,6 +469,8 @@ const Practice = () => {
           timeLeft={timeLeft}
           isPlacementMode={isPlacementMode}
           currentQuestionLevel={currentQuestion?.cefr}
+          sessionXp={sessionXp}
+          lastXpChange={lastXpChange}
         />
 
         <QuestionCard

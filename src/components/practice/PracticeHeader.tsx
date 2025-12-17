@@ -1,4 +1,4 @@
-import { Clock, GraduationCap } from 'lucide-react';
+import { Clock, GraduationCap, Zap } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { CEFRBadge } from '@/components/CEFRBadge';
 import { cn } from '@/lib/utils';
@@ -13,6 +13,8 @@ interface PracticeHeaderProps {
   timeLeft?: number;
   isPlacementMode?: boolean;
   currentQuestionLevel?: CEFRLevel;
+  sessionXp?: number;
+  lastXpChange?: number | null;
 }
 
 const formatTime = (seconds: number) => {
@@ -30,6 +32,8 @@ export const PracticeHeader = ({
   timeLeft = 0,
   isPlacementMode = false,
   currentQuestionLevel,
+  sessionXp = 0,
+  lastXpChange = null,
 }: PracticeHeaderProps) => {
   return (
     <div className="mb-4 md:mb-6 space-y-2 md:space-y-3">
@@ -52,15 +56,37 @@ export const PracticeHeader = ({
             Q {currentIndex + 1}/{totalQuestions}
           </span>
         </div>
-        {showTimer && (
-          <div className={cn(
-            "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1 rounded-full text-sm",
-            timeLeft < 60 ? "bg-destructive/10 text-destructive" : "bg-muted"
-          )}>
-            <Clock className="w-3.5 h-3.5 md:w-4 md:h-4" />
-            <span className="font-mono font-medium text-xs md:text-sm">{formatTime(timeLeft)}</span>
+        
+        <div className="flex items-center gap-2 md:gap-3">
+          {/* Real-time XP Counter */}
+          <div className="flex items-center gap-1.5 px-2 md:px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20">
+            <Zap className="w-3.5 h-3.5 md:w-4 md:h-4 text-amber-500" />
+            <span className="font-mono font-semibold text-xs md:text-sm text-amber-600 dark:text-amber-400">
+              {sessionXp} XP
+            </span>
+            {lastXpChange !== null && (
+              <span
+                key={currentIndex}
+                className={cn(
+                  "font-mono font-bold text-xs animate-fade-in",
+                  lastXpChange > 0 ? "text-success" : "text-destructive"
+                )}
+              >
+                {lastXpChange > 0 ? `+${lastXpChange}` : lastXpChange}
+              </span>
+            )}
           </div>
-        )}
+
+          {showTimer && (
+            <div className={cn(
+              "flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1 rounded-full text-sm",
+              timeLeft < 60 ? "bg-destructive/10 text-destructive" : "bg-muted"
+            )}>
+              <Clock className="w-3.5 h-3.5 md:w-4 md:h-4" />
+              <span className="font-mono font-medium text-xs md:text-sm">{formatTime(timeLeft)}</span>
+            </div>
+          )}
+        </div>
       </div>
       <Progress value={progress} className="h-1.5 md:h-2" />
     </div>
