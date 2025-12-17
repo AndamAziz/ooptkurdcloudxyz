@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Home, RotateCcw, Trophy, GraduationCap, TrendingUp, Crown, Star } from 'lucide-react';
+import { Home, RotateCcw, Trophy, GraduationCap, TrendingUp, Crown, Star, Flame } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { SpeedometerGauge } from '@/components/SpeedometerGauge';
@@ -19,6 +19,7 @@ interface PracticeResultsProps {
   totalQuestions: number;
   correctCount: number;
   xpEarned: number;
+  streakEarned?: number;
   onPracticeAgain: () => void;
   isPlacementMode?: boolean;
   recommendedLevel?: CEFRLevel;
@@ -31,6 +32,7 @@ export const PracticeResults = ({
   totalQuestions,
   correctCount,
   xpEarned,
+  streakEarned = 0,
   onPracticeAgain,
   isPlacementMode = false,
   recommendedLevel,
@@ -41,6 +43,8 @@ export const PracticeResults = ({
   const navigate = useNavigate();
   const accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
   const isLevelMaster = isLevelComplete && accuracy >= 90;
+  const [showStreak, setShowStreak] = useState(false);
+  const [animatedStreak, setAnimatedStreak] = useState(0);
   // Trigger confetti for good performance or level completion
   useEffect(() => {
     const shouldCelebrate = accuracy >= 70 || isLevelComplete || isPlacementMode || isLevelMaster;
@@ -85,6 +89,34 @@ export const PracticeResults = ({
       }
     }
   }, [accuracy, isLevelComplete, isPlacementMode, isLevelMaster]);
+
+  // Animate streak counter
+  useEffect(() => {
+    if (streakEarned > 0) {
+      // Delay showing streak for dramatic effect
+      const showTimer = setTimeout(() => {
+        setShowStreak(true);
+        
+        // Animate the number counting up
+        const duration = 1000; // 1 second
+        const steps = streakEarned;
+        const stepDuration = duration / steps;
+        
+        let current = 0;
+        const interval = setInterval(() => {
+          current += 1;
+          setAnimatedStreak(current);
+          if (current >= streakEarned) {
+            clearInterval(interval);
+          }
+        }, stepDuration);
+        
+        return () => clearInterval(interval);
+      }, 800);
+      
+      return () => clearTimeout(showTimer);
+    }
+  }, [streakEarned]);
 
   return (
     <Card className="animate-scale-in w-full max-w-full">
@@ -187,10 +219,27 @@ export const PracticeResults = ({
           You scored <span className="font-semibold text-foreground">{correctCount}</span> out of <span className="font-semibold text-foreground">{totalQuestions}</span> correct
         </div>
 
-        {/* XP earned */}
-        <div className="p-3 md:p-4 rounded-lg bg-success/10 text-center">
-          <p className="text-xl md:text-2xl font-bold text-success">+{xpEarned} XP</p>
-          <p className="text-xs md:text-sm text-muted-foreground">Experience earned</p>
+        {/* XP and Streak earned */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="p-3 md:p-4 rounded-lg bg-success/10 text-center">
+            <p className="text-xl md:text-2xl font-bold text-success">+{xpEarned} XP</p>
+            <p className="text-xs md:text-sm text-muted-foreground">Experience</p>
+          </div>
+          
+          {/* Streak Earned with Animation */}
+          <div 
+            className={`p-3 md:p-4 rounded-lg bg-orange-500/10 text-center transition-all duration-500 ${
+              showStreak ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+            }`}
+          >
+            <div className="flex items-center justify-center gap-1">
+              <Flame className={`w-5 h-5 md:w-6 md:h-6 text-orange-500 ${showStreak && streakEarned > 0 ? 'animate-pulse' : ''}`} />
+              <p className="text-xl md:text-2xl font-bold text-orange-500">
+                +{animatedStreak}
+              </p>
+            </div>
+            <p className="text-xs md:text-sm text-muted-foreground">Streak</p>
+          </div>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
