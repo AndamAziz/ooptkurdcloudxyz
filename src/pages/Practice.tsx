@@ -299,6 +299,10 @@ const Practice = () => {
     const correctCount = answers.filter(a => a.correct).length;
     const xpEarned = (correctCount * XP_REWARDS.CORRECT) + ((totalQuestions - correctCount) * XP_REWARDS.INCORRECT);
 
+    // Check if level is now complete (all questions answered)
+    const currentLevelProgress = getLevelProgress(selectedLevel);
+    const isLevelComplete = !isPlacementMode && currentLevelProgress?.remaining_questions === 0;
+
     // Calculate level breakdown for placement mode
     const levelBreakdown = isPlacementMode ? CEFR_LEVELS.map(level => {
       const levelQuestions = questions.filter(q => q.cefr === level);
@@ -341,6 +345,7 @@ const Practice = () => {
             isPlacementMode={isPlacementMode}
             recommendedLevel={recommendedLevel}
             levelBreakdown={levelBreakdown}
+            isLevelComplete={isLevelComplete}
           />
         </main>
 

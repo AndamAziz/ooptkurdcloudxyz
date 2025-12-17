@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Home, RotateCcw, Trophy, GraduationCap, TrendingUp } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { SpeedometerGauge } from '@/components/SpeedometerGauge';
 import { CEFRBadge } from '@/components/CEFRBadge';
+import confetti from 'canvas-confetti';
 import type { CEFRLevel } from '@/lib/constants';
 
 interface LevelBreakdown {
@@ -21,6 +23,7 @@ interface PracticeResultsProps {
   isPlacementMode?: boolean;
   recommendedLevel?: CEFRLevel;
   levelBreakdown?: LevelBreakdown[];
+  isLevelComplete?: boolean;
 }
 
 export const PracticeResults = ({
@@ -31,9 +34,43 @@ export const PracticeResults = ({
   isPlacementMode = false,
   recommendedLevel,
   levelBreakdown,
+  isLevelComplete = false,
 }: PracticeResultsProps) => {
   const navigate = useNavigate();
   const accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
+
+  // Trigger confetti for good performance or level completion
+  useEffect(() => {
+    const shouldCelebrate = accuracy >= 70 || isLevelComplete || isPlacementMode;
+    
+    if (shouldCelebrate) {
+      // Initial burst
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#22c55e', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6'],
+      });
+
+      // Extra celebration for level completion or high accuracy
+      if (isLevelComplete || accuracy >= 90) {
+        setTimeout(() => {
+          confetti({
+            particleCount: 50,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+          });
+          confetti({
+            particleCount: 50,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+          });
+        }, 250);
+      }
+    }
+  }, [accuracy, isLevelComplete, isPlacementMode]);
 
   return (
     <Card className="animate-scale-in w-full max-w-full">
