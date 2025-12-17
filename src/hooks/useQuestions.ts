@@ -153,8 +153,8 @@ export const useQuestions = () => {
         }));
       }
 
-      // Use seeded shuffle based on user_id for consistent order
-      const shuffled = seededShuffle(allQuestions, userId);
+      // Random shuffle - different order each time for placement test
+      const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
       setQuestions(shuffled);
       return shuffled;
     } catch (err) {
