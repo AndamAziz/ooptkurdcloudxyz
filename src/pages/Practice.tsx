@@ -198,27 +198,11 @@ const Practice = () => {
     setIsCorrect(correct);
     setAnswerResult(result);
 
-    // Record attempt (must succeed before we award streak)
+    // Record attempt
     const recorded = await recordAttempt(question.id, answer, correct, timeSpent);
 
     if (recorded) {
-      const nextCount = answers.length + 1;
       setAnswers((prev) => [...prev, { questionId: question.id, answer, correct }]);
-
-      // +1 streak for every 10 answered questions (immediate)
-      if (nextCount % 10 === 0) {
-        await supabase.rpc('increment_user_streak', {
-          _user_id: user.id,
-          _streak_increment: 1,
-        });
-
-        await refreshProfile();
-
-        toast({
-          title: '🔥 +1 ستریک',
-          description: `دوای وەڵامدانی ${nextCount} پرسیار (هەر ١٠ پرسیار = ١ ستریک).`,
-        });
-      }
     }
 
     setState('feedback');
@@ -250,22 +234,24 @@ const Practice = () => {
       await endSession(sessionId, totalQuestions, correctCount, xpEarned, summary);
     }
 
+    // Get XP before and calculate streaks earned
+    const oldXP = profile?.xp ?? 0;
+
     if (profile) {
       await updateUserXP(xpEarned);
       await refreshProfile();
     }
 
-    // Show streak earned notification (bonus only; base streak is awarded every 10 questions immediately)
-    const bonusStreak = totalQuestions >= 50 
-      ? (accuracy === 100 ? 10 : accuracy >= 70 ? 5 : 0) 
-      : 0;
+    // Calculate streaks earned from this session (1 streak per 70 XP)
+    const newXP = oldXP + xpEarned;
+    const oldMultiples = Math.floor(oldXP / 70);
+    const newMultiples = Math.floor(newXP / 70);
+    const streakEarnedFromXP = newMultiples - oldMultiples;
 
-    if (bonusStreak > 0) {
+    if (streakEarnedFromXP > 0) {
       toast({
-        title: `🔥 +${bonusStreak} ستریکی بۆنوس!`,
-        description: accuracy === 100
-          ? 'Perfect 100% — بۆنوسی تایبەت وەرگرت.'
-          : 'Accuracy 70%+ — بۆنوس وەرگرت.',
+        title: `🔥 +${streakEarnedFromXP} ستریک!`,
+        description: `تۆ ${xpEarned} XP وەرگرت و ${streakEarnedFromXP} ستریک زیاد بوو (هەر ٧٠ XP = ١ ستریک).`,
       });
     }
 
@@ -365,15 +351,10 @@ const Practice = () => {
     const accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
     const xpEarned = (correctCount * XP_REWARDS.CORRECT) + ((totalQuestions - correctCount) * XP_REWARDS.INCORRECT);
 
-    // Calculate streak earned: 1 per 10 questions + bonus for 50+ with high accuracy
-    let streakEarned = Math.floor(totalQuestions / 10);
-    if (totalQuestions >= 50) {
-      if (accuracy === 100) {
-        streakEarned += 10;
-      } else if (accuracy >= 70) {
-        streakEarned += 5;
-      }
-    }
+    // Calculate streak earned from XP: 1 per 70 XP
+    const oldXP = (profile?.xp ?? 0) - xpEarned;
+    const newXP = profile?.xp ?? 0;
+    const streakEarned = Math.floor(newXP / 70) - Math.floor(oldXP / 70);
 
     // Check if level is now complete (all questions answered)
     const currentLevelProgress = getLevelProgress(selectedLevel);
