@@ -236,19 +236,20 @@ const Practice = () => {
       await refreshProfile();
     }
 
-    // Show streak bonus notification for 50+ question sessions
-    if (totalQuestions >= 50) {
-      if (accuracy === 100) {
-        toast({
-          title: '🔥 +10 Streak Bonus!',
-          description: 'Perfect score! You earned 10 bonus streak points!',
-        });
-      } else if (accuracy >= 70) {
-        toast({
-          title: '🔥 +5 Streak Bonus!',
-          description: 'Great job! You earned 5 bonus streak points!',
-        });
-      }
+    // Show streak earned notification
+    const questionsStreak = Math.floor(totalQuestions / 10);
+    const bonusStreak = totalQuestions >= 50 
+      ? (accuracy === 100 ? 10 : accuracy >= 70 ? 5 : 0) 
+      : 0;
+    const totalStreakEarned = questionsStreak + bonusStreak;
+
+    if (totalStreakEarned > 0) {
+      toast({
+        title: `🔥 +${totalStreakEarned} Streak!`,
+        description: bonusStreak > 0 
+          ? `${questionsStreak} (per 10 questions) + ${bonusStreak} bonus!`
+          : `You earned ${questionsStreak} streak for ${totalQuestions} questions!`,
+      });
     }
 
     // Wait a moment for the database trigger to potentially create a certificate
