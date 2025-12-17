@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import * as XLSX from 'xlsx';
 import { 
   Users, 
   BookOpen, 
@@ -230,59 +231,34 @@ const Admin = () => {
         .toLowerCase()
         .replace(/\s+/g, '_');
 
-    const parseCSV = (csvText: string) => {
-      const rows: string[][] = [];
-      let row: string[] = [];
-      let field = '';
-      let inQuotes = false;
-
-      for (let i = 0; i < csvText.length; i++) {
-        const char = csvText[i];
-        const next = i + 1 < csvText.length ? csvText[i + 1] : '';
-
-        if (char === '"') {
-          if (inQuotes && next === '"') {
-            field += '"';
-            i++;
-            continue;
-          }
-          inQuotes = !inQuotes;
-          continue;
-        }
-
-        if (char === ',' && !inQuotes) {
-          row.push(field);
-          field = '';
-          continue;
-        }
-
-        if ((char === '\n' || char === '\r') && !inQuotes) {
-          if (char === '\r' && next === '\n') i++;
-          row.push(field);
-          field = '';
-
-          if (row.some((c) => c.trim() !== '')) rows.push(row);
-          row = [];
-          continue;
-        }
-
-        field += char;
-      }
-
-      row.push(field);
-      if (row.some((c) => c.trim() !== '')) rows.push(row);
-
-      return rows;
+    // Map Excel column headers to database column names
+    const headerMapping: Record<string, string> = {
+      '#': 'id',
+      'level': 'cefr',
+      'question': 'prompt',
+      'option_a': 'options_a',
+      'option_b': 'options_b',
+      'option_c': 'options_c',
+      'option_d': 'options_d',
+      'correct': 'correct_answer',
+      'type': 'q_type',
     };
 
     try {
-      const text = await file.text();
-      const rows = parseCSV(text);
-      if (rows.length < 2) throw new Error('CSV has no data rows');
+      // Read file as ArrayBuffer for xlsx
+      const arrayBuffer = await file.arrayBuffer();
+      const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+      
+      // Get first sheet
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      
+      // Convert to JSON with header row
+      const jsonData = XLSX.utils.sheet_to_json<Record<string, any>>(worksheet, { defval: '' });
+      
+      if (jsonData.length === 0) throw new Error('Excel file has no data rows');
 
-      const headers = rows[0].map(normalizeHeader);
-      const dataRows = rows.slice(1);
-      const totalRows = dataRows.length;
+      const totalRows = jsonData.length;
       setImportProgress({ current: 0, total: totalRows });
 
       const existingPrompts = await fetchExistingPrompts();
@@ -324,13 +300,19 @@ const Admin = () => {
         batch.length = 0;
       };
 
-      for (let i = 0; i < dataRows.length; i++) {
-        const values = dataRows[i];
-        const rowNumber = i + 2;
+      for (let i = 0; i < jsonData.length; i++) {
+        const rawRow = jsonData[i];
+        const rowNumber = i + 2; // +2 because Excel rows start at 1 and header is row 1
 
+        // Normalize keys and apply mapping
         const row: Record<string, string> = {};
-        headers.forEach((h, idx) => {
-          row[h] = (values[idx] ?? '').trim();
+        Object.keys(rawRow).forEach((key) => {
+          let normalizedKey = normalizeHeader(key);
+          // Apply header mapping
+          if (headerMapping[normalizedKey]) {
+            normalizedKey = headerMapping[normalizedKey];
+          }
+          row[normalizedKey] = String(rawRow[key] ?? '').trim();
         });
 
         const cefrValue = (row.cefr || '').toUpperCase();
@@ -355,6 +337,7 @@ const Admin = () => {
           continue;
         }
 
+        // Check for duplicates by prompt text
         if (existingPrompts.has(prompt.toLowerCase())) {
           skipped++;
           setImportProgress({ current: i + 1, total: totalRows });
@@ -368,10 +351,10 @@ const Admin = () => {
           difficulty: parseInt(row.difficulty) || 2,
           q_type: row.q_type || 'MCQ',
           prompt,
-          options_a: row.options_a || row['options_a'] || row['options a'] || null,
-          options_b: row.options_b || row['options_b'] || row['options b'] || null,
-          options_c: row.options_c || row['options_c'] || row['options c'] || null,
-          options_d: row.options_d || row['options_d'] || row['options d'] || null,
+          options_a: row.options_a || null,
+          options_b: row.options_b || null,
+          options_c: row.options_c || null,
+          options_d: row.options_d || null,
           correct_answer: row.correct_answer || null,
           explanation: row.explanation || null,
           tags: row.tags || null,
@@ -398,10 +381,10 @@ const Admin = () => {
       });
 
       fetchData();
-    } catch {
+    } catch (err) {
       toast({
         title: 'Import Failed',
-        description: 'Error parsing CSV file',
+        description: 'Error parsing Excel file',
         variant: 'destructive',
       });
     } finally {
@@ -410,7 +393,7 @@ const Admin = () => {
   };
 
   const downloadTemplate = () => {
-    const headers = ['cefr', 'prompt', 'options_a', 'options_b', 'options_c', 'options_d', 'correct_answer', 'explanation', 'difficulty', 'q_type', 'tags', 'source'];
+    const headers = ['Level', 'Question', 'Option A', 'Option B', 'Option C', 'Option D', 'Correct', 'Explanation', 'Difficulty', 'Type', 'Tags', 'Source'];
     const exampleRow = [
       'A1',
       'What is the correct form? "She ___ to school every day."',
@@ -420,28 +403,42 @@ const Admin = () => {
       'went',
       'B',
       'Third person singular requires "goes"',
-      '2',
+      2,
       'MCQ',
       'grammar,present-simple',
       'Team Import'
     ];
     
-    const csvContent = [
-      headers.join(','),
-      exampleRow.map(cell => `"${cell.replace(/"/g, '""')}"`).join(',')
-    ].join('\n');
+    // Create worksheet data
+    const wsData = [headers, exampleRow];
+    const worksheet = XLSX.utils.aoa_to_sheet(wsData);
     
-    const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'questions_template.csv';
-    link.click();
-    URL.revokeObjectURL(url);
+    // Set column widths
+    worksheet['!cols'] = [
+      { wch: 8 },   // Level
+      { wch: 60 },  // Question
+      { wch: 20 },  // Option A
+      { wch: 20 },  // Option B
+      { wch: 20 },  // Option C
+      { wch: 20 },  // Option D
+      { wch: 10 },  // Correct
+      { wch: 50 },  // Explanation
+      { wch: 10 },  // Difficulty
+      { wch: 10 },  // Type
+      { wch: 25 },  // Tags
+      { wch: 20 },  // Source
+    ];
+    
+    // Create workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, worksheet, 'Questions');
+    
+    // Export as Excel file
+    XLSX.writeFile(wb, 'questions_template.xlsx');
     
     toast({
       title: 'Template Downloaded',
-      description: 'Fill in your questions and upload the file',
+      description: 'Fill in your questions and upload the Excel file',
     });
   };
 
@@ -521,7 +518,7 @@ const Admin = () => {
 
   const exportAllQuestions = async () => {
     try {
-      toast({ title: 'Exporting...', description: 'Preparing CSV file' });
+      toast({ title: 'Exporting...', description: 'Preparing Excel file' });
       
       const allQuestions: Question[] = [];
       let offset = 0;
@@ -542,24 +539,46 @@ const Admin = () => {
         offset += QUESTIONS_PAGE_SIZE;
       }
 
-      const headers = ['cefr', 'prompt', 'options_a', 'options_b', 'options_c', 'options_d', 'correct_answer', 'explanation', 'difficulty', 'q_type', 'tags', 'source'];
+      // Create Excel data
+      const headers = ['Level', 'Question', 'Option A', 'Option B', 'Option C', 'Option D', 'Correct', 'Explanation', 'Difficulty', 'Type', 'Tags', 'Source'];
+      const rows = allQuestions.map(q => [
+        q.cefr,
+        q.prompt,
+        q.options_a || '',
+        q.options_b || '',
+        q.options_c || '',
+        q.options_d || '',
+        q.correct_answer || '',
+        q.explanation || '',
+        q.difficulty,
+        q.q_type || '',
+        q.tags || '',
+        q.source || ''
+      ]);
       
-      const csvRows = allQuestions.map(q => 
-        headers.map(h => {
-          const value = q[h as keyof Question];
-          const str = value?.toString() || '';
-          return `"${str.replace(/"/g, '""')}"`;
-        }).join(',')
-      );
+      const wsData = [headers, ...rows];
+      const worksheet = XLSX.utils.aoa_to_sheet(wsData);
       
-      const csvContent = [headers.join(','), ...csvRows].join('\n');
-      const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `questions_export_${new Date().toISOString().split('T')[0]}.csv`;
-      link.click();
-      URL.revokeObjectURL(url);
+      // Set column widths
+      worksheet['!cols'] = [
+        { wch: 8 },   // Level
+        { wch: 60 },  // Question
+        { wch: 20 },  // Option A
+        { wch: 20 },  // Option B
+        { wch: 20 },  // Option C
+        { wch: 20 },  // Option D
+        { wch: 10 },  // Correct
+        { wch: 50 },  // Explanation
+        { wch: 10 },  // Difficulty
+        { wch: 10 },  // Type
+        { wch: 25 },  // Tags
+        { wch: 20 },  // Source
+      ];
+      
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, worksheet, 'Questions');
+      
+      XLSX.writeFile(wb, `questions_export_${new Date().toISOString().split('T')[0]}.xlsx`);
       
       toast({ title: 'Export Complete', description: `${allQuestions.length} questions exported` });
     } catch {
@@ -804,7 +823,7 @@ const Admin = () => {
                   Bulk Import Questions
                 </CardTitle>
                 <CardDescription>
-                  Upload a CSV file with your question bank
+                  Upload an Excel file with your question bank
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -817,7 +836,7 @@ const Admin = () => {
                         Step 1: Download Template
                       </h3>
                       <p className="text-xs md:text-sm text-muted-foreground mt-1">
-                        Get the standard CSV template with correct format and example
+                        Get the Excel template with correct format and example
                       </p>
                     </div>
                     <Button onClick={downloadTemplate} variant="outline" className="shrink-0">
@@ -827,23 +846,23 @@ const Admin = () => {
                   </div>
                   
                   <div className="mt-4 text-xs text-muted-foreground space-y-1">
-                    <p><strong>Required columns:</strong> cefr, prompt, options_a, options_b, options_c, options_d, correct_answer</p>
-                    <p><strong>Optional columns:</strong> explanation, difficulty (1-5), q_type, tags, source</p>
+                    <p><strong>Required columns:</strong> Level, Question, Option A, Option B, Option C, Option D, Correct</p>
+                    <p><strong>Optional columns:</strong> Explanation, Difficulty (1-5), Type, Tags, Source</p>
                     <p><strong>CEFR levels:</strong> A1, A2, B1, B2, C1, C2</p>
-                    <p><strong>correct_answer:</strong> A, B, C, or D</p>
+                    <p><strong>Correct:</strong> A, B, C, or D</p>
                   </div>
                 </div>
 
                 {/* Upload Section */}
                 <div className="border-2 border-dashed rounded-lg p-6 md:p-8 text-center">
                   <FileSpreadsheet className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-4 text-muted-foreground" />
-                  <p className="mb-2 font-medium text-sm md:text-base">Step 2: Upload Your CSV</p>
+                  <p className="mb-2 font-medium text-sm md:text-base">Step 2: Upload Your Excel File</p>
                   <p className="text-xs md:text-sm text-muted-foreground mb-4">
-                    Fill the template with your questions and upload
+                    Fill the template with your questions and upload (.xlsx format)
                   </p>
                   <Input
                     type="file"
-                    accept=".csv"
+                    accept=".xlsx,.xls"
                     onChange={handleFileUpload}
                     disabled={isImporting}
                     className="max-w-xs mx-auto"
@@ -912,7 +931,7 @@ const Admin = () => {
                       <div className="rounded-lg border bg-card p-4">
                         <p className="font-medium">Failed rows (first 20)</p>
                         <p className="text-sm text-muted-foreground mb-3">
-                          These rows are usually malformed CSV (commas/newlines inside quotes) or missing required fields.
+                          These rows may have missing required fields or invalid data.
                         </p>
                         <div className="max-h-56 overflow-auto text-sm rounded-md border">
                           {importFailures.slice(0, 20).map((f) => (
@@ -934,9 +953,9 @@ const Admin = () => {
                 )}
 
                 <div className="rounded-lg bg-muted p-4">
-                  <p className="font-medium mb-2">CSV Format Example:</p>
+                  <p className="font-medium mb-2">Excel Format Example:</p>
                   <code className="text-xs block overflow-x-auto">
-                    id,cefr,difficulty,q_type,prompt,options_a,options_b,options_c,options_d,correct_answer,explanation,tags,source
+                    Level, Question, Option A, Option B, Option C, Option D, Correct, Explanation, Difficulty, Type, Tags, Source
                   </code>
                 </div>
               </CardContent>
