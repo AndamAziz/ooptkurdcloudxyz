@@ -266,6 +266,7 @@ export type Database = {
           placement_score: number | null
           registration_source: string | null
           streak: number | null
+          suspend_reason: string | null
           total_practice_time_minutes: number | null
           user_id: string
           username: string | null
@@ -285,6 +286,7 @@ export type Database = {
           placement_score?: number | null
           registration_source?: string | null
           streak?: number | null
+          suspend_reason?: string | null
           total_practice_time_minutes?: number | null
           user_id: string
           username?: string | null
@@ -304,6 +306,7 @@ export type Database = {
           placement_score?: number | null
           registration_source?: string | null
           streak?: number | null
+          suspend_reason?: string | null
           total_practice_time_minutes?: number | null
           user_id?: string
           username?: string | null

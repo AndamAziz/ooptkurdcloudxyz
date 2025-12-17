@@ -71,7 +71,7 @@ Deno.serve(async (req) => {
     }
 
     // Parse request body
-    const { action, userId, newPassword } = await req.json();
+    const { action, userId, newPassword, reason } = await req.json();
 
     if (!action || !userId) {
       return new Response(
@@ -151,10 +151,13 @@ Deno.serve(async (req) => {
       }
 
       case 'suspend_user': {
-        // Update user status in profiles
+        // Update user status and reason in profiles
         const { error: suspendError } = await supabaseAdmin
           .from('profiles')
-          .update({ account_status: 'suspended' })
+          .update({ 
+            account_status: 'suspended',
+            suspend_reason: reason || null,
+          })
           .eq('user_id', userId);
 
         if (suspendError) {
@@ -170,7 +173,7 @@ Deno.serve(async (req) => {
           admin_id: user.id,
           target_user_id: userId,
           action_type: 'user_suspended',
-          details: { timestamp: new Date().toISOString() },
+          details: { timestamp: new Date().toISOString(), reason: reason || null },
         });
 
         return new Response(
@@ -180,10 +183,13 @@ Deno.serve(async (req) => {
       }
 
       case 'activate_user': {
-        // Update user status in profiles
+        // Update user status and clear reason in profiles
         const { error: activateError } = await supabaseAdmin
           .from('profiles')
-          .update({ account_status: 'active' })
+          .update({ 
+            account_status: 'active',
+            suspend_reason: null,
+          })
           .eq('user_id', userId);
 
         if (activateError) {

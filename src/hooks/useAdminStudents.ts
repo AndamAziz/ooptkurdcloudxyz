@@ -15,6 +15,7 @@ export interface StudentData {
   last_active_at: string | null;
   last_practice_date: string | null;
   account_status: string;
+  suspend_reason: string | null;
   created_at: string;
   total_practice_time_minutes: number;
   totalAttempts?: number;
@@ -131,6 +132,7 @@ export const useAdminStudents = () => {
         last_active_at: p.last_active_at,
         last_practice_date: p.last_practice_date,
         account_status: p.account_status || 'active',
+        suspend_reason: (p as any).suspend_reason || null,
         created_at: p.created_at,
         total_practice_time_minutes: p.total_practice_time_minutes || 0,
         totalAttempts: attemptStats[p.user_id]?.total || 0,
