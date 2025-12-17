@@ -13,6 +13,8 @@ import {
   Ban,
   Settings,
   MoreHorizontal,
+  UserCheck,
+  Loader2,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -43,17 +45,21 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CEFRBadge } from '@/components/CEFRBadge';
 import { StudentActionsDialog } from './StudentActionsDialog';
 import { useAdminStudents, type StudentData } from '@/hooks/useAdminStudents';
+import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
 import { formatDistanceToNow } from 'date-fns';
 
 export const AdminStudentList = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const { students, totalCount, loading, fetchStudents, getActivityStatus } = useAdminStudents();
   
   const [page, setPage] = useState(1);
@@ -63,6 +69,7 @@ export const AdminStudentList = () => {
   const [sortBy, setSortBy] = useState('created_at');
   const [selectedStudent, setSelectedStudent] = useState<StudentData | null>(null);
   const [actionsDialogOpen, setActionsDialogOpen] = useState(false);
+  const [suspendingUserId, setSuspendingUserId] = useState<string | null>(null);
   const pageSize = 20;
 
   useEffect(() => {
@@ -143,6 +150,45 @@ export const AdminStudentList = () => {
   const handleManageStudent = (student: StudentData) => {
     setSelectedStudent(student);
     setActionsDialogOpen(true);
+  };
+
+  const handleToggleSuspend = async (student: StudentData) => {
+    setSuspendingUserId(student.user_id);
+    const action = student.account_status === 'suspended' ? 'activate_user' : 'suspend_user';
+    const actionLabel = student.account_status === 'suspended' ? 'activated' : 'suspended';
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('admin-user-management', {
+        body: {
+          action,
+          userId: student.user_id,
+        },
+      });
+
+      if (error) {
+        const errorMessage = error.message || 'Failed to update status';
+        if (errorMessage.includes('401') || errorMessage.includes('token')) {
+          throw new Error('Session expired. Please log in again.');
+        }
+        throw error;
+      }
+
+      toast({
+        title: 'Status Updated',
+        description: `Student has been ${actionLabel} successfully.`,
+      });
+      
+      handleActionsSuccess();
+    } catch (error: any) {
+      console.error('Error toggling suspend:', error);
+      toast({
+        title: 'Error',
+        description: error.message || 'Failed to update student status.',
+        variant: 'destructive',
+      });
+    } finally {
+      setSuspendingUserId(null);
+    }
   };
 
   const handleActionsSuccess = () => {
@@ -310,6 +356,31 @@ export const AdminStudentList = () => {
                               <Button
                                 variant="ghost"
                                 size="icon"
+                                onClick={() => handleToggleSuspend(student)}
+                                disabled={suspendingUserId === student.user_id}
+                                className={student.account_status === 'suspended' 
+                                  ? 'text-green-600 hover:text-green-700 hover:bg-green-50' 
+                                  : 'text-orange-600 hover:text-orange-700 hover:bg-orange-50'
+                                }
+                              >
+                                {suspendingUserId === student.user_id ? (
+                                  <Loader2 className="w-4 h-4 animate-spin" />
+                                ) : student.account_status === 'suspended' ? (
+                                  <UserCheck className="w-4 h-4" />
+                                ) : (
+                                  <Ban className="w-4 h-4" />
+                                )}
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              {student.account_status === 'suspended' ? 'Activate' : 'Suspend'}
+                            </TooltipContent>
+                          </Tooltip>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="icon"
                                 onClick={() => handleManageStudent(student)}
                               >
                                 <Settings className="w-4 h-4" />
@@ -341,6 +412,24 @@ export const AdminStudentList = () => {
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end" className="bg-popover">
+                            <DropdownMenuItem 
+                              onClick={() => handleToggleSuspend(student)}
+                              disabled={suspendingUserId === student.user_id}
+                              className={student.account_status === 'suspended' 
+                                ? 'text-green-600' 
+                                : 'text-orange-600'
+                              }
+                            >
+                              {suspendingUserId === student.user_id ? (
+                                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              ) : student.account_status === 'suspended' ? (
+                                <UserCheck className="w-4 h-4 mr-2" />
+                              ) : (
+                                <Ban className="w-4 h-4 mr-2" />
+                              )}
+                              {student.account_status === 'suspended' ? 'Activate' : 'Suspend'}
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
                             <DropdownMenuItem onClick={() => handleManageStudent(student)}>
                               <Settings className="w-4 h-4 mr-2" />
                               Manage
