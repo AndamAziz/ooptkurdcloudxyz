@@ -89,10 +89,22 @@ export const AdminStudentList = () => {
   const getStatusBadge = (student: StudentData) => {
     if (student.account_status === 'suspended') {
       return (
-        <Badge variant="destructive" className="gap-1">
-          <Ban className="w-3 h-3" />
-          Suspended
-        </Badge>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Badge variant="destructive" className="gap-1 cursor-help">
+                <Ban className="w-3 h-3" />
+                Suspended
+              </Badge>
+            </TooltipTrigger>
+            {student.suspend_reason && (
+              <TooltipContent className="max-w-xs">
+                <p className="font-medium">Reason:</p>
+                <p className="text-sm">{student.suspend_reason}</p>
+              </TooltipContent>
+            )}
+          </Tooltip>
+        </TooltipProvider>
       );
     }
     
