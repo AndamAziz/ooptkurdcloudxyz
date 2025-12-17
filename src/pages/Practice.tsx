@@ -344,7 +344,18 @@ const Practice = () => {
   if (state === 'results') {
     const totalQuestions = answers.length;
     const correctCount = answers.filter(a => a.correct).length;
+    const accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
     const xpEarned = (correctCount * XP_REWARDS.CORRECT) + ((totalQuestions - correctCount) * XP_REWARDS.INCORRECT);
+
+    // Calculate streak earned: 1 per 10 questions + bonus for 50+ with high accuracy
+    let streakEarned = Math.floor(totalQuestions / 10);
+    if (totalQuestions >= 50) {
+      if (accuracy === 100) {
+        streakEarned += 10;
+      } else if (accuracy >= 70) {
+        streakEarned += 5;
+      }
+    }
 
     // Check if level is now complete (all questions answered)
     const currentLevelProgress = getLevelProgress(selectedLevel);
@@ -388,6 +399,7 @@ const Practice = () => {
             totalQuestions={totalQuestions}
             correctCount={correctCount}
             xpEarned={xpEarned}
+            streakEarned={streakEarned}
             onPracticeAgain={handlePracticeAgain}
             isPlacementMode={isPlacementMode}
             recommendedLevel={recommendedLevel}
