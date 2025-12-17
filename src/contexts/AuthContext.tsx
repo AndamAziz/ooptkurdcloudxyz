@@ -79,6 +79,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     );
 
+    const verifySession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const { data: { user: verifiedUser }, error: verifyError } = await supabase.auth.getUser();
+      if (verifyError || !verifiedUser) {
+        await supabase.auth.signOut();
+        setUser(null);
+        setSession(null);
+        setProfile(null);
+        setIsAdmin(false);
+      }
+    };
+
     void (async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession();
@@ -115,7 +129,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     })();
 
-    return () => subscription.unsubscribe();
+    const onFocus = () => void verifySession();
+    const onVisibility = () => {
+      if (!document.hidden) void verifySession();
+    };
+
+    window.addEventListener('focus', onFocus);
+    document.addEventListener('visibilitychange', onVisibility);
+
+    return () => {
+      window.removeEventListener('focus', onFocus);
+      document.removeEventListener('visibilitychange', onVisibility);
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signUp = async (email: string, password: string, username: string) => {
