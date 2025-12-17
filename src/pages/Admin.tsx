@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
+import { Link } from 'react-router-dom';
 import { 
   Users, 
   BookOpen, 
@@ -13,7 +14,8 @@ import {
   Award,
   Activity,
   Download,
-  AlertTriangle
+  AlertTriangle,
+  ArrowLeft
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -609,6 +611,14 @@ const Admin = () => {
       <Header />
       
       <main className="container py-4 md:py-8 px-3 md:px-4">
+        {/* Back Button */}
+        <Link to="/dashboard">
+          <Button variant="ghost" size="sm" className="mb-4 -ml-2 h-10">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Dashboard
+          </Button>
+        </Link>
+
         <div className="mb-4 md:mb-8">
           <h1 className="font-serif text-xl md:text-3xl font-bold">Admin Dashboard</h1>
           <p className="text-xs md:text-base text-muted-foreground">Manage questions, certificates, and monitor usage</p>

@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { PracticeSetup } from '@/components/practice/PracticeSetup';
 import { PracticeResults } from '@/components/practice/PracticeResults';
@@ -276,7 +278,15 @@ const Practice = () => {
     return (
       <div className="min-h-screen bg-background overflow-x-hidden">
         <Header />
-        <main className="container max-w-2xl py-6 md:py-12 px-4">
+        <main className="container max-w-2xl py-4 md:py-12 px-4">
+          {/* Back Button */}
+          <Link to="/dashboard">
+            <Button variant="ghost" size="sm" className="mb-4 -ml-2 h-10">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Dashboard
+            </Button>
+          </Link>
+
           <PracticeSetup
             selectedLevel={selectedLevel}
             mode={mode}

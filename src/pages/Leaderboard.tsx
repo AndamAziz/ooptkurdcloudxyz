@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Trophy, Medal, Crown, Target, TrendingUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Trophy, Medal, Crown, Target, TrendingUp, ArrowLeft } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { CEFRBadge } from '@/components/CEFRBadge';
 import { supabase } from '@/integrations/supabase/client';
@@ -119,12 +121,20 @@ const Leaderboard = () => {
       
       <main className="container py-4 md:py-8 px-4">
         <div className="max-w-4xl mx-auto">
+          {/* Back Button */}
+          <Link to="/dashboard">
+            <Button variant="ghost" size="sm" className="mb-4 -ml-2 h-10">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Dashboard
+            </Button>
+          </Link>
+
           {/* Header */}
           <div className="text-center mb-6 md:mb-8">
             <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full bg-warning/10 mb-3 md:mb-4">
               <Trophy className="w-6 h-6 md:w-8 md:h-8 text-warning" />
             </div>
-            <h1 className="font-serif text-2xl md:text-3xl font-bold mb-2">Leaderboard</h1>
+            <h1 className="font-serif text-xl md:text-3xl font-bold mb-2">Leaderboard</h1>
             <p className="text-sm md:text-base text-muted-foreground">Top learners ranked by XP and accuracy</p>
           </div>
 
