@@ -45,6 +45,7 @@ import { CEFRBadge } from '@/components/CEFRBadge';
 import { SpeedometerGauge } from '@/components/SpeedometerGauge';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
+import { useSessionRefresh } from '@/hooks/useSessionRefresh';
 import { supabase } from '@/integrations/supabase/client';
 import { CEFR_LEVELS, LEVEL_THRESHOLDS, type CEFRLevel, getNextLevel } from '@/lib/constants';
 import { format, formatDistanceToNow } from 'date-fns';
@@ -103,6 +104,19 @@ const AdminStudentProfile = () => {
   const [certificates, setCertificates] = useState<Certificate[]>([]);
   const [attemptStats, setAttemptStats] = useState<AttemptStats>({ total: 0, correct: 0, accuracy: 0 });
   const [loading, setLoading] = useState(true);
+
+  // Auto-refresh session to prevent token expiration during long admin sessions
+  useSessionRefresh({
+    refreshInterval: 5 * 60 * 1000, // 5 minutes
+    onSessionExpired: () => {
+      toast({
+        title: 'Session Expired',
+        description: 'Please log in again to continue.',
+        variant: 'destructive',
+      });
+      navigate('/auth');
+    },
+  });
 
   const fetchStudentData = useCallback(async () => {
     if (!userId) return;

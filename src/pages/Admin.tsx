@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   Users, 
   BookOpen, 
@@ -55,6 +55,7 @@ import { AdminStudentList } from '@/components/admin/AdminStudentList';
 import { AdminActivityFeed } from '@/components/admin/AdminActivityFeed';
 import { QuestionEditDialog } from '@/components/admin/QuestionEditDialog';
 import { useToast } from '@/hooks/use-toast';
+import { useSessionRefresh } from '@/hooks/useSessionRefresh';
 import { supabase } from '@/integrations/supabase/client';
 import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
 
@@ -83,6 +84,7 @@ interface Stats {
 
 const Admin = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [stats, setStats] = useState<Stats>({
     totalQuestions: 0,
     totalStudents: 0,
@@ -99,6 +101,19 @@ const Admin = () => {
   const [importProgress, setImportProgress] = useState({ current: 0, total: 0 });
   const [isDeletingAll, setIsDeletingAll] = useState(false);
   const [deleteLevelFilter, setDeleteLevelFilter] = useState<string>('all');
+
+  // Auto-refresh session to prevent token expiration during long admin sessions
+  useSessionRefresh({
+    refreshInterval: 5 * 60 * 1000, // 5 minutes
+    onSessionExpired: () => {
+      toast({
+        title: 'Session Expired',
+        description: 'Please log in again to continue.',
+        variant: 'destructive',
+      });
+      navigate('/auth');
+    },
+  });
 
   useEffect(() => {
     fetchData();
