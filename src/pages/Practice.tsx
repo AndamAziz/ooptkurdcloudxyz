@@ -8,6 +8,7 @@ import { PracticeResults } from '@/components/practice/PracticeResults';
 import { PracticeHeader } from '@/components/practice/PracticeHeader';
 import { QuestionCard } from '@/components/practice/QuestionCard';
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
+import { FloatingBackButton } from '@/components/shared/FloatingBackButton';
 import { CertificateEarnedModal } from '@/components/certificates/CertificateEarnedModal';
 import { useAuth } from '@/contexts/AuthContext';
 import { useQuestions, type AnswerResult } from '@/hooks/useQuestions';
@@ -300,6 +301,8 @@ const Practice = () => {
             isPlacementMode={isPlacementMode}
           />
         </main>
+
+        <FloatingBackButton />
       </div>
     );
   }

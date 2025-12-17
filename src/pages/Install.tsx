@@ -4,6 +4,7 @@ import { Download, Smartphone, Check, Share, MoreVertical, ArrowLeft } from 'luc
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Header } from '@/components/Header';
+import { FloatingBackButton } from '@/components/shared/FloatingBackButton';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -259,6 +260,8 @@ const Install = () => {
           </div>
         </div>
       </main>
+
+      <FloatingBackButton />
     </div>
   );
 };
