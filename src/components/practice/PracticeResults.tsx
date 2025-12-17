@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Home, RotateCcw, Trophy, GraduationCap, TrendingUp, Crown, Star, Flame } from 'lucide-react';
+import { Home, RotateCcw, Trophy, GraduationCap, TrendingUp, Crown, Star, Flame, CheckCircle, XCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
 import { SpeedometerGauge } from '@/components/SpeedometerGauge';
 import { CEFRBadge } from '@/components/CEFRBadge';
 import confetti from 'canvas-confetti';
 import type { CEFRLevel } from '@/lib/constants';
+import { XP_REWARDS } from '@/lib/constants';
 
 interface LevelBreakdown {
   level: CEFRLevel;
@@ -20,6 +22,7 @@ interface PracticeResultsProps {
   correctCount: number;
   xpEarned: number;
   streakEarned?: number;
+  streakXpBank?: number;
   onPracticeAgain: () => void;
   isPlacementMode?: boolean;
   recommendedLevel?: CEFRLevel;
@@ -33,6 +36,7 @@ export const PracticeResults = ({
   correctCount,
   xpEarned,
   streakEarned = 0,
+  streakXpBank = 0,
   onPracticeAgain,
   isPlacementMode = false,
   recommendedLevel,
@@ -41,16 +45,25 @@ export const PracticeResults = ({
   currentLevel,
 }: PracticeResultsProps) => {
   const navigate = useNavigate();
+  const wrongCount = totalQuestions - correctCount;
   const accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
   const isLevelMaster = isLevelComplete && accuracy >= 90;
   const [showStreak, setShowStreak] = useState(false);
   const [animatedStreak, setAnimatedStreak] = useState(0);
+
+  // Calculate XP breakdown
+  const xpFromCorrect = correctCount * XP_REWARDS.CORRECT;
+  const xpFromWrong = wrongCount * XP_REWARDS.WRONG;
+  const rawXp = xpFromCorrect + xpFromWrong;
+
+  // Streak progress (out of 70)
+  const streakProgress = Math.min(100, (streakXpBank / 70) * 100);
+
   // Trigger confetti for good performance or level completion
   useEffect(() => {
     const shouldCelebrate = accuracy >= 70 || isLevelComplete || isPlacementMode || isLevelMaster;
     
     if (shouldCelebrate) {
-      // Initial burst
       confetti({
         particleCount: 100,
         spread: 70,
@@ -58,7 +71,6 @@ export const PracticeResults = ({
         colors: ['#22c55e', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6'],
       });
 
-      // Extra celebration for level completion or high accuracy
       if (isLevelComplete || accuracy >= 90) {
         setTimeout(() => {
           confetti({
@@ -76,7 +88,6 @@ export const PracticeResults = ({
         }, 250);
       }
 
-      // Special golden confetti for Level Master
       if (isLevelMaster) {
         setTimeout(() => {
           confetti({
@@ -93,12 +104,10 @@ export const PracticeResults = ({
   // Animate streak counter
   useEffect(() => {
     if (streakEarned > 0) {
-      // Delay showing streak for dramatic effect
       const showTimer = setTimeout(() => {
         setShowStreak(true);
         
-        // Animate the number counting up
-        const duration = 1000; // 1 second
+        const duration = 1000;
         const steps = streakEarned;
         const stepDuration = duration / steps;
         
@@ -219,27 +228,71 @@ export const PracticeResults = ({
           You scored <span className="font-semibold text-foreground">{correctCount}</span> out of <span className="font-semibold text-foreground">{totalQuestions}</span> correct
         </div>
 
-        {/* XP and Streak earned */}
-        <div className="grid grid-cols-2 gap-3">
-          <div className="p-3 md:p-4 rounded-lg bg-success/10 text-center">
-            <p className="text-xl md:text-2xl font-bold text-success">+{xpEarned} XP</p>
-            <p className="text-xs md:text-sm text-muted-foreground">Experience</p>
+        {/* XP Breakdown Card */}
+        <div className="p-4 rounded-xl bg-muted/30 border border-border space-y-3">
+          <h4 className="text-sm font-semibold text-center">XP Breakdown</h4>
+          
+          <div className="space-y-2">
+            {/* Correct answers */}
+            <div className="flex items-center justify-between text-sm">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-green-500" />
+                <span>Correct answers ({correctCount})</span>
+              </div>
+              <span className="font-semibold text-green-500">+{xpFromCorrect} XP</span>
+            </div>
+            
+            {/* Wrong answers */}
+            <div className="flex items-center justify-between text-sm">
+              <div className="flex items-center gap-2">
+                <XCircle className="w-4 h-4 text-red-500" />
+                <span>Wrong answers ({wrongCount})</span>
+              </div>
+              <span className="font-semibold text-red-500">{xpFromWrong} XP</span>
+            </div>
+            
+            {/* Divider */}
+            <div className="border-t border-border my-2" />
+            
+            {/* Total */}
+            <div className="flex items-center justify-between">
+              <span className="font-medium">Total Earned</span>
+              <span className={`text-lg font-bold ${xpEarned > 0 ? 'text-green-500' : 'text-muted-foreground'}`}>
+                {rawXp < 0 ? '0' : `+${xpEarned}`} XP
+                {rawXp < 0 && <span className="text-xs text-muted-foreground ml-1">(capped)</span>}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Streak Section */}
+        <div className="p-4 rounded-xl bg-gradient-to-r from-orange-500/10 to-amber-500/5 border border-orange-500/20 space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Flame className={`w-5 h-5 text-orange-500 ${streakEarned > 0 ? 'animate-pulse' : ''}`} />
+              <span className="font-semibold">Streak</span>
+            </div>
+            {streakEarned > 0 && (
+              <span className={`text-lg font-bold text-orange-500 transition-all duration-500 ${
+                showStreak ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+              }`}>
+                +{animatedStreak}
+              </span>
+            )}
           </div>
           
-          {/* Streak Earned with Animation */}
-          <div 
-            className={`p-3 md:p-4 rounded-lg bg-orange-500/10 text-center transition-all duration-500 ${
-              showStreak ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
-            }`}
-          >
-            <div className="flex items-center justify-center gap-1">
-              <Flame className={`w-5 h-5 md:w-6 md:h-6 text-orange-500 ${showStreak && streakEarned > 0 ? 'animate-pulse' : ''}`} />
-              <p className="text-xl md:text-2xl font-bold text-orange-500">
-                +{animatedStreak}
-              </p>
+          {/* Progress to next streak */}
+          <div className="space-y-1">
+            <div className="flex items-center justify-between text-xs text-muted-foreground">
+              <span>Progress to next streak</span>
+              <span>{streakXpBank}/70 XP</span>
             </div>
-            <p className="text-xs md:text-sm text-muted-foreground">Streak</p>
+            <Progress value={streakProgress} className="h-2" />
           </div>
+          
+          <p className="text-xs text-muted-foreground text-center">
+            Every 70 XP = +1 Streak
+          </p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
