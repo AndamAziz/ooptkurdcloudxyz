@@ -178,7 +178,7 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress, onLeve
               </span>
             )}
           </div>
-          <div className="flex flex-wrap gap-1.5 sm:gap-2">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
             {orderedLevels.map((level) => {
               const progress = levelProgress?.find(p => p.level === level);
               const isCurrentLevel = level === currentLevel;
@@ -203,6 +203,19 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress, onLeve
                 </Button>
               );
             })}
+            
+            {/* Start Practice Button */}
+            {currentLevel && (
+              <Link to={`/practice?level=${currentLevel}`}>
+                <Button 
+                  size="sm"
+                  className="min-h-[40px] sm:min-h-[44px] px-3 sm:px-4 bg-primary hover:bg-primary/90 gap-1.5"
+                >
+                  <Play className="w-3.5 h-3.5" />
+                  <span className="text-xs sm:text-sm">Start</span>
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </CardContent>
