@@ -571,6 +571,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      increment_user_streak: {
+        Args: { _streak_increment: number; _user_id: string }
+        Returns: undefined
+      }
       increment_user_xp: {
         Args: { _user_id: string; _xp_increment: number }
         Returns: undefined

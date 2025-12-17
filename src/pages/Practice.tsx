@@ -185,22 +185,41 @@ const Practice = () => {
 
   const handleAnswer = async (answer: string) => {
     if (selectedAnswer || !user) return;
-    
+
     const question = questions[currentIndex];
     const timeSpent = Math.round((Date.now() - questionStartTime) / 1000);
-    
+
     setSelectedAnswer(answer);
-    
+
     // Validate answer server-side
     const result = await checkAnswer(question.id, answer);
     const correct = result?.is_correct ?? false;
-    
+
     setIsCorrect(correct);
     setAnswerResult(result);
-    setAnswers([...answers, { questionId: question.id, answer, correct }]);
 
-    // Record attempt
-    await recordAttempt(question.id, answer, correct, timeSpent);
+    // Record attempt (must succeed before we award streak)
+    const recorded = await recordAttempt(question.id, answer, correct, timeSpent);
+
+    if (recorded) {
+      const nextCount = answers.length + 1;
+      setAnswers((prev) => [...prev, { questionId: question.id, answer, correct }]);
+
+      // +1 streak for every 10 answered questions (immediate)
+      if (nextCount % 10 === 0) {
+        await supabase.rpc('increment_user_streak', {
+          _user_id: user.id,
+          _streak_increment: 1,
+        });
+
+        await refreshProfile();
+
+        toast({
+          title: '🔥 +1 ستریک',
+          description: `دوای وەڵامدانی ${nextCount} پرسیار (هەر ١٠ پرسیار = ١ ستریک).`,
+        });
+      }
+    }
 
     setState('feedback');
   };
@@ -236,19 +255,17 @@ const Practice = () => {
       await refreshProfile();
     }
 
-    // Show streak earned notification
-    const questionsStreak = Math.floor(totalQuestions / 10);
+    // Show streak earned notification (bonus only; base streak is awarded every 10 questions immediately)
     const bonusStreak = totalQuestions >= 50 
       ? (accuracy === 100 ? 10 : accuracy >= 70 ? 5 : 0) 
       : 0;
-    const totalStreakEarned = questionsStreak + bonusStreak;
 
-    if (totalStreakEarned > 0) {
+    if (bonusStreak > 0) {
       toast({
-        title: `🔥 +${totalStreakEarned} Streak!`,
-        description: bonusStreak > 0 
-          ? `${questionsStreak} (per 10 questions) + ${bonusStreak} bonus!`
-          : `You earned ${questionsStreak} streak for ${totalQuestions} questions!`,
+        title: `🔥 +${bonusStreak} ستریکی بۆنوس!`,
+        description: accuracy === 100
+          ? 'Perfect 100% — بۆنوسی تایبەت وەرگرت.'
+          : 'Accuracy 70%+ — بۆنوس وەرگرت.',
       });
     }
 
