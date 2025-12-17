@@ -50,6 +50,7 @@ import { AdminCertificates } from '@/components/admin/AdminCertificates';
 import { AdminOverview } from '@/components/admin/AdminOverview';
 import { AdminStudentList } from '@/components/admin/AdminStudentList';
 import { AdminActivityFeed } from '@/components/admin/AdminActivityFeed';
+import { QuestionEditDialog } from '@/components/admin/QuestionEditDialog';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
@@ -767,14 +768,20 @@ const Admin = () => {
                             {question.correct_answer || '-'}
                           </TableCell>
                           <TableCell className="p-1">
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="h-7 w-7"
-                              onClick={() => deleteQuestion(question.id)}
-                            >
-                              <Trash2 className="w-3 h-3 text-destructive" />
-                            </Button>
+                            <div className="flex items-center gap-1">
+                              <QuestionEditDialog 
+                                question={question} 
+                                onUpdate={fetchData} 
+                              />
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-7 w-7"
+                                onClick={() => deleteQuestion(question.id)}
+                              >
+                                <Trash2 className="w-3 h-3 text-destructive" />
+                              </Button>
+                            </div>
                           </TableCell>
                         </TableRow>
                       ))}
