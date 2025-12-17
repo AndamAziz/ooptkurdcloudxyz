@@ -173,19 +173,23 @@ export const useProgress = (userId: string | undefined) => {
     chosenAnswer: string,
     isCorrect: boolean,
     timeSpent: number
-  ) => {
-    if (!userId) return;
+  ): Promise<boolean> => {
+    if (!userId) return false;
 
     try {
-      await supabase.from('attempts').insert({
+      const { error } = await supabase.from('attempts').insert({
         user_id: userId,
         question_id: questionId,
         chosen_answer: chosenAnswer,
         is_correct: isCorrect,
         time_spent_sec: timeSpent,
       });
+
+      if (error) throw error;
+      return true;
     } catch (err) {
       console.error('Error recording attempt:', err);
+      return false;
     }
   }, [userId]);
 
@@ -202,6 +206,19 @@ export const useProgress = (userId: string | undefined) => {
     }
   }, [userId]);
 
+  const incrementUserStreak = useCallback(async (streakIncrement: number) => {
+    if (!userId) return;
+
+    try {
+      await supabase.rpc('increment_user_streak', {
+        _user_id: userId,
+        _streak_increment: streakIncrement,
+      });
+    } catch (err) {
+      console.error('Error updating streak:', err);
+    }
+  }, [userId]);
+
   return {
     sessions,
     stats,
@@ -214,5 +231,6 @@ export const useProgress = (userId: string | undefined) => {
     endSession,
     recordAttempt,
     updateUserXP,
+    incrementUserStreak,
   };
 };
