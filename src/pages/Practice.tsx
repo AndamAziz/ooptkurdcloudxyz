@@ -60,6 +60,10 @@ const Practice = () => {
   // Store certificates count before session to detect new ones
   const certificatesBeforeSession = useRef<string[]>([]);
 
+  // Snapshot XP/Streak before session (needed to compute +1/70XP streak reliably across devices)
+  const profileBeforeSession = useRef<{ xp: number; streak: number; streakXpBank: number } | null>(null);
+  const [streakEarnedThisSession, setStreakEarnedThisSession] = useState(0);
+
   const [state, setState] = useState<PracticeState>('setup');
   const initialMode = searchParams.get('mode') || PRACTICE_MODES.FIFTY_QUESTIONS;
   const [mode, setMode] = useState(initialMode);
@@ -105,7 +109,7 @@ const Practice = () => {
     // Re-check status from backend right before starting (admin might suspend while user is logged in)
     const { data: statusData, error: statusError } = await supabase
       .from('profiles')
-      .select('account_status, suspend_reason')
+      .select('account_status, suspend_reason, xp, streak, streak_xp_bank')
       .eq('user_id', user.id)
       .maybeSingle();
 
@@ -128,6 +132,14 @@ const Practice = () => {
       });
       return;
     }
+
+    // Snapshot XP/Streak before this session (works even if AuthContext profile hasn't loaded yet)
+    profileBeforeSession.current = {
+      xp: statusData?.xp ?? 0,
+      streak: statusData?.streak ?? 0,
+      streakXpBank: (statusData as any)?.streak_xp_bank ?? 0,
+    };
+    setStreakEarnedThisSession(0);
 
     // Store current certificates before session starts
     await fetchUserCertificates();
@@ -234,25 +246,34 @@ const Practice = () => {
       await endSession(sessionId, totalQuestions, correctCount, xpEarned, summary);
     }
 
-    // Get XP before and calculate streaks earned
-    const oldXP = profile?.xp ?? 0;
+    const before = profileBeforeSession.current;
 
-    if (profile) {
+    // Always award XP (do NOT depend on AuthContext profile being loaded; mobile can be slower)
+    if (user) {
       await updateUserXP(xpEarned);
+
+      // Read back latest profile from backend so the UI is consistent across devices
+      const { data: afterProfile } = await supabase
+        .from('profiles')
+        .select('xp, streak, streak_xp_bank')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      const streakGained =
+        before && typeof afterProfile?.streak === 'number'
+          ? afterProfile.streak - before.streak
+          : 0;
+
+      setStreakEarnedThisSession(streakGained > 0 ? streakGained : 0);
+
+      if (streakGained > 0) {
+        toast({
+          title: `🔥 +${streakGained} ستریک!`,
+          description: `تۆ ${xpEarned} XP وەرگرت (هەر ٧٠ XP = ١ ستریک).`,
+        });
+      }
+
       await refreshProfile();
-    }
-
-    // Calculate streaks earned from this session (1 streak per 70 XP)
-    const newXP = oldXP + xpEarned;
-    const oldMultiples = Math.floor(oldXP / 70);
-    const newMultiples = Math.floor(newXP / 70);
-    const streakEarnedFromXP = newMultiples - oldMultiples;
-
-    if (streakEarnedFromXP > 0) {
-      toast({
-        title: `🔥 +${streakEarnedFromXP} ستریک!`,
-        description: `تۆ ${xpEarned} XP وەرگرت و ${streakEarnedFromXP} ستریک زیاد بوو (هەر ٧٠ XP = ١ ستریک).`,
-      });
     }
 
     // Wait a moment for the database trigger to potentially create a certificate
@@ -288,6 +309,8 @@ const Practice = () => {
     setAnswerResult(null);
     setTimeLeft(TIMED_DURATION_SECONDS);
     setSessionId(null);
+    setStreakEarnedThisSession(0);
+    profileBeforeSession.current = null;
     setState('setup');
     // Refresh progress after practice
     fetchProgress();
@@ -351,10 +374,7 @@ const Practice = () => {
     const accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
     const xpEarned = (correctCount * XP_REWARDS.CORRECT) + ((totalQuestions - correctCount) * XP_REWARDS.INCORRECT);
 
-    // Calculate streak earned from XP: 1 per 70 XP
-    const oldXP = (profile?.xp ?? 0) - xpEarned;
-    const newXP = profile?.xp ?? 0;
-    const streakEarned = Math.floor(newXP / 70) - Math.floor(oldXP / 70);
+    const streakEarned = streakEarnedThisSession;
 
     // Check if level is now complete (all questions answered)
     const currentLevelProgress = getLevelProgress(selectedLevel);
