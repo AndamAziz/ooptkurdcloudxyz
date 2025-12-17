@@ -1,4 +1,3 @@
-import { QRCodeSVG } from 'qrcode.react';
 import { Award, CheckCircle2, Sparkles } from 'lucide-react';
 import { format } from 'date-fns';
 import type { Certificate } from '@/hooks/useCertificates';
@@ -6,7 +5,7 @@ import type { Certificate } from '@/hooks/useCertificates';
 interface CertificateTemplateProps {
   certificate: Certificate;
   studentName: string;
-  verificationUrl: string;
+  verificationUrl?: string;
 }
 
 const getLevelTheme = (level: string) => {
@@ -472,27 +471,6 @@ export const CertificateTemplate = ({
                 {certificate.certificate_number}
               </p>
             </div>
-          </div>
-
-          {/* Center: QR Code */}
-          <div style={{ textAlign: 'center' }}>
-            <div
-              style={{
-                padding: '8px',
-                background: 'white',
-                borderRadius: '8px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                border: `1px solid ${theme.borderColor}30`,
-              }}
-            >
-              <QRCodeSVG value={verificationUrl} size={55} level="M" />
-            </div>
-            <p style={{ fontSize: '9px', color: '#888', marginTop: '4px', fontFamily: "'Arial', sans-serif" }}>
-              Scan to Verify
-            </p>
-            <p style={{ fontSize: '8px', color: '#666', marginTop: '2px', fontFamily: "'Arial', sans-serif", fontWeight: 500 }}>
-              oopt.kurdcloud.xyz/verify
-            </p>
           </div>
 
           {/* Right: Signature and Verification */}
