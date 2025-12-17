@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Award, FileText, Target, Lock, CheckCircle2, Trophy, Crown, Medal, RotateCcw, ArrowLeft } from 'lucide-react';
+import { Award, FileText, Target, Lock, CheckCircle2, Trophy, Crown, Medal, RotateCcw, ArrowLeft, Info, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { CertificateCard } from '@/components/certificates/CertificateCard';
@@ -14,7 +14,7 @@ import { CEFRBadge } from '@/components/CEFRBadge';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCertificates, type Certificate } from '@/hooks/useCertificates';
 import { useQuestionProgress, type LevelProgress } from '@/hooks/useQuestionProgress';
-import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
+import { CEFR_LEVELS, LEVEL_THRESHOLDS, type CEFRLevel } from '@/lib/constants';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 
@@ -153,6 +153,70 @@ const Certificates = () => {
               <p className="text-xs md:text-sm text-muted-foreground">Required Accuracy</p>
             </div>
           </div>
+
+          {/* Certificate Requirements Info */}
+          <Card className="mb-6 md:mb-8 border-primary/20">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base flex items-center gap-2">
+                <Info className="w-5 h-5 text-primary" />
+                Certificate Requirements
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <p className="text-sm text-muted-foreground mb-4">
+                Complete <strong>100%</strong> of questions with <strong>90%+ accuracy</strong> to earn a certificate.
+              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left py-2 px-2 font-medium">Level</th>
+                      <th className="text-center py-2 px-2 font-medium">Questions</th>
+                      <th className="text-center py-2 px-2 font-medium">Need Correct</th>
+                      <th className="text-right py-2 px-2 font-medium">XP Required</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {CEFR_LEVELS.map((level) => {
+                      const levelProgress = getProgressForLevel(level);
+                      const totalQ = levelProgress?.total_questions || 0;
+                      const requiredCorrect = Math.ceil(totalQ * 0.9);
+                      const theme = getLevelTheme(level);
+                      
+                      return (
+                        <tr key={level} className="border-b last:border-0">
+                          <td className="py-2 px-2">
+                            <div className="flex items-center gap-2">
+                              <CEFRBadge level={level} size="sm" />
+                              <span className={`hidden sm:inline text-xs ${theme.color}`}>{theme.label}</span>
+                            </div>
+                          </td>
+                          <td className="text-center py-2 px-2 text-muted-foreground">
+                            {totalQ > 0 ? totalQ : '—'}
+                          </td>
+                          <td className="text-center py-2 px-2">
+                            <span className="text-green-600 dark:text-green-400 font-medium">
+                              {totalQ > 0 ? `${requiredCorrect}+` : '—'}
+                            </span>
+                          </td>
+                          <td className="text-right py-2 px-2 text-muted-foreground">
+                            {LEVEL_THRESHOLDS[level].toLocaleString()} XP
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              <div className="mt-4 flex items-start gap-2 text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg">
+                <BookOpen className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <span>
+                  <strong>Tip:</strong> Each correct answer gives +10 XP, each wrong answer -5 XP. 
+                  Focus on accuracy to maximize your XP and earn certificates faster!
+                </span>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Certificate Progress Grid */}
           <div className="grid gap-4 mb-8">
