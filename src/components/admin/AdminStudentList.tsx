@@ -15,11 +15,13 @@ import {
   MoreHorizontal,
   UserCheck,
   Loader2,
+  X,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Table,
   TableBody,
@@ -70,6 +72,8 @@ export const AdminStudentList = () => {
   const [selectedStudent, setSelectedStudent] = useState<StudentData | null>(null);
   const [actionsDialogOpen, setActionsDialogOpen] = useState(false);
   const [suspendingUserId, setSuspendingUserId] = useState<string | null>(null);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [bulkLoading, setBulkLoading] = useState(false);
   const pageSize = 20;
 
   useEffect(() => {
@@ -84,7 +88,64 @@ export const AdminStudentList = () => {
     });
   }, [fetchStudents, page, searchQuery, filterLevel, filterStatus, sortBy]);
 
+  // Clear selection when filters change
+  useEffect(() => {
+    setSelectedIds(new Set());
+  }, [page, searchQuery, filterLevel, filterStatus, sortBy]);
+
   const totalPages = Math.ceil(totalCount / pageSize);
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === students.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(students.map(s => s.user_id)));
+    }
+  };
+
+  const toggleSelect = (userId: string) => {
+    const newSelected = new Set(selectedIds);
+    if (newSelected.has(userId)) {
+      newSelected.delete(userId);
+    } else {
+      newSelected.add(userId);
+    }
+    setSelectedIds(newSelected);
+  };
+
+  const handleBulkAction = async (action: 'suspend' | 'activate') => {
+    if (selectedIds.size === 0) return;
+    
+    setBulkLoading(true);
+    const actionType = action === 'suspend' ? 'suspend_user' : 'activate_user';
+    let successCount = 0;
+    let failCount = 0;
+
+    for (const userId of selectedIds) {
+      try {
+        const { error } = await supabase.functions.invoke('admin-user-management', {
+          body: { action: actionType, userId },
+        });
+        if (error) {
+          failCount++;
+        } else {
+          successCount++;
+        }
+      } catch {
+        failCount++;
+      }
+    }
+
+    toast({
+      title: 'Bulk Action Complete',
+      description: `${successCount} ${action === 'suspend' ? 'suspended' : 'activated'} successfully${failCount > 0 ? `, ${failCount} failed` : ''}.`,
+      variant: failCount > 0 ? 'destructive' : 'default',
+    });
+
+    setSelectedIds(new Set());
+    setBulkLoading(false);
+    handleActionsSuccess();
+  };
 
   const getStatusBadge = (student: StudentData) => {
     if (student.account_status === 'suspended') {
@@ -281,11 +342,61 @@ export const AdminStudentList = () => {
           </Select>
         </div>
 
+        {/* Bulk Actions Bar */}
+        {selectedIds.size > 0 && (
+          <div className="mb-4 p-3 bg-muted rounded-lg flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <Badge variant="secondary" className="text-sm">
+                {selectedIds.size} selected
+              </Badge>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSelectedIds(new Set())}
+                className="h-7 px-2"
+              >
+                <X className="w-3 h-3 mr-1" />
+                Clear
+              </Button>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleBulkAction('activate')}
+                disabled={bulkLoading}
+                className="text-green-600 border-green-300 hover:bg-green-50"
+              >
+                {bulkLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <UserCheck className="w-4 h-4 mr-2" />}
+                Activate All
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleBulkAction('suspend')}
+                disabled={bulkLoading}
+                className="text-orange-600 border-orange-300 hover:bg-orange-50"
+              >
+                {bulkLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Ban className="w-4 h-4 mr-2" />}
+                Suspend All
+              </Button>
+            </div>
+          </div>
+        )}
+
         {/* Table */}
         <div className="rounded-md border overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-10">
+                  <Checkbox
+                    checked={students.length > 0 && selectedIds.size === students.length}
+                    onCheckedChange={toggleSelectAll}
+                    aria-label="Select all"
+                    disabled={loading || students.length === 0}
+                  />
+                </TableHead>
                 <TableHead>#</TableHead>
                 <TableHead>Name</TableHead>
                 <TableHead>Level</TableHead>
@@ -302,6 +413,7 @@ export const AdminStudentList = () => {
                 Array.from({ length: 5 }).map((_, i) => (
                   <TableRow key={i}>
                     <TableCell><Skeleton className="h-4 w-4" /></TableCell>
+                    <TableCell><Skeleton className="h-4 w-4" /></TableCell>
                     <TableCell><Skeleton className="h-4 w-32" /></TableCell>
                     <TableCell><Skeleton className="h-6 w-12" /></TableCell>
                     <TableCell><Skeleton className="h-4 w-16" /></TableCell>
@@ -314,7 +426,7 @@ export const AdminStudentList = () => {
                 ))
               ) : students.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={9} className="text-center py-8 text-muted-foreground">
+                  <TableCell colSpan={10} className="text-center py-8 text-muted-foreground">
                     No students found
                   </TableCell>
                 </TableRow>
@@ -322,8 +434,15 @@ export const AdminStudentList = () => {
                 students.map((student, index) => (
                   <TableRow 
                     key={student.id}
-                    className={student.account_status === 'suspended' ? 'opacity-60' : ''}
+                    className={`${student.account_status === 'suspended' ? 'opacity-60' : ''} ${selectedIds.has(student.user_id) ? 'bg-muted/50' : ''}`}
                   >
+                    <TableCell>
+                      <Checkbox
+                        checked={selectedIds.has(student.user_id)}
+                        onCheckedChange={() => toggleSelect(student.user_id)}
+                        aria-label={`Select ${student.display_name || student.username}`}
+                      />
+                    </TableCell>
                     <TableCell className="text-muted-foreground">
                       {(page - 1) * pageSize + index + 1}
                     </TableCell>
