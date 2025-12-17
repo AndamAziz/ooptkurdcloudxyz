@@ -22,6 +22,16 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import {
   Table,
   TableBody,
@@ -74,6 +84,8 @@ export const AdminStudentList = () => {
   const [suspendingUserId, setSuspendingUserId] = useState<string | null>(null);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [bulkLoading, setBulkLoading] = useState(false);
+  const [bulkSuspendDialogOpen, setBulkSuspendDialogOpen] = useState(false);
+  const [bulkSuspendReason, setBulkSuspendReason] = useState('');
   const pageSize = 20;
 
   useEffect(() => {
@@ -129,7 +141,7 @@ export const AdminStudentList = () => {
     navigate('/auth', { replace: true });
   };
 
-  const handleBulkAction = async (action: 'suspend' | 'activate') => {
+  const handleBulkAction = async (action: 'suspend' | 'activate', reason?: string) => {
     if (selectedIds.size === 0) return;
 
     setBulkLoading(true);
@@ -140,7 +152,7 @@ export const AdminStudentList = () => {
     for (const userId of selectedIds) {
       try {
         const { error } = await supabase.functions.invoke('admin-user-management', {
-          body: { action: actionType, userId },
+          body: { action: actionType, userId, reason: action === 'suspend' ? reason : undefined },
         });
 
         if (error) {
@@ -171,6 +183,8 @@ export const AdminStudentList = () => {
 
     setSelectedIds(new Set());
     setBulkLoading(false);
+    setBulkSuspendDialogOpen(false);
+    setBulkSuspendReason('');
     handleActionsSuccess();
   };
 
@@ -400,7 +414,7 @@ export const AdminStudentList = () => {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => handleBulkAction('suspend')}
+                onClick={() => setBulkSuspendDialogOpen(true)}
                 disabled={bulkLoading}
                 className="text-orange-600 border-orange-300 hover:bg-orange-50"
               >
@@ -410,6 +424,58 @@ export const AdminStudentList = () => {
             </div>
           </div>
         )}
+
+        {/* Bulk Suspend Dialog */}
+        <Dialog open={bulkSuspendDialogOpen} onOpenChange={(open) => {
+          if (!bulkLoading) {
+            setBulkSuspendDialogOpen(open);
+            if (!open) setBulkSuspendReason('');
+          }
+        }}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2 text-orange-600">
+                <Ban className="w-5 h-5" />
+                Suspend {selectedIds.size} Students
+              </DialogTitle>
+              <DialogDescription>
+                Enter a reason for suspending these accounts. This will be visible to admins.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+              <div className="space-y-2">
+                <Label htmlFor="bulkSuspendReason">Suspension Reason (Optional)</Label>
+                <Textarea
+                  id="bulkSuspendReason"
+                  value={bulkSuspendReason}
+                  onChange={(e) => setBulkSuspendReason(e.target.value)}
+                  placeholder="Enter reason for suspension..."
+                  className="min-h-[100px] resize-none"
+                />
+              </div>
+            </div>
+            <DialogFooter className="gap-2 sm:gap-0">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setBulkSuspendDialogOpen(false);
+                  setBulkSuspendReason('');
+                }}
+                disabled={bulkLoading}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => handleBulkAction('suspend', bulkSuspendReason.trim() || undefined)}
+                disabled={bulkLoading}
+                className="bg-orange-600 hover:bg-orange-700"
+              >
+                {bulkLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Ban className="w-4 h-4 mr-2" />}
+                Suspend All
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         {/* Table */}
         <div className="rounded-md border overflow-x-auto">
