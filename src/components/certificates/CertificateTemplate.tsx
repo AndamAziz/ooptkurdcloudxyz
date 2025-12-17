@@ -140,6 +140,93 @@ export const CertificateTemplate = ({
         }}
       />
 
+      {/* Watermark for authenticity */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          pointerEvents: 'none',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            width: '200%',
+            height: '200%',
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '80px',
+            transform: 'rotate(-30deg)',
+            opacity: 0.04,
+          }}
+        >
+          {Array.from({ length: 20 }).map((_, i) => (
+            <div
+              key={i}
+              style={{
+                fontSize: '28px',
+                fontWeight: 700,
+                color: theme.primaryColor,
+                letterSpacing: '8px',
+                fontFamily: "'Arial', sans-serif",
+                textTransform: 'uppercase',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              CEFR CERTIFIED • AUTHENTIC •
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Center Watermark Seal */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '180px',
+          height: '180px',
+          borderRadius: '50%',
+          border: `3px solid ${theme.borderColor}`,
+          opacity: 0.08,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          pointerEvents: 'none',
+        }}
+      >
+        <div
+          style={{
+            width: '150px',
+            height: '150px',
+            borderRadius: '50%',
+            border: `2px solid ${theme.borderColor}`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+          }}
+        >
+          <span style={{ fontSize: '14px', fontWeight: 700, color: theme.primaryColor, letterSpacing: '2px' }}>
+            CERTIFIED
+          </span>
+          <span style={{ fontSize: '32px', fontWeight: 700, color: theme.primaryColor }}>
+            {certificate.cefr_level}
+          </span>
+          <span style={{ fontSize: '10px', color: theme.primaryColor, letterSpacing: '1px' }}>
+            AUTHENTIC
+          </span>
+        </div>
+      </div>
+
       {/* Outer Decorative Border */}
       <div
         style={{
@@ -149,7 +236,6 @@ export const CertificateTemplate = ({
           borderRadius: '2px',
         }}
       />
-
       {/* Inner Decorative Border */}
       <div
         style={{
