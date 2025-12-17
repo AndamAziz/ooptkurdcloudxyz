@@ -346,6 +346,7 @@ const Practice = () => {
             recommendedLevel={recommendedLevel}
             levelBreakdown={levelBreakdown}
             isLevelComplete={isLevelComplete}
+            currentLevel={selectedLevel}
           />
         </main>
 

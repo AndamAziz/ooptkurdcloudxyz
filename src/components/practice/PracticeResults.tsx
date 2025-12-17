@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Home, RotateCcw, Trophy, GraduationCap, TrendingUp } from 'lucide-react';
+import { Home, RotateCcw, Trophy, GraduationCap, TrendingUp, Crown, Star } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { SpeedometerGauge } from '@/components/SpeedometerGauge';
@@ -24,6 +24,7 @@ interface PracticeResultsProps {
   recommendedLevel?: CEFRLevel;
   levelBreakdown?: LevelBreakdown[];
   isLevelComplete?: boolean;
+  currentLevel?: CEFRLevel;
 }
 
 export const PracticeResults = ({
@@ -35,13 +36,14 @@ export const PracticeResults = ({
   recommendedLevel,
   levelBreakdown,
   isLevelComplete = false,
+  currentLevel,
 }: PracticeResultsProps) => {
   const navigate = useNavigate();
   const accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
-
+  const isLevelMaster = isLevelComplete && accuracy >= 90;
   // Trigger confetti for good performance or level completion
   useEffect(() => {
-    const shouldCelebrate = accuracy >= 70 || isLevelComplete || isPlacementMode;
+    const shouldCelebrate = accuracy >= 70 || isLevelComplete || isPlacementMode || isLevelMaster;
     
     if (shouldCelebrate) {
       // Initial burst
@@ -69,8 +71,20 @@ export const PracticeResults = ({
           });
         }, 250);
       }
+
+      // Special golden confetti for Level Master
+      if (isLevelMaster) {
+        setTimeout(() => {
+          confetti({
+            particleCount: 150,
+            spread: 100,
+            origin: { y: 0.5 },
+            colors: ['#ffd700', '#ffb700', '#ff9500', '#ffffff'],
+          });
+        }, 500);
+      }
     }
-  }, [accuracy, isLevelComplete, isPlacementMode]);
+  }, [accuracy, isLevelComplete, isPlacementMode, isLevelMaster]);
 
   return (
     <Card className="animate-scale-in w-full max-w-full">
@@ -92,6 +106,30 @@ export const PracticeResults = ({
         )}
       </CardHeader>
       <CardContent className="space-y-4 md:space-y-6 p-4 md:p-6 pt-0">
+        {/* Level Master Badge */}
+        {isLevelMaster && currentLevel && (
+          <div className="p-4 md:p-5 rounded-xl bg-gradient-to-r from-amber-500/20 via-yellow-500/15 to-orange-500/10 border-2 border-amber-500/40 text-center animate-scale-in">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Crown className="w-6 h-6 text-amber-500" />
+              <span className="text-lg font-bold bg-gradient-to-r from-amber-500 to-yellow-500 bg-clip-text text-transparent">
+                Level Master!
+              </span>
+              <Crown className="w-6 h-6 text-amber-500" />
+            </div>
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <CEFRBadge level={currentLevel} size="lg" />
+              <div className="flex items-center gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              You completed all {currentLevel} questions with {accuracy}% accuracy!
+            </p>
+          </div>
+        )}
+
         {/* Recommended Level for Placement Mode */}
         {isPlacementMode && recommendedLevel && (
           <div className="p-4 md:p-5 rounded-xl bg-gradient-to-r from-primary/15 via-primary/10 to-transparent border-2 border-primary/30 text-center">
