@@ -109,6 +109,7 @@ Deno.serve(async (req) => {
     // Get the authorization header to verify the caller is an admin
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) {
+      console.error('Missing authorization header');
       return new Response(
         JSON.stringify({ error: 'Missing authorization header' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -117,17 +118,28 @@ Deno.serve(async (req) => {
 
     // Extract the JWT token from the Authorization header
     const token = authHeader.replace('Bearer ', '');
+    
+    if (!token || token === authHeader) {
+      console.error('Invalid authorization header format');
+      return new Response(
+        JSON.stringify({ error: 'Invalid authorization header format' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
 
     // Verify the caller's token using the admin client
     const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser(token);
     
     if (authError || !user) {
       console.error('Auth error:', authError);
+      console.error('Token length:', token?.length || 0);
       return new Response(
         JSON.stringify({ error: 'Invalid token' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+
+    console.log('Authenticated user:', user.id);
 
     // Check if caller is an admin
     const { data: roleData, error: roleError } = await supabaseAdmin
