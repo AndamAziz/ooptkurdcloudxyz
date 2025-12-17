@@ -102,13 +102,12 @@ const Admin = () => {
     fetchData();
   }, []);
 
-  // Fetch questions when filter changes
-  useEffect(() => {
-    const fetchFilteredQuestions = async () => {
-      let allQuestions: Question[] = [];
+  const loadQuestions = async (level: string) => {
+    try {
+      const allQuestions: Question[] = [];
       let offset = 0;
       const pageSize = 1000;
-      
+
       while (true) {
         let query = supabase
           .from('questions')
@@ -117,22 +116,33 @@ const Admin = () => {
           .order('id', { ascending: true })
           .range(offset, offset + pageSize - 1);
 
-        if (filterLevel !== 'all') {
-          query = query.eq('cefr', filterLevel as CEFRLevel);
+        if (level !== 'all') {
+          query = query.eq('cefr', level as CEFRLevel);
         }
 
         const { data, error } = await query;
-        if (error || !data || data.length === 0) break;
-        
+        if (error) throw error;
+        if (!data || data.length === 0) break;
+
         allQuestions.push(...(data as Question[]));
         if (data.length < pageSize) break;
         offset += pageSize;
       }
-      
-      setQuestions(allQuestions);
-    };
 
-    fetchFilteredQuestions();
+      setQuestions(allQuestions);
+    } catch {
+      toast({
+        title: 'Error',
+        description: 'Failed to load questions',
+        variant: 'destructive',
+      });
+      setQuestions([]);
+    }
+  };
+
+  // Fetch questions when filter changes
+  useEffect(() => {
+    void loadQuestions(filterLevel);
   }, [filterLevel]);
 
   const QUESTIONS_PAGE_SIZE = 1000;
@@ -210,13 +220,8 @@ const Admin = () => {
         questionsByLevel,
       });
 
-      const { data: allQuestions } = await supabase
-        .from('questions')
-        .select('*')
-        .order('id', { ascending: false })
-        .limit(100);
-
-      setQuestions((allQuestions as Question[]) || []);
+      // Refresh list too (important after import/edit/delete while filter stays "All")
+      await loadQuestions(filterLevel);
     } catch {
       toast({
         title: 'Error',
@@ -691,7 +696,7 @@ const Admin = () => {
                       className="gap-2"
                     >
                       <Download className="w-4 h-4" />
-                      Export CSV
+                      Export Excel
                     </Button>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
