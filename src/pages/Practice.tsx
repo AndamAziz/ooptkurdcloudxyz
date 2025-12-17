@@ -216,10 +216,10 @@ const Practice = () => {
     setIsCorrect(correct);
     setAnswerResult(result);
 
-    // Update real-time XP display
+    // Update real-time XP display (allow negative to show real impact)
     const xpChange = correct ? XP_REWARDS.CORRECT : XP_REWARDS.WRONG;
     setLastXpChange(xpChange);
-    setSessionXp(prev => Math.max(0, prev + xpChange));
+    setSessionXp(prev => prev + xpChange);
 
     // Record attempt
     const recorded = await recordAttempt(question.id, answer, correct, timeSpent);
