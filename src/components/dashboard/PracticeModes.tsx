@@ -209,14 +209,23 @@ export const PracticeModes = ({ displayName, currentLevel, levelProgress, onLeve
               <Link to={`/practice?level=${currentLevel}`}>
                 <Button 
                   size="sm"
-                  className="min-h-[40px] sm:min-h-[44px] px-3 sm:px-4 bg-primary hover:bg-primary/90 gap-1.5"
+                  className={cn(
+                    "min-h-[40px] sm:min-h-[44px] px-3 sm:px-4 gap-1.5",
+                    remainingQuestions === 0 
+                      ? "bg-green-600 hover:bg-green-700" 
+                      : "bg-primary hover:bg-primary/90"
+                  )}
                 >
                   <Play className="w-3.5 h-3.5" />
-                  <span className="text-xs sm:text-sm">Start</span>
-                  {remainingQuestions > 0 && (
+                  <span className="text-xs sm:text-sm">
+                    {remainingQuestions === 0 ? "Review" : "Start"}
+                  </span>
+                  {remainingQuestions > 0 ? (
                     <span className="text-[10px] sm:text-xs bg-primary-foreground/20 px-1.5 py-0.5 rounded-full">
                       {remainingQuestions}
                     </span>
+                  ) : (
+                    <span className="text-[10px] sm:text-xs">✓</span>
                   )}
                 </Button>
               </Link>
