@@ -62,54 +62,78 @@ export const MobileStatsHeader = ({
   return (
     <Card className="overflow-hidden border-0 shadow-xl bg-gradient-to-br from-card via-card to-muted/20">
       <CardContent className="p-0">
-        {/* Combined Stats Banner */}
+        {/* Streak & XP Banner */}
         <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-3 sm:p-4 relative overflow-hidden">
           <div className="absolute inset-0 opacity-30">
             <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-green-500/20 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl" />
+            <div className="absolute top-1/2 left-1/2 w-20 h-20 bg-primary/20 rounded-full -translate-y-1/2 -translate-x-1/2 blur-xl" />
           </div>
           
-          <div className="relative flex items-center gap-2 sm:gap-3">
-            {/* Streak Section */}
-            <div className="flex items-center gap-2 w-[30%] flex-shrink-0">
+          <div className="relative flex items-center gap-2 sm:gap-4">
+            {/* Streak Section - Enhanced */}
+            <div className="flex-1 flex items-center gap-2 sm:gap-3">
               <div className={cn(
-                "p-2 rounded-lg bg-gradient-to-br from-orange-500 to-rose-600 shadow-lg shadow-orange-500/30",
+                "p-2.5 sm:p-3 rounded-xl bg-gradient-to-br from-orange-500 to-rose-600 shadow-lg shadow-orange-500/30",
                 isStreakActive && "animate-pulse"
               )}>
-                <Flame className="w-5 h-5 sm:w-6 sm:h-6 text-white drop-shadow-lg" />
+                <Flame className="w-6 h-6 sm:w-7 sm:h-7 text-white drop-shadow-lg" />
               </div>
               <div className="min-w-0">
-                <p className="text-xl sm:text-2xl font-bold text-white drop-shadow-md">{streak}</p>
+                <div className="flex items-baseline gap-1">
+                  <p className="text-2xl sm:text-3xl font-bold text-white drop-shadow-md">{streak}</p>
+                  <Flame className="w-4 h-4 text-orange-400" />
+                </div>
                 <p className="text-[10px] sm:text-xs text-white/70 font-medium leading-tight">Day Streak</p>
-                <p className="text-[9px] sm:text-[10px] text-white/50 truncate">{getStreakStatus()}</p>
+                <p className="text-[9px] sm:text-[10px] text-orange-300/80 font-medium">{getStreakStatus()}</p>
               </div>
             </div>
             
-            <div className="w-px h-14 sm:h-16 bg-white/20 flex-shrink-0" />
+            <div className="w-px h-16 sm:h-18 bg-white/20 flex-shrink-0" />
             
-            {/* Current Level Accuracy Gauge */}
-            <div className="flex-1 flex flex-col justify-center items-center min-w-0">
-              {currentLevelAnswered > 0 ? (
-                <div className="w-full flex justify-center">
+            {/* XP Section - Enhanced */}
+            <div className="flex-1 flex items-center gap-2 sm:gap-3">
+              <div className="p-2.5 sm:p-3 rounded-xl bg-gradient-to-br from-primary to-primary/70 shadow-lg shadow-primary/30">
+                <Zap className="w-6 h-6 sm:w-7 sm:h-7 text-white drop-shadow-lg" />
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-baseline gap-1">
+                  <p className="text-2xl sm:text-3xl font-bold text-white drop-shadow-md">{totalXP.toLocaleString()}</p>
+                </div>
+                <p className="text-[10px] sm:text-xs text-white/70 font-medium leading-tight">Total XP</p>
+                <p className="text-[9px] sm:text-[10px] text-primary/80 font-medium">
+                  {totalCorrect > 0 ? `${totalCorrect} correct` : 'Start practicing!'}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Level Accuracy Gauge - Compact Row */}
+          <div className="relative mt-3 pt-3 border-t border-white/10">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex-1 flex items-center gap-2">
+                {currentLevelAnswered > 0 ? (
                   <SpeedometerGauge 
                     percentage={currentLevelAccuracy} 
                     size="xs"
                     showLabel={false}
                     showPercentage={true}
                   />
-                </div>
-              ) : (
-                <div className="text-center">
-                  <p className="text-xl sm:text-2xl font-bold text-white/60">--</p>
-                  <p className="text-[10px] sm:text-xs text-white/40">No data yet</p>
-                </div>
-              )}
+                ) : (
+                  <div className="text-center flex-1">
+                    <p className="text-lg font-bold text-white/60">--</p>
+                    <p className="text-[9px] text-white/40">No data</p>
+                  </div>
+                )}
+              </div>
+              
               {onLevelChange ? (
                 <Select value={currentLevel} onValueChange={(val) => onLevelChange(val as CEFRLevel)}>
-                  <SelectTrigger className="h-5 w-auto min-w-[80px] bg-white/10 border-white/20 text-white text-[9px] sm:text-[10px] px-2 py-0 mt-1">
+                  <SelectTrigger className="h-7 w-auto min-w-[100px] bg-white/10 border-white/20 text-white text-[10px] sm:text-xs px-2">
                     <SelectValue />
+                    <ChevronDown className="w-3 h-3 ml-1 opacity-70" />
                   </SelectTrigger>
-                <SelectContent>
+                  <SelectContent>
                     {CEFR_LEVELS.map((level) => {
                       const levelData = questionProgress.find(p => p.cefr === level);
                       const accuracy = levelData?.accuracy || 0;
@@ -136,8 +160,8 @@ export const MobileStatsHeader = ({
                   </SelectContent>
                 </Select>
               ) : (
-                <p className="text-[9px] sm:text-[10px] text-white/70 mt-1 text-center">
-                  {currentLevel} Level ({currentLevelAnswered}/{currentLevelTotal})
+                <p className="text-[10px] text-white/70">
+                  {currentLevel} ({currentLevelAnswered}/{currentLevelTotal})
                 </p>
               )}
             </div>
