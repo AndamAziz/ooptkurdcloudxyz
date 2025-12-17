@@ -45,8 +45,7 @@ const Practice = () => {
   const { 
     createSession, 
     endSession, 
-    recordAttempt, 
-    updateUserXP 
+    recordAttempt
   } = useProgress(user?.id);
 
   const { certificates, fetchUserCertificates } = useCertificates(user?.id);
@@ -248,11 +247,9 @@ const Practice = () => {
 
     const before = profileBeforeSession.current;
 
-    // Always award XP (do NOT depend on AuthContext profile being loaded; mobile can be slower)
+    // XP/Streak are awarded immediately by the backend on every answered question.
+    // Here we only fetch the latest values so results/dashboard stay in sync across devices.
     if (user) {
-      await updateUserXP(xpEarned);
-
-      // Read back latest profile from backend so the UI is consistent across devices
       const { data: afterProfile } = await supabase
         .from('profiles')
         .select('xp, streak, streak_xp_bank')
@@ -265,13 +262,6 @@ const Practice = () => {
           : 0;
 
       setStreakEarnedThisSession(streakGained > 0 ? streakGained : 0);
-
-      if (streakGained > 0) {
-        toast({
-          title: `🔥 +${streakGained} ستریک!`,
-          description: `تۆ ${xpEarned} XP وەرگرت (هەر ٧٠ XP = ١ ستریک).`,
-        });
-      }
 
       await refreshProfile();
     }
