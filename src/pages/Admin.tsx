@@ -105,18 +105,31 @@ const Admin = () => {
   // Fetch questions when filter changes
   useEffect(() => {
     const fetchFilteredQuestions = async () => {
-      let query = supabase
-        .from('questions')
-        .select('*')
-        .order('id', { ascending: false })
-        .limit(100);
+      let allQuestions: Question[] = [];
+      let offset = 0;
+      const pageSize = 1000;
+      
+      while (true) {
+        let query = supabase
+          .from('questions')
+          .select('*')
+          .order('cefr', { ascending: true })
+          .order('id', { ascending: true })
+          .range(offset, offset + pageSize - 1);
 
-      if (filterLevel !== 'all') {
-        query = query.eq('cefr', filterLevel as CEFRLevel);
+        if (filterLevel !== 'all') {
+          query = query.eq('cefr', filterLevel as CEFRLevel);
+        }
+
+        const { data, error } = await query;
+        if (error || !data || data.length === 0) break;
+        
+        allQuestions.push(...(data as Question[]));
+        if (data.length < pageSize) break;
+        offset += pageSize;
       }
-
-      const { data } = await query;
-      setQuestions((data as Question[]) || []);
+      
+      setQuestions(allQuestions);
     };
 
     fetchFilteredQuestions();
