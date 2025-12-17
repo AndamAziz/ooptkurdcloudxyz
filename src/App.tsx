@@ -12,6 +12,7 @@ import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import Practice from "./pages/Practice";
 import Admin from "./pages/Admin";
+import AdminActivityLog from "./pages/AdminActivityLog";
 import AdminStudentProfile from "./pages/AdminStudentProfile";
 import Leaderboard from "./pages/Leaderboard";
 import Install from "./pages/Install";
@@ -65,6 +66,14 @@ const App = () => (
                 element={
                   <ProtectedRoute requireAdmin>
                     <Admin />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/activity-log"
+                element={
+                  <ProtectedRoute requireAdmin>
+                    <AdminActivityLog />
                   </ProtectedRoute>
                 }
               />

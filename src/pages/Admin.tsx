@@ -679,8 +679,14 @@ const Admin = () => {
                 </Card>
                 <AdminOverview />
               </div>
-              <div>
+              <div className="space-y-4">
                 <AdminActivityFeed />
+                <Link to="/admin/activity-log">
+                  <Button variant="outline" className="w-full gap-2">
+                    <Activity className="w-4 h-4" />
+                    View Admin Activity Log
+                  </Button>
+                </Link>
               </div>
             </div>
           </TabsContent>
