@@ -117,6 +117,12 @@ export const StudentActionsDialog = ({
 
     setLoading(true);
     try {
+      // Get fresh session to ensure token is valid
+      const { data: sessionData } = await supabase.auth.getSession();
+      if (!sessionData.session) {
+        throw new Error('Session expired. Please log in again.');
+      }
+
       const { data, error } = await supabase.functions.invoke('admin-user-management', {
         body: {
           action: 'reset_password',
@@ -157,6 +163,12 @@ export const StudentActionsDialog = ({
 
     setLoading(true);
     try {
+      // Get fresh session to ensure token is valid
+      const { data: sessionData } = await supabase.auth.getSession();
+      if (!sessionData.session) {
+        throw new Error('Session expired. Please log in again.');
+      }
+
       const { data, error } = await supabase.functions.invoke('admin-user-management', {
         body: {
           action: 'delete_user',
@@ -346,6 +358,12 @@ export const StudentActionsDialog = ({
                   if (!student) return;
                   setLoading(true);
                   try {
+                    // Get fresh session to ensure token is valid
+                    const { data: sessionData } = await supabase.auth.getSession();
+                    if (!sessionData.session) {
+                      throw new Error('Session expired. Please log in again.');
+                    }
+
                     const action = student.account_status === 'suspended' ? 'activate_user' : 'suspend_user';
                     const { error } = await supabase.functions.invoke('admin-user-management', {
                       body: {

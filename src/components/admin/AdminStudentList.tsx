@@ -144,6 +144,13 @@ export const AdminStudentList = () => {
   const handleBulkAction = async (action: 'suspend' | 'activate', reason?: string) => {
     if (selectedIds.size === 0) return;
 
+    // Get fresh session to ensure token is valid
+    const { data: sessionData } = await supabase.auth.getSession();
+    if (!sessionData.session) {
+      await handleAuthExpired();
+      return;
+    }
+
     setBulkLoading(true);
     const actionType = action === 'suspend' ? 'suspend_user' : 'activate_user';
     let successCount = 0;
@@ -267,6 +274,13 @@ export const AdminStudentList = () => {
   };
 
   const handleToggleSuspend = async (student: StudentData) => {
+    // Get fresh session to ensure token is valid
+    const { data: sessionData } = await supabase.auth.getSession();
+    if (!sessionData.session) {
+      await handleAuthExpired();
+      return;
+    }
+
     setSuspendingUserId(student.user_id);
     const action = student.account_status === 'suspended' ? 'activate_user' : 'suspend_user';
     const actionLabel = student.account_status === 'suspended' ? 'activated' : 'suspended';
