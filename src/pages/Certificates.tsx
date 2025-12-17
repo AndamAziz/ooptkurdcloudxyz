@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Award, FileText, Target, Lock, CheckCircle2, Trophy, Crown, Medal, RotateCcw } from 'lucide-react';
+import { Award, FileText, Target, Lock, CheckCircle2, Trophy, Crown, Medal, RotateCcw, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { CertificateCard } from '@/components/certificates/CertificateCard';
@@ -115,12 +115,20 @@ const Certificates = () => {
 
       <main className="container py-4 md:py-8 px-4">
         <div className="max-w-4xl mx-auto">
+          {/* Back Button */}
+          <Link to="/dashboard">
+            <Button variant="ghost" size="sm" className="mb-4 -ml-2 h-10">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Dashboard
+            </Button>
+          </Link>
+
           {/* Header */}
           <div className="text-center mb-6 md:mb-8">
             <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full bg-primary/10 mb-3 md:mb-4">
               <Award className="w-6 h-6 md:w-8 md:h-8 text-primary" />
             </div>
-            <h1 className="font-serif text-2xl md:text-3xl font-bold mb-2">My Certificates</h1>
+            <h1 className="font-serif text-xl md:text-3xl font-bold mb-2">My Certificates</h1>
             <p className="text-sm md:text-base text-muted-foreground">
               Complete all questions in each level with 90%+ accuracy to earn certificates
             </p>

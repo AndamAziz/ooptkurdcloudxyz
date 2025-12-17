@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Download, Smartphone, Check, Share, MoreVertical } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Download, Smartphone, Check, Share, MoreVertical, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Header } from '@/components/Header';
@@ -59,14 +60,22 @@ const Install = () => {
     <div className="min-h-screen bg-background overflow-x-hidden">
       <Header />
       
-      <main className="container py-8 md:py-12 px-4">
+      <main className="container py-6 md:py-12 px-4">
         <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-              <Smartphone className="w-8 h-8 text-primary" />
+          {/* Back Button */}
+          <Link to="/dashboard">
+            <Button variant="ghost" size="sm" className="mb-4 -ml-2 h-10">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Dashboard
+            </Button>
+          </Link>
+
+          <div className="text-center mb-6 md:mb-8">
+            <div className="inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/10 mb-3 md:mb-4">
+              <Smartphone className="w-7 h-7 md:w-8 md:h-8 text-primary" />
             </div>
-            <h1 className="font-serif text-2xl md:text-3xl font-bold mb-2">Install CEFR Practice</h1>
-            <p className="text-muted-foreground">
+            <h1 className="font-serif text-xl md:text-3xl font-bold mb-2">Install CEFR Practice</h1>
+            <p className="text-sm md:text-base text-muted-foreground">
               Install our app for the best experience with offline access
             </p>
           </div>
