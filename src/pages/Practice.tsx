@@ -16,6 +16,7 @@ import { useProgress } from '@/hooks/useProgress';
 import { useQuestionProgress } from '@/hooks/useQuestionProgress';
 import { useCertificates, type Certificate } from '@/hooks/useCertificates';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 import { 
   PRACTICE_MODES, 
   TIMED_DURATION_SECONDS, 
@@ -101,6 +102,33 @@ const Practice = () => {
   const startSession = async () => {
     if (!user) return;
 
+    // Re-check status from backend right before starting (admin might suspend while user is logged in)
+    const { data: statusData, error: statusError } = await supabase
+      .from('profiles')
+      .select('account_status, suspend_reason')
+      .eq('user_id', user.id)
+      .maybeSingle();
+
+    if (statusError) {
+      toast({
+        title: 'Unable to start session',
+        description: 'Please try again in a moment.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    if (statusData?.account_status === 'suspended') {
+      toast({
+        title: 'Account Suspended',
+        description: statusData.suspend_reason
+          ? `Reason: ${statusData.suspend_reason}`
+          : 'Your account is suspended and you cannot practice right now.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     // Store current certificates before session starts
     await fetchUserCertificates();
     certificatesBeforeSession.current = certificates.map(c => c.id);
@@ -117,7 +145,7 @@ const Practice = () => {
     }
 
     let fetchedQuestions;
-    
+
     if (isPlacementMode) {
       // For placement test, fetch all available questions across all levels (currently 230)
       fetchedQuestions = await fetchPlacementQuestions(user.id, 50);
@@ -126,12 +154,12 @@ const Practice = () => {
       const limit = mode === PRACTICE_MODES.FIFTY_QUESTIONS ? QUESTIONS_PER_SESSION : 50;
       fetchedQuestions = await fetchRandomQuestions(user.id, selectedLevel, limit);
     }
-    
+
     // Check if questions were fetched using the returned value
     if (fetchedQuestions.length === 0) {
       toast({
         title: 'No new questions',
-        description: isPlacementMode 
+        description: isPlacementMode
           ? 'No questions available for placement test.'
           : `All questions in ${selectedLevel} have been completed. Reset your progress to try again.`,
         variant: 'destructive',
@@ -139,12 +167,18 @@ const Practice = () => {
       await fetchProgress();
       return;
     }
-    
+
     const newSessionId = await createSession(isPlacementMode ? 'A1' : selectedLevel, mode);
-    if (newSessionId) {
-      setSessionId(newSessionId);
+    if (!newSessionId) {
+      toast({
+        title: 'Unable to start session',
+        description: 'Your account may be restricted. Please contact support if this keeps happening.',
+        variant: 'destructive',
+      });
+      return;
     }
-    
+
+    setSessionId(newSessionId);
     setState('practicing');
     setQuestionStartTime(Date.now());
   };
