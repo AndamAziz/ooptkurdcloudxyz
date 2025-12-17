@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { User, KeyRound, Trash2, Save, Loader2, AlertTriangle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { User, KeyRound, Trash2, Save, Loader2, AlertTriangle, Ban } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Dialog,
   DialogContent,
@@ -45,18 +46,20 @@ export const StudentActionsDialog = ({
   const [username, setUsername] = useState(student?.username || '');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [suspendReason, setSuspendReason] = useState('');
   const [loading, setLoading] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   // Reset form when student changes
-  useState(() => {
+  useEffect(() => {
     if (student) {
       setDisplayName(student.display_name || '');
       setUsername(student.username || '');
       setNewPassword('');
       setConfirmPassword('');
+      setSuspendReason('');
     }
-  });
+  }, [student]);
 
   const handleUpdateProfile = async () => {
     if (!student) return;
@@ -205,7 +208,7 @@ export const StudentActionsDialog = ({
           </DialogHeader>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="edit" className="text-xs sm:text-sm">
                 <User className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                 <span className="hidden sm:inline">Edit</span>
@@ -213,6 +216,10 @@ export const StudentActionsDialog = ({
               <TabsTrigger value="password" className="text-xs sm:text-sm">
                 <KeyRound className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                 <span className="hidden sm:inline">Password</span>
+              </TabsTrigger>
+              <TabsTrigger value="suspend" className="text-xs sm:text-sm text-orange-600">
+                <Ban className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                <span className="hidden sm:inline">Suspend</span>
               </TabsTrigger>
               <TabsTrigger value="delete" className="text-xs sm:text-sm text-destructive">
                 <Trash2 className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
@@ -291,6 +298,100 @@ export const StudentActionsDialog = ({
                   <KeyRound className="w-4 h-4 mr-2" />
                 )}
                 Reset Password
+              </Button>
+            </TabsContent>
+
+            {/* Suspend Tab */}
+            <TabsContent value="suspend" className="space-y-4 mt-4">
+              {student.account_status === 'suspended' ? (
+                <div className="p-4 rounded-lg bg-orange-500/10 border border-orange-500/20">
+                  <div className="flex items-start gap-3">
+                    <Ban className="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-semibold text-orange-600">Account Suspended</h4>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        This student account is currently suspended.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="p-4 rounded-lg bg-orange-500/10 border border-orange-500/20">
+                    <div className="flex items-start gap-3">
+                      <Ban className="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <h4 className="font-semibold text-orange-600">Suspend Account</h4>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          Suspending this account will prevent the student from logging in.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="suspendReason">Reason for Suspension</Label>
+                    <Textarea
+                      id="suspendReason"
+                      value={suspendReason}
+                      onChange={(e) => setSuspendReason(e.target.value)}
+                      placeholder="Enter reason for suspension (optional)"
+                      className="min-h-[100px] resize-none"
+                    />
+                  </div>
+                </>
+              )}
+              <Button 
+                variant={student.account_status === 'suspended' ? 'default' : 'destructive'}
+                onClick={async () => {
+                  if (!student) return;
+                  setLoading(true);
+                  try {
+                    const action = student.account_status === 'suspended' ? 'activate_user' : 'suspend_user';
+                    const { error } = await supabase.functions.invoke('admin-user-management', {
+                      body: {
+                        action,
+                        userId: student.user_id,
+                        reason: suspendReason.trim() || undefined,
+                      },
+                    });
+
+                    if (error) {
+                      const errorMessage = error.message || 'Failed to update status';
+                      if (errorMessage.includes('401') || errorMessage.includes('token') || errorMessage.includes('unauthorized')) {
+                        throw new Error('Session expired. Please log in again.');
+                      }
+                      throw error;
+                    }
+
+                    toast({
+                      title: student.account_status === 'suspended' ? 'Account Activated' : 'Account Suspended',
+                      description: student.account_status === 'suspended' 
+                        ? 'Student account has been activated.'
+                        : 'Student account has been suspended.',
+                    });
+                    setSuspendReason('');
+                    onSuccess();
+                    onClose();
+                  } catch (error: any) {
+                    console.error('Error updating status:', error);
+                    toast({
+                      title: 'Error',
+                      description: error.message || 'Failed to update account status.',
+                      variant: 'destructive',
+                    });
+                  } finally {
+                    setLoading(false);
+                  }
+                }}
+                disabled={loading}
+                className={`w-full h-11 ${student.account_status === 'suspended' ? 'bg-green-600 hover:bg-green-700' : 'bg-orange-600 hover:bg-orange-700'}`}
+              >
+                {loading ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  <Ban className="w-4 h-4 mr-2" />
+                )}
+                {student.account_status === 'suspended' ? 'Activate Account' : 'Suspend Account'}
               </Button>
             </TabsContent>
 
