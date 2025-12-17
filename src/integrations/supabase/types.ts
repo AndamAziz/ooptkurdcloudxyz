@@ -575,6 +575,7 @@ export type Database = {
         Args: { _user_id: string; _xp_increment: number }
         Returns: undefined
       }
+      is_account_active: { Args: { p_user_id: string }; Returns: boolean }
       reset_level_progress: {
         Args: {
           p_cefr: Database["public"]["Enums"]["cefr_level"]

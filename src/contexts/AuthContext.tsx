@@ -12,6 +12,8 @@ interface Profile {
   streak: number;
   last_practice_date: string | null;
   created_at: string;
+  account_status?: string | null;
+  suspend_reason?: string | null;
 }
 
 interface AuthContextType {
@@ -36,22 +38,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   const fetchProfile = async (userId: string) => {
-    const { data: profileData } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('user_id', userId)
-      .maybeSingle();
-    
+    const [{ data: profileData }, { data: roleData }] = await Promise.all([
+      supabase.from('profiles').select('*').eq('user_id', userId).maybeSingle(),
+      supabase.from('user_roles').select('role').eq('user_id', userId).maybeSingle(),
+    ]);
+
     if (profileData) {
       setProfile(profileData as Profile);
+    } else {
+      setProfile(null);
     }
 
-    const { data: roleData } = await supabase
-      .from('user_roles')
-      .select('role')
-      .eq('user_id', userId)
-      .maybeSingle();
-    
     setIsAdmin(roleData?.role === 'admin');
   };
 
@@ -90,7 +87,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setSession(null);
         setProfile(null);
         setIsAdmin(false);
+        return;
       }
+
+      // Keep profile in sync (e.g. admin suspends the user while they're logged in)
+      await fetchProfile(verifiedUser.id);
     };
 
     void (async () => {
