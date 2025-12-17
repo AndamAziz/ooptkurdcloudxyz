@@ -79,14 +79,41 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     );
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      if (session?.user) {
-        fetchProfile(session.user.id);
+    void (async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+
+        // IMPORTANT: the local session can be stale (e.g. user logged out elsewhere).
+        // Verify it with the backend and force a clean sign-out if it's invalid.
+        if (session) {
+          const { data: { user: verifiedUser }, error: verifyError } = await supabase.auth.getUser();
+
+          if (verifyError || !verifiedUser) {
+            await supabase.auth.signOut();
+            setUser(null);
+            setSession(null);
+            setProfile(null);
+            setIsAdmin(false);
+            setLoading(false);
+            return;
+          }
+        }
+
+        setSession(session);
+        setUser(session?.user ?? null);
+        if (session?.user) {
+          fetchProfile(session.user.id);
+        }
+      } catch (e) {
+        // If anything goes wrong during init, fail safe to signed-out state.
+        setUser(null);
+        setSession(null);
+        setProfile(null);
+        setIsAdmin(false);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
-    });
+    })();
 
     return () => subscription.unsubscribe();
   }, []);
