@@ -11,6 +11,8 @@ import {
   AlertTriangle,
   XCircle,
   Ban,
+  Settings,
+  MoreHorizontal,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -37,8 +39,15 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CEFRBadge } from '@/components/CEFRBadge';
+import { StudentActionsDialog } from './StudentActionsDialog';
 import { useAdminStudents, type StudentData } from '@/hooks/useAdminStudents';
 import { CEFR_LEVELS, type CEFRLevel } from '@/lib/constants';
 import { formatDistanceToNow } from 'date-fns';
@@ -52,6 +61,8 @@ export const AdminStudentList = () => {
   const [filterLevel, setFilterLevel] = useState('all');
   const [filterStatus, setFilterStatus] = useState('all');
   const [sortBy, setSortBy] = useState('created_at');
+  const [selectedStudent, setSelectedStudent] = useState<StudentData | null>(null);
+  const [actionsDialogOpen, setActionsDialogOpen] = useState(false);
   const pageSize = 20;
 
   useEffect(() => {
@@ -129,7 +140,25 @@ export const AdminStudentList = () => {
     URL.revokeObjectURL(url);
   };
 
+  const handleManageStudent = (student: StudentData) => {
+    setSelectedStudent(student);
+    setActionsDialogOpen(true);
+  };
+
+  const handleActionsSuccess = () => {
+    fetchStudents({
+      page,
+      pageSize,
+      searchQuery,
+      filterLevel,
+      filterStatus,
+      sortBy,
+      sortOrder: 'desc',
+    });
+  };
+
   return (
+    <>
     <Card>
       <CardHeader>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -273,8 +302,21 @@ export const AdminStudentList = () => {
                     </TableCell>
                     <TableCell>{getStatusBadge(student)}</TableCell>
                     <TableCell>
+                      {/* Desktop Actions */}
                       <TooltipProvider>
-                        <div className="flex gap-1">
+                        <div className="hidden sm:flex gap-1">
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => handleManageStudent(student)}
+                              >
+                                <Settings className="w-4 h-4" />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Manage Student</TooltipContent>
+                          </Tooltip>
                           <Tooltip>
                             <TooltipTrigger asChild>
                               <Button
@@ -287,20 +329,29 @@ export const AdminStudentList = () => {
                             </TooltipTrigger>
                             <TooltipContent>View Profile</TooltipContent>
                           </Tooltip>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => navigate(`/admin/students/${student.user_id}`)}
-                              >
-                                <BarChart3 className="w-4 h-4" />
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>View Stats</TooltipContent>
-                          </Tooltip>
                         </div>
                       </TooltipProvider>
+
+                      {/* Mobile Actions */}
+                      <div className="sm:hidden">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon">
+                              <MoreHorizontal className="w-4 h-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end" className="bg-popover">
+                            <DropdownMenuItem onClick={() => handleManageStudent(student)}>
+                              <Settings className="w-4 h-4 mr-2" />
+                              Manage
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => navigate(`/admin/students/${student.user_id}`)}>
+                              <Eye className="w-4 h-4 mr-2" />
+                              View Profile
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))
@@ -339,5 +390,17 @@ export const AdminStudentList = () => {
         )}
       </CardContent>
     </Card>
+
+    {/* Student Actions Dialog */}
+    <StudentActionsDialog
+      student={selectedStudent}
+      open={actionsDialogOpen}
+      onClose={() => {
+        setActionsDialogOpen(false);
+        setSelectedStudent(null);
+      }}
+      onSuccess={handleActionsSuccess}
+    />
+    </>
   );
 };
