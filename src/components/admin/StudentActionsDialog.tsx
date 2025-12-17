@@ -114,7 +114,7 @@ export const StudentActionsDialog = ({
 
     setLoading(true);
     try {
-      const { error } = await supabase.functions.invoke('admin-user-management', {
+      const { data, error } = await supabase.functions.invoke('admin-user-management', {
         body: {
           action: 'reset_password',
           userId: student.user_id,
@@ -122,7 +122,13 @@ export const StudentActionsDialog = ({
         },
       });
 
-      if (error) throw error;
+      if (error) {
+        const errorMessage = error.message || 'Failed to reset password';
+        if (errorMessage.includes('401') || errorMessage.includes('token') || errorMessage.includes('unauthorized')) {
+          throw new Error('Session expired. Please log in again.');
+        }
+        throw error;
+      }
 
       toast({
         title: 'Password Reset',
@@ -131,11 +137,11 @@ export const StudentActionsDialog = ({
       setNewPassword('');
       setConfirmPassword('');
       onSuccess();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error resetting password:', error);
       toast({
         title: 'Error',
-        description: 'Failed to reset password. Please try again.',
+        description: error.message || 'Failed to reset password. Please try again.',
         variant: 'destructive',
       });
     } finally {
@@ -148,14 +154,20 @@ export const StudentActionsDialog = ({
 
     setLoading(true);
     try {
-      const { error } = await supabase.functions.invoke('admin-user-management', {
+      const { data, error } = await supabase.functions.invoke('admin-user-management', {
         body: {
           action: 'delete_user',
           userId: student.user_id,
         },
       });
 
-      if (error) throw error;
+      if (error) {
+        const errorMessage = error.message || 'Failed to delete user';
+        if (errorMessage.includes('401') || errorMessage.includes('token') || errorMessage.includes('unauthorized')) {
+          throw new Error('Session expired. Please log in again.');
+        }
+        throw error;
+      }
 
       toast({
         title: 'Student Deleted',
@@ -164,11 +176,11 @@ export const StudentActionsDialog = ({
       setShowDeleteConfirm(false);
       onSuccess();
       onClose();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error deleting student:', error);
       toast({
         title: 'Error',
-        description: 'Failed to delete student account.',
+        description: error.message || 'Failed to delete student account.',
         variant: 'destructive',
       });
     } finally {
