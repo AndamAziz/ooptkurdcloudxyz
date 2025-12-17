@@ -62,6 +62,7 @@ const Practice = () => {
   // Snapshot XP/Streak before session (needed to compute +1/70XP streak reliably across devices)
   const profileBeforeSession = useRef<{ xp: number; streak: number; streakXpBank: number } | null>(null);
   const [streakEarnedThisSession, setStreakEarnedThisSession] = useState(0);
+  const [streakXpBankAfterSession, setStreakXpBankAfterSession] = useState(0);
 
   const [state, setState] = useState<PracticeState>('setup');
   const initialMode = searchParams.get('mode') || PRACTICE_MODES.FIFTY_QUESTIONS;
@@ -237,8 +238,10 @@ const Practice = () => {
   const handleEndSession = async () => {
     const totalQuestions = answers.length;
     const correctCount = answers.filter(a => a.correct).length;
+    const wrongCount = totalQuestions - correctCount;
     const accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
-    const xpEarned = (correctCount * XP_REWARDS.CORRECT) + ((totalQuestions - correctCount) * XP_REWARDS.INCORRECT);
+    // XP: +10 per correct, -5 per wrong, capped at 0
+    const xpEarned = Math.max(0, (correctCount * XP_REWARDS.CORRECT) + (wrongCount * XP_REWARDS.WRONG));
     const summary = `Completed ${totalQuestions} questions at ${selectedLevel} with ${accuracy}% accuracy.`;
 
     if (sessionId) {
@@ -262,6 +265,7 @@ const Practice = () => {
           : 0;
 
       setStreakEarnedThisSession(streakGained > 0 ? streakGained : 0);
+      setStreakXpBankAfterSession((afterProfile as any)?.streak_xp_bank ?? 0);
 
       await refreshProfile();
     }
@@ -300,6 +304,7 @@ const Practice = () => {
     setTimeLeft(TIMED_DURATION_SECONDS);
     setSessionId(null);
     setStreakEarnedThisSession(0);
+    setStreakXpBankAfterSession(0);
     profileBeforeSession.current = null;
     setState('setup');
     // Refresh progress after practice
@@ -361,8 +366,10 @@ const Practice = () => {
   if (state === 'results') {
     const totalQuestions = answers.length;
     const correctCount = answers.filter(a => a.correct).length;
+    const wrongCount = totalQuestions - correctCount;
     const accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
-    const xpEarned = (correctCount * XP_REWARDS.CORRECT) + ((totalQuestions - correctCount) * XP_REWARDS.INCORRECT);
+    // XP: +10 per correct, -5 per wrong, capped at 0
+    const xpEarned = Math.max(0, (correctCount * XP_REWARDS.CORRECT) + (wrongCount * XP_REWARDS.WRONG));
 
     const streakEarned = streakEarnedThisSession;
 
@@ -409,6 +416,7 @@ const Practice = () => {
             correctCount={correctCount}
             xpEarned={xpEarned}
             streakEarned={streakEarned}
+            streakXpBank={streakXpBankAfterSession}
             onPracticeAgain={handlePracticeAgain}
             isPlacementMode={isPlacementMode}
             recommendedLevel={recommendedLevel}

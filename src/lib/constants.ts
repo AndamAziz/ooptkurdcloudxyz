@@ -22,8 +22,8 @@ export const LEVEL_DESCRIPTIONS: Record<CEFRLevel, string> = {
 };
 
 export const XP_REWARDS = {
-  CORRECT: 70,
-  INCORRECT: 70,
+  CORRECT: 10,
+  WRONG: -5,
 } as const;
 
 export const PRACTICE_MODES = {
