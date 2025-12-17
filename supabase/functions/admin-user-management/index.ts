@@ -115,19 +115,11 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Create a client with the user's token to verify their identity
-    const supabaseUser = createClient(supabaseUrl, supabaseAnonKey, {
-      global: {
-        headers: { Authorization: authHeader },
-      },
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false,
-      },
-    });
+    // Extract the JWT token from the Authorization header
+    const token = authHeader.replace('Bearer ', '');
 
-    // Verify the caller's token
-    const { data: { user }, error: authError } = await supabaseUser.auth.getUser();
+    // Verify the caller's token using the admin client
+    const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser(token);
     
     if (authError || !user) {
       console.error('Auth error:', authError);
