@@ -128,7 +128,7 @@ export const QuestionCard = ({
                 "font-semibold mb-1 text-sm md:text-base",
                 isCorrect ? "text-success" : "text-destructive"
               )}>
-                {isCorrect ? "Correct! +10 XP" : "Incorrect +2 XP"}
+                {isCorrect ? "Correct! +10 XP" : "Incorrect -5 XP"}
               </p>
               
               {/* Always show the correct answer */}
