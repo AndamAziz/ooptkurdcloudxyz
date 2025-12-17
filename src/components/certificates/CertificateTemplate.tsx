@@ -1,5 +1,5 @@
 import { QRCodeSVG } from 'qrcode.react';
-import { Award, CheckCircle2, Medal, Trophy, Crown, Star } from 'lucide-react';
+import { Award, CheckCircle2, Sparkles } from 'lucide-react';
 import { format } from 'date-fns';
 import type { Certificate } from '@/hooks/useCertificates';
 
@@ -13,66 +13,80 @@ const getLevelTheme = (level: string) => {
   switch (level) {
     case 'A1':
       return {
+        primaryColor: '#8B5A2B',
+        secondaryColor: '#D4A574',
         borderColor: '#CD7F32',
-        accentColor: '#8B4513',
-        bgGradient: 'linear-gradient(135deg, #FDF5E6 0%, #F5DEB3 100%)',
-        ribbonColor: '#CD7F32',
-        badgeEmoji: '🥉',
+        bgGradient: 'linear-gradient(180deg, #FFFBF5 0%, #FDF5E8 50%, #F5E6D3 100%)',
+        patternColor: 'rgba(205, 127, 50, 0.08)',
         levelTitle: 'Beginner',
+        icon: '🌱',
+        sealColor: '#CD7F32',
       };
     case 'A2':
       return {
+        primaryColor: '#7B4B3A',
+        secondaryColor: '#C9896D',
         borderColor: '#D2691E',
-        accentColor: '#A0522D',
-        bgGradient: 'linear-gradient(135deg, #FFF8DC 0%, #FFDEAD 100%)',
-        ribbonColor: '#D2691E',
-        badgeEmoji: '🥉',
+        bgGradient: 'linear-gradient(180deg, #FFFCF5 0%, #FFF3E6 50%, #FFE4CC 100%)',
+        patternColor: 'rgba(210, 105, 30, 0.08)',
         levelTitle: 'Elementary',
+        icon: '🌿',
+        sealColor: '#D2691E',
       };
     case 'B1':
       return {
-        borderColor: '#C0C0C0',
-        accentColor: '#708090',
-        bgGradient: 'linear-gradient(135deg, #F8F8FF 0%, #E8E8E8 100%)',
-        ribbonColor: '#A8A8A8',
-        badgeEmoji: '🥈',
+        primaryColor: '#4A5568',
+        secondaryColor: '#A0AEC0',
+        borderColor: '#718096',
+        bgGradient: 'linear-gradient(180deg, #FAFBFC 0%, #F0F4F8 50%, #E2E8F0 100%)',
+        patternColor: 'rgba(113, 128, 150, 0.08)',
         levelTitle: 'Intermediate',
+        icon: '🥈',
+        sealColor: '#A0AEC0',
       };
     case 'B2':
       return {
-        borderColor: '#4682B4',
-        accentColor: '#2F4F4F',
-        bgGradient: 'linear-gradient(135deg, #F0F8FF 0%, #B0C4DE 100%)',
-        ribbonColor: '#4682B4',
-        badgeEmoji: '🥈',
+        primaryColor: '#2C5282',
+        secondaryColor: '#4299E1',
+        borderColor: '#3182CE',
+        bgGradient: 'linear-gradient(180deg, #F7FAFC 0%, #EBF4FF 50%, #DBEAFE 100%)',
+        patternColor: 'rgba(49, 130, 206, 0.08)',
         levelTitle: 'Upper Intermediate',
+        icon: '💎',
+        sealColor: '#3182CE',
       };
     case 'C1':
       return {
+        primaryColor: '#744210',
+        secondaryColor: '#D69E2E',
         borderColor: '#D4AF37',
-        accentColor: '#B8860B',
-        bgGradient: 'linear-gradient(135deg, #FFFAF0 0%, #FDF8E8 100%)',
-        ribbonColor: '#D4AF37',
-        badgeEmoji: '🥇',
+        bgGradient: 'linear-gradient(180deg, #FFFDF5 0%, #FEFCE8 50%, #FEF3C7 100%)',
+        patternColor: 'rgba(212, 175, 55, 0.1)',
         levelTitle: 'Advanced',
+        icon: '🥇',
+        sealColor: '#D4AF37',
       };
     case 'C2':
       return {
-        borderColor: '#9B59B6',
-        accentColor: '#6C3483',
-        bgGradient: 'linear-gradient(135deg, #F5EEF8 0%, #E8DAEF 100%)',
-        ribbonColor: '#9B59B6',
-        badgeEmoji: '👑',
+        primaryColor: '#553C9A',
+        secondaryColor: '#9F7AEA',
+        borderColor: '#805AD5',
+        bgGradient: 'linear-gradient(180deg, #FAF5FF 0%, #F3E8FF 50%, #E9D8FD 100%)',
+        patternColor: 'rgba(128, 90, 213, 0.08)',
         levelTitle: 'Mastery',
+        icon: '👑',
+        sealColor: '#805AD5',
       };
     default:
       return {
+        primaryColor: '#744210',
+        secondaryColor: '#D69E2E',
         borderColor: '#D4AF37',
-        accentColor: '#B8860B',
-        bgGradient: 'linear-gradient(135deg, #FFFAF0 0%, #FDF8E8 100%)',
-        ribbonColor: '#D4AF37',
-        badgeEmoji: '🎓',
+        bgGradient: 'linear-gradient(180deg, #FFFDF5 0%, #FEFCE8 50%, #FEF3C7 100%)',
+        patternColor: 'rgba(212, 175, 55, 0.1)',
         levelTitle: '',
+        icon: '🎓',
+        sealColor: '#D4AF37',
       };
   }
 };
@@ -90,20 +104,6 @@ const getCertificateTitle = (type: string) => {
   }
 };
 
-const getCertificateSubtitle = (type: string, level: string) => {
-  const theme = getLevelTheme(level);
-  switch (type) {
-    case 'level_completion':
-      return `CEFR Level ${level} - ${theme.levelTitle}`;
-    case 'course_completion':
-      return 'Complete CEFR English Mastery (A1-C2)';
-    case 'excellence':
-      return `Excellence in English Learning - Level ${level}`;
-    default:
-      return '';
-  }
-};
-
 export const CertificateTemplate = ({
   certificate,
   studentName,
@@ -111,8 +111,6 @@ export const CertificateTemplate = ({
 }: CertificateTemplateProps) => {
   const theme = getLevelTheme(certificate.cefr_level);
   const isVerified = certificate.verified_by_admin;
-  const isExcellence = certificate.certificate_type === 'excellence';
-  const isCourseCompletion = certificate.certificate_type === 'course_completion';
 
   return (
     <div
@@ -122,52 +120,79 @@ export const CertificateTemplate = ({
         height: '210mm',
         background: theme.bgGradient,
         position: 'relative',
-        fontFamily: "'Inter', sans-serif",
+        fontFamily: "'Times New Roman', 'Georgia', serif",
         overflow: 'hidden',
         boxSizing: 'border-box',
+        padding: '0',
+        margin: '0',
       }}
     >
-      {/* Decorative Border */}
+      {/* Background Pattern */}
       <div
         style={{
           position: 'absolute',
-          inset: '8mm',
-          border: `3px solid ${theme.borderColor}`,
-          borderRadius: '8px',
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          inset: '12mm',
-          border: `1px solid ${theme.borderColor}`,
-          borderRadius: '4px',
+          inset: 0,
+          backgroundImage: `
+            radial-gradient(circle at 20% 20%, ${theme.patternColor} 1px, transparent 1px),
+            radial-gradient(circle at 80% 80%, ${theme.patternColor} 1px, transparent 1px)
+          `,
+          backgroundSize: '30px 30px',
         }}
       />
 
-      {/* Corner Decorations */}
+      {/* Outer Decorative Border */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: '6mm',
+          border: `4px double ${theme.borderColor}`,
+          borderRadius: '2px',
+        }}
+      />
+
+      {/* Inner Decorative Border */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: '10mm',
+          border: `2px solid ${theme.borderColor}`,
+          borderRadius: '2px',
+        }}
+      />
+
+      {/* Ornamental Corner Decorations */}
       {['top-left', 'top-right', 'bottom-left', 'bottom-right'].map((corner) => (
         <div
           key={corner}
           style={{
             position: 'absolute',
-            width: '40px',
-            height: '40px',
-            ...(corner.includes('top') ? { top: '15mm' } : { bottom: '15mm' }),
-            ...(corner.includes('left') ? { left: '15mm' } : { right: '15mm' }),
-            borderTop: corner.includes('top') ? `2px solid ${theme.accentColor}` : 'none',
-            borderBottom: corner.includes('bottom') ? `2px solid ${theme.accentColor}` : 'none',
-            borderLeft: corner.includes('left') ? `2px solid ${theme.accentColor}` : 'none',
-            borderRight: corner.includes('right') ? `2px solid ${theme.accentColor}` : 'none',
+            width: '50px',
+            height: '50px',
+            ...(corner.includes('top') ? { top: '12mm' } : { bottom: '12mm' }),
+            ...(corner.includes('left') ? { left: '12mm' } : { right: '12mm' }),
           }}
-        />
+        >
+          <svg width="50" height="50" viewBox="0 0 50 50" style={{
+            transform: `
+              ${corner.includes('right') ? 'scaleX(-1)' : ''} 
+              ${corner.includes('bottom') ? 'scaleY(-1)' : ''}
+            `.trim()
+          }}>
+            <path
+              d="M5,5 L5,45 M5,5 L45,5 M5,15 Q15,15 15,5 M5,25 Q25,25 25,5 M5,35 Q35,35 35,5"
+              stroke={theme.borderColor}
+              strokeWidth="1.5"
+              fill="none"
+            />
+          </svg>
+        </div>
       ))}
 
-      {/* Content */}
+      {/* Content Container */}
       <div
         style={{
           position: 'absolute',
-          inset: '20mm',
+          inset: '18mm',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -175,159 +200,269 @@ export const CertificateTemplate = ({
           textAlign: 'center',
         }}
       >
-        {/* Header with Level Badge */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+        {/* Header Section */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+          {/* Logo/Seal Area */}
           <div
             style={{
-              width: '80px',
-              height: '80px',
+              width: '70px',
+              height: '70px',
               borderRadius: '50%',
-              background: `linear-gradient(135deg, ${theme.borderColor}, ${theme.accentColor})`,
+              background: `linear-gradient(145deg, ${theme.sealColor}20, ${theme.sealColor}40)`,
+              border: `3px solid ${theme.sealColor}`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: `0 4px 20px ${theme.borderColor}40`,
-              border: `3px solid ${theme.borderColor}`,
+              boxShadow: `0 4px 15px ${theme.sealColor}30`,
             }}
           >
-            <span style={{ fontSize: '40px' }}>{theme.badgeEmoji}</span>
+            <span style={{ fontSize: '36px' }}>{theme.icon}</span>
           </div>
-          <div style={{ 
-            padding: '4px 16px', 
-            background: theme.borderColor, 
-            borderRadius: '20px',
-            color: 'white',
-            fontSize: '12px',
-            fontWeight: 600,
-            letterSpacing: '1px'
-          }}>
-            CEFR {certificate.cefr_level} - {theme.levelTitle}
+          
+          {/* Level Badge */}
+          <div
+            style={{
+              padding: '6px 20px',
+              background: `linear-gradient(135deg, ${theme.sealColor}, ${theme.primaryColor})`,
+              borderRadius: '25px',
+              color: 'white',
+              fontSize: '11px',
+              fontWeight: 700,
+              letterSpacing: '2px',
+              fontFamily: "'Arial', sans-serif",
+              textTransform: 'uppercase',
+              boxShadow: `0 2px 8px ${theme.sealColor}50`,
+            }}
+          >
+            CEFR Level {certificate.cefr_level} • {theme.levelTitle}
           </div>
         </div>
 
-        {/* Title */}
-        <div style={{ marginTop: '-10px' }}>
+        {/* Main Title */}
+        <div style={{ marginTop: '-5px' }}>
           <h1
             style={{
-              fontFamily: "'Georgia', serif",
-              fontSize: '42px',
-              fontWeight: 700,
-              color: '#1E3A5F',
+              fontSize: '44px',
+              fontWeight: 400,
+              color: theme.primaryColor,
               margin: 0,
-              letterSpacing: '2px',
+              letterSpacing: '3px',
+              textTransform: 'uppercase',
+              fontFamily: "'Times New Roman', 'Georgia', serif",
             }}
           >
             {getCertificateTitle(certificate.certificate_type)}
           </h1>
-          <p style={{ fontSize: '16px', color: theme.accentColor, marginTop: '8px', fontWeight: 500 }}>
-            {getCertificateSubtitle(certificate.certificate_type, certificate.cefr_level)}
-          </p>
+          <div
+            style={{
+              width: '200px',
+              height: '2px',
+              background: `linear-gradient(90deg, transparent, ${theme.borderColor}, transparent)`,
+              margin: '10px auto',
+            }}
+          />
         </div>
 
-        {/* This is to certify */}
-        <div>
-          <p style={{ fontSize: '14px', color: '#666', marginBottom: '12px' }}>This is to certify that</p>
+        {/* Recipient Section */}
+        <div style={{ width: '100%' }}>
+          <p
+            style={{
+              fontSize: '14px',
+              color: '#666',
+              marginBottom: '8px',
+              fontFamily: "'Georgia', serif",
+              fontStyle: 'italic',
+            }}
+          >
+            This is to certify that
+          </p>
           <h2
             style={{
+              fontSize: '38px',
+              fontWeight: 400,
+              color: theme.primaryColor,
+              margin: '0',
               fontFamily: "'Georgia', serif",
-              fontSize: '36px',
-              fontWeight: 700,
-              color: '#1E3A5F',
-              margin: 0,
-              borderBottom: `2px solid ${theme.borderColor}`,
-              paddingBottom: '8px',
-              paddingLeft: '40px',
-              paddingRight: '40px',
+              letterSpacing: '1px',
             }}
           >
             {studentName}
           </h2>
-          <p style={{ fontSize: '14px', color: '#666', marginTop: '16px' }}>
-            has successfully completed{' '}
-            <strong style={{ color: '#1E3A5F' }}>CEFR Level {certificate.cefr_level}</strong>
-          </p>
-          <p style={{ fontSize: '14px', color: '#666', marginTop: '4px' }}>
-            with a score of <strong style={{ color: '#2E7D32' }}>{certificate.score_percentage}%</strong>
+          <div
+            style={{
+              width: '300px',
+              height: '1px',
+              background: theme.borderColor,
+              margin: '8px auto 16px',
+            }}
+          />
+          <p
+            style={{
+              fontSize: '15px',
+              color: '#444',
+              lineHeight: '1.6',
+              maxWidth: '500px',
+              margin: '0 auto',
+              fontFamily: "'Georgia', serif",
+            }}
+          >
+            has successfully demonstrated proficiency in English at the
+            <br />
+            <strong style={{ color: theme.primaryColor, fontSize: '16px' }}>
+              CEFR {certificate.cefr_level} ({theme.levelTitle})
+            </strong>
+            {' '}level
+            <br />
+            with a score of{' '}
+            <strong style={{ color: '#2E7D32', fontSize: '18px' }}>{certificate.score_percentage}%</strong>
           </p>
         </div>
 
-        {/* Stats */}
-        <div style={{ display: 'flex', gap: '40px', fontSize: '12px', color: '#666' }}>
-          <div>
-            <strong>{certificate.total_questions_answered}</strong> Questions Answered
+        {/* Achievement Stats */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '50px',
+            padding: '12px 30px',
+            background: `linear-gradient(135deg, ${theme.patternColor}, transparent)`,
+            borderRadius: '8px',
+            border: `1px solid ${theme.borderColor}30`,
+          }}
+        >
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: '22px', fontWeight: 700, color: theme.primaryColor }}>
+              {certificate.total_questions_answered}
+            </div>
+            <div style={{ fontSize: '10px', color: '#666', textTransform: 'uppercase', letterSpacing: '1px', fontFamily: "'Arial', sans-serif" }}>
+              Questions
+            </div>
           </div>
-          <div>
-            <strong>{certificate.total_correct}</strong> Correct Answers
+          <div style={{ width: '1px', background: theme.borderColor, opacity: 0.3 }} />
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: '22px', fontWeight: 700, color: theme.primaryColor }}>
+              {certificate.total_correct}
+            </div>
+            <div style={{ fontSize: '10px', color: '#666', textTransform: 'uppercase', letterSpacing: '1px', fontFamily: "'Arial', sans-serif" }}>
+              Correct
+            </div>
           </div>
-          <div>
-            <strong>{certificate.study_hours.toFixed(1)}</strong> Study Hours
+          <div style={{ width: '1px', background: theme.borderColor, opacity: 0.3 }} />
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: '22px', fontWeight: 700, color: theme.primaryColor }}>
+              {certificate.study_hours.toFixed(1)}h
+            </div>
+            <div style={{ fontSize: '10px', color: '#666', textTransform: 'uppercase', letterSpacing: '1px', fontFamily: "'Arial', sans-serif" }}>
+              Study Time
+            </div>
           </div>
         </div>
 
-        {/* Footer */}
+        {/* Footer Section */}
         <div
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            width: '100%',
             alignItems: 'flex-end',
+            width: '100%',
+            paddingTop: '10px',
           }}
         >
-          {/* Date & Certificate Number */}
-          <div style={{ textAlign: 'left', fontSize: '11px', color: '#666' }}>
-            <p style={{ margin: '2px 0' }}>
-              <strong>Date:</strong> {format(new Date(certificate.issued_at), 'MMMM d, yyyy')}
-            </p>
-            <p style={{ margin: '2px 0' }}>
-              <strong>Certificate No:</strong> {certificate.certificate_number}
-            </p>
-            {isVerified && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#2E7D32', marginTop: '4px' }}>
-                <CheckCircle2 style={{ width: '14px', height: '14px' }} />
-                <span style={{ fontSize: '10px', fontWeight: 600 }}>VERIFIED</span>
-              </div>
-            )}
+          {/* Left: Date and Certificate Info */}
+          <div style={{ textAlign: 'left' }}>
+            <div style={{ marginBottom: '12px' }}>
+              <p style={{ fontSize: '10px', color: '#888', margin: '0 0 4px 0', fontFamily: "'Arial', sans-serif", textTransform: 'uppercase', letterSpacing: '1px' }}>
+                Date Issued
+              </p>
+              <p style={{ fontSize: '14px', color: theme.primaryColor, margin: 0, fontWeight: 600 }}>
+                {format(new Date(certificate.issued_at), 'MMMM d, yyyy')}
+              </p>
+            </div>
+            <div>
+              <p style={{ fontSize: '10px', color: '#888', margin: '0 0 4px 0', fontFamily: "'Arial', sans-serif", textTransform: 'uppercase', letterSpacing: '1px' }}>
+                Certificate No.
+              </p>
+              <p style={{ fontSize: '12px', color: '#555', margin: 0, fontFamily: "'Courier New', monospace" }}>
+                {certificate.certificate_number}
+              </p>
+            </div>
           </div>
 
-          {/* QR Code */}
+          {/* Center: QR Code */}
           <div style={{ textAlign: 'center' }}>
-            <QRCodeSVG value={verificationUrl} size={60} level="M" />
-            <p style={{ fontSize: '9px', color: '#999', marginTop: '4px' }}>Scan to verify</p>
-          </div>
-
-          {/* Signature */}
-          <div style={{ textAlign: 'right' }}>
             <div
               style={{
-                width: '120px',
-                borderTop: `1px solid ${theme.accentColor}`,
-                paddingTop: '4px',
+                padding: '8px',
+                background: 'white',
+                borderRadius: '8px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                border: `1px solid ${theme.borderColor}30`,
               }}
             >
-              <p style={{ fontSize: '10px', color: '#666', margin: 0 }}>Authorized Signature</p>
+              <QRCodeSVG value={verificationUrl} size={55} level="M" />
             </div>
+            <p style={{ fontSize: '9px', color: '#888', marginTop: '4px', fontFamily: "'Arial', sans-serif" }}>
+              Scan to Verify
+            </p>
+          </div>
+
+          {/* Right: Signature and Verification */}
+          <div style={{ textAlign: 'right' }}>
+            <div style={{ marginBottom: '8px' }}>
+              <div
+                style={{
+                  width: '140px',
+                  height: '40px',
+                  borderBottom: `2px solid ${theme.borderColor}`,
+                  marginLeft: 'auto',
+                }}
+              />
+              <p style={{ fontSize: '10px', color: '#888', margin: '4px 0 0 0', fontFamily: "'Arial', sans-serif", textTransform: 'uppercase', letterSpacing: '1px' }}>
+                Authorized Signature
+              </p>
+            </div>
+            {isVerified && (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'flex-end',
+                  gap: '4px',
+                  color: '#2E7D32',
+                  marginTop: '8px',
+                }}
+              >
+                <CheckCircle2 style={{ width: '14px', height: '14px' }} />
+                <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '1px', fontFamily: "'Arial', sans-serif" }}>
+                  OFFICIALLY VERIFIED
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Excellence Badge */}
-      {(isExcellence || isCourseCompletion) && (
+      {/* Excellence/Course Completion Ribbon */}
+      {(certificate.certificate_type === 'excellence' || certificate.certificate_type === 'course_completion') && (
         <div
           style={{
             position: 'absolute',
-            top: '25mm',
-            right: '25mm',
-            width: '50px',
-            height: '50px',
-            background: theme.ribbonColor,
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+            top: '20mm',
+            right: '-25mm',
+            width: '120px',
+            background: `linear-gradient(135deg, ${theme.sealColor}, ${theme.primaryColor})`,
+            color: 'white',
+            textAlign: 'center',
+            padding: '6px 0',
+            fontSize: '9px',
+            fontWeight: 700,
+            letterSpacing: '1px',
+            transform: 'rotate(45deg)',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
+            fontFamily: "'Arial', sans-serif",
           }}
         >
-          <Award style={{ width: '28px', height: '28px', color: 'white' }} />
+          {certificate.certificate_type === 'excellence' ? '★ EXCELLENCE ★' : '★ MASTERY ★'}
         </div>
       )}
     </div>
