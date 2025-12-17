@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   ArrowLeft, 
   Activity, 
@@ -31,6 +31,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Header } from '@/components/Header';
+import { useToast } from '@/hooks/use-toast';
+import { useSessionRefresh } from '@/hooks/useSessionRefresh';
 import { supabase } from '@/integrations/supabase/client';
 import { formatDistanceToNow, format } from 'date-fns';
 
@@ -52,6 +54,8 @@ interface AdminLog {
 }
 
 const AdminActivityLog = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
   const [logs, setLogs] = useState<AdminLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -59,6 +63,19 @@ const AdminActivityLog = () => {
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const pageSize = 50;
+
+  // Auto-refresh session to prevent token expiration during long admin sessions
+  useSessionRefresh({
+    refreshInterval: 5 * 60 * 1000, // 5 minutes
+    onSessionExpired: () => {
+      toast({
+        title: 'Session Expired',
+        description: 'Please log in again to continue.',
+        variant: 'destructive',
+      });
+      navigate('/auth');
+    },
+  });
 
   const fetchLogs = async (reset = false) => {
     setLoading(true);
