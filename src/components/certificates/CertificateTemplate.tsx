@@ -490,6 +490,9 @@ export const CertificateTemplate = ({
             <p style={{ fontSize: '9px', color: '#888', marginTop: '4px', fontFamily: "'Arial', sans-serif" }}>
               Scan to Verify
             </p>
+            <p style={{ fontSize: '8px', color: '#666', marginTop: '2px', fontFamily: "'Arial', sans-serif", fontWeight: 500 }}>
+              {new URL(verificationUrl).host}
+            </p>
           </div>
 
           {/* Right: Signature and Verification */}
