@@ -48,6 +48,15 @@ Installed apps see it on their next start.
 
 To withdraw a release, set `published = false` on its row in the Supabase table editor.
 
+## Release history
+
+| Version | Code | Published | Verified |
+|---|---|---|---|
+| 0.3.2 | 6 | 2026-10-19 by tag `v0.3.2` | Downloaded APK matches the `app_releases` row (size 10,768,200 B, SHA-256 `8de6d3ba…26d7a`) and the release signer; **in-app update installed successfully on the owner's phone** |
+
+Devices that still run a debug build (CI `app-debug-apk` artifact) are signed with a different key
+and cannot update in place: uninstall once, then install the published APK.
+
 ## Local signed build
 
 Create `android/keystore.properties` (git-ignored):
