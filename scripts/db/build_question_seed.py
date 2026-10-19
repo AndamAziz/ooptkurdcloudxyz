@@ -35,6 +35,58 @@ EXPLANATION_FIXES = {
     "2479": "'carry out' means 'conduct' or 'perform' (e.g. carry out a survey).",
 }
 
+# Items whose key, options or prompt are wrong or ambiguous in the CSV (found in a manual review of
+# every seeded item). Options keep their order, so the keyed letter does not change and answers given
+# from an older downloaded copy are still scored against the same letter. Fields not listed are kept.
+ITEM_FIXES = {
+    # Keyed verb did not fit the sentence ("works/plays/teaches to school").
+    "627": {"options": ["goes", "went", "go", "going"]},
+    "640": {"options": ["went", "go", "goes", "going"]},
+    "642": {"options": ["go", "went", "going", "goes"]},
+    # Filler options such as "am (alt)" replaced by a real distractor.
+    "621": {"options": ["are", "is", "am", "be"]},
+    "628": {"options": ["be", "am", "is", "are"]},
+    "629": {"options": ["is", "are", "be", "am"]},
+    "637": {"options": ["is", "am", "be", "are"]},
+    "638": {"options": ["are", "be", "am", "is"]},
+    # "in the office/shop/school" is also correct: replace the second correct option.
+    "633": {"options": ["at", "on", "to", "into"]},
+    "639": {"options": ["at", "to", "on", "into"]},
+    "644": {"options": ["into", "to", "at", "on"]},
+    # "It will rain" is also acceptable.
+    "1123": {"options": ["is going to", "goes to", "is", "going to"]},
+    # "take a decision" is also correct (British English).
+    "1622": {"prompt": "Choose the correct verb: I need to ___ a decision by Friday.", "options": ["do", "make", "have", "give"]},
+    # Zero conditional "we stay" and "we're staying" are also possible.
+    "1623": {"options": ["stayed", "had stayed", "will stay", "would stay"]},
+    # Unnatural template sentences ("Please ___ X and tell me tomorrow").
+    "1625": {"prompt": "Choose the correct verb: Can you ___ me some advice about my essay?"},
+    "1627": {"prompt": "Choose the correct verb: Let's ___ in touch after you move to London."},
+    "1628": {"prompt": "Choose the correct verb: You look tired. Why don't you ___ a break?"},
+    "1629": {"prompt": "Choose the correct verb: Please ___ your homework before you watch TV."},
+    "1630": {"prompt": "Choose the correct verb: Please ___ attention to the teacher."},
+    # Past simple "saw" was also correct without a time marker that needs the present perfect.
+    "1626": {"prompt": "Choose the correct option: I ___ this film three times so far."},
+    # "take a role", "make a deadline": second correct option; prompts were not meaningful sentences.
+    "2478": {"prompt": "Choose the correct verb: Parents ___ an important role in a child's education.", "options": ["make", "play", "pose", "raise"]},
+    "2484": {"prompt": "Choose the correct verb: We worked all night to ___ the deadline.", "options": ["meet", "do", "pose", "take"]},
+    "2485": {"prompt": "Choose the correct verb: We must ___ the costs into account before making a decision."},
+    "2486": {"prompt": "Choose the correct verb: After a long discussion, the committee finally ___ a conclusion.", "options": ["took", "raised", "met", "reached"], "explanation": "Natural collocation: 'reach a conclusion'."},
+    # Keyed "pose" in "We must pose a risk" was wrong ("take a risk" fits that sentence).
+    "2487": {"prompt": "Choose the correct verb: Smoking ___ a serious risk to your health.", "options": ["does", "takes", "poses", "makes"], "explanation": "Natural collocation: 'pose a risk (to)'."},
+    "2488": {"prompt": "Choose the correct verb: I'd like to ___ an issue at the next meeting."},
+    # "did I hear" is also correct after "Seldom".
+    "2482": {"options": ["I did hear", "have I heard", "I have heard", "I heard"]},
+    # Incomplete template sentences ("likely to ___ light on.").
+    "3204": {"prompt": "Choose the correct verb: The new study is likely to ___ light on the causes of the disease."},
+    "3210": {"prompt": "Choose the correct verb: It is important to ___ a distinction between facts and opinions."},
+    "3214": {"prompt": "Choose the correct verb: The new policy will ___ greater emphasis on early education."},
+    # "raise a dilemma" is also used.
+    "3215": {"options": ["make", "take", "shed", "pose"]},
+    # "decline/refuse a proposal" are also acceptable.
+    "3802": {"options": ["reject", "repel", "deprive", "deny"]},
+}
+
 
 def q(value: str) -> str:
     return "'" + value.replace("'", "''") + "'"
@@ -74,13 +126,15 @@ def main() -> None:
         clean = [v for v in variants if not any("(alt" in v[f"options_{k}"].lower() for k in "ABCD")]
         r = (clean or variants)[0]
         skipped["duplicate_variant"] += len(variants) - 1
-        options = [r[f"options_{k}"].strip() for k in "ABCD"]
+        fix = ITEM_FIXES.get(r["id"], {})
+        options = fix.get("options") or [r[f"options_{k}"].strip() for k in "ABCD"]
+        prompt = fix.get("prompt", r["prompt"])
         tags = [t.strip() for t in r["tags"].split(";") if t.strip() and t.strip() not in LEVELS]
-        explanation = EXPLANATION_FIXES.get(r["id"], r["explanation"].strip())
+        explanation = fix.get("explanation") or EXPLANATION_FIXES.get(r["id"], r["explanation"].strip())
         values.append(
             "(" + ",".join([
                 q(f"csv:{r['id']}"), q(r["cefr"]) + "::public.cefr_level", q(SKILLS[r["q_type"]]),
-                q(r["prompt"]), arr(options), q(r["correct_answer"].strip().upper()),
+                q(prompt), arr(options), q(r["correct_answer"].strip().upper()),
                 q(explanation) if explanation else "null", arr(tags),
                 "'published'", "'unreviewed'", "'generated'",
             ]) + ")"

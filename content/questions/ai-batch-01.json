@@ -781,7 +781,7 @@
    "prompt": "You ___ have told me earlier! Now it's too late.",
    "answer": "should",
    "distractors": [
-    "must",
+    "had",
     "would",
     "can"
    ],
@@ -871,7 +871,7 @@
    "prompt": "This time next week, I ___ on a beach.",
    "answer": "will be lying",
    "distractors": [
-    "will lie",
+    "will be lie",
     "am lying",
     "lie"
    ],
@@ -963,7 +963,7 @@
    "distractors": [
     "take",
     "care",
-    "watch"
+    "see"
    ],
    "explanation": "'Look after' means take care of.",
    "tags": [
@@ -1278,7 +1278,7 @@
    "prompt": "Hardly had we sat down ___ the phone rang.",
    "answer": "when",
    "distractors": [
-    "than",
+    "as",
     "then",
     "that"
    ],
@@ -1310,7 +1310,7 @@
    "distractors": [
     "win",
     "will win",
-    "had won"
+    "have won"
    ],
    "explanation": "'Supposing' works like 'if' in a second conditional: past simple.",
    "tags": [
@@ -1505,7 +1505,7 @@
    "answer": "Had it been leaked",
    "distractors": [
     "If it leaked",
-    "Were it leaked",
+    "Was it leaked",
     "Having leaked"
    ],
    "explanation": "An inverted past conditional matches 'would have caused'.",
@@ -1746,7 +1746,7 @@
    "prompt": "It was not until the 1990s ___ the theory was accepted.",
    "answer": "that",
    "distractors": [
-    "when",
+    "since",
     "which",
     "then"
    ],
