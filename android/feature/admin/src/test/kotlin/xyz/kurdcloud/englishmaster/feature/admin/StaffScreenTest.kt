@@ -1,0 +1,71 @@
+package xyz.kurdcloud.englishmaster.feature.admin
+
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.hasAnyAncestor
+import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.junit4.v2.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performScrollToNode
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
+import xyz.kurdcloud.englishmaster.core.designsystem.EnglishMasterTheme
+import xyz.kurdcloud.englishmaster.core.model.StaffAccess
+
+@RunWith(RobolectricTestRunner::class)
+class StaffScreenTest {
+    @get:Rule val compose = createComposeRule()
+    private val repo = FakeStaffRepository()
+
+    private fun render(access: StaffAccess) {
+        val users = UsersViewModel(repo)
+        val questions = QuestionsViewModel(repo)
+        val activity = ActivityViewModel(repo)
+        compose.setContent {
+            EnglishMasterTheme {
+                StaffScreen(access, currentUserId = "me", usersViewModel = { users }, questionsViewModel = { questions },
+                    activityViewModel = { activity }, onBack = {})
+            }
+        }
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    fun teacherOnlySeesQuestionReview() {
+        render(StaffAccess(canReviewQuestions = true, canManageUsers = false))
+        compose.onNodeWithText("I ___ a student.").assertIsDisplayed()
+        compose.onNodeWithText("Users").assertDoesNotExist()
+        compose.onNodeWithTag("approve_q1").performScrollTo().performClick()
+        compose.onNodeWithText("Approved").assertIsDisplayed()
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    fun adminCannotDemoteOrSuspendThemselvesFromTheUi() {
+        render(StaffAccess(canReviewQuestions = true, canManageUsers = true))
+        val mine = hasAnyAncestor(hasTestTag("user_andam@example.com"))
+        compose.onNode(hasText("Remove admin") and mine).assertIsNotEnabled()
+        compose.onNode(hasText("Suspend") and mine).assertIsNotEnabled()
+        compose.onNodeWithTag("users_list").performScrollToNode(hasTestTag("user_sara@example.com"))
+        val sara = hasAnyAncestor(hasTestTag("user_sara@example.com"))
+        compose.onNode(hasText("Make teacher") and sara).assertIsEnabled().performClick()
+        compose.onNode(hasText("Remove teacher") and sara).assertIsDisplayed()
+    }
+
+    @Test
+    @Config(qualifiers = "b+ckb")
+    fun soraniTabs() {
+        render(StaffAccess(canReviewQuestions = true, canManageUsers = true))
+        compose.onNodeWithText("بەکارهێنەران").assertIsDisplayed()
+        compose.onNodeWithText("پرسیارەکان").performClick()
+        compose.onNodeWithText("I ___ a student.").assertIsDisplayed()
+    }
+}

@@ -1,0 +1,1 @@
+First update delivered inside the app. If you are reading this, in-app updates work.

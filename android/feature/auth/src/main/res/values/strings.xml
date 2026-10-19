@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="auth_welcome_title">EnglishMaster AI</string>
+    <string name="auth_welcome_body">Learn English step by step with CEFR-referenced practice. You can use the app in Kurdish (Sorani) or English.</string>
+    <string name="auth_interface_language">App language</string>
+    <string name="auth_privacy_summary">To provide the service we store your name, email address, answers and progress. Answers you give offline stay on this device until they are sent.</string>
+    <string name="auth_create_account">Create account</string>
+    <string name="auth_have_account">I already have an account</string>
+    <string name="auth_sign_in">Sign in</string>
+    <string name="auth_email">Email</string>
+    <string name="auth_email_invalid">Enter a valid email address</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_password_required">Enter your password</string>
+    <string name="auth_password_rules">At least 8 characters, including a letter and a number</string>
+    <string name="auth_show_password">Show</string>
+    <string name="auth_hide_password">Hide</string>
+    <string name="auth_forgot_password">Forgot password?</string>
+    <string name="auth_display_name">Your name</string>
+    <string name="auth_display_name_invalid">Enter a name (1–80 characters)</string>
+    <string name="auth_consent">I agree that my name, email address, answers and progress are stored to provide this service.</string>
+    <string name="auth_consent_required">You need to agree before creating an account</string>
+    <string name="auth_reset_explainer">Enter your account email. If an account exists, we will send a link to reset your password.</string>
+    <string name="auth_send_reset_link">Send reset link</string>
+    <string name="auth_check_email_title">Check your email</string>
+    <string name="auth_check_email_confirm">We sent you a confirmation link. Open it, then sign in.</string>
+    <string name="auth_check_email_reset">If an account exists for that address, a password reset link is on its way.</string>
+    <string name="auth_back_to_sign_in">Back to sign in</string>
+    <string name="auth_back">Back</string>
+    <string name="auth_error_invalid_credentials">Email or password is incorrect.</string>
+    <string name="auth_error_email_not_confirmed">Please confirm your email address first. Check your inbox.</string>
+    <string name="auth_error_user_exists">An account with this email already exists. Try signing in.</string>
+    <string name="auth_error_weak_password">This password is too weak. Choose a longer one.</string>
+    <string name="auth_error_signup_disabled">New registrations are currently closed.</string>
+    <string name="auth_error_network">No connection to the server. Check your internet and try again.</string>
+    <string name="auth_error_rate_limited">Too many attempts. Please wait a moment and try again.</string>
+    <string name="auth_error_not_configured">This build is not connected to a server. (Developer: set supabase.url and supabase.anonKey.)</string>
+    <string name="auth_error_session_expired">Your session has ended. Please sign in again.</string>
+    <string name="auth_error_generic">Something went wrong. Please try again.</string>
+</resources>

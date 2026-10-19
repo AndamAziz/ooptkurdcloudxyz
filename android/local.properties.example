@@ -1,0 +1,5 @@
+# Copy to local.properties (git-ignored) and fill in.
+sdk.dir=/path/to/Android/Sdk
+# Public client configuration for the Supabase project. Never put the service_role key here.
+# supabase.url=https://<other-project>.supabase.co   (optional override)
+# supabase.anonKey=<publishable key>                   (optional override)

@@ -1,0 +1,98 @@
+name: EnglishMaster release
+
+# Push a tag "v<versionName>" (e.g. v0.3.0) to build, sign and publish an in-app update.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: englishmaster-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    environment: release
+    defaults:
+      run:
+        working-directory: android
+    env:
+      # Public fingerprint of the release key. Publishing stops if the APK is signed with
+      # anything else, because installed apps could not update to it.
+      EXPECTED_SIGNER_SHA256: d4c2a652fb12c56926856c912b0b488995bf4bea3b2a06073b4857940a1085d7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Install Android SDK packages
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-37.2" "build-tools;36.0.0" "platform-tools"
+
+      - name: Check required secrets
+        env:
+          KSP: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KP: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          SRK: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          missing=0
+          for v in KSP ALIAS KP SRK; do [ -n "${!v}" ] || { echo "::error::secret for $v is not set"; missing=1; }; done
+          exit $missing
+
+      - name: Tag must match versionName
+        run: |
+          NAME=$(sed -nE 's/^ *versionName = "([^"]+)".*/\1/p' app/build.gradle.kts)
+          [ "v$NAME" = "$GITHUB_REF_NAME" ] || { echo "::error::tag $GITHUB_REF_NAME does not match versionName $NAME"; exit 1; }
+
+      - name: Decode and check the signing key
+        working-directory: .
+        env:
+          ANDROID_KEYSTORE_ENCRYPTION_KEY: ${{ secrets.ANDROID_KEYSTORE_ENCRYPTION_KEY }}
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          scripts/release/decode_keystore.sh "$RUNNER_TEMP/release.jks"
+          echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
+
+      - name: Test and build signed release
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          ./gradlew --no-daemon test assembleRelease
+          rm -f "$ANDROID_KEYSTORE_PATH"
+
+      - name: Verify signature and read version
+        id: apk
+        run: |
+          APK=$(ls app/build/outputs/apk/release/app-release.apk)
+          SIGNER=$("$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs "$APK" | sed -nE 's/^Signer #1 certificate SHA-256 digest: //p')
+          [ "$SIGNER" = "$EXPECTED_SIGNER_SHA256" ] || { echo "::error::unexpected signer $SIGNER"; exit 1; }
+          echo "apk=$PWD/$APK" >> "$GITHUB_OUTPUT"
+          echo "code=$(jq -r '.elements[0].versionCode' app/build/outputs/apk/release/output-metadata.json)" >> "$GITHUB_OUTPUT"
+          echo "name=$(jq -r '.elements[0].versionName' app/build/outputs/apk/release/output-metadata.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Publish to Supabase (in-app update)
+        working-directory: .
+        env:
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          export SUPABASE_URL=$(sed -nE 's/^englishmaster.supabase.url=//p' android/gradle.properties)
+          CODE=${{ steps.apk.outputs.code }}
+          [ -f "android/release-notes/$CODE.min-supported" ] && export MIN_SUPPORTED_VERSION_CODE=$(cat "android/release-notes/$CODE.min-supported")
+          export NOTES_EN_FILE="android/release-notes/$CODE.en.txt" NOTES_CKB_FILE="android/release-notes/$CODE.ckb.txt"
+          scripts/release/publish_apk.sh "${{ steps.apk.outputs.apk }}" "$CODE" "${{ steps.apk.outputs.name }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: englishmaster-${{ steps.apk.outputs.name }}
+          path: android/app/build/outputs/apk/release/app-release.apk

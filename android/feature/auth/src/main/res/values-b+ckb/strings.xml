@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="auth_welcome_title">EnglishMaster AI</string>
+    <string name="auth_welcome_body">زمانی ئینگلیزی هەنگاو بە هەنگاو فێربە، بە ڕاهێنانی گونجاو لەگەڵ ئاستەکانی CEFR. دەتوانیت ئەپەکە بە کوردی (سۆرانی) یان ئینگلیزی بەکاربهێنیت.</string>
+    <string name="auth_interface_language">زمانی ئەپ</string>
+    <string name="auth_privacy_summary">بۆ پێشکەشکردنی خزمەتگوزارییەکە، ناو، ئیمەیڵ، وەڵامەکان و پێشکەوتنت هەڵدەگرین. ئەو وەڵامانەی بە ئۆفلاین دەیدەیتەوە لەسەر ئەم ئامێرە دەمێننەوە تا دەنێردرێن.</string>
+    <string name="auth_create_account">دروستکردنی هەژمار</string>
+    <string name="auth_have_account">پێشتر هەژمارم هەیە</string>
+    <string name="auth_sign_in">چوونەژوورەوە</string>
+    <string name="auth_email">ئیمەیڵ</string>
+    <string name="auth_email_invalid">ئیمەیڵێکی دروست بنووسە</string>
+    <string name="auth_password">وشەی نهێنی</string>
+    <string name="auth_password_required">وشەی نهێنییەکەت بنووسە</string>
+    <string name="auth_password_rules">لانیکەم ٨ پیت، کە پیتێک و ژمارەیەکی تێدابێت</string>
+    <string name="auth_show_password">پیشاندان</string>
+    <string name="auth_hide_password">شاردنەوە</string>
+    <string name="auth_forgot_password">وشەی نهێنیت لەبیرچووە؟</string>
+    <string name="auth_display_name">ناوت</string>
+    <string name="auth_display_name_invalid">ناوێک بنووسە (١ تا ٨٠ پیت)</string>
+    <string name="auth_consent">ڕازیم کە ناو، ئیمەیڵ، وەڵامەکان و پێشکەوتنم بۆ پێشکەشکردنی ئەم خزمەتگوزارییە هەڵبگیرێن.</string>
+    <string name="auth_consent_required">پێش دروستکردنی هەژمار دەبێت ڕازی بیت</string>
+    <string name="auth_reset_explainer">ئیمەیڵی هەژمارەکەت بنووسە. ئەگەر هەژمارێک هەبێت، بەستەرێکی گۆڕینی وشەی نهێنیت بۆ دەنێرین.</string>
+    <string name="auth_send_reset_link">ناردنی بەستەر</string>
+    <string name="auth_check_email_title">سەیری ئیمەیڵەکەت بکە</string>
+    <string name="auth_check_email_confirm">بەستەرێکی پشتڕاستکردنەوەمان بۆ ناردیت. بیکەرەوە، پاشان بچۆ ژوورەوە.</string>
+    <string name="auth_check_email_reset">ئەگەر هەژمارێک بەو ئیمەیڵە هەبێت، بەستەری گۆڕینی وشەی نهێنی بۆی دەنێردرێت.</string>
+    <string name="auth_back_to_sign_in">گەڕانەوە بۆ چوونەژوورەوە</string>
+    <string name="auth_back">گەڕانەوە</string>
+    <string name="auth_error_invalid_credentials">ئیمەیڵ یان وشەی نهێنی هەڵەیە.</string>
+    <string name="auth_error_email_not_confirmed">تکایە سەرەتا ئیمەیڵەکەت پشتڕاست بکەرەوە. سەیری سندوقی نامەکانت بکە.</string>
+    <string name="auth_error_user_exists">هەژمارێک بەم ئیمەیڵە پێشتر هەیە. هەوڵی چوونەژوورەوە بدە.</string>
+    <string name="auth_error_weak_password">ئەم وشە نهێنییە لاوازە. وشەیەکی درێژتر هەڵبژێرە.</string>
+    <string name="auth_error_signup_disabled">ئێستا تۆمارکردنی هەژماری نوێ داخراوە.</string>
+    <string name="auth_error_network">پەیوەندی بە ڕاژەکارەوە نییە. ئینتەرنێتەکەت بپشکنە و دووبارە هەوڵ بدەرەوە.</string>
+    <string name="auth_error_rate_limited">هەوڵەکان زۆر بوون. تکایە کەمێک چاوەڕێ بکە و دووبارە هەوڵ بدەرەوە.</string>
+    <string name="auth_error_not_configured">ئەم وەشانە بە ڕاژەکار نەبەستراوەتەوە. (بۆ گەشەپێدەر: supabase.url و supabase.anonKey دابنێ.)</string>
+    <string name="auth_error_session_expired">کاتی چوونەژوورەوەکەت تەواو بوو. تکایە دووبارە بچۆ ژوورەوە.</string>
+    <string name="auth_error_generic">هەڵەیەک ڕوویدا. تکایە دووبارە هەوڵ بدەرەوە.</string>
+</resources>

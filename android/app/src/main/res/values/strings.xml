@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">EnglishMaster AI</string>
+    <!-- Language names are shown in their own language in every locale. -->
+    <string name="app_switch_to_sorani" translatable="false">کوردی (سۆرانی)</string>
+    <string name="app_switch_to_english" translatable="false">English</string>
+    <string name="update_check">Check for updates (version %1$s)</string>
+    <string name="update_checking">Checking for updates…</string>
+    <string name="update_up_to_date">You have the latest version.</string>
+    <string name="update_check_failed">Could not check for updates. Check your connection and try again.</string>
+    <string name="update_available_title">Version %1$s is available</string>
+    <string name="update_mandatory">This update is required to keep using the app.</string>
+    <string name="update_size">Download size: %1$.1f MB</string>
+    <string name="update_now">Update</string>
+    <string name="update_later">Later</string>
+    <string name="update_cancel">Cancel</string>
+    <string name="update_ok">OK</string>
+    <string name="update_retry">Try again</string>
+    <string name="update_downloading">Downloading update…</string>
+    <string name="update_permission_title">Allow installing the update</string>
+    <string name="update_permission_body">Android needs your permission for EnglishMaster to install its own updates. Turn on "Allow from this source", then come back.</string>
+    <string name="update_open_settings">Open settings</string>
+    <string name="update_installing_title">Installing…</string>
+    <string name="update_installing_body">Confirm the installation in the Android dialog. The app restarts with the new version.</string>
+    <string name="update_failed_title">Update failed</string>
+    <string name="update_failed_network">The download was interrupted. Check your connection and try again.</string>
+    <string name="update_failed_corrupt">The downloaded file did not pass the security check and was deleted.</string>
+    <string name="update_failed_storage">There is not enough free space on this device.</string>
+    <string name="update_failed_incompatible">This version cannot replace the installed app (different signature). Uninstall the app once, then install the new version.</string>
+    <string name="update_failed_install">Android could not install the update.</string>
+</resources>
