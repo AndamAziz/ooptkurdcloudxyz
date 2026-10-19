@@ -7,7 +7,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import java.util.concurrent.TimeUnit
 
-class SupabaseServices(val auth: AuthApi, val practice: PracticeApi, val staff: StaffApi)
+class SupabaseServices(
+    val auth: AuthApi,
+    val practice: PracticeApi,
+    val staff: StaffApi,
+    val releases: ReleaseApi,
+    /** Plain client for public downloads (no user token is sent). */
+    val downloadClient: OkHttpClient,
+    /** Base URL of public objects in a storage bucket, ending with '/'. */
+    val publicStorageUrl: (bucket: String) -> String,
+)
 
 object NetworkFactory {
     val json = Json {
@@ -30,7 +39,18 @@ object NetworkFactory {
             .authenticator(RefreshingAuthenticator(refresher))
             .build()
         val rest = retrofit(config, restClient)
-        return SupabaseServices(auth, rest.create(PracticeApi::class.java), rest.create(StaffApi::class.java))
+        val downloads = base.newBuilder()
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .build()
+        return SupabaseServices(
+            auth = auth,
+            practice = rest.create(PracticeApi::class.java),
+            staff = rest.create(StaffApi::class.java),
+            releases = rest.create(ReleaseApi::class.java),
+            downloadClient = downloads,
+            publicStorageUrl = { bucket -> "${config.baseUrl}storage/v1/object/public/$bucket/" },
+        )
     }
 
     private fun retrofit(config: SupabaseConfig, client: OkHttpClient): Retrofit = Retrofit.Builder()

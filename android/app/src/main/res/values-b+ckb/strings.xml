@@ -1,3 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Placeholder so the locale is declared for this module; all app strings are non-translatable. -->
-<resources />
+<resources>
+    <string name="update_check">پشکنینی نوێکردنەوە (وەشانی %1$s)</string>
+    <string name="update_checking">پشکنینی نوێکردنەوە…</string>
+    <string name="update_up_to_date">نوێترین وەشانت هەیە.</string>
+    <string name="update_check_failed">نەتوانرا نوێکردنەوە بپشکنرێت. پەیوەندییەکەت بپشکنە و دووبارە هەوڵ بدەرەوە.</string>
+    <string name="update_available_title">وەشانی %1$s بەردەستە</string>
+    <string name="update_mandatory">ئەم نوێکردنەوەیە پێویستە بۆ بەردەوامبوون لە بەکارهێنانی ئەپەکە.</string>
+    <string name="update_size">قەبارەی داگرتن: %1$.1f MB</string>
+    <string name="update_now">نوێکردنەوە</string>
+    <string name="update_later">دواتر</string>
+    <string name="update_cancel">پاشگەزبوونەوە</string>
+    <string name="update_ok">باشە</string>
+    <string name="update_retry">دووبارە هەوڵ بدەرەوە</string>
+    <string name="update_downloading">نوێکردنەوە دادەگیرێت…</string>
+    <string name="update_permission_title">ڕێگە بدە بە دامەزراندنی نوێکردنەوە</string>
+    <string name="update_permission_body">ئەندرۆید پێویستی بە ڕەزامەندی تۆیە بۆ ئەوەی EnglishMaster نوێکردنەوەکانی خۆی دابمەزرێنێت. «ڕێگەدان لەم سەرچاوەیە» چالاک بکە، پاشان بگەڕێوە.</string>
+    <string name="update_open_settings">کردنەوەی ڕێکخستنەکان</string>
+    <string name="update_installing_title">دادەمەزرێت…</string>
+    <string name="update_installing_body">لە پەنجەرەی ئەندرۆیددا دامەزراندنەکە پشتڕاست بکەرەوە. ئەپەکە بە وەشانە نوێیەکە دەست پێدەکاتەوە.</string>
+    <string name="update_failed_title">نوێکردنەوە سەرکەوتوو نەبوو</string>
+    <string name="update_failed_network">داگرتنەکە پچڕا. پەیوەندییەکەت بپشکنە و دووبارە هەوڵ بدەرەوە.</string>
+    <string name="update_failed_corrupt">فایلە داگیراوەکە پشکنینی ئاسایشی تێنەپەڕاند و سڕایەوە.</string>
+    <string name="update_failed_storage">بۆشایی پێویست لەسەر ئەم ئامێرە نییە.</string>
+    <string name="update_failed_incompatible">ئەم وەشانە ناتوانێت شوێنی ئەپە دامەزراوەکە بگرێتەوە (واژۆی جیاواز). یەک جار ئەپەکە بسڕەوە، پاشان وەشانە نوێیەکە دابمەزرێنە.</string>
+    <string name="update_failed_install">ئەندرۆید نەیتوانی نوێکردنەوەکە دابمەزرێنێت.</string>
+</resources>

@@ -1,0 +1,2 @@
+In-app updates: the app can now download and install new versions itself, after checking the file.
+Staff tools for admins and teachers. This version is signed with the permanent release key.

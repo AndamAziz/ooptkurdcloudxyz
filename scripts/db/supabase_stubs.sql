@@ -34,6 +34,16 @@ $$;
 
 grant execute on all functions in schema auth to anon, authenticated, service_role;
 
+-- Storage: only the buckets table that migrations write to.
+create schema storage;
+create table storage.buckets (
+  id                 text primary key,
+  name               text not null unique,
+  public             boolean default false,
+  file_size_limit    bigint,
+  allowed_mime_types text[]
+);
+
 -- Supabase grants broad privileges on public by default and relies on RLS;
 -- reproduce that so tests catch tables that forget to revoke/enable RLS.
 grant usage on schema public to anon, authenticated, service_role;

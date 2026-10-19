@@ -62,6 +62,7 @@ fun EnglishMasterNavHost(
     ready: StateFlow<Boolean>,
     currentLanguage: InterfaceLanguage,
     onLanguageSelected: (InterfaceLanguage) -> Unit,
+    onCheckForUpdates: (() -> Unit)? = null,
     navController: NavHostController = rememberNavController(),
 ) {
     val isReady by ready.collectAsStateWithLifecycle()
@@ -135,6 +136,8 @@ fun EnglishMasterNavHost(
             HomeScreen(
                 viewModel = homeViewModel,
                 onOpenStaff = { navController.navigate(Routes.STAFF) },
+                checkForUpdatesLabel = onCheckForUpdates?.let { stringResource(R.string.update_check, BuildConfig.VERSION_NAME) },
+                onCheckForUpdates = onCheckForUpdates ?: {},
                 switchLanguageLabel = stringResource(
                     if (currentLanguage == InterfaceLanguage.SORANI) R.string.app_switch_to_english else R.string.app_switch_to_sorani,
                 ),

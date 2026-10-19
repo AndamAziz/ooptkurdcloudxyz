@@ -25,6 +25,10 @@ Compose · Room · DataStore + Android Keystore · Retrofit/OkHttp · WorkManage
   activity log; teachers and admins review questions (approve, retire, publish again). The server
   enforces every permission; the admin cannot demote or suspend themselves.
 
+* **In-app updates** (direct distribution): checks Supabase for a newer signed release, downloads
+  it with SHA-256 verification and installs it through Android's installer. See
+  [`docs/releasing.md`](../docs/releasing.md).
+
 Not in this slice: placement test, courses/lessons, AI tutor, speaking/listening, certificates,
 teacher dashboard. The project is laid out so these become new `feature:*` modules.
 
@@ -66,7 +70,7 @@ Every build connects to project `nefpgqoykfndjvrdultp` by default (`englishmaste
 ## Build and test
 
 ```bash
-./gradlew test             # 74 JVM/Robolectric tests (no device needed)
+./gradlew test             # 88 JVM/Robolectric tests (no device needed)
 # opt-in, against a live project (creates no data):
 SUPABASE_LIVE_URL=https://<ref>.supabase.co SUPABASE_LIVE_KEY=<publishable key> ./gradlew :core:network:test
 ./gradlew lintDebug
@@ -79,16 +83,16 @@ Robolectric's Android runtime jar is resolved by Gradle and tests run with `robo
 
 Install on a device or emulator: `adb install -r app/build/outputs/apk/debug/app-debug.apk`.
 
-### Release signing
+### Release signing and publishing
 
-Signing material must stay outside the repository (`*.jks`, `keystore.properties` are git-ignored).
-Create an upload key, then either sign the unsigned APK with `apksigner` or add a `signingConfig`
-that reads `keystore.properties`. Prefer an Android App Bundle (`./gradlew bundleRelease`) for Play
-distribution with Play App Signing.
+Release builds are signed when `keystore.properties` or the `ANDROID_KEYSTORE_*` environment
+variables are present (both git-ignored / CI secrets). Releases are published by pushing a
+`v<versionName>` tag — see [`docs/releasing.md`](../docs/releasing.md). R8 minification is
+currently off for release builds until a minified build has been verified on a device.
 
 ## Permissions
 
-`INTERNET`, `ACCESS_NETWORK_STATE` (declared by the app); `WAKE_LOCK`, `RECEIVE_BOOT_COMPLETED`,
+`INTERNET`, `ACCESS_NETWORK_STATE`, `REQUEST_INSTALL_PACKAGES` (in-app updates; the user confirms every install); `WAKE_LOCK`, `RECEIVE_BOOT_COMPLETED`,
 `FOREGROUND_SERVICE` are merged from WorkManager for reliable background sync. Backups and device
 transfer are disabled.
 

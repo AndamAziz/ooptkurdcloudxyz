@@ -17,6 +17,10 @@ import xyz.kurdcloud.englishmaster.core.data.ResponseSyncer
 import xyz.kurdcloud.englishmaster.core.data.SessionStore
 import xyz.kurdcloud.englishmaster.core.data.StaffRepository
 import xyz.kurdcloud.englishmaster.core.data.SupabaseStaffRepository
+import xyz.kurdcloud.englishmaster.core.data.SupabaseUpdateRepository
+import xyz.kurdcloud.englishmaster.core.data.UpdateRepository
+import xyz.kurdcloud.englishmaster.update.ApkInstaller
+import xyz.kurdcloud.englishmaster.update.PackageInstallerApkInstaller
 import xyz.kurdcloud.englishmaster.core.data.SupabaseAuthRepository
 import xyz.kurdcloud.englishmaster.core.data.SyncScheduler
 import xyz.kurdcloud.englishmaster.core.data.WorkManagerSyncScheduler
@@ -43,6 +47,13 @@ class AppContainer(context: Context) {
     val content: ContentRepository =
         OfflineFirstContentRepository(services.practice, database.questions(), database.levelPacks(), database.content())
     val staff: StaffRepository = SupabaseStaffRepository(services.staff)
+    val updates: UpdateRepository = SupabaseUpdateRepository(
+        services.releases,
+        services.downloadClient,
+        services.publicStorageUrl("app-releases"),
+        appContext.cacheDir.resolve("updates"),
+    )
+    val installer: ApkInstaller = PackageInstallerApkInstaller(appContext)
     val practice: PracticeRepository =
         OfflineFirstPracticeRepository(database.responses(), syncer, { syncScheduler.requestSync() }, network)
 }

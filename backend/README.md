@@ -98,6 +98,7 @@ Applied to `nefpgqoykfndjvrdultp` with the owner's approval:
 | `20261019194443_question_bank_and_practice` | applied |
 | seed `assessment_questions.sql` | applied — 84 rows; content fingerprint identical to a local run |
 | `20261019203557_staff_tools` | applied — staff RPCs (users, roles, suspension, question review, activity) |
+| `20261019210121_app_releases` | applied — public read of published releases, `app-releases` bucket (public read, service-role upload) |
 | `20261019220000_policy_consolidation` | **pending** — contains `DROP POLICY`; the MCP tooling waits for a destructive-statement confirmation it cannot show and times out (nothing is changed). Apply with `supabase db push --workdir backend` |
 
 Verified on the live project: RLS on all tables; `anon` has no table grants and cannot execute any

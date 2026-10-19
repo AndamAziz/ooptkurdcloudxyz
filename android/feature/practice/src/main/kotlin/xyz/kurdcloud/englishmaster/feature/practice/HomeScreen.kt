@@ -66,6 +66,9 @@ fun HomeScreen(
     onStartPractice: (CefrLevel) -> Unit,
     onSignOut: () -> Unit,
     onOpenStaff: () -> Unit = {},
+    /** Menu label for the in-app update check; null hides the entry (e.g. Play builds). */
+    checkForUpdatesLabel: String? = null,
+    onCheckForUpdates: () -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbar = remember { SnackbarHostState() }
@@ -104,6 +107,13 @@ fun HomeScreen(
                                 )
                             }
                             DropdownMenuItem(text = { Text(switchLanguageLabel) }, onClick = { menuOpen = false; onSwitchLanguage() })
+                            if (checkForUpdatesLabel != null) {
+                                DropdownMenuItem(
+                                    text = { Text(checkForUpdatesLabel) },
+                                    onClick = { menuOpen = false; onCheckForUpdates() },
+                                    modifier = Modifier.testTag("menu_check_updates"),
+                                )
+                            }
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.practice_sign_out)) },
                                 onClick = { menuOpen = false; confirmSignOut = true },
