@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ds_retry">دووبارە هەوڵ بدەرەوە</string>
+    <string name="ds_offline_banner">ئێستا ئۆفلاینیت. وانە داگیراوەکان کار دەکەن؛ وەڵامەکانت کاتێک هێڵت گەڕایەوە هەڵدەسەنگێنرێن.</string>
+</resources>

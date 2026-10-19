@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="practice_home_title">EnglishMaster AI</string>
+    <string name="practice_menu">لیست</string>
+    <string name="practice_sign_out">چوونەدەرەوە</string>
+    <string name="practice_sign_out_confirm">دەتەوێت لەم ئامێرەدا بچیتە دەرەوە؟</string>
+    <plurals name="practice_sign_out_pending">
+        <item quantity="one">%1$d وەڵام هێشتا نەنێردراوە. لەسەر ئەم ئامێرە دەمێنێتەوە و جاری داهاتوو کە بەم هەژمارە چوویتە ژوورەوە دەنێردرێت.</item>
+        <item quantity="other">%1$d وەڵام هێشتا نەنێردراون. لەسەر ئەم ئامێرە دەمێننەوە و جاری داهاتوو کە بەم هەژمارە چوویتە ژوورەوە دەنێردرێن.</item>
+    </plurals>
+    <string name="practice_cancel">پاشگەزبوونەوە</string>
+    <string name="practice_levels_header">ئاستەکانی ڕاهێنان</string>
+    <string name="practice_cefr_note">ئاستەکان کۆمەڵە ڕاهێنانێکن بەپێی CEFR، نەک بڕوانامەی فەرمیی CEFR. ئەو پرسیارانەی وەک «پێداچوونەوەی بۆ نەکراوە» نیشانکراون، هێشتا مامۆستایەک نەیپشکنیون.</string>
+    <plurals name="practice_pending">
+        <item quantity="one">%1$d وەڵام چاوەڕێی هەڵسەنگاندنە.</item>
+        <item quantity="other">%1$d وەڵام چاوەڕێی هەڵسەنگاندنن.</item>
+    </plurals>
+    <string name="practice_sync_now">ئێستا بینێرە</string>
+    <string name="practice_syncing">دەنێردرێت…</string>
+    <string name="practice_not_downloaded">دانەگیراوە. یەک جار دایبگرە بۆ ئەوەی بە ئۆفلاین ڕاهێنان بکەیت.</string>
+    <string name="practice_download">داگرتن</string>
+    <plurals name="practice_downloading">
+        <item quantity="one">دادەگیرێت… %1$d پرسیار</item>
+        <item quantity="other">دادەگیرێت… %1$d پرسیار</item>
+    </plurals>
+    <plurals name="practice_downloaded">
+        <item quantity="one">%1$d پرسیار بە ئۆفلاین بەردەستە</item>
+        <item quantity="other">%1$d پرسیار بە ئۆفلاین بەردەستن</item>
+    </plurals>
+    <string name="practice_progress">وەڵامە هەڵسەنگێنراوەکان: %1$d · ڕاست: %2$d</string>
+    <string name="practice_start">ڕاهێنان</string>
+    <string name="practice_update">نوێکردنەوە</string>
+    <string name="practice_remove">سڕینەوە</string>
+    <string name="practice_remove_title">داگیراوەی %1$s بسڕدرێتەوە؟</string>
+    <string name="practice_remove_body">پرسیارەکان لەم ئامێرە دەسڕدرێنەوە. وەڵام و پێشکەوتنەکانت دەمێننەوە.</string>
+    <string name="practice_download_needs_internet">داگرتن پێویستی بە ئینتەرنێتە.</string>
+    <plurals name="practice_download_done">
+        <item quantity="one">%1$d پرسیار داگیرا.</item>
+        <item quantity="other">%1$d پرسیار داگیران.</item>
+    </plurals>
+    <string name="practice_download_failed_network">داگرتن وەستا: پەیوەندی نییە. داگیراوەی پێشووت وەک خۆی ماوەتەوە.</string>
+    <string name="practice_download_failed">داگرتن سەرکەوتوو نەبوو. داگیراوەی پێشووت وەک خۆی ماوەتەوە.</string>
+    <plurals name="practice_sync_done">
+        <item quantity="one">%1$d وەڵام هەڵسەنگێنرا.</item>
+        <item quantity="other">%1$d وەڵام هەڵسەنگێنران.</item>
+    </plurals>
+    <string name="practice_sync_offline">هێشتا ئۆفلاینیت. وەڵامەکان خۆکارانە دەنێردرێن.</string>
+    <string name="practice_sync_sign_in">تکایە دووبارە بچۆ ژوورەوە بۆ ناردنی وەڵامەکانت.</string>
+    <string name="practice_sync_restricted">هەژمارەکەت ئێستا ناتوانێت وەڵام بنێرێت. تکایە پەیوەندی بە مامۆستاکەتەوە بکە.</string>
+    <string name="practice_sync_server">ڕاژەکار بەردەست نییە. وەڵامەکان دواتر خۆکارانە دەنێردرێن.</string>
+    <string name="level_pre_a1">بنەڕەت: یەکەم وشە و دەستەواژەکان.</string>
+    <string name="level_a1">بەکارهێنەری سەرەتایی: دەربڕینی ڕۆژانەی ناسراو و دەستەواژەی زۆر سادە.</string>
+    <string name="level_a2">بەکارهێنەری سەرەتایی: کاری ڕۆتینی و ئاڵوگۆڕی سادە و ڕاستەوخۆ.</string>
+    <string name="level_b1">بەکارهێنەری سەربەخۆ: خاڵە سەرەکییەکانی بابەتە ناسراوەکان و دەقی سادەی پەیوەست.</string>
+    <string name="level_b2">بەکارهێنەری سەربەخۆ: بیرۆکە سەرەکییەکانی دەقی ئاڵۆز و گفتوگۆی ڕەوان.</string>
+    <string name="level_c1">بەکارهێنەری لێهاتوو: دەقی قورس و بەکارهێنانی نەرم و کاریگەری زمان.</string>
+    <string name="level_c2">بەکارهێنەری لێهاتوو: تێگەیشتن لە نزیکەی هەموو شتێک و دەربڕینی ورد.</string>
+    <string name="practice_title">ڕاهێنانی %1$s</string>
+    <string name="practice_exit">دەرچوون</string>
+    <string name="practice_empty">هێشتا هیچ پرسیارێک بۆ ئەم ئاستە دانەگیراوە.</string>
+    <string name="practice_back_home">گەڕانەوە بۆ ئاستەکان</string>
+    <string name="practice_counter">پرسیاری %1$d لە %2$d</string>
+    <string name="practice_unreviewed">ئەم پرسیارە هێشتا مامۆستا پێیدا نەچووەتەوە</string>
+    <string name="practice_check">پشکنینی وەڵام</string>
+    <string name="practice_next">پرسیاری داهاتوو</string>
+    <string name="practice_finish">تەواوکردن</string>
+    <string name="practice_saved_pending">وەڵامەکە لەسەر ئەم ئامێرە پاشەکەوت کرا. کاتێک گەڕایتەوە سەر هێڵ هەڵدەسەنگێنرێت.</string>
+    <string name="practice_rejected">ئەم پرسیارە ئیتر بەردەست نییە، بۆیە وەڵامەکە حیساب نەکرا.</string>
+    <string name="practice_correct">ڕاستە</string>
+    <string name="practice_incorrect">هەڵەیە. وەڵامی ڕاست ئەمەیە:</string>
+    <string name="practice_summary_title">دانیشتنەکە تەواو بوو</string>
+    <plurals name="practice_summary_scored">
+        <item quantity="one">ڕاست: %1$d لە %2$d وەڵامی هەڵسەنگێنراو</item>
+        <item quantity="other">ڕاست: %1$d لە %2$d وەڵامی هەڵسەنگێنراو</item>
+    </plurals>
+    <plurals name="practice_summary_pending">
+        <item quantity="one">%1$d وەڵام چاوەڕێیە تا کاتێک ئۆنلاین بوویت هەڵبسەنگێنرێت.</item>
+        <item quantity="other">%1$d وەڵام چاوەڕێن تا کاتێک ئۆنلاین بوویت هەڵبسەنگێنرێن.</item>
+    </plurals>
+</resources>

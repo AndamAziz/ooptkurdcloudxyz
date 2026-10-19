@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">EnglishMaster AI</string>
+    <!-- Language names are shown in their own language in every locale. -->
+    <string name="app_switch_to_sorani" translatable="false">کوردی (سۆرانی)</string>
+    <string name="app_switch_to_english" translatable="false">English</string>
+</resources>

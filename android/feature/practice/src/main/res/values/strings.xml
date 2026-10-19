@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="practice_home_title">EnglishMaster AI</string>
+    <string name="practice_menu">Menu</string>
+    <string name="practice_sign_out">Sign out</string>
+    <string name="practice_sign_out_confirm">Do you want to sign out on this device?</string>
+    <plurals name="practice_sign_out_pending">
+        <item quantity="one">%1$d answer has not been sent yet. It stays on this device and is sent the next time you sign in with this account.</item>
+        <item quantity="other">%1$d answers have not been sent yet. They stay on this device and are sent the next time you sign in with this account.</item>
+    </plurals>
+    <string name="practice_cancel">Cancel</string>
+    <string name="practice_levels_header">Practice levels</string>
+    <string name="practice_cefr_note">Levels are CEFR-referenced practice sets, not an official CEFR certification. Items marked as not reviewed have not yet been checked by a teacher.</string>
+    <plurals name="practice_pending">
+        <item quantity="one">%1$d answer is waiting to be marked.</item>
+        <item quantity="other">%1$d answers are waiting to be marked.</item>
+    </plurals>
+    <string name="practice_sync_now">Send now</string>
+    <string name="practice_syncing">Sending…</string>
+    <string name="practice_not_downloaded">Not downloaded. Download once to practise offline.</string>
+    <string name="practice_download">Download</string>
+    <plurals name="practice_downloading">
+        <item quantity="one">Downloading… %1$d question</item>
+        <item quantity="other">Downloading… %1$d questions</item>
+    </plurals>
+    <plurals name="practice_downloaded">
+        <item quantity="one">%1$d question available offline</item>
+        <item quantity="other">%1$d questions available offline</item>
+    </plurals>
+    <string name="practice_progress">Marked answers: %1$d · correct: %2$d</string>
+    <string name="practice_start">Practise</string>
+    <string name="practice_update">Update</string>
+    <string name="practice_remove">Remove</string>
+    <string name="practice_remove_title">Remove %1$s download?</string>
+    <string name="practice_remove_body">The questions are deleted from this device. Your answers and progress are kept.</string>
+    <string name="practice_download_needs_internet">Downloading needs an internet connection.</string>
+    <plurals name="practice_download_done">
+        <item quantity="one">Downloaded %1$d question.</item>
+        <item quantity="other">Downloaded %1$d questions.</item>
+    </plurals>
+    <string name="practice_download_failed_network">Download stopped: no connection. Your previous download is unchanged.</string>
+    <string name="practice_download_failed">Download failed. Your previous download is unchanged.</string>
+    <plurals name="practice_sync_done">
+        <item quantity="one">%1$d answer marked.</item>
+        <item quantity="other">%1$d answers marked.</item>
+    </plurals>
+    <string name="practice_sync_offline">Still offline. Answers will be sent automatically.</string>
+    <string name="practice_sync_sign_in">Please sign in again to send your answers.</string>
+    <string name="practice_sync_restricted">Your account cannot send answers right now. Please contact your teacher.</string>
+    <string name="practice_sync_server">The server is not available. Answers will be sent automatically later.</string>
+    <string name="level_pre_a1">Foundation: first words and phrases.</string>
+    <string name="level_a1">Basic user: familiar everyday expressions and very simple phrases.</string>
+    <string name="level_a2">Basic user: routine tasks and simple, direct exchanges.</string>
+    <string name="level_b1">Independent user: main points on familiar topics and simple connected text.</string>
+    <string name="level_b2">Independent user: main ideas of complex texts and fluent interaction.</string>
+    <string name="level_c1">Proficient user: demanding texts and flexible, effective language use.</string>
+    <string name="level_c2">Proficient user: understanding virtually everything and expressing yourself precisely.</string>
+    <string name="practice_title">Practice %1$s</string>
+    <string name="practice_exit">Exit</string>
+    <string name="practice_empty">No questions are downloaded for this level yet.</string>
+    <string name="practice_back_home">Back to levels</string>
+    <string name="practice_counter">Question %1$d of %2$d</string>
+    <string name="practice_unreviewed">Practice item not yet reviewed by a teacher</string>
+    <string name="practice_check">Check answer</string>
+    <string name="practice_next">Next question</string>
+    <string name="practice_finish">Finish</string>
+    <string name="practice_saved_pending">Answer saved on this device. It will be marked when you are back online.</string>
+    <string name="practice_rejected">This question is no longer available, so the answer was not counted.</string>
+    <string name="practice_correct">Correct</string>
+    <string name="practice_incorrect">Not quite. The correct answer is:</string>
+    <string name="practice_summary_title">Session complete</string>
+    <plurals name="practice_summary_scored">
+        <item quantity="one">Correct: %1$d of %2$d marked answer</item>
+        <item quantity="other">Correct: %1$d of %2$d marked answers</item>
+    </plurals>
+    <plurals name="practice_summary_pending">
+        <item quantity="one">%1$d answer is waiting to be marked when you are online.</item>
+        <item quantity="other">%1$d answers are waiting to be marked when you are online.</item>
+    </plurals>
+</resources>
