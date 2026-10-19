@@ -33,6 +33,8 @@
     <string name="admin_approved">Approved</string>
     <string name="admin_unreviewed">Not reviewed</string>
     <string name="admin_retired">Retired</string>
+    <string name="admin_draft">Draft · not visible to students</string>
+    <string name="admin_approve_publish">Approve and publish</string>
     <string name="admin_approve">Approve</string>
     <string name="admin_mark_unreviewed">Mark not reviewed</string>
     <string name="admin_retire">Retire</string>

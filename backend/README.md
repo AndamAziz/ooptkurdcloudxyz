@@ -75,6 +75,20 @@ Full request/response contract: [`docs/api-contract.md`](../docs/api-contract.md
   the app labels them. This is a pipeline-test bank, not a curriculum: real, reviewed content is
   required before placement or certificates.
 
+### AI-drafted batches
+
+`content/questions/ai-batch-*.json` holds multiple-choice items drafted with Claude (answer, three
+distractors, explanation). `scripts/db/build_ai_question_seed.py` validates them (one `___` gap,
+four distinct options, no duplicate prompt), shuffles option order deterministically and writes
+`seed/assessment_questions_ai_batch_*.sql`.
+
+* Imported as `status = 'draft'`, `review_status = 'unreviewed'`, `source = 'ai-draft:<batch>'`:
+  **students cannot download them** until a teacher taps *Approve and publish* in Staff tools.
+* Re-running the seed only updates rows that are still unreviewed drafts, so a teacher's decision
+  is never overwritten.
+* Batch 01: 125 items — A1 15, A2 30, B1 30, B2 20, C1 15, C2 15 (grammar and vocabulary).
+  AI drafts can contain mistakes or more than one defensible answer; review is required.
+
 ## Running the database tests locally (no Docker needed)
 
 Requirements: PostgreSQL ≥ 16 server binaries, `pgtap`, `pg_prove`
@@ -99,6 +113,7 @@ Applied to `nefpgqoykfndjvrdultp` with the owner's approval:
 | seed `assessment_questions.sql` | applied — 84 rows; content fingerprint identical to a local run |
 | `20261019203557_staff_tools` | applied — staff RPCs (users, roles, suspension, question review, activity) |
 | `20261019210121_app_releases` | applied — public read of published releases, `app-releases` bucket (public read, service-role upload) |
+| seed `assessment_questions_ai_batch_01.sql` | applied — 125 AI drafts (draft + unreviewed, hidden from students); content fingerprint identical to a local run |
 | `20261019220000_policy_consolidation` | **pending** — contains `DROP POLICY`; the MCP tooling waits for a destructive-statement confirmation it cannot show and times out (nothing is changed). Apply with `supabase db push --workdir backend` |
 
 Verified on the live project: RLS on all tables; `anon` has no table grants and cannot execute any

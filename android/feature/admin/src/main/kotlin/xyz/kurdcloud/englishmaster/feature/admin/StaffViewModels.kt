@@ -111,7 +111,9 @@ class QuestionsViewModel(private val staff: StaffRepository) : ViewModel() {
         }
     }
 
-    fun setApproved(question: StaffQuestion, approved: Boolean) = review(question, approved, status = null)
+    /** Approving a draft (e.g. an AI-drafted item) also publishes it, so students can practise it. */
+    fun setApproved(question: StaffQuestion, approved: Boolean) =
+        review(question, approved, status = if (approved && question.status == "draft") "published" else null)
 
     /** Retired questions can no longer be downloaded or answered by students. */
     fun setRetired(question: StaffQuestion, retired: Boolean) =

@@ -19,6 +19,7 @@ class FakeStaffRepository : StaffRepository {
     )
     val questions = mutableListOf(
         StaffQuestion("q1", CefrLevel.A1, "I ___ a student.", listOf("is", "am", "are"), "B", "Use am with I.", "published", "unreviewed"),
+        StaffQuestion("q2", CefrLevel.B1, "She suggested ___ to the beach.", listOf("going", "to go", "go"), "A", "Suggest + -ing.", "draft", "unreviewed"),
     )
     var failNext: ApiError? = null
     val calls = mutableListOf<String>()
@@ -40,7 +41,7 @@ class FakeStaffRepository : StaffRepository {
     override suspend fun questions(level: CefrLevel) = result { questions.filter { it.level == level } }
     override suspend fun review(questionId: String, approved: Boolean, status: String?) = result {
         calls += "review:$questionId:$approved:$status"
-        ReviewState(if (approved) "approved" else "unreviewed", status ?: "published")
+        ReviewState(if (approved) "approved" else "unreviewed", status ?: questions.first { it.id == questionId }.status)
     }
     override suspend fun recentActivity() = result {
         listOf(ActivityEntry("2026-10-19T20:03:52Z", "admin.bootstrap_admin_granted", "Andam", null))
