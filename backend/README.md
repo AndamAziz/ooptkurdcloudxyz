@@ -50,12 +50,17 @@ Full request/response contract: [`docs/api-contract.md`](../docs/api-contract.md
 
 * 620 rows whose `source` is an **OOPT** document (Oxford Online Placement Test samples) are
   excluded — redistribution rights have not been established.
-* The 3,380 "generated" rows collapse to **1,410 unique items** once the `(vNN)` template suffix is
-  removed; 1,970 were duplicates. Per level: A1 319, A2 169, B1 209, B2 260, C1 306, C2 147.
-* Every seeded item is `status = 'published'` (usable for practice) but
-  `review_status = 'unreviewed'`. Spot checks found ambiguous items (e.g. *"This phone is ___ than my
-  old one"* accepts both "more important" and "better"). The app labels these items as not reviewed.
-  They must be reviewed by a teacher before being used for placement or certificates.
+* The 3,380 "generated" rows are template variants of only **85 distinct sentences** (same prompt
+  with shuffled or swapped distractors, plus a `(vNN)` suffix). The generator keeps one item per
+  (level, prompt), preferring variants without filler options such as `am (alt)`.
+* One prompt (*"This phone is ___ than my old one"*) is keyed to four different answers across its
+  variants and is dropped as ambiguous.
+* One wrong explanation ("carry out" = "find by chance") is corrected in
+  `EXPLANATION_FIXES`; the CSV is unchanged.
+* Result: **84 items** — A1 25, A2 5, B1 11, B2 12, C1 16, C2 15. 5 still contain an `(alt)` filler option.
+* Every seeded item is `status = 'published'` (usable for practice) but `review_status = 'unreviewed'`;
+  the app labels them. This is a pipeline-test bank, not a curriculum: real, reviewed content is
+  required before placement or certificates.
 
 ## Running the database tests locally (no Docker needed)
 
@@ -70,9 +75,27 @@ scripts/db/test-local.sh
 With Docker available, the Supabase CLI can run the same suite against the real local stack:
 `supabase start --workdir backend && supabase test db --workdir backend`.
 
-## Applying to the hosted project
+## Deployment state (2026-10-19)
 
-> Requires the project owner's approval. The migrations are additive; the project was empty when inspected on 2026-10-19.
+Applied to `nefpgqoykfndjvrdultp` with the owner's approval:
+
+| Migration | State |
+|---|---|
+| `20261019194408_identity_and_audit` | applied |
+| `20261019194443_question_bank_and_practice` | applied |
+| seed `assessment_questions.sql` | applied — 84 rows; content fingerprint identical to a local run |
+| `20261019200000_policy_consolidation` | **pending** — two `apply_migration` attempts timed out in the tooling (no change was made); apply with `supabase db push` |
+
+Verified on the live project: RLS on all tables; `anon` has no table grants and cannot execute any
+public function; anonymous REST calls to tables/RPCs return 401 and private helpers 404; a full
+student flow (sign-up trigger, download, server scoring, idempotent replay, summary, blocked
+self-grading and profile edits) run inside a rolled-back transaction — no data left behind.
+
+Security advisor: 3 WARN `authenticated_security_definer_function_executable` for
+`get_practice_questions`, `submit_practice_response`, `update_my_profile`. Intentional: these RPCs
+are the API surface and perform their own authentication, suspension and input checks.
+
+## Applying to a hosted project
 
 ```bash
 supabase link --project-ref nefpgqoykfndjvrdultp --workdir backend

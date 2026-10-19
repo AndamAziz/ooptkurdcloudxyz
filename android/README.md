@@ -62,6 +62,8 @@ Without them the app builds and runs, and sign-in explains that the build is not
 
 ```bash
 ./gradlew test             # 53 JVM/Robolectric tests (no device needed)
+# opt-in, against a live project (creates no data):
+SUPABASE_LIVE_URL=https://<ref>.supabase.co SUPABASE_LIVE_KEY=<publishable key> ./gradlew :core:network:test
 ./gradlew lintDebug
 ./gradlew assembleDebug    # app/build/outputs/apk/debug/app-debug.apk
 ./gradlew assembleRelease  # minified (R8), unsigned
@@ -87,5 +89,5 @@ transfer are disabled.
 
 ## Application ID
 
-`xyz.kurdcloud.englishmaster` — chosen from the repository name; confirm before the first Play
-upload, because it cannot change afterwards.
+`app.englishmaster` (confirmed by the project owner). Kotlin package names
+(`xyz.kurdcloud.englishmaster.*`) are internal and independent of the application ID.

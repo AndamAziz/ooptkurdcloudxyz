@@ -10,11 +10,11 @@ English or Sorani (RTL).
 
 | Path | Content |
 |---|---|
-| `backend/supabase/migrations/` | 2 migrations: identity/roles/profiles/audit log; question bank + server-scored practice |
-| `backend/supabase/seed/` | 1,410 de-duplicated, licence-safe practice questions (A1–C2), flagged unreviewed |
-| `backend/supabase/tests/database/` | 45 pgTAP assertions (RLS isolation, no self-grading, idempotency, rate limit, suspension, admin bootstrap, audit integrity, seed sanity) |
+| `backend/supabase/migrations/` | 3 migrations: identity/roles/profiles/audit log; question bank + server-scored practice; policy consolidation (pending) |
+| `backend/supabase/seed/` | 84 distinct, licence-safe practice questions (A1–C2), flagged unreviewed |
+| `backend/supabase/tests/database/` | 46 pgTAP assertions (RLS isolation, no self-grading, idempotency, rate limit, suspension, admin bootstrap, audit integrity, seed sanity) |
 | `scripts/db/` | seed generator; Supabase emulation + local test runner (no Docker needed) |
-| `android/` | 8-module Gradle project (see `android/README.md`), 53 tests |
+| `android/` | 8-module Gradle project (see `android/README.md`), 53 tests + 2 opt-in live tests |
 | `.github/workflows/englishmaster-ci.yml` | runs both suites + builds APKs on GitHub |
 | `docs/api-contract.md`, `backend/README.md` | contract, schema/policy table, deployment and admin bootstrap |
 
@@ -24,15 +24,15 @@ The Lovable web app (`src/`, `supabase/`) is untouched.
 
 | Suite | Result |
 |---|---|
-| pgTAP on PostgreSQL 16 + Supabase emulation (`scripts/db/test-local.sh`) | **45/45 passed** (seed 5, identity 17, practice 23) |
+| pgTAP on PostgreSQL 16 + Supabase emulation (`scripts/db/test-local.sh`) | **46/46 passed** (seed 6, identity 17, practice 23) |
 | Android JVM/Robolectric (`./gradlew test`, forced re-run, no cache) | **53/53 passed** — model 5, network 8, database 5, data 16, auth 7, practice 9, app 3 |
 | Android Lint (`lintDebug`) | 0 errors; 1 warning (`OldTargetApi`: targetSdk 36 kept on purpose until API 37 behaviour is tested on a device) |
 | `assembleDebug` | ✅ `app-debug.apk` 15 MB, debug-signed, verified with `apksigner`/`aapt2` |
 | `assembleRelease` (R8, minified) | ✅ `app-release-unsigned.apk` 2.2 MB; **unsigned** (no keystore exists); runtime of the minified build not tested |
 | Secret scan of both APKs (`service_role`, `sb_secret`, JWTs) | none found |
 | Install/run on device or emulator, instrumented tests | **not run** — no KVM/device in this environment |
-| Against the hosted Supabase project | **not run** — migrations not applied yet (awaiting approval) |
-| GitHub Actions workflow | added; first run happens on push |
+| Against the hosted Supabase project | ✅ migrations 1–2 + seed applied; live student flow verified in a rolled-back transaction; anonymous access denied; `LiveSupabaseSmokeTest` 2/2 with the app's own client (see `backend/README.md`) |
+| GitHub Actions (run #1) | ✅ database + Android jobs green |
 
 Defects found and fixed during the work (all caught by the tests or lint before commit): RTL not
 applied without `supportsRtl`; `DataStore` not exposed by `core:data`; missing
@@ -42,17 +42,20 @@ loaded; the trailing-lambda regression that the clean build caught; ungrammatica
 ## Content findings
 
 * 620 bank rows come from OOPT (Oxford Online Placement Test) documents → excluded pending licence.
-* 1,970 of 3,380 "generated" rows were duplicates once the `(vNN)` variant suffix was removed.
-* Spot checks found ambiguous items; all seeded items are flagged `unreviewed` and labelled in the
-  app. They are suitable for practice, not for placement decisions or certificates.
+* The 3,380 "generated" rows contain only 85 distinct sentences; after removing one ambiguous item,
+  **84 practice items** remain (A2 has only 5). This is enough to exercise the pipeline, not to teach
+  a level: authoring or licensing real, reviewed content is the main product gap.
+* One wrong explanation corrected in the generator; 5 items keep an `(alt)` filler distractor.
+* All seeded items are flagged `unreviewed` and labelled in the app.
 
 ## Configuration still required
 
-1. **Approval to apply** the two migrations and the seed to `nefpgqoykfndjvrdultp`; then run the security advisors.
-2. Auth settings: e-mail confirmation on, minimum password length 8.
-3. Supabase anon/publishable key in `android/local.properties` (or CI env) to connect the app.
+1. ~~Apply migrations and seed~~ — done; migration 3 (performance only) pending, apply with `supabase db push`.
+2. ~~Auth settings~~ — e-mail confirmation verified on; minimum password length 8 set by the owner.
+3. ~~Publishable key in `android/local.properties`~~ — done locally (git-ignored). For CI-built APKs add
+   repository secrets `SUPABASE_URL` and `SUPABASE_ANON_KEY`.
 4. Run `private.bootstrap_first_admin('<owner e-mail>')` once after the owner signs up.
-5. Confirm the application ID `xyz.kurdcloud.englishmaster`.
+5. ~~Application ID~~ — `app.englishmaster`.
 
 ## Known gaps / risks
 
