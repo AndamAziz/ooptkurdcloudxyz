@@ -106,9 +106,28 @@ Tests in this slice: ViewModel state tests, Room DAO tests (Robolectric), SyncWo
 - Which Supabase project to target (see open questions) and its URL + anon key in `android/local.properties` (git-ignored).
 - For the release phase only: upload keystore outside the repo.
 
-## 6. Open questions / blockers
+## 6. Target Supabase project (inspected 2026-10-19, read-only)
 
-1. **Which Supabase project?** The repo's project `eismzvkrtisofnfdubqn` is not reachable from this session. Options: (a) connect/transfer it so migrations can be checked against the live DB, or (b) create a fresh project for EnglishMaster AI and keep the Lovable app on the old one.
+The owner designated **`nefpgqoykfndjvrdultp` ("EnglishMaster AI", eu-west-1, Postgres 17.11, created 2026-10-19)** as the backend.
+
+| Item | State |
+|---|---|
+| `public` schema | empty — 0 tables, 0 functions, 0 enums |
+| Migrations | none |
+| Edge Functions | none |
+| Auth users | 0 |
+| Storage buckets | 0 |
+| Extensions | `pgcrypto`, `uuid-ossp`, `pg_stat_statements`, `supabase_vault`, `plpgsql` (defaults) |
+| Security advisors | no findings (nothing to check yet) |
+
+Consequences:
+- No user data at risk; schema can be designed cleanly from versioned migrations in this repo.
+- The 31 Lovable migrations should **not** be replayed: they carry defects 1–5 and depend on objects they never create. The new schema is written fresh against the spec; only the question bank content (`public/data/questions*.csv`, `CEFR_Questions.xlsx`) is reusable, via a seed/import script.
+- `.env` and `supabase/config.toml` still point to the old Lovable project `eismzvkrtisofnfdubqn`; the web app keeps using it until a migration decision is made. The Android app will read its URL/anon key from git-ignored `local.properties`.
+
+## 7. Open questions / blockers
+
+1. ~~Which Supabase project?~~ Resolved: `nefpgqoykfndjvrdultp` (empty).
 2. **Is the existing web app in production with real students?** If yes, defects 1–5 should be fixed first as a hotfix migration, and the web client must be updated in the same change (it currently inserts certificates and `is_correct` itself).
 3. **Teacher dashboard:** extend this web app (add `teacher` role) or start the separate React/TS dashboard the spec describes? Extending is the smaller step.
 4. Minimum Android version (proposal: `minSdk 26`).
