@@ -65,6 +65,7 @@ fun HomeScreen(
     onSwitchLanguage: () -> Unit,
     onStartPractice: (CefrLevel) -> Unit,
     onSignOut: () -> Unit,
+    onOpenStaff: () -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbar = remember { SnackbarHostState() }
@@ -95,6 +96,13 @@ fun HomeScreen(
                             Text(stringResource(R.string.practice_menu))
                         }
                         DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
+                            if (state.staffAccess.any) {
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.practice_staff_tools)) },
+                                    onClick = { menuOpen = false; onOpenStaff() },
+                                    modifier = Modifier.testTag("menu_staff"),
+                                )
+                            }
                             DropdownMenuItem(text = { Text(switchLanguageLabel) }, onClick = { menuOpen = false; onSwitchLanguage() })
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.practice_sign_out)) },

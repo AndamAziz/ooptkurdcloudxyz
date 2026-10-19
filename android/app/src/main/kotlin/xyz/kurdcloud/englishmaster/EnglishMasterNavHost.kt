@@ -3,7 +3,9 @@ package xyz.kurdcloud.englishmaster
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -17,6 +19,12 @@ import kotlinx.coroutines.launch
 import xyz.kurdcloud.englishmaster.core.data.RegisterOutcome
 import xyz.kurdcloud.englishmaster.core.designsystem.LoadingState
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
+import xyz.kurdcloud.englishmaster.core.model.StaffAccess
+import xyz.kurdcloud.englishmaster.core.network.ApiResult
+import xyz.kurdcloud.englishmaster.feature.admin.ActivityViewModel
+import xyz.kurdcloud.englishmaster.feature.admin.QuestionsViewModel
+import xyz.kurdcloud.englishmaster.feature.admin.StaffScreen
+import xyz.kurdcloud.englishmaster.feature.admin.UsersViewModel
 import xyz.kurdcloud.englishmaster.feature.auth.AuthMessage
 import xyz.kurdcloud.englishmaster.feature.auth.CheckEmailReason
 import xyz.kurdcloud.englishmaster.feature.auth.CheckEmailScreen
@@ -41,6 +49,7 @@ private object Routes {
     const val CHECK_EMAIL = "check-email/{reason}"
     const val HOME = "home"
     const val PRACTICE = "practice/{level}"
+    const val STAFF = "staff"
 
     fun signIn(expired: Boolean = false) = "sign-in?expired=$expired"
     fun checkEmail(reason: CheckEmailReason) = "check-email/${reason.name}"
@@ -122,8 +131,10 @@ fun EnglishMasterNavHost(
         }
         composable(Routes.HOME) {
             val userId = session?.userId ?: return@composable
+            val homeViewModel = viewModel { HomeViewModel(userId, container.content, container.practice, container.network, container.staff) }
             HomeScreen(
-                viewModel = viewModel { HomeViewModel(userId, container.content, container.practice, container.network) },
+                viewModel = homeViewModel,
+                onOpenStaff = { navController.navigate(Routes.STAFF) },
                 switchLanguageLabel = stringResource(
                     if (currentLanguage == InterfaceLanguage.SORANI) R.string.app_switch_to_english else R.string.app_switch_to_sorani,
                 ),
@@ -138,6 +149,27 @@ fun EnglishMasterNavHost(
                     }
                 },
             )
+        }
+        composable(Routes.STAFF) {
+            val userId = session?.userId ?: return@composable
+            // Re-read roles from the server when the screen opens; tabs follow the result.
+            var access by remember { mutableStateOf<StaffAccess?>(null) }
+            LaunchedEffect(userId) {
+                access = (container.staff.myAccess() as? ApiResult.Success)?.value ?: StaffAccess.NONE
+            }
+            val current = access
+            if (current == null) {
+                LoadingState()
+            } else {
+                StaffScreen(
+                    access = current,
+                    currentUserId = userId,
+                    usersViewModel = { viewModel { UsersViewModel(container.staff) } },
+                    questionsViewModel = { viewModel { QuestionsViewModel(container.staff) } },
+                    activityViewModel = { viewModel { ActivityViewModel(container.staff) } },
+                    onBack = { navController.popBackStack() },
+                )
+            }
         }
         composable(Routes.PRACTICE) { entry ->
             val userId = session?.userId ?: return@composable

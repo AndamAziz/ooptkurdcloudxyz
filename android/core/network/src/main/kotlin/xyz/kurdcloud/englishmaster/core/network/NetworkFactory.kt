@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import java.util.concurrent.TimeUnit
 
-class SupabaseServices(val auth: AuthApi, val practice: PracticeApi)
+class SupabaseServices(val auth: AuthApi, val practice: PracticeApi, val staff: StaffApi)
 
 object NetworkFactory {
     val json = Json {
@@ -29,7 +29,8 @@ object NetworkFactory {
             .addInterceptor(BearerTokenInterceptor(sessions, refresher))
             .authenticator(RefreshingAuthenticator(refresher))
             .build()
-        return SupabaseServices(auth, retrofit(config, restClient).create(PracticeApi::class.java))
+        val rest = retrofit(config, restClient)
+        return SupabaseServices(auth, rest.create(PracticeApi::class.java), rest.create(StaffApi::class.java))
     }
 
     private fun retrofit(config: SupabaseConfig, client: OkHttpClient): Retrofit = Retrofit.Builder()

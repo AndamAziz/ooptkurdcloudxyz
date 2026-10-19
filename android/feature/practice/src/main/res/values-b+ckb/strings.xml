@@ -2,6 +2,7 @@
 <resources>
     <string name="practice_home_title">EnglishMaster AI</string>
     <string name="practice_menu">لیست</string>
+    <string name="practice_staff_tools">ئامرازەکانی بەڕێوەبردن</string>
     <string name="practice_sign_out">چوونەدەرەوە</string>
     <string name="practice_sign_out_confirm">دەتەوێت لەم ئامێرەدا بچیتە دەرەوە؟</string>
     <plurals name="practice_sign_out_pending">

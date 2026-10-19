@@ -32,7 +32,20 @@ scripts/db/
 RLS is enabled on every table; `anon` has no table privileges. Helper functions live in schema
 `private`, which the Data API does not expose.
 
-RPCs (all require a signed-in, non-suspended user):
+Staff RPCs (`20261019203557_staff_tools`, role checked on the server, every change logged):
+
+| RPC | Allowed for | Notes |
+|---|---|---|
+| `get_my_roles()` | any signed-in user | own roles only |
+| `admin_list_users(p_search, p_limit, p_offset)` | admin | name/e-mail search (wildcards escaped), roles, practice totals |
+| `admin_set_role(p_user_id, p_role, p_granted)` | admin | teacher/admin only; cannot remove own admin role |
+| `admin_set_account_status(p_user_id, p_status)` | admin | cannot change own status |
+| `admin_recent_activity(p_limit)` | admin | activity log with actor names |
+| `staff_review_question(p_question_id, p_review_status, p_status)` | teacher, admin | approve / unreview; publish / retire |
+
+Teachers and admins also read `assessment_questions` (with answer keys) directly; RLS allows no one else.
+
+Student RPCs (all require a signed-in, non-suspended user):
 
 * `get_practice_questions(p_cefr_level, p_after, p_limit)` — published questions **without**
   `correct_option`/`explanation`, keyset-paginated, max 200 per page.
@@ -84,7 +97,8 @@ Applied to `nefpgqoykfndjvrdultp` with the owner's approval:
 | `20261019194408_identity_and_audit` | applied |
 | `20261019194443_question_bank_and_practice` | applied |
 | seed `assessment_questions.sql` | applied — 84 rows; content fingerprint identical to a local run |
-| `20261019200000_policy_consolidation` | **pending** — two `apply_migration` attempts timed out in the tooling (no change was made); apply with `supabase db push` |
+| `20261019203557_staff_tools` | applied — staff RPCs (users, roles, suspension, question review, activity) |
+| `20261019220000_policy_consolidation` | **pending** — contains `DROP POLICY`; the MCP tooling waits for a destructive-statement confirmation it cannot show and times out (nothing is changed). Apply with `supabase db push --workdir backend` |
 
 Verified on the live project: RLS on all tables; `anon` has no table grants and cannot execute any
 public function; anonymous REST calls to tables/RPCs return 401 and private helpers 404; a full

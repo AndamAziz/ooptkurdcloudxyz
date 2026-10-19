@@ -20,6 +20,11 @@ Compose · Room · DataStore + Android Keystore · Retrofit/OkHttp · WorkManage
   * Uploads are idempotent (device-generated response id), so retries cannot create duplicates.
 * No answer keys, service keys or secrets are on the device.
 
+* **Staff tools** (menu → Staff tools, shown only when the server reports a staff role): admins
+  manage users (search, teacher/admin roles with confirmation, suspend/reactivate) and see the
+  activity log; teachers and admins review questions (approve, retire, publish again). The server
+  enforces every permission; the admin cannot demote or suspend themselves.
+
 Not in this slice: placement test, courses/lessons, AI tutor, speaking/listening, certificates,
 teacher dashboard. The project is laid out so these become new `feature:*` modules.
 
@@ -34,6 +39,7 @@ teacher dashboard. The project is laid out so these become new `feature:*` modul
 | `core:designsystem` | Theme and shared loading/error/empty/offline components; declares RTL support |
 | `feature:auth` | Welcome, sign-in, register, reset, check-email |
 | `feature:practice` | Home (levels, downloads, sync) and practice session |
+| `feature:admin` | Staff tools: users and roles, question review, activity log |
 | `app` | Application, manual DI container, navigation, manifest, resources |
 
 ## Toolchain (verified 2026-10-19)
@@ -60,7 +66,7 @@ Every build connects to project `nefpgqoykfndjvrdultp` by default (`englishmaste
 ## Build and test
 
 ```bash
-./gradlew test             # 53 JVM/Robolectric tests (no device needed)
+./gradlew test             # 74 JVM/Robolectric tests (no device needed)
 # opt-in, against a live project (creates no data):
 SUPABASE_LIVE_URL=https://<ref>.supabase.co SUPABASE_LIVE_KEY=<publishable key> ./gradlew :core:network:test
 ./gradlew lintDebug

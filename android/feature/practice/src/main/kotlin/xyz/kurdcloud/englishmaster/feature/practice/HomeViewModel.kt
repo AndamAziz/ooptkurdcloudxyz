@@ -13,9 +13,11 @@ import kotlinx.coroutines.launch
 import xyz.kurdcloud.englishmaster.core.data.ContentRepository
 import xyz.kurdcloud.englishmaster.core.data.NetworkMonitor
 import xyz.kurdcloud.englishmaster.core.data.PracticeRepository
+import xyz.kurdcloud.englishmaster.core.data.StaffRepository
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.LevelPack
 import xyz.kurdcloud.englishmaster.core.model.LevelProgress
+import xyz.kurdcloud.englishmaster.core.model.StaffAccess
 import xyz.kurdcloud.englishmaster.core.model.SyncReport.StopReason
 import xyz.kurdcloud.englishmaster.core.network.ApiError
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
@@ -37,6 +39,8 @@ data class HomeUiState(
     val levels: List<LevelRow> = CefrLevel.practiceLevels.map { LevelRow(it, null, null, null) },
     val syncing: Boolean = false,
     val message: UiMessage? = null,
+    /** Which staff screens to offer; the server enforces the real permissions. */
+    val staffAccess: StaffAccess = StaffAccess.NONE,
 )
 
 class HomeViewModel(
@@ -44,11 +48,17 @@ class HomeViewModel(
     private val content: ContentRepository,
     private val practice: PracticeRepository,
     network: NetworkMonitor,
+    private val staff: StaffRepository? = null,
 ) : ViewModel() {
     private val transient = MutableStateFlow(Transient())
     private val downloadJobs = mutableMapOf<CefrLevel, Job>()
 
-    private data class Transient(val downloads: Map<CefrLevel, Int> = emptyMap(), val syncing: Boolean = false, val message: UiMessage? = null)
+    private data class Transient(
+        val downloads: Map<CefrLevel, Int> = emptyMap(),
+        val syncing: Boolean = false,
+        val message: UiMessage? = null,
+        val staffAccess: StaffAccess = StaffAccess.NONE,
+    )
 
     val uiState: StateFlow<HomeUiState> = combine(
         content.observePacks(),
@@ -65,10 +75,24 @@ class HomeViewModel(
             },
             syncing = t.syncing,
             message = t.message,
+            staffAccess = t.staffAccess,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUiState())
 
     private val online = network.isOnline
+
+    init {
+        refreshStaffAccess()
+    }
+
+    /** Asks the server which roles the user has; offline or on error no staff entry is shown. */
+    fun refreshStaffAccess() {
+        val repo = staff ?: return
+        viewModelScope.launch {
+            val access = (repo.myAccess() as? ApiResult.Success)?.value ?: StaffAccess.NONE
+            transient.update { it.copy(staffAccess = access) }
+        }
+    }
 
     fun download(level: CefrLevel) {
         if (downloadJobs[level]?.isActive == true) return

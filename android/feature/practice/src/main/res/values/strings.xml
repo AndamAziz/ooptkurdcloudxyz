@@ -2,6 +2,7 @@
 <resources>
     <string name="practice_home_title">EnglishMaster AI</string>
     <string name="practice_menu">Menu</string>
+    <string name="practice_staff_tools">Staff tools</string>
     <string name="practice_sign_out">Sign out</string>
     <string name="practice_sign_out_confirm">Do you want to sign out on this device?</string>
     <plurals name="practice_sign_out_pending">

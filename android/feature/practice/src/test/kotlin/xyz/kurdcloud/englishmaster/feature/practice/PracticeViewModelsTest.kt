@@ -125,4 +125,25 @@ class PracticeViewModelsTest {
         assertEquals(R.string.practice_sync_sign_in, vm.uiState.value.message?.text)
         assertEquals(false, vm.uiState.first().syncing)
     }
+
+    @Test
+    fun `staff menu follows the roles reported by the server`() = runTest {
+        val staff = object : xyz.kurdcloud.englishmaster.core.data.StaffRepository {
+            override suspend fun myAccess() = xyz.kurdcloud.englishmaster.core.network.ApiResult.Success(
+                xyz.kurdcloud.englishmaster.core.model.StaffAccess(canReviewQuestions = true, canManageUsers = false))
+            override suspend fun users(search: String?) = TODO()
+            override suspend fun setRole(userId: String, role: xyz.kurdcloud.englishmaster.core.model.Role, granted: Boolean) = TODO()
+            override suspend fun setSuspended(userId: String, suspended: Boolean) = TODO()
+            override suspend fun questions(level: CefrLevel) = TODO()
+            override suspend fun review(questionId: String, approved: Boolean, status: String?) = TODO()
+            override suspend fun recentActivity() = TODO()
+        }
+        val vm = HomeViewModel("u1", FakeContent(), FakePractice(FakeNetwork()), FakeNetwork(), staff)
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.uiState.collect {} }
+        assertTrue(vm.uiState.value.staffAccess.canReviewQuestions)
+
+        val student = HomeViewModel("u1", FakeContent(), FakePractice(FakeNetwork()), FakeNetwork())
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { student.uiState.collect {} }
+        assertEquals(false, student.uiState.value.staffAccess.any)
+    }
 }

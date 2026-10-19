@@ -1,3 +1,5 @@
+-- PENDING on nefpgqoykfndjvrdultp: contains DROP POLICY, which the MCP tooling cannot confirm.
+-- Apply with `supabase db push --workdir backend` (confirm when prompted).
 -- Performance advisor follow-up (no change in who can read what):
 -- * one SELECT policy per table instead of separate owner/admin policies, so Postgres
 --   evaluates a single expression per row;

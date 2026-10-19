@@ -15,6 +15,8 @@ import xyz.kurdcloud.englishmaster.core.data.OfflineFirstPracticeRepository
 import xyz.kurdcloud.englishmaster.core.data.PracticeRepository
 import xyz.kurdcloud.englishmaster.core.data.ResponseSyncer
 import xyz.kurdcloud.englishmaster.core.data.SessionStore
+import xyz.kurdcloud.englishmaster.core.data.StaffRepository
+import xyz.kurdcloud.englishmaster.core.data.SupabaseStaffRepository
 import xyz.kurdcloud.englishmaster.core.data.SupabaseAuthRepository
 import xyz.kurdcloud.englishmaster.core.data.SyncScheduler
 import xyz.kurdcloud.englishmaster.core.data.WorkManagerSyncScheduler
@@ -40,6 +42,7 @@ class AppContainer(context: Context) {
     val auth: AuthRepository = SupabaseAuthRepository(config, services.auth, sessionStore)
     val content: ContentRepository =
         OfflineFirstContentRepository(services.practice, database.questions(), database.levelPacks(), database.content())
+    val staff: StaffRepository = SupabaseStaffRepository(services.staff)
     val practice: PracticeRepository =
         OfflineFirstPracticeRepository(database.responses(), syncer, { syncScheduler.requestSync() }, network)
 }
