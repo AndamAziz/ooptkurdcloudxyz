@@ -15,7 +15,7 @@ export const useSessionRefresh = ({
   enabled = true,
   onSessionExpired,
 }: UseSessionRefreshOptions = {}) => {
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const lastRefreshRef = useRef<number>(Date.now());
 
   const refreshSession = useCallback(async () => {
