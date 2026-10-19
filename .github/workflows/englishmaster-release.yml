@@ -37,14 +37,13 @@ jobs:
 
       - name: Check required secrets
         env:
-          KS: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           KSP: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           KP: ${{ secrets.ANDROID_KEY_PASSWORD }}
           SRK: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
           missing=0
-          for v in KS KSP ALIAS KP SRK; do [ -n "${!v}" ] || { echo "::error::secret for $v is not set"; missing=1; }; done
+          for v in KSP ALIAS KP SRK; do [ -n "${!v}" ] || { echo "::error::secret for $v is not set"; missing=1; }; done
           exit $missing
 
       - name: Tag must match versionName
@@ -53,22 +52,15 @@ jobs:
           [ "v$NAME" = "$GITHUB_REF_NAME" ] || { echo "::error::tag $GITHUB_REF_NAME does not match versionName $NAME"; exit 1; }
 
       - name: Decode and check the signing key
+        working-directory: .
         env:
+          ANDROID_KEYSTORE_ENCRYPTION_KEY: ${{ secrets.ANDROID_KEYSTORE_ENCRYPTION_KEY }}
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: |
-          KS="$RUNNER_TEMP/release.jks"
-          # Pasted secrets often contain line breaks or spaces; base64 itself never does.
-          printf '%s' "$ANDROID_KEYSTORE_BASE64" | tr -d ' \t\r\n' | base64 -d > "$KS" \
-            || { echo "::error::ANDROID_KEYSTORE_BASE64 is not valid base64 (copy the whole line again)"; exit 1; }
-          PW=$(printf '%s' "$ANDROID_KEYSTORE_PASSWORD" | tr -d '\r\n')
-          ALIAS=$(printf '%s' "$ANDROID_KEY_ALIAS" | tr -d ' \t\r\n')
-          keytool -list -keystore "$KS" -storepass "$PW" > /dev/null 2>&1 \
-            || { echo "::error::keystore could not be opened: ANDROID_KEYSTORE_BASE64 or ANDROID_KEYSTORE_PASSWORD is wrong"; exit 1; }
-          keytool -list -keystore "$KS" -storepass "$PW" -alias "$ALIAS" > /dev/null 2>&1 \
-            || { echo "::error::alias '$ALIAS' not found: ANDROID_KEY_ALIAS should be englishmaster"; exit 1; }
-          echo "ANDROID_KEYSTORE_PATH=$KS" >> "$GITHUB_ENV"
+          scripts/release/decode_keystore.sh "$RUNNER_TEMP/release.jks"
+          echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
 
       - name: Test and build signed release
         env:

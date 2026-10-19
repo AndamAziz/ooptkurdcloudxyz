@@ -22,13 +22,16 @@ GitHub → Settings → Secrets and variables → Actions → New repository sec
 
 | Secret | Value |
 |---|---|
-| `ANDROID_KEYSTORE_BASE64` | base64 of `englishmaster-release.jks` (one line) |
+| `ANDROID_KEYSTORE_ENCRYPTION_KEY` | passphrase that decrypts `android/release-signing/englishmaster-release.jks.enc` (AES-256, PBKDF2 600k). Alternative: `ANDROID_KEYSTORE_BASE64` with the whole keystore as base64 |
 | `ANDROID_KEYSTORE_PASSWORD` | keystore password |
 | `ANDROID_KEY_ALIAS` | `englishmaster` |
 | `ANDROID_KEY_PASSWORD` | key password (same as keystore password) |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Project Settings → API Keys → a **secret** key (`sb_secret_…`) or the legacy `service_role` key |
 
-These values never go into the repository or the app. The service key is used only by the release
+These values never go into the repository or the app. The keystore in the repository is encrypted;
+without the passphrase it is unusable (and the keystore itself is also password-protected).
+Every push runs a **Release secrets check** job in CI that decrypts the key and tests the Supabase
+key without publishing anything, so problems show up before a tag is created. The service key is used only by the release
 job to upload the APK and register the release.
 
 ## Publishing a release

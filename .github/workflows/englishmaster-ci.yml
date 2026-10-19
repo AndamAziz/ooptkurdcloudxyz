@@ -6,7 +6,8 @@ on:
       - "android/**"
       - "backend/**"
       - "scripts/db/**"
-      - ".github/workflows/englishmaster-ci.yml"
+      - "scripts/release/**"
+      - ".github/workflows/englishmaster-*.yml"
   pull_request:
     paths:
       - "android/**"
@@ -64,3 +65,32 @@ jobs:
         with:
           name: app-debug-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
+
+  release-readiness:
+    name: Release secrets check (no publishing)
+    runs-on: ubuntu-24.04
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Signing key decrypts and opens
+        env:
+          ANDROID_KEYSTORE_ENCRYPTION_KEY: ${{ secrets.ANDROID_KEYSTORE_ENCRYPTION_KEY }}
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          if [ -z "$ANDROID_KEYSTORE_PASSWORD" ]; then echo "::notice::signing secrets not configured; skipping"; exit 0; fi
+          scripts/release/decode_keystore.sh "$RUNNER_TEMP/check.jks"
+          rm -f "$RUNNER_TEMP/check.jks"
+      - name: Supabase service key can read releases and see the bucket
+        env:
+          KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ -z "$KEY" ]; then echo "::notice::SUPABASE_SERVICE_ROLE_KEY not configured; skipping"; exit 0; fi
+          URL=$(sed -nE 's/^englishmaster.supabase.url=//p' android/gradle.properties)
+          AUTH=(-H "apikey: $KEY"); [[ "$KEY" == sb_secret_* ]] || AUTH+=(-H "Authorization: Bearer $KEY")
+          code=$(curl -s -o /dev/null -w '%{http_code}' "${AUTH[@]}" "$URL/rest/v1/app_releases?select=version_code&limit=1")
+          [ "$code" = 200 ] || { echo "::error::SUPABASE_SERVICE_ROLE_KEY rejected by the REST API (HTTP $code)"; exit 1; }
+          code=$(curl -s -o /dev/null -w '%{http_code}' "${AUTH[@]}" "$URL/storage/v1/bucket/app-releases")
+          [ "$code" = 200 ] || { echo "::error::SUPABASE_SERVICE_ROLE_KEY cannot access the app-releases bucket (HTTP $code)"; exit 1; }
+          echo "Supabase service key OK"
