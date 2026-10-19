@@ -51,12 +51,11 @@ SDK packages: `platforms;android-37.2`, `build-tools;36.0.0`, `platform-tools`.
 
 ## Configure
 
-```bash
-cp local.properties.example local.properties
-# set sdk.dir, supabase.url, supabase.anonKey (public anon/publishable key only)
-```
-CI can use the environment variables `SUPABASE_URL` and `SUPABASE_ANON_KEY` instead.
-Without them the app builds and runs, and sign-in explains that the build is not connected.
+Every build connects to project `nefpgqoykfndjvrdultp` by default (`englishmaster.supabase.*` in
+`gradle.properties`; the publishable key is public by design). To point a build elsewhere, set
+`supabase.url` / `supabase.anonKey` in `local.properties` or the `SUPABASE_URL` /
+`SUPABASE_ANON_KEY` environment variables. `sdk.dir` goes in `local.properties`
+(see `local.properties.example`).
 
 ## Build and test
 

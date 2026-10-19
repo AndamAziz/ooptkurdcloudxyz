@@ -5,18 +5,18 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
-// Public Supabase client configuration. Read from local.properties (git-ignored) or
-// environment variables in CI. Only the URL and the public anon/publishable key belong
-// here — never a service_role key.
+// Public Supabase client configuration, in order of precedence: local.properties (git-ignored),
+// environment variables, then the defaults in gradle.properties. Only the URL and the public
+// anon/publishable key belong here — never a service_role or secret key.
 val localProperties = Properties().apply {
     val file = rootProject.file("local.properties")
     if (file.exists()) file.inputStream().use { load(it) }
 }
-fun config(property: String, env: String): String =
-    (localProperties.getProperty(property) ?: System.getenv(env) ?: "").trim()
+fun config(property: String, env: String, default: String): String =
+    (localProperties.getProperty(property) ?: System.getenv(env) ?: providers.gradleProperty(default).orNull ?: "").trim()
 
-val supabaseUrl = config("supabase.url", "SUPABASE_URL")
-val supabaseAnonKey = config("supabase.anonKey", "SUPABASE_ANON_KEY")
+val supabaseUrl = config("supabase.url", "SUPABASE_URL", "englishmaster.supabase.url")
+val supabaseAnonKey = config("supabase.anonKey", "SUPABASE_ANON_KEY", "englishmaster.supabase.publishableKey")
 
 android {
     namespace = "xyz.kurdcloud.englishmaster"
@@ -26,8 +26,8 @@ android {
         applicationId = "app.englishmaster"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 2
+        versionName = "0.1.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SUPABASE_URL", "\"$supabaseUrl\"")
         buildConfigField("String", "SUPABASE_ANON_KEY", "\"$supabaseAnonKey\"")
