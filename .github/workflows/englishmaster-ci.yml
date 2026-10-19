@@ -83,6 +83,7 @@ jobs:
           scripts/release/decode_keystore.sh "$RUNNER_TEMP/check.jks"
           rm -f "$RUNNER_TEMP/check.jks"
       - name: Supabase service key can read releases and see the bucket
+        if: ${{ !cancelled() }}
         env:
           KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
