@@ -33,6 +33,8 @@
     <string name="admin_approved">پەسەندکراو</string>
     <string name="admin_unreviewed">پێداچوونەوەی بۆ نەکراوە</string>
     <string name="admin_retired">لابراو</string>
+    <string name="admin_draft">ڕەشنووس · قوتابی نایبینێت</string>
+    <string name="admin_approve_publish">پەسەندکردن و بڵاوکردنەوە</string>
     <string name="admin_approve">پەسەندکردن</string>
     <string name="admin_mark_unreviewed">نیشانکردن وەک پێداچوونەوە نەکراو</string>
     <string name="admin_retire">لابردن</string>

@@ -266,11 +266,13 @@ private fun QuestionsTab(vm: QuestionsViewModel, snackbar: SnackbarHostState) {
 private fun QuestionCard(q: StaffQuestion, busy: Boolean, onApprove: (Boolean) -> Unit, onRetire: (Boolean) -> Unit) {
     val approved = q.reviewStatus == "approved"
     val retired = q.status == "retired"
+    val draft = q.status == "draft"
     Card(Modifier.fillMaxWidth().testTag("question_${q.id}")) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 AssistChip(onClick = {}, label = { Text(stringResource(if (approved) R.string.admin_approved else R.string.admin_unreviewed)) })
                 if (retired) AssistChip(onClick = {}, label = { Text(stringResource(R.string.admin_retired)) })
+                if (draft) AssistChip(onClick = {}, label = { Text(stringResource(R.string.admin_draft)) })
             }
             // Learning content is English: keep it left-to-right in the Sorani UI.
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
@@ -289,7 +291,7 @@ private fun QuestionCard(q: StaffQuestion, busy: Boolean, onApprove: (Boolean) -
             }
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.Center) {
                 OutlinedButton(onClick = { onApprove(!approved) }, enabled = !busy, modifier = Modifier.testTag("approve_${q.id}")) {
-                    Text(stringResource(if (approved) R.string.admin_mark_unreviewed else R.string.admin_approve))
+                    Text(stringResource(if (approved) R.string.admin_mark_unreviewed else if (draft) R.string.admin_approve_publish else R.string.admin_approve))
                 }
                 OutlinedButton(onClick = { onRetire(!retired) }, enabled = !busy) {
                     Text(stringResource(if (retired) R.string.admin_publish else R.string.admin_retire))

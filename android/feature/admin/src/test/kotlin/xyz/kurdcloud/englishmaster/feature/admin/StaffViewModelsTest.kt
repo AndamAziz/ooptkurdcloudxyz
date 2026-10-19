@@ -71,6 +71,15 @@ class StaffViewModelsTest {
     }
 
     @Test
+    fun `approving a draft publishes it`() {
+        val vm = QuestionsViewModel(repo)
+        vm.load(CefrLevel.B1)
+        vm.setApproved(vm.uiState.value.questions.single(), true)
+        assertEquals("published", vm.uiState.value.questions.single().status)
+        assertEquals("review:q2:true:published", repo.calls.last())
+    }
+
+    @Test
     fun `activity loads`() {
         assertEquals("Andam", ActivityViewModel(repo).uiState.value.entries.single().actorName)
     }

@@ -6,6 +6,7 @@ on:
       - "android/**"
       - "backend/**"
       - "scripts/db/**"
+      - "content/questions/**"
       - "scripts/release/**"
       - ".github/workflows/englishmaster-*.yml"
   pull_request:
@@ -13,6 +14,7 @@ on:
       - "android/**"
       - "backend/**"
       - "scripts/db/**"
+      - "content/questions/**"
       - ".github/workflows/englishmaster-ci.yml"
 
 permissions:
@@ -31,6 +33,7 @@ jobs:
       - name: Seed is up to date with the CSV
         run: |
           python3 scripts/db/build_question_seed.py
+          python3 scripts/db/build_ai_question_seed.py
           git diff --exit-code backend/supabase/seed/
       - name: Run migrations, seed and tests
         run: scripts/db/test-local.sh

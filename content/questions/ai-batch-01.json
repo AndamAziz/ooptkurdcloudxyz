@@ -1,0 +1,1894 @@
+{
+ "batch": "ai-batch-01",
+ "note": "AI-drafted (Claude) multiple-choice items. Imported as status=draft, review_status=unreviewed: students never see them until a teacher approves them in Staff tools, which also publishes them.",
+ "items": [
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "My sister ___ two children.",
+   "answer": "has",
+   "distractors": [
+    "have",
+    "having",
+    "is"
+   ],
+   "explanation": "Use 'has' with he/she/it in the present simple.",
+   "tags": [
+    "have_got"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ you like coffee?",
+   "answer": "Do",
+   "distractors": [
+    "Does",
+    "Are",
+    "Is"
+   ],
+   "explanation": "Questions in the present simple with 'you' use 'Do'.",
+   "tags": [
+    "present_simple",
+    "questions"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "This is Sara. ___ is my friend.",
+   "answer": "She",
+   "distractors": [
+    "Her",
+    "He",
+    "They"
+   ],
+   "explanation": "Use the subject pronoun 'She' for a woman or girl.",
+   "tags": [
+    "pronouns"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "We ___ football on Fridays.",
+   "answer": "play",
+   "distractors": [
+    "plays",
+    "playing",
+    "are play"
+   ],
+   "explanation": "Use the base form of the verb with 'we' in the present simple.",
+   "tags": [
+    "present_simple"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "That is ___ book. It belongs to me.",
+   "answer": "my",
+   "distractors": [
+    "me",
+    "I",
+    "mine"
+   ],
+   "explanation": "Use the possessive adjective 'my' before a noun.",
+   "tags": [
+    "possessives"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "He doesn't ___ meat.",
+   "answer": "eat",
+   "distractors": [
+    "eats",
+    "eating",
+    "ate"
+   ],
+   "explanation": "After 'doesn't' use the base form of the verb.",
+   "tags": [
+    "present_simple",
+    "negatives"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "Look! The children ___ in the garden.",
+   "answer": "are playing",
+   "distractors": [
+    "play",
+    "plays",
+    "is playing"
+   ],
+   "explanation": "Use the present continuous for actions happening now; 'children' is plural, so 'are'.",
+   "tags": [
+    "present_continuous"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "There ___ a cat under the table.",
+   "answer": "is",
+   "distractors": [
+    "are",
+    "be",
+    "am"
+   ],
+   "explanation": "Use 'There is' with a singular noun.",
+   "tags": [
+    "there_is_are"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I can ___ English.",
+   "answer": "speak",
+   "distractors": [
+    "speaks",
+    "speaking",
+    "to speak"
+   ],
+   "explanation": "After 'can' use the base form of the verb without 'to'.",
+   "tags": [
+    "modals"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The opposite of 'hot' is ___.",
+   "answer": "cold",
+   "distractors": [
+    "warm",
+    "big",
+    "fast"
+   ],
+   "explanation": "'Cold' is the opposite of 'hot'.",
+   "tags": [
+    "opposites"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I wake up in the ___ and go to bed at night.",
+   "answer": "morning",
+   "distractors": [
+    "evening",
+    "night",
+    "week"
+   ],
+   "explanation": "We usually wake up in the morning.",
+   "tags": [
+    "time"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "My mother's brother is my ___.",
+   "answer": "uncle",
+   "distractors": [
+    "aunt",
+    "cousin",
+    "nephew"
+   ],
+   "explanation": "Your parent's brother is your uncle.",
+   "tags": [
+    "family"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "You use a ___ to cut bread.",
+   "answer": "knife",
+   "distractors": [
+    "spoon",
+    "cup",
+    "plate"
+   ],
+   "explanation": "A knife is used for cutting.",
+   "tags": [
+    "household"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Monday, Tuesday, ___, Thursday.",
+   "answer": "Wednesday",
+   "distractors": [
+    "Friday",
+    "Sunday",
+    "Saturday"
+   ],
+   "explanation": "Wednesday comes between Tuesday and Thursday.",
+   "tags": [
+    "days"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I'm ___. Can I have a glass of water?",
+   "answer": "thirsty",
+   "distractors": [
+    "hungry",
+    "tired",
+    "cold"
+   ],
+   "explanation": "When you need a drink, you are thirsty.",
+   "tags": [
+    "feelings"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I ___ to the cinema last weekend.",
+   "answer": "went",
+   "distractors": [
+    "go",
+    "have gone",
+    "was go"
+   ],
+   "explanation": "'Last weekend' is a finished time, so use the past simple 'went'.",
+   "tags": [
+    "past_simple"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Did you ___ the email I sent?",
+   "answer": "get",
+   "distractors": [
+    "got",
+    "gets",
+    "getting"
+   ],
+   "explanation": "After 'Did' use the base form of the verb.",
+   "tags": [
+    "past_simple",
+    "questions"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "She was cooking when the phone ___.",
+   "answer": "rang",
+   "distractors": [
+    "was ringing",
+    "rings",
+    "ring"
+   ],
+   "explanation": "A short action interrupting a longer one uses the past simple.",
+   "tags": [
+    "past_continuous"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "This bag is ___ than that one.",
+   "answer": "heavier",
+   "distractors": [
+    "heavyer",
+    "more heavy",
+    "heaviest"
+   ],
+   "explanation": "For adjectives ending in consonant + y, change y to i and add -er.",
+   "tags": [
+    "comparatives"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "It's the ___ day of the year.",
+   "answer": "hottest",
+   "distractors": [
+    "hotter",
+    "most hot",
+    "hotest"
+   ],
+   "explanation": "Superlative of 'hot': double the t and add -est.",
+   "tags": [
+    "superlatives"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I'm ___ visit my grandparents tomorrow.",
+   "answer": "going to",
+   "distractors": [
+    "go to",
+    "will",
+    "going"
+   ],
+   "explanation": "Use 'be going to + verb' for plans.",
+   "tags": [
+    "future"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "You ___ wear a seatbelt in the car. It's the law.",
+   "answer": "must",
+   "distractors": [
+    "mustn't",
+    "don't have to",
+    "can't"
+   ],
+   "explanation": "'Must' expresses an obligation such as a law.",
+   "tags": [
+    "modals"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "How ___ sugar do you want in your tea?",
+   "answer": "much",
+   "distractors": [
+    "many",
+    "lot",
+    "few"
+   ],
+   "explanation": "'Sugar' is uncountable, so use 'how much'.",
+   "tags": [
+    "quantifiers"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "We haven't got ___ milk left.",
+   "answer": "any",
+   "distractors": [
+    "some",
+    "a",
+    "many"
+   ],
+   "explanation": "Use 'any' in negative sentences.",
+   "tags": [
+    "some_any"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "He usually ___ the bus to work.",
+   "answer": "takes",
+   "distractors": [
+    "is taking",
+    "take",
+    "taking"
+   ],
+   "explanation": "Use the present simple for habits; 'he' takes -s.",
+   "tags": [
+    "present_simple"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I've lived here ___ 2019.",
+   "answer": "since",
+   "distractors": [
+    "for",
+    "from",
+    "ago"
+   ],
+   "explanation": "Use 'since' with a point in time.",
+   "tags": [
+    "present_perfect",
+    "for_since"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "She has worked here ___ five years.",
+   "answer": "for",
+   "distractors": [
+    "since",
+    "during",
+    "ago"
+   ],
+   "explanation": "Use 'for' with a period of time.",
+   "tags": [
+    "present_perfect",
+    "for_since"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Have you ever ___ to Paris?",
+   "answer": "been",
+   "distractors": [
+    "went",
+    "go",
+    "was"
+   ],
+   "explanation": "Present perfect: have + past participle 'been'.",
+   "tags": [
+    "present_perfect"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "The film was ___ boring that I fell asleep.",
+   "answer": "so",
+   "distractors": [
+    "such",
+    "too",
+    "very"
+   ],
+   "explanation": "Use 'so + adjective + that' for a result.",
+   "tags": [
+    "so_such"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I don't have ___ money to buy a car.",
+   "answer": "enough",
+   "distractors": [
+    "too",
+    "so",
+    "very"
+   ],
+   "explanation": "'Enough' comes before a noun to mean 'as much as needed'.",
+   "tags": [
+    "enough_too"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "If it rains, we ___ at home.",
+   "answer": "will stay",
+   "distractors": [
+    "stay",
+    "would stay",
+    "stayed"
+   ],
+   "explanation": "First conditional: if + present simple, will + verb.",
+   "tags": [
+    "conditionals"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "The man ___ lives next door is a doctor.",
+   "answer": "who",
+   "distractors": [
+    "which",
+    "what",
+    "where"
+   ],
+   "explanation": "Use 'who' for people in relative clauses.",
+   "tags": [
+    "relative_clauses"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "She can't come because she ___ her leg.",
+   "answer": "has broken",
+   "distractors": [
+    "has broke",
+    "have broken",
+    "is breaking"
+   ],
+   "explanation": "Present perfect for a past action with a result now: has + broken.",
+   "tags": [
+    "present_perfect"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "We arrived ___ the airport at six o'clock.",
+   "answer": "at",
+   "distractors": [
+    "to",
+    "in",
+    "on"
+   ],
+   "explanation": "'Arrive at' is used for buildings and specific places like an airport.",
+   "tags": [
+    "prepositions"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "My birthday is ___ June.",
+   "answer": "in",
+   "distractors": [
+    "on",
+    "at",
+    "by"
+   ],
+   "explanation": "Use 'in' with months.",
+   "tags": [
+    "prepositions",
+    "time"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I need to ___ some money from the bank.",
+   "answer": "withdraw",
+   "distractors": [
+    "lend",
+    "spend",
+    "pay"
+   ],
+   "explanation": "You withdraw money when you take it out of a bank account.",
+   "tags": [
+    "money"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Can you ___ me your pen? I'll give it back.",
+   "answer": "lend",
+   "distractors": [
+    "borrow",
+    "take",
+    "keep"
+   ],
+   "explanation": "You lend something to someone; they borrow it from you.",
+   "tags": [
+    "confusing_words"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Please ___ off the lights when you leave.",
+   "answer": "turn",
+   "distractors": [
+    "close",
+    "put",
+    "make"
+   ],
+   "explanation": "'Turn off' means to stop a light or machine working.",
+   "tags": [
+    "phrasal_verbs"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The train was ___, so it arrived an hour late.",
+   "answer": "delayed",
+   "distractors": [
+    "early",
+    "on time",
+    "empty"
+   ],
+   "explanation": "'Delayed' means later than planned.",
+   "tags": [
+    "travel"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "He works in a hospital. He's a ___.",
+   "answer": "nurse",
+   "distractors": [
+    "pilot",
+    "waiter",
+    "farmer"
+   ],
+   "explanation": "Nurses work in hospitals.",
+   "tags": [
+    "jobs"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I always ___ my homework before dinner.",
+   "answer": "do",
+   "distractors": [
+    "make",
+    "take",
+    "have"
+   ],
+   "explanation": "We say 'do homework'.",
+   "tags": [
+    "collocations",
+    "do_make"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Don't ___ a noise. The baby is sleeping.",
+   "answer": "make",
+   "distractors": [
+    "do",
+    "say",
+    "give"
+   ],
+   "explanation": "We say 'make a noise'.",
+   "tags": [
+    "collocations",
+    "do_make"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "It's raining. Take an ___.",
+   "answer": "umbrella",
+   "distractors": [
+    "oven",
+    "envelope",
+    "engine"
+   ],
+   "explanation": "An umbrella keeps you dry in the rain.",
+   "tags": [
+    "weather"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'm looking ___ my keys. Have you seen them?",
+   "answer": "for",
+   "distractors": [
+    "at",
+    "after",
+    "up"
+   ],
+   "explanation": "'Look for' means try to find.",
+   "tags": [
+    "phrasal_verbs"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The shop is ___ on Sundays, so we can't go.",
+   "answer": "closed",
+   "distractors": [
+    "open",
+    "cheap",
+    "near"
+   ],
+   "explanation": "We can't go because it is not open.",
+   "tags": [
+    "opposites"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "If I ___ more time, I would learn to play the guitar.",
+   "answer": "had",
+   "distractors": [
+    "have",
+    "would have",
+    "will have"
+   ],
+   "explanation": "Second conditional: if + past simple, would + verb.",
+   "tags": [
+    "conditionals"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "The house ___ in 1920.",
+   "answer": "was built",
+   "distractors": [
+    "built",
+    "has built",
+    "was building"
+   ],
+   "explanation": "Passive voice in the past: was/were + past participle.",
+   "tags": [
+    "passive"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "By the time we arrived, the film ___.",
+   "answer": "had already started",
+   "distractors": [
+    "already started",
+    "has already started",
+    "was already starting"
+   ],
+   "explanation": "Past perfect shows an action completed before another past action.",
+   "tags": [
+    "past_perfect"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "She asked me where I ___.",
+   "answer": "lived",
+   "distractors": [
+    "do live",
+    "did I live",
+    "live I"
+   ],
+   "explanation": "In reported questions, use statement word order and backshift the tense.",
+   "tags": [
+    "reported_speech"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "I'm not used to ___ up so early.",
+   "answer": "getting",
+   "distractors": [
+    "get",
+    "got",
+    "have got"
+   ],
+   "explanation": "'Be used to' is followed by a noun or -ing form.",
+   "tags": [
+    "gerunds"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "I used to ___ in London when I was a child.",
+   "answer": "live",
+   "distractors": [
+    "living",
+    "lived",
+    "lives"
+   ],
+   "explanation": "'Used to' is followed by the base form for past habits or states.",
+   "tags": [
+    "used_to"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "You ___ have told me earlier! Now it's too late.",
+   "answer": "should",
+   "distractors": [
+    "must",
+    "would",
+    "can"
+   ],
+   "explanation": "'Should have + past participle' criticises a past action that didn't happen.",
+   "tags": [
+    "modals_past"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "I've been waiting here ___ two hours.",
+   "answer": "for",
+   "distractors": [
+    "since",
+    "during",
+    "while"
+   ],
+   "explanation": "Use 'for' with a length of time.",
+   "tags": [
+    "present_perfect_continuous"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "He's the person ___ car was stolen.",
+   "answer": "whose",
+   "distractors": [
+    "who",
+    "who's",
+    "which"
+   ],
+   "explanation": "'Whose' shows possession in relative clauses.",
+   "tags": [
+    "relative_clauses"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "She suggested ___ to the beach.",
+   "answer": "going",
+   "distractors": [
+    "to go",
+    "go",
+    "that going"
+   ],
+   "explanation": "'Suggest' is followed by the -ing form.",
+   "tags": [
+    "gerunds"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "I decided ___ a new job.",
+   "answer": "to look for",
+   "distractors": [
+    "looking for",
+    "look for",
+    "for looking"
+   ],
+   "explanation": "'Decide' is followed by 'to + infinitive'.",
+   "tags": [
+    "infinitives"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "___ it was raining, we went for a walk.",
+   "answer": "Although",
+   "distractors": [
+    "Despite",
+    "Because",
+    "However"
+   ],
+   "explanation": "'Although' is followed by a clause and shows contrast.",
+   "tags": [
+    "linkers"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "This time next week, I ___ on a beach.",
+   "answer": "will be lying",
+   "distractors": [
+    "will lie",
+    "am lying",
+    "lie"
+   ],
+   "explanation": "Future continuous for an action in progress at a future time.",
+   "tags": [
+    "future_continuous"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "You don't need to bring food, ___?",
+   "answer": "do you",
+   "distractors": [
+    "don't you",
+    "need you",
+    "are you"
+   ],
+   "explanation": "A negative statement takes a positive question tag.",
+   "tags": [
+    "question_tags"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "He told me that he ___ the report the day before.",
+   "answer": "had finished",
+   "distractors": [
+    "has finished",
+    "finishes",
+    "finish"
+   ],
+   "explanation": "In reported speech, past simple usually becomes past perfect.",
+   "tags": [
+    "reported_speech"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "The more you practise, the ___ you get.",
+   "answer": "better",
+   "distractors": [
+    "best",
+    "good",
+    "more good"
+   ],
+   "explanation": "'The + comparative, the + comparative' structure.",
+   "tags": [
+    "comparatives"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "I wish I ___ speak French.",
+   "answer": "could",
+   "distractors": [
+    "can",
+    "will",
+    "would can"
+   ],
+   "explanation": "'Wish + past' (could) for present wishes about ability.",
+   "tags": [
+    "wishes"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "grammar",
+   "prompt": "My car is being ___ at the moment.",
+   "answer": "repaired",
+   "distractors": [
+    "repair",
+    "repairing",
+    "to repair"
+   ],
+   "explanation": "Present continuous passive: is being + past participle.",
+   "tags": [
+    "passive"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "vocabulary",
+   "prompt": "Could you ___ after my dog while I'm away?",
+   "answer": "look",
+   "distractors": [
+    "take",
+    "care",
+    "watch"
+   ],
+   "explanation": "'Look after' means take care of.",
+   "tags": [
+    "phrasal_verbs"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "vocabulary",
+   "prompt": "We had to ___ the meeting until next week.",
+   "answer": "put off",
+   "distractors": [
+    "put on",
+    "put up",
+    "put out"
+   ],
+   "explanation": "'Put off' means postpone.",
+   "tags": [
+    "phrasal_verbs"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "vocabulary",
+   "prompt": "She ___ an important decision yesterday.",
+   "answer": "made",
+   "distractors": [
+    "did",
+    "took on",
+    "had"
+   ],
+   "explanation": "We say 'make a decision'.",
+   "tags": [
+    "collocations",
+    "do_make"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "vocabulary",
+   "prompt": "The museum is ___ visiting; it's fascinating.",
+   "answer": "worth",
+   "distractors": [
+    "valuable",
+    "useful",
+    "deserving"
+   ],
+   "explanation": "'Be worth + -ing' means it is good enough to do.",
+   "tags": [
+    "expressions"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "vocabulary",
+   "prompt": "I can't ___ the noise from the street any more.",
+   "answer": "stand",
+   "distractors": [
+    "suffer",
+    "keep",
+    "hold"
+   ],
+   "explanation": "'Can't stand' means cannot tolerate.",
+   "tags": [
+    "expressions"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "vocabulary",
+   "prompt": "The company ___ 50 new employees to work in its new factory.",
+   "answer": "hired",
+   "distractors": [
+    "retired",
+    "resigned",
+    "applied"
+   ],
+   "explanation": "'Hire' means give someone a job.",
+   "tags": [
+    "work"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "vocabulary",
+   "prompt": "He was ___ of being late again, so he left early.",
+   "answer": "afraid",
+   "distractors": [
+    "scared at",
+    "worried",
+    "concerned"
+   ],
+   "explanation": "'Afraid of + -ing' is the correct pattern; 'worried' takes 'about'.",
+   "tags": [
+    "adjective_prepositions"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "vocabulary",
+   "prompt": "She is very good ___ maths.",
+   "answer": "at",
+   "distractors": [
+    "in",
+    "on",
+    "with"
+   ],
+   "explanation": "We say 'good at' a subject or activity.",
+   "tags": [
+    "adjective_prepositions"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "vocabulary",
+   "prompt": "I ___ my keys. I can't find them anywhere.",
+   "answer": "have lost",
+   "distractors": [
+    "have missed",
+    "have dropped out",
+    "have run out"
+   ],
+   "explanation": "You 'lose' things you can't find; 'forget' is about memory.",
+   "tags": [
+    "confusing_words"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "vocabulary",
+   "prompt": "The ___ of living in big cities is very high.",
+   "answer": "cost",
+   "distractors": [
+    "price",
+    "fee",
+    "fare"
+   ],
+   "explanation": "The fixed phrase is 'cost of living'.",
+   "tags": [
+    "collocations"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "vocabulary",
+   "prompt": "He gave ___ smoking last year.",
+   "answer": "up",
+   "distractors": [
+    "off",
+    "in",
+    "away"
+   ],
+   "explanation": "'Give up' means stop doing a habit.",
+   "tags": [
+    "phrasal_verbs"
+   ]
+  },
+  {
+   "level": "B1",
+   "skill": "vocabulary",
+   "prompt": "The weather ___ for tomorrow says it will be sunny.",
+   "answer": "forecast",
+   "distractors": [
+    "prediction",
+    "news",
+    "chart"
+   ],
+   "explanation": "'Weather forecast' is the fixed phrase.",
+   "tags": [
+    "collocations",
+    "weather"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "grammar",
+   "prompt": "If I had known about the traffic, I ___ earlier.",
+   "answer": "would have left",
+   "distractors": [
+    "would leave",
+    "had left",
+    "will have left"
+   ],
+   "explanation": "Third conditional: if + past perfect, would have + past participle.",
+   "tags": [
+    "conditionals"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "grammar",
+   "prompt": "Not only ___ late, but he also forgot the documents.",
+   "answer": "was he",
+   "distractors": [
+    "he was",
+    "he is",
+    "did he was"
+   ],
+   "explanation": "After a negative adverbial at the start, invert subject and auxiliary.",
+   "tags": [
+    "inversion"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "grammar",
+   "prompt": "She must ___ the train; she isn't here yet.",
+   "answer": "have missed",
+   "distractors": [
+    "missed",
+    "has missed",
+    "be missed"
+   ],
+   "explanation": "'Must have + past participle' expresses a logical deduction about the past.",
+   "tags": [
+    "modals_past"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "grammar",
+   "prompt": "I'd rather you ___ smoke in the house.",
+   "answer": "didn't",
+   "distractors": [
+    "don't",
+    "won't",
+    "not"
+   ],
+   "explanation": "'Would rather + subject + past simple' for preferences about others.",
+   "tags": [
+    "would_rather"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "grammar",
+   "prompt": "It's high time we ___ a decision.",
+   "answer": "made",
+   "distractors": [
+    "make",
+    "will make",
+    "have made"
+   ],
+   "explanation": "'It's (high) time + subject + past simple'.",
+   "tags": [
+    "unreal_past"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "grammar",
+   "prompt": "By next June, I ___ here for ten years.",
+   "answer": "will have worked",
+   "distractors": [
+    "will work",
+    "am working",
+    "have worked"
+   ],
+   "explanation": "Future perfect for actions completed by a future time.",
+   "tags": [
+    "future_perfect"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "grammar",
+   "prompt": "He is said ___ a fortune in the 1990s.",
+   "answer": "to have made",
+   "distractors": [
+    "to make",
+    "making",
+    "that he made"
+   ],
+   "explanation": "Passive reporting about the past: be said + to have + past participle.",
+   "tags": [
+    "passive_reporting"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "grammar",
+   "prompt": "I had my car ___ last week.",
+   "answer": "serviced",
+   "distractors": [
+    "service",
+    "servicing",
+    "to service"
+   ],
+   "explanation": "Causative: have + object + past participle.",
+   "tags": [
+    "causative"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "grammar",
+   "prompt": "___ the bad weather, the match went ahead.",
+   "answer": "Despite",
+   "distractors": [
+    "Although",
+    "Even though",
+    "In spite"
+   ],
+   "explanation": "'Despite' is followed by a noun phrase; 'in spite' needs 'of'.",
+   "tags": [
+    "linkers"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "grammar",
+   "prompt": "Hardly had we sat down ___ the phone rang.",
+   "answer": "when",
+   "distractors": [
+    "than",
+    "then",
+    "that"
+   ],
+   "explanation": "'Hardly ... when' is the fixed pattern.",
+   "tags": [
+    "inversion"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "grammar",
+   "prompt": "She regrets ___ him the truth.",
+   "answer": "not telling",
+   "distractors": [
+    "not to tell",
+    "to not tell",
+    "don't tell"
+   ],
+   "explanation": "'Regret + -ing' refers to a past action you are sorry about.",
+   "tags": [
+    "gerunds"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "grammar",
+   "prompt": "Supposing you ___ the lottery, what would you do?",
+   "answer": "won",
+   "distractors": [
+    "win",
+    "will win",
+    "had won"
+   ],
+   "explanation": "'Supposing' works like 'if' in a second conditional: past simple.",
+   "tags": [
+    "conditionals"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "vocabulary",
+   "prompt": "The new policy will ___ effect from January.",
+   "answer": "take",
+   "distractors": [
+    "make",
+    "have",
+    "come"
+   ],
+   "explanation": "The collocation is 'take effect'.",
+   "tags": [
+    "collocations"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "vocabulary",
+   "prompt": "We need to ___ the problem before it gets worse.",
+   "answer": "address",
+   "distractors": [
+    "adopt",
+    "admit",
+    "adapt"
+   ],
+   "explanation": "'Address a problem' means start dealing with it.",
+   "tags": [
+    "collocations"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "vocabulary",
+   "prompt": "Her argument doesn't ___ water.",
+   "answer": "hold",
+   "distractors": [
+    "carry",
+    "keep",
+    "take"
+   ],
+   "explanation": "'Not hold water' means not be convincing.",
+   "tags": [
+    "idioms"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "vocabulary",
+   "prompt": "The manager ___ down the offer because the salary was too low.",
+   "answer": "turned",
+   "distractors": [
+    "put",
+    "let",
+    "broke"
+   ],
+   "explanation": "'Turn down' means refuse.",
+   "tags": [
+    "phrasal_verbs"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "vocabulary",
+   "prompt": "The results were ___ with our predictions.",
+   "answer": "consistent",
+   "distractors": [
+    "constant",
+    "considerate",
+    "continual"
+   ],
+   "explanation": "'Consistent with' means in agreement with.",
+   "tags": [
+    "confusing_words"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "vocabulary",
+   "prompt": "Prices have risen ___ in the last year.",
+   "answer": "sharply",
+   "distractors": [
+    "heavily",
+    "deeply",
+    "highly"
+   ],
+   "explanation": "The natural collocation is 'rise sharply'.",
+   "tags": [
+    "collocations"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "vocabulary",
+   "prompt": "I'll ___ into the matter and call you back.",
+   "answer": "look",
+   "distractors": [
+    "see",
+    "come",
+    "check"
+   ],
+   "explanation": "'Look into' means investigate.",
+   "tags": [
+    "phrasal_verbs"
+   ]
+  },
+  {
+   "level": "B2",
+   "skill": "vocabulary",
+   "prompt": "The project was ___ by a lack of funding.",
+   "answer": "hampered",
+   "distractors": [
+    "harnessed",
+    "heralded",
+    "hallowed"
+   ],
+   "explanation": "'Hamper' means make progress difficult.",
+   "tags": [
+    "academic"
+   ]
+  },
+  {
+   "level": "C1",
+   "skill": "grammar",
+   "prompt": "Had I realised the risks, I ___ the contract.",
+   "answer": "would never have signed",
+   "distractors": [
+    "would never sign",
+    "never signed",
+    "had never signed"
+   ],
+   "explanation": "Inverted third conditional: Had + subject + past participle, would have + past participle.",
+   "tags": [
+    "inversion",
+    "conditionals"
+   ]
+  },
+  {
+   "level": "C1",
+   "skill": "grammar",
+   "prompt": "Little ___ that the decision would change everything.",
+   "answer": "did they know",
+   "distractors": [
+    "they knew",
+    "they did know",
+    "knew they"
+   ],
+   "explanation": "Negative adverbials like 'Little' at the start trigger inversion with an auxiliary.",
+   "tags": [
+    "inversion"
+   ]
+  },
+  {
+   "level": "C1",
+   "skill": "grammar",
+   "prompt": "The proposal, ___ was rejected, had taken months to prepare.",
+   "answer": "which",
+   "distractors": [
+    "that",
+    "what",
+    "it"
+   ],
+   "explanation": "Non-defining relative clauses use 'which', not 'that'.",
+   "tags": [
+    "relative_clauses"
+   ]
+  },
+  {
+   "level": "C1",
+   "skill": "grammar",
+   "prompt": "It is essential that every applicant ___ the form in person.",
+   "answer": "submit",
+   "distractors": [
+    "submits",
+    "will submit",
+    "submitted"
+   ],
+   "explanation": "The subjunctive uses the base form after 'essential that'.",
+   "tags": [
+    "subjunctive"
+   ]
+  },
+  {
+   "level": "C1",
+   "skill": "grammar",
+   "prompt": "___ to the press, the report would have caused a scandal.",
+   "answer": "Had it been leaked",
+   "distractors": [
+    "If it leaked",
+    "Were it leaked",
+    "Having leaked"
+   ],
+   "explanation": "An inverted past conditional matches 'would have caused'.",
+   "tags": [
+    "inversion",
+    "conditionals"
+   ]
+  },
+  {
+   "level": "C1",
+   "skill": "grammar",
+   "prompt": "What I need ___ a long holiday.",
+   "answer": "is",
+   "distractors": [
+    "are",
+    "be",
+    "being"
+   ],
+   "explanation": "In a 'What' cleft sentence, the 'What' clause is singular.",
+   "tags": [
+    "cleft_sentences"
+   ]
+  },
+  {
+   "level": "C1",
+   "skill": "grammar",
+   "prompt": "She would sooner resign ___ accept the new terms.",
+   "answer": "than",
+   "distractors": [
+    "rather",
+    "then",
+    "to"
+   ],
+   "explanation": "'Would sooner ... than' expresses preference.",
+   "tags": [
+    "preferences"
+   ]
+  },
+  {
+   "level": "C1",
+   "skill": "vocabulary",
+   "prompt": "The minister's comments ___ a heated debate.",
+   "answer": "sparked",
+   "distractors": [
+    "lit",
+    "burned",
+    "flashed"
+   ],
+   "explanation": "'Spark a debate' means cause it to start.",
+   "tags": [
+    "collocations"
+   ]
+  },
+  {
+   "level": "C1",
+   "skill": "vocabulary",
+   "prompt": "The evidence ___ to the conclusion that the system had failed.",
+   "answer": "pointed",
+   "distractors": [
+    "showed",
+    "directed",
+    "indicated"
+   ],
+   "explanation": "The pattern is 'point to a conclusion'; the others don't take 'to' here.",
+   "tags": [
+    "collocations"
+   ]
+  },
+  {
+   "level": "C1",
+   "skill": "vocabulary",
+   "prompt": "He tends to ___ the truth when it suits him.",
+   "answer": "bend",
+   "distractors": [
+    "fold",
+    "curve",
+    "break"
+   ],
+   "explanation": "'Bend the truth' means say something not completely true.",
+   "tags": [
+    "idioms"
+   ]
+  },
+  {
+   "level": "C1",
+   "skill": "vocabulary",
+   "prompt": "The two studies reached ___ opposed conclusions.",
+   "answer": "diametrically",
+   "distractors": [
+    "diagonally",
+    "horizontally",
+    "radially"
+   ],
+   "explanation": "'Diametrically opposed' is a fixed collocation meaning completely opposite.",
+   "tags": [
+    "collocations"
+   ]
+  },
+  {
+   "level": "C1",
+   "skill": "vocabulary",
+   "prompt": "Her explanation ___ the issue rather than clarifying it.",
+   "answer": "muddied",
+   "distractors": [
+    "cleared",
+    "brightened",
+    "sharpened"
+   ],
+   "explanation": "'Muddy the issue' means make it less clear, which contrasts with 'clarifying'.",
+   "tags": [
+    "idioms"
+   ]
+  },
+  {
+   "level": "C1",
+   "skill": "vocabulary",
+   "prompt": "The minister ___ the allegations as completely unfounded.",
+   "answer": "dismissed",
+   "distractors": [
+    "discharged",
+    "dispelled",
+    "displaced"
+   ],
+   "explanation": "'Dismiss something as ...' means reject it as not worth considering.",
+   "tags": [
+    "verb_patterns"
+   ]
+  },
+  {
+   "level": "C1",
+   "skill": "vocabulary",
+   "prompt": "We must ___ a balance between cost and quality.",
+   "answer": "strike",
+   "distractors": [
+    "hit",
+    "find out",
+    "beat"
+   ],
+   "explanation": "The collocation is 'strike a balance'.",
+   "tags": [
+    "collocations"
+   ]
+  },
+  {
+   "level": "C1",
+   "skill": "vocabulary",
+   "prompt": "The plan was abandoned because it was not financially ___.",
+   "answer": "viable",
+   "distractors": [
+    "visible",
+    "valid",
+    "vital"
+   ],
+   "explanation": "'Viable' means able to work successfully.",
+   "tags": [
+    "confusing_words"
+   ]
+  },
+  {
+   "level": "C2",
+   "skill": "grammar",
+   "prompt": "Under no circumstances ___ to leave the building.",
+   "answer": "are visitors permitted",
+   "distractors": [
+    "visitors are permitted",
+    "visitors permitted",
+    "permitted are visitors"
+   ],
+   "explanation": "'Under no circumstances' at the start requires subject-auxiliary inversion.",
+   "tags": [
+    "inversion"
+   ]
+  },
+  {
+   "level": "C2",
+   "skill": "grammar",
+   "prompt": "So severe ___ that the road was closed for a week.",
+   "answer": "was the damage",
+   "distractors": [
+    "the damage was",
+    "the damage",
+    "did the damage"
+   ],
+   "explanation": "'So + adjective' at the start triggers inversion: So severe was the damage...",
+   "tags": [
+    "inversion"
+   ]
+  },
+  {
+   "level": "C2",
+   "skill": "grammar",
+   "prompt": "Were the government ___ taxes, there would be protests.",
+   "answer": "to raise",
+   "distractors": [
+    "raise",
+    "raising",
+    "raised"
+   ],
+   "explanation": "Formal inverted conditional: Were + subject + to-infinitive.",
+   "tags": [
+    "inversion",
+    "conditionals"
+   ]
+  },
+  {
+   "level": "C2",
+   "skill": "grammar",
+   "prompt": "Be that as it ___, we still need a decision today.",
+   "answer": "may",
+   "distractors": [
+    "might be",
+    "will",
+    "can"
+   ],
+   "explanation": "'Be that as it may' is a fixed concessive expression.",
+   "tags": [
+    "fixed_expressions"
+   ]
+  },
+  {
+   "level": "C2",
+   "skill": "grammar",
+   "prompt": "Much ___ I admire her work, I can't agree with this.",
+   "answer": "as",
+   "distractors": [
+    "though",
+    "so",
+    "that"
+   ],
+   "explanation": "'Much as' means 'although' (Much as I admire...).",
+   "tags": [
+    "concession"
+   ]
+  },
+  {
+   "level": "C2",
+   "skill": "grammar",
+   "prompt": "It was not until the 1990s ___ the theory was accepted.",
+   "answer": "that",
+   "distractors": [
+    "when",
+    "which",
+    "then"
+   ],
+   "explanation": "Cleft pattern: 'It was not until ... that ...'.",
+   "tags": [
+    "cleft_sentences"
+   ]
+  },
+  {
+   "level": "C2",
+   "skill": "vocabulary",
+   "prompt": "His speech was full of ___ promises that nobody believed.",
+   "answer": "hollow",
+   "distractors": [
+    "empty-headed",
+    "vacant",
+    "blank"
+   ],
+   "explanation": "'Hollow promises' are insincere ones.",
+   "tags": [
+    "collocations"
+   ]
+  },
+  {
+   "level": "C2",
+   "skill": "vocabulary",
+   "prompt": "The scandal ___ the party's chances of winning the election.",
+   "answer": "scuppered",
+   "distractors": [
+    "scattered",
+    "scrambled",
+    "scraped"
+   ],
+   "explanation": "'Scupper' means ruin a plan or chance.",
+   "tags": [
+    "advanced_verbs"
+   ]
+  },
+  {
+   "level": "C2",
+   "skill": "vocabulary",
+   "prompt": "She has a ___ for saying exactly the wrong thing.",
+   "answer": "knack",
+   "distractors": [
+    "knock",
+    "nick",
+    "knot"
+   ],
+   "explanation": "'Have a knack for' means have a natural tendency or skill.",
+   "tags": [
+    "idioms"
+   ]
+  },
+  {
+   "level": "C2",
+   "skill": "vocabulary",
+   "prompt": "The decision was taken ___, without consulting anyone.",
+   "answer": "unilaterally",
+   "distractors": [
+    "unanimously",
+    "universally",
+    "uniformly"
+   ],
+   "explanation": "'Unilaterally' means by one side only, without others.",
+   "tags": [
+    "confusing_words"
+   ]
+  },
+  {
+   "level": "C2",
+   "skill": "vocabulary",
+   "prompt": "The author's style is ___: every word is carefully chosen.",
+   "answer": "meticulous",
+   "distractors": [
+    "meretricious",
+    "mediocre",
+    "nebulous"
+   ],
+   "explanation": "'Meticulous' means very careful and precise.",
+   "tags": [
+    "advanced_adjectives"
+   ]
+  },
+  {
+   "level": "C2",
+   "skill": "vocabulary",
+   "prompt": "The two accounts of the event are ___; they cannot both be true.",
+   "answer": "irreconcilable",
+   "distractors": [
+    "interchangeable",
+    "indistinguishable",
+    "inextricable"
+   ],
+   "explanation": "'Irreconcilable' means impossible to make compatible.",
+   "tags": [
+    "advanced_adjectives"
+   ]
+  },
+  {
+   "level": "C2",
+   "skill": "vocabulary",
+   "prompt": "Critics were quick to ___ holes in the argument.",
+   "answer": "pick",
+   "distractors": [
+    "dig",
+    "make",
+    "cut"
+   ],
+   "explanation": "'Pick holes in' means find faults in.",
+   "tags": [
+    "idioms"
+   ]
+  },
+  {
+   "level": "C2",
+   "skill": "vocabulary",
+   "prompt": "The negotiations reached an ___, with neither side willing to compromise.",
+   "answer": "impasse",
+   "distractors": [
+    "impulse",
+    "imprint",
+    "impact"
+   ],
+   "explanation": "An 'impasse' is a situation where no progress is possible.",
+   "tags": [
+    "advanced_nouns"
+   ]
+  },
+  {
+   "level": "C2",
+   "skill": "vocabulary",
+   "prompt": "His ___ remarks offended almost everyone in the room.",
+   "answer": "tactless",
+   "distractors": [
+    "tactful",
+    "tactical",
+    "tactile"
+   ],
+   "explanation": "'Tactless' means not sensitive to others' feelings.",
+   "tags": [
+    "confusing_words"
+   ]
+  }
+ ]
+}
