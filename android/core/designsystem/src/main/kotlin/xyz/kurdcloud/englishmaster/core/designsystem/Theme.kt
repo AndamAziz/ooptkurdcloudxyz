@@ -1,41 +1,85 @@
 package xyz.kurdcloud.englishmaster.core.designsystem
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
+import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 
+// Brand: deep indigo with a teal accent and a warm gold for achievements.
 private val Light = lightColorScheme(
-    primary = Color(0xFF1F5FA8),
+    primary = Color(0xFF3A4FC4),
     onPrimary = Color.White,
-    primaryContainer = Color(0xFFD5E3FF),
-    onPrimaryContainer = Color(0xFF001B3C),
-    secondary = Color(0xFF0F7B6C),
+    primaryContainer = Color(0xFFDEE0FF),
+    onPrimaryContainer = Color(0xFF00105C),
+    secondary = Color(0xFF00897B),
     onSecondary = Color.White,
-    secondaryContainer = Color(0xFFB8F0E3),
-    onSecondaryContainer = Color(0xFF00201B),
+    secondaryContainer = Color(0xFFC6F1EA),
+    onSecondaryContainer = Color(0xFF00201C),
+    tertiary = Color(0xFF7B4FD6),
+    onTertiary = Color.White,
+    tertiaryContainer = Color(0xFFEBDDFF),
+    onTertiaryContainer = Color(0xFF250059),
     error = Color(0xFFBA1A1A),
     errorContainer = Color(0xFFFFDAD6),
-    background = Color(0xFFFAF9FD),
-    surface = Color(0xFFFAF9FD),
+    onErrorContainer = Color(0xFF410002),
+    background = Color(0xFFF7F7FC),
+    surface = Color(0xFFF7F7FC),
+    surfaceContainerLowest = Color.White,
+    surfaceContainerLow = Color(0xFFF2F2F9),
+    surfaceContainer = Color(0xFFECECF4),
+    surfaceContainerHigh = Color(0xFFE6E7F0),
+    surfaceContainerHighest = Color(0xFFE0E1EA),
 )
 
 private val Dark = darkColorScheme(
-    primary = Color(0xFFA7C8FF),
-    onPrimary = Color(0xFF003061),
-    primaryContainer = Color(0xFF004788),
-    onPrimaryContainer = Color(0xFFD5E3FF),
-    secondary = Color(0xFF9CD4C7),
-    onSecondary = Color(0xFF003730),
-    secondaryContainer = Color(0xFF005046),
-    onSecondaryContainer = Color(0xFFB8F0E3),
+    primary = Color(0xFFBAC3FF),
+    onPrimary = Color(0xFF08218F),
+    primaryContainer = Color(0xFF2236AB),
+    onPrimaryContainer = Color(0xFFDEE0FF),
+    secondary = Color(0xFF7ED7C9),
+    onSecondary = Color(0xFF003731),
+    secondaryContainer = Color(0xFF005047),
+    onSecondaryContainer = Color(0xFFC6F1EA),
+    tertiary = Color(0xFFD3BBFF),
+    onTertiary = Color(0xFF3F008D),
+    tertiaryContainer = Color(0xFF5B2FB5),
+    onTertiaryContainer = Color(0xFFEBDDFF),
     error = Color(0xFFFFB4AB),
     errorContainer = Color(0xFF93000A),
-    background = Color(0xFF111318),
-    surface = Color(0xFF111318),
+    onErrorContainer = Color(0xFFFFDAD6),
+    background = Color(0xFF121318),
+    surface = Color(0xFF121318),
+    surfaceContainerLowest = Color(0xFF0D0E13),
+    surfaceContainerLow = Color(0xFF1A1B21),
+    surfaceContainer = Color(0xFF1E1F25),
+    surfaceContainerHigh = Color(0xFF292A30),
+    surfaceContainerHighest = Color(0xFF34343B),
 )
+
+private val AppShapes = Shapes(
+    extraSmall = RoundedCornerShape(8.dp),
+    small = RoundedCornerShape(12.dp),
+    medium = RoundedCornerShape(16.dp),
+    large = RoundedCornerShape(24.dp),
+    extraLarge = RoundedCornerShape(32.dp),
+)
+
+private val AppTypography = Typography().run {
+    copy(
+        headlineSmall = headlineSmall.copy(fontWeight = FontWeight.SemiBold),
+        titleLarge = titleLarge.copy(fontWeight = FontWeight.SemiBold),
+        titleMedium = titleMedium.copy(fontWeight = FontWeight.SemiBold),
+        labelLarge = labelLarge.copy(fontWeight = FontWeight.SemiBold),
+    )
+}
 
 /** Semantic colours for answer feedback, readable in both themes. */
 object FeedbackColors {
@@ -43,7 +87,25 @@ object FeedbackColors {
     @Composable fun incorrect() = MaterialTheme.colorScheme.error
 }
 
+/** One colour per CEFR level, from green (A1) to deep purple (C2); white text is readable on all. */
+object LevelColors {
+    fun of(level: CefrLevel): Color = when (level) {
+        CefrLevel.PRE_A1 -> Color(0xFF607D8B)
+        CefrLevel.A1 -> Color(0xFF2E7D32)
+        CefrLevel.A2 -> Color(0xFF00897B)
+        CefrLevel.B1 -> Color(0xFF1E88E5)
+        CefrLevel.B2 -> Color(0xFF3949AB)
+        CefrLevel.C1 -> Color(0xFF8E24AA)
+        CefrLevel.C2 -> Color(0xFFC62828)
+    }
+}
+
 @Composable
 fun EnglishMasterTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    MaterialTheme(colorScheme = if (darkTheme) Dark else Light, content = content)
+    MaterialTheme(
+        colorScheme = if (darkTheme) Dark else Light,
+        shapes = AppShapes,
+        typography = AppTypography,
+        content = content,
+    )
 }

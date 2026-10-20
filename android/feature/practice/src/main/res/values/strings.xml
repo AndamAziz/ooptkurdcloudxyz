@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<!-- Counts in exam rules are fixed values above one (20 questions, 30 minutes, 24 hours), and
+     "%1$d of %2$d correct" uses "correct" as an adjective, so plurals are not needed there. -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="PluralsCandidate">
     <string name="practice_home_title">EnglishMaster AI</string>
     <string name="practice_menu">Menu</string>
     <string name="practice_staff_tools">Staff tools</string>
@@ -78,4 +80,51 @@
         <item quantity="one">%1$d answer is waiting to be marked when you are online.</item>
         <item quantity="other">%1$d answers are waiting to be marked when you are online.</item>
     </plurals>
+    <string name="practice_review_title">Review mistakes %1$s</string>
+    <string name="practice_review_empty">No mistakes to review at this level. Well done!</string>
+    <string name="home_my_certificates">My certificates</string>
+    <string name="home_placement_test">Placement test</string>
+    <string name="home_hello">Hello, %1$s 👋</string>
+    <string name="home_welcome">Welcome 👋</string>
+    <string name="home_tagline">Practise every day, pass the level exam and earn your certificate.</string>
+    <plurals name="home_streak_days">
+        <item quantity="one">day streak</item>
+        <item quantity="other">days streak</item>
+    </plurals>
+    <string name="home_answers">answers</string>
+    <string name="home_certificates">certificates</string>
+    <string name="home_placement_title">Not sure where to start?</string>
+    <string name="home_placement_body">Take the %1$d-question placement test (%2$d minutes) and we will recommend your level.</string>
+    <string name="home_placement_start">Find my level</string>
+    <string name="home_placement_retake">Retake the test</string>
+    <string name="home_recommended">Your recommended level: %1$s</string>
+    <string name="home_practise_level">Practise %1$s</string>
+    <string name="home_how_title">How do I earn a certificate?</string>
+    <string name="home_how_step1">Practise a level until you have answered at least 30 of its questions (or all of them, if there are fewer), with at least %1$d%% of your latest answers correct. Wrong answers can be fixed with “Review mistakes”.</string>
+    <string name="home_how_step2">The level\'s final exam then unlocks: %1$d random questions in %2$d minutes, marked on the server.</string>
+    <string name="home_how_step3">Score %1$d%% or more and your certificate is issued at once, as a PDF with a QR code anyone can scan to check it.</string>
+    <string name="home_how_step4">Did not pass? Review your mistakes; the next attempt opens after %1$d hours.</string>
+    <string name="home_level_title">Level %1$s</string>
+    <string name="home_chip_recommended">Recommended</string>
+    <string name="home_chip_certified">🏅 Certified</string>
+    <string name="home_chip_exam_ready">Exam unlocked</string>
+    <string name="home_chip_in_progress">Exam in progress</string>
+    <string name="home_progress_line">Answered %1$d of %2$d · %3$d%% correct</string>
+    <plurals name="home_status_practise_more">
+        <item quantity="one">Practise %1$d more question with %2$d%% correct to unlock the final exam.</item>
+        <item quantity="other">Practise %1$d more questions with %2$d%% correct to unlock the final exam.</item>
+    </plurals>
+    <string name="home_status_accuracy">Raise your correct answers to %1$d%% to unlock the exam. Review your mistakes to improve.</string>
+    <string name="home_status_exam_ready">The final exam is unlocked. Score %1$d%% to earn your certificate.</string>
+    <string name="home_status_in_progress">You have an exam in progress. Continue before the time runs out.</string>
+    <string name="home_status_retry">Last exam: %1$d / %2$d. Next attempt opens %3$s.</string>
+    <string name="home_status_certified">Certificate earned with %1$d / %2$d.</string>
+    <string name="home_take_exam">Take the final exam</string>
+    <string name="home_continue_exam">Continue the exam</string>
+    <string name="home_view_certificate">View certificate</string>
+    <plurals name="home_review_mistakes">
+        <item quantity="one">Review %1$d mistake</item>
+        <item quantity="other">Review %1$d mistakes</item>
+    </plurals>
+    <string name="home_more">More</string>
 </resources>

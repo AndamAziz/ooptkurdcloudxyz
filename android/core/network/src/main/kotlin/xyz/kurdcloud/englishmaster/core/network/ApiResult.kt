@@ -25,8 +25,11 @@ sealed interface ApiError {
     /** The account is suspended or the caller is not allowed to do this. */
     data object Forbidden : ApiError
 
-    /** Input rejected by the server; retrying the same request will not help. */
-    data class Validation(val code: String?) : ApiError
+    /**
+     * Input rejected by the server; retrying the same request will not help. [hint] carries a
+     * machine-readable reason for business-rule refusals (SQLSTATE P0001), e.g. "retry_later".
+     */
+    data class Validation(val code: String?, val hint: String? = null) : ApiError
 
     /** Sign-in/sign-up specific failures. */
     data class Auth(val reason: AuthFailure) : ApiError
@@ -63,7 +66,8 @@ suspend fun <T> authCall(block: suspend () -> T): ApiResult<T> = runCatchingApi(
 
 /** Runs a PostgREST call and maps failures using the Postgres SQLSTATE in the body. */
 suspend fun <T> restCall(block: suspend () -> T): ApiResult<T> = runCatchingApi(block) { status, body ->
-    val code = body?.let { runCatching { errorJson.decodeFromString(PostgrestErrorDto.serializer(), it) }.getOrNull() }?.code
+    val dto = body?.let { runCatching { errorJson.decodeFromString(PostgrestErrorDto.serializer(), it) }.getOrNull() }
+    val code = dto?.code
     when {
         status == 401 || code == "28000" || code == "PGRST301" || code == "PGRST303" -> ApiError.Unauthorized
         code == "42501" -> ApiError.Forbidden
@@ -71,7 +75,7 @@ suspend fun <T> restCall(block: suspend () -> T): ApiResult<T> = runCatchingApi(
         code != null && (code.startsWith("22") || code.startsWith("23") || code == "PGRST202") -> ApiError.Validation(code)
         status >= 500 -> ApiError.Server(status)
         status == 403 -> ApiError.Forbidden
-        else -> ApiError.Validation(code)
+        else -> ApiError.Validation(code, dto?.hint)
     }
 }
 

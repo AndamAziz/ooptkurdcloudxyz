@@ -12,6 +12,7 @@ class SupabaseServices(
     val practice: PracticeApi,
     val staff: StaffApi,
     val releases: ReleaseApi,
+    val learning: LearningApi,
     /** Plain client for public downloads (no user token is sent). */
     val downloadClient: OkHttpClient,
     /** Base URL of public objects in a storage bucket, ending with '/'. */
@@ -48,6 +49,7 @@ object NetworkFactory {
             practice = rest.create(PracticeApi::class.java),
             staff = rest.create(StaffApi::class.java),
             releases = rest.create(ReleaseApi::class.java),
+            learning = rest.create(LearningApi::class.java),
             downloadClient = downloads,
             publicStorageUrl = { bucket -> "${config.baseUrl}storage/v1/object/public/$bucket/" },
         )

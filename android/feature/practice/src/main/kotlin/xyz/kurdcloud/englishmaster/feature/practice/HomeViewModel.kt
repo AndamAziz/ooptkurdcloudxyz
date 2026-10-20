@@ -11,10 +11,13 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import xyz.kurdcloud.englishmaster.core.data.ContentRepository
+import xyz.kurdcloud.englishmaster.core.data.LearningRepository
 import xyz.kurdcloud.englishmaster.core.data.NetworkMonitor
 import xyz.kurdcloud.englishmaster.core.data.PracticeRepository
 import xyz.kurdcloud.englishmaster.core.data.StaffRepository
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
+import xyz.kurdcloud.englishmaster.core.model.LearnerProfile
+import xyz.kurdcloud.englishmaster.core.model.LevelOverview
 import xyz.kurdcloud.englishmaster.core.model.LevelPack
 import xyz.kurdcloud.englishmaster.core.model.LevelProgress
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
@@ -31,6 +34,10 @@ data class LevelRow(
     val progress: LevelProgress?,
     /** Questions received so far while a download is running; null when idle. */
     val downloading: Int?,
+    /** Server standing towards the level certificate; null offline or before it loads. */
+    val overview: LevelOverview? = null,
+    /** Downloaded questions whose latest marked answer was wrong. */
+    val mistakes: Int = 0,
 )
 
 data class HomeUiState(
@@ -41,7 +48,11 @@ data class HomeUiState(
     val message: UiMessage? = null,
     /** Which staff screens to offer; the server enforces the real permissions. */
     val staffAccess: StaffAccess = StaffAccess.NONE,
-)
+    val profile: LearnerProfile? = null,
+    val nowMillis: Long = 0,
+) {
+    val certificates: Int get() = levels.count { it.overview?.certificateCode != null }
+}
 
 class HomeViewModel(
     private val userId: String,
@@ -49,6 +60,8 @@ class HomeViewModel(
     private val practice: PracticeRepository,
     network: NetworkMonitor,
     private val staff: StaffRepository? = null,
+    private val learning: LearningRepository? = null,
+    private val clock: () -> Long = System::currentTimeMillis,
 ) : ViewModel() {
     private val transient = MutableStateFlow(Transient())
     private val downloadJobs = mutableMapOf<CefrLevel, Job>()
@@ -58,24 +71,41 @@ class HomeViewModel(
         val syncing: Boolean = false,
         val message: UiMessage? = null,
         val staffAccess: StaffAccess = StaffAccess.NONE,
+        val overview: Map<CefrLevel, LevelOverview> = emptyMap(),
+        val profile: LearnerProfile? = null,
+        val nowMillis: Long = 0,
     )
 
-    val uiState: StateFlow<HomeUiState> = combine(
+    private val local = combine(
         content.observePacks(),
         practice.observeProgress(userId),
+        content.observeMistakeCounts(userId),
+    ) { packs, progress, mistakes -> Triple(packs, progress, mistakes) }
+
+    val uiState: StateFlow<HomeUiState> = combine(
+        local,
         practice.observePendingCount(userId),
         network.isOnline,
         transient,
-    ) { packs, progress, pending, online, t ->
+    ) { (packs, progress, mistakes), pending, online, t ->
         HomeUiState(
             isOnline = online,
             pendingCount = pending,
             levels = CefrLevel.practiceLevels.map { level ->
-                LevelRow(level, packs.find { it.level == level }, progress.find { it.level == level }, t.downloads[level])
+                LevelRow(
+                    level,
+                    packs.find { it.level == level },
+                    progress.find { it.level == level },
+                    t.downloads[level],
+                    t.overview[level],
+                    mistakes[level] ?: 0,
+                )
             },
             syncing = t.syncing,
             message = t.message,
             staffAccess = t.staffAccess,
+            profile = t.profile,
+            nowMillis = t.nowMillis,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUiState())
 
@@ -83,6 +113,25 @@ class HomeViewModel(
 
     init {
         refreshStaffAccess()
+        // Progress towards certificates comes from the server; refresh it whenever we get online.
+        viewModelScope.launch { online.collect { if (it) refreshLearning() } }
+    }
+
+    /** Reloads exam/certificate standing and the learner profile; silently keeps old data on failure. */
+    fun refreshLearning() {
+        val repo = learning ?: return
+        if (!online.value) return
+        viewModelScope.launch {
+            val overview = (repo.overview() as? ApiResult.Success)?.value
+            val profile = (repo.profile() as? ApiResult.Success)?.value
+            transient.update { t ->
+                t.copy(
+                    overview = overview?.associateBy { it.level } ?: t.overview,
+                    profile = profile ?: t.profile,
+                    nowMillis = clock(),
+                )
+            }
+        }
     }
 
     /** Asks the server which roles the user has; offline or on error no staff entry is shown. */
@@ -140,6 +189,7 @@ class HomeViewModel(
                 StopReason.SERVER_UNAVAILABLE -> UiMessage(R.string.practice_sync_server)
             }
             transient.update { it.copy(syncing = false, message = message) }
+            if (report.synced > 0) refreshLearning()
         }
     }
 

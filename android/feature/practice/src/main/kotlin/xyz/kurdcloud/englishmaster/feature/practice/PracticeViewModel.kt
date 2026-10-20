@@ -47,6 +47,8 @@ class PracticeViewModel(
     private val content: ContentRepository,
     private val practice: PracticeRepository,
     private val sessionSize: Int = 10,
+    /** Review session: only questions whose latest marked answer was wrong. */
+    val mistakesOnly: Boolean = false,
 ) : ViewModel() {
     private val attemptId = practice.newAttemptId()
     private val state = MutableStateFlow(PracticeUiState())
@@ -54,7 +56,8 @@ class PracticeViewModel(
 
     init {
         viewModelScope.launch {
-            val questions = content.pickSession(level, userId, sessionSize)
+            val questions = if (mistakesOnly) content.pickMistakes(level, userId, sessionSize)
+            else content.pickSession(level, userId, sessionSize)
             state.update { it.copy(loading = false, questions = questions) }
         }
         // Answers saved offline flip from "pending" to scored as soon as background sync lands.

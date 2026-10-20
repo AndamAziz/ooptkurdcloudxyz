@@ -29,8 +29,19 @@ Compose · Room · DataStore + Android Keystore · Retrofit/OkHttp · WorkManage
   it with SHA-256 verification and installs it through Android's installer. See
   [`docs/releasing.md`](../docs/releasing.md).
 
-Not in this slice: placement test, courses/lessons, AI tutor, speaking/listening, certificates,
-teacher dashboard. The project is laid out so these become new `feature:*` modules.
+* **Level exams and certificates** (online): a level's final exam unlocks after practising at least
+  30 of its questions (or all, if fewer) with the latest answer correct for >= 70%. The exam is 20
+  random questions, 30 minutes, chosen and marked by the server; >= 80% passes and issues a
+  certificate. Certificates are rendered on the device as an A4 PDF with a QR code that opens the
+  public check `functions/v1/verify-certificate?code=EM-…`. A failed (or abandoned) attempt opens
+  the next one after 24 hours.
+* **Placement test**: 18 questions (3 per level, A1–C2), recommends a starting level.
+* **Dashboard**: streak, answers, certificates, per-level progress towards the exam, "how to earn a
+  certificate", and **Review mistakes** (downloaded questions whose latest marked answer was wrong;
+  works offline).
+* Design: indigo/teal theme with level colours, rounded cards, dark mode.
+
+Not in this slice: courses/lessons, AI tutor, speaking/listening, teacher dashboard. The project is laid out so these become new `feature:*` modules.
 
 ## Modules
 
@@ -44,6 +55,7 @@ teacher dashboard. The project is laid out so these become new `feature:*` modul
 | `feature:auth` | Welcome, sign-in, register, reset, check-email |
 | `feature:practice` | Home (levels, downloads, sync) and practice session |
 | `feature:admin` | Staff tools: users and roles, question review, activity log |
+| `feature:exam` | Level exams, placement test, certificates (PDF + QR via zxing, shared through a FileProvider) |
 | `app` | Application, manual DI container, navigation, manifest, resources |
 
 ## Toolchain (verified 2026-10-19)
@@ -70,7 +82,7 @@ Every build connects to project `nefpgqoykfndjvrdultp` by default (`englishmaste
 ## Build and test
 
 ```bash
-./gradlew test             # 88 JVM/Robolectric tests (no device needed)
+./gradlew test             # 110 JVM/Robolectric tests (no device needed)
 # opt-in, against a live project (creates no data):
 SUPABASE_LIVE_URL=https://<ref>.supabase.co SUPABASE_LIVE_KEY=<publishable key> ./gradlew :core:network:test
 ./gradlew lintDebug

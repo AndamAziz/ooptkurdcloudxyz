@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<!-- Counts in exam rules are fixed values above one (20 questions, 30 minutes, 24 hours), and
+     "%1$d of %2$d correct" uses "correct" as an adjective, so plurals are not needed there. -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="PluralsCandidate">
     <string name="practice_home_title">EnglishMaster AI</string>
     <string name="practice_menu">لیست</string>
     <string name="practice_staff_tools">ئامرازەکانی بەڕێوەبردن</string>
@@ -78,4 +80,51 @@
         <item quantity="one">%1$d وەڵام چاوەڕێیە تا کاتێک ئۆنلاین بوویت هەڵبسەنگێنرێت.</item>
         <item quantity="other">%1$d وەڵام چاوەڕێن تا کاتێک ئۆنلاین بوویت هەڵبسەنگێنرێن.</item>
     </plurals>
+    <string name="practice_review_title">پێداچوونەوەی هەڵەکان %1$s</string>
+    <string name="practice_review_empty">لەم ئاستەدا هیچ هەڵەیەک نییە بۆ پێداچوونەوە. دەستخۆش!</string>
+    <string name="home_my_certificates">بڕوانامەکانم</string>
+    <string name="home_placement_test">تاقیکردنەوەی دیاریکردنی ئاست</string>
+    <string name="home_hello">سڵاو، %1$s 👋</string>
+    <string name="home_welcome">بەخێربێیت 👋</string>
+    <string name="home_tagline">ڕۆژانە مەشق بکە، لە تاقیکردنەوەی ئاست دەربچۆ و بڕوانامەکەت وەربگرە.</string>
+    <plurals name="home_streak_days">
+        <item quantity="one">ڕۆژی یەک لەدوای یەک</item>
+        <item quantity="other">ڕۆژی یەک لەدوای یەک</item>
+    </plurals>
+    <string name="home_answers">وەڵام</string>
+    <string name="home_certificates">بڕوانامە</string>
+    <string name="home_placement_title">نازانیت لە کوێوە دەست پێبکەیت؟</string>
+    <string name="home_placement_body">تاقیکردنەوەی دیاریکردنی ئاست بکە (%1$d پرسیار، %2$d خولەک) و ئێمە ئاستی گونجاوت پێدەڵێین.</string>
+    <string name="home_placement_start">ئاستی خۆم بدۆزەرەوە</string>
+    <string name="home_placement_retake">دووبارە کردنەوەی تاقیکردنەوە</string>
+    <string name="home_recommended">ئاستی پێشنیارکراوت: %1$s</string>
+    <string name="home_practise_level">مەشقی %1$s</string>
+    <string name="home_how_title">چۆن بڕوانامە وەربگرم؟</string>
+    <string name="home_how_step1">لە ئاستێکدا مەشق بکە تا لانیکەم ٣٠ پرسیاری وەڵام دەدەیتەوە (یان هەموویان ئەگەر کەمتر بن)، و لانیکەم %1$d%% ی دوایین وەڵامەکانت ڕاست بن. هەڵەکان بە «پێداچوونەوەی هەڵەکان» چاک دەکرێنەوە.</string>
+    <string name="home_how_step2">ئینجا تاقیکردنەوەی کۆتایی ئاستەکە دەکرێتەوە: %1$d پرسیاری هەڕەمەکی لە %2$d خولەکدا، لەسەر سێرڤەر هەڵدەسەنگێنرێت.</string>
+    <string name="home_how_step3">ئەگەر %1$d%% یان زیاتر بەدەستبهێنیت، یەکسەر بڕوانامەکەت دەردەچێت، وەک PDF بە کۆدی QR کە هەر کەسێک دەتوانێت سکانی بکات و پشتڕاستی بکاتەوە.</string>
+    <string name="home_how_step4">دەرنەچوویت؟ پێداچوونەوە بە هەڵەکانتدا بکە؛ هەوڵی داهاتوو دوای %1$d کاتژمێر دەکرێتەوە.</string>
+    <string name="home_level_title">ئاستی %1$s</string>
+    <string name="home_chip_recommended">پێشنیارکراو</string>
+    <string name="home_chip_certified">🏅 بڕوانامەدار</string>
+    <string name="home_chip_exam_ready">تاقیکردنەوە کراوەیە</string>
+    <string name="home_chip_in_progress">تاقیکردنەوە بەردەوامە</string>
+    <string name="home_progress_line">%1$d لە %2$d وەڵام دراوەتەوە · %3$d%% ڕاست</string>
+    <plurals name="home_status_practise_more">
+        <item quantity="one">%1$d پرسیاری تر بە %2$d%% ڕاستی مەشق بکە بۆ کردنەوەی تاقیکردنەوەی کۆتایی.</item>
+        <item quantity="other">%1$d پرسیاری تر بە %2$d%% ڕاستی مەشق بکە بۆ کردنەوەی تاقیکردنەوەی کۆتایی.</item>
+    </plurals>
+    <string name="home_status_accuracy">وەڵامە ڕاستەکانت بگەیەنە %1$d%% بۆ کردنەوەی تاقیکردنەوە. بە پێداچوونەوەی هەڵەکان باشتری بکە.</string>
+    <string name="home_status_exam_ready">تاقیکردنەوەی کۆتایی کراوەیە. %1$d%% بەدەستبهێنە بۆ وەرگرتنی بڕوانامە.</string>
+    <string name="home_status_in_progress">تاقیکردنەوەیەکی بەردەوامت هەیە. پێش تەواوبوونی کات تەواوی بکە.</string>
+    <string name="home_status_retry">دوایین تاقیکردنەوە: %1$d / %2$d. هەوڵی داهاتوو %3$s دەکرێتەوە.</string>
+    <string name="home_status_certified">بڕوانامە بە %1$d / %2$d وەرگیراوە.</string>
+    <string name="home_take_exam">تاقیکردنەوەی کۆتایی بکە</string>
+    <string name="home_continue_exam">بەردەوامبوون لە تاقیکردنەوە</string>
+    <string name="home_view_certificate">بینینی بڕوانامە</string>
+    <plurals name="home_review_mistakes">
+        <item quantity="one">پێداچوونەوەی %1$d هەڵە</item>
+        <item quantity="other">پێداچوونەوەی %1$d هەڵە</item>
+    </plurals>
+    <string name="home_more">زیاتر</string>
 </resources>

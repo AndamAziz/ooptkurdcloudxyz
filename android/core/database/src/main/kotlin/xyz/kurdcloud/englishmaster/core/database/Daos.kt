@@ -30,6 +30,23 @@ interface QuestionDao {
 
     @Query("DELETE FROM questions WHERE cefr_level = :level")
     suspend fun deleteLevel(level: String)
+
+    /** Downloaded questions whose latest marked answer by this user was wrong. */
+    @Query(
+        """SELECT q.* FROM questions q
+           WHERE q.cefr_level = :level AND ($LATEST_VERDICT) = 0
+           ORDER BY RANDOM() LIMIT :limit"""
+    )
+    suspend fun pickMistakes(level: String, userId: String, limit: Int): List<QuestionEntity>
+
+    @Query("SELECT q.cefr_level AS cefr_level, COUNT(*) AS count FROM questions q WHERE ($LATEST_VERDICT) = 0 GROUP BY q.cefr_level")
+    fun observeMistakeCounts(userId: String): Flow<List<LevelCountRow>>
+
+    private companion object {
+        const val LATEST_VERDICT = """SELECT r.is_correct FROM responses r
+            WHERE r.question_id = q.id AND r.user_id = :userId AND r.sync_state = 'SYNCED'
+            ORDER BY r.answered_at DESC LIMIT 1"""
+    }
 }
 
 @Dao

@@ -57,6 +57,21 @@ Student RPCs (all require a signed-in, non-suspended user):
 
 Full request/response contract: [`docs/api-contract.md`](../docs/api-contract.md).
 
+Exams and certificates (`20261020030000_exams_and_certificates`):
+
+| RPC | Who | Notes |
+|---|---|---|
+| `get_learning_overview()` | learner | per level: published, distinct answered, latest-correct, required, exam unlocked / in progress / next attempt, certificate |
+| `get_learner_profile()` | learner | name, placement level, total answers, day streak |
+| `start_level_exam(p_cefr_level)` | learner | 20 random published questions, 30 min; resumes an unfinished attempt; refusals use SQLSTATE P0001 with `hint` = `not_unlocked` / `retry_later` / `already_certified` / `not_enough_questions` |
+| `submit_level_exam(p_attempt_id, p_answers)` | owner | server marks; >= 80% issues a certificate; idempotent; late (> 2 min grace) = expired |
+| `start_placement_test()` / `submit_placement_test(...)` | learner | 3 questions per level A1–C2; recommends the level after the highest one passed with >= 2/3 |
+| `get_my_certificates()` | learner | own certificates |
+| `verify_certificate(p_code)` | **anyone** | returns only the printed facts of the certificate with that code |
+
+Edge function `verify-certificate` (verify_jwt off) prints the result of `verify_certificate` as
+plain text; it is what the QR code on a certificate opens.
+
 ## Question content
 
 `scripts/db/build_question_seed.py` builds the seed from `public/data/questions.csv`:
@@ -117,6 +132,8 @@ Applied to `nefpgqoykfndjvrdultp` with the owner's approval:
 | `20261019203557_staff_tools` | applied — staff RPCs (users, roles, suspension, question review, activity) |
 | `20261019210121_app_releases` | applied — public read of published releases, `app-releases` bucket (public read, service-role upload) |
 | seed `assessment_questions_ai_batch_01.sql` | applied — 125 AI drafts (draft + unreviewed, hidden from students); content fingerprint identical to a local run |
+| `20261020030000_exams_and_certificates` | applied 2026-10-20 — permissions checked live (anon may only call `verify_certificate`); learner flow checked in a rolled-back transaction |
+| edge function `verify-certificate` | deployed (v1, verify_jwt off) |
 | `20261019220000_policy_consolidation` | **pending** — contains `DROP POLICY`; the MCP tooling waits for a destructive-statement confirmation it cannot show and times out (nothing is changed). Apply with `supabase db push --workdir backend` |
 
 Verified on the live project: RLS on all tables; `anon` has no table grants and cannot execute any
