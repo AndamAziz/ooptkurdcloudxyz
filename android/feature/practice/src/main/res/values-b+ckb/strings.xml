@@ -102,7 +102,7 @@
     <string name="home_how_title">چۆن بڕوانامە وەربگرم؟</string>
     <string name="home_how_step1">لە ئاستێکدا مەشق بکە تا لانیکەم ٣٠ پرسیاری وەڵام دەدەیتەوە (یان هەموویان ئەگەر کەمتر بن)، و لانیکەم %1$d%% ی دوایین وەڵامەکانت ڕاست بن. هەڵەکان بە «پێداچوونەوەی هەڵەکان» چاک دەکرێنەوە.</string>
     <string name="home_how_step2">ئینجا تاقیکردنەوەی کۆتایی ئاستەکە دەکرێتەوە: %1$d پرسیاری هەڕەمەکی لە %2$d خولەکدا، لەسەر سێرڤەر هەڵدەسەنگێنرێت.</string>
-    <string name="home_how_step3">ئەگەر %1$d%% یان زیاتر بەدەستبهێنیت، یەکسەر بڕوانامەکەت دەردەچێت، وەک PDF بە کۆدی QR کە هەر کەسێک دەتوانێت سکانی بکات و پشتڕاستی بکاتەوە.</string>
+    <string name="home_how_step3">ئەگەر %1$d%% یان زیاتر بەدەستبهێنیت، دوای پەسەندکردنی مامۆستاکەت بڕوانامەکەت دەردەچێت، وەک PDF بە کۆدی QR کە هەر کەسێک دەتوانێت سکانی بکات و پشتڕاستی بکاتەوە.</string>
     <string name="home_how_step4">دەرنەچوویت؟ پێداچوونەوە بە هەڵەکانتدا بکە؛ هەوڵی داهاتوو دوای %1$d کاتژمێر دەکرێتەوە.</string>
     <string name="home_level_title">ئاستی %1$s</string>
     <string name="home_chip_recommended">پێشنیارکراو</string>
@@ -130,7 +130,7 @@
     <string name="practice_media_unavailable">وێنەکە نەکرایەوە. پەیوەندی ئینتەرنێتەکەت بپشکنە.</string>
     <string name="topics_header">ڕاهێنان بەپێی بابەت</string>
     <string name="topics_body">پرسیاری تێکەڵ لە هەموو ئەو ئاستانەی دابەزاندووتن.</string>
-    <string name="topics_update_levels">ئاستە دابەزێنراوەکانت نوێ بکەرەوە (لیستی سەر هەر ئاستێک) بۆ ئەوەی پرسیارەکانی بابەتەکان وەربگریت.</string>
+    <string name="topics_update_levels">دوگمەی نوێکردنەوە لەسەر ئاستە دابەزێنراوەکانت دابگرە بۆ ئەوەی پرسیارەکانی بابەتەکان وەربگریت.</string>
     <string name="topic_life_in_uk">ژیان لە بەریتانیا (Life in the UK)</string>
     <string name="topic_life_in_uk_desc">مێژوو، داب و نەریت، حکومەت و ژیانی ڕۆژانە — بەسوود بۆ تاقیکردنەوەی Life in the UK</string>
     <string name="topic_kurdistan">کوردستان</string>
@@ -146,4 +146,6 @@
         <item quantity="other">%1$d پرسیار</item>
     </plurals>
     <string name="practice_topic_empty">هێشتا هیچ پرسیارێک بۆ ئەم بابەتە نییە. سەرەتا ئاستێک دابەزێنە یان نوێی بکەرەوە.</string>
+    <string name="home_chip_awaiting_approval">چاوەڕوانی پەسەندکردن</string>
+    <string name="home_status_awaiting_approval">بە %1$d / %2$d دەرچوویت. مامۆستاکەت پێداچوونەوە بە ئەنجامەکەدا دەکات؛ دوای پەسەندکردن بڕوانامەکە لێرە دەردەکەوێت.</string>
 </resources>

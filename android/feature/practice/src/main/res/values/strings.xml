@@ -102,7 +102,7 @@
     <string name="home_how_title">How do I earn a certificate?</string>
     <string name="home_how_step1">Practise a level until you have answered at least 30 of its questions (or all of them, if there are fewer), with at least %1$d%% of your latest answers correct. Wrong answers can be fixed with “Review mistakes”.</string>
     <string name="home_how_step2">The level\'s final exam then unlocks: %1$d random questions in %2$d minutes, marked on the server.</string>
-    <string name="home_how_step3">Score %1$d%% or more and your certificate is issued at once, as a PDF with a QR code anyone can scan to check it.</string>
+    <string name="home_how_step3">Score %1$d%% or more, then your teacher approves the result and your certificate is issued as a PDF with a QR code anyone can scan to check it.</string>
     <string name="home_how_step4">Did not pass? Review your mistakes; the next attempt opens after %1$d hours.</string>
     <string name="home_level_title">Level %1$s</string>
     <string name="home_chip_recommended">Recommended</string>
@@ -130,7 +130,7 @@
     <string name="practice_media_unavailable">The picture could not be loaded. Check your internet connection.</string>
     <string name="topics_header">Practise by topic</string>
     <string name="topics_body">Mixed questions from all your downloaded levels.</string>
-    <string name="topics_update_levels">Update your downloaded levels (menu on each level) to get the topic questions.</string>
+    <string name="topics_update_levels">Tap Update on your downloaded levels to get the topic questions.</string>
     <string name="topic_life_in_uk">Life in the UK</string>
     <string name="topic_life_in_uk_desc">History, traditions, government and everyday life — useful for the Life in the UK test</string>
     <string name="topic_kurdistan">Kurdistan</string>
@@ -146,4 +146,6 @@
         <item quantity="other">%1$d questions</item>
     </plurals>
     <string name="practice_topic_empty">No questions on this topic yet. Download or update a level first.</string>
+    <string name="home_chip_awaiting_approval">Waiting for approval</string>
+    <string name="home_status_awaiting_approval">Passed with %1$d / %2$d. Your teacher will review the result; the certificate appears here once it is approved.</string>
 </resources>

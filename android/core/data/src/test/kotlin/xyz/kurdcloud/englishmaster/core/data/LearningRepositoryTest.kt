@@ -55,7 +55,19 @@ class LearningRepositoryTest {
         assertEquals(8, o.remainingToUnlock)
         assertEquals(1792551600000L, o.examAvailableAtMillis)
         assertEquals(false, o.examInProgress)
-        assertEquals("/rest/v1/rpc/get_learning_overview", server.takeRequest().url.encodedPath)
+        assertEquals("/rest/v1/rpc/get_learning_overview_v2", server.takeRequest().url.encodedPath)
+    }
+
+    @Test
+    fun passedExamWaitingForApprovalIsNotACertificateYet() = runTest {
+        server.enqueue(json(200, """[{"cefr_level":"A2","published":40,"answered":30,"correct":28,"required":30,"required_percent":70,
+            "exam_unlocked":true,"exam_available_at":null,"exam_in_progress":null,"last_exam_score":18,
+            "last_exam_total":20,"certificate_code":null,"certificate_issued_at":"2026-10-20T03:00:00+00:00","certificate_status":"pending"}]"""))
+
+        val o = (repo.overview() as ApiResult.Success).value.single()
+
+        assertEquals(true, o.certificatePending)
+        assertEquals(xyz.kurdcloud.englishmaster.core.model.LevelStage.AWAITING_APPROVAL, o.stage(0))
     }
 
     @Test

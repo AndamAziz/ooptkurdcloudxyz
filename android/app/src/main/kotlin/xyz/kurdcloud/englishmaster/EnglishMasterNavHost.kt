@@ -24,6 +24,7 @@ import xyz.kurdcloud.englishmaster.core.model.StaffAccess
 import xyz.kurdcloud.englishmaster.core.model.Topic
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.feature.admin.ActivityViewModel
+import xyz.kurdcloud.englishmaster.feature.admin.CertificateRequestsViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.AddQuestionScreen
 import xyz.kurdcloud.englishmaster.feature.admin.AddQuestionViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.QuestionsViewModel
@@ -199,6 +200,7 @@ fun EnglishMasterNavHost(
                     activityViewModel = { viewModel { ActivityViewModel(container.staff) } },
                     onBack = { navController.popBackStack() },
                     onAddQuestion = { navController.navigate("staff/new-question/${it.apiValue}") },
+                    certificatesViewModel = { viewModel { CertificateRequestsViewModel(container.staff) } },
                 )
             }
         }

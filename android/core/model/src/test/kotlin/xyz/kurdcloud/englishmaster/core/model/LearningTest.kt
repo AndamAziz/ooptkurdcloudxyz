@@ -40,4 +40,22 @@ class LearningTest {
         assertEquals(ExamRefusal.RETRY_LATER, ExamRefusal.fromHint("retry_later"))
         assertEquals(ExamRefusal.OTHER, ExamRefusal.fromHint(null))
     }
+
+    @Test
+    fun certificateWaitsForApprovalAfterAPass() {
+        val o = LevelOverview(CefrLevel.A2, 40, 30, 28, 30, 70, true, null, false, 18, 20, null, null, certificatePending = true)
+        assertEquals(LevelStage.AWAITING_APPROVAL, o.stage(0))
+        assertEquals(LevelStage.CERTIFIED, o.copy(certificateCode = "EM-AAAA-BBBB-CCCC").stage(0))
+        assertEquals(true, ExamResult(18, 20, true, 80, null, null, false).awaitingApproval)
+        assertEquals(false, ExamResult(18, 20, true, 80, "EM-AAAA-BBBB-CCCC", null, false).awaitingApproval)
+        assertEquals(false, ExamResult(10, 20, false, 80, null, 1L, false).awaitingApproval)
+        assertEquals(ExamRefusal.PENDING_APPROVAL, ExamRefusal.fromHint("pending_approval"))
+    }
+
+    @Test
+    fun onlyStaffApproveCertificates() {
+        assertEquals(false, StaffAccess.from(setOf(Role.STUDENT)).canApproveCertificates)
+        assertEquals(true, StaffAccess.from(setOf(Role.TEACHER)).canApproveCertificates)
+        assertEquals(true, StaffAccess.from(setOf(Role.ADMIN)).canApproveCertificates)
+    }
 }

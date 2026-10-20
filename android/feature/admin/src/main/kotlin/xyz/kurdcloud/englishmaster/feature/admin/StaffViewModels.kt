@@ -11,6 +11,8 @@ import kotlinx.coroutines.launch
 import xyz.kurdcloud.englishmaster.core.data.StaffRepository
 import xyz.kurdcloud.englishmaster.core.model.ActivityEntry
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
+import xyz.kurdcloud.englishmaster.core.model.CertificateRequest
+import xyz.kurdcloud.englishmaster.core.model.CertificateRequestStatus
 import xyz.kurdcloud.englishmaster.core.model.Role
 import xyz.kurdcloud.englishmaster.core.model.StaffQuestion
 import xyz.kurdcloud.englishmaster.core.model.StaffUser
@@ -188,4 +190,74 @@ class ActivityViewModel(private val staff: StaffRepository) : ViewModel() {
             }
         }
     }
+}
+
+data class CertificatesUiState(
+    val filter: CertificateRequestStatus = CertificateRequestStatus.PENDING,
+    val loading: Boolean = true,
+    @StringRes val error: Int? = null,
+    val requests: List<CertificateRequest> = emptyList(),
+    /** Request being approved/rejected; its buttons are disabled meanwhile. */
+    val busyId: String? = null,
+    @StringRes val message: Int? = null,
+)
+
+/** Teacher/admin queue of passed exams whose certificates need a decision. */
+class CertificateRequestsViewModel(private val staff: StaffRepository) : ViewModel() {
+    private val state = MutableStateFlow(CertificatesUiState())
+    val uiState: StateFlow<CertificatesUiState> = state.asStateFlow()
+
+    init { load() }
+
+    fun setFilter(filter: CertificateRequestStatus) {
+        if (filter == state.value.filter) return
+        state.update { it.copy(filter = filter, requests = emptyList()) }
+        load()
+    }
+
+    fun load() {
+        val filter = state.value.filter
+        state.update { it.copy(loading = true, error = null) }
+        viewModelScope.launch {
+            val r = staff.certificateRequests(filter)
+            if (state.value.filter != filter) return@launch
+            when (r) {
+                is ApiResult.Success -> state.update { it.copy(loading = false, requests = r.value) }
+                is ApiResult.Failure -> state.update { it.copy(loading = false, error = r.error.message()) }
+            }
+        }
+    }
+
+    fun approve(request: CertificateRequest) = decide(request, approve = true, note = null)
+
+    fun reject(request: CertificateRequest, note: String?) = decide(request, approve = false, note = note)
+
+    private fun decide(request: CertificateRequest, approve: Boolean, note: String?) {
+        if (state.value.busyId != null) return
+        state.update { it.copy(busyId = request.id) }
+        viewModelScope.launch {
+            when (val r = staff.reviewCertificate(request.id, approve, note)) {
+                is ApiResult.Success -> state.update { s ->
+                    s.copy(
+                        // The request leaves the pending queue once decided.
+                        requests = s.requests.filterNot { it.id == request.id },
+                        message = if (approve) R.string.cert_approved_message else R.string.cert_rejected_message,
+                    )
+                }
+                is ApiResult.Failure -> {
+                    val hint = (r.error as? ApiError.Validation)?.hint
+                    val message = when (hint) {
+                        "own_certificate" -> R.string.cert_error_own
+                        "not_pending" -> R.string.cert_error_already_reviewed
+                        else -> r.error.message()
+                    }
+                    state.update { it.copy(message = message) }
+                    if (hint == "not_pending") load()
+                }
+            }
+            state.update { it.copy(busyId = null) }
+        }
+    }
+
+    fun messageShown() = state.update { it.copy(message = null) }
 }

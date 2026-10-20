@@ -86,7 +86,7 @@ class HomeLearningTest {
         compose.setContent { EnglishMasterTheme { HomeScreen(vm(), "کوردی", {}, {}, {}) } }
         compose.onNode(hasScrollToNodeAction()).performScrollToNode(hasTestTag("how_certificates"))
         compose.onNodeWithTag("how_certificates").performClick()
-        compose.onNodeWithText("Score 80% or more and your certificate is issued at once, as a PDF with a QR code anyone can scan to check it.")
+        compose.onNodeWithText("Score 80% or more, then your teacher approves the result and your certificate is issued as a PDF with a QR code anyone can scan to check it.")
             .performScrollTo().assertIsDisplayed()
     }
 
@@ -118,6 +118,52 @@ class HomeLearningTest {
         list.performScrollToNode(hasTestTag("topic_kurdistan"))
         compose.onNodeWithTag("topic_kurdistan").performClick()
         assertEquals(Topic.LIFE_IN_UK, opened)
+    }
+
+    @Test
+    fun learnersCanUpdateButNotRemoveDownloadedLevels() {
+        val content = FakeContent().apply { packs.value = listOf(LevelPack(CefrLevel.A1, 3, 0)) }
+        val vm = HomeViewModel("u1", content, FakePractice(FakeNetwork()), FakeNetwork(), learning = FakeLearningRepo(), clock = { 0L })
+        compose.setContent { EnglishMasterTheme { HomeScreen(vm, "کوردی", {}, {}, {}) } }
+        compose.onNode(hasScrollToNodeAction()).performScrollToNode(hasTestTag("update_A1"))
+        compose.onNodeWithTag("update_A1").assertIsDisplayed()
+        compose.onNodeWithText("More").assertDoesNotExist()
+        compose.onNodeWithText("Remove").assertDoesNotExist()
+        // Even if asked directly, the view model keeps a learner's questions.
+        vm.remove(CefrLevel.A1)
+        assertEquals(1, content.packs.value.size)
+    }
+
+    @Test
+    fun staffKeepTheRemoveOption() {
+        val content = FakeContent().apply { packs.value = listOf(LevelPack(CefrLevel.A1, 3, 0)) }
+        val staff = object : xyz.kurdcloud.englishmaster.core.data.StaffRepository {
+            override suspend fun myAccess() = ApiResult.Success(xyz.kurdcloud.englishmaster.core.model.StaffAccess(true, false))
+            override suspend fun users(search: String?) = ApiResult.Failure(ApiError.Forbidden)
+            override suspend fun setRole(userId: String, role: xyz.kurdcloud.englishmaster.core.model.Role, granted: Boolean) = ApiResult.Failure(ApiError.Forbidden)
+            override suspend fun setSuspended(userId: String, suspended: Boolean) = ApiResult.Failure(ApiError.Forbidden)
+            override suspend fun questions(level: CefrLevel) = ApiResult.Failure(ApiError.Forbidden)
+            override suspend fun review(questionId: String, approved: Boolean, status: String?) = ApiResult.Failure(ApiError.Forbidden)
+            override suspend fun recentActivity() = ApiResult.Failure(ApiError.Forbidden)
+        }
+        val vm = HomeViewModel("u1", content, FakePractice(FakeNetwork()), FakeNetwork(), staff = staff, learning = FakeLearningRepo(), clock = { 0L })
+        compose.setContent { EnglishMasterTheme { HomeScreen(vm, "کوردی", {}, {}, {}) } }
+        val list = compose.onNode(hasScrollToNodeAction())
+        list.performScrollToNode(hasTestTag("level_A1"))
+        compose.onNodeWithText("More").performScrollTo().performClick()
+        compose.onNodeWithText("Remove").assertIsDisplayed()
+    }
+
+    @Test
+    fun passedLevelShowsItIsWaitingForApproval() {
+        val learning = FakeLearningRepo(
+            levels = listOf(overview(CefrLevel.A2, 30, 28, unlocked = true).copy(lastExamScore = 18, lastExamTotal = 20, certificatePending = true)),
+        )
+        compose.setContent { EnglishMasterTheme { HomeScreen(vm(learning), "کوردی", {}, {}, {}) } }
+        compose.onNode(hasScrollToNodeAction()).performScrollToNode(hasTestTag("level_status_A2"))
+        compose.onNodeWithText("Passed with 18 / 20. Your teacher will review the result; the certificate appears here once it is approved.")
+            .assertIsDisplayed()
+        compose.onNodeWithTag("exam_A2").assertDoesNotExist()
     }
 
     @Test

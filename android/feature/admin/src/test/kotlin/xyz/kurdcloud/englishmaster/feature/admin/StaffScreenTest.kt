@@ -13,6 +13,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTextReplacement
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -77,5 +78,52 @@ class StaffScreenTest {
         compose.onNodeWithText("بەکارهێنەران").assertIsDisplayed()
         compose.onNodeWithText("پرسیارەکان").performClick()
         compose.onNodeWithText("I ___ a student.").assertIsDisplayed()
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    fun teacherApprovesALearnersCertificateButNotTheirOwn() {
+        val certs = CertificateRequestsViewModel(repo)
+        val users = UsersViewModel(repo)
+        val questions = QuestionsViewModel(repo)
+        val activity = ActivityViewModel(repo)
+        compose.setContent {
+            EnglishMasterTheme {
+                StaffScreen(StaffAccess(canReviewQuestions = true, canManageUsers = false), currentUserId = "me",
+                    usersViewModel = { users }, questionsViewModel = { questions },
+                    activityViewModel = { activity }, onBack = {}, certificatesViewModel = { certs })
+            }
+        }
+        // The approval queue is the first tab.
+        compose.onNodeWithTag("cert_request_c1").assertIsDisplayed()
+        compose.onNodeWithTag("cert_approve_c2").assertDoesNotExist()
+        compose.onNodeWithText("This is your own exam: another teacher or an admin must review it.").assertExists()
+
+        compose.onNodeWithTag("cert_approve_c1").performClick()
+        compose.onNodeWithText("Approve the A2 certificate?").assertIsDisplayed()
+        compose.onNodeWithTag("cert_confirm_approve").performClick()
+        compose.onNodeWithTag("cert_request_c1").assertDoesNotExist()
+        assertTrue("certReview:c1:true:null" in repo.calls)
+    }
+
+    @Test
+    @Config(qualifiers = "b+ckb")
+    fun adminSeesFourScrollableTabsInSorani() {
+        val certs = CertificateRequestsViewModel(repo)
+        val users = UsersViewModel(repo)
+        val questions = QuestionsViewModel(repo)
+        val activity = ActivityViewModel(repo)
+        compose.setContent {
+            EnglishMasterTheme {
+                StaffScreen(StaffAccess(canReviewQuestions = true, canManageUsers = true), currentUserId = "me",
+                    usersViewModel = { users }, questionsViewModel = { questions },
+                    activityViewModel = { activity }, onBack = {}, certificatesViewModel = { certs })
+            }
+        }
+        compose.onNodeWithText("بڕوانامەکان").assertIsDisplayed()
+        compose.onNodeWithTag("cert_reject_c1").performClick()
+        compose.onNodeWithTag("cert_reject_note").performTextReplacement("Retake with a teacher")
+        compose.onNodeWithTag("cert_confirm_reject").performClick()
+        assertTrue("certReview:c1:false:Retake with a teacher" in repo.calls)
     }
 }

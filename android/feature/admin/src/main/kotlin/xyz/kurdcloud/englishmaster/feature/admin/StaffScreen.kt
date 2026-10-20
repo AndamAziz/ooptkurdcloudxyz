@@ -25,6 +25,7 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -63,13 +64,20 @@ import xyz.kurdcloud.englishmaster.core.designsystem.LoadingState
 import xyz.kurdcloud.englishmaster.core.designsystem.PassageCard
 import xyz.kurdcloud.englishmaster.core.designsystem.QuestionMediaView
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
+import xyz.kurdcloud.englishmaster.core.model.CertificateRequest
+import xyz.kurdcloud.englishmaster.core.model.CertificateRequestStatus
 import xyz.kurdcloud.englishmaster.core.model.Role
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
 import xyz.kurdcloud.englishmaster.core.model.StaffQuestion
 import xyz.kurdcloud.englishmaster.core.model.StaffUser
 import xyz.kurdcloud.englishmaster.core.model.optionLetter
 
-private enum class StaffTab(val title: Int) { USERS(R.string.admin_tab_users), QUESTIONS(R.string.admin_tab_questions), ACTIVITY(R.string.admin_tab_activity) }
+private enum class StaffTab(val title: Int) {
+    CERTIFICATES(R.string.admin_tab_certificates),
+    USERS(R.string.admin_tab_users),
+    QUESTIONS(R.string.admin_tab_questions),
+    ACTIVITY(R.string.admin_tab_activity),
+}
 
 /**
  * Staff section. Tabs follow [access]; the server re-checks every call, so a hidden tab
@@ -85,8 +93,11 @@ fun StaffScreen(
     activityViewModel: @Composable () -> ActivityViewModel,
     onBack: () -> Unit,
     onAddQuestion: (CefrLevel) -> Unit = {},
+    certificatesViewModel: (@Composable () -> CertificateRequestsViewModel)? = null,
 ) {
     val tabs = buildList {
+        // Pending certificate approvals come first: they are what learners are waiting for.
+        if (access.canApproveCertificates && certificatesViewModel != null) add(StaffTab.CERTIFICATES)
         if (access.canSeeUsers) add(StaffTab.USERS)
         if (access.canReviewQuestions) add(StaffTab.QUESTIONS)
         if (access.canManageUsers) add(StaffTab.ACTIVITY)
@@ -109,13 +120,25 @@ fun StaffScreen(
                 return@Column
             }
             if (tabs.size > 1) {
-                PrimaryTabRow(selectedTabIndex = selected.coerceIn(tabs.indices)) {
+                val tabContent: @Composable () -> Unit = {
                     tabs.forEachIndexed { index, tab ->
-                        Tab(selected = selected == index, onClick = { selected = index }, text = { Text(stringResource(tab.title)) })
+                        Tab(
+                            selected = selected == index,
+                            onClick = { selected = index },
+                            text = { Text(stringResource(tab.title), maxLines = 1) },
+                            modifier = Modifier.testTag("tab_${tab.name.lowercase()}"),
+                        )
                     }
+                }
+                // Four tabs do not fit side by side on a phone in Sorani: let them scroll.
+                if (tabs.size > 3) {
+                    PrimaryScrollableTabRow(selectedTabIndex = selected.coerceIn(tabs.indices), edgePadding = 8.dp) { tabContent() }
+                } else {
+                    PrimaryTabRow(selectedTabIndex = selected.coerceIn(tabs.indices)) { tabContent() }
                 }
             }
             when (tabs[selected.coerceIn(tabs.indices)]) {
+                StaffTab.CERTIFICATES -> CertificatesTab(certificatesViewModel!!(), currentUserId, snackbar)
                 StaffTab.USERS -> UsersTab(usersViewModel(), currentUserId, access.canManageUsers, snackbar)
                 StaffTab.QUESTIONS -> QuestionsTab(questionsViewModel(), snackbar, onAddQuestion)
                 StaffTab.ACTIVITY -> ActivityTab(activityViewModel())
@@ -377,6 +400,141 @@ private fun QuestionCard(q: StaffQuestion, busy: Boolean, onApprove: (Boolean) -
 }
 
 @Composable
+private fun CertificatesTab(vm: CertificateRequestsViewModel, currentUserId: String, snackbar: SnackbarHostState) {
+    val state by vm.uiState.collectAsStateWithLifecycle()
+    MessageEffect(state.message, snackbar, vm::messageShown)
+    var approve by remember { mutableStateOf<CertificateRequest?>(null) }
+    var reject by remember { mutableStateOf<CertificateRequest?>(null) }
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { if (!state.loading) vm.load() }
+
+    Column(Modifier.fillMaxSize()) {
+        Row(
+            Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            CertificateRequestStatus.entries.forEach { f ->
+                FilterChip(
+                    selected = state.filter == f,
+                    onClick = { vm.setFilter(f) },
+                    label = { Text(stringResource(f.label())) },
+                    modifier = Modifier.testTag("cert_filter_${f.apiValue}"),
+                )
+            }
+        }
+        when {
+            state.loading -> LoadingState()
+            state.error != null -> ErrorState(stringResource(state.error!!), vm::load)
+            state.requests.isEmpty() -> EmptyState(
+                stringResource(if (state.filter == CertificateRequestStatus.PENDING) R.string.cert_none_pending else R.string.cert_none),
+            )
+            else -> LazyColumn(contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                if (state.filter == CertificateRequestStatus.PENDING) {
+                    item {
+                        Text(stringResource(R.string.cert_pending_hint), style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
+                items(state.requests, key = { it.id }) { request ->
+                    CertificateRequestCard(
+                        request = request,
+                        own = request.userId == currentUserId,
+                        busy = state.busyId == request.id,
+                        onApprove = { approve = request },
+                        onReject = { reject = request },
+                    )
+                }
+            }
+        }
+    }
+
+    approve?.let { r ->
+        AlertDialog(
+            onDismissRequest = { approve = null },
+            title = { Text(stringResource(R.string.cert_approve_title, r.level.label)) },
+            text = { Text(stringResource(R.string.cert_approve_body, r.displayName.ifBlank { r.email }, r.score, r.total)) },
+            confirmButton = {
+                TextButton(onClick = { vm.approve(r); approve = null }, modifier = Modifier.testTag("cert_confirm_approve")) {
+                    Text(stringResource(R.string.cert_approve))
+                }
+            },
+            dismissButton = { TextButton(onClick = { approve = null }) { Text(stringResource(R.string.admin_cancel)) } },
+        )
+    }
+    reject?.let { r ->
+        var note by rememberSaveable(r.id) { mutableStateOf("") }
+        AlertDialog(
+            onDismissRequest = { reject = null },
+            title = { Text(stringResource(R.string.cert_reject_title, r.level.label)) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(stringResource(R.string.cert_reject_body, r.displayName.ifBlank { r.email }))
+                    OutlinedTextField(
+                        value = note,
+                        onValueChange = { note = it.take(300) },
+                        label = { Text(stringResource(R.string.cert_reject_note)) },
+                        modifier = Modifier.fillMaxWidth().testTag("cert_reject_note"),
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { vm.reject(r, note); reject = null }, modifier = Modifier.testTag("cert_confirm_reject")) {
+                    Text(stringResource(R.string.cert_reject), color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = { TextButton(onClick = { reject = null }) { Text(stringResource(R.string.admin_cancel)) } },
+        )
+    }
+}
+
+@Composable
+private fun CertificateRequestCard(request: CertificateRequest, own: Boolean, busy: Boolean, onApprove: () -> Unit, onReject: () -> Unit) {
+    Card(Modifier.fillMaxWidth().testTag("cert_request_${request.id}")) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Text(request.displayName.ifBlank { request.email }, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                    Text(request.email, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                AssistChip(onClick = {}, label = { Text(request.level.label, fontWeight = FontWeight.Bold) })
+            }
+            Text(
+                stringResource(R.string.cert_request_detail, request.score, request.total,
+                    if (request.total == 0) 0 else request.score * 100 / request.total, request.requestedAt.take(16).replace('T', ' ')),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            val reviewer = request.reviewerName
+            if (request.status != CertificateRequestStatus.PENDING && reviewer != null) {
+                Text(
+                    stringResource(R.string.cert_reviewed_by, reviewer, request.reviewedAt.orEmpty().take(16).replace('T', ' ')),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            if (request.status == CertificateRequestStatus.PENDING) {
+                if (own) {
+                    Text(stringResource(R.string.cert_own_request), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.tertiary)
+                } else {
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Button(onClick = onApprove, enabled = !busy, modifier = Modifier.testTag("cert_approve_${request.id}")) {
+                            Text(stringResource(R.string.cert_approve))
+                        }
+                        OutlinedButton(onClick = onReject, enabled = !busy, modifier = Modifier.testTag("cert_reject_${request.id}")) {
+                            Text(stringResource(R.string.cert_reject))
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+private fun CertificateRequestStatus.label(): Int = when (this) {
+    CertificateRequestStatus.PENDING -> R.string.cert_filter_pending
+    CertificateRequestStatus.APPROVED -> R.string.cert_filter_approved
+    CertificateRequestStatus.REJECTED -> R.string.cert_filter_rejected
+}
+
+@Composable
 private fun ActivityTab(vm: ActivityViewModel) {
     val state by vm.uiState.collectAsStateWithLifecycle()
     when {
@@ -411,5 +569,8 @@ private fun eventLabel(type: String): Int = when (type) {
     "admin.account_activated" -> R.string.event_account_activated
     "admin.bootstrap_admin_granted" -> R.string.event_bootstrap_admin
     "content.question_reviewed" -> R.string.event_question_reviewed
+    "certificate.requested" -> R.string.event_certificate_requested
+    "certificate.approved" -> R.string.event_certificate_approved
+    "certificate.rejected" -> R.string.event_certificate_rejected
     else -> R.string.event_other
 }

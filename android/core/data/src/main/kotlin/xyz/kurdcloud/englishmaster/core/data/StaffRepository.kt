@@ -5,6 +5,8 @@ import kotlinx.serialization.json.contentOrNull
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import xyz.kurdcloud.englishmaster.core.model.ActivityEntry
+import xyz.kurdcloud.englishmaster.core.model.CertificateRequest
+import xyz.kurdcloud.englishmaster.core.model.CertificateRequestStatus
 import xyz.kurdcloud.englishmaster.core.model.CredentialRules
 import xyz.kurdcloud.englishmaster.core.model.NewQuestion
 import xyz.kurdcloud.englishmaster.core.model.optionLetter
@@ -17,6 +19,8 @@ import xyz.kurdcloud.englishmaster.core.model.StaffUser
 import xyz.kurdcloud.englishmaster.core.network.ApiError
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.core.network.CreateQuestionRequest
+import xyz.kurdcloud.englishmaster.core.network.ListCertificatesRequest
+import xyz.kurdcloud.englishmaster.core.network.ReviewCertificateRequest
 import xyz.kurdcloud.englishmaster.core.network.PublishDraftsRequest
 import xyz.kurdcloud.englishmaster.core.network.SetDisplayNameRequest
 import xyz.kurdcloud.englishmaster.core.network.ListUsersRequest
@@ -45,6 +49,14 @@ interface StaffRepository {
     suspend fun createQuestion(question: NewQuestion): ApiResult<String> = ApiResult.Failure(ApiError.Forbidden)
     /** Approves and publishes every unreviewed draft of [level]; returns how many. */
     suspend fun publishDrafts(level: CefrLevel): ApiResult<Int> = ApiResult.Failure(ApiError.Forbidden)
+
+    /** Certificate requests with [status] (oldest pending first). Teachers and admins only. */
+    suspend fun certificateRequests(status: CertificateRequestStatus): ApiResult<List<CertificateRequest>> =
+        ApiResult.Failure(ApiError.Forbidden)
+
+    /** Approves or rejects a pending certificate; returns the new status. */
+    suspend fun reviewCertificate(id: String, approve: Boolean, note: String? = null): ApiResult<CertificateRequestStatus> =
+        ApiResult.Failure(ApiError.Forbidden)
 }
 
 class SupabaseStaffRepository(
@@ -147,6 +159,29 @@ class SupabaseStaffRepository(
 
     override suspend fun publishDrafts(level: CefrLevel): ApiResult<Int> =
         restCall { api.publishDrafts(PublishDraftsRequest(level.apiValue)) }
+
+    override suspend fun certificateRequests(status: CertificateRequestStatus): ApiResult<List<CertificateRequest>> =
+        restCall { api.certificateRequests(ListCertificatesRequest(status.apiValue)) }.map { rows ->
+            rows.map {
+                CertificateRequest(
+                    id = it.id,
+                    userId = it.userId,
+                    email = it.email,
+                    displayName = it.displayName.orEmpty(),
+                    level = CefrLevel.fromApi(it.level),
+                    score = it.score,
+                    total = it.total,
+                    requestedAt = it.requestedAt,
+                    status = CertificateRequestStatus.fromApi(it.status),
+                    reviewedAt = it.reviewedAt,
+                    reviewerName = it.reviewerName,
+                )
+            }
+        }
+
+    override suspend fun reviewCertificate(id: String, approve: Boolean, note: String?): ApiResult<CertificateRequestStatus> =
+        restCall { api.reviewCertificate(ReviewCertificateRequest(id, approve, note?.trim()?.takeIf { it.isNotEmpty() })) }
+            .map { rows -> CertificateRequestStatus.fromApi(rows.single().status) }
 
     companion object {
         const val MAX_IMAGE_BYTES = 5 * 1024 * 1024

@@ -16,6 +16,9 @@ data class StaffAccess(val canReviewQuestions: Boolean, val canManageUsers: Bool
     /** Teachers and admins can see learners and correct their names; roles/suspension stay admin-only. */
     val canSeeUsers: Boolean get() = any
 
+    /** Teachers and admins approve or reject certificate requests (never their own; server-enforced). */
+    val canApproveCertificates: Boolean get() = canReviewQuestions
+
     companion object {
         val NONE = StaffAccess(canReviewQuestions = false, canManageUsers = false)
 
@@ -70,6 +73,29 @@ data class ActivityEntry(
     val eventType: String,
     val actorName: String?,
     val detail: String?,
+)
+
+enum class CertificateRequestStatus(val apiValue: String) {
+    PENDING("pending"), APPROVED("approved"), REJECTED("rejected");
+
+    companion object {
+        fun fromApi(value: String): CertificateRequestStatus = entries.firstOrNull { it.apiValue == value } ?: PENDING
+    }
+}
+
+/** A learner's passed level exam waiting for (or after) a teacher's decision on the certificate. */
+data class CertificateRequest(
+    val id: String,
+    val userId: String,
+    val email: String,
+    val displayName: String,
+    val level: CefrLevel,
+    val score: Int,
+    val total: Int,
+    val requestedAt: String,
+    val status: CertificateRequestStatus,
+    val reviewedAt: String? = null,
+    val reviewerName: String? = null,
 )
 
 /** A question's review state as stored by the server after a review action. */

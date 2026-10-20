@@ -53,6 +53,12 @@ interface StaffApi {
         @Header("x-upsert") upsert: String = "false",
     ): okhttp3.ResponseBody
 
+    @POST("rest/v1/rpc/staff_list_certificates")
+    suspend fun certificateRequests(@Body body: ListCertificatesRequest): List<CertificateRequestDto>
+
+    @POST("rest/v1/rpc/staff_review_certificate")
+    suspend fun reviewCertificate(@Body body: ReviewCertificateRequest): List<CertificateReviewDto>
+
     @POST("rest/v1/rpc/admin_recent_activity")
     suspend fun recentActivity(@Body body: RecentActivityRequest): List<ActivityDto>
 }

@@ -95,3 +95,31 @@ data class ActivityDto(
     @SerialName("entity_type") val entityType: String? = null,
     val metadata: kotlinx.serialization.json.JsonObject? = null,
 )
+
+@Serializable
+data class ListCertificatesRequest(@SerialName("p_status") val status: String, @SerialName("p_limit") val limit: Int = 100)
+
+@Serializable
+data class CertificateRequestDto(
+    val id: String,
+    @SerialName("user_id") val userId: String,
+    val email: String,
+    @SerialName("display_name") val displayName: String? = null,
+    @SerialName("cefr_level") val level: String,
+    val score: Int,
+    val total: Int,
+    @SerialName("requested_at") val requestedAt: String,
+    val status: String,
+    @SerialName("reviewed_at") val reviewedAt: String? = null,
+    @SerialName("reviewer_name") val reviewerName: String? = null,
+)
+
+@Serializable
+data class ReviewCertificateRequest(
+    @SerialName("p_certificate_id") val certificateId: String,
+    @SerialName("p_approve") val approve: Boolean,
+    @SerialName("p_note") val note: String? = null,
+)
+
+@Serializable
+data class CertificateReviewDto(val status: String, @SerialName("verification_code") val verificationCode: String? = null)

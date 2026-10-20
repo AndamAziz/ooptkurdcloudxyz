@@ -83,4 +83,29 @@ class StaffViewModelsTest {
     fun `activity loads`() {
         assertEquals("Andam", ActivityViewModel(repo).uiState.value.entries.single().actorName)
     }
+
+    @Test
+    fun `certificate requests are approved or rejected and leave the queue`() {
+        val repo = FakeStaffRepository()
+        val vm = CertificateRequestsViewModel(repo)
+        assertEquals(listOf("c1", "c2"), vm.uiState.value.requests.map { it.id })
+
+        vm.approve(vm.uiState.value.requests.first())
+        assertEquals(listOf("c2"), vm.uiState.value.requests.map { it.id })
+        assertEquals(R.string.cert_approved_message, vm.uiState.value.message)
+
+        vm.setFilter(xyz.kurdcloud.englishmaster.core.model.CertificateRequestStatus.APPROVED)
+        assertEquals(listOf("c1"), vm.uiState.value.requests.map { it.id })
+        assertEquals("certs:approved", repo.calls.last())
+    }
+
+    @Test
+    fun `refusing to review your own certificate is explained`() {
+        val repo = FakeStaffRepository()
+        val vm = CertificateRequestsViewModel(repo)
+        repo.failNext = ApiError.Validation("P0001", "own_certificate")
+        vm.reject(vm.uiState.value.requests.last(), "no")
+        assertEquals(R.string.cert_error_own, vm.uiState.value.message)
+        assertEquals(2, vm.uiState.value.requests.size)
+    }
 }

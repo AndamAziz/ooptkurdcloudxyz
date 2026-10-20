@@ -185,7 +185,9 @@ class HomeViewModel(
         downloadJobs.remove(level)?.cancel()
     }
 
+    /** Deleting a downloaded level is a staff action; learners keep their questions. */
     fun remove(level: CefrLevel) {
+        if (!transient.value.staffAccess.any) return
         viewModelScope.launch { content.deleteLevel(level) }
     }
 
