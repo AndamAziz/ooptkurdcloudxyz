@@ -28,7 +28,7 @@ select results_eq($$select review_status, status from public.staff_review_questi
   $$values ('approved', 'published')$$, 'teacher can approve a question');
 select throws_ok($$select * from public.staff_review_question('00000000-0000-0000-0000-0000000000d1', 'great')$$,
   '22023', null, 'invalid review status rejected');
-select throws_ok($$select * from public.admin_list_users()$$, '42501', null, 'teacher cannot list users');
+select ok((select count(*) from public.admin_list_users()) >= 1, 'teacher can list users (to correct names)');
 select throws_ok($$select public.admin_set_role('b0000000-0000-0000-0000-00000000000b', 'admin', true)$$,
   '42501', null, 'teacher cannot promote themselves');
 select throws_ok($$select * from public.admin_recent_activity()$$, '42501', null, 'teacher cannot read the activity log');
