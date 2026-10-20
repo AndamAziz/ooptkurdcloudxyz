@@ -80,6 +80,12 @@ Media, authoring and names (`20261020090000_media_names_authoring`):
   `staff_set_display_name(user, name)` (teacher/admin; issued certificates keep their name).
 * `admin_list_users` is readable by teachers; role and status changes stay admin-only.
 
+Topics (`20261020120000_question_topics`): `get_practice_questions_v3` = v2 plus `tags`, so the app
+can offer practice by topic (Life in the UK, Kurdistan, stories/dialogues, history and nature,
+pictures/videos) offline. Content batch `ai-batch-03` (114 drafts: stories, dialogues and facts on
+the UK — Life in the UK test topics — and Kurdistan) is tagged `life_in_uk`, `kurdistan`, `story`,
+`dialogue`, `history`, `culture`, `nature`, `world_knowledge`.
+
 Content pipeline: `content/questions/ai-batch-*.json` and `content/media/**` are published by the
 **EnglishMaster content** workflow on push: media are uploaded to `question-media` (upsert) and new
 questions are inserted as drafts with PostgREST `resolution=ignore-duplicates`, so existing rows
@@ -149,6 +155,8 @@ Applied to `nefpgqoykfndjvrdultp` with the owner's approval:
 | edge function `verify-certificate` | deployed (v1, verify_jwt off) |
 | `20261020090000_media_names_authoring` | applied 2026-10-20 |
 | AI batch 02 (200 drafts) + 13 sample media | published by the content workflow; content fingerprint matches a local run |
+| `20261020120000_question_topics` | applied 2026-10-20 — `anon` cannot execute v3, `authenticated` can |
+| AI batch 03 (114 drafts) + 9 new sample media | published by the content workflow on push |
 | `20261019220000_policy_consolidation` | **pending** — contains `DROP POLICY`; the MCP tooling waits for a destructive-statement confirmation it cannot show and times out (nothing is changed). Apply with `supabase db push --workdir backend` |
 
 Verified on the live project: RLS on all tables; `anon` has no table grants and cannot execute any

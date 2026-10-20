@@ -54,13 +54,20 @@ import xyz.kurdcloud.englishmaster.core.model.optionLetter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PracticeScreen(level: CefrLevel, viewModel: PracticeViewModel, onExit: () -> Unit) {
+fun PracticeScreen(level: CefrLevel?, viewModel: PracticeViewModel, onExit: () -> Unit) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val topic = viewModel.topic
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(stringResource(if (viewModel.mistakesOnly) R.string.practice_review_title else R.string.practice_title, level.label))
+                    Text(
+                        when {
+                            topic != null -> stringResource(topic.titleRes())
+                            viewModel.mistakesOnly -> stringResource(R.string.practice_review_title, level?.label.orEmpty())
+                            else -> stringResource(R.string.practice_title, level?.label.orEmpty())
+                        },
+                    )
                 },
                 navigationIcon = { TextButton(onClick = onExit) { Text(stringResource(R.string.practice_exit)) } },
             )
@@ -70,19 +77,25 @@ fun PracticeScreen(level: CefrLevel, viewModel: PracticeViewModel, onExit: () ->
         when {
             state.loading -> LoadingState(modifier = modifier)
             state.isEmpty -> EmptyState(
-                stringResource(if (viewModel.mistakesOnly) R.string.practice_review_empty else R.string.practice_empty),
+                stringResource(
+                    when {
+                        topic != null -> R.string.practice_topic_empty
+                        viewModel.mistakesOnly -> R.string.practice_review_empty
+                        else -> R.string.practice_empty
+                    },
+                ),
                 modifier,
                 stringResource(R.string.practice_back_home),
                 onExit,
             )
             state.finished -> SummaryView(state.summary, onExit, modifier)
-            else -> QuestionView(state, viewModel, modifier)
+            else -> QuestionView(state, viewModel, modifier, showLevel = topic != null)
         }
     }
 }
 
 @Composable
-private fun QuestionView(state: PracticeUiState, viewModel: PracticeViewModel, modifier: Modifier) {
+private fun QuestionView(state: PracticeUiState, viewModel: PracticeViewModel, modifier: Modifier, showLevel: Boolean) {
     val question = state.current ?: return
     val answer = state.currentAnswer
     Column(
@@ -91,7 +104,12 @@ private fun QuestionView(state: PracticeUiState, viewModel: PracticeViewModel, m
     ) {
         Column(Modifier.widthIn(max = 640.dp).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             LinearProgressIndicator(progress = { (state.index + 1f) / state.questions.size }, modifier = Modifier.fillMaxWidth())
-            Text(stringResource(R.string.practice_counter, state.index + 1, state.questions.size), style = MaterialTheme.typography.labelLarge)
+            Text(
+                stringResource(R.string.practice_counter, state.index + 1, state.questions.size) +
+                    if (showLevel) "  ·  ${question.level.label}" else "",
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.testTag("practice_counter"),
+            )
             if (!question.reviewed) {
                 Text(stringResource(R.string.practice_unreviewed), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }

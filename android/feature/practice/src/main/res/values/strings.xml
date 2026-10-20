@@ -128,4 +128,22 @@
     </plurals>
     <string name="home_more">More</string>
     <string name="practice_media_unavailable">The picture could not be loaded. Check your internet connection.</string>
+    <string name="topics_header">Practise by topic</string>
+    <string name="topics_body">Mixed questions from all your downloaded levels.</string>
+    <string name="topics_update_levels">Update your downloaded levels (menu on each level) to get the topic questions.</string>
+    <string name="topic_life_in_uk">Life in the UK</string>
+    <string name="topic_life_in_uk_desc">History, traditions, government and everyday life — useful for the Life in the UK test</string>
+    <string name="topic_kurdistan">Kurdistan</string>
+    <string name="topic_kurdistan_desc">Cities, Newroz, mountains, history and the Kurdish language</string>
+    <string name="topic_stories">Stories and dialogues</string>
+    <string name="topic_stories_desc">Read a short story or conversation, then answer</string>
+    <string name="topic_world">History and our world</string>
+    <string name="topic_world_desc">History, culture, geography and nature</string>
+    <string name="topic_pictures">Pictures and videos</string>
+    <string name="topic_pictures_desc">Look at a picture or watch a short clip, then answer</string>
+    <plurals name="topic_questions">
+        <item quantity="one">%1$d question</item>
+        <item quantity="other">%1$d questions</item>
+    </plurals>
+    <string name="practice_topic_empty">No questions on this topic yet. Download or update a level first.</string>
 </resources>

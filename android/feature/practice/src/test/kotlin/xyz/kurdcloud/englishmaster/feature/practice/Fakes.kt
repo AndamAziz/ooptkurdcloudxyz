@@ -14,6 +14,7 @@ import xyz.kurdcloud.englishmaster.core.model.PracticeAnswer
 import xyz.kurdcloud.englishmaster.core.model.Question
 import xyz.kurdcloud.englishmaster.core.model.SyncReport
 import xyz.kurdcloud.englishmaster.core.model.SyncState
+import xyz.kurdcloud.englishmaster.core.model.Topic
 import xyz.kurdcloud.englishmaster.core.model.optionLetter
 import xyz.kurdcloud.englishmaster.core.network.ApiError
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
@@ -40,6 +41,11 @@ class FakeContent(var questions: List<Question> = emptyList()) : ContentReposito
     override suspend fun deleteLevel(level: CefrLevel) { packs.value = packs.value.filterNot { it.level == level } }
     override suspend fun pickSession(level: CefrLevel, userId: String, count: Int) = questions.take(count)
     override suspend fun questions(ids: List<String>) = questions.filter { it.id in ids }
+
+    var topicQuestions: Map<Topic, List<Question>> = emptyMap()
+    override suspend fun pickTopic(topic: Topic, userId: String, count: Int) = topicQuestions[topic].orEmpty().take(count)
+    override fun observeTopicCounts(): Flow<Map<Topic, Int>> =
+        packs.map { Topic.entries.associateWith { t -> topicQuestions[t].orEmpty().size } }
 }
 
 /** Marks answers immediately when "online", otherwise leaves them pending until [completeSync]. */

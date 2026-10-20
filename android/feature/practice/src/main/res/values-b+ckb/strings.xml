@@ -128,4 +128,22 @@
     </plurals>
     <string name="home_more">زیاتر</string>
     <string name="practice_media_unavailable">وێنەکە نەکرایەوە. پەیوەندی ئینتەرنێتەکەت بپشکنە.</string>
+    <string name="topics_header">ڕاهێنان بەپێی بابەت</string>
+    <string name="topics_body">پرسیاری تێکەڵ لە هەموو ئەو ئاستانەی دابەزاندووتن.</string>
+    <string name="topics_update_levels">ئاستە دابەزێنراوەکانت نوێ بکەرەوە (لیستی سەر هەر ئاستێک) بۆ ئەوەی پرسیارەکانی بابەتەکان وەربگریت.</string>
+    <string name="topic_life_in_uk">ژیان لە بەریتانیا (Life in the UK)</string>
+    <string name="topic_life_in_uk_desc">مێژوو، داب و نەریت، حکومەت و ژیانی ڕۆژانە — بەسوود بۆ تاقیکردنەوەی Life in the UK</string>
+    <string name="topic_kurdistan">کوردستان</string>
+    <string name="topic_kurdistan_desc">شارەکان، نەورۆز، چیاکان، مێژوو و زمانی کوردی</string>
+    <string name="topic_stories">چیرۆک و دیالۆگ</string>
+    <string name="topic_stories_desc">چیرۆکێکی کورت یان گفتوگۆیەک بخوێنەوە، پاشان وەڵام بدەرەوە</string>
+    <string name="topic_world">مێژوو و جیهانەکەمان</string>
+    <string name="topic_world_desc">مێژوو، کەلتوور، جوگرافیا و سروشت</string>
+    <string name="topic_pictures">وێنە و ڤیدیۆ</string>
+    <string name="topic_pictures_desc">سەیری وێنەیەک یان ڤیدیۆیەکی کورت بکە، پاشان وەڵام بدەرەوە</string>
+    <plurals name="topic_questions">
+        <item quantity="one">%1$d پرسیار</item>
+        <item quantity="other">%1$d پرسیار</item>
+    </plurals>
+    <string name="practice_topic_empty">هێشتا هیچ پرسیارێک بۆ ئەم بابەتە نییە. سەرەتا ئاستێک دابەزێنە یان نوێی بکەرەوە.</string>
 </resources>

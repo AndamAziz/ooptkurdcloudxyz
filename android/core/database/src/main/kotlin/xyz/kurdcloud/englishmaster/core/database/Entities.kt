@@ -24,6 +24,8 @@ data class QuestionEntity(
     @ColumnInfo(name = "media_caption") val mediaCaption: String? = null,
     /** Absolute path of the copy saved with the pack (pictures), for offline use. */
     @ColumnInfo(name = "media_local") val mediaLocal: String? = null,
+    /** Content tags (JSON list) used for topic practice, e.g. ["life_in_uk","history"]. */
+    @ColumnInfo(defaultValue = "[]") val tags: List<String> = emptyList(),
 )
 
 /** A completed download of one level's question pack. */

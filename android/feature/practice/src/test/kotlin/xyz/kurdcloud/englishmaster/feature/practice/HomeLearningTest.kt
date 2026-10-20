@@ -23,7 +23,9 @@ import xyz.kurdcloud.englishmaster.core.model.ExamResult
 import xyz.kurdcloud.englishmaster.core.model.ExamSession
 import xyz.kurdcloud.englishmaster.core.model.LearnerProfile
 import xyz.kurdcloud.englishmaster.core.model.LevelOverview
+import xyz.kurdcloud.englishmaster.core.model.LevelPack
 import xyz.kurdcloud.englishmaster.core.model.PlacementResult
+import xyz.kurdcloud.englishmaster.core.model.Topic
 import xyz.kurdcloud.englishmaster.core.network.ApiError
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 
@@ -93,6 +95,35 @@ class HomeLearningTest {
     fun recommendedLevelInSorani() {
         compose.setContent { EnglishMasterTheme { HomeScreen(vm(FakeLearningRepo(placement = CefrLevel.B1)), "English", {}, {}, {}) } }
         compose.onNodeWithText("ئاستی پێشنیارکراوت: B1").assertIsDisplayed()
+    }
+
+    @Test
+    fun topicsAppearOnceALevelIsDownloadedAndOpenATopicSession() {
+        val content = FakeContent().apply {
+            topicQuestions = mapOf(Topic.LIFE_IN_UK to listOf(question("uk1"), question("uk2")))
+            packs.value = listOf(LevelPack(CefrLevel.A1, 3, 0))
+        }
+        val vm = HomeViewModel("u1", content, FakePractice(FakeNetwork()), FakeNetwork(), learning = FakeLearningRepo(), clock = { 0L })
+        var opened: Topic? = null
+        compose.setContent {
+            EnglishMasterTheme { HomeScreen(vm, "کوردی", {}, {}, {}, actions = HomeActions(onStartPractice = {}, onPractiseTopic = { opened = it })) }
+        }
+        val list = compose.onNode(hasScrollToNodeAction())
+        list.performScrollToNode(hasTestTag("topic_life_in_uk"))
+        compose.onNodeWithText("2 questions").assertIsDisplayed()
+        compose.onNodeWithTag("topic_life_in_uk").performClick()
+        assertEquals(Topic.LIFE_IN_UK, opened)
+
+        // A topic without questions cannot be opened.
+        list.performScrollToNode(hasTestTag("topic_kurdistan"))
+        compose.onNodeWithTag("topic_kurdistan").performClick()
+        assertEquals(Topic.LIFE_IN_UK, opened)
+    }
+
+    @Test
+    fun noTopicsBeforeAnyLevelIsDownloaded() {
+        compose.setContent { EnglishMasterTheme { HomeScreen(vm(), "کوردی", {}, {}, {}) } }
+        compose.onNodeWithTag("topics_section").assertDoesNotExist()
     }
 
     @Test

@@ -16,18 +16,23 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import java.io.File
 
-/** Upgrading the app must keep downloaded questions and unsent answers (schema 1 -> 2). */
+/** Upgrading the app must keep downloaded questions and unsent answers (schemas 1 -> 2 -> 3). */
 @RunWith(RobolectricTestRunner::class)
 class MigrationTest {
     private val schemaDir = File("schemas/xyz.kurdcloud.englishmaster.core.database.EnglishMasterDatabase")
 
     @Test
-    fun version1DatabaseIsMigratedWithItsData() = runTest {
-        val context = ApplicationProvider.getApplicationContext<Context>()
-        val file = context.getDatabasePath("migration-test.db").apply { parentFile?.mkdirs(); delete() }
+    fun version1DatabaseIsMigratedWithItsData() = migratesFrom(1)
 
-        // Build the version-1 database exactly as the exported schema describes it.
-        val schema = Json.parseToJsonElement(File(schemaDir, "1.json").readText()).jsonObject["database"]!!.jsonObject
+    @Test
+    fun version2DatabaseIsMigratedWithItsData() = migratesFrom(2)
+
+    private fun migratesFrom(version: Int) = runTest {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val file = context.getDatabasePath("migration-test-$version.db").apply { parentFile?.mkdirs(); delete() }
+
+        // Build the old database exactly as its exported schema describes it.
+        val schema = Json.parseToJsonElement(File(schemaDir, "$version.json").readText()).jsonObject["database"]!!.jsonObject
         SQLiteDatabase.openOrCreateDatabase(file, null).use { db ->
             schema["entities"]!!.jsonArray.forEach { e ->
                 val table = e.jsonObject["tableName"]!!.jsonPrimitive.content
@@ -45,7 +50,7 @@ class MigrationTest {
                 "INSERT INTO responses (response_id, user_id, attempt_id, question_id, cefr_level, chosen_option, answered_at, sync_state, sync_attempts) " +
                     "VALUES ('r1', 'u1', 'a1', 'q1', 'A1', 'A', 5, 'PENDING', 0)",
             )
-            db.version = 1
+            db.version = version
         }
 
         val db = Room.databaseBuilder(context, EnglishMasterDatabase::class.java, file.name).allowMainThreadQueries().build()
@@ -53,13 +58,15 @@ class MigrationTest {
             val q = db.questions().byId("q1")!!
             assertEquals(listOf("is", "are"), q.options)
             assertNull(q.mediaPath)
+            assertEquals(emptyList<String>(), q.tags)
             assertEquals("PENDING", db.responses().byId("r1")!!.syncState)
             db.content().replaceLevel(
                 "A1",
-                listOf(q.copy(passage = "Ali is happy.", mediaType = "image", mediaPath = "samples/x.png", mediaLocal = "/tmp/x.png")),
+                listOf(q.copy(passage = "Ali is happy.", mediaType = "image", mediaPath = "samples/x.png", mediaLocal = "/tmp/x.png", tags = listOf("life_in_uk"))),
                 LevelPackEntity("A1", 1, 2),
             )
             assertEquals("samples/x.png", db.questions().byId("q1")!!.mediaPath)
+            assertEquals(listOf("life_in_uk"), db.questions().byId("q1")!!.tags)
         } finally {
             db.close()
             file.delete()

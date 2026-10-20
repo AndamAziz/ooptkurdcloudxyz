@@ -13,6 +13,7 @@ import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.PracticeAnswer
 import xyz.kurdcloud.englishmaster.core.model.Question
 import xyz.kurdcloud.englishmaster.core.model.SyncState
+import xyz.kurdcloud.englishmaster.core.model.Topic
 
 data class SessionSummary(val total: Int, val correct: Int, val incorrect: Int, val pending: Int)
 
@@ -42,13 +43,16 @@ data class PracticeUiState(
 }
 
 class PracticeViewModel(
-    private val level: CefrLevel,
+    /** Level to practise; ignored for a [topic] session, which draws on every downloaded level. */
+    private val level: CefrLevel?,
     private val userId: String,
     private val content: ContentRepository,
     private val practice: PracticeRepository,
     private val sessionSize: Int = 10,
     /** Review session: only questions whose latest marked answer was wrong. */
     val mistakesOnly: Boolean = false,
+    /** Topic session (Life in the UK, Kurdistan, ...) across all downloaded levels. */
+    val topic: Topic? = null,
 ) : ViewModel() {
     private val attemptId = practice.newAttemptId()
     private val state = MutableStateFlow(PracticeUiState())
@@ -56,8 +60,12 @@ class PracticeViewModel(
 
     init {
         viewModelScope.launch {
-            val questions = if (mistakesOnly) content.pickMistakes(level, userId, sessionSize)
-            else content.pickSession(level, userId, sessionSize)
+            val questions = when {
+                topic != null -> content.pickTopic(topic, userId, sessionSize)
+                level == null -> emptyList()
+                mistakesOnly -> content.pickMistakes(level, userId, sessionSize)
+                else -> content.pickSession(level, userId, sessionSize)
+            }
             state.update { it.copy(loading = false, questions = questions) }
         }
         // Answers saved offline flip from "pending" to scored as soon as background sync lands.

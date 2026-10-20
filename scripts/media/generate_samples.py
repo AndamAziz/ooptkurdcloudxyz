@@ -243,6 +243,184 @@ def visitors_video():
     video("museum_visitors.mp4", 6, 15, draw)
 
 
+# ---------------------------------------------------------------- culture and knowledge (batch 03)
+FLAG_BOX = (150, 75, 650, 425)
+
+
+def flag_canvas():
+    flag = Image.new("RGB", (FLAG_BOX[2] - FLAG_BOX[0], FLAG_BOX[3] - FLAG_BOX[1]), "white")
+    return flag, ImageDraw.Draw(flag), (0, 0, flag.width - 1, flag.height - 1)
+
+
+def save_flag(flag, name):
+    img, d = canvas()
+    img.paste(flag, FLAG_BOX[:2])
+    d.rectangle(FLAG_BOX, outline=(60, 60, 60), width=2)
+    img.save(OUT / name)
+
+
+def scotland_flag():
+    img, d, (x0, y0, x1, y1) = flag_canvas()
+    d.rectangle((x0, y0, x1, y1), fill=(0, 94, 184))
+    d.line((x0, y0, x1, y1), fill="white", width=60)
+    d.line((x0, y1, x1, y0), fill="white", width=60)
+    save_flag(img, "flag_scotland.png")
+
+
+def england_flag():
+    img, d, (x0, y0, x1, y1) = flag_canvas()
+    d.rectangle((x0, y0, x1, y1), fill="white")
+    cx, cy = (x0 + x1) // 2, (y0 + y1) // 2
+    d.rectangle((cx - 35, y0, cx + 35, y1), fill=(206, 17, 36))
+    d.rectangle((x0, cy - 35, x1, cy + 35), fill=(206, 17, 36))
+    save_flag(img, "flag_england.png")
+
+
+def union_flag():
+    img, d, (x0, y0, x1, y1) = flag_canvas()
+    blue, red = (1, 33, 105), (200, 16, 46)
+    d.rectangle((x0, y0, x1, y1), fill=blue)
+    d.line((x0, y0, x1, y1), fill="white", width=60)
+    d.line((x0, y1, x1, y0), fill="white", width=60)
+    d.line((x0, y0, x1, y1), fill=red, width=20)
+    d.line((x0, y1, x1, y0), fill=red, width=20)
+    cx, cy = (x0 + x1) // 2, (y0 + y1) // 2
+    d.rectangle((cx - 50, y0, cx + 50, y1), fill="white")
+    d.rectangle((x0, cy - 50, x1, cy + 50), fill="white")
+    d.rectangle((cx - 30, y0, cx + 30, y1), fill=red)
+    d.rectangle((x0, cy - 30, x1, cy + 30), fill=red)
+    save_flag(img, "union_flag.png")
+
+
+def kurdistan_flag():
+    img, d, (x0, y0, x1, y1) = flag_canvas()
+    h = (y1 - y0) / 3
+    d.rectangle((x0, y0, x1, y0 + h), fill=(237, 33, 36))
+    d.rectangle((x0, y0 + h, x1, y0 + 2 * h), fill="white")
+    d.rectangle((x0, y0 + 2 * h, x1, y1), fill=(39, 136, 69))
+    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+    rays = []
+    for i in range(21):  # the sun has 21 rays
+        a = 2 * math.pi * i / 21 - math.pi / 2
+        b1, b2 = a - math.pi / 21 * 0.55, a + math.pi / 21 * 0.55
+        rays.append([(cx + math.cos(b1) * 42, cy + math.sin(b1) * 42), (cx + math.cos(a) * 92, cy + math.sin(a) * 92),
+                     (cx + math.cos(b2) * 42, cy + math.sin(b2) * 42)])
+    for r in rays:
+        d.polygon(r, fill=(253, 200, 47))
+    d.ellipse((cx - 46, cy - 46, cx + 46, cy + 46), fill=(253, 200, 47))
+    save_flag(img, "flag_kurdistan_region.png")
+
+
+TIMELINE = [(1066, "Norman Conquest"), (1215, "Magna Carta"), (1588, "Spanish Armada"),
+            (1666, "Great Fire of London"), (1707, "Act of Union")]
+
+
+def draw_timeline(d, shown):
+    centered(d, (W // 2, 50), "Five dates in British history", 30, bold=True)
+    left, right, y = 70, 730, 250
+    d.line((left, y, right, y), fill=INK, width=5)
+    for i, (year, event) in enumerate(TIMELINE[:shown]):
+        # Evenly spaced (not to scale) so the labels never overlap.
+        x = left + 60 + (right - left - 120) * i / (len(TIMELINE) - 1)
+        d.ellipse((x - 12, y - 12, x + 12, y + 12), fill=(58, 79, 196))
+        up = i % 2 == 0
+        ty = y - 95 if up else y + 45
+        d.line((x, y, x, ty + (40 if up else 0)), fill=(150, 150, 170), width=2)
+        centered(d, (x, ty), str(year), 26, bold=True)
+        centered(d, (x, ty + 30), event, 17)
+
+
+def timeline_picture():
+    img, d = canvas()
+    draw_timeline(d, len(TIMELINE))
+    img.save(OUT / "uk_timeline.png")
+
+
+def timeline_video():
+    def draw(d, t):
+        draw_timeline(d, min(len(TIMELINE), 1 + int(t * len(TIMELINE) * 0.999)))
+    video("uk_timeline.mp4", 10, 10, draw)
+
+
+# Approximate average daily temperatures (degrees C), rounded: Erbil and London.
+TEMPS = {"Erbil": [7, 18, 34, 22], "London": [5, 11, 19, 14]}
+MONTHS = ["Jan", "Apr", "Jul", "Oct"]
+
+
+def draw_temperatures(d, progress=1.0):
+    centered(d, (W // 2, 40), "Average temperature (approx., degrees C)", 26, bold=True)
+    left, right, base, top = 110, 740, 430, 90
+    d.line((left, base, right, base), fill=INK, width=3)
+    d.line((left, base, left, top), fill=INK, width=3)
+    for v in range(0, 41, 10):
+        y = base - (base - top) * v / 40
+        d.line((left - 6, y, left, y), fill=INK, width=2)
+        d.text((left - 40, y - 10), str(v), font=font(18), fill=INK)
+    xs = [left + 60 + i * (right - left - 120) / 3 for i in range(4)]
+    for x, m in zip(xs, MONTHS):
+        centered(d, (x, base + 22), m, 20)
+    colors = {"Erbil": (214, 40, 40), "London": (30, 90, 200)}
+    for city, vals in TEMPS.items():
+        pts = [(x, base - (base - top) * v / 40) for x, v in zip(xs, vals)]
+        n = progress * 3
+        for i in range(3):
+            if n <= i:
+                break
+            f = min(1.0, n - i)
+            (ax, ay), (bx, by) = pts[i], pts[i + 1]
+            d.line((ax, ay, ax + (bx - ax) * f, ay + (by - ay) * f), fill=colors[city], width=6)
+        for i, (x, y) in enumerate(pts):
+            if i <= n:
+                d.ellipse((x - 8, y - 8, x + 8, y + 8), fill=colors[city])
+                d.text((x + 10, y - 30), str(vals[i]), font=font(18, bold=True), fill=colors[city])
+    d.text((140, 95), "Erbil", font=font(22, bold=True), fill=colors["Erbil"])
+    d.text((140, 125), "London", font=font(22, bold=True), fill=colors["London"])
+
+
+def temperature_picture():
+    img, d = canvas()
+    draw_temperatures(d)
+    img.save(OUT / "temperature_erbil_london.png")
+
+
+def temperature_video():
+    video("temperature_erbil_london.mp4", 8, 15, lambda d, t: draw_temperatures(d, min(1.0, t / 0.85)))
+
+
+def newroz_video():
+    import random as _r
+    rng = _r.Random(21)
+    sparks = [(rng.uniform(320, 480), rng.uniform(0, 1), rng.uniform(0.6, 1.4)) for _ in range(60)]
+
+    def draw(d, t):
+        d.rectangle((0, 0, W, H), fill=(28, 30, 60))
+        d.polygon([(0, 500), (180, 250), (330, 400), (520, 220), (800, 470), (800, 500)], fill=(40, 70, 60))
+        fy = 400
+        for i in range(6):  # flickering flames
+            w = 80 - i * 10 + 10 * math.sin(t * 40 + i)
+            d.ellipse((400 - w, fy - 120 + i * 15 - 15 * math.sin(t * 30 + i), 400 + w, fy), fill=[(255, 90, 20), (255, 150, 30), (255, 210, 60)][i % 3])
+        for x, phase, speed in sparks:
+            y = fy - ((t * speed + phase) % 1.0) * 320
+            d.ellipse((x - 3, y - 3, x + 3, y + 3), fill=(255, 220, 120))
+        if t > 0.35:
+            centered(d, (W // 2, 70), "Newroz", 56, fill=(255, 220, 120), bold=True)
+        if t > 0.55:
+            centered(d, (W // 2, 140), "21 March", 40, fill="white")
+    video("newroz.mp4", 7, 15, draw)
+
+
+def batch03():
+    scotland_flag()
+    england_flag()
+    union_flag()
+    kurdistan_flag()
+    timeline_picture()
+    timeline_video()
+    temperature_picture()
+    temperature_video()
+    newroz_video()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     clock_picture("clock_three.png", 3, 0)
@@ -258,6 +436,7 @@ def main():
     balloons_video()
     day_video()
     visitors_video()
+    batch03()
     for p in sorted(OUT.iterdir()):
         print(f"{p.relative_to(ROOT)}  {p.stat().st_size // 1024} KB")
 

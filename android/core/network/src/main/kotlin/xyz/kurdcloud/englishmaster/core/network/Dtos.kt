@@ -80,6 +80,7 @@ data class PracticeQuestionDto(
     @SerialName("media_type") val mediaType: String? = null,
     @SerialName("media_path") val mediaPath: String? = null,
     @SerialName("media_caption") val mediaCaption: String? = null,
+    val tags: List<String> = emptyList(),
 )
 
 @Serializable

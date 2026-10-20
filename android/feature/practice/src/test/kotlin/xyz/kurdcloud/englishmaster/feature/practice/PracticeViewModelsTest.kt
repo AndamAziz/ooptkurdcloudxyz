@@ -18,6 +18,7 @@ import org.junit.Test
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.SyncReport
 import xyz.kurdcloud.englishmaster.core.model.SyncState
+import xyz.kurdcloud.englishmaster.core.model.Topic
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class PracticeViewModelsTest {
@@ -58,6 +59,17 @@ class PracticeViewModelsTest {
         practice.completeSync()
         assertEquals(SyncState.SYNCED, vm.uiState.value.currentAnswer?.syncState)
         assertEquals(1, vm.uiState.value.summary.correct)
+    }
+
+    @Test
+    fun `topic session draws its questions from the topic across levels`() {
+        val uk = listOf(question("uk1"), question("uk2").copy(level = CefrLevel.B2))
+        val content = FakeContent(listOf(question("other"))).apply { topicQuestions = mapOf(Topic.LIFE_IN_UK to uk) }
+        val vm = PracticeViewModel(null, "u1", content, FakePractice(FakeNetwork()), topic = Topic.LIFE_IN_UK)
+        assertEquals(listOf("uk1", "uk2"), vm.uiState.value.questions.map { it.id })
+
+        val empty = PracticeViewModel(null, "u1", content, FakePractice(FakeNetwork()), topic = Topic.KURDISTAN)
+        assertTrue(empty.uiState.value.isEmpty)
     }
 
     @Test

@@ -27,6 +27,7 @@ import xyz.kurdcloud.englishmaster.core.model.AuthSession
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.SyncReport.StopReason
 import xyz.kurdcloud.englishmaster.core.model.SyncState
+import xyz.kurdcloud.englishmaster.core.model.Topic
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.core.network.NetworkFactory
 import xyz.kurdcloud.englishmaster.core.network.SessionProvider
@@ -100,20 +101,47 @@ class SyncAndPracticeTest {
                 "version":1,"review_status":"approved","updated_at":"t","media_type":"image","media_path":"samples/clock.png",
                 "media_caption":"A clock","passage":null},
                 {"id":"p2","cefr_level":"A1","skill":"reading","prompt":"Where?","options":["a","b"],"version":1,
-                "review_status":"approved","updated_at":"t","passage":"Ali lives in Duhok."}]""",
+                "review_status":"approved","updated_at":"t","passage":"Ali lives in Duhok.","tags":["kurdistan","story"]}]""",
             ).build(),
         )
         server.enqueue(MockResponse.Builder().code(200).addHeader("Content-Type", "image/png").body("PNGDATA").build())
 
         assertEquals(ApiResult.Success(2), content.downloadLevel(CefrLevel.A1))
 
-        assertEquals("/rest/v1/rpc/get_practice_questions_v2", server.takeRequest().url.encodedPath)
+        assertEquals("/rest/v1/rpc/get_practice_questions_v3", server.takeRequest().url.encodedPath)
         assertEquals("/storage/v1/object/public/question-media/samples/clock.png", server.takeRequest().url.encodedPath)
         val pic = content.questions(listOf("p1")).single().media!!
         assertEquals(base + "samples/clock.png", pic.url)
         assertEquals("PNGDATA", java.io.File(pic.localPath!!).readText())
         assertEquals("Ali lives in Duhok.", content.questions(listOf("p2")).single().passage)
+        assertEquals(listOf("kurdistan", "story"), db.questions().byId("p2")!!.tags)
         dir.deleteRecursively()
+    }
+
+    @Test
+    fun topicsMatchWholeTagsPassagesAndMediaAcrossLevels() = runTest {
+        val content = OfflineFirstContentRepository(services.practice, db.questions(), db.levelPacks(), db.content())
+        db.content().replaceLevel(
+            "A1",
+            listOf(
+                question("uk").copy(tags = listOf("life_in_uk", "history")),
+                question("ku").copy(tags = listOf("kurdistan")),
+                question("read").copy(passage = "Hana lives in Erbil."),
+                question("pic").copy(mediaType = "image", mediaPath = "samples/flag.png"),
+                // "life_in_uk_extra" must not match the whole tag "life_in_uk".
+                question("other").copy(tags = listOf("grammar", "life_in_uk_extra")),
+            ),
+            LevelPackEntity("A1", 5, 1),
+        )
+        db.content().replaceLevel("B2", listOf(question("uk2").copy(cefrLevel = "B2", tags = listOf("life_in_uk"))), LevelPackEntity("B2", 1, 1))
+
+        val counts = content.observeTopicCounts().first()
+        assertEquals(mapOf(Topic.LIFE_IN_UK to 2, Topic.KURDISTAN to 1, Topic.STORIES to 1, Topic.WORLD to 1, Topic.PICTURES to 1), counts)
+        assertEquals(setOf("uk", "uk2"), content.pickTopic(Topic.LIFE_IN_UK, "u1", 10).map { it.id }.toSet())
+        assertEquals(setOf(CefrLevel.A1, CefrLevel.B2), content.pickTopic(Topic.LIFE_IN_UK, "u1", 10).map { it.level }.toSet())
+        assertEquals(listOf("read"), content.pickTopic(Topic.STORIES, "u1", 10).map { it.id })
+        assertEquals(listOf("pic"), content.pickTopic(Topic.PICTURES, "u1", 10).map { it.id })
+        assertEquals(1, content.pickTopic(Topic.LIFE_IN_UK, "u1", 1).size)
     }
 
     private fun question(id: String) =
