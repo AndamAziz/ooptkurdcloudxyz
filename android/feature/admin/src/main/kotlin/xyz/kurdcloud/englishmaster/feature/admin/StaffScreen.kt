@@ -17,6 +17,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -46,16 +47,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import xyz.kurdcloud.englishmaster.core.designsystem.EmptyState
 import xyz.kurdcloud.englishmaster.core.designsystem.ErrorState
 import xyz.kurdcloud.englishmaster.core.designsystem.LoadingState
+import xyz.kurdcloud.englishmaster.core.designsystem.PassageCard
+import xyz.kurdcloud.englishmaster.core.designsystem.QuestionMediaView
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.Role
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
@@ -78,9 +84,10 @@ fun StaffScreen(
     questionsViewModel: @Composable () -> QuestionsViewModel,
     activityViewModel: @Composable () -> ActivityViewModel,
     onBack: () -> Unit,
+    onAddQuestion: (CefrLevel) -> Unit = {},
 ) {
     val tabs = buildList {
-        if (access.canManageUsers) add(StaffTab.USERS)
+        if (access.canSeeUsers) add(StaffTab.USERS)
         if (access.canReviewQuestions) add(StaffTab.QUESTIONS)
         if (access.canManageUsers) add(StaffTab.ACTIVITY)
     }
@@ -109,8 +116,8 @@ fun StaffScreen(
                 }
             }
             when (tabs[selected.coerceIn(tabs.indices)]) {
-                StaffTab.USERS -> UsersTab(usersViewModel(), currentUserId, snackbar)
-                StaffTab.QUESTIONS -> QuestionsTab(questionsViewModel(), snackbar)
+                StaffTab.USERS -> UsersTab(usersViewModel(), currentUserId, access.canManageUsers, snackbar)
+                StaffTab.QUESTIONS -> QuestionsTab(questionsViewModel(), snackbar, onAddQuestion)
                 StaffTab.ACTIVITY -> ActivityTab(activityViewModel())
             }
         }
@@ -131,10 +138,11 @@ private fun MessageEffect(message: Int?, snackbar: SnackbarHostState, onShown: (
 private data class PendingChange(val title: Int, val user: StaffUser, val apply: () -> Unit)
 
 @Composable
-private fun UsersTab(vm: UsersViewModel, currentUserId: String, snackbar: SnackbarHostState) {
+private fun UsersTab(vm: UsersViewModel, currentUserId: String, canManage: Boolean, snackbar: SnackbarHostState) {
     val state by vm.uiState.collectAsStateWithLifecycle()
     MessageEffect(state.message, snackbar, vm::messageShown)
     var confirm by remember { mutableStateOf<PendingChange?>(null) }
+    var rename by remember { mutableStateOf<StaffUser?>(null) }
 
     Column(Modifier.fillMaxSize()) {
         OutlinedTextField(
@@ -161,7 +169,9 @@ private fun UsersTab(vm: UsersViewModel, currentUserId: String, snackbar: Snackb
                     UserCard(
                         user = user,
                         self = self,
+                        canManage = canManage,
                         busy = state.busyUserId == user.userId,
+                        onRename = { rename = user },
                         onTeacher = { granted -> vm.setRole(user, Role.TEACHER, granted) },
                         onAdmin = { granted ->
                             confirm = PendingChange(if (granted) R.string.admin_confirm_make_admin else R.string.admin_confirm_remove_admin, user) {
@@ -179,6 +189,13 @@ private fun UsersTab(vm: UsersViewModel, currentUserId: String, snackbar: Snackb
         }
     }
 
+    rename?.let { user ->
+        RenameDialog(user, onDismiss = { rename = null }) { name ->
+            rename = null
+            vm.setDisplayName(user, name)
+        }
+    }
+
     confirm?.let { change ->
         AlertDialog(
             onDismissRequest = { confirm = null },
@@ -191,10 +208,36 @@ private fun UsersTab(vm: UsersViewModel, currentUserId: String, snackbar: Snackb
 }
 
 @Composable
+private fun RenameDialog(user: StaffUser, onDismiss: () -> Unit, onSave: (String) -> Unit) {
+    var name by rememberSaveable(user.userId) { mutableStateOf(user.displayName) }
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.admin_rename_title)) },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(stringResource(R.string.admin_rename_body, user.email))
+                OutlinedTextField(
+                    value = name, onValueChange = { name = it.take(80) }, singleLine = true,
+                    modifier = Modifier.fillMaxWidth().testTag("rename_field"),
+                )
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = { onSave(name) }, enabled = name.isNotBlank(), modifier = Modifier.testTag("rename_save")) {
+                Text(stringResource(R.string.admin_save))
+            }
+        },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.admin_cancel)) } },
+    )
+}
+
+@Composable
 private fun UserCard(
     user: StaffUser,
     self: Boolean,
+    canManage: Boolean,
     busy: Boolean,
+    onRename: () -> Unit,
     onTeacher: (Boolean) -> Unit,
     onAdmin: (Boolean) -> Unit,
     onSuspend: (Boolean) -> Unit,
@@ -209,6 +252,10 @@ private fun UserCard(
             }
             Text(stringResource(R.string.admin_user_progress, user.answered, user.correct), style = MaterialTheme.typography.bodySmall)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedButton(onClick = onRename, enabled = !busy, modifier = Modifier.testTag("rename_${user.email}")) {
+                    Text(stringResource(R.string.admin_rename))
+                }
+                if (!canManage) return@FlowRow
                 val teacher = Role.TEACHER in user.roles
                 val admin = Role.ADMIN in user.roles
                 OutlinedButton(onClick = { onTeacher(!teacher) }, enabled = !busy) {
@@ -232,9 +279,12 @@ private fun Role.label(): Int = when (this) {
 }
 
 @Composable
-private fun QuestionsTab(vm: QuestionsViewModel, snackbar: SnackbarHostState) {
+private fun QuestionsTab(vm: QuestionsViewModel, snackbar: SnackbarHostState, onAddQuestion: (CefrLevel) -> Unit) {
     val state by vm.uiState.collectAsStateWithLifecycle()
     MessageEffect(state.message, snackbar, vm::messageShown)
+    var confirmPublish by remember { mutableStateOf(false) }
+    // Back from "Add question": show the new item.
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { if (!state.loading) vm.load(state.level) }
     Column(Modifier.fillMaxSize()) {
         Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             CefrLevel.practiceLevels.forEach { level ->
@@ -242,11 +292,34 @@ private fun QuestionsTab(vm: QuestionsViewModel, snackbar: SnackbarHostState) {
             }
         }
         val approved = state.questions.count { it.reviewStatus == "approved" }
+        FlowRow(Modifier.padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Button(onClick = { onAddQuestion(state.level) }, modifier = Modifier.testTag("add_question")) {
+                Text(stringResource(R.string.admin_add_question))
+            }
+            if (state.drafts > 0) {
+                OutlinedButton(onClick = { confirmPublish = true }, enabled = !state.publishing, modifier = Modifier.testTag("publish_drafts")) {
+                    Text(stringResource(R.string.admin_publish_drafts, state.drafts))
+                }
+            }
+        }
         if (!state.loading && state.error == null) {
             Text(
                 stringResource(R.string.admin_review_summary, approved, state.questions.size),
                 style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(horizontal = 16.dp),
+            )
+        }
+        if (confirmPublish) {
+            AlertDialog(
+                onDismissRequest = { confirmPublish = false },
+                title = { Text(pluralStringResource(R.plurals.admin_publish_drafts_title, state.drafts, state.drafts, state.level.label)) },
+                text = { Text(stringResource(R.string.admin_publish_drafts_body)) },
+                confirmButton = {
+                    TextButton(onClick = { confirmPublish = false; vm.publishAllDrafts() }, modifier = Modifier.testTag("publish_drafts_confirm")) {
+                        Text(stringResource(R.string.admin_confirm))
+                    }
+                },
+                dismissButton = { TextButton(onClick = { confirmPublish = false }) { Text(stringResource(R.string.admin_cancel)) } },
             )
         }
         when {
@@ -277,6 +350,8 @@ private fun QuestionCard(q: StaffQuestion, busy: Boolean, onApprove: (Boolean) -
             // Learning content is English: keep it left-to-right in the Sorani UI.
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    q.passage?.let { PassageCard(it) }
+                    q.media?.let { QuestionMediaView(it, stringResource(R.string.admin_media_unavailable)) }
                     Text(q.prompt, style = MaterialTheme.typography.titleMedium)
                     q.options.forEachIndexed { i, option ->
                         val letter = optionLetter(i)

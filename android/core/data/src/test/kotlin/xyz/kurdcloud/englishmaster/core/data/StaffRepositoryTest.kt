@@ -11,6 +11,8 @@ import org.junit.Before
 import org.junit.Test
 import xyz.kurdcloud.englishmaster.core.model.AuthSession
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
+import xyz.kurdcloud.englishmaster.core.model.MediaType
+import xyz.kurdcloud.englishmaster.core.model.NewQuestion
 import xyz.kurdcloud.englishmaster.core.model.ReviewState
 import xyz.kurdcloud.englishmaster.core.model.Role
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
@@ -37,7 +39,7 @@ class StaffRepositoryTest {
             override fun update(session: AuthSession) = Unit
             override fun clear(expired: Boolean) = Unit
         }
-        repo = SupabaseStaffRepository(NetworkFactory.create(SupabaseConfig(url, "anon"), sessions, toHttp).staff)
+        repo = SupabaseStaffRepository(NetworkFactory.create(SupabaseConfig(url, "anon"), sessions, toHttp).staff, newId = { "id1" })
     }
 
     @After fun tearDown() = server.close()
@@ -108,5 +110,37 @@ class StaffRepositoryTest {
         val entry = (repo.recentActivity() as ApiResult.Success).value.single()
         assertEquals("role: teacher", entry.detail)
         assertEquals("Andam", entry.actorName)
+    }
+
+    @Test
+    fun namesQuestionsMediaAndBulkPublish() = runTest {
+        server.enqueue(json(200, "\"Sara Ahmed\""))
+        assertEquals(ApiResult.Success("Sara Ahmed"), repo.setDisplayName("u1", "  Sara Ahmed "))
+        val rename = server.takeRequest()
+        assertEquals("/rest/v1/rpc/staff_set_display_name", rename.url.encodedPath)
+        assertTrue(rename.body!!.utf8().contains(""""p_display_name":"Sara Ahmed""""))
+        assertEquals(ApiResult.Failure(ApiError.Validation("22023")), repo.setDisplayName("u1", "   "))
+
+        server.enqueue(json(200, """{"Key":"question-media/staff/id1.png"}"""))
+        assertEquals(ApiResult.Success("staff/id1.png"), repo.uploadMedia(byteArrayOf(1, 2, 3), "image/png"))
+        val upload = server.takeRequest()
+        assertEquals("/storage/v1/object/question-media/staff/id1.png", upload.url.encodedPath)
+        assertEquals("image/png", upload.headers["Content-Type"])
+        assertEquals("Bearer token", upload.headers["Authorization"])
+        assertEquals(ApiResult.Failure(ApiError.Validation("unsupported_media")), repo.uploadMedia(byteArrayOf(1), "image/gif"))
+
+        server.enqueue(json(200, "\"new-id\""))
+        val created = repo.createQuestion(
+            NewQuestion(CefrLevel.A2, "reading", " Where is Ali? ", listOf("Erbil", "Duhok"), 1, "", "Ali lives in Duhok.",
+                MediaType.IMAGE, "staff/id1.png", "A map", publish = false),
+        )
+        assertEquals(ApiResult.Success("new-id"), created)
+        val body = server.takeRequest().body!!.utf8()
+        assertTrue(body, body.contains(""""p_correct_option":"B"""") && body.contains(""""p_media_type":"image"""") &&
+            body.contains(""""p_publish":false""") && !body.contains("p_explanation"))
+
+        server.enqueue(json(200, "7"))
+        assertEquals(ApiResult.Success(7), repo.publishDrafts(CefrLevel.B1))
+        assertEquals("/rest/v1/rpc/staff_publish_drafts", server.takeRequest().url.encodedPath)
     }
 }

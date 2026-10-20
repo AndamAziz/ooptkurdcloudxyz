@@ -72,6 +72,25 @@ Exams and certificates (`20261020030000_exams_and_certificates`):
 Edge function `verify-certificate` (verify_jwt off) prints the result of `verify_certificate` as
 plain text; it is what the QR code on a certificate opens.
 
+Media, authoring and names (`20261020090000_media_names_authoring`):
+
+* `assessment_questions.passage / media_type / media_path / media_caption`; public bucket
+  `question-media` (uploads by teachers/admins only); `get_practice_questions_v2` returns them.
+* `staff_create_question(...)` (publish now or draft), `staff_publish_drafts(level)`,
+  `staff_set_display_name(user, name)` (teacher/admin; issued certificates keep their name).
+* `admin_list_users` is readable by teachers; role and status changes stay admin-only.
+
+Topics (`20261020120000_question_topics`): `get_practice_questions_v3` = v2 plus `tags`, so the app
+can offer practice by topic (Life in the UK, Kurdistan, stories/dialogues, history and nature,
+pictures/videos) offline. Content batch `ai-batch-03` (114 drafts: stories, dialogues and facts on
+the UK — Life in the UK test topics — and Kurdistan) is tagged `life_in_uk`, `kurdistan`, `story`,
+`dialogue`, `history`, `culture`, `nature`, `world_knowledge`.
+
+Content pipeline: `content/questions/ai-batch-*.json` and `content/media/**` are published by the
+**EnglishMaster content** workflow on push: media are uploaded to `question-media` (upsert) and new
+questions are inserted as drafts with PostgREST `resolution=ignore-duplicates`, so existing rows
+(and teachers' decisions) are never changed. The SQL seeds are kept for local tests.
+
 ## Question content
 
 `scripts/db/build_question_seed.py` builds the seed from `public/data/questions.csv`:
@@ -134,6 +153,10 @@ Applied to `nefpgqoykfndjvrdultp` with the owner's approval:
 | seed `assessment_questions_ai_batch_01.sql` | applied — 125 AI drafts (draft + unreviewed, hidden from students); content fingerprint identical to a local run |
 | `20261020030000_exams_and_certificates` | applied 2026-10-20 — permissions checked live (anon may only call `verify_certificate`); learner flow checked in a rolled-back transaction |
 | edge function `verify-certificate` | deployed (v1, verify_jwt off) |
+| `20261020090000_media_names_authoring` | applied 2026-10-20 |
+| AI batch 02 (200 drafts) + 13 sample media | published by the content workflow; content fingerprint matches a local run |
+| `20261020120000_question_topics` | applied 2026-10-20 — `anon` cannot execute v3, `authenticated` can |
+| AI batch 03 (114 drafts) + 9 new sample media | published by the content workflow on push |
 | `20261019220000_policy_consolidation` | **pending** — contains `DROP POLICY`; the MCP tooling waits for a destructive-statement confirmation it cannot show and times out (nothing is changed). Apply with `supabase db push --workdir backend` |
 
 Verified on the live project: RLS on all tables; `anon` has no table grants and cannot execute any

@@ -21,8 +21,11 @@ import xyz.kurdcloud.englishmaster.core.designsystem.LoadingState
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.ExamKind
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
+import xyz.kurdcloud.englishmaster.core.model.Topic
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.feature.admin.ActivityViewModel
+import xyz.kurdcloud.englishmaster.feature.admin.AddQuestionScreen
+import xyz.kurdcloud.englishmaster.feature.admin.AddQuestionViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.QuestionsViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.StaffScreen
 import xyz.kurdcloud.englishmaster.feature.admin.UsersViewModel
@@ -56,7 +59,9 @@ private object Routes {
     const val CHECK_EMAIL = "check-email/{reason}"
     const val HOME = "home"
     const val PRACTICE = "practice/{level}?mistakes={mistakes}"
+    const val TOPIC = "topic/{topic}"
     const val STAFF = "staff"
+    const val ADD_QUESTION = "staff/new-question/{level}"
     const val EXAM = "exam/{level}"
     const val PLACEMENT = "placement"
     const val CERTIFICATES = "certificates"
@@ -65,6 +70,7 @@ private object Routes {
     fun checkEmail(reason: CheckEmailReason) = "check-email/${reason.name}"
     fun practice(level: CefrLevel, mistakes: Boolean = false) = "practice/${level.apiValue}?mistakes=$mistakes"
     fun exam(level: CefrLevel) = "exam/${level.apiValue}"
+    fun topic(topic: Topic) = "topic/${topic.apiValue}"
 }
 
 @Composable
@@ -164,6 +170,7 @@ fun EnglishMasterNavHost(
                     onTakeExam = { navController.navigate(Routes.exam(it)) },
                     onPlacementTest = { navController.navigate(Routes.PLACEMENT) },
                     onCertificates = { navController.navigate(Routes.CERTIFICATES) },
+                    onPractiseTopic = { navController.navigate(Routes.topic(it)) },
                 ),
                 onSignOut = {
                     scope.launch {
@@ -191,8 +198,16 @@ fun EnglishMasterNavHost(
                     questionsViewModel = { viewModel { QuestionsViewModel(container.staff) } },
                     activityViewModel = { viewModel { ActivityViewModel(container.staff) } },
                     onBack = { navController.popBackStack() },
+                    onAddQuestion = { navController.navigate("staff/new-question/${it.apiValue}") },
                 )
             }
+        }
+        composable(Routes.ADD_QUESTION) { entry ->
+            val level = CefrLevel.fromApi(entry.arguments?.getString("level") ?: CefrLevel.A1.apiValue)
+            AddQuestionScreen(
+                viewModel = viewModel { AddQuestionViewModel(level, container.staff) },
+                onDone = { navController.popBackStack() },
+            )
         }
         composable(Routes.PRACTICE) { entry ->
             val userId = session?.userId ?: return@composable
@@ -201,6 +216,15 @@ fun EnglishMasterNavHost(
             PracticeScreen(
                 level = level,
                 viewModel = viewModel { PracticeViewModel(level, userId, container.content, container.practice, mistakesOnly = mistakes) },
+                onExit = { navController.popBackStack() },
+            )
+        }
+        composable(Routes.TOPIC) { entry ->
+            val userId = session?.userId ?: return@composable
+            val topic = Topic.fromApi(entry.arguments?.getString("topic")) ?: Topic.LIFE_IN_UK
+            PracticeScreen(
+                level = null,
+                viewModel = viewModel { PracticeViewModel(null, userId, container.content, container.practice, topic = topic) },
                 onExit = { navController.popBackStack() },
             )
         }

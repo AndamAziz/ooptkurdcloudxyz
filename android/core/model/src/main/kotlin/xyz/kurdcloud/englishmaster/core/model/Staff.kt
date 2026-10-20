@@ -13,6 +13,9 @@ enum class Role(val apiValue: String) {
 data class StaffAccess(val canReviewQuestions: Boolean, val canManageUsers: Boolean) {
     val any: Boolean get() = canReviewQuestions || canManageUsers
 
+    /** Teachers and admins can see learners and correct their names; roles/suspension stay admin-only. */
+    val canSeeUsers: Boolean get() = any
+
     companion object {
         val NONE = StaffAccess(canReviewQuestions = false, canManageUsers = false)
 
@@ -42,6 +45,24 @@ data class StaffQuestion(
     val explanation: String?,
     val status: String,
     val reviewStatus: String,
+    val passage: String? = null,
+    val media: QuestionMedia? = null,
+)
+
+/** A question written by a teacher in the app. [correctIndex] points into [options]. */
+data class NewQuestion(
+    val level: CefrLevel,
+    val skill: String,
+    val prompt: String,
+    val options: List<String>,
+    val correctIndex: Int,
+    val explanation: String?,
+    val passage: String?,
+    val mediaType: MediaType?,
+    /** Object path inside the question-media bucket, after upload. */
+    val mediaPath: String?,
+    val mediaCaption: String?,
+    val publish: Boolean,
 )
 
 data class ActivityEntry(

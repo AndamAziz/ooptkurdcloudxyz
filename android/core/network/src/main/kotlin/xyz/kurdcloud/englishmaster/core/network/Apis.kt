@@ -26,7 +26,8 @@ interface AuthApi {
 
 /** PostgREST RPCs. Every call is authorised server-side; see backend/supabase/migrations. */
 interface PracticeApi {
-    @POST("rest/v1/rpc/get_practice_questions")
+    /** v3 adds topic tags (v2 added passages and media); older versions stay for older app builds. */
+    @POST("rest/v1/rpc/get_practice_questions_v3")
     suspend fun getPracticeQuestions(@Body body: PracticeQuestionsRequest): List<PracticeQuestionDto>
 
     @POST("rest/v1/rpc/submit_practice_response")

@@ -42,7 +42,26 @@ interface QuestionDao {
     @Query("SELECT q.cefr_level AS cefr_level, COUNT(*) AS count FROM questions q WHERE ($LATEST_VERDICT) = 0 GROUP BY q.cefr_level")
     fun observeMistakeCounts(userId: String): Flow<List<LevelCountRow>>
 
+    /**
+     * Random questions from every downloaded level that match a topic, preferring unanswered ones.
+     * [t1]..[t4] are LIKE patterns on the JSON tags column (unused ones are passed as "").
+     */
+    @Query(
+        """SELECT q.* FROM questions q WHERE $TOPIC_MATCH
+           ORDER BY EXISTS (SELECT 1 FROM responses r WHERE r.question_id = q.id AND r.user_id = :userId), RANDOM()
+           LIMIT :limit"""
+    )
+    suspend fun pickForTopic(
+        t1: String, t2: String, t3: String, t4: String,
+        withPassage: Boolean, withMedia: Boolean, userId: String, limit: Int,
+    ): List<QuestionEntity>
+
+    @Query("SELECT COUNT(*) FROM questions q WHERE $TOPIC_MATCH")
+    fun observeTopicCount(t1: String, t2: String, t3: String, t4: String, withPassage: Boolean, withMedia: Boolean): Flow<Int>
+
     private companion object {
+        const val TOPIC_MATCH = """(q.tags LIKE :t1 OR q.tags LIKE :t2 OR q.tags LIKE :t3 OR q.tags LIKE :t4
+            OR (:withPassage AND q.passage IS NOT NULL) OR (:withMedia AND q.media_path IS NOT NULL))"""
         const val LATEST_VERDICT = """SELECT r.is_correct FROM responses r
             WHERE r.question_id = q.id AND r.user_id = :userId AND r.sync_state = 'SYNCED'
             ORDER BY r.answered_at DESC LIMIT 1"""

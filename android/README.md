@@ -39,6 +39,11 @@ Compose · Room · DataStore + Android Keystore · Retrofit/OkHttp · WorkManage
 * **Dashboard**: streak, answers, certificates, per-level progress towards the exam, "how to earn a
   certificate", and **Review mistakes** (downloaded questions whose latest marked answer was wrong;
   works offline).
+* **Richer questions**: reading passages, pictures (saved with the level pack, so they work offline)
+  and short videos (streamed). Shown in practice, exams and staff review.
+* **Staff**: teachers and admins can correct learners' names (used on future certificates), add
+  questions with a picture or video upload, and publish all reviewed drafts of a level at once.
+  Role and suspension changes remain admin-only.
 * Design: indigo/teal theme with level colours, rounded cards, dark mode.
 
 Not in this slice: courses/lessons, AI tutor, speaking/listening, teacher dashboard. The project is laid out so these become new `feature:*` modules.
@@ -82,7 +87,7 @@ Every build connects to project `nefpgqoykfndjvrdultp` by default (`englishmaste
 ## Build and test
 
 ```bash
-./gradlew test             # 110 JVM/Robolectric tests (no device needed)
+./gradlew test             # 117 JVM/Robolectric tests (no device needed)
 # opt-in, against a live project (creates no data):
 SUPABASE_LIVE_URL=https://<ref>.supabase.co SUPABASE_LIVE_KEY=<publishable key> ./gradlew :core:network:test
 ./gradlew lintDebug

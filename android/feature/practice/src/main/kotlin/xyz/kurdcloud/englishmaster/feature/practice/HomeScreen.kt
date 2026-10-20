@@ -64,6 +64,7 @@ import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.ExamRules
 import xyz.kurdcloud.englishmaster.core.model.LevelOverview
 import xyz.kurdcloud.englishmaster.core.model.LevelStage
+import xyz.kurdcloud.englishmaster.core.model.Topic
 import java.text.DateFormat
 import java.util.Date
 
@@ -85,7 +86,34 @@ data class HomeActions(
     val onTakeExam: (CefrLevel) -> Unit = {},
     val onPlacementTest: () -> Unit = {},
     val onCertificates: () -> Unit = {},
+    val onPractiseTopic: (Topic) -> Unit = {},
 )
+
+@StringRes
+internal fun Topic.titleRes(): Int = when (this) {
+    Topic.LIFE_IN_UK -> R.string.topic_life_in_uk
+    Topic.KURDISTAN -> R.string.topic_kurdistan
+    Topic.STORIES -> R.string.topic_stories
+    Topic.WORLD -> R.string.topic_world
+    Topic.PICTURES -> R.string.topic_pictures
+}
+
+@StringRes
+private fun Topic.descriptionRes(): Int = when (this) {
+    Topic.LIFE_IN_UK -> R.string.topic_life_in_uk_desc
+    Topic.KURDISTAN -> R.string.topic_kurdistan_desc
+    Topic.STORIES -> R.string.topic_stories_desc
+    Topic.WORLD -> R.string.topic_world_desc
+    Topic.PICTURES -> R.string.topic_pictures_desc
+}
+
+private fun Topic.emoji(): String = when (this) {
+    Topic.LIFE_IN_UK -> "🇬🇧"
+    Topic.KURDISTAN -> "☀️"
+    Topic.STORIES -> "📖"
+    Topic.WORLD -> "🌍"
+    Topic.PICTURES -> "🎬"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -183,6 +211,9 @@ fun HomeScreen(
                     item { PlacementCard(profile.placementLevel, actions.onPlacementTest, actions.onStartPractice) }
                 }
                 item { HowCertificatesWork() }
+                if (state.hasDownloads) {
+                    item { TopicsSection(state.topics, actions.onPractiseTopic) }
+                }
                 item {
                     Text(stringResource(R.string.practice_levels_header), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
                 }
@@ -317,6 +348,39 @@ private fun HowCertificatesWork() {
                 Step(2, stringResource(R.string.home_how_step2, ExamRules.EXAM_QUESTIONS, ExamRules.EXAM_MINUTES))
                 Step(3, stringResource(R.string.home_how_step3, ExamRules.PASS_PERCENT))
                 Step(4, stringResource(R.string.home_how_step4, ExamRules.RETRY_HOURS))
+            }
+        }
+    }
+}
+
+@Composable
+private fun TopicsSection(counts: Map<Topic, Int>, onPractise: (Topic) -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.testTag("topics_section")) {
+        Text(stringResource(R.string.topics_header), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+        Text(stringResource(R.string.topics_body), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (counts.values.all { it == 0 }) {
+            // Packs downloaded before topics existed have no tags until they are updated.
+            Text(stringResource(R.string.topics_update_levels), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.tertiary)
+        }
+        Topic.entries.forEach { topic ->
+            val count = counts[topic] ?: 0
+            Card(
+                shape = RoundedCornerShape(18.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
+                modifier = Modifier.fillMaxWidth().clickable(enabled = count > 0) { onPractise(topic) }.testTag("topic_${topic.apiValue}"),
+            ) {
+                Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Text(topic.emoji(), style = MaterialTheme.typography.headlineSmall)
+                    Column(Modifier.weight(1f).padding(horizontal = 12.dp)) {
+                        Text(stringResource(topic.titleRes()), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
+                        Text(stringResource(topic.descriptionRes()), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                    Text(
+                        pluralStringResource(R.plurals.topic_questions, count, count),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = if (count > 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
             }
         }
     }

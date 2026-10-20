@@ -17,6 +17,15 @@ data class QuestionEntity(
     @ColumnInfo(name = "review_status") val reviewStatus: String,
     @ColumnInfo(name = "server_updated_at") val serverUpdatedAt: String,
     @ColumnInfo(name = "downloaded_at") val downloadedAtMillis: Long,
+    val passage: String? = null,
+    @ColumnInfo(name = "media_type") val mediaType: String? = null,
+    /** Object path in the question-media bucket. */
+    @ColumnInfo(name = "media_path") val mediaPath: String? = null,
+    @ColumnInfo(name = "media_caption") val mediaCaption: String? = null,
+    /** Absolute path of the copy saved with the pack (pictures), for offline use. */
+    @ColumnInfo(name = "media_local") val mediaLocal: String? = null,
+    /** Content tags (JSON list) used for topic practice, e.g. ["life_in_uk","history"]. */
+    @ColumnInfo(defaultValue = "[]") val tags: List<String> = emptyList(),
 )
 
 /** A completed download of one level's question pack. */

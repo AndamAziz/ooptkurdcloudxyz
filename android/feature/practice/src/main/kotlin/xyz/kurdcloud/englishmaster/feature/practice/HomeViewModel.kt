@@ -22,6 +22,7 @@ import xyz.kurdcloud.englishmaster.core.model.LevelPack
 import xyz.kurdcloud.englishmaster.core.model.LevelProgress
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
 import xyz.kurdcloud.englishmaster.core.model.SyncReport.StopReason
+import xyz.kurdcloud.englishmaster.core.model.Topic
 import xyz.kurdcloud.englishmaster.core.network.ApiError
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 
@@ -50,7 +51,10 @@ data class HomeUiState(
     val staffAccess: StaffAccess = StaffAccess.NONE,
     val profile: LearnerProfile? = null,
     val nowMillis: Long = 0,
+    /** Downloaded questions per topic (empty until a level is downloaded with topic tags). */
+    val topics: Map<Topic, Int> = emptyMap(),
 ) {
+    val hasDownloads: Boolean get() = levels.any { it.pack != null }
     val certificates: Int get() = levels.count { it.overview?.certificateCode != null }
 }
 
@@ -80,14 +84,22 @@ class HomeViewModel(
         content.observePacks(),
         practice.observeProgress(userId),
         content.observeMistakeCounts(userId),
-    ) { packs, progress, mistakes -> Triple(packs, progress, mistakes) }
+        content.observeTopicCounts(),
+    ) { packs, progress, mistakes, topics -> LocalData(packs, progress, mistakes, topics) }
+
+    private data class LocalData(
+        val packs: List<LevelPack>,
+        val progress: List<LevelProgress>,
+        val mistakes: Map<CefrLevel, Int>,
+        val topics: Map<Topic, Int>,
+    )
 
     val uiState: StateFlow<HomeUiState> = combine(
         local,
         practice.observePendingCount(userId),
         network.isOnline,
         transient,
-    ) { (packs, progress, mistakes), pending, online, t ->
+    ) { (packs, progress, mistakes, topics), pending, online, t ->
         HomeUiState(
             isOnline = online,
             pendingCount = pending,
@@ -106,6 +118,7 @@ class HomeViewModel(
             staffAccess = t.staffAccess,
             profile = t.profile,
             nowMillis = t.nowMillis,
+            topics = topics,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUiState())
 

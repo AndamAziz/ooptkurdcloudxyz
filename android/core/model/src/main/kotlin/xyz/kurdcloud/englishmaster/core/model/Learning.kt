@@ -75,7 +75,14 @@ data class LearnerProfile(
     val streakDays: Int,
 )
 
-data class ExamQuestion(val id: String, val level: CefrLevel, val prompt: String, val options: List<String>)
+data class ExamQuestion(
+    val id: String,
+    val level: CefrLevel,
+    val prompt: String,
+    val options: List<String>,
+    val passage: String? = null,
+    val media: QuestionMedia? = null,
+)
 
 enum class ExamKind { LEVEL_FINAL, PLACEMENT }
 

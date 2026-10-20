@@ -78,4 +78,5 @@
     <string name="certificate_failed">The PDF could not be created.</string>
     <string name="certificate_no_app">No app on this device can open it.</string>
     <string name="certificate_note">EnglishMaster level certificates show that you passed our level exam. They are aligned to CEFR level descriptors but are not an official CEFR certification.</string>
+    <string name="exam_media_unavailable">The picture could not be loaded. Check your internet connection.</string>
 </resources>
