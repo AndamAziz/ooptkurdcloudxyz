@@ -1,6 +1,6 @@
 -- Seeded question bank sanity checks.
 begin;
-select plan(6);
+select plan(7);
 
 select is((select count(*)::int from public.assessment_questions where external_ref like 'csv:%'), 84,
   'question bank seeded: 84 distinct items (template variants and ambiguous items removed)');
@@ -16,6 +16,10 @@ select is((select count(*)::int from public.assessment_questions where prompt ~ 
   'template variant suffixes are stripped from prompts');
 select is((select count(distinct cefr_level)::int from public.assessment_questions where external_ref like 'csv:%'), 6,
   'all six CEFR levels A1–C2 have practice items');
+
+select is((select count(*)::int from public.assessment_questions
+            where exists (select 1 from unnest(options) o where o ~* '\(alt')), 0,
+  'no filler options such as "am (alt)"');
 
 select * from finish();
 rollback;

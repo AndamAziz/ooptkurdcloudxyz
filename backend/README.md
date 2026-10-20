@@ -70,7 +70,10 @@ Full request/response contract: [`docs/api-contract.md`](../docs/api-contract.md
   variants and is dropped as ambiguous.
 * One wrong explanation ("carry out" = "find by chance") is corrected in
   `EXPLANATION_FIXES`; the CSV is unchanged.
-* Result: **84 items** — A1 25, A2 5, B1 11, B2 12, C1 16, C2 15. 5 still contain an `(alt)` filler option.
+* A manual review of all 84 items (2026-10-19) found wrong keys (e.g. *"My brother ___ to school"* keyed
+  `works`), second correct options, `(alt)` fillers and unfinished template sentences. 32 items are
+  corrected in `ITEM_FIXES`; options keep their order so the keyed letter does not change.
+* Result: **84 items** — A1 25, A2 5, B1 11, B2 12, C1 16, C2 15.
 * Every seeded item is `status = 'published'` (usable for practice) but `review_status = 'unreviewed'`;
   the app labels them. This is a pipeline-test bank, not a curriculum: real, reviewed content is
   required before placement or certificates.
