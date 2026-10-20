@@ -16,6 +16,9 @@ data class StaffAccess(val canReviewQuestions: Boolean, val canManageUsers: Bool
     /** Teachers and admins can see learners and correct their names; roles/suspension stay admin-only. */
     val canSeeUsers: Boolean get() = any
 
+    /** Teachers and admins approve or reject certificate requests (never their own; server-enforced). */
+    val canApproveCertificates: Boolean get() = canReviewQuestions
+
     companion object {
         val NONE = StaffAccess(canReviewQuestions = false, canManageUsers = false)
 
@@ -47,7 +50,19 @@ data class StaffQuestion(
     val reviewStatus: String,
     val passage: String? = null,
     val media: QuestionMedia? = null,
+    val skill: String = "grammar",
+    /** Object path of [media] in the question-media bucket (kept when an edit does not replace it). */
+    val mediaPath: String? = null,
 )
+
+/** What happened to a question an admin deleted. */
+enum class DeleteOutcome {
+    /** Nobody had answered it: removed for good. */
+    DELETED,
+
+    /** It has answers: hidden everywhere but kept so learners' history stays intact. */
+    ARCHIVED,
+}
 
 /** A question written by a teacher in the app. [correctIndex] points into [options]. */
 data class NewQuestion(
@@ -70,6 +85,29 @@ data class ActivityEntry(
     val eventType: String,
     val actorName: String?,
     val detail: String?,
+)
+
+enum class CertificateRequestStatus(val apiValue: String) {
+    PENDING("pending"), APPROVED("approved"), REJECTED("rejected");
+
+    companion object {
+        fun fromApi(value: String): CertificateRequestStatus = entries.firstOrNull { it.apiValue == value } ?: PENDING
+    }
+}
+
+/** A learner's passed level exam waiting for (or after) a teacher's decision on the certificate. */
+data class CertificateRequest(
+    val id: String,
+    val userId: String,
+    val email: String,
+    val displayName: String,
+    val level: CefrLevel,
+    val score: Int,
+    val total: Int,
+    val requestedAt: String,
+    val status: CertificateRequestStatus,
+    val reviewedAt: String? = null,
+    val reviewerName: String? = null,
 )
 
 /** A question's review state as stored by the server after a review action. */

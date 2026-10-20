@@ -44,18 +44,27 @@ import xyz.kurdcloud.englishmaster.core.model.QuestionMedia
 import java.net.HttpURLConnection
 import java.net.URL
 
-/** Reading text shown above a question (English content: the caller keeps it left-to-right). */
+/**
+ * Reading text shown above a question (English content: the caller keeps it left-to-right).
+ * With [speakId] a listen button in the corner reads the text aloud.
+ */
 @Composable
-fun PassageCard(passage: String, modifier: Modifier = Modifier) {
+fun PassageCard(passage: String, modifier: Modifier = Modifier, speakId: String? = null) {
     Card(
         modifier = modifier.fillMaxWidth().testTag("question_passage"),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
     ) {
-        Text(
-            passage,
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.heightIn(max = 320.dp).verticalScroll(rememberScrollState()).padding(16.dp),
-        )
+        Box {
+            Text(
+                passage,
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.heightIn(max = 320.dp).verticalScroll(rememberScrollState())
+                    .padding(start = 16.dp, top = 16.dp, bottom = 16.dp, end = if (speakId != null) 56.dp else 16.dp),
+            )
+            if (speakId != null) {
+                SpeakButton(speakId, passage, Modifier.align(Alignment.TopEnd).padding(8.dp), size = 36.dp)
+            }
+        }
     }
 }
 

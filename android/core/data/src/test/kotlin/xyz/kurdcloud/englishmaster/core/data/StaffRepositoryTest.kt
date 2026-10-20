@@ -11,6 +11,8 @@ import org.junit.Before
 import org.junit.Test
 import xyz.kurdcloud.englishmaster.core.model.AuthSession
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
+import xyz.kurdcloud.englishmaster.core.model.CertificateRequestStatus
+import xyz.kurdcloud.englishmaster.core.model.DeleteOutcome
 import xyz.kurdcloud.englishmaster.core.model.MediaType
 import xyz.kurdcloud.englishmaster.core.model.NewQuestion
 import xyz.kurdcloud.englishmaster.core.model.ReviewState
@@ -110,6 +112,50 @@ class StaffRepositoryTest {
         val entry = (repo.recentActivity() as ApiResult.Success).value.single()
         assertEquals("role: teacher", entry.detail)
         assertEquals("Andam", entry.actorName)
+    }
+
+    @Test
+    fun questionsAreEditedAndDeleted() = runTest {
+        server.enqueue(json(200, "3"))
+        val edit = NewQuestion(CefrLevel.A1, "vocabulary", " What is the code? ", listOf("837631", "837613"), 0, " ", null,
+            MediaType.IMAGE, "staff/x.png", "Kurdistan IPTV", publish = false)
+        assertEquals(ApiResult.Success(3), repo.updateQuestion("q1", edit))
+        val update = server.takeRequest()
+        assertEquals("/rest/v1/rpc/staff_update_question", update.url.encodedPath)
+        val body = update.body!!.utf8()
+        assertTrue(body, body.contains(""""p_question_id":"q1"""") && body.contains(""""p_prompt":"What is the code?"""") &&
+            body.contains(""""p_correct_option":"A"""") && body.contains(""""p_media_path":"staff/x.png"""") && !body.contains("p_publish"))
+
+        server.enqueue(json(200, "\"archived\""))
+        assertEquals(ApiResult.Success(DeleteOutcome.ARCHIVED), repo.deleteQuestion("q1"))
+        assertEquals("/rest/v1/rpc/staff_delete_question", server.takeRequest().url.encodedPath)
+
+        server.enqueue(json(200, "[]"))
+        repo.questions(CefrLevel.A1)
+        assertTrue(server.takeRequest().url.toString().contains("deleted_at=is.null"))
+    }
+
+    @Test
+    fun certificateRequestsAreListedAndReviewed() = runTest {
+        server.enqueue(json(200, """[{"id":"c1","user_id":"u1","email":"s@x.co","display_name":"Sara","cefr_level":"A2","score":18,
+            "total":20,"requested_at":"2026-10-20T03:00:00+00:00","status":"pending","reviewed_at":null,"reviewer_name":null}]"""))
+        val request = (repo.certificateRequests(CertificateRequestStatus.PENDING) as ApiResult.Success).value.single()
+        assertEquals(CefrLevel.A2, request.level)
+        assertEquals("Sara", request.displayName)
+        val list = server.takeRequest()
+        assertEquals("/rest/v1/rpc/staff_list_certificates", list.url.encodedPath)
+        assertTrue(list.body!!.utf8().contains(""""p_status":"pending""""))
+
+        server.enqueue(json(200, """[{"status":"approved","verification_code":"EM-AAAA-BBBB-CCCC"}]"""))
+        assertEquals(ApiResult.Success(CertificateRequestStatus.APPROVED), repo.reviewCertificate("c1", approve = true, note = "  "))
+        val review = server.takeRequest()
+        assertEquals("/rest/v1/rpc/staff_review_certificate", review.url.encodedPath)
+        val body = review.body!!.utf8()
+        assertTrue(body, body.contains(""""p_certificate_id":"c1"""") && body.contains(""""p_approve":true""") && !body.contains("p_note"))
+
+        server.enqueue(json(400, """{"code":"P0001","message":"you cannot review your own certificate","hint":"own_certificate"}"""))
+        val own = repo.reviewCertificate("c2", approve = false, note = "x") as ApiResult.Failure
+        assertEquals("own_certificate", (own.error as ApiError.Validation).hint)
     }
 
     @Test

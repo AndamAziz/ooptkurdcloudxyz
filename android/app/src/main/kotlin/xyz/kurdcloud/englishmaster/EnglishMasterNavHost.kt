@@ -24,6 +24,7 @@ import xyz.kurdcloud.englishmaster.core.model.StaffAccess
 import xyz.kurdcloud.englishmaster.core.model.Topic
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.feature.admin.ActivityViewModel
+import xyz.kurdcloud.englishmaster.feature.admin.CertificateRequestsViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.AddQuestionScreen
 import xyz.kurdcloud.englishmaster.feature.admin.AddQuestionViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.QuestionsViewModel
@@ -62,6 +63,7 @@ private object Routes {
     const val TOPIC = "topic/{topic}"
     const val STAFF = "staff"
     const val ADD_QUESTION = "staff/new-question/{level}"
+    const val EDIT_QUESTION = "staff/edit-question/{level}/{id}"
     const val EXAM = "exam/{level}"
     const val PLACEMENT = "placement"
     const val CERTIFICATES = "certificates"
@@ -199,8 +201,18 @@ fun EnglishMasterNavHost(
                     activityViewModel = { viewModel { ActivityViewModel(container.staff) } },
                     onBack = { navController.popBackStack() },
                     onAddQuestion = { navController.navigate("staff/new-question/${it.apiValue}") },
+                    onEditQuestion = { level, id -> navController.navigate("staff/edit-question/${level.apiValue}/$id") },
+                    certificatesViewModel = { viewModel { CertificateRequestsViewModel(container.staff) } },
                 )
             }
+        }
+        composable(Routes.EDIT_QUESTION) { entry ->
+            val level = CefrLevel.fromApi(entry.arguments?.getString("level") ?: CefrLevel.A1.apiValue)
+            val id = entry.arguments?.getString("id").orEmpty()
+            AddQuestionScreen(
+                viewModel = viewModel { AddQuestionViewModel(level, container.staff, editId = id) },
+                onDone = { navController.popBackStack() },
+            )
         }
         composable(Routes.ADD_QUESTION) { entry ->
             val level = CefrLevel.fromApi(entry.arguments?.getString("level") ?: CefrLevel.A1.apiValue)

@@ -9,7 +9,7 @@
     <string name="placement_intro_heading">ئاستی خۆت بدۆزەرەوە</string>
     <string name="exam_rule_questions">%1$d پرسیار، بە هەڕەمەکی لە ئاستی %2$s هەڵدەبژێردرێن</string>
     <string name="exam_rule_time">%1$d خولەک. کە کات تەواو بوو، وەڵامەکانت خۆکارانە دەنێردرێن.</string>
-    <string name="exam_rule_pass">بە %1$d%% یان زیاتر دەردەچیت و بڕوانامەیەک بە کۆدی QR ـی پشتڕاستکردنەوە وەردەگریت.</string>
+    <string name="exam_rule_pass">بە %1$d%% یان زیاتر دەردەچیت. دوای پەسەندکردنی مامۆستاکەت بڕوانامەیەک بە کۆدی QR ـی پشتڕاستکردنەوە وەردەگریت.</string>
     <string name="exam_rule_retry">ئەگەر دەرنەچوویت، دوای %1$d کاتژمێر دەتوانیت دووبارە هەوڵ بدەیتەوە.</string>
     <string name="exam_rule_online">بۆ هەموو تاقیکردنەوەکە ئینتەرنێت پێویستە. وەڵامەکان لەسەر سێرڤەر هەڵدەسەنگێنرێن.</string>
     <string name="placement_rule_questions">%1$d پرسیار لە A1 تا C2، وردە وردە قورستر دەبن</string>
@@ -79,4 +79,6 @@
     <string name="certificate_no_app">هیچ ئەپێک لەم ئامێرەدا ناتوانێت بیکاتەوە.</string>
     <string name="certificate_note">بڕوانامەکانی EnglishMaster نیشانی دەدەن کە لە تاقیکردنەوەی ئاستەکەمان دەرچوویت. لەگەڵ پێوەرەکانی CEFR گونجێنراون، بەڵام بڕوانامەی فەرمیی CEFR نین.</string>
     <string name="exam_media_unavailable">وێنەکە نەکرایەوە. پەیوەندی ئینتەرنێتەکەت بپشکنە.</string>
+    <string name="exam_awaiting_approval">ئەنجامەکەت بۆ مامۆستاکەت نێردرا. هەر کە مامۆستا یان ئەدمین پەسەندی کرد بڕوانامەی %1$s دەردەچێت — لە پەڕەی سەرەکی دەیبینیت.</string>
+    <string name="problem_pending_approval">ئەم ئاستەت بڕیوە. بڕوانامەکەت چاوەڕوانی پەسەندکردنی مامۆستایە.</string>
 </resources>

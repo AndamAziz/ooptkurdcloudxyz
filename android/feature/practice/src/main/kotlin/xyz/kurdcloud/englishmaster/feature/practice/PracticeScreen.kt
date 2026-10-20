@@ -46,6 +46,8 @@ import xyz.kurdcloud.englishmaster.core.designsystem.FeedbackColors
 import xyz.kurdcloud.englishmaster.core.designsystem.LoadingState
 import xyz.kurdcloud.englishmaster.core.designsystem.PassageCard
 import xyz.kurdcloud.englishmaster.core.designsystem.QuestionMediaView
+import xyz.kurdcloud.englishmaster.core.designsystem.SpeakButton
+import xyz.kurdcloud.englishmaster.core.designsystem.speechText
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.PracticeAnswer
 import xyz.kurdcloud.englishmaster.core.model.Question
@@ -136,9 +138,12 @@ private fun QuestionView(state: PracticeUiState, viewModel: PracticeViewModel, m
 @Composable
 private fun QuestionContent(question: Question, selected: Int?, answer: PracticeAnswer?, onSelect: (Int) -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        question.passage?.let { PassageCard(it) }
+        question.passage?.let { PassageCard(it, speakId = "passage_${question.id}") }
         question.media?.let { QuestionMediaView(it, stringResource(R.string.practice_media_unavailable)) }
-        Text(question.prompt, style = MaterialTheme.typography.titleLarge, modifier = Modifier.testTag("question_prompt"))
+        Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text(question.prompt, style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f).testTag("question_prompt"))
+            SpeakButton("question_${question.id}", speechText(question.prompt, question.options))
+        }
         Spacer(Modifier.height(4.dp))
         Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             question.options.forEachIndexed { index, option ->

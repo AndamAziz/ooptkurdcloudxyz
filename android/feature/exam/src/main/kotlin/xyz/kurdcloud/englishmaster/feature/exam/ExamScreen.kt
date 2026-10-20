@@ -55,6 +55,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import xyz.kurdcloud.englishmaster.core.designsystem.SpeakButton
+import xyz.kurdcloud.englishmaster.core.designsystem.speechText
 import xyz.kurdcloud.englishmaster.core.designsystem.FeedbackColors
 import xyz.kurdcloud.englishmaster.core.designsystem.PassageCard
 import xyz.kurdcloud.englishmaster.core.designsystem.QuestionMediaView
@@ -72,6 +74,7 @@ internal fun ExamProblem.messageRes(): Int = when (this) {
     ExamProblem.NOT_UNLOCKED -> R.string.problem_not_unlocked
     ExamProblem.RETRY_LATER -> R.string.problem_retry_later
     ExamProblem.ALREADY_CERTIFIED -> R.string.problem_already_certified
+    ExamProblem.PENDING_APPROVAL -> R.string.problem_pending_approval
     ExamProblem.NOT_ENOUGH_QUESTIONS -> R.string.problem_not_enough
     ExamProblem.INVALID_NAME -> R.string.problem_invalid_name
     ExamProblem.UNEXPECTED -> R.string.problem_unexpected
@@ -279,9 +282,12 @@ private fun RunningView(state: ExamUiState, viewModel: ExamViewModel) {
         // Learning content is English: keep it left-to-right inside the Sorani UI.
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                question.passage?.let { PassageCard(it) }
+                question.passage?.let { PassageCard(it, speakId = "passage_${question.id}") }
                 question.media?.let { QuestionMediaView(it, stringResource(R.string.exam_media_unavailable)) }
-                Text(question.prompt, style = MaterialTheme.typography.titleLarge, modifier = Modifier.testTag("exam_prompt"))
+                Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text(question.prompt, style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f).testTag("exam_prompt"))
+                    SpeakButton("question_${question.id}", speechText(question.prompt, question.options))
+                }
                 Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     val chosen = state.answers[question.id]
                     question.options.forEachIndexed { i, option ->
@@ -384,7 +390,14 @@ private fun ResultView(state: ExamUiState, onClose: () -> Unit, onViewCertificat
             Text(stringResource(R.string.exam_score, result.score, result.total, result.percent), textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
             Text(stringResource(R.string.exam_pass_mark, result.passPercent), textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth(),
                 style = MaterialTheme.typography.bodySmall)
-            if (passed) {
+            if (result.awaitingApproval) {
+                // Certificates are issued only after a teacher or admin approves the result.
+                Text(
+                    stringResource(R.string.exam_awaiting_approval, state.level?.label.orEmpty()),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth().testTag("exam_awaiting_approval"),
+                )
+            } else if (passed) {
                 Text(stringResource(R.string.exam_certificate_ready, state.level?.label.orEmpty()), textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
                 Button(onClick = onViewCertificates, modifier = Modifier.fillMaxWidth().testTag("exam_view_certificate")) {
                     Text(stringResource(R.string.exam_view_certificate))

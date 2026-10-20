@@ -9,7 +9,7 @@
     <string name="placement_intro_heading">Find your level</string>
     <string name="exam_rule_questions">%1$d questions chosen at random from the %2$s level</string>
     <string name="exam_rule_time">%1$d minutes. Your answers are sent automatically when time runs out.</string>
-    <string name="exam_rule_pass">Pass with %1$d%% or more to receive a certificate with a QR verification code.</string>
+    <string name="exam_rule_pass">Pass with %1$d%% or more. Your teacher then approves the result and you receive a certificate with a QR verification code.</string>
     <string name="exam_rule_retry">If you do not pass, you can try again after %1$d hours.</string>
     <string name="exam_rule_online">You need an internet connection for the whole exam. Answers are checked on the server.</string>
     <string name="placement_rule_questions">%1$d questions from A1 to C2, getting harder as you go</string>
@@ -79,4 +79,6 @@
     <string name="certificate_no_app">No app on this device can open it.</string>
     <string name="certificate_note">EnglishMaster level certificates show that you passed our level exam. They are aligned to CEFR level descriptors but are not an official CEFR certification.</string>
     <string name="exam_media_unavailable">The picture could not be loaded. Check your internet connection.</string>
+    <string name="exam_awaiting_approval">Your result has been sent to your teacher. The %1$s certificate is issued as soon as a teacher or admin approves it — you will see it on the home screen.</string>
+    <string name="problem_pending_approval">You passed this level. Your certificate is waiting for a teacher\'s approval.</string>
 </resources>

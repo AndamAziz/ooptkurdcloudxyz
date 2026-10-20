@@ -3,7 +3,12 @@ package xyz.kurdcloud.englishmaster.feature.admin
 import xyz.kurdcloud.englishmaster.core.data.StaffRepository
 import xyz.kurdcloud.englishmaster.core.model.ActivityEntry
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
+import xyz.kurdcloud.englishmaster.core.model.CertificateRequest
+import xyz.kurdcloud.englishmaster.core.model.CertificateRequestStatus
+import xyz.kurdcloud.englishmaster.core.model.DeleteOutcome
+import xyz.kurdcloud.englishmaster.core.model.MediaType
 import xyz.kurdcloud.englishmaster.core.model.NewQuestion
+import xyz.kurdcloud.englishmaster.core.model.QuestionMedia
 import xyz.kurdcloud.englishmaster.core.model.ReviewState
 import xyz.kurdcloud.englishmaster.core.model.Role
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
@@ -19,7 +24,8 @@ class FakeStaffRepository : StaffRepository {
         StaffUser("s1", "sara@example.com", "Sara", setOf(Role.STUDENT), false, 10, 7),
     )
     val questions = mutableListOf(
-        StaffQuestion("q1", CefrLevel.A1, "I ___ a student.", listOf("is", "am", "are"), "B", "Use am with I.", "published", "unreviewed"),
+        StaffQuestion("q1", CefrLevel.A1, "I ___ a student.", listOf("is", "am", "are"), "B", "Use am with I.", "published", "unreviewed",
+            media = QuestionMedia(MediaType.IMAGE, "https://x/question-media/staff/p.png", "A boy"), mediaPath = "staff/p.png"),
         StaffQuestion("q2", CefrLevel.B1, "She suggested ___ to the beach.", listOf("going", "to go", "go"), "A", "Suggest + -ing.", "draft", "unreviewed"),
     )
     var failNext: ApiError? = null
@@ -59,6 +65,27 @@ class FakeStaffRepository : StaffRepository {
         calls += "publish:$level:${drafts.size}"
         questions.replaceAll { if (it in drafts) it.copy(status = "published", reviewStatus = "approved") else it }
         drafts.size
+    }
+    var updated: Pair<String, NewQuestion>? = null
+    override suspend fun updateQuestion(id: String, question: NewQuestion) = result { calls += "update:$id"; updated = id to question; 2 }
+    override suspend fun deleteQuestion(id: String) = result {
+        calls += "delete:$id"
+        questions.removeAll { it.id == id }
+        if (id == "q1") DeleteOutcome.ARCHIVED else DeleteOutcome.DELETED
+    }
+    val certificates = mutableListOf(
+        CertificateRequest("c1", "s1", "sara@example.com", "Sara", CefrLevel.A2, 18, 20, "2026-10-20T03:00:00Z", CertificateRequestStatus.PENDING),
+        CertificateRequest("c2", "me", "andam@example.com", "Andam", CefrLevel.B1, 20, 20, "2026-10-20T04:00:00Z", CertificateRequestStatus.PENDING),
+    )
+    override suspend fun certificateRequests(status: CertificateRequestStatus) = result {
+        calls += "certs:${status.apiValue}"
+        certificates.filter { it.status == status }
+    }
+    override suspend fun reviewCertificate(id: String, approve: Boolean, note: String?) = result {
+        calls += "certReview:$id:$approve:$note"
+        val new = if (approve) CertificateRequestStatus.APPROVED else CertificateRequestStatus.REJECTED
+        certificates.replaceAll { if (it.id == id) it.copy(status = new, reviewerName = "Andam") else it }
+        new
     }
     override suspend fun recentActivity() = result {
         listOf(ActivityEntry("2026-10-19T20:03:52Z", "admin.bootstrap_admin_granted", "Andam", null))

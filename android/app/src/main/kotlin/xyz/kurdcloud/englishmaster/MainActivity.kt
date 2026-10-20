@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
@@ -15,33 +16,53 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import xyz.kurdcloud.englishmaster.update.UpdateDialog
 import xyz.kurdcloud.englishmaster.update.UpdateViewModel
 import xyz.kurdcloud.englishmaster.core.designsystem.EnglishMasterTheme
+import xyz.kurdcloud.englishmaster.core.designsystem.LocalSpeaker
+import xyz.kurdcloud.englishmaster.core.designsystem.TextToSpeechSpeaker
 import xyz.kurdcloud.englishmaster.feature.auth.InterfaceLanguage
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
+    /** Reads questions aloud on request (speaker buttons); null until onCreate. */
+    private var speaker: TextToSpeechSpeaker? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val app = application as EnglishMasterApplication
         installSplashScreen().setKeepOnScreenCondition { !app.ready.value }
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val speaker = TextToSpeechSpeaker(this).also { speaker = it }
         setContent {
             EnglishMasterTheme {
-                val updates = viewModel {
-                    UpdateViewModel(app.container.updates, app.container.installer, BuildConfig.VERSION_CODE, BuildConfig.SELF_UPDATE)
+                CompositionLocalProvider(LocalSpeaker provides speaker) {
+                    val updates = viewModel {
+                        UpdateViewModel(app.container.updates, app.container.installer, BuildConfig.VERSION_CODE, BuildConfig.SELF_UPDATE)
+                    }
+                    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { updates.onResume() }
+                    val language = currentLanguage()
+                    EnglishMasterNavHost(
+                        container = app.container,
+                        ready = app.ready,
+                        currentLanguage = language,
+                        onLanguageSelected = ::setLanguage,
+                        onCheckForUpdates = if (BuildConfig.SELF_UPDATE) ({ updates.check(manual = true) }) else null,
+                    )
+                    val updateState by updates.uiState.collectAsStateWithLifecycle()
+                    UpdateDialog(updateState, language, updates)
                 }
-                LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { updates.onResume() }
-                val language = currentLanguage()
-                EnglishMasterNavHost(
-                    container = app.container,
-                    ready = app.ready,
-                    currentLanguage = language,
-                    onLanguageSelected = ::setLanguage,
-                    onCheckForUpdates = if (BuildConfig.SELF_UPDATE) ({ updates.check(manual = true) }) else null,
-                )
-                val updateState by updates.uiState.collectAsStateWithLifecycle()
-                UpdateDialog(updateState, language, updates)
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // Do not keep talking once the app is in the background.
+        speaker?.stop()
+    }
+
+    override fun onDestroy() {
+        speaker?.shutdown()
+        speaker = null
+        super.onDestroy()
     }
 
     /**

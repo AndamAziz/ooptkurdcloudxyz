@@ -74,4 +74,40 @@ class AddQuestionViewModelTest {
         assertEquals(0, vm.uiState.value.drafts)
         assertEquals(R.string.admin_drafts_published, vm.uiState.value.message)
     }
+
+    @Test
+    fun editingLoadsTheQuestionAndKeepsItsPictureUnlessRemoved() {
+        val repo = FakeStaffRepository()
+        val vm = AddQuestionViewModel(CefrLevel.A1, repo, editId = "q1")
+        val s = vm.uiState.value
+        assertEquals(true, s.editing)
+        assertEquals("I ___ a student.", s.prompt)
+        assertEquals(listOf("is", "am", "are", ""), s.options)
+        assertEquals(1, s.correctIndex)
+        assertEquals("A boy", s.caption)
+
+        vm.update { it.copy(prompt = "I ___ a teacher.") }
+        vm.save()
+        val (id, q) = repo.updated!!
+        assertEquals("q1", id)
+        assertEquals("I ___ a teacher.", q.prompt)
+        assertEquals(listOf("is", "am", "are"), q.options)
+        assertEquals(1, q.correctIndex)
+        assertEquals("staff/p.png", q.mediaPath)
+        assertEquals(MediaType.IMAGE, q.mediaType)
+        assertEquals(true, vm.uiState.value.saved)
+        assertEquals(false, "create" in repo.calls)
+
+        val vm2 = AddQuestionViewModel(CefrLevel.A1, repo, editId = "q1")
+        vm2.removeExistingMedia()
+        vm2.save()
+        assertEquals(null, repo.updated!!.second.mediaPath)
+        assertEquals(null, repo.updated!!.second.mediaType)
+    }
+
+    @Test
+    fun editingAMissingQuestionSaysSo() {
+        val vm = AddQuestionViewModel(CefrLevel.A1, FakeStaffRepository(), editId = "gone")
+        assertEquals(R.string.admin_edit_not_found, vm.uiState.value.error)
+    }
 }

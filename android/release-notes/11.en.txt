@@ -1,0 +1,1 @@
+New: certificates are issued after a teacher or admin approves the passed exam (new Certificates tab in Staff tools; nobody can approve their own). A listen button reads questions and reading texts aloud in English. Learners can update downloaded levels but no longer remove them.

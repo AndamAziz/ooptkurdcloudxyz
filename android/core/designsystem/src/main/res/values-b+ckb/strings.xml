@@ -2,4 +2,6 @@
 <resources>
     <string name="ds_retry">دووبارە هەوڵ بدەرەوە</string>
     <string name="ds_offline_banner">ئێستا ئۆفلاینیت. وانە داگیراوەکان کار دەکەن؛ وەڵامەکانت کاتێک هێڵت گەڕایەوە هەڵدەسەنگێنرێن.</string>
+    <string name="ds_speak_listen">گوێگرتن</string>
+    <string name="ds_speak_stop">ڕاگرتنی خوێندنەوە</string>
 </resources>

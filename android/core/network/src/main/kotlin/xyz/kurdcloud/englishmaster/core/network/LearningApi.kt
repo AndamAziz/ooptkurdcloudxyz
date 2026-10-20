@@ -10,7 +10,8 @@ import retrofit2.http.POST
  * Questions are chosen and scored by the server; answer keys never reach the device.
  */
 interface LearningApi {
-    @POST("rest/v1/rpc/get_learning_overview")
+    /** v2 adds certificate_status (certificates need a teacher's approval). */
+    @POST("rest/v1/rpc/get_learning_overview_v2")
     suspend fun overview(@Body body: Map<String, String> = emptyMap()): List<LevelOverviewDto>
 
     @POST("rest/v1/rpc/get_learner_profile")
@@ -50,6 +51,7 @@ data class LevelOverviewDto(
     @SerialName("last_exam_total") val lastExamTotal: Int? = null,
     @SerialName("certificate_code") val certificateCode: String? = null,
     @SerialName("certificate_issued_at") val certificateIssuedAt: String? = null,
+    @SerialName("certificate_status") val certificateStatus: String? = null,
 )
 
 @Serializable

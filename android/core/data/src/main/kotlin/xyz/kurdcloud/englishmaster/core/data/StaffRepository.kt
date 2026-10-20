@@ -5,7 +5,10 @@ import kotlinx.serialization.json.contentOrNull
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import xyz.kurdcloud.englishmaster.core.model.ActivityEntry
+import xyz.kurdcloud.englishmaster.core.model.CertificateRequest
+import xyz.kurdcloud.englishmaster.core.model.CertificateRequestStatus
 import xyz.kurdcloud.englishmaster.core.model.CredentialRules
+import xyz.kurdcloud.englishmaster.core.model.DeleteOutcome
 import xyz.kurdcloud.englishmaster.core.model.NewQuestion
 import xyz.kurdcloud.englishmaster.core.model.optionLetter
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
@@ -17,6 +20,10 @@ import xyz.kurdcloud.englishmaster.core.model.StaffUser
 import xyz.kurdcloud.englishmaster.core.network.ApiError
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.core.network.CreateQuestionRequest
+import xyz.kurdcloud.englishmaster.core.network.DeleteQuestionRequest
+import xyz.kurdcloud.englishmaster.core.network.UpdateQuestionRequest
+import xyz.kurdcloud.englishmaster.core.network.ListCertificatesRequest
+import xyz.kurdcloud.englishmaster.core.network.ReviewCertificateRequest
 import xyz.kurdcloud.englishmaster.core.network.PublishDraftsRequest
 import xyz.kurdcloud.englishmaster.core.network.SetDisplayNameRequest
 import xyz.kurdcloud.englishmaster.core.network.ListUsersRequest
@@ -45,6 +52,20 @@ interface StaffRepository {
     suspend fun createQuestion(question: NewQuestion): ApiResult<String> = ApiResult.Failure(ApiError.Forbidden)
     /** Approves and publishes every unreviewed draft of [level]; returns how many. */
     suspend fun publishDrafts(level: CefrLevel): ApiResult<Int> = ApiResult.Failure(ApiError.Forbidden)
+
+    /** Saves an edited question (teachers and admins); returns its new version. [question].publish is ignored. */
+    suspend fun updateQuestion(id: String, question: NewQuestion): ApiResult<Int> = ApiResult.Failure(ApiError.Forbidden)
+
+    /** Admins only. Unanswered questions are deleted; answered ones are archived. */
+    suspend fun deleteQuestion(id: String): ApiResult<DeleteOutcome> = ApiResult.Failure(ApiError.Forbidden)
+
+    /** Certificate requests with [status] (oldest pending first). Teachers and admins only. */
+    suspend fun certificateRequests(status: CertificateRequestStatus): ApiResult<List<CertificateRequest>> =
+        ApiResult.Failure(ApiError.Forbidden)
+
+    /** Approves or rejects a pending certificate; returns the new status. */
+    suspend fun reviewCertificate(id: String, approve: Boolean, note: String? = null): ApiResult<CertificateRequestStatus> =
+        ApiResult.Failure(ApiError.Forbidden)
 }
 
 class SupabaseStaffRepository(
@@ -87,6 +108,7 @@ class SupabaseStaffRepository(
                 StaffQuestion(
                     it.id, CefrLevel.fromApi(it.level), it.prompt, it.options, it.correctOption, it.explanation, it.status, it.reviewStatus,
                     it.passage, questionMedia(it.mediaType, it.mediaPath, it.mediaCaption, null, media),
+                    skill = it.skill, mediaPath = it.mediaPath,
                 )
             }
         }
@@ -145,8 +167,53 @@ class SupabaseStaffRepository(
         )
     }
 
+    override suspend fun updateQuestion(id: String, question: NewQuestion): ApiResult<Int> = restCall {
+        api.updateQuestion(
+            UpdateQuestionRequest(
+                questionId = id,
+                level = question.level.apiValue,
+                skill = question.skill,
+                prompt = question.prompt.trim(),
+                options = question.options.map { it.trim() },
+                correctOption = optionLetter(question.correctIndex),
+                explanation = question.explanation?.trim()?.takeIf { it.isNotEmpty() },
+                passage = question.passage?.trim()?.takeIf { it.isNotEmpty() },
+                mediaType = question.mediaType?.apiValue,
+                mediaPath = question.mediaPath,
+                mediaCaption = question.mediaCaption?.trim()?.takeIf { it.isNotEmpty() },
+            ),
+        )
+    }
+
+    override suspend fun deleteQuestion(id: String): ApiResult<DeleteOutcome> =
+        restCall { api.deleteQuestion(DeleteQuestionRequest(id)) }
+            .map { if (it == "archived") DeleteOutcome.ARCHIVED else DeleteOutcome.DELETED }
+
     override suspend fun publishDrafts(level: CefrLevel): ApiResult<Int> =
         restCall { api.publishDrafts(PublishDraftsRequest(level.apiValue)) }
+
+    override suspend fun certificateRequests(status: CertificateRequestStatus): ApiResult<List<CertificateRequest>> =
+        restCall { api.certificateRequests(ListCertificatesRequest(status.apiValue)) }.map { rows ->
+            rows.map {
+                CertificateRequest(
+                    id = it.id,
+                    userId = it.userId,
+                    email = it.email,
+                    displayName = it.displayName.orEmpty(),
+                    level = CefrLevel.fromApi(it.level),
+                    score = it.score,
+                    total = it.total,
+                    requestedAt = it.requestedAt,
+                    status = CertificateRequestStatus.fromApi(it.status),
+                    reviewedAt = it.reviewedAt,
+                    reviewerName = it.reviewerName,
+                )
+            }
+        }
+
+    override suspend fun reviewCertificate(id: String, approve: Boolean, note: String?): ApiResult<CertificateRequestStatus> =
+        restCall { api.reviewCertificate(ReviewCertificateRequest(id, approve, note?.trim()?.takeIf { it.isNotEmpty() })) }
+            .map { rows -> CertificateRequestStatus.fromApi(rows.single().status) }
 
     companion object {
         const val MAX_IMAGE_BYTES = 5 * 1024 * 1024

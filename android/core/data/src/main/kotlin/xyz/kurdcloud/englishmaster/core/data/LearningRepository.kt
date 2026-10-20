@@ -52,6 +52,7 @@ class SupabaseLearningRepository(private val api: LearningApi, private val media
                 lastExamTotal = it.lastExamTotal,
                 certificateCode = it.certificateCode,
                 certificateIssuedAtMillis = it.certificateIssuedAt?.let(::epochMillis),
+                certificatePending = it.certificateStatus == "pending",
             )
         }
     }

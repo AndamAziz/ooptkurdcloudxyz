@@ -1,6 +1,6 @@
 -- Level exams, certificates, verification and the placement test.
 begin;
-select plan(34);
+select plan(38);
 
 insert into auth.users (id, email, raw_user_meta_data) values
   ('a1000000-0000-0000-0000-00000000000a', 'exam.a@example.test', '{"display_name":"Sara Ahmed"}'),
@@ -72,18 +72,38 @@ insert into t select 'a_result', to_jsonb(r) from public.submit_level_exam(
   (select (v ->> 'attempt_id')::uuid from t where k = 'a_exam'), (select v from t where k = 'a_answers')) r;
 select is((select (v ->> 'score')::int from t where k = 'a_result'), 20, 'all answers scored correct');
 select is((select (v ->> 'passed')::boolean from t where k = 'a_result'), true, '20/20 passes');
-select matches((select v ->> 'certificate_code' from t where k = 'a_result'), '^EM-[A-Z2-9]{4}-[A-Z2-9]{4}-[A-Z2-9]{4}$',
-  'a certificate with a verification code is issued');
+select is((select v ->> 'certificate_code' from t where k = 'a_result'), null,
+  'a pass requests a certificate; no code until a teacher approves it');
+select is((select count(*)::int from public.get_my_certificates()), 0, 'a pending certificate is not downloadable');
+select is((select certificate_status from public.get_learning_overview_v2() where cefr_level = 'A1'), 'pending',
+  'overview shows the certificate as waiting for approval');
+select throws_ok($$select * from public.start_level_exam('A1')$$, 'P0001', 'certificate is waiting for approval',
+  'a level waiting for approval cannot be examined again');
+reset role;
+
+-- A teacher approves the certificate.
+insert into auth.users (id, email, raw_user_meta_data) values
+  ('d1000000-0000-0000-0000-00000000000d', 'exam.teacher@example.test', '{"display_name":"Teacher"}');
+insert into public.user_roles (user_id, role) values ('d1000000-0000-0000-0000-00000000000d', 'teacher');
+select set_config('request.jwt.claims', '{"sub":"d1000000-0000-0000-0000-00000000000d","role":"authenticated"}', true);
+set local role authenticated;
+insert into t select 'a_review', to_jsonb(r) from public.staff_review_certificate(
+  (select id from public.staff_list_certificates('pending') where display_name = 'Sara Ahmed'), true) r;
+reset role;
+select set_config('request.jwt.claims', '{"sub":"a1000000-0000-0000-0000-00000000000a","role":"authenticated"}', true);
+set local role authenticated;
+select matches((select v ->> 'verification_code' from t where k = 'a_review'), '^EM-[A-Z2-9]{4}-[A-Z2-9]{4}-[A-Z2-9]{4}$',
+  'an approved certificate has a verification code');
 select is((select v ->> 'certificate_code' from public.submit_level_exam(
              (select (v ->> 'attempt_id')::uuid from t where k = 'a_exam'), '{}'::jsonb) r, lateral (select to_jsonb(r) v) x),
-          (select v ->> 'certificate_code' from t where k = 'a_result'),
-  're-submitting returns the stored result and the same certificate');
+          (select v ->> 'verification_code' from t where k = 'a_review'),
+  're-submitting returns the stored result and the approved certificate');
 select is((select count(*)::int from public.get_my_certificates()), 1, 'learner sees their certificate');
 select is((select holder_name from public.get_my_certificates()), 'Sara Ahmed', 'certificate carries the profile name');
 select throws_ok($$select * from public.start_level_exam('A1')$$, 'P0001', 'certificate already issued for this level',
   'a certified level cannot be examined again');
 select is((select certificate_code from public.get_learning_overview() where cefr_level = 'A1'),
-          (select v ->> 'certificate_code' from t where k = 'a_result'), 'overview shows the certificate');
+          (select v ->> 'verification_code' from t where k = 'a_review'), 'overview shows the certificate');
 select is((select streak_days from public.get_learner_profile()), 1, 'practice today counts as a 1-day streak');
 reset role;
 
@@ -92,7 +112,7 @@ set local role anon;
 select set_config('request.jwt.claims', '{"role":"anon"}', true);
 select results_eq(
   format($$select valid, holder_name, cefr_level::text, score, total, revoked from public.verify_certificate(%L)$$,
-         lower((select v ->> 'certificate_code' from t where k = 'a_result'))),
+         lower((select v ->> 'verification_code' from t where k = 'a_review'))),
   $$values (true, 'Sara Ahmed'::text, 'A1'::text, 20, 20, false)$$,
   'anyone can verify a certificate by its code (case-insensitive)');
 reset role;

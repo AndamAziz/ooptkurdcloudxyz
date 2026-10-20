@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,6 +19,10 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledTonalIconButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -25,6 +30,7 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -57,19 +63,27 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import xyz.kurdcloud.englishmaster.core.designsystem.AppIcons
 import xyz.kurdcloud.englishmaster.core.designsystem.EmptyState
 import xyz.kurdcloud.englishmaster.core.designsystem.ErrorState
 import xyz.kurdcloud.englishmaster.core.designsystem.LoadingState
 import xyz.kurdcloud.englishmaster.core.designsystem.PassageCard
 import xyz.kurdcloud.englishmaster.core.designsystem.QuestionMediaView
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
+import xyz.kurdcloud.englishmaster.core.model.CertificateRequest
+import xyz.kurdcloud.englishmaster.core.model.CertificateRequestStatus
 import xyz.kurdcloud.englishmaster.core.model.Role
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
 import xyz.kurdcloud.englishmaster.core.model.StaffQuestion
 import xyz.kurdcloud.englishmaster.core.model.StaffUser
 import xyz.kurdcloud.englishmaster.core.model.optionLetter
 
-private enum class StaffTab(val title: Int) { USERS(R.string.admin_tab_users), QUESTIONS(R.string.admin_tab_questions), ACTIVITY(R.string.admin_tab_activity) }
+private enum class StaffTab(val title: Int) {
+    CERTIFICATES(R.string.admin_tab_certificates),
+    USERS(R.string.admin_tab_users),
+    QUESTIONS(R.string.admin_tab_questions),
+    ACTIVITY(R.string.admin_tab_activity),
+}
 
 /**
  * Staff section. Tabs follow [access]; the server re-checks every call, so a hidden tab
@@ -85,8 +99,12 @@ fun StaffScreen(
     activityViewModel: @Composable () -> ActivityViewModel,
     onBack: () -> Unit,
     onAddQuestion: (CefrLevel) -> Unit = {},
+    certificatesViewModel: (@Composable () -> CertificateRequestsViewModel)? = null,
+    onEditQuestion: (CefrLevel, String) -> Unit = { _, _ -> },
 ) {
     val tabs = buildList {
+        // Pending certificate approvals come first: they are what learners are waiting for.
+        if (access.canApproveCertificates && certificatesViewModel != null) add(StaffTab.CERTIFICATES)
         if (access.canSeeUsers) add(StaffTab.USERS)
         if (access.canReviewQuestions) add(StaffTab.QUESTIONS)
         if (access.canManageUsers) add(StaffTab.ACTIVITY)
@@ -109,15 +127,27 @@ fun StaffScreen(
                 return@Column
             }
             if (tabs.size > 1) {
-                PrimaryTabRow(selectedTabIndex = selected.coerceIn(tabs.indices)) {
+                val tabContent: @Composable () -> Unit = {
                     tabs.forEachIndexed { index, tab ->
-                        Tab(selected = selected == index, onClick = { selected = index }, text = { Text(stringResource(tab.title)) })
+                        Tab(
+                            selected = selected == index,
+                            onClick = { selected = index },
+                            text = { Text(stringResource(tab.title), maxLines = 1) },
+                            modifier = Modifier.testTag("tab_${tab.name.lowercase()}"),
+                        )
                     }
+                }
+                // Four tabs do not fit side by side on a phone in Sorani: let them scroll.
+                if (tabs.size > 3) {
+                    PrimaryScrollableTabRow(selectedTabIndex = selected.coerceIn(tabs.indices), edgePadding = 8.dp) { tabContent() }
+                } else {
+                    PrimaryTabRow(selectedTabIndex = selected.coerceIn(tabs.indices)) { tabContent() }
                 }
             }
             when (tabs[selected.coerceIn(tabs.indices)]) {
+                StaffTab.CERTIFICATES -> CertificatesTab(certificatesViewModel!!(), currentUserId, snackbar)
                 StaffTab.USERS -> UsersTab(usersViewModel(), currentUserId, access.canManageUsers, snackbar)
-                StaffTab.QUESTIONS -> QuestionsTab(questionsViewModel(), snackbar, onAddQuestion)
+                StaffTab.QUESTIONS -> QuestionsTab(questionsViewModel(), snackbar, onAddQuestion, onEditQuestion, canDelete = access.canManageUsers)
                 StaffTab.ACTIVITY -> ActivityTab(activityViewModel())
             }
         }
@@ -279,10 +309,18 @@ private fun Role.label(): Int = when (this) {
 }
 
 @Composable
-private fun QuestionsTab(vm: QuestionsViewModel, snackbar: SnackbarHostState, onAddQuestion: (CefrLevel) -> Unit) {
+private fun QuestionsTab(
+    vm: QuestionsViewModel,
+    snackbar: SnackbarHostState,
+    onAddQuestion: (CefrLevel) -> Unit,
+    onEditQuestion: (CefrLevel, String) -> Unit,
+    /** Deleting questions is admin-only (the server checks it too). */
+    canDelete: Boolean,
+) {
     val state by vm.uiState.collectAsStateWithLifecycle()
     MessageEffect(state.message, snackbar, vm::messageShown)
     var confirmPublish by remember { mutableStateOf(false) }
+    var confirmDelete by remember { mutableStateOf<StaffQuestion?>(null) }
     // Back from "Add question": show the new item.
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { if (!state.loading) vm.load(state.level) }
     Column(Modifier.fillMaxSize()) {
@@ -322,13 +360,46 @@ private fun QuestionsTab(vm: QuestionsViewModel, snackbar: SnackbarHostState, on
                 dismissButton = { TextButton(onClick = { confirmPublish = false }) { Text(stringResource(R.string.admin_cancel)) } },
             )
         }
+        confirmDelete?.let { q ->
+            AlertDialog(
+                onDismissRequest = { confirmDelete = null },
+                icon = { Icon(AppIcons.Delete, contentDescription = null, tint = MaterialTheme.colorScheme.error) },
+                title = { Text(stringResource(R.string.admin_delete_title)) },
+                text = {
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                            Text("“${q.prompt}”", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold, maxLines = 3)
+                        }
+                        Text(stringResource(R.string.admin_delete_body))
+                    }
+                },
+                confirmButton = {
+                    Button(
+                        onClick = { vm.delete(q); confirmDelete = null },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.error,
+                            contentColor = MaterialTheme.colorScheme.onError,
+                        ),
+                        modifier = Modifier.testTag("delete_confirm"),
+                    ) { Text(stringResource(R.string.admin_delete)) }
+                },
+                dismissButton = { TextButton(onClick = { confirmDelete = null }) { Text(stringResource(R.string.admin_cancel)) } },
+            )
+        }
         when {
             state.loading -> LoadingState()
             state.error != null -> ErrorState(stringResource(state.error!!), { vm.load(state.level) })
             state.questions.isEmpty() -> EmptyState(stringResource(R.string.admin_no_questions))
             else -> LazyColumn(contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 items(state.questions, key = { it.id }) { q ->
-                    QuestionCard(q, busy = state.busyQuestionId == q.id, onApprove = { vm.setApproved(q, it) }, onRetire = { vm.setRetired(q, it) })
+                    QuestionCard(
+                        q,
+                        busy = state.busyQuestionId == q.id,
+                        onApprove = { vm.setApproved(q, it) },
+                        onRetire = { vm.setRetired(q, it) },
+                        onEdit = { onEditQuestion(q.level, q.id) },
+                        onDelete = if (canDelete) ({ confirmDelete = q }) else null,
+                    )
                 }
             }
         }
@@ -336,16 +407,44 @@ private fun QuestionsTab(vm: QuestionsViewModel, snackbar: SnackbarHostState, on
 }
 
 @Composable
-private fun QuestionCard(q: StaffQuestion, busy: Boolean, onApprove: (Boolean) -> Unit, onRetire: (Boolean) -> Unit) {
+private fun QuestionCard(
+    q: StaffQuestion,
+    busy: Boolean,
+    onApprove: (Boolean) -> Unit,
+    onRetire: (Boolean) -> Unit,
+    onEdit: () -> Unit,
+    onDelete: (() -> Unit)?,
+) {
     val approved = q.reviewStatus == "approved"
     val retired = q.status == "retired"
     val draft = q.status == "draft"
     Card(Modifier.fillMaxWidth().testTag("question_${q.id}")) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                AssistChip(onClick = {}, label = { Text(stringResource(if (approved) R.string.admin_approved else R.string.admin_unreviewed)) })
-                if (retired) AssistChip(onClick = {}, label = { Text(stringResource(R.string.admin_retired)) })
-                if (draft) AssistChip(onClick = {}, label = { Text(stringResource(R.string.admin_draft)) })
+            Row(verticalAlignment = Alignment.Top) {
+                FlowRow(Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    AssistChip(onClick = {}, label = { Text(stringResource(if (approved) R.string.admin_approved else R.string.admin_unreviewed)) })
+                    if (retired) AssistChip(onClick = {}, label = { Text(stringResource(R.string.admin_retired)) })
+                    if (draft) AssistChip(onClick = {}, label = { Text(stringResource(R.string.admin_draft)) })
+                }
+                // Edit (teachers and admins) and delete (admins) as compact round actions.
+                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    FilledTonalIconButton(onClick = onEdit, enabled = !busy, modifier = Modifier.testTag("edit_${q.id}")) {
+                        Icon(AppIcons.Edit, contentDescription = stringResource(R.string.admin_edit), modifier = Modifier.size(20.dp))
+                    }
+                    if (onDelete != null) {
+                        FilledTonalIconButton(
+                            onClick = onDelete,
+                            enabled = !busy,
+                            colors = IconButtonDefaults.filledTonalIconButtonColors(
+                                containerColor = MaterialTheme.colorScheme.errorContainer,
+                                contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                            ),
+                            modifier = Modifier.testTag("delete_${q.id}"),
+                        ) {
+                            Icon(AppIcons.Delete, contentDescription = stringResource(R.string.admin_delete), modifier = Modifier.size(20.dp))
+                        }
+                    }
+                }
             }
             // Learning content is English: keep it left-to-right in the Sorani UI.
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
@@ -374,6 +473,141 @@ private fun QuestionCard(q: StaffQuestion, busy: Boolean, onApprove: (Boolean) -
             }
         }
     }
+}
+
+@Composable
+private fun CertificatesTab(vm: CertificateRequestsViewModel, currentUserId: String, snackbar: SnackbarHostState) {
+    val state by vm.uiState.collectAsStateWithLifecycle()
+    MessageEffect(state.message, snackbar, vm::messageShown)
+    var approve by remember { mutableStateOf<CertificateRequest?>(null) }
+    var reject by remember { mutableStateOf<CertificateRequest?>(null) }
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { if (!state.loading) vm.load() }
+
+    Column(Modifier.fillMaxSize()) {
+        Row(
+            Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            CertificateRequestStatus.entries.forEach { f ->
+                FilterChip(
+                    selected = state.filter == f,
+                    onClick = { vm.setFilter(f) },
+                    label = { Text(stringResource(f.label())) },
+                    modifier = Modifier.testTag("cert_filter_${f.apiValue}"),
+                )
+            }
+        }
+        when {
+            state.loading -> LoadingState()
+            state.error != null -> ErrorState(stringResource(state.error!!), vm::load)
+            state.requests.isEmpty() -> EmptyState(
+                stringResource(if (state.filter == CertificateRequestStatus.PENDING) R.string.cert_none_pending else R.string.cert_none),
+            )
+            else -> LazyColumn(contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                if (state.filter == CertificateRequestStatus.PENDING) {
+                    item {
+                        Text(stringResource(R.string.cert_pending_hint), style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
+                items(state.requests, key = { it.id }) { request ->
+                    CertificateRequestCard(
+                        request = request,
+                        own = request.userId == currentUserId,
+                        busy = state.busyId == request.id,
+                        onApprove = { approve = request },
+                        onReject = { reject = request },
+                    )
+                }
+            }
+        }
+    }
+
+    approve?.let { r ->
+        AlertDialog(
+            onDismissRequest = { approve = null },
+            title = { Text(stringResource(R.string.cert_approve_title, r.level.label)) },
+            text = { Text(stringResource(R.string.cert_approve_body, r.displayName.ifBlank { r.email }, r.score, r.total)) },
+            confirmButton = {
+                TextButton(onClick = { vm.approve(r); approve = null }, modifier = Modifier.testTag("cert_confirm_approve")) {
+                    Text(stringResource(R.string.cert_approve))
+                }
+            },
+            dismissButton = { TextButton(onClick = { approve = null }) { Text(stringResource(R.string.admin_cancel)) } },
+        )
+    }
+    reject?.let { r ->
+        var note by rememberSaveable(r.id) { mutableStateOf("") }
+        AlertDialog(
+            onDismissRequest = { reject = null },
+            title = { Text(stringResource(R.string.cert_reject_title, r.level.label)) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(stringResource(R.string.cert_reject_body, r.displayName.ifBlank { r.email }))
+                    OutlinedTextField(
+                        value = note,
+                        onValueChange = { note = it.take(300) },
+                        label = { Text(stringResource(R.string.cert_reject_note)) },
+                        modifier = Modifier.fillMaxWidth().testTag("cert_reject_note"),
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { vm.reject(r, note); reject = null }, modifier = Modifier.testTag("cert_confirm_reject")) {
+                    Text(stringResource(R.string.cert_reject), color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = { TextButton(onClick = { reject = null }) { Text(stringResource(R.string.admin_cancel)) } },
+        )
+    }
+}
+
+@Composable
+private fun CertificateRequestCard(request: CertificateRequest, own: Boolean, busy: Boolean, onApprove: () -> Unit, onReject: () -> Unit) {
+    Card(Modifier.fillMaxWidth().testTag("cert_request_${request.id}")) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Text(request.displayName.ifBlank { request.email }, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                    Text(request.email, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                AssistChip(onClick = {}, label = { Text(request.level.label, fontWeight = FontWeight.Bold) })
+            }
+            Text(
+                stringResource(R.string.cert_request_detail, request.score, request.total,
+                    if (request.total == 0) 0 else request.score * 100 / request.total, request.requestedAt.take(16).replace('T', ' ')),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            val reviewer = request.reviewerName
+            if (request.status != CertificateRequestStatus.PENDING && reviewer != null) {
+                Text(
+                    stringResource(R.string.cert_reviewed_by, reviewer, request.reviewedAt.orEmpty().take(16).replace('T', ' ')),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            if (request.status == CertificateRequestStatus.PENDING) {
+                if (own) {
+                    Text(stringResource(R.string.cert_own_request), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.tertiary)
+                } else {
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Button(onClick = onApprove, enabled = !busy, modifier = Modifier.testTag("cert_approve_${request.id}")) {
+                            Text(stringResource(R.string.cert_approve))
+                        }
+                        OutlinedButton(onClick = onReject, enabled = !busy, modifier = Modifier.testTag("cert_reject_${request.id}")) {
+                            Text(stringResource(R.string.cert_reject))
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+private fun CertificateRequestStatus.label(): Int = when (this) {
+    CertificateRequestStatus.PENDING -> R.string.cert_filter_pending
+    CertificateRequestStatus.APPROVED -> R.string.cert_filter_approved
+    CertificateRequestStatus.REJECTED -> R.string.cert_filter_rejected
 }
 
 @Composable
@@ -411,5 +645,11 @@ private fun eventLabel(type: String): Int = when (type) {
     "admin.account_activated" -> R.string.event_account_activated
     "admin.bootstrap_admin_granted" -> R.string.event_bootstrap_admin
     "content.question_reviewed" -> R.string.event_question_reviewed
+    "staff.question_created" -> R.string.event_question_created
+    "staff.question_edited" -> R.string.event_question_edited
+    "staff.question_deleted" -> R.string.event_question_deleted
+    "certificate.requested" -> R.string.event_certificate_requested
+    "certificate.approved" -> R.string.event_certificate_approved
+    "certificate.rejected" -> R.string.event_certificate_rejected
     else -> R.string.event_other
 }

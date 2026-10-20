@@ -224,7 +224,7 @@ fun HomeScreen(
                         recommended = state.profile?.placementLevel == row.level,
                         onDownload = { viewModel.download(row.level) },
                         onCancel = { viewModel.cancelDownload(row.level) },
-                        onRemove = { confirmRemove = row.level },
+                        onRemove = if (state.staffAccess.any) ({ confirmRemove = row.level }) else null,
                         actions = actions,
                     )
                 }
@@ -425,7 +425,8 @@ private fun LevelCard(
     recommended: Boolean,
     onDownload: () -> Unit,
     onCancel: () -> Unit,
-    onRemove: () -> Unit,
+    /** Null for learners: only staff may delete a downloaded level from the device. */
+    onRemove: (() -> Unit)?,
     actions: HomeActions,
 ) {
     val overview = row.overview
@@ -446,6 +447,7 @@ private fun LevelCard(
                 if (recommended) StatusChip(stringResource(R.string.home_chip_recommended), MaterialTheme.colorScheme.secondaryContainer)
                 when (stage) {
                     LevelStage.CERTIFIED -> StatusChip(stringResource(R.string.home_chip_certified), Color(0xFFFFE08A))
+                    LevelStage.AWAITING_APPROVAL -> StatusChip(stringResource(R.string.home_chip_awaiting_approval), MaterialTheme.colorScheme.secondaryContainer)
                     LevelStage.EXAM_READY -> StatusChip(stringResource(R.string.home_chip_exam_ready), MaterialTheme.colorScheme.primaryContainer)
                     LevelStage.EXAM_IN_PROGRESS -> StatusChip(stringResource(R.string.home_chip_in_progress), MaterialTheme.colorScheme.tertiaryContainer)
                     else -> Unit
@@ -478,7 +480,13 @@ private fun LevelCard(
                                 Text(pluralStringResource(R.plurals.home_review_mistakes, row.mistakes, row.mistakes))
                             }
                         }
-                        LevelMenu(onUpdate = onDownload, onRemove = onRemove)
+                        if (onRemove != null) {
+                            LevelMenu(onUpdate = onDownload, onRemove = onRemove)
+                        } else {
+                            TextButton(onClick = onDownload, modifier = Modifier.testTag("update_${row.level.name}")) {
+                                Text(stringResource(R.string.practice_update))
+                            }
+                        }
                     }
                 }
             }
@@ -528,6 +536,7 @@ private fun ProgressSection(o: LevelOverview, stage: LevelStage) {
                 o.lastExamScore ?: 0, o.lastExamTotal ?: 0,
                 DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(o.examAvailableAtMillis ?: 0)),
             )
+            LevelStage.AWAITING_APPROVAL -> stringResource(R.string.home_status_awaiting_approval, o.lastExamScore ?: 0, o.lastExamTotal ?: 0)
             LevelStage.CERTIFIED -> stringResource(R.string.home_status_certified, o.lastExamScore ?: 0, o.lastExamTotal ?: 0)
         }
         Text(status, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium, modifier = Modifier.testTag("level_status_${o.level.name}"))

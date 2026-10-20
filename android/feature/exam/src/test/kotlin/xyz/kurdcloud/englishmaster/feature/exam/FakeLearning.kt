@@ -21,6 +21,8 @@ class FakeLearning(var questions: List<ExamQuestion> = listOf(examQuestion("q1")
     var submitFailure: ApiError? = null
     var submitted: Map<String, String>? = null
     var name = "Sara Ahmed"
+    /** False: a pass waits for a teacher's approval (no certificate code yet). */
+    var certificateApproved = true
 
     override suspend fun overview() = ApiResult.Success(emptyList<xyz.kurdcloud.englishmaster.core.model.LevelOverview>())
     override suspend fun profile() = ApiResult.Success(LearnerProfile(name, null, 0, 0))
@@ -37,7 +39,7 @@ class FakeLearning(var questions: List<ExamQuestion> = listOf(examQuestion("q1")
         submitted = answers
         val score = questions.count { answers[it.id] == "B" }
         val passed = score * 100 >= 80 * questions.size
-        return ApiResult.Success(ExamResult(score, questions.size, passed, 80, if (passed) "EM-ABCD-EFGH-JKLM" else null, if (passed) null else 86_400_000L, false))
+        return ApiResult.Success(ExamResult(score, questions.size, passed, 80, if (passed && certificateApproved) "EM-ABCD-EFGH-JKLM" else null, if (passed) null else 86_400_000L, false))
     }
 
     override suspend fun submitPlacement(attemptId: String, answers: Map<String, String>): ApiResult<PlacementResult> {

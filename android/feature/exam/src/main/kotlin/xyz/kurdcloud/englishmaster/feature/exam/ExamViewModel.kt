@@ -26,7 +26,7 @@ enum class ExamPhase { INTRO, STARTING, RUNNING, SUBMITTING, FINISHED }
 
 /** Problems shown to the learner. */
 enum class ExamProblem {
-    OFFLINE, SIGN_IN_AGAIN, NOT_UNLOCKED, RETRY_LATER, ALREADY_CERTIFIED, NOT_ENOUGH_QUESTIONS, INVALID_NAME, UNEXPECTED;
+    OFFLINE, SIGN_IN_AGAIN, NOT_UNLOCKED, RETRY_LATER, ALREADY_CERTIFIED, PENDING_APPROVAL, NOT_ENOUGH_QUESTIONS, INVALID_NAME, UNEXPECTED;
 
     companion object {
         fun from(error: ApiError): ExamProblem = when (error) {
@@ -36,6 +36,7 @@ enum class ExamProblem {
                 ExamRefusal.NOT_UNLOCKED -> NOT_UNLOCKED
                 ExamRefusal.RETRY_LATER -> RETRY_LATER
                 ExamRefusal.ALREADY_CERTIFIED -> ALREADY_CERTIFIED
+                ExamRefusal.PENDING_APPROVAL -> PENDING_APPROVAL
                 ExamRefusal.NOT_ENOUGH_QUESTIONS -> NOT_ENOUGH_QUESTIONS
                 else -> UNEXPECTED
             }

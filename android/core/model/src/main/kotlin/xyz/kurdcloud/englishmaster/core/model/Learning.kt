@@ -28,7 +28,10 @@ enum class LevelStage {
     /** The last attempt failed; the next one opens at [LevelOverview.examAvailableAtMillis]. */
     WAIT_FOR_RETRY,
 
-    /** A certificate has been issued for the level. */
+    /** The exam was passed; a teacher or admin still has to approve the certificate. */
+    AWAITING_APPROVAL,
+
+    /** A certificate has been issued (approved) for the level. */
     CERTIFIED,
 }
 
@@ -50,6 +53,8 @@ data class LevelOverview(
     val lastExamTotal: Int?,
     val certificateCode: String?,
     val certificateIssuedAtMillis: Long?,
+    /** Passed, waiting for a teacher/admin to approve the certificate. */
+    val certificatePending: Boolean = false,
 ) {
     val accuracyPercent: Int get() = if (answered == 0) 0 else correct * 100 / answered
     val remainingToUnlock: Int get() = (required - answered).coerceAtLeast(0)
@@ -60,6 +65,7 @@ data class LevelOverview(
 
     fun stage(nowMillis: Long): LevelStage = when {
         certificateCode != null -> LevelStage.CERTIFIED
+        certificatePending -> LevelStage.AWAITING_APPROVAL
         examInProgress -> LevelStage.EXAM_IN_PROGRESS
         examAvailableAtMillis != null && examAvailableAtMillis > nowMillis -> LevelStage.WAIT_FOR_RETRY
         examUnlocked -> LevelStage.EXAM_READY
@@ -105,6 +111,9 @@ data class ExamResult(
     val expired: Boolean,
 ) {
     val percent: Int get() = if (total == 0) 0 else score * 100 / total
+
+    /** Passed: the certificate is issued once a teacher or admin approves it. */
+    val awaitingApproval: Boolean get() = passed && certificateCode == null
 }
 
 data class PlacementResult(val score: Int, val total: Int, val passedLevel: CefrLevel?, val recommendedLevel: CefrLevel)
@@ -123,12 +132,13 @@ data class Certificate(
 }
 
 /** Why the server refused to start or submit an exam (from the RPC's error hint). */
-enum class ExamRefusal { NOT_UNLOCKED, RETRY_LATER, ALREADY_CERTIFIED, NOT_ENOUGH_QUESTIONS, NOT_FOUND, OTHER;
+enum class ExamRefusal { NOT_UNLOCKED, RETRY_LATER, ALREADY_CERTIFIED, PENDING_APPROVAL, NOT_ENOUGH_QUESTIONS, NOT_FOUND, OTHER;
     companion object {
         fun fromHint(hint: String?): ExamRefusal = when (hint) {
             "not_unlocked" -> NOT_UNLOCKED
             "retry_later" -> RETRY_LATER
             "already_certified" -> ALREADY_CERTIFIED
+            "pending_approval" -> PENDING_APPROVAL
             "not_enough_questions" -> NOT_ENOUGH_QUESTIONS
             "not_found" -> NOT_FOUND
             else -> OTHER
