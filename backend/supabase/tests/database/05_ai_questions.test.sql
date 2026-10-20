@@ -1,12 +1,16 @@
 -- AI-drafted question batches stay hidden from students until a teacher approves them.
 begin;
-select plan(7);
+select plan(9);
 
 select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-01:%'), 125,
   'AI batch 01 seeded: 125 items');
 select is((select count(*)::int from public.assessment_questions
             where external_ref like 'ai:%' and (status <> 'draft' or review_status <> 'unreviewed')), 0,
   'AI items are imported as unreviewed drafts');
+select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-02:%' and status = 'draft'), 200,
+  'AI batch 02 seeded as 200 drafts');
+select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-02:%' and media_path like 'samples/%'), 21,
+  'batch 02 picture and video questions point at the sample media');
 select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:%' and source not like 'ai-draft:%'), 0,
   'AI items are labelled with their batch as source');
 select is((select count(*)::int from (

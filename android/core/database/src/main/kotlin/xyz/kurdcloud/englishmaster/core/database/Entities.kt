@@ -58,3 +58,8 @@ data class LevelProgressRow(
     val answered: Int,
     val correct: Int,
 )
+
+data class LevelCountRow(
+    @ColumnInfo(name = "cefr_level") val cefrLevel: String,
+    val count: Int,
+)

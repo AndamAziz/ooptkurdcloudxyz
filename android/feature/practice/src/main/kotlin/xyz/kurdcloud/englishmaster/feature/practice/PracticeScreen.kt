@@ -57,7 +57,9 @@ fun PracticeScreen(level: CefrLevel, viewModel: PracticeViewModel, onExit: () ->
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.practice_title, level.label)) },
+                title = {
+                    Text(stringResource(if (viewModel.mistakesOnly) R.string.practice_review_title else R.string.practice_title, level.label))
+                },
                 navigationIcon = { TextButton(onClick = onExit) { Text(stringResource(R.string.practice_exit)) } },
             )
         },
@@ -65,7 +67,12 @@ fun PracticeScreen(level: CefrLevel, viewModel: PracticeViewModel, onExit: () ->
         val modifier = Modifier.padding(padding)
         when {
             state.loading -> LoadingState(modifier = modifier)
-            state.isEmpty -> EmptyState(stringResource(R.string.practice_empty), modifier, stringResource(R.string.practice_back_home), onExit)
+            state.isEmpty -> EmptyState(
+                stringResource(if (viewModel.mistakesOnly) R.string.practice_review_empty else R.string.practice_empty),
+                modifier,
+                stringResource(R.string.practice_back_home),
+                onExit,
+            )
             state.finished -> SummaryView(state.summary, onExit, modifier)
             else -> QuestionView(state, viewModel, modifier)
         }

@@ -25,6 +25,10 @@ interface ContentRepository {
     suspend fun deleteLevel(level: CefrLevel)
     suspend fun pickSession(level: CefrLevel, userId: String, count: Int): List<Question>
     suspend fun questions(ids: List<String>): List<Question>
+
+    /** Downloaded questions whose latest marked answer was wrong, for a review session. */
+    suspend fun pickMistakes(level: CefrLevel, userId: String, count: Int): List<Question> = emptyList()
+    fun observeMistakeCounts(userId: String): Flow<Map<CefrLevel, Int>> = kotlinx.coroutines.flow.flowOf(emptyMap())
 }
 
 class OfflineFirstContentRepository(
@@ -71,6 +75,12 @@ class OfflineFirstContentRepository(
 
     override suspend fun questions(ids: List<String>): List<Question> =
         questionDao.byIds(ids).map { it.toModel() }
+
+    override suspend fun pickMistakes(level: CefrLevel, userId: String, count: Int): List<Question> =
+        questionDao.pickMistakes(level.apiValue, userId, count).map { it.toModel() }
+
+    override fun observeMistakeCounts(userId: String): Flow<Map<CefrLevel, Int>> =
+        questionDao.observeMistakeCounts(userId).map { rows -> rows.associate { CefrLevel.fromApi(it.cefrLevel) to it.count } }
 
     private companion object {
         const val PAGE_SIZE = 100

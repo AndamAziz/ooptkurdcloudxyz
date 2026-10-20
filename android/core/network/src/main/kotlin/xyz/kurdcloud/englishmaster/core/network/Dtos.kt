@@ -57,7 +57,7 @@ data class AuthErrorDto(
 
 /** PostgREST error body. */
 @Serializable
-data class PostgrestErrorDto(val code: String? = null, val message: String? = null)
+data class PostgrestErrorDto(val code: String? = null, val message: String? = null, val hint: String? = null)
 
 @Serializable
 data class PracticeQuestionsRequest(

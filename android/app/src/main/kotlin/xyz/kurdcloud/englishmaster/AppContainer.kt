@@ -9,6 +9,8 @@ import xyz.kurdcloud.englishmaster.core.data.AndroidNetworkMonitor
 import xyz.kurdcloud.englishmaster.core.data.AuthRepository
 import xyz.kurdcloud.englishmaster.core.data.ContentRepository
 import xyz.kurdcloud.englishmaster.core.data.KeystoreCipher
+import xyz.kurdcloud.englishmaster.core.data.LearningRepository
+import xyz.kurdcloud.englishmaster.core.data.SupabaseLearningRepository
 import xyz.kurdcloud.englishmaster.core.data.NetworkMonitor
 import xyz.kurdcloud.englishmaster.core.data.OfflineFirstContentRepository
 import xyz.kurdcloud.englishmaster.core.data.OfflineFirstPracticeRepository
@@ -47,6 +49,7 @@ class AppContainer(context: Context) {
     val content: ContentRepository =
         OfflineFirstContentRepository(services.practice, database.questions(), database.levelPacks(), database.content())
     val staff: StaffRepository = SupabaseStaffRepository(services.staff)
+    val learning: LearningRepository = SupabaseLearningRepository(services.learning)
     val updates: UpdateRepository = SupabaseUpdateRepository(
         services.releases,
         services.downloadClient,

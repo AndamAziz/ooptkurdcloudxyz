@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 import xyz.kurdcloud.englishmaster.core.data.RegisterOutcome
 import xyz.kurdcloud.englishmaster.core.designsystem.LoadingState
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
+import xyz.kurdcloud.englishmaster.core.model.ExamKind
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.feature.admin.ActivityViewModel
@@ -36,6 +37,12 @@ import xyz.kurdcloud.englishmaster.feature.auth.RegisterViewModel
 import xyz.kurdcloud.englishmaster.feature.auth.SignInScreen
 import xyz.kurdcloud.englishmaster.feature.auth.SignInViewModel
 import xyz.kurdcloud.englishmaster.feature.auth.WelcomeScreen
+import xyz.kurdcloud.englishmaster.feature.exam.CertificateExporter
+import xyz.kurdcloud.englishmaster.feature.exam.CertificatesScreen
+import xyz.kurdcloud.englishmaster.feature.exam.CertificatesViewModel
+import xyz.kurdcloud.englishmaster.feature.exam.ExamScreen
+import xyz.kurdcloud.englishmaster.feature.exam.ExamViewModel
+import xyz.kurdcloud.englishmaster.feature.practice.HomeActions
 import xyz.kurdcloud.englishmaster.feature.practice.HomeScreen
 import xyz.kurdcloud.englishmaster.feature.practice.HomeViewModel
 import xyz.kurdcloud.englishmaster.feature.practice.PracticeScreen
@@ -48,12 +55,16 @@ private object Routes {
     const val FORGOT = "forgot-password"
     const val CHECK_EMAIL = "check-email/{reason}"
     const val HOME = "home"
-    const val PRACTICE = "practice/{level}"
+    const val PRACTICE = "practice/{level}?mistakes={mistakes}"
     const val STAFF = "staff"
+    const val EXAM = "exam/{level}"
+    const val PLACEMENT = "placement"
+    const val CERTIFICATES = "certificates"
 
     fun signIn(expired: Boolean = false) = "sign-in?expired=$expired"
     fun checkEmail(reason: CheckEmailReason) = "check-email/${reason.name}"
-    fun practice(level: CefrLevel) = "practice/${level.apiValue}"
+    fun practice(level: CefrLevel, mistakes: Boolean = false) = "practice/${level.apiValue}?mistakes=$mistakes"
+    fun exam(level: CefrLevel) = "exam/${level.apiValue}"
 }
 
 @Composable
@@ -132,7 +143,9 @@ fun EnglishMasterNavHost(
         }
         composable(Routes.HOME) {
             val userId = session?.userId ?: return@composable
-            val homeViewModel = viewModel { HomeViewModel(userId, container.content, container.practice, container.network, container.staff) }
+            val homeViewModel = viewModel {
+                HomeViewModel(userId, container.content, container.practice, container.network, container.staff, container.learning)
+            }
             HomeScreen(
                 viewModel = homeViewModel,
                 onOpenStaff = { navController.navigate(Routes.STAFF) },
@@ -145,6 +158,13 @@ fun EnglishMasterNavHost(
                     onLanguageSelected(if (currentLanguage == InterfaceLanguage.SORANI) InterfaceLanguage.ENGLISH else InterfaceLanguage.SORANI)
                 },
                 onStartPractice = { navController.navigate(Routes.practice(it)) },
+                actions = HomeActions(
+                    onStartPractice = { navController.navigate(Routes.practice(it)) },
+                    onReviewMistakes = { navController.navigate(Routes.practice(it, mistakes = true)) },
+                    onTakeExam = { navController.navigate(Routes.exam(it)) },
+                    onPlacementTest = { navController.navigate(Routes.PLACEMENT) },
+                    onCertificates = { navController.navigate(Routes.CERTIFICATES) },
+                ),
                 onSignOut = {
                     scope.launch {
                         container.auth.signOut()
@@ -177,10 +197,38 @@ fun EnglishMasterNavHost(
         composable(Routes.PRACTICE) { entry ->
             val userId = session?.userId ?: return@composable
             val level = CefrLevel.fromApi(entry.arguments?.getString("level") ?: CefrLevel.A1.apiValue)
+            val mistakes = entry.arguments?.getString("mistakes") == "true"
             PracticeScreen(
                 level = level,
-                viewModel = viewModel { PracticeViewModel(level, userId, container.content, container.practice) },
+                viewModel = viewModel { PracticeViewModel(level, userId, container.content, container.practice, mistakesOnly = mistakes) },
                 onExit = { navController.popBackStack() },
+            )
+        }
+        composable(Routes.EXAM) { entry ->
+            val level = CefrLevel.fromApi(entry.arguments?.getString("level") ?: CefrLevel.A1.apiValue)
+            ExamScreen(
+                viewModel = viewModel { ExamViewModel(ExamKind.LEVEL_FINAL, level, container.learning) },
+                onClose = { navController.popBackStack() },
+                onViewCertificates = { navController.navigate(Routes.CERTIFICATES) { popUpTo(Routes.HOME) } },
+                onPractise = { navController.navigate(Routes.practice(it)) { popUpTo(Routes.HOME) } },
+            )
+        }
+        composable(Routes.PLACEMENT) {
+            ExamScreen(
+                viewModel = viewModel { ExamViewModel(ExamKind.PLACEMENT, null, container.learning) },
+                onClose = { navController.popBackStack() },
+                onViewCertificates = { navController.navigate(Routes.CERTIFICATES) { popUpTo(Routes.HOME) } },
+                onPractise = { navController.navigate(Routes.practice(it)) { popUpTo(Routes.HOME) } },
+            )
+        }
+        composable(Routes.CERTIFICATES) {
+            val context = androidx.compose.ui.platform.LocalContext.current
+            val verificationUrl = { c: xyz.kurdcloud.englishmaster.core.model.Certificate -> c.verificationUrl(container.config.baseUrl) }
+            CertificatesScreen(
+                viewModel = viewModel { CertificatesViewModel(container.learning) },
+                exporter = remember { CertificateExporter(context.applicationContext, verificationUrl) },
+                verificationUrl = verificationUrl,
+                onBack = { navController.popBackStack() },
             )
         }
     }
