@@ -23,6 +23,8 @@ import xyz.kurdcloud.englishmaster.core.model.ExamKind
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.feature.admin.ActivityViewModel
+import xyz.kurdcloud.englishmaster.feature.admin.AddQuestionScreen
+import xyz.kurdcloud.englishmaster.feature.admin.AddQuestionViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.QuestionsViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.StaffScreen
 import xyz.kurdcloud.englishmaster.feature.admin.UsersViewModel
@@ -57,6 +59,7 @@ private object Routes {
     const val HOME = "home"
     const val PRACTICE = "practice/{level}?mistakes={mistakes}"
     const val STAFF = "staff"
+    const val ADD_QUESTION = "staff/new-question/{level}"
     const val EXAM = "exam/{level}"
     const val PLACEMENT = "placement"
     const val CERTIFICATES = "certificates"
@@ -191,8 +194,16 @@ fun EnglishMasterNavHost(
                     questionsViewModel = { viewModel { QuestionsViewModel(container.staff) } },
                     activityViewModel = { viewModel { ActivityViewModel(container.staff) } },
                     onBack = { navController.popBackStack() },
+                    onAddQuestion = { navController.navigate("staff/new-question/${it.apiValue}") },
                 )
             }
+        }
+        composable(Routes.ADD_QUESTION) { entry ->
+            val level = CefrLevel.fromApi(entry.arguments?.getString("level") ?: CefrLevel.A1.apiValue)
+            AddQuestionScreen(
+                viewModel = viewModel { AddQuestionViewModel(level, container.staff) },
+                onDone = { navController.popBackStack() },
+            )
         }
         composable(Routes.PRACTICE) { entry ->
             val userId = session?.userId ?: return@composable

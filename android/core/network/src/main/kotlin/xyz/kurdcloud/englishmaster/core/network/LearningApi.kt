@@ -75,6 +75,10 @@ data class ExamQuestionDto(
     @SerialName("cefr_level") val level: String,
     val prompt: String,
     val options: List<String>,
+    val passage: String? = null,
+    @SerialName("media_type") val mediaType: String? = null,
+    @SerialName("media_path") val mediaPath: String? = null,
+    @SerialName("media_caption") val mediaCaption: String? = null,
 )
 
 @Serializable

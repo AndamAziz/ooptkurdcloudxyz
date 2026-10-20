@@ -3,6 +3,7 @@ package xyz.kurdcloud.englishmaster.feature.admin
 import xyz.kurdcloud.englishmaster.core.data.StaffRepository
 import xyz.kurdcloud.englishmaster.core.model.ActivityEntry
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
+import xyz.kurdcloud.englishmaster.core.model.NewQuestion
 import xyz.kurdcloud.englishmaster.core.model.ReviewState
 import xyz.kurdcloud.englishmaster.core.model.Role
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
@@ -42,6 +43,22 @@ class FakeStaffRepository : StaffRepository {
     override suspend fun review(questionId: String, approved: Boolean, status: String?) = result {
         calls += "review:$questionId:$approved:$status"
         ReviewState(if (approved) "approved" else "unreviewed", status ?: questions.first { it.id == questionId }.status)
+    }
+    var created: NewQuestion? = null
+
+    override suspend fun setDisplayName(userId: String, name: String) = result {
+        calls += "name:$userId:$name"
+        val i = users.indexOfFirst { it.userId == userId }
+        users[i] = users[i].copy(displayName = name.trim())
+        name.trim()
+    }
+    override suspend fun uploadMedia(bytes: ByteArray, mimeType: String) = result { calls += "upload:${bytes.size}:$mimeType"; "staff/m1.png" }
+    override suspend fun createQuestion(question: NewQuestion) = result { calls += "create"; created = question; "new1" }
+    override suspend fun publishDrafts(level: CefrLevel) = result {
+        val drafts = questions.filter { it.level == level && it.status == "draft" }
+        calls += "publish:$level:${drafts.size}"
+        questions.replaceAll { if (it in drafts) it.copy(status = "published", reviewStatus = "approved") else it }
+        drafts.size
     }
     override suspend fun recentActivity() = result {
         listOf(ActivityEntry("2026-10-19T20:03:52Z", "admin.bootstrap_admin_granted", "Andam", null))

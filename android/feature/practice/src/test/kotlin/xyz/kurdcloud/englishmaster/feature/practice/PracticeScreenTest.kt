@@ -16,6 +16,8 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import xyz.kurdcloud.englishmaster.core.designsystem.EnglishMasterTheme
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
+import xyz.kurdcloud.englishmaster.core.model.MediaType
+import xyz.kurdcloud.englishmaster.core.model.QuestionMedia
 
 @RunWith(RobolectricTestRunner::class)
 class PracticeScreenTest {
@@ -49,5 +51,19 @@ class PracticeScreenTest {
         compose.onNodeWithText("Not quite. The correct answer is:").performScrollTo().assertIsDisplayed()
         compose.onAllNodesWithText("B.  is").assertCountEquals(2) // the option itself and the feedback
         compose.onNodeWithText("Use is with she.").performScrollTo().assertIsDisplayed()
+    }
+
+    @Test
+    fun readingPassageAndPictureAreShownAboveTheQuestion() {
+        val q = question("r1").copy(
+            passage = "Ali lives in Duhok with his family.",
+            media = QuestionMedia(MediaType.IMAGE, "https://invalid.localhost/x.png", "A map", localPath = null),
+        )
+        val vm = PracticeViewModel(CefrLevel.A1, "u1", FakeContent(listOf(q)), FakePractice(FakeNetwork()))
+        compose.setContent { EnglishMasterTheme { PracticeScreen(CefrLevel.A1, vm, onExit = {}) } }
+
+        compose.onNodeWithText("Ali lives in Duhok with his family.").assertIsDisplayed()
+        compose.onNodeWithTag("question_image").assertExists()
+        compose.onNodeWithText("A map").assertExists()
     }
 }

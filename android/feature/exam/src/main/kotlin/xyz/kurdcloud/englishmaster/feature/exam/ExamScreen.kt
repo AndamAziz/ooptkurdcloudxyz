@@ -56,6 +56,8 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import xyz.kurdcloud.englishmaster.core.designsystem.FeedbackColors
+import xyz.kurdcloud.englishmaster.core.designsystem.PassageCard
+import xyz.kurdcloud.englishmaster.core.designsystem.QuestionMediaView
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.ExamKind
 import xyz.kurdcloud.englishmaster.core.model.ExamRules
@@ -277,6 +279,8 @@ private fun RunningView(state: ExamUiState, viewModel: ExamViewModel) {
         // Learning content is English: keep it left-to-right inside the Sorani UI.
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                question.passage?.let { PassageCard(it) }
+                question.media?.let { QuestionMediaView(it, stringResource(R.string.exam_media_unavailable)) }
                 Text(question.prompt, style = MaterialTheme.typography.titleLarge, modifier = Modifier.testTag("exam_prompt"))
                 Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     val chosen = state.answers[question.id]

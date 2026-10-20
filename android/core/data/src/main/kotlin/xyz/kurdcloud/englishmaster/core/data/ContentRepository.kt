@@ -9,6 +9,8 @@ import xyz.kurdcloud.englishmaster.core.database.QuestionDao
 import xyz.kurdcloud.englishmaster.core.database.QuestionEntity
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.LevelPack
+import xyz.kurdcloud.englishmaster.core.model.MediaType
+import xyz.kurdcloud.englishmaster.core.model.QuestionMedia
 import xyz.kurdcloud.englishmaster.core.model.Question
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.core.network.PracticeApi
@@ -37,6 +39,7 @@ class OfflineFirstContentRepository(
     private val packDao: LevelPackDao,
     private val contentDao: ContentDao,
     private val nowMillis: () -> Long = System::currentTimeMillis,
+    private val media: MediaFiles? = null,
 ) : ContentRepository {
 
     override fun observePacks(): Flow<List<LevelPack>> = packDao.observeAll().map { rows ->
@@ -57,9 +60,16 @@ class OfflineFirstContentRepository(
             after = page.last().id
         }
         val now = nowMillis()
+        // Pictures are saved with the pack so questions work offline; a picture that fails to
+        // download is shown from the network instead.
+        val entities = collected.map { dto ->
+            val path = dto.mediaPath
+            val local = if (dto.mediaType == MediaType.IMAGE.apiValue && path != null) media?.cache(path) else null
+            dto.toEntity(now, local)
+        }
         contentDao.replaceLevel(
             level.apiValue,
-            collected.map { it.toEntity(now) },
+            entities,
             LevelPackEntity(level.apiValue, collected.size, now),
         )
         return ApiResult.Success(collected.size)
@@ -71,13 +81,13 @@ class OfflineFirstContentRepository(
     }
 
     override suspend fun pickSession(level: CefrLevel, userId: String, count: Int): List<Question> =
-        questionDao.pickForSession(level.apiValue, userId, count).map { it.toModel() }
+        questionDao.pickForSession(level.apiValue, userId, count).map { it.toModel(media) }
 
     override suspend fun questions(ids: List<String>): List<Question> =
-        questionDao.byIds(ids).map { it.toModel() }
+        questionDao.byIds(ids).map { it.toModel(media) }
 
     override suspend fun pickMistakes(level: CefrLevel, userId: String, count: Int): List<Question> =
-        questionDao.pickMistakes(level.apiValue, userId, count).map { it.toModel() }
+        questionDao.pickMistakes(level.apiValue, userId, count).map { it.toModel(media) }
 
     override fun observeMistakeCounts(userId: String): Flow<Map<CefrLevel, Int>> =
         questionDao.observeMistakeCounts(userId).map { rows -> rows.associate { CefrLevel.fromApi(it.cefrLevel) to it.count } }
@@ -88,10 +98,10 @@ class OfflineFirstContentRepository(
     }
 }
 
-private fun PracticeQuestionDto.toEntity(now: Long) =
-    QuestionEntity(id, level, skill, prompt, options, version, reviewStatus, updatedAt, now)
+private fun PracticeQuestionDto.toEntity(now: Long, mediaLocal: String?) =
+    QuestionEntity(id, level, skill, prompt, options, version, reviewStatus, updatedAt, now, passage, mediaType, mediaPath, mediaCaption, mediaLocal)
 
-internal fun QuestionEntity.toModel() = Question(
+internal fun QuestionEntity.toModel(media: MediaFiles? = null) = Question(
     id = id,
     level = CefrLevel.fromApi(cefrLevel),
     skill = skill,
@@ -99,4 +109,12 @@ internal fun QuestionEntity.toModel() = Question(
     options = options,
     version = version,
     reviewed = reviewStatus == "approved",
+    passage = passage,
+    media = questionMedia(mediaType, mediaPath, mediaCaption, mediaLocal, media),
 )
+
+internal fun questionMedia(type: String?, path: String?, caption: String?, local: String?, media: MediaFiles?): QuestionMedia? {
+    val t = MediaType.fromApi(type) ?: return null
+    if (path == null) return null
+    return QuestionMedia(t, media?.url(path) ?: path, caption, local)
+}

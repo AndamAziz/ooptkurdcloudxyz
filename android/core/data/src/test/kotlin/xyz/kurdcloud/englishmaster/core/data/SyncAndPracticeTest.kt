@@ -88,6 +88,34 @@ class SyncAndPracticeTest {
         assertEquals(mapOf(CefrLevel.A1 to 1), content.observeMistakeCounts("u2").first())
     }
 
+    @Test
+    fun downloadedPicturesAreSavedForOfflineUse() = runTest {
+        val dir = ApplicationProvider.getApplicationContext<Context>().filesDir.resolve("media-test").apply { deleteRecursively() }
+        val base = server.url("/storage/v1/object/public/question-media/").toString()
+        val media = MediaFiles(OkHttpClient(), base, dir)
+        val content = OfflineFirstContentRepository(services.practice, db.questions(), db.levelPacks(), db.content(), media = media)
+        server.enqueue(
+            MockResponse.Builder().code(200).addHeader("Content-Type", "application/json").body(
+                """[{"id":"p1","cefr_level":"A1","skill":"vocabulary","prompt":"What time is it?","options":["three","four"],
+                "version":1,"review_status":"approved","updated_at":"t","media_type":"image","media_path":"samples/clock.png",
+                "media_caption":"A clock","passage":null},
+                {"id":"p2","cefr_level":"A1","skill":"reading","prompt":"Where?","options":["a","b"],"version":1,
+                "review_status":"approved","updated_at":"t","passage":"Ali lives in Duhok."}]""",
+            ).build(),
+        )
+        server.enqueue(MockResponse.Builder().code(200).addHeader("Content-Type", "image/png").body("PNGDATA").build())
+
+        assertEquals(ApiResult.Success(2), content.downloadLevel(CefrLevel.A1))
+
+        assertEquals("/rest/v1/rpc/get_practice_questions_v2", server.takeRequest().url.encodedPath)
+        assertEquals("/storage/v1/object/public/question-media/samples/clock.png", server.takeRequest().url.encodedPath)
+        val pic = content.questions(listOf("p1")).single().media!!
+        assertEquals(base + "samples/clock.png", pic.url)
+        assertEquals("PNGDATA", java.io.File(pic.localPath!!).readText())
+        assertEquals("Ali lives in Duhok.", content.questions(listOf("p2")).single().passage)
+        dir.deleteRecursively()
+    }
+
     private fun question(id: String) =
         QuestionEntity(id, "A1", "grammar", "Prompt $id", listOf("a", "b", "c", "d"), 1, "unreviewed", "t", 0)
 

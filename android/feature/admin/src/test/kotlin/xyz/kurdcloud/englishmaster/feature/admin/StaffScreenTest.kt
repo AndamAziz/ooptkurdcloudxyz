@@ -12,6 +12,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.performTextReplacement
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -39,12 +40,21 @@ class StaffScreenTest {
 
     @Test
     @Config(qualifiers = "en")
-    fun teacherOnlySeesQuestionReview() {
+    fun teacherCanCorrectNamesAndReviewQuestionsButNotChangeRoles() {
         render(StaffAccess(canReviewQuestions = true, canManageUsers = false))
+        compose.onNodeWithText("Activity").assertDoesNotExist()
+        val sara = hasAnyAncestor(hasTestTag("user_sara@example.com"))
+        compose.onNodeWithTag("users_list").performScrollToNode(hasTestTag("user_sara@example.com"))
+        compose.onNode(hasText("Make teacher") and sara).assertDoesNotExist()
+        compose.onNodeWithTag("rename_sara@example.com").performClick()
+        compose.onNodeWithTag("rename_field").performTextReplacement("Sara Ahmed Karim")
+        compose.onNodeWithTag("rename_save").performClick()
+        compose.onNodeWithText("Sara Ahmed Karim").assertIsDisplayed()
+
+        compose.onNodeWithText("Questions").performClick()
         compose.onNodeWithText("I ___ a student.").assertIsDisplayed()
-        compose.onNodeWithText("Users").assertDoesNotExist()
         compose.onNodeWithTag("approve_q1").performScrollTo().performClick()
-        compose.onNodeWithText("Approved").assertIsDisplayed()
+        compose.onNodeWithText("Approved").performScrollTo().assertIsDisplayed()
     }
 
     @Test

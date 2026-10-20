@@ -61,6 +61,14 @@ class UsersViewModel(private val staff: StaffRepository) : ViewModel() {
         }
     }
 
+    /** Corrects the learner's name; certificates already issued keep the old one. */
+    fun setDisplayName(user: StaffUser, name: String) = mutate(user) {
+        when (val r = staff.setDisplayName(user.userId, name)) {
+            is ApiResult.Success -> replace(user.copy(displayName = r.value), R.string.admin_name_saved)
+            is ApiResult.Failure -> fail(r.error)
+        }
+    }
+
     fun setSuspended(user: StaffUser, suspended: Boolean) = mutate(user) {
         when (val r = staff.setSuspended(user.userId, suspended)) {
             is ApiResult.Success -> replace(user.copy(suspended = r.value), R.string.admin_saved)
@@ -93,7 +101,10 @@ data class QuestionsUiState(
     val questions: List<StaffQuestion> = emptyList(),
     val busyQuestionId: String? = null,
     @StringRes val message: Int? = null,
-)
+    val publishing: Boolean = false,
+) {
+    val drafts: Int get() = questions.count { it.status == "draft" && it.reviewStatus == "unreviewed" }
+}
 
 class QuestionsViewModel(private val staff: StaffRepository) : ViewModel() {
     private val state = MutableStateFlow(QuestionsUiState())
@@ -120,6 +131,21 @@ class QuestionsViewModel(private val staff: StaffRepository) : ViewModel() {
         review(question, question.reviewStatus == "approved", status = if (retired) "retired" else "published")
 
     fun messageShown() = state.update { it.copy(message = null) }
+
+    /** Approves and publishes every unreviewed draft of the selected level, then reloads. */
+    fun publishAllDrafts() {
+        val level = state.value.level
+        if (state.value.publishing) return
+        state.update { it.copy(publishing = true) }
+        viewModelScope.launch {
+            val message = when (val r = staff.publishDrafts(level)) {
+                is ApiResult.Success -> R.string.admin_drafts_published
+                is ApiResult.Failure -> r.error.message()
+            }
+            state.update { it.copy(publishing = false, message = message) }
+            load(level)
+        }
+    }
 
     private fun review(question: StaffQuestion, approved: Boolean, status: String?) {
         if (state.value.busyQuestionId != null) return

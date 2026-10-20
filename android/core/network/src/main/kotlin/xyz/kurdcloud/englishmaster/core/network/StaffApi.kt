@@ -2,7 +2,9 @@ package xyz.kurdcloud.englishmaster.core.network
 
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -26,12 +28,30 @@ interface StaffApi {
     @GET("rest/v1/assessment_questions")
     suspend fun questions(
         @Query("cefr_level") levelFilter: String,
-        @Query("select") select: String = "id,cefr_level,prompt,options,correct_option,explanation,status,review_status",
+        @Query("select") select: String =
+            "id,cefr_level,prompt,options,correct_option,explanation,status,review_status,passage,media_type,media_path,media_caption",
         @Query("order") order: String = "review_status.desc,prompt.asc",
     ): List<StaffQuestionDto>
 
     @POST("rest/v1/rpc/staff_review_question")
     suspend fun reviewQuestion(@Body body: ReviewQuestionRequest): List<ReviewResultDto>
+
+    @POST("rest/v1/rpc/staff_create_question")
+    suspend fun createQuestion(@Body body: CreateQuestionRequest): String
+
+    @POST("rest/v1/rpc/staff_publish_drafts")
+    suspend fun publishDrafts(@Body body: PublishDraftsRequest): Int
+
+    @POST("rest/v1/rpc/staff_set_display_name")
+    suspend fun setDisplayName(@Body body: SetDisplayNameRequest): String
+
+    /** Uploads a picture/video to the public question-media bucket (teachers/admins only, by policy). */
+    @POST("storage/v1/object/question-media/{path}")
+    suspend fun uploadMedia(
+        @Path("path", encoded = true) path: String,
+        @Body body: okhttp3.RequestBody,
+        @Header("x-upsert") upsert: String = "false",
+    ): okhttp3.ResponseBody
 
     @POST("rest/v1/rpc/admin_recent_activity")
     suspend fun recentActivity(@Body body: RecentActivityRequest): List<ActivityDto>

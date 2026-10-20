@@ -10,6 +10,7 @@ import xyz.kurdcloud.englishmaster.core.data.AuthRepository
 import xyz.kurdcloud.englishmaster.core.data.ContentRepository
 import xyz.kurdcloud.englishmaster.core.data.KeystoreCipher
 import xyz.kurdcloud.englishmaster.core.data.LearningRepository
+import xyz.kurdcloud.englishmaster.core.data.MediaFiles
 import xyz.kurdcloud.englishmaster.core.data.SupabaseLearningRepository
 import xyz.kurdcloud.englishmaster.core.data.NetworkMonitor
 import xyz.kurdcloud.englishmaster.core.data.OfflineFirstContentRepository
@@ -46,10 +47,12 @@ class AppContainer(context: Context) {
     val syncScheduler: SyncScheduler by lazy { WorkManagerSyncScheduler(WorkManager.getInstance(appContext)) }
 
     val auth: AuthRepository = SupabaseAuthRepository(config, services.auth, sessionStore)
-    val content: ContentRepository =
-        OfflineFirstContentRepository(services.practice, database.questions(), database.levelPacks(), database.content())
-    val staff: StaffRepository = SupabaseStaffRepository(services.staff)
-    val learning: LearningRepository = SupabaseLearningRepository(services.learning)
+    private val media = MediaFiles(services.downloadClient, services.publicStorageUrl("question-media"), appContext.filesDir.resolve("question-media"))
+    val content: ContentRepository = OfflineFirstContentRepository(
+        services.practice, database.questions(), database.levelPacks(), database.content(), media = media,
+    )
+    val staff: StaffRepository = SupabaseStaffRepository(services.staff, media)
+    val learning: LearningRepository = SupabaseLearningRepository(services.learning, media)
     val updates: UpdateRepository = SupabaseUpdateRepository(
         services.releases,
         services.downloadClient,

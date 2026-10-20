@@ -76,6 +76,10 @@ data class PracticeQuestionDto(
     val version: Int,
     @SerialName("review_status") val reviewStatus: String,
     @SerialName("updated_at") val updatedAt: String,
+    val passage: String? = null,
+    @SerialName("media_type") val mediaType: String? = null,
+    @SerialName("media_path") val mediaPath: String? = null,
+    @SerialName("media_caption") val mediaCaption: String? = null,
 )
 
 @Serializable

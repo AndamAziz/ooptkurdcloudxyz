@@ -127,4 +127,5 @@
         <item quantity="other">Review %1$d mistakes</item>
     </plurals>
     <string name="home_more">More</string>
+    <string name="practice_media_unavailable">The picture could not be loaded. Check your internet connection.</string>
 </resources>

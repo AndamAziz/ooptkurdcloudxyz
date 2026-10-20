@@ -2,7 +2,12 @@ package xyz.kurdcloud.englishmaster.core.data
 
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.contentOrNull
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 import xyz.kurdcloud.englishmaster.core.model.ActivityEntry
+import xyz.kurdcloud.englishmaster.core.model.CredentialRules
+import xyz.kurdcloud.englishmaster.core.model.NewQuestion
+import xyz.kurdcloud.englishmaster.core.model.optionLetter
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.ReviewState
 import xyz.kurdcloud.englishmaster.core.model.Role
@@ -11,6 +16,9 @@ import xyz.kurdcloud.englishmaster.core.model.StaffQuestion
 import xyz.kurdcloud.englishmaster.core.model.StaffUser
 import xyz.kurdcloud.englishmaster.core.network.ApiError
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
+import xyz.kurdcloud.englishmaster.core.network.CreateQuestionRequest
+import xyz.kurdcloud.englishmaster.core.network.PublishDraftsRequest
+import xyz.kurdcloud.englishmaster.core.network.SetDisplayNameRequest
 import xyz.kurdcloud.englishmaster.core.network.ListUsersRequest
 import xyz.kurdcloud.englishmaster.core.network.RecentActivityRequest
 import xyz.kurdcloud.englishmaster.core.network.ReviewQuestionRequest
@@ -29,9 +37,21 @@ interface StaffRepository {
     /** Sets the review flag; [status] ("published"/"retired") changes availability to students when given. */
     suspend fun review(questionId: String, approved: Boolean, status: String? = null): ApiResult<ReviewState>
     suspend fun recentActivity(): ApiResult<List<ActivityEntry>>
+
+    /** Corrects a learner's name (teachers and admins). Certificates already issued keep their name. */
+    suspend fun setDisplayName(userId: String, name: String): ApiResult<String> = ApiResult.Failure(ApiError.Forbidden)
+    /** Uploads a picture or video; returns its object path in the question-media bucket. */
+    suspend fun uploadMedia(bytes: ByteArray, mimeType: String): ApiResult<String> = ApiResult.Failure(ApiError.Forbidden)
+    suspend fun createQuestion(question: NewQuestion): ApiResult<String> = ApiResult.Failure(ApiError.Forbidden)
+    /** Approves and publishes every unreviewed draft of [level]; returns how many. */
+    suspend fun publishDrafts(level: CefrLevel): ApiResult<Int> = ApiResult.Failure(ApiError.Forbidden)
 }
 
-class SupabaseStaffRepository(private val api: StaffApi) : StaffRepository {
+class SupabaseStaffRepository(
+    private val api: StaffApi,
+    private val media: MediaFiles? = null,
+    private val newId: () -> String = { java.util.UUID.randomUUID().toString() },
+) : StaffRepository {
 
     override suspend fun myAccess(): ApiResult<StaffAccess> =
         restCall { api.getMyRoles() }.map { roles -> StaffAccess.from(roles.mapNotNull(Role::fromApi).toSet()) }
@@ -64,7 +84,10 @@ class SupabaseStaffRepository(private val api: StaffApi) : StaffRepository {
     override suspend fun questions(level: CefrLevel): ApiResult<List<StaffQuestion>> =
         restCall { api.questions("eq.${level.apiValue}") }.map { rows ->
             rows.map {
-                StaffQuestion(it.id, CefrLevel.fromApi(it.level), it.prompt, it.options, it.correctOption, it.explanation, it.status, it.reviewStatus)
+                StaffQuestion(
+                    it.id, CefrLevel.fromApi(it.level), it.prompt, it.options, it.correctOption, it.explanation, it.status, it.reviewStatus,
+                    it.passage, questionMedia(it.mediaType, it.mediaPath, it.mediaCaption, null, media),
+                )
             }
         }
 
@@ -84,6 +107,51 @@ class SupabaseStaffRepository(private val api: StaffApi) : StaffRepository {
                 ActivityEntry(row.occurredAt, row.eventType, row.actorName, detail)
             }
         }
+
+    override suspend fun setDisplayName(userId: String, name: String): ApiResult<String> {
+        if (!CredentialRules.isValidDisplayName(name)) return ApiResult.Failure(ApiError.Validation("22023"))
+        return restCall { api.setDisplayName(SetDisplayNameRequest(userId, name.trim())) }
+    }
+
+    override suspend fun uploadMedia(bytes: ByteArray, mimeType: String): ApiResult<String> {
+        val ext = when (mimeType) {
+            "image/png" -> "png"
+            "image/jpeg" -> "jpg"
+            "image/webp" -> "webp"
+            "video/mp4" -> "mp4"
+            else -> return ApiResult.Failure(ApiError.Validation("unsupported_media"))
+        }
+        val limit = if (ext == "mp4") MAX_VIDEO_BYTES else MAX_IMAGE_BYTES
+        if (bytes.size > limit) return ApiResult.Failure(ApiError.Validation("media_too_large"))
+        val path = "staff/${newId()}.$ext"
+        return restCall { api.uploadMedia(path, bytes.toRequestBody(mimeType.toMediaType())).close() }.map { path }
+    }
+
+    override suspend fun createQuestion(question: NewQuestion): ApiResult<String> = restCall {
+        api.createQuestion(
+            CreateQuestionRequest(
+                level = question.level.apiValue,
+                skill = question.skill,
+                prompt = question.prompt.trim(),
+                options = question.options.map { it.trim() },
+                correctOption = optionLetter(question.correctIndex),
+                explanation = question.explanation?.trim()?.takeIf { it.isNotEmpty() },
+                passage = question.passage?.trim()?.takeIf { it.isNotEmpty() },
+                mediaType = question.mediaType?.apiValue,
+                mediaPath = question.mediaPath,
+                mediaCaption = question.mediaCaption?.trim()?.takeIf { it.isNotEmpty() },
+                publish = question.publish,
+            ),
+        )
+    }
+
+    override suspend fun publishDrafts(level: CefrLevel): ApiResult<Int> =
+        restCall { api.publishDrafts(PublishDraftsRequest(level.apiValue)) }
+
+    companion object {
+        const val MAX_IMAGE_BYTES = 5 * 1024 * 1024
+        const val MAX_VIDEO_BYTES = 25 * 1024 * 1024
+    }
 }
 
 internal inline fun <T, R> ApiResult<T>.map(transform: (T) -> R): ApiResult<R> = when (this) {

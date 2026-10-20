@@ -34,7 +34,7 @@ interface LearningRepository {
     suspend fun certificates(): ApiResult<List<Certificate>>
 }
 
-class SupabaseLearningRepository(private val api: LearningApi) : LearningRepository {
+class SupabaseLearningRepository(private val api: LearningApi, private val media: MediaFiles? = null) : LearningRepository {
 
     override suspend fun overview() = restCall { api.overview() }.map { rows ->
         rows.map {
@@ -65,7 +65,7 @@ class SupabaseLearningRepository(private val api: LearningApi) : LearningReposit
         restCall { api.updateProfile(UpdateProfileRequest(name.trim())) }.map { it.displayName }
 
     override suspend fun startLevelExam(level: CefrLevel) =
-        restCall { api.startLevelExam(StartLevelExamRequest(level.apiValue)) }.map { it.single().toSession(ExamKind.LEVEL_FINAL) }
+        restCall { api.startLevelExam(StartLevelExamRequest(level.apiValue)) }.map { it.single().toSession(ExamKind.LEVEL_FINAL, media) }
 
     override suspend fun submitLevelExam(attemptId: String, answers: Map<String, String>) =
         restCall { api.submitLevelExam(SubmitExamRequest(attemptId, answers)) }.map { rows ->
@@ -74,7 +74,7 @@ class SupabaseLearningRepository(private val api: LearningApi) : LearningReposit
         }
 
     override suspend fun startPlacement() =
-        restCall { api.startPlacement() }.map { it.single().toSession(ExamKind.PLACEMENT) }
+        restCall { api.startPlacement() }.map { it.single().toSession(ExamKind.PLACEMENT, media) }
 
     override suspend fun submitPlacement(attemptId: String, answers: Map<String, String>) =
         restCall { api.submitPlacement(SubmitExamRequest(attemptId, answers)) }.map { rows ->
@@ -87,12 +87,17 @@ class SupabaseLearningRepository(private val api: LearningApi) : LearningReposit
     }
 }
 
-private fun ExamStartDto.toSession(kind: ExamKind) = ExamSession(
+private fun ExamStartDto.toSession(kind: ExamKind, media: MediaFiles?) = ExamSession(
     attemptId = attemptId,
     kind = kind,
     level = level?.let(CefrLevel::fromApi),
     expiresAtMillis = epochMillis(expiresAt),
-    questions = questions.map { ExamQuestion(it.id, CefrLevel.fromApi(it.level), it.prompt, it.options) },
+    questions = questions.map {
+        ExamQuestion(
+            it.id, CefrLevel.fromApi(it.level), it.prompt, it.options, it.passage,
+            questionMedia(it.mediaType, it.mediaPath, it.mediaCaption, null, media),
+        )
+    },
 )
 
 /** PostgREST timestamps are ISO-8601 with an offset, e.g. 2026-10-20T03:00:00.123+00:00. */

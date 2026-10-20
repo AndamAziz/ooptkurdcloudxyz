@@ -44,6 +44,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import xyz.kurdcloud.englishmaster.core.designsystem.EmptyState
 import xyz.kurdcloud.englishmaster.core.designsystem.FeedbackColors
 import xyz.kurdcloud.englishmaster.core.designsystem.LoadingState
+import xyz.kurdcloud.englishmaster.core.designsystem.PassageCard
+import xyz.kurdcloud.englishmaster.core.designsystem.QuestionMediaView
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.PracticeAnswer
 import xyz.kurdcloud.englishmaster.core.model.Question
@@ -116,6 +118,8 @@ private fun QuestionView(state: PracticeUiState, viewModel: PracticeViewModel, m
 @Composable
 private fun QuestionContent(question: Question, selected: Int?, answer: PracticeAnswer?, onSelect: (Int) -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        question.passage?.let { PassageCard(it) }
+        question.media?.let { QuestionMediaView(it, stringResource(R.string.practice_media_unavailable)) }
         Text(question.prompt, style = MaterialTheme.typography.titleLarge, modifier = Modifier.testTag("question_prompt"))
         Spacer(Modifier.height(4.dp))
         Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {

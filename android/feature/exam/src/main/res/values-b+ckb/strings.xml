@@ -78,4 +78,5 @@
     <string name="certificate_failed">نەتوانرا PDF ـەکە دروست بکرێت.</string>
     <string name="certificate_no_app">هیچ ئەپێک لەم ئامێرەدا ناتوانێت بیکاتەوە.</string>
     <string name="certificate_note">بڕوانامەکانی EnglishMaster نیشانی دەدەن کە لە تاقیکردنەوەی ئاستەکەمان دەرچوویت. لەگەڵ پێوەرەکانی CEFR گونجێنراون، بەڵام بڕوانامەی فەرمیی CEFR نین.</string>
+    <string name="exam_media_unavailable">وێنەکە نەکرایەوە. پەیوەندی ئینتەرنێتەکەت بپشکنە.</string>
 </resources>

@@ -1,6 +1,7 @@
 package xyz.kurdcloud.englishmaster.core.database
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -12,8 +13,10 @@ import kotlinx.serialization.json.Json
 
 @Database(
     entities = [QuestionEntity::class, LevelPackEntity::class, ResponseEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = true,
+    // v2: passage and media columns on questions (all nullable, so Room migrates automatically).
+    autoMigrations = [AutoMigration(from = 1, to = 2)],
 )
 @TypeConverters(Converters::class)
 abstract class EnglishMasterDatabase : RoomDatabase() {
