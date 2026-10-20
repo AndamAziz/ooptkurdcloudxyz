@@ -13,6 +13,7 @@ import xyz.kurdcloud.englishmaster.core.model.ActivityEntry
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.CertificateRequest
 import xyz.kurdcloud.englishmaster.core.model.CertificateRequestStatus
+import xyz.kurdcloud.englishmaster.core.model.DeleteOutcome
 import xyz.kurdcloud.englishmaster.core.model.Role
 import xyz.kurdcloud.englishmaster.core.model.StaffQuestion
 import xyz.kurdcloud.englishmaster.core.model.StaffUser
@@ -133,6 +134,24 @@ class QuestionsViewModel(private val staff: StaffRepository) : ViewModel() {
         review(question, question.reviewStatus == "approved", status = if (retired) "retired" else "published")
 
     fun messageShown() = state.update { it.copy(message = null) }
+
+    /** Admin: deletes a question (or archives it when learners have already answered it). */
+    fun delete(question: StaffQuestion) {
+        if (state.value.busyQuestionId != null) return
+        state.update { it.copy(busyQuestionId = question.id) }
+        viewModelScope.launch {
+            when (val r = staff.deleteQuestion(question.id)) {
+                is ApiResult.Success -> state.update { s ->
+                    s.copy(
+                        questions = s.questions.filterNot { it.id == question.id },
+                        message = if (r.value == DeleteOutcome.ARCHIVED) R.string.admin_question_archived else R.string.admin_question_deleted,
+                    )
+                }
+                is ApiResult.Failure -> state.update { it.copy(message = r.error.message()) }
+            }
+            state.update { it.copy(busyQuestionId = null) }
+        }
+    }
 
     /** Approves and publishes every unreviewed draft of the selected level, then reloads. */
     fun publishAllDrafts() {

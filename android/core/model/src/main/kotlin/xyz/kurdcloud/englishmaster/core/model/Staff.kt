@@ -50,7 +50,19 @@ data class StaffQuestion(
     val reviewStatus: String,
     val passage: String? = null,
     val media: QuestionMedia? = null,
+    val skill: String = "grammar",
+    /** Object path of [media] in the question-media bucket (kept when an edit does not replace it). */
+    val mediaPath: String? = null,
 )
+
+/** What happened to a question an admin deleted. */
+enum class DeleteOutcome {
+    /** Nobody had answered it: removed for good. */
+    DELETED,
+
+    /** It has answers: hidden everywhere but kept so learners' history stays intact. */
+    ARCHIVED,
+}
 
 /** A question written by a teacher in the app. [correctIndex] points into [options]. */
 data class NewQuestion(

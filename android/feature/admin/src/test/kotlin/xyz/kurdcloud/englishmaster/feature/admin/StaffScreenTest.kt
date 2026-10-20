@@ -13,6 +13,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTextReplacement
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -20,6 +21,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import xyz.kurdcloud.englishmaster.core.designsystem.EnglishMasterTheme
+import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
 
 @RunWith(RobolectricTestRunner::class)
@@ -53,7 +55,7 @@ class StaffScreenTest {
         compose.onNodeWithText("Sara Ahmed Karim").assertIsDisplayed()
 
         compose.onNodeWithText("Questions").performClick()
-        compose.onNodeWithText("I ___ a student.").assertIsDisplayed()
+        compose.onNodeWithText("I ___ a student.").assertExists()
         compose.onNodeWithTag("approve_q1").performScrollTo().performClick()
         compose.onNodeWithText("Approved").performScrollTo().assertIsDisplayed()
     }
@@ -77,7 +79,7 @@ class StaffScreenTest {
         render(StaffAccess(canReviewQuestions = true, canManageUsers = true))
         compose.onNodeWithText("بەکارهێنەران").assertIsDisplayed()
         compose.onNodeWithText("پرسیارەکان").performClick()
-        compose.onNodeWithText("I ___ a student.").assertIsDisplayed()
+        compose.onNodeWithText("I ___ a student.").assertExists()
     }
 
     @Test
@@ -125,5 +127,39 @@ class StaffScreenTest {
         compose.onNodeWithTag("cert_reject_note").performTextReplacement("Retake with a teacher")
         compose.onNodeWithTag("cert_confirm_reject").performClick()
         assertTrue("certReview:c1:false:Retake with a teacher" in repo.calls)
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    fun adminEditsAndDeletesQuestions() {
+        var edited: Pair<CefrLevel, String>? = null
+        val users = UsersViewModel(repo)
+        val questions = QuestionsViewModel(repo)
+        val activity = ActivityViewModel(repo)
+        compose.setContent {
+            EnglishMasterTheme {
+                StaffScreen(StaffAccess(canReviewQuestions = true, canManageUsers = true), currentUserId = "me",
+                    usersViewModel = { users }, questionsViewModel = { questions }, activityViewModel = { activity },
+                    onBack = {}, onEditQuestion = { level, id -> edited = level to id })
+            }
+        }
+        compose.onNodeWithText("Questions").performClick()
+        compose.onNodeWithTag("edit_q1").performClick()
+        assertEquals(CefrLevel.A1 to "q1", edited)
+
+        compose.onNodeWithTag("delete_q1").performClick()
+        compose.onNodeWithText("Delete this question?").assertIsDisplayed()
+        compose.onNodeWithTag("delete_confirm").performClick()
+        compose.onNodeWithTag("question_q1").assertDoesNotExist()
+        assertTrue("delete:q1" in repo.calls)
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    fun teachersEditButCannotDelete() {
+        render(StaffAccess(canReviewQuestions = true, canManageUsers = false))
+        compose.onNodeWithText("Questions").performClick()
+        compose.onNodeWithTag("edit_q1").assertIsDisplayed()
+        compose.onNodeWithTag("delete_q1").assertDoesNotExist()
     }
 }

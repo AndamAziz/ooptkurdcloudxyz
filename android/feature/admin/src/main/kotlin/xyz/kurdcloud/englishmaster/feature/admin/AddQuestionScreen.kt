@@ -46,6 +46,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import xyz.kurdcloud.englishmaster.core.designsystem.LoadingState
+import xyz.kurdcloud.englishmaster.core.designsystem.QuestionMediaView
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.MediaType
 import xyz.kurdcloud.englishmaster.core.model.optionLetter
@@ -97,11 +99,17 @@ fun AddQuestionScreen(viewModel: AddQuestionViewModel, onDone: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.admin_add_title, state.level.label)) },
+                title = {
+                    Text(stringResource(if (state.editing) R.string.admin_edit_title else R.string.admin_add_title, state.level.label))
+                },
                 navigationIcon = { TextButton(onClick = onDone) { Text(stringResource(R.string.admin_cancel)) } },
             )
         },
     ) { padding ->
+        if (state.loading) {
+            LoadingState(Modifier.padding(padding))
+            return@Scaffold
+        }
         Column(
             Modifier.padding(padding).fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -158,7 +166,22 @@ fun AddQuestionScreen(viewModel: AddQuestionViewModel, onDone: () -> Unit) {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         Text(stringResource(R.string.admin_add_media), style = MaterialTheme.typography.titleSmall)
                         val media = state.media
-                        if (media == null) {
+                        val existing = state.existingMedia
+                        if (media == null && existing != null) {
+                            // The question's current picture/video: keep it, replace it or remove it.
+                            QuestionMediaView(existing, stringResource(R.string.admin_media_unavailable))
+                            OutlinedTextField(
+                                value = state.caption, onValueChange = { v -> viewModel.update { it.copy(caption = v.take(300)) } },
+                                label = { Text(stringResource(R.string.admin_add_caption)) }, singleLine = true, modifier = Modifier.fillMaxWidth(),
+                            )
+                            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                OutlinedButton(onClick = { pickImage.launch("image/*") }) { Text(stringResource(R.string.admin_edit_replace_picture)) }
+                                OutlinedButton(onClick = { pickVideo.launch("video/mp4") }) { Text(stringResource(R.string.admin_edit_replace_video)) }
+                                TextButton(onClick = viewModel::removeExistingMedia, modifier = Modifier.testTag("edit_remove_media")) {
+                                    Text(stringResource(R.string.admin_add_remove_media), color = MaterialTheme.colorScheme.error)
+                                }
+                            }
+                        } else if (media == null) {
                             Text(stringResource(R.string.admin_add_media_hint), style = MaterialTheme.typography.bodySmall)
                             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 OutlinedButton(onClick = { pickImage.launch("image/*") }) { Text(stringResource(R.string.admin_add_picture)) }
@@ -179,15 +202,29 @@ fun AddQuestionScreen(viewModel: AddQuestionViewModel, onDone: () -> Unit) {
                         }
                     }
                 }
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(stringResource(R.string.admin_add_publish_now), modifier = Modifier.weight(1f))
-                    Switch(checked = state.publish, onCheckedChange = { v -> viewModel.update { it.copy(publish = v) } })
+                if (state.editing) {
+                    // Editing keeps the question's review and publish state.
+                    Text(stringResource(R.string.admin_edit_note), style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant)
+                } else {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(stringResource(R.string.admin_add_publish_now), modifier = Modifier.weight(1f))
+                        Switch(checked = state.publish, onCheckedChange = { v -> viewModel.update { it.copy(publish = v) } })
+                    }
                 }
                 state.error?.let {
                     Text(stringResource(it), color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("add_error"))
                 }
                 Button(onClick = viewModel::save, enabled = !state.saving, modifier = Modifier.fillMaxWidth().testTag("add_save")) {
-                    Text(stringResource(if (state.saving) R.string.admin_add_saving else R.string.admin_add_save))
+                    Text(
+                        stringResource(
+                            when {
+                                state.saving -> R.string.admin_add_saving
+                                state.editing -> R.string.admin_edit_save
+                                else -> R.string.admin_add_save
+                            },
+                        ),
+                    )
                 }
             }
         }

@@ -29,7 +29,9 @@ interface StaffApi {
     suspend fun questions(
         @Query("cefr_level") levelFilter: String,
         @Query("select") select: String =
-            "id,cefr_level,prompt,options,correct_option,explanation,status,review_status,passage,media_type,media_path,media_caption",
+            "id,cefr_level,skill,prompt,options,correct_option,explanation,status,review_status,passage,media_type,media_path,media_caption",
+        /** Questions an admin deleted (kept only for answer history) are not listed. */
+        @Query("deleted_at") deletedFilter: String = "is.null",
         @Query("order") order: String = "review_status.desc,prompt.asc",
     ): List<StaffQuestionDto>
 
@@ -38,6 +40,13 @@ interface StaffApi {
 
     @POST("rest/v1/rpc/staff_create_question")
     suspend fun createQuestion(@Body body: CreateQuestionRequest): String
+
+    @POST("rest/v1/rpc/staff_update_question")
+    suspend fun updateQuestion(@Body body: UpdateQuestionRequest): Int
+
+    /** Admin only; returns "deleted" or "archived". */
+    @POST("rest/v1/rpc/staff_delete_question")
+    suspend fun deleteQuestion(@Body body: DeleteQuestionRequest): String
 
     @POST("rest/v1/rpc/staff_publish_drafts")
     suspend fun publishDrafts(@Body body: PublishDraftsRequest): Int

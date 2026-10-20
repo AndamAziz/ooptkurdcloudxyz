@@ -5,7 +5,10 @@ import xyz.kurdcloud.englishmaster.core.model.ActivityEntry
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.CertificateRequest
 import xyz.kurdcloud.englishmaster.core.model.CertificateRequestStatus
+import xyz.kurdcloud.englishmaster.core.model.DeleteOutcome
+import xyz.kurdcloud.englishmaster.core.model.MediaType
 import xyz.kurdcloud.englishmaster.core.model.NewQuestion
+import xyz.kurdcloud.englishmaster.core.model.QuestionMedia
 import xyz.kurdcloud.englishmaster.core.model.ReviewState
 import xyz.kurdcloud.englishmaster.core.model.Role
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
@@ -21,7 +24,8 @@ class FakeStaffRepository : StaffRepository {
         StaffUser("s1", "sara@example.com", "Sara", setOf(Role.STUDENT), false, 10, 7),
     )
     val questions = mutableListOf(
-        StaffQuestion("q1", CefrLevel.A1, "I ___ a student.", listOf("is", "am", "are"), "B", "Use am with I.", "published", "unreviewed"),
+        StaffQuestion("q1", CefrLevel.A1, "I ___ a student.", listOf("is", "am", "are"), "B", "Use am with I.", "published", "unreviewed",
+            media = QuestionMedia(MediaType.IMAGE, "https://x/question-media/staff/p.png", "A boy"), mediaPath = "staff/p.png"),
         StaffQuestion("q2", CefrLevel.B1, "She suggested ___ to the beach.", listOf("going", "to go", "go"), "A", "Suggest + -ing.", "draft", "unreviewed"),
     )
     var failNext: ApiError? = null
@@ -61,6 +65,13 @@ class FakeStaffRepository : StaffRepository {
         calls += "publish:$level:${drafts.size}"
         questions.replaceAll { if (it in drafts) it.copy(status = "published", reviewStatus = "approved") else it }
         drafts.size
+    }
+    var updated: Pair<String, NewQuestion>? = null
+    override suspend fun updateQuestion(id: String, question: NewQuestion) = result { calls += "update:$id"; updated = id to question; 2 }
+    override suspend fun deleteQuestion(id: String) = result {
+        calls += "delete:$id"
+        questions.removeAll { it.id == id }
+        if (id == "q1") DeleteOutcome.ARCHIVED else DeleteOutcome.DELETED
     }
     val certificates = mutableListOf(
         CertificateRequest("c1", "s1", "sara@example.com", "Sara", CefrLevel.A2, 18, 20, "2026-10-20T03:00:00Z", CertificateRequestStatus.PENDING),

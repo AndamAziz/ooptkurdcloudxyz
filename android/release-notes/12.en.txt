@@ -1,0 +1,1 @@
+New: teachers and admins can edit any question (text, options, answer, reading text, picture or video) from Staff tools. Admins can delete questions; a question learners have already answered is archived so their results stay correct.

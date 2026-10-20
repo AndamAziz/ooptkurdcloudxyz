@@ -108,4 +108,14 @@ class StaffViewModelsTest {
         assertEquals(R.string.cert_error_own, vm.uiState.value.message)
         assertEquals(2, vm.uiState.value.requests.size)
     }
+
+    @Test
+    fun `deleting a question removes it and says whether it was archived`() {
+        val repo = FakeStaffRepository()
+        val vm = QuestionsViewModel(repo)
+        val q1 = vm.uiState.value.questions.single { it.id == "q1" }
+        vm.delete(q1)
+        assertTrue(vm.uiState.value.questions.none { it.id == "q1" })
+        assertEquals(R.string.admin_question_archived, vm.uiState.value.message)
+    }
 }

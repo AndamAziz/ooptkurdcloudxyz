@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,6 +19,10 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledTonalIconButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -58,6 +63,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import xyz.kurdcloud.englishmaster.core.designsystem.AppIcons
 import xyz.kurdcloud.englishmaster.core.designsystem.EmptyState
 import xyz.kurdcloud.englishmaster.core.designsystem.ErrorState
 import xyz.kurdcloud.englishmaster.core.designsystem.LoadingState
@@ -94,6 +100,7 @@ fun StaffScreen(
     onBack: () -> Unit,
     onAddQuestion: (CefrLevel) -> Unit = {},
     certificatesViewModel: (@Composable () -> CertificateRequestsViewModel)? = null,
+    onEditQuestion: (CefrLevel, String) -> Unit = { _, _ -> },
 ) {
     val tabs = buildList {
         // Pending certificate approvals come first: they are what learners are waiting for.
@@ -140,7 +147,7 @@ fun StaffScreen(
             when (tabs[selected.coerceIn(tabs.indices)]) {
                 StaffTab.CERTIFICATES -> CertificatesTab(certificatesViewModel!!(), currentUserId, snackbar)
                 StaffTab.USERS -> UsersTab(usersViewModel(), currentUserId, access.canManageUsers, snackbar)
-                StaffTab.QUESTIONS -> QuestionsTab(questionsViewModel(), snackbar, onAddQuestion)
+                StaffTab.QUESTIONS -> QuestionsTab(questionsViewModel(), snackbar, onAddQuestion, onEditQuestion, canDelete = access.canManageUsers)
                 StaffTab.ACTIVITY -> ActivityTab(activityViewModel())
             }
         }
@@ -302,10 +309,18 @@ private fun Role.label(): Int = when (this) {
 }
 
 @Composable
-private fun QuestionsTab(vm: QuestionsViewModel, snackbar: SnackbarHostState, onAddQuestion: (CefrLevel) -> Unit) {
+private fun QuestionsTab(
+    vm: QuestionsViewModel,
+    snackbar: SnackbarHostState,
+    onAddQuestion: (CefrLevel) -> Unit,
+    onEditQuestion: (CefrLevel, String) -> Unit,
+    /** Deleting questions is admin-only (the server checks it too). */
+    canDelete: Boolean,
+) {
     val state by vm.uiState.collectAsStateWithLifecycle()
     MessageEffect(state.message, snackbar, vm::messageShown)
     var confirmPublish by remember { mutableStateOf(false) }
+    var confirmDelete by remember { mutableStateOf<StaffQuestion?>(null) }
     // Back from "Add question": show the new item.
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { if (!state.loading) vm.load(state.level) }
     Column(Modifier.fillMaxSize()) {
@@ -345,13 +360,46 @@ private fun QuestionsTab(vm: QuestionsViewModel, snackbar: SnackbarHostState, on
                 dismissButton = { TextButton(onClick = { confirmPublish = false }) { Text(stringResource(R.string.admin_cancel)) } },
             )
         }
+        confirmDelete?.let { q ->
+            AlertDialog(
+                onDismissRequest = { confirmDelete = null },
+                icon = { Icon(AppIcons.Delete, contentDescription = null, tint = MaterialTheme.colorScheme.error) },
+                title = { Text(stringResource(R.string.admin_delete_title)) },
+                text = {
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                            Text("“${q.prompt}”", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold, maxLines = 3)
+                        }
+                        Text(stringResource(R.string.admin_delete_body))
+                    }
+                },
+                confirmButton = {
+                    Button(
+                        onClick = { vm.delete(q); confirmDelete = null },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.error,
+                            contentColor = MaterialTheme.colorScheme.onError,
+                        ),
+                        modifier = Modifier.testTag("delete_confirm"),
+                    ) { Text(stringResource(R.string.admin_delete)) }
+                },
+                dismissButton = { TextButton(onClick = { confirmDelete = null }) { Text(stringResource(R.string.admin_cancel)) } },
+            )
+        }
         when {
             state.loading -> LoadingState()
             state.error != null -> ErrorState(stringResource(state.error!!), { vm.load(state.level) })
             state.questions.isEmpty() -> EmptyState(stringResource(R.string.admin_no_questions))
             else -> LazyColumn(contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 items(state.questions, key = { it.id }) { q ->
-                    QuestionCard(q, busy = state.busyQuestionId == q.id, onApprove = { vm.setApproved(q, it) }, onRetire = { vm.setRetired(q, it) })
+                    QuestionCard(
+                        q,
+                        busy = state.busyQuestionId == q.id,
+                        onApprove = { vm.setApproved(q, it) },
+                        onRetire = { vm.setRetired(q, it) },
+                        onEdit = { onEditQuestion(q.level, q.id) },
+                        onDelete = if (canDelete) ({ confirmDelete = q }) else null,
+                    )
                 }
             }
         }
@@ -359,16 +407,44 @@ private fun QuestionsTab(vm: QuestionsViewModel, snackbar: SnackbarHostState, on
 }
 
 @Composable
-private fun QuestionCard(q: StaffQuestion, busy: Boolean, onApprove: (Boolean) -> Unit, onRetire: (Boolean) -> Unit) {
+private fun QuestionCard(
+    q: StaffQuestion,
+    busy: Boolean,
+    onApprove: (Boolean) -> Unit,
+    onRetire: (Boolean) -> Unit,
+    onEdit: () -> Unit,
+    onDelete: (() -> Unit)?,
+) {
     val approved = q.reviewStatus == "approved"
     val retired = q.status == "retired"
     val draft = q.status == "draft"
     Card(Modifier.fillMaxWidth().testTag("question_${q.id}")) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                AssistChip(onClick = {}, label = { Text(stringResource(if (approved) R.string.admin_approved else R.string.admin_unreviewed)) })
-                if (retired) AssistChip(onClick = {}, label = { Text(stringResource(R.string.admin_retired)) })
-                if (draft) AssistChip(onClick = {}, label = { Text(stringResource(R.string.admin_draft)) })
+            Row(verticalAlignment = Alignment.Top) {
+                FlowRow(Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    AssistChip(onClick = {}, label = { Text(stringResource(if (approved) R.string.admin_approved else R.string.admin_unreviewed)) })
+                    if (retired) AssistChip(onClick = {}, label = { Text(stringResource(R.string.admin_retired)) })
+                    if (draft) AssistChip(onClick = {}, label = { Text(stringResource(R.string.admin_draft)) })
+                }
+                // Edit (teachers and admins) and delete (admins) as compact round actions.
+                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    FilledTonalIconButton(onClick = onEdit, enabled = !busy, modifier = Modifier.testTag("edit_${q.id}")) {
+                        Icon(AppIcons.Edit, contentDescription = stringResource(R.string.admin_edit), modifier = Modifier.size(20.dp))
+                    }
+                    if (onDelete != null) {
+                        FilledTonalIconButton(
+                            onClick = onDelete,
+                            enabled = !busy,
+                            colors = IconButtonDefaults.filledTonalIconButtonColors(
+                                containerColor = MaterialTheme.colorScheme.errorContainer,
+                                contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                            ),
+                            modifier = Modifier.testTag("delete_${q.id}"),
+                        ) {
+                            Icon(AppIcons.Delete, contentDescription = stringResource(R.string.admin_delete), modifier = Modifier.size(20.dp))
+                        }
+                    }
+                }
             }
             // Learning content is English: keep it left-to-right in the Sorani UI.
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
@@ -569,6 +645,9 @@ private fun eventLabel(type: String): Int = when (type) {
     "admin.account_activated" -> R.string.event_account_activated
     "admin.bootstrap_admin_granted" -> R.string.event_bootstrap_admin
     "content.question_reviewed" -> R.string.event_question_reviewed
+    "staff.question_created" -> R.string.event_question_created
+    "staff.question_edited" -> R.string.event_question_edited
+    "staff.question_deleted" -> R.string.event_question_deleted
     "certificate.requested" -> R.string.event_certificate_requested
     "certificate.approved" -> R.string.event_certificate_approved
     "certificate.rejected" -> R.string.event_certificate_rejected

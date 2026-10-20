@@ -86,9 +86,14 @@ it with `staff_review_certificate` (listed by `staff_list_certificates`). Nobody
 certificate; approval uses the learner's current name; after a rejection the exam can be taken
 again. `get_learning_overview_v2` adds `certificate_status`.
 
+Question edit/delete (`20261020180000_question_edit_delete`): `staff_update_question` (teacher or
+admin) bumps the version when prompt, options, key, passage, media or level change;
+`staff_delete_question` (admin) deletes an unused question or archives an answered one
+(`deleted_at`, retired), so answer history stays valid.
+
 Permissions at a glance: **learner** — practise, exams, own profile and certificates; **teacher** —
-plus learner list and name corrections, question review/authoring/publishing, certificate approval;
-**admin** — plus roles, suspensions and the activity log.
+plus learner list and name corrections, question review/authoring/editing/publishing, certificate
+approval; **admin** — plus deleting questions, roles, suspensions and the activity log.
 
 Topics (`20261020120000_question_topics`): `get_practice_questions_v3` = v2 plus `tags`, so the app
 can offer practice by topic (Life in the UK, Kurdistan, stories/dialogues, history and nature,
@@ -168,6 +173,7 @@ Applied to `nefpgqoykfndjvrdultp` with the owner's approval:
 | `20261020120000_question_topics` | applied 2026-10-20 — `anon` cannot execute v3, `authenticated` can |
 | AI batch 03 (114 drafts) + 9 new sample media | published by the content workflow on push |
 | `20261020160000_certificate_approval` | applied 2026-10-20 — anon can only call `verify_certificate`; staff RPCs need teacher/admin |
+| `20261020180000_question_edit_delete` | applied 2026-10-20 — edit: teacher/admin; delete: admin only; anon cannot call either |
 | `20261019220000_policy_consolidation` | **pending** — contains `DROP POLICY`; the MCP tooling waits for a destructive-statement confirmation it cannot show and times out (nothing is changed). Apply with `supabase db push --workdir backend` |
 
 Verified on the live project: RLS on all tables; `anon` has no table grants and cannot execute any

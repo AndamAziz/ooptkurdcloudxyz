@@ -38,6 +38,7 @@ data class SetAccountStatusRequest(
 data class StaffQuestionDto(
     val id: String,
     @SerialName("cefr_level") val level: String,
+    val skill: String = "grammar",
     val prompt: String,
     val options: List<String>,
     @SerialName("correct_option") val correctOption: String,
@@ -123,3 +124,21 @@ data class ReviewCertificateRequest(
 
 @Serializable
 data class CertificateReviewDto(val status: String, @SerialName("verification_code") val verificationCode: String? = null)
+
+@Serializable
+data class UpdateQuestionRequest(
+    @SerialName("p_question_id") val questionId: String,
+    @SerialName("p_cefr_level") val level: String,
+    @SerialName("p_skill") val skill: String,
+    @SerialName("p_prompt") val prompt: String,
+    @SerialName("p_options") val options: List<String>,
+    @SerialName("p_correct_option") val correctOption: String,
+    @SerialName("p_explanation") val explanation: String? = null,
+    @SerialName("p_passage") val passage: String? = null,
+    @SerialName("p_media_type") val mediaType: String? = null,
+    @SerialName("p_media_path") val mediaPath: String? = null,
+    @SerialName("p_media_caption") val mediaCaption: String? = null,
+)
+
+@Serializable
+data class DeleteQuestionRequest(@SerialName("p_question_id") val questionId: String)

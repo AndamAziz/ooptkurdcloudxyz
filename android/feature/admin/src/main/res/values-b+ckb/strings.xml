@@ -120,4 +120,19 @@
     <string name="event_certificate_requested">داواکاری بڕوانامە</string>
     <string name="event_certificate_approved">بڕوانامە پەسەندکرا</string>
     <string name="event_certificate_rejected">بڕوانامە ڕەتکرایەوە</string>
+    <string name="admin_edit">دەستکاری</string>
+    <string name="admin_delete">سڕینەوە</string>
+    <string name="admin_edit_title">دەستکاریکردنی پرسیار · %1$s</string>
+    <string name="admin_edit_save">پاشەکەوتکردنی گۆڕانکارییەکان</string>
+    <string name="admin_edit_note">گۆڕانکارییەکان یەکسەر جێبەجێ دەبن. ئەگەر پرسیارەکە، وەڵامەکان یان وەڵامی ڕاست بگۆڕیت، وەڵامە پێشووەکانی قوتابیان بە هەمان ئەو وەشانە دەمێننەوە کە پێی نمرەیان وەرگرتووە.</string>
+    <string name="admin_edit_replace_picture">گۆڕین بە وێنە</string>
+    <string name="admin_edit_replace_video">گۆڕین بە ڤیدیۆ</string>
+    <string name="admin_edit_not_found">ئەم پرسیارە ئیتر بوونی نییە.</string>
+    <string name="admin_delete_title">ئەم پرسیارە بسڕیتەوە؟</string>
+    <string name="admin_delete_body">قوتابیان ئیتر لە ڕاهێنان و تاقیکردنەوەدا نایبینن. ئەگەر کەسێک پێشتر وەڵامی دابێتەوە، لە جیاتی سڕینەوە ئەرشیف دەکرێت بۆ ئەوەی ئەنجامەکانیان ڕاست بمێننەوە.</string>
+    <string name="admin_question_deleted">پرسیارەکە سڕایەوە.</string>
+    <string name="admin_question_archived">پرسیارەکە لابرا. وەڵامی هەبوو، بۆیە ئەرشیف کرا بۆ پاراستنی ئەنجامی قوتابیان.</string>
+    <string name="event_question_edited">پرسیار دەستکاری کرا</string>
+    <string name="event_question_deleted">پرسیار سڕایەوە</string>
+    <string name="event_question_created">پرسیار زیادکرا</string>
 </resources>

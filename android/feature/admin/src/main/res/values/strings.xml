@@ -120,4 +120,19 @@
     <string name="event_certificate_requested">Certificate requested</string>
     <string name="event_certificate_approved">Certificate approved</string>
     <string name="event_certificate_rejected">Certificate rejected</string>
+    <string name="admin_edit">Edit</string>
+    <string name="admin_delete">Delete</string>
+    <string name="admin_edit_title">Edit question · %1$s</string>
+    <string name="admin_edit_save">Save changes</string>
+    <string name="admin_edit_note">Changes apply right away. If you change the question, its options or the answer, learners\' earlier answers keep the version they were marked against.</string>
+    <string name="admin_edit_replace_picture">Replace with picture</string>
+    <string name="admin_edit_replace_video">Replace with video</string>
+    <string name="admin_edit_not_found">This question no longer exists.</string>
+    <string name="admin_delete_title">Delete this question?</string>
+    <string name="admin_delete_body">Learners will no longer see it in practice or exams. If someone has already answered it, it is archived instead, so their results stay correct.</string>
+    <string name="admin_question_deleted">Question deleted.</string>
+    <string name="admin_question_archived">Question removed. It had answers, so it was archived to keep learners\' results.</string>
+    <string name="event_question_edited">Question edited</string>
+    <string name="event_question_deleted">Question deleted</string>
+    <string name="event_question_created">Question added</string>
 </resources>
