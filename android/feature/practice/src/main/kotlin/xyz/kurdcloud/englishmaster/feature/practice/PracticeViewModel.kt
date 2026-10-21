@@ -53,6 +53,8 @@ class PracticeViewModel(
     val mistakesOnly: Boolean = false,
     /** Topic session (Life in the UK, Kurdistan, ...) across all downloaded levels. */
     val topic: Topic? = null,
+    /** Session on one exact tag (a Life in the UK chapter) across all downloaded levels. */
+    private val tag: String? = null,
 ) : ViewModel() {
     private val attemptId = practice.newAttemptId()
     private val state = MutableStateFlow(PracticeUiState())
@@ -61,6 +63,7 @@ class PracticeViewModel(
     init {
         viewModelScope.launch {
             val questions = when {
+                tag != null -> content.pickTagged(tag, userId, sessionSize)
                 topic != null -> content.pickTopic(topic, userId, sessionSize)
                 level == null -> emptyList()
                 mistakesOnly -> content.pickMistakes(level, userId, sessionSize)

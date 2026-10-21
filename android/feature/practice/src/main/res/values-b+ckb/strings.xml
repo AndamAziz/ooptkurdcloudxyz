@@ -143,4 +143,73 @@
     <string name="home_chip_awaiting_approval">چاوەڕوانی پەسەندکردن</string>
     <string name="home_status_awaiting_approval">بە %1$d / %2$d دەرچوویت. مامۆستاکەت پێداچوونەوە بە ئەنجامەکەدا دەکات؛ دوای پەسەندکردن بڕوانامەکە لێرە دەردەکەوێت.</string>
     <string name="home_my_account">هەژمارەکەم</string>
+    <!-- Life in the UK test course -->
+    <string name="lituk_title">تاقیکردنەوەی Life in the UK</string>
+    <string name="home_lituk_title">تاقیکردنەوەی Life in the UK</string>
+    <string name="home_lituk_body">خۆت ئامادە بکە بۆ تاقیکردنەوە فەرمییەکەی ڕەگەزنامە و نیشتەجێبوونی بەریتانیا: ڕاهێنان بەپێی بەشەکانی کتێبە فەرمییەکە و تاقیکردنەوەی تەواوی ٢٤ پرسیاری.</string>
+    <string name="home_lituk_open">کردنەوە</string>
+    <string name="lituk_header_title">تاقیکردنەوە فەرمییەکەی Life in the UK دەربچە</string>
+    <string name="lituk_header_body">تاقیکردنەوە ڕاستەقینەکە %1$d پرسیارە لە %2$d خولەکدا. بۆ دەرچوون پێویستە %3$d وەڵامی ڕاست بدەیتەوە (75%%). هەموو پرسیارەکانی ئێرە لەسەر بنەمای کتێبە فەرمییەکە نووسراون.</string>
+    <string name="lituk_download_body">یەک جار پرسیارەکانی Life in the UK دابەزێنە؛ دواتر بەبێ ئینتەرنێت ڕاهێنان دەکەیت.</string>
+    <string name="lituk_download">دابەزاندنی پرسیارەکان</string>
+    <plurals name="lituk_pack_ready">
+        <item quantity="one">%1$d پرسیار ئامادەیە</item>
+        <item quantity="other">%1$d پرسیار ئامادەیە</item>
+    </plurals>
+    <plurals name="lituk_progress">
+        <item quantity="one">%1$d وەڵام نمرەی دراوە · %2$d%% ڕاست</item>
+        <item quantity="other">%1$d وەڵام نمرەی دراوە · %2$d%% ڕاست</item>
+    </plurals>
+    <string name="lituk_mock_title">تاقیکردنەوەی نموونەیی</string>
+    <string name="lituk_mock_body">وەک تاقیکردنەوە ڕاستەقینەکە: %1$d پرسیاری هەڕەمەکی، %2$d خولەک، نمرەی دەرچوون %3$d. ئەنجامەکانت لە کۆتاییدا دەبینیت.</string>
+    <string name="lituk_mock_start">دەستپێکردنی تاقیکردنەوەی نموونەیی</string>
+    <string name="lituk_mock_not_enough">تاقیکردنەوەی نموونەیی لانیکەم %1$d پرسیاری دابەزێنراوی پێویستە. سەرەتا پرسیارەکان دابەزێنە یان نوێیان بکەرەوە.</string>
+    <string name="lituk_chapters_header">ڕاهێنان بەپێی بەش</string>
+    <string name="lituk_ch1">١. بەها و بنەماکانی بەریتانیا</string>
+    <string name="lituk_ch1_desc">بەها بەریتانییەکان، ئەرک و ئازادییەکان، بوون بە هاووڵاتی</string>
+    <string name="lituk_ch2">٢. بەریتانیا چییە؟</string>
+    <string name="lituk_ch2_desc">چوار نەتەوەکە، پایتەختەکان، ئاڵاکان، ناوچە سەر بە تاجەکان</string>
+    <string name="lituk_ch3">٣. مێژوویەکی درێژ و پڕشکۆ</string>
+    <string name="lituk_ch3_desc">لە سەردەمی بەردینەوە تا بەریتانیای نوێ: پاشا و شاژنەکان، جەنگەکان، داهێنانەکان</string>
+    <string name="lituk_ch4">٤. کۆمەڵگەیەکی نوێ و پێشکەوتوو</string>
+    <string name="lituk_ch4_desc">ئایین، جەژنەکان، وەرزش، هونەر، شوێنە گرنگەکان</string>
+    <string name="lituk_ch5">٥. حکومەت، یاسا و ڕۆڵی تۆ</string>
+    <string name="lituk_ch5_desc">پەرلەمان، هەڵبژاردن، دادگاکان، ماف و ئەرکەکان</string>
+    <string name="lituk_practise_all">ڕاهێنان لەسەر هەموو بەشەکان</string>
+    <plurals name="lituk_review_mistakes">
+        <item quantity="one">پێداچوونەوەی %1$d هەڵە</item>
+        <item quantity="other">پێداچوونەوەی %1$d هەڵە</item>
+    </plurals>
+    <string name="lituk_chapter_empty">هێشتا هیچ پرسیارێک بۆ ئەم بەشە نییە. سەرەتا پرسیارەکانی Life in the UK دابەزێنە یان نوێیان بکەرەوە.</string>
+    <string name="lituk_official_title">سەرچاوە فەرمییەکان</string>
+    <string name="lituk_official_body">تاقیکردنەوەکە تەنها لەسەر کتێبە فەرمییەکەیە: \"Life in the United Kingdom: A Guide for New Residents\". تاقیکردنەوەکە تەنها لە GOV.UK حیجز بکە.</string>
+    <string name="lituk_link_book">GOV.UK: دەربارەی تاقیکردنەوە و حیجزکردن</string>
+    <string name="lituk_link_test_day">GOV.UK: ڕۆژی تاقیکردنەوە چی ڕوودەدات</string>
+    <string name="lituk_link_handbook">کتێبە فەرمییەکە</string>
+    <string name="lituk_disclaimer">ئەمانە پرسیاری ڕاهێنانی ڕەسەنن کە لە کتێبە فەرمییەکەوە نووسراون، نەک پرسیارەکانی تاقیکردنەوە ڕاستەقینەکە (ئەوانە بڵاوناکرێنەوە). زانیارییەکان وەک ئەوەی لە کتێبەکەدا هاتووە؛ هەندێک شت، وەک پاشا، لە دوای چاپکردنی کتێبەکەوە گۆڕاون.</string>
+    <string name="lituk_mock_marking">نمرەدانی وەڵامەکانت…</string>
+    <string name="lituk_mock_previous">پێشوو</string>
+    <string name="lituk_mock_finish">کۆتاییهێنان بە تاقیکردنەوە</string>
+    <string name="lituk_mock_finish_title">تاقیکردنەوەکە تەواو دەکەیت؟</string>
+    <string name="lituk_mock_all_answered">وەڵامی هەموو پرسیارەکانت داوەتەوە.</string>
+    <plurals name="lituk_mock_unanswered">
+        <item quantity="one">%1$d پرسیار وەڵام نەدراوەتەوە؛ بە هەڵە هەژمار دەکرێت.</item>
+        <item quantity="other">%1$d پرسیار وەڵام نەدراونەتەوە؛ بە هەڵە هەژمار دەکرێن.</item>
+    </plurals>
+    <string name="lituk_mock_keep_going">بەردەوام بە</string>
+    <string name="lituk_mock_leave_title">تاقیکردنەوەکە جێدەهێڵیت؟</string>
+    <string name="lituk_mock_leave_body">وەڵامەکانت لەم تاقیکردنەوەیەدا لەدەست دەچن.</string>
+    <string name="lituk_mock_leave">جێهێشتن</string>
+    <string name="lituk_mock_time_up">کات تەواو بوو: وەڵامەکانت بە شێوەی خۆکار نێردران.</string>
+    <string name="lituk_mock_passed">دەرچوویت! 🎉</string>
+    <string name="lituk_mock_failed">ئەمجارە نا — بەردەوام بە لە ڕاهێنان</string>
+    <string name="lituk_mock_score">%1$d لە %2$d ڕاست (%3$d%%). نمرەی دەرچوون: %4$d.</string>
+    <plurals name="lituk_mock_waiting">
+        <item quantity="one">%1$d وەڵام بەبێ ئینتەرنێت پاشەکەوت کراوە و کاتێک گەڕایتەوە سەر هێڵ نمرەی دەدرێتێ.</item>
+        <item quantity="other">%1$d وەڵام بەبێ ئینتەرنێت پاشەکەوت کراون و کاتێک گەڕایتەوە سەر هێڵ نمرەیان دەدرێتێ.</item>
+    </plurals>
+    <string name="lituk_mock_review">پێداچوونەوە: پرسیارەکانی فێربوون</string>
+    <string name="lituk_mock_not_answered">وەڵام نەدراوەتەوە</string>
+    <string name="lituk_mock_practise_mistakes">ڕاهێنان لەسەر هەڵەکانم</string>
+    <string name="lituk_mock_done">تەواو</string>
 </resources>

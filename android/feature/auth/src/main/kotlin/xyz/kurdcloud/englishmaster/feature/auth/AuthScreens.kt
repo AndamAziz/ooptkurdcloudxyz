@@ -21,6 +21,10 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -167,6 +171,40 @@ fun ForgotPasswordScreen(viewModel: ForgotPasswordViewModel, onSent: () -> Unit,
         EmailField(state.email, viewModel::onEmailChange, state.emailError, enabled = !state.submitting, imeAction = ImeAction.Done)
         MessageText(state.message)
         SubmitButton(stringResource(R.string.auth_send_reset_link), state.submitting, viewModel::submit)
+    }
+}
+
+/** Opened from the password-reset email (the link has already signed the user in). */
+@Composable
+fun SetPasswordScreen(viewModel: SetPasswordViewModel, onDone: () -> Unit, onCancel: () -> Unit) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    LaunchedEffect(state.done) { if (state.done) onDone() }
+    AuthScaffold(title = stringResource(R.string.auth_set_password_title), onBack = onCancel) {
+        Text(stringResource(R.string.auth_set_password_body), style = MaterialTheme.typography.bodyMedium)
+        PasswordField(
+            value = state.password,
+            onValueChange = viewModel::onPasswordChange,
+            isError = state.passwordError,
+            errorText = stringResource(R.string.auth_password_rules),
+            enabled = !state.submitting,
+            newPassword = true,
+            onDone = {},
+        )
+        OutlinedTextField(
+            value = state.confirm,
+            onValueChange = viewModel::onConfirmChange,
+            label = { Text(stringResource(R.string.auth_set_password_confirm)) },
+            isError = state.mismatch,
+            supportingText = if (state.mismatch) ({ Text(stringResource(R.string.auth_set_password_mismatch)) }) else null,
+            singleLine = true,
+            enabled = !state.submitting,
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(onDone = { viewModel.submit() }),
+            modifier = Modifier.fillMaxWidth().testTag("set_password_confirm"),
+        )
+        MessageText(state.message)
+        SubmitButton(stringResource(R.string.auth_set_password_save), state.submitting, viewModel::submit)
     }
 }
 

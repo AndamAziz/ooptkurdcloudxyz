@@ -15,6 +15,10 @@ enum class AuthMessage(@StringRes val text: Int) {
     RATE_LIMITED(R.string.auth_error_rate_limited),
     NOT_CONFIGURED(R.string.auth_error_not_configured),
     SESSION_EXPIRED(R.string.auth_error_session_expired),
+    SAME_PASSWORD(R.string.auth_error_same_password),
+    EMAIL_LIMIT(R.string.auth_error_email_limit),
+    LINK_EXPIRED(R.string.auth_error_link_expired),
+    LINK_INVALID(R.string.auth_error_link_invalid),
     GENERIC(R.string.auth_error_generic);
 
     companion object {
@@ -27,6 +31,8 @@ enum class AuthMessage(@StringRes val text: Int) {
                 AuthFailure.EMAIL_NOT_CONFIRMED -> EMAIL_NOT_CONFIRMED
                 AuthFailure.USER_EXISTS -> USER_EXISTS
                 AuthFailure.WEAK_PASSWORD -> WEAK_PASSWORD
+                AuthFailure.SAME_PASSWORD -> SAME_PASSWORD
+                AuthFailure.EMAIL_LIMIT -> EMAIL_LIMIT
                 AuthFailure.SIGNUP_DISABLED -> SIGNUP_DISABLED
                 AuthFailure.OTHER -> GENERIC
             }

@@ -1,0 +1,1 @@
+Clearer message when too many sign-up or password-reset emails were sent recently.

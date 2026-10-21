@@ -39,6 +39,12 @@ interface ContentRepository {
 
     /** Downloaded questions per topic. */
     fun observeTopicCounts(): Flow<Map<Topic, Int>> = kotlinx.coroutines.flow.flowOf(emptyMap())
+
+    /** Questions carrying one exact tag (e.g. a Life in the UK chapter), from every downloaded level. */
+    suspend fun pickTagged(tag: String, userId: String, count: Int): List<Question> = emptyList()
+
+    /** Downloaded questions per tag. */
+    fun observeTagCounts(tags: List<String>): Flow<Map<String, Int>> = kotlinx.coroutines.flow.flowOf(emptyMap())
 }
 
 class OfflineFirstContentRepository(
@@ -112,6 +118,13 @@ class OfflineFirstContentRepository(
         },
     ) { pairs -> pairs.toMap() }
 
+    override suspend fun pickTagged(tag: String, userId: String, count: Int): List<Question> =
+        questionDao.pickForTopic(tagPattern(tag), "", "", "", false, false, userId, count).map { it.toModel(media) }
+
+    override fun observeTagCounts(tags: List<String>): Flow<Map<String, Int>> = combine(
+        tags.map { tag -> questionDao.observeTopicCount(tagPattern(tag), "", "", "", false, false).map { tag to it } },
+    ) { pairs -> pairs.toMap() }
+
     private companion object {
         const val PAGE_SIZE = 100
         const val MAX_QUESTIONS_PER_LEVEL = 5_000
@@ -119,7 +132,9 @@ class OfflineFirstContentRepository(
 }
 
 /** Tags are stored as a JSON list, so `%"tag"%` matches one whole tag; "" never matches ("[]" at least). */
-private fun Topic.likePatterns(): List<String> = tags.map { "%\"$it\"%" } + List(Topic.MAX_TAGS - tags.size) { "" }
+private fun Topic.likePatterns(): List<String> = tags.map(::tagPattern) + List(Topic.MAX_TAGS - tags.size) { "" }
+
+private fun tagPattern(tag: String) = "%\"$tag\"%"
 
 private fun PracticeQuestionDto.toEntity(now: Long, mediaLocal: String?) =
     QuestionEntity(id, level, skill, prompt, options, version, reviewStatus, updatedAt, now, passage, mediaType, mediaPath, mediaCaption, mediaLocal, tags)

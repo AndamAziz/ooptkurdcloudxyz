@@ -143,4 +143,73 @@
     <string name="home_chip_awaiting_approval">Waiting for approval</string>
     <string name="home_status_awaiting_approval">Passed with %1$d / %2$d. Your teacher will review the result; the certificate appears here once it is approved.</string>
     <string name="home_my_account">My account</string>
+    <!-- Life in the UK test course -->
+    <string name="lituk_title">Life in the UK test</string>
+    <string name="home_lituk_title">Life in the UK test</string>
+    <string name="home_lituk_body">Prepare for the official British citizenship and settlement test: practice by handbook chapter and full 24-question mock tests.</string>
+    <string name="home_lituk_open">Open</string>
+    <string name="lituk_header_title">Pass the official Life in the UK test</string>
+    <string name="lituk_header_body">The real test has %1$d questions in %2$d minutes. You need %3$d correct (75%%) to pass. Every question here is based on the official handbook.</string>
+    <string name="lituk_download_body">Download the Life in the UK questions once; after that you can practise offline.</string>
+    <string name="lituk_download">Download questions</string>
+    <plurals name="lituk_pack_ready">
+        <item quantity="one">%1$d question ready</item>
+        <item quantity="other">%1$d questions ready</item>
+    </plurals>
+    <plurals name="lituk_progress">
+        <item quantity="one">%1$d answer marked · %2$d%% correct</item>
+        <item quantity="other">%1$d answers marked · %2$d%% correct</item>
+    </plurals>
+    <string name="lituk_mock_title">Mock test</string>
+    <string name="lituk_mock_body">Like the real test: %1$d random questions, %2$d minutes, pass mark %3$d. You see your results at the end.</string>
+    <string name="lituk_mock_start">Start a mock test</string>
+    <string name="lituk_mock_not_enough">A mock test needs at least %1$d downloaded questions. Download or update the questions first.</string>
+    <string name="lituk_chapters_header">Practise by chapter</string>
+    <string name="lituk_ch1">1. Values and principles of the UK</string>
+    <string name="lituk_ch1_desc">British values, responsibilities and freedoms, becoming a citizen</string>
+    <string name="lituk_ch2">2. What is the UK?</string>
+    <string name="lituk_ch2_desc">The four nations, capitals, flags, Crown dependencies</string>
+    <string name="lituk_ch3">3. A long and illustrious history</string>
+    <string name="lituk_ch3_desc">From the Stone Age to modern Britain: kings and queens, wars, inventions</string>
+    <string name="lituk_ch4">4. A modern, thriving society</string>
+    <string name="lituk_ch4_desc">Religion, festivals, sport, arts, places of interest</string>
+    <string name="lituk_ch5">5. The UK government, the law and your role</string>
+    <string name="lituk_ch5_desc">Parliament, elections, courts, rights and responsibilities</string>
+    <string name="lituk_practise_all">Practise all chapters</string>
+    <plurals name="lituk_review_mistakes">
+        <item quantity="one">Review %1$d mistake</item>
+        <item quantity="other">Review %1$d mistakes</item>
+    </plurals>
+    <string name="lituk_chapter_empty">No questions for this chapter yet. Download or update the Life in the UK questions first.</string>
+    <string name="lituk_official_title">Official sources</string>
+    <string name="lituk_official_body">The test is based only on the official handbook \"Life in the United Kingdom: A Guide for New Residents\". Book the test only on GOV.UK.</string>
+    <string name="lituk_link_book">GOV.UK: about the test and booking</string>
+    <string name="lituk_link_test_day">GOV.UK: what happens at the test</string>
+    <string name="lituk_link_handbook">The official handbook</string>
+    <string name="lituk_disclaimer">These are original practice questions written from the official handbook, not the questions of the real test (those are not published). Facts are as given in the handbook; a few things, such as the monarch, have changed since it was printed.</string>
+    <string name="lituk_mock_marking">Marking your answers…</string>
+    <string name="lituk_mock_previous">Previous</string>
+    <string name="lituk_mock_finish">Finish test</string>
+    <string name="lituk_mock_finish_title">Finish the test?</string>
+    <string name="lituk_mock_all_answered">You have answered every question.</string>
+    <plurals name="lituk_mock_unanswered">
+        <item quantity="one">%1$d question is not answered; it will count as wrong.</item>
+        <item quantity="other">%1$d questions are not answered; they will count as wrong.</item>
+    </plurals>
+    <string name="lituk_mock_keep_going">Keep going</string>
+    <string name="lituk_mock_leave_title">Leave the mock test?</string>
+    <string name="lituk_mock_leave_body">Your answers in this test will be lost.</string>
+    <string name="lituk_mock_leave">Leave</string>
+    <string name="lituk_mock_time_up">Time is up: your answers were handed in automatically.</string>
+    <string name="lituk_mock_passed">You passed! 🎉</string>
+    <string name="lituk_mock_failed">Not this time — keep practising</string>
+    <string name="lituk_mock_score">%1$d of %2$d correct (%3$d%%). Pass mark: %4$d.</string>
+    <plurals name="lituk_mock_waiting">
+        <item quantity="one">%1$d answer is saved offline and will be marked when you are back online.</item>
+        <item quantity="other">%1$d answers are saved offline and will be marked when you are back online.</item>
+    </plurals>
+    <string name="lituk_mock_review">Review: questions to learn</string>
+    <string name="lituk_mock_not_answered">Not answered</string>
+    <string name="lituk_mock_practise_mistakes">Practise my mistakes</string>
+    <string name="lituk_mock_done">Done</string>
 </resources>

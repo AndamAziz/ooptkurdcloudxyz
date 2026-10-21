@@ -325,7 +325,7 @@ private fun QuestionsTab(
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { if (!state.loading) vm.load(state.level) }
     Column(Modifier.fillMaxSize()) {
         Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            CefrLevel.practiceLevels.forEach { level ->
+            CefrLevel.authoringLevels.forEach { level ->
                 FilterChip(selected = state.level == level, onClick = { vm.load(level) }, label = { Text(level.label) })
             }
         }

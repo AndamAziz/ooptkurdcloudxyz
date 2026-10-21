@@ -77,6 +77,7 @@ internal fun CefrLevel.descriptionRes(): Int = when (this) {
     CefrLevel.B2 -> R.string.level_b2
     CefrLevel.C1 -> R.string.level_c1
     CefrLevel.C2 -> R.string.level_c2
+    CefrLevel.LIFE_IN_UK -> R.string.lituk_title
 }
 
 /** Navigation out of the home screen. */
@@ -87,6 +88,7 @@ data class HomeActions(
     val onPlacementTest: () -> Unit = {},
     val onCertificates: () -> Unit = {},
     val onPractiseTopic: (Topic) -> Unit = {},
+    val onLifeInUk: () -> Unit = {},
 )
 
 @StringRes
@@ -198,6 +200,7 @@ fun HomeScreen(
                 state.profile?.let { profile ->
                     item { PlacementCard(profile.placementLevel, actions.onPlacementTest, actions.onStartPractice) }
                 }
+                item { LifeInUkCard(actions.onLifeInUk) }
                 item { HowCertificatesWork() }
                 if (state.hasDownloads) {
                     item { TopicsSection(state.topics, actions.onPractiseTopic) }
@@ -298,6 +301,30 @@ private fun PlacementCard(placement: CefrLevel?, onPlacement: () -> Unit, onPrac
 }
 
 @Composable
+private fun LifeInUkCard(onOpen: () -> Unit) {
+    Card(
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+        modifier = Modifier.fillMaxWidth().clickable(onClick = onOpen).testTag("home_lituk"),
+    ) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .background(Brush.linearGradient(listOf(Color(0xFF012169), Color(0xFF1D3F94), Color(0xFFC8102E))))
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text("🇬🇧", style = MaterialTheme.typography.headlineMedium)
+            Column(Modifier.weight(1f).padding(horizontal = 12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(stringResource(R.string.home_lituk_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, color = Color.White)
+                Text(stringResource(R.string.home_lituk_body), style = MaterialTheme.typography.bodySmall, color = Color.White.copy(alpha = 0.92f))
+            }
+            FilledTonalButton(onClick = onOpen) { Text(stringResource(R.string.home_lituk_open)) }
+        }
+    }
+}
+
+@Composable
 private fun HowCertificatesWork() {
     var open by rememberSaveable { mutableStateOf(false) }
     Card(
@@ -335,7 +362,7 @@ private fun TopicsSection(counts: Map<Topic, Int>, onPractise: (Topic) -> Unit) 
             // Packs downloaded before topics existed have no tags until they are updated.
             Text(stringResource(R.string.topics_update_levels), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.tertiary)
         }
-        Topic.entries.forEach { topic ->
+        Topic.entries.filter { it != Topic.LIFE_IN_UK }.forEach { topic ->
             val count = counts[topic] ?: 0
             Card(
                 shape = RoundedCornerShape(18.dp),

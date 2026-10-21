@@ -32,6 +32,12 @@ class FakeAuthRepository : AuthRepository {
         return ApiResult.Success(Unit)
     }
 
+    var updatePasswordResult: ApiResult<Unit> = ApiResult.Success(Unit)
+    override suspend fun updatePassword(newPassword: String): ApiResult<Unit> {
+        calls += "updatePassword"
+        return updatePasswordResult
+    }
+
     override suspend fun signOut() {
         calls += "signOut"
     }

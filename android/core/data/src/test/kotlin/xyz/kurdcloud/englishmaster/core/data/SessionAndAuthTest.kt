@@ -22,6 +22,7 @@ import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import xyz.kurdcloud.englishmaster.core.model.EmailLink
 import xyz.kurdcloud.englishmaster.core.model.AuthSession
 import xyz.kurdcloud.englishmaster.core.network.ApiError
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
@@ -102,6 +103,44 @@ class SessionAndAuthTest {
         val body = server.takeRequest().body!!.utf8()
         assertEquals(true, body.contains("\"display_name\":\"Ali\""))
         assertFalse("client must never send a role", body.contains("role"))
+    }
+
+    @Test
+    fun emailLinksOpenTheAppAndAResetLinkLetsTheUserSetANewPassword() = runTest {
+        val (repo, store) = repo(CoroutineScope(SupervisorJob() + UnconfinedTestDispatcher(testScheduler)))
+
+        // Reset and confirmation emails point back into the app.
+        server.enqueue(json(200, "{}"))
+        repo.requestPasswordReset("a@b.co")
+        assertEquals(EmailLink.REDIRECT, server.takeRequest().url.queryParameter("redirect_to"))
+        server.enqueue(json(200, """{"id":"u1","email":"a@b.co"}"""))
+        repo.register("Ali", "a@b.co", "abcdef12")
+        assertEquals(EmailLink.REDIRECT, server.takeRequest().url.queryParameter("redirect_to"))
+
+        // The link's tokens become a session once the server confirms whose they are.
+        val link = EmailLink.parse("${EmailLink.REDIRECT}#access_token=AT&expires_in=3600&refresh_token=RT&token_type=bearer&type=recovery")
+            as EmailLink.SignedIn
+        server.enqueue(json(200, """{"id":"u7","email":"a@b.co"}"""))
+        assertEquals(ApiResult.Success(Unit), repo.completeEmailLink(link))
+        val user = server.takeRequest()
+        assertEquals("/auth/v1/user", user.url.encodedPath)
+        assertEquals("Bearer AT", user.headers["Authorization"])
+        assertEquals("u7", store.current()?.userId)
+        assertEquals("RT", store.current()?.refreshToken)
+
+        server.enqueue(json(200, """{"id":"u7","email":"a@b.co"}"""))
+        assertEquals(ApiResult.Success(Unit), repo.updatePassword("newpass99"))
+        val update = server.takeRequest()
+        assertEquals("PUT", update.method)
+        assertEquals("Bearer AT", update.headers["Authorization"])
+        assertEquals("""{"password":"newpass99"}""", update.body!!.utf8())
+
+        server.enqueue(json(429, """{"error_code":"over_email_send_rate_limit","msg":"email rate limit exceeded"}"""))
+        assertEquals(ApiResult.Failure(ApiError.Auth(AuthFailure.EMAIL_LIMIT)), repo.requestPasswordReset("a@b.co"))
+        server.takeRequest()
+
+        server.enqueue(json(422, """{"error_code":"same_password","msg":"New password should be different"}"""))
+        assertEquals(ApiResult.Failure(ApiError.Auth(AuthFailure.SAME_PASSWORD)), repo.updatePassword("newpass99"))
     }
 
     @Test

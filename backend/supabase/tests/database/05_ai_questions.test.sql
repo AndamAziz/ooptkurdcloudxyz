@@ -1,6 +1,6 @@
 -- AI-drafted question batches stay hidden from students until a teacher approves them.
 begin;
-select plan(11);
+select plan(13);
 
 select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-01:%'), 125,
   'AI batch 01 seeded: 125 items');
@@ -22,8 +22,13 @@ select is((select count(*)::int from (
              where status <> 'retired' group by 1, 2 having count(*) > 1) d), 0,
   'no AI prompt duplicates an existing prompt in the same level');
 select is((select count(*)::int from public.assessment_questions
-            where external_ref like 'ai:%' and cardinality(options) <> 4), 0,
-  'every AI item has four options');
+            where external_ref like 'ai:%' and cardinality(options) <> 4 and options <> array['True', 'False']), 0,
+  'every AI item has four options, or is a True/False item');
+select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-04:%' and status = 'draft'), 400,
+  'AI batch 04 (Life in the UK course) seeded as 400 drafts');
+select is((select count(*)::int from public.assessment_questions
+            where options = array['True', 'False'] and (cefr_level <> 'LIFE_IN_UK' or prompt not like 'TRUE or FALSE: %')), 0,
+  'True/False items belong to the Life in the UK course and say so in the prompt');
 
 insert into auth.users (id, email) values
   ('eeeeeeee-0000-0000-0000-00000000000e', 'student.ai@example.test'),

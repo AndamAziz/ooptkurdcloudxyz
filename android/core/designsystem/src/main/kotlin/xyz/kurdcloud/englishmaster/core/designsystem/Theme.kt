@@ -97,6 +97,7 @@ object LevelColors {
         CefrLevel.B2 -> Color(0xFF3949AB)
         CefrLevel.C1 -> Color(0xFF8E24AA)
         CefrLevel.C2 -> Color(0xFFC62828)
+        CefrLevel.LIFE_IN_UK -> Color(0xFF012169) // Union Flag blue
     }
 }
 

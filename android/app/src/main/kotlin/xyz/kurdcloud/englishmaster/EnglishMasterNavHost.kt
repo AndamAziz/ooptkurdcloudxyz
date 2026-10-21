@@ -16,8 +16,11 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.flow.StateFlow
 import xyz.kurdcloud.englishmaster.core.data.RegisterOutcome
 import xyz.kurdcloud.englishmaster.core.designsystem.LoadingState
+import xyz.kurdcloud.englishmaster.core.model.EmailLink
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.ExamKind
+import xyz.kurdcloud.englishmaster.core.model.LifeInUkChapter
+import xyz.kurdcloud.englishmaster.core.model.LifeInUkTest
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
 import xyz.kurdcloud.englishmaster.core.model.Topic
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
@@ -28,6 +31,8 @@ import xyz.kurdcloud.englishmaster.feature.admin.AddQuestionViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.QuestionsViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.StaffScreen
 import xyz.kurdcloud.englishmaster.feature.admin.UsersViewModel
+import xyz.kurdcloud.englishmaster.feature.auth.SetPasswordScreen
+import xyz.kurdcloud.englishmaster.feature.auth.SetPasswordViewModel
 import xyz.kurdcloud.englishmaster.feature.auth.AccountActions
 import xyz.kurdcloud.englishmaster.feature.auth.AccountScreen
 import xyz.kurdcloud.englishmaster.feature.auth.AccountViewModel
@@ -49,6 +54,13 @@ import xyz.kurdcloud.englishmaster.feature.exam.CertificatesViewModel
 import xyz.kurdcloud.englishmaster.feature.exam.ExamScreen
 import xyz.kurdcloud.englishmaster.feature.exam.ExamViewModel
 import xyz.kurdcloud.englishmaster.feature.practice.HomeActions
+import xyz.kurdcloud.englishmaster.feature.practice.LifeInUkActions
+import xyz.kurdcloud.englishmaster.feature.practice.LifeInUkScreen
+import xyz.kurdcloud.englishmaster.feature.practice.LifeInUkViewModel
+import xyz.kurdcloud.englishmaster.feature.practice.MockTestScreen
+import xyz.kurdcloud.englishmaster.feature.practice.MockTestViewModel
+import xyz.kurdcloud.englishmaster.feature.practice.titleRes
+import xyz.kurdcloud.englishmaster.feature.practice.R as PracticeR
 import xyz.kurdcloud.englishmaster.feature.practice.HomeScreen
 import xyz.kurdcloud.englishmaster.feature.practice.HomeViewModel
 import xyz.kurdcloud.englishmaster.feature.practice.PracticeScreen
@@ -56,7 +68,8 @@ import xyz.kurdcloud.englishmaster.feature.practice.PracticeViewModel
 
 private object Routes {
     const val WELCOME = "welcome"
-    const val SIGN_IN = "sign-in?expired={expired}"
+    const val SIGN_IN = "sign-in?notice={notice}"
+    const val SET_PASSWORD = "set-password"
     const val REGISTER = "register"
     const val FORGOT = "forgot-password"
     const val CHECK_EMAIL = "check-email/{reason}"
@@ -71,12 +84,17 @@ private object Routes {
     const val CERTIFICATES = "certificates"
     const val ACCOUNT = "account"
     const val PRIVACY = "privacy"
+    const val LIFE_IN_UK = "life-in-uk"
+    const val LIFE_IN_UK_CHAPTER = "life-in-uk/chapter/{tag}"
+    const val LIFE_IN_UK_MOCK = "life-in-uk/mock-test"
 
-    fun signIn(expired: Boolean = false) = "sign-in?expired=$expired"
+    /** [notice]: a message to show on arrival (session expired, email link expired, ...). */
+    fun signIn(notice: AuthMessage? = null) = "sign-in?notice=${notice?.name.orEmpty()}"
     fun checkEmail(reason: CheckEmailReason) = "check-email/${reason.name}"
     fun practice(level: CefrLevel, mistakes: Boolean = false) = "practice/${level.apiValue}?mistakes=$mistakes"
     fun exam(level: CefrLevel) = "exam/${level.apiValue}"
     fun topic(topic: Topic) = "topic/${topic.apiValue}"
+    fun lifeInUkChapter(tag: String) = "life-in-uk/chapter/$tag"
 }
 
 @Composable
@@ -98,11 +116,27 @@ fun EnglishMasterNavHost(
     // A rejected refresh token signs the user out; send them to sign-in with an explanation.
     LaunchedEffect(Unit) {
         container.auth.sessionExpired.collect {
-            navController.navigate(Routes.signIn(expired = true)) { popUpTo(0) }
+            navController.navigate(Routes.signIn(AuthMessage.SESSION_EXPIRED)) { popUpTo(0) }
         }
     }
 
     fun goHome() = navController.navigate(Routes.HOME) { popUpTo(0) }
+
+    // Password-reset and sign-up confirmation emails open the app with tokens (see MainActivity).
+    val emailLink by container.emailLinks.collectAsStateWithLifecycle()
+    LaunchedEffect(emailLink) {
+        val link = emailLink ?: return@LaunchedEffect
+        container.emailLinks.value = null
+        when (link) {
+            is EmailLink.SignedIn -> when (val result = container.auth.completeEmailLink(link)) {
+                is ApiResult.Success ->
+                    if (link.recovery) navController.navigate(Routes.SET_PASSWORD) { popUpTo(0) } else goHome()
+                is ApiResult.Failure -> navController.navigate(Routes.signIn(AuthMessage.from(result.error))) { popUpTo(0) }
+            }
+            EmailLink.Expired -> navController.navigate(Routes.signIn(AuthMessage.LINK_EXPIRED)) { popUpTo(0) }
+            EmailLink.Invalid -> navController.navigate(Routes.signIn(AuthMessage.LINK_INVALID)) { popUpTo(0) }
+        }
+    }
 
     // Decided once; later sign-in/sign-out navigate explicitly instead of swapping the graph.
     val startDestination = remember { if (session != null) Routes.HOME else Routes.WELCOME }
@@ -141,8 +175,8 @@ fun EnglishMasterNavHost(
         }
         composable(Routes.SIGN_IN) { entry ->
             val vm = viewModel { SignInViewModel(container.auth) }
-            val expired = entry.arguments?.getString("expired") == "true"
-            LaunchedEffect(expired) { if (expired) vm.showMessage(AuthMessage.SESSION_EXPIRED) }
+            val notice = entry.arguments?.getString("notice")?.let { n -> AuthMessage.entries.firstOrNull { it.name == n } }
+            LaunchedEffect(notice) { notice?.let(vm::showMessage) }
             SignInScreen(
                 viewModel = vm,
                 onSignedIn = ::goHome,
@@ -163,6 +197,14 @@ fun EnglishMasterNavHost(
                     }
                 },
                 onBack = { navController.popBackStack() },
+            )
+        }
+        composable(Routes.SET_PASSWORD) {
+            SetPasswordScreen(
+                viewModel = viewModel { SetPasswordViewModel(container.auth) },
+                onDone = ::goHome,
+                // Skipping keeps the user signed in with the old password unchanged.
+                onCancel = ::goHome,
             )
         }
         composable(Routes.FORGOT) {
@@ -193,7 +235,42 @@ fun EnglishMasterNavHost(
                     onPlacementTest = { navController.navigate(Routes.PLACEMENT) },
                     onCertificates = { navController.navigate(Routes.CERTIFICATES) },
                     onPractiseTopic = { navController.navigate(Routes.topic(it)) },
+                    onLifeInUk = { navController.navigate(Routes.LIFE_IN_UK) },
                 ),
+            )
+        }
+        composable(Routes.LIFE_IN_UK) {
+            val userId = session?.userId ?: return@composable
+            LifeInUkScreen(
+                viewModel = viewModel { LifeInUkViewModel(userId, container.content, container.practice, container.network) },
+                actions = LifeInUkActions(
+                    onPractiseChapter = { navController.navigate(Routes.lifeInUkChapter(it.tag)) },
+                    onPractiseAll = { navController.navigate(Routes.practice(CefrLevel.LIFE_IN_UK)) },
+                    onReviewMistakes = { navController.navigate(Routes.practice(CefrLevel.LIFE_IN_UK, mistakes = true)) },
+                    onMockTest = { navController.navigate(Routes.LIFE_IN_UK_MOCK) },
+                    onBack = { navController.popBackStack() },
+                ),
+            )
+        }
+        composable(Routes.LIFE_IN_UK_CHAPTER) { entry ->
+            val userId = session?.userId ?: return@composable
+            val tag = entry.arguments?.getString("tag") ?: LifeInUkTest.TAG
+            val chapter = LifeInUkChapter.fromTag(tag)
+            PracticeScreen(
+                level = CefrLevel.LIFE_IN_UK,
+                viewModel = viewModel { PracticeViewModel(null, userId, container.content, container.practice, tag = tag) },
+                onExit = { navController.popBackStack() },
+                title = stringResource(chapter?.titleRes() ?: PracticeR.string.lituk_title),
+            )
+        }
+        composable(Routes.LIFE_IN_UK_MOCK) {
+            val userId = session?.userId ?: return@composable
+            MockTestScreen(
+                viewModel = viewModel { MockTestViewModel(userId, container.content, container.practice) },
+                onClose = { navController.popBackStack() },
+                onPractiseMistakes = {
+                    navController.navigate(Routes.practice(CefrLevel.LIFE_IN_UK, mistakes = true)) { popUpTo(Routes.LIFE_IN_UK) }
+                },
             )
         }
         composable(Routes.STAFF) {

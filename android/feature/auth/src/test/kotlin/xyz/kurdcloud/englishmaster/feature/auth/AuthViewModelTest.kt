@@ -91,4 +91,28 @@ class AuthViewModelTest {
         vm.submit()
         assertTrue(vm.uiState.value.sent)
     }
+
+    @Test
+    fun `new password is checked, must be repeated, and server refusals are explained`() {
+        val vm = SetPasswordViewModel(repo)
+        vm.onPasswordChange("short")
+        vm.submit()
+        assertTrue(vm.uiState.value.passwordError)
+
+        vm.onPasswordChange("newpass99")
+        vm.onConfirmChange("newpass98")
+        vm.submit()
+        assertTrue(vm.uiState.value.mismatch)
+        assertTrue(repo.calls.isEmpty())
+
+        repo.updatePasswordResult = ApiResult.Failure(ApiError.Auth(AuthFailure.SAME_PASSWORD))
+        vm.onConfirmChange("newpass99")
+        vm.submit()
+        assertEquals(AuthMessage.SAME_PASSWORD, vm.uiState.value.message)
+
+        repo.updatePasswordResult = ApiResult.Success(Unit)
+        vm.submit()
+        assertTrue(vm.uiState.value.done)
+        assertEquals("", vm.uiState.value.password)
+    }
 }
