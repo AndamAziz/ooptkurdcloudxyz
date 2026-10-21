@@ -5,7 +5,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.work.WorkManager
+import xyz.kurdcloud.englishmaster.core.data.AccountRepository
 import xyz.kurdcloud.englishmaster.core.data.AndroidNetworkMonitor
+import xyz.kurdcloud.englishmaster.core.data.SupabaseAccountRepository
 import xyz.kurdcloud.englishmaster.core.data.AuthRepository
 import xyz.kurdcloud.englishmaster.core.data.ContentRepository
 import xyz.kurdcloud.englishmaster.core.data.KeystoreCipher
@@ -60,6 +62,10 @@ class AppContainer(context: Context) {
         appContext.cacheDir.resolve("updates"),
     )
     val installer: ApkInstaller = PackageInstallerApkInstaller(appContext)
+    val account: AccountRepository = SupabaseAccountRepository(services.learning, auth) {
+        database.clearAll()
+        appContext.filesDir.resolve("question-media").deleteRecursively()
+    }
     val practice: PracticeRepository =
         OfflineFirstPracticeRepository(database.responses(), syncer, { syncScheduler.requestSync() }, network)
 }

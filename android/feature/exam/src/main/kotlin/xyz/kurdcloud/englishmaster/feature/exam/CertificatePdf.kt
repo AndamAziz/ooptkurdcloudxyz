@@ -110,7 +110,7 @@ class CertificateExporter(private val context: Context, private val verification
 
         text(
             canvas,
-            "A level achievement certificate of EnglishMaster AI, aligned to CEFR level descriptors. It is not an official CEFR certification.",
+            "A level achievement certificate of EnglishMaster, aligned to CEFR level descriptors. It is not an official CEFR certification.",
             8.5f, grey, y = HEIGHT - 62f,
         )
     }

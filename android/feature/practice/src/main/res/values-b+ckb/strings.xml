@@ -2,15 +2,9 @@
 <!-- Counts in exam rules are fixed values above one (20 questions, 30 minutes, 24 hours), and
      "%1$d of %2$d correct" uses "correct" as an adjective, so plurals are not needed there. -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="PluralsCandidate">
-    <string name="practice_home_title">EnglishMaster AI</string>
+    <string name="practice_home_title">EnglishMaster</string>
     <string name="practice_menu">لیست</string>
     <string name="practice_staff_tools">ئامرازەکانی بەڕێوەبردن</string>
-    <string name="practice_sign_out">چوونەدەرەوە</string>
-    <string name="practice_sign_out_confirm">دەتەوێت لەم ئامێرەدا بچیتە دەرەوە؟</string>
-    <plurals name="practice_sign_out_pending">
-        <item quantity="one">%1$d وەڵام هێشتا نەنێردراوە. لەسەر ئەم ئامێرە دەمێنێتەوە و جاری داهاتوو کە بەم هەژمارە چوویتە ژوورەوە دەنێردرێت.</item>
-        <item quantity="other">%1$d وەڵام هێشتا نەنێردراون. لەسەر ئەم ئامێرە دەمێننەوە و جاری داهاتوو کە بەم هەژمارە چوویتە ژوورەوە دەنێردرێن.</item>
-    </plurals>
     <string name="practice_cancel">پاشگەزبوونەوە</string>
     <string name="practice_levels_header">ئاستەکانی ڕاهێنان</string>
     <string name="practice_cefr_note">ئاستەکان کۆمەڵە ڕاهێنانێکن بەپێی CEFR، نەک بڕوانامەی فەرمیی CEFR. ئەو پرسیارانەی وەک «پێداچوونەوەی بۆ نەکراوە» نیشانکراون، هێشتا مامۆستایەک نەیپشکنیون.</string>
@@ -148,4 +142,5 @@
     <string name="practice_topic_empty">هێشتا هیچ پرسیارێک بۆ ئەم بابەتە نییە. سەرەتا ئاستێک دابەزێنە یان نوێی بکەرەوە.</string>
     <string name="home_chip_awaiting_approval">چاوەڕوانی پەسەندکردن</string>
     <string name="home_status_awaiting_approval">بە %1$d / %2$d دەرچوویت. مامۆستاکەت پێداچوونەوە بە ئەنجامەکەدا دەکات؛ دوای پەسەندکردن بڕوانامەکە لێرە دەردەکەوێت.</string>
+    <string name="home_my_account">هەژمارەکەم</string>
 </resources>

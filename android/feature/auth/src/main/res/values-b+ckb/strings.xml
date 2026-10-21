@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="auth_welcome_title">EnglishMaster AI</string>
+    <string name="auth_welcome_title">EnglishMaster</string>
     <string name="auth_welcome_body">زمانی ئینگلیزی هەنگاو بە هەنگاو فێربە، بە ڕاهێنانی گونجاو لەگەڵ ئاستەکانی CEFR. دەتوانیت ئەپەکە بە کوردی (سۆرانی) یان ئینگلیزی بەکاربهێنیت.</string>
     <string name="auth_interface_language">زمانی ئەپ</string>
     <string name="auth_privacy_summary">بۆ پێشکەشکردنی خزمەتگوزارییەکە، ناو، ئیمەیڵ، وەڵامەکان و پێشکەوتنت هەڵدەگرین. ئەو وەڵامانەی بە ئۆفلاین دەیدەیتەوە لەسەر ئەم ئامێرە دەمێننەوە تا دەنێردرێن.</string>
@@ -36,4 +36,54 @@
     <string name="auth_error_not_configured">ئەم وەشانە بە ڕاژەکار نەبەستراوەتەوە. (بۆ گەشەپێدەر: supabase.url و supabase.anonKey دابنێ.)</string>
     <string name="auth_error_session_expired">کاتی چوونەژوورەوەکەت تەواو بوو. تکایە دووبارە بچۆ ژوورەوە.</string>
     <string name="auth_error_generic">هەڵەیەک ڕوویدا. تکایە دووبارە هەوڵ بدەرەوە.</string>
+    <string name="account_title">هەژمارەکەم</string>
+    <string name="account_back">گەڕانەوە</string>
+    <string name="account_section_profile">پرۆفایل</string>
+    <string name="account_section_app">ئەپ</string>
+    <string name="account_name">ناو</string>
+    <string name="account_email">ئیمەیڵ</string>
+    <string name="account_edit">دەستکاری</string>
+    <string name="account_language">زمانی ئەپ</string>
+    <string name="account_privacy_policy">سیاسەتی تایبەتمەندی</string>
+    <string name="account_version">وەشان</string>
+    <string name="account_sign_out">چوونەدەرەوە</string>
+    <string name="account_sign_out_confirm">هەر کاتێک بتەوێت دەتوانیت دووبارە بچیتە ژوورەوە. ئاستە دابەزێنراوەکان لەسەر ئەم ئامێرە دەمێننەوە.</string>
+    <string name="account_role_learner">قوتابی</string>
+    <string name="account_role_teacher">مامۆستا</string>
+    <string name="account_role_admin">ئەدمین</string>
+    <string name="account_edit_name_title">ناوەکەت</string>
+    <string name="account_edit_name_body">ئەم ناوە لەسەر ئەو بڕوانامانە دەنووسرێت کە لە ئێستاوە دەردەچن.</string>
+    <string name="account_name_invalid">ناوێک بنووسە (تا ٨٠ پیت).</string>
+    <string name="account_save">پاشەکەوتکردن</string>
+    <string name="account_cancel">پاشگەزبوونەوە</string>
+    <string name="account_name_saved">ناوەکە پاشەکەوت کرا.</string>
+    <string name="account_delete">سڕینەوەی هەژمارەکەم</string>
+    <string name="account_delete_title">سڕینەوەی هەژمار</string>
+    <string name="account_delete_summary">هەژمارەکەت و هەموو ئەو زانیارییانەی بۆی پاشەکەوت کراون بە یەکجاری دەسڕێتەوە.</string>
+    <string name="account_delete_body">ئەمە هەژمارەکەت، وەڵامەکانت، پێشکەوتنەکەت، ئەنجامی تاقیکردنەوەکان و بڕوانامەکانت بە یەکجاری دەسڕێتەوە. ئەو بڕوانامانەی بڵاوت کردوونەتەوە ئیتر پشتڕاست ناکرێنەوە. ناتوانرێت بگەڕێنرێتەوە.</string>
+    <string name="account_delete_understood">تێدەگەم کە ناتوانرێت بگەڕێنرێتەوە</string>
+    <string name="account_delete_forever">بە یەکجاری بسڕەوە</string>
+    <string name="account_delete_staff">هەژماری مامۆستا و ئەدمین لەلایەن ئەدمینەوە لادەبرێت. سەرەتا داوا لە ئەدمین بکە ڕۆڵەکەت لابەرێت.</string>
+    <string name="account_error_network">ئینتەرنێت نییە. کاتێک هێڵت هەبوو دووبارە هەوڵ بدەرەوە.</string>
+    <string name="account_error_generic">هەڵەیەک ڕوویدا. تکایە دووبارە هەوڵ بدەرەوە.</string>
+    <string name="privacy_intro">EnglishMaster یارمەتیت دەدات ئینگلیزی فێر ببیت. ئەم سیاسەتە ڕوونی دەکاتەوە چی پاشەکەوت دەکەین، بۆچی، و چۆن دەتوانیت بیسڕیتەوە.</string>
+    <string name="privacy_collect_title">چی کۆدەکەینەوە</string>
+    <string name="privacy_collect_body">ناو، ئیمەیڵ و وشەی نهێنیت (بە پارێزراوی لەلایەن خزمەتگوزاری چوونەژوورەوەمانەوە هەڵدەگیرێت، هەرگیز بە دەقی ئاشکرا نا)؛ وەڵامەکان، پێشکەوتن، ئەنجامی تاقیکردنەوە و بڕوانامەکانت؛ و تۆمارێکی ڕووداوە گرنگەکانی هەژمار (بۆ نموونە تۆمارکردن، تاقیکردنەوە و کارەکانی ستاف). شوێن، پەیوەندییەکان، وێنەکان یان ناسنامەی ڕیکلامت کۆناکەینەوە، و ئەپەکە هیچ ڕیکلام یان شیکاری لایەنی سێیەمی تێدا نییە.</string>
+    <string name="privacy_use_title">چۆن بەکاری دەهێنین</string>
+    <string name="privacy_use_body">تەنها بۆ کارپێکردنی خزمەتگوزارییەکە: نمرەدانی وەڵامەکانت، پیشاندانی پێشکەوتن، تاقیکردنەوە، دەرکردنی بڕوانامە و پاراستنی ئاسایشی خزمەتگوزارییەکە.</string>
+    <string name="privacy_share_title">کێ دەتوانێت بیبینێت</string>
+    <string name="privacy_share_body">مامۆستاکانت و بەڕێوەبەرانی ئەپەکە دەتوانن ناو، ئیمەیڵ و پێشکەوتنەکەت ببینن. هەر کەسێک کۆدی بڕوانامەیەکی هەبێت دەتوانێت ئەو بڕوانامەیە بپشکنێت (ناو، ئاست، نمرە و بەروار). هەرگیز زانیارییەکانت نافرۆشین. زانیارییەکان لای دابینکەری هۆستینگمان Supabase لە یەکێتی ئەورووپا هەڵدەگیرێن.</string>
+    <string name="privacy_storage_title">لەسەر ئامێرەکەت</string>
+    <string name="privacy_storage_body">پرسیارە دابەزێنراوەکان و ئەو وەڵامانەی بێ ئینتەرنێت دەیاندەیتەوە تا نێردرانیان لەسەر ئامێرەکەت دەمێننەوە. چوونەژوورەوەکەت بە شێوەی شفرەکراو هەڵدەگیرێت.</string>
+    <string name="privacy_rights_title">سڕینەوەی زانیارییەکانت</string>
+    <string name="privacy_rights_body">هەر کاتێک بتەوێت دەتوانیت لە هەژمارەکەم ← سڕینەوەی هەژمار هەژمارەکەت بسڕیتەوە. هەژمارەکە و هەموو زانیارییە پەیوەندیدارەکانی یەکسەر دەسڕێنەوە.</string>
+    <string name="privacy_children_title">منداڵان</string>
+    <string name="privacy_children_body">قوتابیانی خوار ١٣ ساڵ با لەگەڵ دایک و باوک، سەرپەرشتیار یان مامۆستا ئەپەکە بەکاربهێنن.</string>
+    <string name="privacy_contact_title">پەیوەندی</string>
+    <string name="privacy_contact_body">بۆ پرسیار دەربارەی زانیارییەکانت: ئیمەیڵی پەیوەندی سەر پەڕەی ئەپەکە لە Google Play بەکاربهێنە، یان لە مامۆستاکەت بپرسە.</string>
+    <string name="privacy_updated">دوایین نوێکردنەوە: ٢١ی ئۆکتۆبەری ٢٠٢٦</string>
+    <plurals name="account_sign_out_pending">
+        <item quantity="one">%1$d وەڵام هێشتا نەنێردراوە. لەسەر ئەم ئامێرە دەمێنێتەوە و جاری داهاتوو کە بەم هەژمارە چوویتە ژوورەوە دەنێردرێت.</item>
+        <item quantity="other">%1$d وەڵام هێشتا نەنێردراون. لەسەر ئەم ئامێرە دەمێننەوە و جاری داهاتوو کە بەم هەژمارە چوویتە ژوورەوە دەنێردرێن.</item>
+    </plurals>
 </resources>

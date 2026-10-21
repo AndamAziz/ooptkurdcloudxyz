@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="auth_welcome_title">EnglishMaster AI</string>
+    <string name="auth_welcome_title">EnglishMaster</string>
     <string name="auth_welcome_body">Learn English step by step with CEFR-referenced practice. You can use the app in Kurdish (Sorani) or English.</string>
     <string name="auth_interface_language">App language</string>
     <string name="auth_privacy_summary">To provide the service we store your name, email address, answers and progress. Answers you give offline stay on this device until they are sent.</string>
@@ -36,4 +36,54 @@
     <string name="auth_error_not_configured">This build is not connected to a server. (Developer: set supabase.url and supabase.anonKey.)</string>
     <string name="auth_error_session_expired">Your session has ended. Please sign in again.</string>
     <string name="auth_error_generic">Something went wrong. Please try again.</string>
+    <string name="account_title">My account</string>
+    <string name="account_back">Back</string>
+    <string name="account_section_profile">Profile</string>
+    <string name="account_section_app">App</string>
+    <string name="account_name">Name</string>
+    <string name="account_email">Email</string>
+    <string name="account_edit">Edit</string>
+    <string name="account_language">App language</string>
+    <string name="account_privacy_policy">Privacy policy</string>
+    <string name="account_version">Version</string>
+    <string name="account_sign_out">Sign out</string>
+    <string name="account_sign_out_confirm">You can sign in again at any time. Downloaded levels stay on this device.</string>
+    <string name="account_role_learner">Learner</string>
+    <string name="account_role_teacher">Teacher</string>
+    <string name="account_role_admin">Admin</string>
+    <string name="account_edit_name_title">Your name</string>
+    <string name="account_edit_name_body">This name is printed on certificates issued from now on.</string>
+    <string name="account_name_invalid">Enter a name (up to 80 characters).</string>
+    <string name="account_save">Save</string>
+    <string name="account_cancel">Cancel</string>
+    <string name="account_name_saved">Name saved.</string>
+    <string name="account_delete">Delete my account</string>
+    <string name="account_delete_title">Delete account</string>
+    <string name="account_delete_summary">Permanently deletes your account and everything stored for it.</string>
+    <string name="account_delete_body">This permanently deletes your account, your answers, progress, exam results and certificates. Certificates you shared will no longer verify. This cannot be undone.</string>
+    <string name="account_delete_understood">I understand that this cannot be undone</string>
+    <string name="account_delete_forever">Delete forever</string>
+    <string name="account_delete_staff">Teacher and admin accounts are removed by an admin. Ask an admin to remove your role first.</string>
+    <string name="account_error_network">No internet connection. Try again when you are online.</string>
+    <string name="account_error_generic">Something went wrong. Please try again.</string>
+    <string name="privacy_intro">EnglishMaster helps you learn English. This policy explains what we store, why, and how you can delete it.</string>
+    <string name="privacy_collect_title">What we collect</string>
+    <string name="privacy_collect_body">Your name, email address and password (stored securely by our sign-in service, never in plain text); your answers, progress, exam results and certificates; and a log of important account events (for example sign-up, exams and staff actions). We do not collect your location, contacts, photos or advertising IDs, and the app contains no ads or third-party analytics.</string>
+    <string name="privacy_use_title">How we use it</string>
+    <string name="privacy_use_body">Only to run the service: to mark your answers, show your progress, run exams, issue certificates and keep the service secure.</string>
+    <string name="privacy_share_title">Who can see it</string>
+    <string name="privacy_share_body">Your teachers and the app administrators can see your name, email address and progress. Anyone who has a certificate code can check that certificate (name, level, score and date). We never sell your data. Data is stored with our hosting provider Supabase in the European Union.</string>
+    <string name="privacy_storage_title">On your device</string>
+    <string name="privacy_storage_body">Downloaded questions and answers you give offline are kept on your device until they are sent. Your sign-in is stored encrypted.</string>
+    <string name="privacy_rights_title">Deleting your data</string>
+    <string name="privacy_rights_body">You can delete your account at any time in My account → Delete account. Your account and all data linked to it are deleted straight away.</string>
+    <string name="privacy_children_title">Children</string>
+    <string name="privacy_children_body">Learners under 13 should use the app with a parent, guardian or teacher.</string>
+    <string name="privacy_contact_title">Contact</string>
+    <string name="privacy_contact_body">Questions about your data: use the contact email shown on the app\'s Google Play page, or ask your teacher.</string>
+    <string name="privacy_updated">Last updated: 21 October 2026</string>
+    <plurals name="account_sign_out_pending">
+        <item quantity="one">%1$d answer has not been sent yet. It stays on this device and is sent the next time you sign in with this account.</item>
+        <item quantity="other">%1$d answers have not been sent yet. They stay on this device and are sent the next time you sign in with this account.</item>
+    </plurals>
 </resources>

@@ -7,6 +7,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
@@ -25,6 +27,9 @@ abstract class EnglishMasterDatabase : RoomDatabase() {
     abstract fun levelPacks(): LevelPackDao
     abstract fun responses(): ResponseDao
     abstract fun content(): ContentDao
+
+    /** Removes every downloaded question and saved answer (after the account was deleted). */
+    suspend fun clearAll() = withContext(Dispatchers.IO) { clearAllTables() }
 
     companion object {
         fun create(context: Context): EnglishMasterDatabase =

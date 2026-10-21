@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">EnglishMaster AI</string>
+    <string name="app_name" translatable="false">EnglishMaster</string>
     <!-- Language names are shown in their own language in every locale. -->
-    <string name="app_switch_to_sorani" translatable="false">کوردی (سۆرانی)</string>
-    <string name="app_switch_to_english" translatable="false">English</string>
+    <string name="app_language_sorani" translatable="false">کوردی (سۆرانی)</string>
+    <string name="app_language_english" translatable="false">English</string>
     <string name="update_check">Check for updates (version %1$s)</string>
     <string name="update_checking">Checking for updates…</string>
     <string name="update_up_to_date">You have the latest version.</string>

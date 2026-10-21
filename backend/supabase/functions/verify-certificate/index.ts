@@ -24,7 +24,7 @@ Deno.serve(async (req) => {
   const raw = new URL(req.url).searchParams.get("code") ?? "";
   const code = raw.trim().toUpperCase().slice(0, 32);
   if (!CODE.test(code)) {
-    return text("EnglishMaster AI — certificate check\n\nThe code is missing or not in the form EM-XXXX-XXXX-XXXX.\nکۆدەکە نییە یان شێوەکەی هەڵەیە.", 400);
+    return text("EnglishMaster — certificate check\n\nThe code is missing or not in the form EM-XXXX-XXXX-XXXX.\nکۆدەکە نییە یان شێوەکەی هەڵەیە.", 400);
   }
 
   const url = Deno.env.get("SUPABASE_URL")!;
@@ -37,22 +37,22 @@ Deno.serve(async (req) => {
     headers,
     body: JSON.stringify({ p_code: code }),
   });
-  if (!res.ok) return text("EnglishMaster AI — certificate check\n\nThe check is temporarily unavailable. Please try again later.", 503);
+  if (!res.ok) return text("EnglishMaster — certificate check\n\nThe check is temporarily unavailable. Please try again later.", 503);
 
   const rows = (await res.json()) as Array<{
     holder_name: string; cefr_level: string; score: number; total: number; issued_at: string; revoked: boolean;
   }>;
   const c = rows[0];
   if (!c) {
-    return text(`EnglishMaster AI — certificate check\n\n✗ NOT FOUND: no certificate has the code ${code}.\n✗ هیچ بڕوانامەیەک بەم کۆدە نییە.`, 404);
+    return text(`EnglishMaster — certificate check\n\n✗ NOT FOUND: no certificate has the code ${code}.\n✗ هیچ بڕوانامەیەک بەم کۆدە نییە.`, 404);
   }
   const date = c.issued_at.slice(0, 10);
   const status = c.revoked
     ? "✗ REVOKED — this certificate is no longer valid.\n✗ ئەم بڕوانامەیە هەڵوەشێنراوەتەوە."
-    : "✓ VALID — this certificate was issued by EnglishMaster AI.\n✓ ئەم بڕوانامەیە ڕاستەقینەیە.";
+    : "✓ VALID — this certificate was issued by EnglishMaster.\n✓ ئەم بڕوانامەیە ڕاستەقینەیە.";
   return text(
     [
-      "EnglishMaster AI — certificate check",
+      "EnglishMaster — certificate check",
       "",
       status,
       "",

@@ -119,21 +119,16 @@ private fun Topic.emoji(): String = when (this) {
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
-    switchLanguageLabel: String,
-    onSwitchLanguage: () -> Unit,
     onStartPractice: (CefrLevel) -> Unit,
-    onSignOut: () -> Unit,
+    /** Profile, language, updates, privacy policy, sign out and account deletion. */
+    onOpenAccount: () -> Unit = {},
     onOpenStaff: () -> Unit = {},
-    /** Menu label for the in-app update check; null hides the entry (e.g. Play builds). */
-    checkForUpdatesLabel: String? = null,
-    onCheckForUpdates: () -> Unit = {},
     actions: HomeActions = HomeActions(onStartPractice),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbar = remember { SnackbarHostState() }
     val resources = LocalResources.current
     var menuOpen by remember { mutableStateOf(false) }
-    var confirmSignOut by rememberSaveable { mutableStateOf(false) }
     var confirmRemove by rememberSaveable { mutableStateOf<CefrLevel?>(null) }
 
     // Coming back from an exam or practice session: fetch fresh progress.
@@ -162,6 +157,11 @@ fun HomeScreen(
                         }
                         DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
                             DropdownMenuItem(
+                                text = { Text(stringResource(R.string.home_my_account)) },
+                                onClick = { menuOpen = false; onOpenAccount() },
+                                modifier = Modifier.testTag("menu_account"),
+                            )
+                            DropdownMenuItem(
                                 text = { Text(stringResource(R.string.home_my_certificates)) },
                                 onClick = { menuOpen = false; actions.onCertificates() },
                                 modifier = Modifier.testTag("menu_certificates"),
@@ -177,18 +177,6 @@ fun HomeScreen(
                                     modifier = Modifier.testTag("menu_staff"),
                                 )
                             }
-                            DropdownMenuItem(text = { Text(switchLanguageLabel) }, onClick = { menuOpen = false; onSwitchLanguage() })
-                            if (checkForUpdatesLabel != null) {
-                                DropdownMenuItem(
-                                    text = { Text(checkForUpdatesLabel) },
-                                    onClick = { menuOpen = false; onCheckForUpdates() },
-                                    modifier = Modifier.testTag("menu_check_updates"),
-                                )
-                            }
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.practice_sign_out)) },
-                                onClick = { menuOpen = false; confirmSignOut = true },
-                            )
                         }
                     }
                 },
@@ -233,21 +221,6 @@ fun HomeScreen(
                 }
             }
         }
-    }
-
-    if (confirmSignOut) {
-        AlertDialog(
-            onDismissRequest = { confirmSignOut = false },
-            title = { Text(stringResource(R.string.practice_sign_out)) },
-            text = {
-                Text(
-                    if (state.pendingCount > 0) pluralStringResource(R.plurals.practice_sign_out_pending, state.pendingCount, state.pendingCount)
-                    else stringResource(R.string.practice_sign_out_confirm),
-                )
-            },
-            confirmButton = { TextButton(onClick = { confirmSignOut = false; onSignOut() }) { Text(stringResource(R.string.practice_sign_out)) } },
-            dismissButton = { TextButton(onClick = { confirmSignOut = false }) { Text(stringResource(R.string.practice_cancel)) } },
-        )
     }
 
     confirmRemove?.let { level ->

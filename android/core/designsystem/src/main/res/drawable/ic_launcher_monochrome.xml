@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Single-colour logo for themed icons (Android 13+): the system tints it. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:fillColor="#000000" android:pathData="M54,50 m-11.5,0 a11.5,11.5 0 1,0 23,0 a11.5,11.5 0 1,0 -23,0" />
+    <path android:pathData="M40.58,42.25 L35.81,39.50" android:strokeColor="#000000" android:strokeWidth="3.2" android:strokeLineCap="round" />
+    <path android:pathData="M46.25,36.58 L43.50,31.81" android:strokeColor="#000000" android:strokeWidth="3.2" android:strokeLineCap="round" />
+    <path android:pathData="M54.00,34.50 L54.00,29.00" android:strokeColor="#000000" android:strokeWidth="3.2" android:strokeLineCap="round" />
+    <path android:pathData="M61.75,36.58 L64.50,31.81" android:strokeColor="#000000" android:strokeWidth="3.2" android:strokeLineCap="round" />
+    <path android:pathData="M67.42,42.25 L72.19,39.50" android:strokeColor="#000000" android:strokeWidth="3.2" android:strokeLineCap="round" />
+    <path android:fillColor="#000000" android:pathData="M52.6,79 C45,74.2 35.5,73 27,74.6 L27,50.6 C35.5,49 45,50.2 52.6,55 Z" />
+    <path android:fillColor="#000000" android:pathData="M55.4,79 C63,74.2 72.5,73 81,74.6 L81,50.6 C72.5,49 63,50.2 55.4,55 Z" />
+</vector>

@@ -64,7 +64,7 @@ class HomeLearningTest {
         var exam: CefrLevel? = null
         compose.setContent {
             EnglishMasterTheme {
-                HomeScreen(vm, "کوردی", {}, {}, {}, actions = HomeActions(onStartPractice = {}, onTakeExam = { exam = it }))
+                HomeScreen(vm, {}, actions = HomeActions(onStartPractice = {}, onTakeExam = { exam = it }))
             }
         }
         compose.onNodeWithText("Hello, Sara 👋").assertIsDisplayed()
@@ -83,7 +83,7 @@ class HomeLearningTest {
 
     @Test
     fun howToEarnACertificateIsExplained() {
-        compose.setContent { EnglishMasterTheme { HomeScreen(vm(), "کوردی", {}, {}, {}) } }
+        compose.setContent { EnglishMasterTheme { HomeScreen(vm(), {}) } }
         compose.onNode(hasScrollToNodeAction()).performScrollToNode(hasTestTag("how_certificates"))
         compose.onNodeWithTag("how_certificates").performClick()
         compose.onNodeWithText("Score 80% or more, then your teacher approves the result and your certificate is issued as a PDF with a QR code anyone can scan to check it.")
@@ -93,7 +93,7 @@ class HomeLearningTest {
     @Test
     @Config(qualifiers = "b+ckb")
     fun recommendedLevelInSorani() {
-        compose.setContent { EnglishMasterTheme { HomeScreen(vm(FakeLearningRepo(placement = CefrLevel.B1)), "English", {}, {}, {}) } }
+        compose.setContent { EnglishMasterTheme { HomeScreen(vm(FakeLearningRepo(placement = CefrLevel.B1)), {}) } }
         compose.onNodeWithText("ئاستی پێشنیارکراوت: B1").assertIsDisplayed()
     }
 
@@ -106,7 +106,7 @@ class HomeLearningTest {
         val vm = HomeViewModel("u1", content, FakePractice(FakeNetwork()), FakeNetwork(), learning = FakeLearningRepo(), clock = { 0L })
         var opened: Topic? = null
         compose.setContent {
-            EnglishMasterTheme { HomeScreen(vm, "کوردی", {}, {}, {}, actions = HomeActions(onStartPractice = {}, onPractiseTopic = { opened = it })) }
+            EnglishMasterTheme { HomeScreen(vm, {}, actions = HomeActions(onStartPractice = {}, onPractiseTopic = { opened = it })) }
         }
         val list = compose.onNode(hasScrollToNodeAction())
         list.performScrollToNode(hasTestTag("topic_life_in_uk"))
@@ -124,7 +124,7 @@ class HomeLearningTest {
     fun learnersCanUpdateButNotRemoveDownloadedLevels() {
         val content = FakeContent().apply { packs.value = listOf(LevelPack(CefrLevel.A1, 3, 0)) }
         val vm = HomeViewModel("u1", content, FakePractice(FakeNetwork()), FakeNetwork(), learning = FakeLearningRepo(), clock = { 0L })
-        compose.setContent { EnglishMasterTheme { HomeScreen(vm, "کوردی", {}, {}, {}) } }
+        compose.setContent { EnglishMasterTheme { HomeScreen(vm, {}) } }
         compose.onNode(hasScrollToNodeAction()).performScrollToNode(hasTestTag("update_A1"))
         compose.onNodeWithTag("update_A1").assertIsDisplayed()
         compose.onNodeWithText("More").assertDoesNotExist()
@@ -147,7 +147,7 @@ class HomeLearningTest {
             override suspend fun recentActivity() = ApiResult.Failure(ApiError.Forbidden)
         }
         val vm = HomeViewModel("u1", content, FakePractice(FakeNetwork()), FakeNetwork(), staff = staff, learning = FakeLearningRepo(), clock = { 0L })
-        compose.setContent { EnglishMasterTheme { HomeScreen(vm, "کوردی", {}, {}, {}) } }
+        compose.setContent { EnglishMasterTheme { HomeScreen(vm, {}) } }
         val list = compose.onNode(hasScrollToNodeAction())
         list.performScrollToNode(hasTestTag("level_A1"))
         compose.onNodeWithText("More").performScrollTo().performClick()
@@ -159,7 +159,7 @@ class HomeLearningTest {
         val learning = FakeLearningRepo(
             levels = listOf(overview(CefrLevel.A2, 30, 28, unlocked = true).copy(lastExamScore = 18, lastExamTotal = 20, certificatePending = true)),
         )
-        compose.setContent { EnglishMasterTheme { HomeScreen(vm(learning), "کوردی", {}, {}, {}) } }
+        compose.setContent { EnglishMasterTheme { HomeScreen(vm(learning), {}) } }
         compose.onNode(hasScrollToNodeAction()).performScrollToNode(hasTestTag("level_status_A2"))
         compose.onNodeWithText("Passed with 18 / 20. Your teacher will review the result; the certificate appears here once it is approved.")
             .assertIsDisplayed()
@@ -168,14 +168,14 @@ class HomeLearningTest {
 
     @Test
     fun noTopicsBeforeAnyLevelIsDownloaded() {
-        compose.setContent { EnglishMasterTheme { HomeScreen(vm(), "کوردی", {}, {}, {}) } }
+        compose.setContent { EnglishMasterTheme { HomeScreen(vm(), {}) } }
         compose.onNodeWithTag("topics_section").assertDoesNotExist()
     }
 
     @Test
     fun offlineHomeFallsBackToLocalProgress() {
         val vm = vm(online = false)
-        compose.setContent { EnglishMasterTheme { HomeScreen(vm, "کوردی", {}, {}, {}) } }
+        compose.setContent { EnglishMasterTheme { HomeScreen(vm, {}) } }
         compose.onNodeWithText("Welcome 👋").assertIsDisplayed()
         assertEquals(null, vm.uiState.value.levels.first().overview)
     }

@@ -21,6 +21,7 @@ import xyz.kurdcloud.englishmaster.core.network.SupabaseConfig
 class LearningRepositoryTest {
     private val server = MockWebServer()
     private lateinit var repo: SupabaseLearningRepository
+    private lateinit var api: xyz.kurdcloud.englishmaster.core.network.LearningApi
 
     @Before
     fun setUp() {
@@ -35,7 +36,8 @@ class LearningRepositoryTest {
             override fun update(session: AuthSession) = Unit
             override fun clear(expired: Boolean) = Unit
         }
-        repo = SupabaseLearningRepository(NetworkFactory.create(SupabaseConfig(url, "anon"), sessions, toHttp).learning)
+        api = NetworkFactory.create(SupabaseConfig(url, "anon"), sessions, toHttp).learning
+        repo = SupabaseLearningRepository(api)
     }
 
     @After fun tearDown() = server.close()
@@ -105,5 +107,32 @@ class LearningRepositoryTest {
         assertEquals(CefrLevel.A2, placement.passedLevel)
         assertEquals(CefrLevel.B1, placement.recommendedLevel)
         assertEquals("Sara Ahmed", (repo.certificates() as ApiResult.Success).value.single().holderName)
+    }
+
+    @Test
+    fun deletingTheAccountWipesThisDeviceOnlyAfterTheServerConfirms() = runTest {
+        val auth = object : AuthRepository {
+            var signedOut = false
+            override val session = kotlinx.coroutines.flow.MutableStateFlow<xyz.kurdcloud.englishmaster.core.model.AuthSession?>(null)
+            override val sessionExpired = kotlinx.coroutines.flow.MutableSharedFlow<Unit>()
+            override suspend fun signIn(email: String, password: String) = ApiResult.Success(Unit)
+            override suspend fun register(displayName: String, email: String, password: String) = ApiResult.Success(RegisterOutcome.SIGNED_IN)
+            override suspend fun requestPasswordReset(email: String) = ApiResult.Success(Unit)
+            override suspend fun signOut() { signedOut = true }
+        }
+        var cleared = 0
+        val account = SupabaseAccountRepository(api, auth) { cleared++ }
+
+        server.enqueue(json(400, """{"code":"P0001","message":"staff accounts are removed by an admin","hint":"staff_account"}"""))
+        val refused = account.deleteAccount() as ApiResult.Failure
+        assertEquals("staff_account", (refused.error as xyz.kurdcloud.englishmaster.core.network.ApiError.Validation).hint)
+        assertEquals(0, cleared)
+        assertEquals(false, auth.signedOut)
+        assertEquals("/rest/v1/rpc/delete_my_account", server.takeRequest().url.encodedPath)
+
+        server.enqueue(MockResponse.Builder().code(204).build())
+        assertEquals(ApiResult.Success(Unit), account.deleteAccount())
+        assertEquals(1, cleared)
+        assertEquals(true, auth.signedOut)
     }
 }

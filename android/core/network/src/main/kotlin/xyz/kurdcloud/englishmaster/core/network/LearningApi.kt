@@ -32,6 +32,10 @@ interface LearningApi {
     @POST("rest/v1/rpc/submit_placement_test")
     suspend fun submitPlacement(@Body body: SubmitExamRequest): List<PlacementResultDto>
 
+    /** Deletes the signed-in learner's account and all their data (Google Play requirement). */
+    @POST("rest/v1/rpc/delete_my_account")
+    suspend fun deleteMyAccount(@Body body: Map<String, String> = emptyMap())
+
     @POST("rest/v1/rpc/get_my_certificates")
     suspend fun certificates(@Body body: Map<String, String> = emptyMap()): List<CertificateDto>
 }
