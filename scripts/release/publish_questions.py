@@ -5,11 +5,14 @@ New questions are inserted as drafts; rows that already exist (same external_ref
 untouched, so a teacher's approval, edits or retirement are never overwritten. Uses the
 PostgREST API with the service-role key (CI secret).
 
-Env: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY.  Usage: publish_questions.py [batch.json ...]
+Env: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY.
+Usage: publish_questions.py [--dry-run] [batch.json ...]
+  --dry-run  only reads: reports how many questions are new and how many already exist.
 """
 import json
 import os
 import sys
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -37,10 +40,34 @@ def post(rows: list[dict]) -> int:
         return len(json.loads(res.read() or b"[]"))
 
 
+def existing(refs: list[str]) -> set[str]:
+    """external_refs already in the database (read only)."""
+    found = set()
+    for i in range(0, len(refs), 50):
+        chunk = ",".join('"' + r.replace('"', '') + '"' for r in refs[i:i + 50])
+        query = urllib.parse.urlencode({"select": "external_ref", "external_ref": f"in.({chunk})"})
+        req = urllib.request.Request(
+            f"{URL}/rest/v1/assessment_questions?{query}",
+            headers={"apikey": KEY, **({} if KEY.startswith("sb_secret_") else {"Authorization": f"Bearer {KEY}"})},
+        )
+        with urllib.request.urlopen(req, timeout=60) as res:
+            found |= {r["external_ref"] for r in json.loads(res.read() or b"[]")}
+    return found
+
+
 def main() -> None:
-    sources = [Path(p) for p in sys.argv[1:]] or seed.SOURCES
+    args = sys.argv[1:]
+    dry_run = "--dry-run" in args
+    sources = [Path(p) for p in args if p != "--dry-run"] or seed.SOURCES
     for src in sources:
         batch, rows = seed.rows(src)
+        if not rows:
+            print(f"{batch}: nothing importable")
+            continue
+        if dry_run:
+            present = existing([r["external_ref"] for r in rows])
+            print(f"{batch}: {len(rows)} questions, {len(rows) - len(present)} would be inserted, {len(present)} already present")
+            continue
         inserted = sum(post(rows[i:i + 50]) for i in range(0, len(rows), 50))
         print(f"{batch}: {len(rows)} questions, {inserted} newly inserted, {len(rows) - inserted} already present")
 

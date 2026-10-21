@@ -7,6 +7,8 @@ on:
       - "backend/**"
       - "scripts/db/**"
       - "content/questions/**"
+      - "content/lituk/**"
+      - "scripts/lituk/**"
       - "scripts/release/**"
       - ".github/workflows/englishmaster-*.yml"
   pull_request:
@@ -15,6 +17,8 @@ on:
       - "backend/**"
       - "scripts/db/**"
       - "content/questions/**"
+      - "content/lituk/**"
+      - "scripts/lituk/**"
       - ".github/workflows/englishmaster-ci.yml"
 
 permissions:
@@ -35,6 +39,10 @@ jobs:
           python3 scripts/db/build_question_seed.py
           python3 scripts/db/build_ai_question_seed.py
           git diff --exit-code backend/supabase/seed/
+      - name: Life in the UK bank (validation, import gate, audit tool tests)
+        run: |
+          python3 scripts/lituk/lituk.py validate
+          python3 -m unittest scripts/lituk/test_lituk.py
       - name: Run migrations, seed and tests
         run: scripts/db/test-local.sh
 

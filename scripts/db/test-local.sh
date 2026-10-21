@@ -33,6 +33,13 @@ for f in "$ROOT"/backend/supabase/seed/*.sql; do
   echo "seed:    $(basename "$f")"
   "${PSQL[@]}" -f "$f"
 done
+# Importing the same seed again must not add or change anything.
+fingerprint() { "${PSQL[@]}" -At -c "select count(*), md5(string_agg(external_ref || prompt || array_to_string(options, '|') || correct_option, ',' order by external_ref)) from public.assessment_questions"; }
+before=$(fingerprint)
+for f in "$ROOT"/backend/supabase/seed/*.sql; do "${PSQL[@]}" -f "$f"; done
+after=$(fingerprint)
+if [ "$before" != "$after" ]; then echo "re-importing the seed changed the question bank: $before -> $after" >&2; exit 1; fi
+echo "re-import: unchanged ($before)"
 "${PSQL[@]}" -c "create extension if not exists pgtap"
 
 pg_prove -h "$WORK" -p "$PORT" -U postgres -d postgres "$ROOT"/backend/supabase/tests/database/*.sql

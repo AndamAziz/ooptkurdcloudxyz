@@ -1,0 +1,125 @@
+{
+  "total": 400,
+  "errors": [],
+  "by_status": {
+    "pending_handbook": 384,
+    "needs_review": 1,
+    "corroborated_external": 15
+  },
+  "by_chapter": {
+    "1": 29,
+    "2": 20,
+    "3": 165,
+    "4": 88,
+    "5": 98
+  },
+  "by_section": {
+    "1.1": 15,
+    "1.2": 12,
+    "1.3": 2,
+    "2.1": 6,
+    "2.2": 4,
+    "2.3": 11,
+    "3.1": 27,
+    "3.2": 28,
+    "3.3": 49,
+    "3.4": 30,
+    "3.5": 15,
+    "3.6": 15,
+    "4.2": 6,
+    "4.3": 29,
+    "4.4": 14,
+    "4.5": 20,
+    "4.6": 2,
+    "4.7": 17,
+    "5.1": 7,
+    "5.2": 51,
+    "5.3": 7,
+    "5.4": 18,
+    "5.5": 4,
+    "5.6": 8,
+    "5.7": 3
+  },
+  "by_format": {
+    "which_two": 36,
+    "multiple_choice": 265,
+    "true_false": 99
+  },
+  "duplicates_confirmed": [
+    [
+      "ai:ai-batch-04:00a8608ac9ab",
+      "ai:ai-batch-04:931e2379d78c"
+    ],
+    [
+      "ai:ai-batch-04:349b105a5e71",
+      "ai:ai-batch-04:93e418db20d7"
+    ],
+    [
+      "ai:ai-batch-04:53b8cb1b0bfd",
+      "ai:ai-batch-04:9d1011c20809"
+    ],
+    [
+      "ai:ai-batch-04:8188acc2eee9",
+      "ai:ai-batch-04:7be0f8e9cbd6"
+    ],
+    [
+      "ai:ai-batch-04:81a91eedafeb",
+      "ai:ai-batch-04:defdb44243b1"
+    ],
+    [
+      "ai:ai-batch-04:ca7851e8b788",
+      "ai:ai-batch-04:5596094a2d0d"
+    ],
+    [
+      "ai:ai-batch-04:d40f2591a9ab",
+      "ai:ai-batch-04:90bb47aa23fa"
+    ],
+    [
+      "ai:ai-batch-04:eb3aae82f143",
+      "ai:ai-batch-04:b8612ee9e3e4"
+    ]
+  ],
+  "duplicate_candidates_open": [],
+  "duplicate_candidates_resolved_distinct": 16,
+  "flags": {
+    "answer_noticeably_longest": [
+      "ai:ai-batch-04:28479e17be34",
+      "ai:ai-batch-04:3a5e7d72a245",
+      "ai:ai-batch-04:43de77be6610",
+      "ai:ai-batch-04:4c9822842d46",
+      "ai:ai-batch-04:5232ac3badb6",
+      "ai:ai-batch-04:5bc4ba274436",
+      "ai:ai-batch-04:5c249aa0a410",
+      "ai:ai-batch-04:5ccc5aa1245a",
+      "ai:ai-batch-04:669c1481f27f",
+      "ai:ai-batch-04:87fe7ef84d7b",
+      "ai:ai-batch-04:9b757a64439f",
+      "ai:ai-batch-04:9e730a846675",
+      "ai:ai-batch-04:a10d67fd60c0",
+      "ai:ai-batch-04:a47bff4dc07e",
+      "ai:ai-batch-04:bc8b31f82681",
+      "ai:ai-batch-04:defdb44243b1"
+    ],
+    "exam_scope_eu": [
+      "ai:ai-batch-04:befe8e0d60f5"
+    ],
+    "review:chapter_placement": [
+      "ai:ai-batch-04:00a8608ac9ab",
+      "ai:ai-batch-04:0207d4506ee4",
+      "ai:ai-batch-04:28479e17be34",
+      "ai:ai-batch-04:402522fec30c",
+      "ai:ai-batch-04:5b50b40d383b",
+      "ai:ai-batch-04:669c1481f27f",
+      "ai:ai-batch-04:72d6922e6662",
+      "ai:ai-batch-04:931e2379d78c",
+      "ai:ai-batch-04:93b77aac71cf",
+      "ai:ai-batch-04:9739e96cfc6c",
+      "ai:ai-batch-04:bfb552f3c5d1",
+      "ai:ai-batch-04:ebdc16db3051"
+    ],
+    "review:exam_scope": [
+      "ai:ai-batch-04:befe8e0d60f5"
+    ]
+  },
+  "unmapped": []
+}
