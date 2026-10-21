@@ -29,7 +29,9 @@ import xyz.kurdcloud.englishmaster.update.PackageInstallerApkInstaller
 import xyz.kurdcloud.englishmaster.core.data.SupabaseAuthRepository
 import xyz.kurdcloud.englishmaster.core.data.SyncScheduler
 import xyz.kurdcloud.englishmaster.core.data.WorkManagerSyncScheduler
+import kotlinx.coroutines.flow.MutableStateFlow
 import xyz.kurdcloud.englishmaster.core.database.EnglishMasterDatabase
+import xyz.kurdcloud.englishmaster.core.model.EmailLink
 import xyz.kurdcloud.englishmaster.core.network.NetworkFactory
 import xyz.kurdcloud.englishmaster.core.network.SupabaseConfig
 
@@ -66,6 +68,8 @@ class AppContainer(context: Context) {
         database.clearAll()
         appContext.filesDir.resolve("question-media").deleteRecursively()
     }
+    /** The latest email link (password reset / sign-up confirmation) opened with the app. */
+    val emailLinks = MutableStateFlow<EmailLink?>(null)
     val practice: PracticeRepository =
         OfflineFirstPracticeRepository(database.responses(), syncer, { syncScheduler.requestSync() }, network)
 }

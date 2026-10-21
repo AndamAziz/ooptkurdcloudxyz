@@ -126,3 +126,42 @@ class ForgotPasswordViewModel(private val auth: AuthRepository) : ViewModel() {
         }
     }
 }
+
+data class SetPasswordUiState(
+    val password: String = "",
+    val confirm: String = "",
+    val passwordError: Boolean = false,
+    val mismatch: Boolean = false,
+    val submitting: Boolean = false,
+    val message: AuthMessage? = null,
+    val done: Boolean = false,
+)
+
+/** After a password-reset link signed the user in: choose the new password. */
+class SetPasswordViewModel(private val auth: AuthRepository) : ViewModel() {
+    private val state = MutableStateFlow(SetPasswordUiState())
+    val uiState: StateFlow<SetPasswordUiState> = state.asStateFlow()
+
+    fun onPasswordChange(value: String) = state.update { it.copy(password = value, passwordError = false, mismatch = false, message = null) }
+    fun onConfirmChange(value: String) = state.update { it.copy(confirm = value, mismatch = false, message = null) }
+
+    fun submit() {
+        val s = state.value
+        if (s.submitting) return
+        if (!CredentialRules.isValidPassword(s.password)) {
+            state.update { it.copy(passwordError = true) }
+            return
+        }
+        if (s.password != s.confirm) {
+            state.update { it.copy(mismatch = true) }
+            return
+        }
+        state.update { it.copy(submitting = true, message = null) }
+        viewModelScope.launch {
+            when (val result = auth.updatePassword(s.password)) {
+                is ApiResult.Success -> state.update { it.copy(submitting = false, done = true, password = "", confirm = "") }
+                is ApiResult.Failure -> state.update { it.copy(submitting = false, message = AuthMessage.from(result.error)) }
+            }
+        }
+    }
+}

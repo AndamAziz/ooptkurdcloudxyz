@@ -3,6 +3,7 @@ package xyz.kurdcloud.englishmaster.core.data
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import xyz.kurdcloud.englishmaster.core.model.AuthSession
+import xyz.kurdcloud.englishmaster.core.model.EmailLink
 import xyz.kurdcloud.englishmaster.core.network.ApiError
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.core.network.AuthApi
@@ -12,6 +13,7 @@ import xyz.kurdcloud.englishmaster.core.network.SignUpMetadata
 import xyz.kurdcloud.englishmaster.core.network.SignUpRequest
 import xyz.kurdcloud.englishmaster.core.network.SupabaseConfig
 import xyz.kurdcloud.englishmaster.core.network.TokenResponseDto
+import xyz.kurdcloud.englishmaster.core.network.UpdateUserRequest
 import xyz.kurdcloud.englishmaster.core.network.authCall
 import xyz.kurdcloud.englishmaster.core.network.toSession
 
@@ -24,6 +26,12 @@ interface AuthRepository {
     suspend fun register(displayName: String, email: String, password: String): ApiResult<RegisterOutcome>
     suspend fun requestPasswordReset(email: String): ApiResult<Unit>
     suspend fun signOut()
+
+    /** Signs in with the tokens from an email link (password reset or sign-up confirmation). */
+    suspend fun completeEmailLink(link: EmailLink.SignedIn): ApiResult<Unit> = ApiResult.Failure(ApiError.NotConfigured)
+
+    /** Sets a new password for the signed-in user. */
+    suspend fun updatePassword(newPassword: String): ApiResult<Unit> = ApiResult.Failure(ApiError.NotConfigured)
 }
 
 class SupabaseAuthRepository(
@@ -47,7 +55,7 @@ class SupabaseAuthRepository(
 
     override suspend fun register(displayName: String, email: String, password: String): ApiResult<RegisterOutcome> = guarded {
         val request = SignUpRequest(email.trim(), password, SignUpMetadata(displayName.trim()))
-        when (val result = authCall { api.signUp(request) }) {
+        when (val result = authCall { api.signUp(request, EmailLink.REDIRECT) }) {
             is ApiResult.Failure -> result
             is ApiResult.Success -> {
                 val dto = result.value
@@ -66,7 +74,23 @@ class SupabaseAuthRepository(
     }
 
     override suspend fun requestPasswordReset(email: String): ApiResult<Unit> = guarded {
-        authCall { api.recover(RecoverRequest(email.trim())) }
+        authCall { api.recover(RecoverRequest(email.trim()), EmailLink.REDIRECT) }
+    }
+
+    override suspend fun completeEmailLink(link: EmailLink.SignedIn): ApiResult<Unit> = guarded {
+        when (val user = authCall { api.user("Bearer ${link.accessToken}") }) {
+            is ApiResult.Failure -> user
+            is ApiResult.Success -> {
+                val dto = TokenResponseDto(link.accessToken, link.refreshToken, link.expiresInSeconds, null, user.value)
+                store.save(dto.toSession(nowEpochSeconds()))
+                ApiResult.Success(Unit)
+            }
+        }
+    }
+
+    override suspend fun updatePassword(newPassword: String): ApiResult<Unit> = guarded {
+        val current = store.current() ?: return@guarded ApiResult.Failure(ApiError.Unauthorized)
+        authCall { api.updateUser("Bearer ${current.accessToken}", UpdateUserRequest(newPassword)) }.map { }
     }
 
     override suspend fun signOut() {

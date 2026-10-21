@@ -95,6 +95,11 @@ Account deletion (`20261021090000_account_deletion`): `delete_my_account()` lets
 account and everything linked to it (Google Play requirement). Staff cannot self-delete; an admin removes
 the role first. It also works around `activity_logs` being append-only (the FK's SET NULL is an update).
 
+Auth email links: password-reset and sign-up confirmation emails redirect to
+`app.englishmaster://auth-callback` (the app opens and finishes sign-in; recovery shows "choose a new
+password"). In the dashboard, Authentication → URL Configuration must list it under **Redirect URLs**,
+and the **Site URL** should be set to the same value (the default `http://localhost:3000` leads nowhere).
+
 Permissions at a glance: **learner** — practise, exams, own profile and certificates; **teacher** —
 plus learner list and name corrections, question review/authoring/editing/publishing, certificate
 approval; **admin** — plus deleting questions, roles, suspensions and the activity log.

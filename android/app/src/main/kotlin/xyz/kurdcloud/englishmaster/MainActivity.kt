@@ -1,5 +1,6 @@
 package xyz.kurdcloud.englishmaster
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -16,6 +17,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import xyz.kurdcloud.englishmaster.update.UpdateDialog
 import xyz.kurdcloud.englishmaster.update.UpdateViewModel
 import xyz.kurdcloud.englishmaster.core.designsystem.EnglishMasterTheme
+import xyz.kurdcloud.englishmaster.core.model.EmailLink
 import xyz.kurdcloud.englishmaster.core.designsystem.LocalSpeaker
 import xyz.kurdcloud.englishmaster.core.designsystem.TextToSpeechSpeaker
 import xyz.kurdcloud.englishmaster.feature.auth.InterfaceLanguage
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen().setKeepOnScreenCondition { !app.ready.value }
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        handleEmailLink(intent)
         val speaker = TextToSpeechSpeaker(this).also { speaker = it }
         setContent {
             EnglishMasterTheme {
@@ -51,6 +54,18 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleEmailLink(intent)
+    }
+
+    /** Passes a password-reset / confirmation link to the navigation (handled once). */
+    private fun handleEmailLink(intent: Intent?) {
+        val link = intent?.dataString?.let(EmailLink::parse) ?: return
+        (application as EnglishMasterApplication).container.emailLinks.value = link
+        intent.data = null
     }
 
     override fun onStop() {

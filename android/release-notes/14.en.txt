@@ -1,0 +1,1 @@
+Fixed: password-reset and account-confirmation emails now open the app. Tap the link in the email to choose a new password, or to finish creating your account.

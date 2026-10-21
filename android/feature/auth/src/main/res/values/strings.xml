@@ -86,4 +86,13 @@
         <item quantity="one">%1$d answer has not been sent yet. It stays on this device and is sent the next time you sign in with this account.</item>
         <item quantity="other">%1$d answers have not been sent yet. They stay on this device and are sent the next time you sign in with this account.</item>
     </plurals>
+    <string name="auth_set_password_title">Choose a new password</string>
+    <string name="auth_set_password_body">Enter a new password for your account. You will stay signed in.</string>
+    <string name="auth_set_password_confirm">Repeat the new password</string>
+    <string name="auth_set_password_mismatch">The two passwords are not the same</string>
+    <string name="auth_set_password_save">Save new password</string>
+    <string name="auth_set_password_done">Your new password is saved.</string>
+    <string name="auth_error_same_password">Choose a password that is different from your old one.</string>
+    <string name="auth_error_link_expired">This email link has expired or was already used. Request a new one.</string>
+    <string name="auth_error_link_invalid">This email link could not be used. Please try again.</string>
 </resources>

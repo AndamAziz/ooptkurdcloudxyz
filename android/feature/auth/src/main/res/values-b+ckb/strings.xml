@@ -86,4 +86,13 @@
         <item quantity="one">%1$d وەڵام هێشتا نەنێردراوە. لەسەر ئەم ئامێرە دەمێنێتەوە و جاری داهاتوو کە بەم هەژمارە چوویتە ژوورەوە دەنێردرێت.</item>
         <item quantity="other">%1$d وەڵام هێشتا نەنێردراون. لەسەر ئەم ئامێرە دەمێننەوە و جاری داهاتوو کە بەم هەژمارە چوویتە ژوورەوە دەنێردرێن.</item>
     </plurals>
+    <string name="auth_set_password_title">وشەی نهێنیی نوێ هەڵبژێرە</string>
+    <string name="auth_set_password_body">وشەی نهێنییەکی نوێ بۆ هەژمارەکەت بنووسە. لە ژوورەوە دەمێنیتەوە.</string>
+    <string name="auth_set_password_confirm">وشەی نهێنیی نوێ دووبارە بکەرەوە</string>
+    <string name="auth_set_password_mismatch">هەردوو وشە نهێنییەکە وەک یەک نین</string>
+    <string name="auth_set_password_save">پاشەکەوتکردنی وشەی نهێنیی نوێ</string>
+    <string name="auth_set_password_done">وشەی نهێنیی نوێکەت پاشەکەوت کرا.</string>
+    <string name="auth_error_same_password">وشەی نهێنییەک هەڵبژێرە کە جیاواز بێت لە کۆنەکە.</string>
+    <string name="auth_error_link_expired">ئەم لینکەی ئیمەیڵ بەسەرچووە یان پێشتر بەکارهاتووە. لینکێکی نوێ داوا بکە.</string>
+    <string name="auth_error_link_invalid">نەتوانرا ئەم لینکەی ئیمەیڵ بەکاربهێنرێت. تکایە دووبارە هەوڵ بدەرەوە.</string>
 </resources>

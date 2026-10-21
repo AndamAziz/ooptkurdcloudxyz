@@ -16,6 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.flow.StateFlow
 import xyz.kurdcloud.englishmaster.core.data.RegisterOutcome
 import xyz.kurdcloud.englishmaster.core.designsystem.LoadingState
+import xyz.kurdcloud.englishmaster.core.model.EmailLink
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.ExamKind
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
@@ -28,6 +29,8 @@ import xyz.kurdcloud.englishmaster.feature.admin.AddQuestionViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.QuestionsViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.StaffScreen
 import xyz.kurdcloud.englishmaster.feature.admin.UsersViewModel
+import xyz.kurdcloud.englishmaster.feature.auth.SetPasswordScreen
+import xyz.kurdcloud.englishmaster.feature.auth.SetPasswordViewModel
 import xyz.kurdcloud.englishmaster.feature.auth.AccountActions
 import xyz.kurdcloud.englishmaster.feature.auth.AccountScreen
 import xyz.kurdcloud.englishmaster.feature.auth.AccountViewModel
@@ -56,7 +59,8 @@ import xyz.kurdcloud.englishmaster.feature.practice.PracticeViewModel
 
 private object Routes {
     const val WELCOME = "welcome"
-    const val SIGN_IN = "sign-in?expired={expired}"
+    const val SIGN_IN = "sign-in?notice={notice}"
+    const val SET_PASSWORD = "set-password"
     const val REGISTER = "register"
     const val FORGOT = "forgot-password"
     const val CHECK_EMAIL = "check-email/{reason}"
@@ -72,7 +76,8 @@ private object Routes {
     const val ACCOUNT = "account"
     const val PRIVACY = "privacy"
 
-    fun signIn(expired: Boolean = false) = "sign-in?expired=$expired"
+    /** [notice]: a message to show on arrival (session expired, email link expired, ...). */
+    fun signIn(notice: AuthMessage? = null) = "sign-in?notice=${notice?.name.orEmpty()}"
     fun checkEmail(reason: CheckEmailReason) = "check-email/${reason.name}"
     fun practice(level: CefrLevel, mistakes: Boolean = false) = "practice/${level.apiValue}?mistakes=$mistakes"
     fun exam(level: CefrLevel) = "exam/${level.apiValue}"
@@ -98,11 +103,27 @@ fun EnglishMasterNavHost(
     // A rejected refresh token signs the user out; send them to sign-in with an explanation.
     LaunchedEffect(Unit) {
         container.auth.sessionExpired.collect {
-            navController.navigate(Routes.signIn(expired = true)) { popUpTo(0) }
+            navController.navigate(Routes.signIn(AuthMessage.SESSION_EXPIRED)) { popUpTo(0) }
         }
     }
 
     fun goHome() = navController.navigate(Routes.HOME) { popUpTo(0) }
+
+    // Password-reset and sign-up confirmation emails open the app with tokens (see MainActivity).
+    val emailLink by container.emailLinks.collectAsStateWithLifecycle()
+    LaunchedEffect(emailLink) {
+        val link = emailLink ?: return@LaunchedEffect
+        container.emailLinks.value = null
+        when (link) {
+            is EmailLink.SignedIn -> when (val result = container.auth.completeEmailLink(link)) {
+                is ApiResult.Success ->
+                    if (link.recovery) navController.navigate(Routes.SET_PASSWORD) { popUpTo(0) } else goHome()
+                is ApiResult.Failure -> navController.navigate(Routes.signIn(AuthMessage.from(result.error))) { popUpTo(0) }
+            }
+            EmailLink.Expired -> navController.navigate(Routes.signIn(AuthMessage.LINK_EXPIRED)) { popUpTo(0) }
+            EmailLink.Invalid -> navController.navigate(Routes.signIn(AuthMessage.LINK_INVALID)) { popUpTo(0) }
+        }
+    }
 
     // Decided once; later sign-in/sign-out navigate explicitly instead of swapping the graph.
     val startDestination = remember { if (session != null) Routes.HOME else Routes.WELCOME }
@@ -141,8 +162,8 @@ fun EnglishMasterNavHost(
         }
         composable(Routes.SIGN_IN) { entry ->
             val vm = viewModel { SignInViewModel(container.auth) }
-            val expired = entry.arguments?.getString("expired") == "true"
-            LaunchedEffect(expired) { if (expired) vm.showMessage(AuthMessage.SESSION_EXPIRED) }
+            val notice = entry.arguments?.getString("notice")?.let { n -> AuthMessage.entries.firstOrNull { it.name == n } }
+            LaunchedEffect(notice) { notice?.let(vm::showMessage) }
             SignInScreen(
                 viewModel = vm,
                 onSignedIn = ::goHome,
@@ -163,6 +184,14 @@ fun EnglishMasterNavHost(
                     }
                 },
                 onBack = { navController.popBackStack() },
+            )
+        }
+        composable(Routes.SET_PASSWORD) {
+            SetPasswordScreen(
+                viewModel = viewModel { SetPasswordViewModel(container.auth) },
+                onDone = ::goHome,
+                // Skipping keeps the user signed in with the old password unchanged.
+                onCancel = ::goHome,
             )
         }
         composable(Routes.FORGOT) {

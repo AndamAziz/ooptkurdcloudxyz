@@ -19,6 +19,9 @@ data class SignUpMetadata(@SerialName("display_name") val displayName: String)
 data class RecoverRequest(val email: String)
 
 @Serializable
+data class UpdateUserRequest(val password: String)
+
+@Serializable
 data class AuthUserDto(val id: String, val email: String? = null)
 
 /** Response of /auth/v1/token. */
