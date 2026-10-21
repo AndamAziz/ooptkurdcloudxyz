@@ -46,6 +46,11 @@ class FakeContent(var questions: List<Question> = emptyList()) : ContentReposito
     override suspend fun pickTopic(topic: Topic, userId: String, count: Int) = topicQuestions[topic].orEmpty().take(count)
     override fun observeTopicCounts(): Flow<Map<Topic, Int>> =
         packs.map { Topic.entries.associateWith { t -> topicQuestions[t].orEmpty().size } }
+
+    var taggedQuestions: Map<String, List<Question>> = emptyMap()
+    override suspend fun pickTagged(tag: String, userId: String, count: Int) = taggedQuestions[tag].orEmpty().take(count)
+    override fun observeTagCounts(tags: List<String>): Flow<Map<String, Int>> =
+        packs.map { tags.associateWith { t -> taggedQuestions[t].orEmpty().size } }
 }
 
 /** Marks answers immediately when "online", otherwise leaves them pending until [completeSync]. */

@@ -56,7 +56,13 @@ import xyz.kurdcloud.englishmaster.core.model.optionLetter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PracticeScreen(level: CefrLevel?, viewModel: PracticeViewModel, onExit: () -> Unit) {
+fun PracticeScreen(
+    level: CefrLevel?,
+    viewModel: PracticeViewModel,
+    onExit: () -> Unit,
+    /** Replaces the level/topic title (Life in the UK chapters). */
+    title: String? = null,
+) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val topic = viewModel.topic
     Scaffold(
@@ -65,6 +71,7 @@ fun PracticeScreen(level: CefrLevel?, viewModel: PracticeViewModel, onExit: () -
                 title = {
                     Text(
                         when {
+                            title != null -> title
                             topic != null -> stringResource(topic.titleRes())
                             viewModel.mistakesOnly -> stringResource(R.string.practice_review_title, level?.label.orEmpty())
                             else -> stringResource(R.string.practice_title, level?.label.orEmpty())
@@ -81,6 +88,7 @@ fun PracticeScreen(level: CefrLevel?, viewModel: PracticeViewModel, onExit: () -
             state.isEmpty -> EmptyState(
                 stringResource(
                     when {
+                        title != null -> R.string.lituk_chapter_empty
                         topic != null -> R.string.practice_topic_empty
                         viewModel.mistakesOnly -> R.string.practice_review_empty
                         else -> R.string.practice_empty

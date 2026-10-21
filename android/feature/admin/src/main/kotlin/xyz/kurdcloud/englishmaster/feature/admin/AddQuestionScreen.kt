@@ -117,7 +117,7 @@ fun AddQuestionScreen(viewModel: AddQuestionViewModel, onDone: () -> Unit) {
             Column(Modifier.widthIn(max = 640.dp).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(stringResource(R.string.admin_add_level), style = MaterialTheme.typography.labelLarge)
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    CefrLevel.practiceLevels.forEach { level ->
+                    CefrLevel.authoringLevels.forEach { level ->
                         FilterChip(selected = state.level == level, onClick = { viewModel.update { it.copy(level = level) } }, label = { Text(level.label) })
                     }
                 }

@@ -19,6 +19,8 @@ import xyz.kurdcloud.englishmaster.core.designsystem.LoadingState
 import xyz.kurdcloud.englishmaster.core.model.EmailLink
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.ExamKind
+import xyz.kurdcloud.englishmaster.core.model.LifeInUkChapter
+import xyz.kurdcloud.englishmaster.core.model.LifeInUkTest
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
 import xyz.kurdcloud.englishmaster.core.model.Topic
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
@@ -52,6 +54,13 @@ import xyz.kurdcloud.englishmaster.feature.exam.CertificatesViewModel
 import xyz.kurdcloud.englishmaster.feature.exam.ExamScreen
 import xyz.kurdcloud.englishmaster.feature.exam.ExamViewModel
 import xyz.kurdcloud.englishmaster.feature.practice.HomeActions
+import xyz.kurdcloud.englishmaster.feature.practice.LifeInUkActions
+import xyz.kurdcloud.englishmaster.feature.practice.LifeInUkScreen
+import xyz.kurdcloud.englishmaster.feature.practice.LifeInUkViewModel
+import xyz.kurdcloud.englishmaster.feature.practice.MockTestScreen
+import xyz.kurdcloud.englishmaster.feature.practice.MockTestViewModel
+import xyz.kurdcloud.englishmaster.feature.practice.titleRes
+import xyz.kurdcloud.englishmaster.feature.practice.R as PracticeR
 import xyz.kurdcloud.englishmaster.feature.practice.HomeScreen
 import xyz.kurdcloud.englishmaster.feature.practice.HomeViewModel
 import xyz.kurdcloud.englishmaster.feature.practice.PracticeScreen
@@ -75,6 +84,9 @@ private object Routes {
     const val CERTIFICATES = "certificates"
     const val ACCOUNT = "account"
     const val PRIVACY = "privacy"
+    const val LIFE_IN_UK = "life-in-uk"
+    const val LIFE_IN_UK_CHAPTER = "life-in-uk/chapter/{tag}"
+    const val LIFE_IN_UK_MOCK = "life-in-uk/mock-test"
 
     /** [notice]: a message to show on arrival (session expired, email link expired, ...). */
     fun signIn(notice: AuthMessage? = null) = "sign-in?notice=${notice?.name.orEmpty()}"
@@ -82,6 +94,7 @@ private object Routes {
     fun practice(level: CefrLevel, mistakes: Boolean = false) = "practice/${level.apiValue}?mistakes=$mistakes"
     fun exam(level: CefrLevel) = "exam/${level.apiValue}"
     fun topic(topic: Topic) = "topic/${topic.apiValue}"
+    fun lifeInUkChapter(tag: String) = "life-in-uk/chapter/$tag"
 }
 
 @Composable
@@ -222,7 +235,42 @@ fun EnglishMasterNavHost(
                     onPlacementTest = { navController.navigate(Routes.PLACEMENT) },
                     onCertificates = { navController.navigate(Routes.CERTIFICATES) },
                     onPractiseTopic = { navController.navigate(Routes.topic(it)) },
+                    onLifeInUk = { navController.navigate(Routes.LIFE_IN_UK) },
                 ),
+            )
+        }
+        composable(Routes.LIFE_IN_UK) {
+            val userId = session?.userId ?: return@composable
+            LifeInUkScreen(
+                viewModel = viewModel { LifeInUkViewModel(userId, container.content, container.practice, container.network) },
+                actions = LifeInUkActions(
+                    onPractiseChapter = { navController.navigate(Routes.lifeInUkChapter(it.tag)) },
+                    onPractiseAll = { navController.navigate(Routes.practice(CefrLevel.LIFE_IN_UK)) },
+                    onReviewMistakes = { navController.navigate(Routes.practice(CefrLevel.LIFE_IN_UK, mistakes = true)) },
+                    onMockTest = { navController.navigate(Routes.LIFE_IN_UK_MOCK) },
+                    onBack = { navController.popBackStack() },
+                ),
+            )
+        }
+        composable(Routes.LIFE_IN_UK_CHAPTER) { entry ->
+            val userId = session?.userId ?: return@composable
+            val tag = entry.arguments?.getString("tag") ?: LifeInUkTest.TAG
+            val chapter = LifeInUkChapter.fromTag(tag)
+            PracticeScreen(
+                level = CefrLevel.LIFE_IN_UK,
+                viewModel = viewModel { PracticeViewModel(null, userId, container.content, container.practice, tag = tag) },
+                onExit = { navController.popBackStack() },
+                title = stringResource(chapter?.titleRes() ?: PracticeR.string.lituk_title),
+            )
+        }
+        composable(Routes.LIFE_IN_UK_MOCK) {
+            val userId = session?.userId ?: return@composable
+            MockTestScreen(
+                viewModel = viewModel { MockTestViewModel(userId, container.content, container.practice) },
+                onClose = { navController.popBackStack() },
+                onPractiseMistakes = {
+                    navController.navigate(Routes.practice(CefrLevel.LIFE_IN_UK, mistakes = true)) { popUpTo(Routes.LIFE_IN_UK) }
+                },
             )
         }
         composable(Routes.STAFF) {

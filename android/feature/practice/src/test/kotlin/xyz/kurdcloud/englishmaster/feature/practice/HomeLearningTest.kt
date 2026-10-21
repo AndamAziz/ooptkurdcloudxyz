@@ -100,24 +100,33 @@ class HomeLearningTest {
     @Test
     fun topicsAppearOnceALevelIsDownloadedAndOpenATopicSession() {
         val content = FakeContent().apply {
-            topicQuestions = mapOf(Topic.LIFE_IN_UK to listOf(question("uk1"), question("uk2")))
+            topicQuestions = mapOf(Topic.KURDISTAN to listOf(question("k1"), question("k2")))
             packs.value = listOf(LevelPack(CefrLevel.A1, 3, 0))
         }
         val vm = HomeViewModel("u1", content, FakePractice(FakeNetwork()), FakeNetwork(), learning = FakeLearningRepo(), clock = { 0L })
         var opened: Topic? = null
+        var openedLifeInUk = false
         compose.setContent {
-            EnglishMasterTheme { HomeScreen(vm, {}, actions = HomeActions(onStartPractice = {}, onPractiseTopic = { opened = it })) }
+            EnglishMasterTheme {
+                HomeScreen(vm, {}, actions = HomeActions(onStartPractice = {}, onPractiseTopic = { opened = it }, onLifeInUk = { openedLifeInUk = true }))
+            }
         }
         val list = compose.onNode(hasScrollToNodeAction())
-        list.performScrollToNode(hasTestTag("topic_life_in_uk"))
+        list.performScrollToNode(hasTestTag("topic_kurdistan"))
         compose.onNodeWithText("2 questions").assertIsDisplayed()
-        compose.onNodeWithTag("topic_life_in_uk").performClick()
-        assertEquals(Topic.LIFE_IN_UK, opened)
+        compose.onNodeWithTag("topic_kurdistan").performClick()
+        assertEquals(Topic.KURDISTAN, opened)
 
         // A topic without questions cannot be opened.
-        list.performScrollToNode(hasTestTag("topic_kurdistan"))
-        compose.onNodeWithTag("topic_kurdistan").performClick()
-        assertEquals(Topic.LIFE_IN_UK, opened)
+        list.performScrollToNode(hasTestTag("topic_stories"))
+        compose.onNodeWithTag("topic_stories").performClick()
+        assertEquals(Topic.KURDISTAN, opened)
+
+        // Life in the UK has its own course card instead of a topic tile.
+        compose.onNodeWithTag("topic_life_in_uk").assertDoesNotExist()
+        list.performScrollToNode(hasTestTag("home_lituk"))
+        compose.onNodeWithTag("home_lituk").performClick()
+        assertEquals(true, openedLifeInUk)
     }
 
     @Test
