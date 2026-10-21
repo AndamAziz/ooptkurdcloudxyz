@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 __pycache__/
+
+# Licensed source material (e.g. the Life in the UK handbook PDF): never commit
+content/lituk/private/

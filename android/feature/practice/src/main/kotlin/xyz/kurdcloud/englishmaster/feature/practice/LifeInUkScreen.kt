@@ -190,6 +190,15 @@ private fun PackCard(state: LifeInUkUiState, onDownload: () -> Unit) {
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.testTag("lituk_pack_count"),
                     )
+                    if (state.questionCount == 0) {
+                        // Downloaded before teachers published the course: nothing to practise yet.
+                        Text(
+                            stringResource(R.string.lituk_pack_empty),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.tertiary,
+                            modifier = Modifier.testTag("lituk_pack_empty"),
+                        )
+                    }
                     state.progress?.let { p ->
                         val percent = if (p.answered == 0) 0 else p.correct * 100 / p.answered
                         Text(
@@ -258,7 +267,6 @@ private fun OfficialLinks() {
                 Text(stringResource(R.string.lituk_link_book))
             }
             TextButton(onClick = { uri.openUri(LifeInUkTest.TEST_DAY_URL) }) { Text(stringResource(R.string.lituk_link_test_day)) }
-            TextButton(onClick = { uri.openUri(LifeInUkTest.HANDBOOK_URL) }) { Text(stringResource(R.string.lituk_link_handbook)) }
         }
     }
 }

@@ -15,11 +15,17 @@ content/media/ (they are uploaded to the question-media bucket by the englishmas
 Re-running the seed only updates items that are still unreviewed drafts: a teacher's
 approval, retirement or later edit is never overwritten.
 
+Source-verified batches (Life in the UK) set "verified_only": true; then only items with
+"verification": "verified" and a "source" page are imported, and items may carry a stable "ref".
+Extra item fields (source, verification, difficulty, explanation_ckb, notes) are not imported;
+they are review data checked by scripts/lituk/lituk.py.
+
 Usage: python3 scripts/db/build_ai_question_seed.py [batch_json ...]
 """
 import hashlib
 import json
 import random
+import re
 import sys
 from pathlib import Path
 
@@ -80,15 +86,32 @@ def validate(item: dict, where: str, passages: dict) -> None:
         raise SystemExit(f"{where}: {item['prompt']!r}: {', '.join(problems)}")
 
 
+def is_importable(item: dict, verified_only: bool) -> bool:
+    """In a "verified_only" batch, only items verified against their source (with a page) are imported."""
+    if not verified_only:
+        return True
+    return item.get("verification") == "verified" and bool((item.get("source") or {}).get("page"))
+
+
 def rows(src: Path) -> tuple[str, list[dict]]:
     """Validated rows of one batch, as column -> value (also used by publish_questions.py)."""
+    batch, pairs = item_rows(src)
+    return batch, [row for _, row in pairs]
+
+
+def item_rows(src: Path, include_unimportable: bool = False) -> tuple[str, list[tuple[dict, dict]]]:
+    """(item, row) pairs of one batch. Items held back by "verified_only" are skipped unless asked for."""
     data = json.loads(src.read_text(encoding="utf-8"))
     batch = data["batch"]
     passages = data.get("passages", {})
+    verified_only = bool(data.get("verified_only"))
     seen = set()
+    refs = set()
     result = []
     for item in data["items"]:
         validate(item, src.name, passages)
+        if not include_unimportable and not is_importable(item, verified_only):
+            continue
         # A prompt may repeat only with a different passage or picture (e.g. "Which statement is true?").
         context = item.get("passage") or (item.get("media") or {}).get("path") or ""
         key = (item["level"], norm(item["prompt"]) + "|" + context)
@@ -97,14 +120,24 @@ def rows(src: Path) -> tuple[str, list[dict]]:
         seen.add(key)
         # Batch 01 ids are derived from level + prompt only; keep that so existing rows keep their refs.
         digest = hashlib.sha256((f"{item['level']}|{norm(item['prompt'])}" + (f"|{context}" if context else "")).encode()).hexdigest()
+        # A stable explicit id ("ref", e.g. "lituk:C3-0042") keeps the record identity when the
+        # wording is corrected later; without one the id is derived from the prompt as before.
+        ref = item.get("ref")
+        if ref is not None:
+            if not re.fullmatch(r"[a-z]+:[A-Za-z0-9._-]{1,60}", ref):
+                raise SystemExit(f"{src.name}: invalid ref {ref!r} (expected e.g. lituk:C3-0042)")
+            if ref in refs:
+                raise SystemExit(f"{src.name}: duplicate ref {ref!r}")
+            refs.add(ref)
+            digest = hashlib.sha256(ref.encode()).hexdigest()
         options = [item["answer"], *item["distractors"]]
         if is_true_false(item):
             options = list(TRUE_FALSE)  # always "True", "False" in that order
         else:
             random.Random(digest).shuffle(options)
         media = item.get("media") or {}
-        result.append({
-            "external_ref": f"ai:{batch}:{digest[:12]}",
+        result.append((item, {
+            "external_ref": ref or f"ai:{batch}:{digest[:12]}",
             "cefr_level": item["level"],
             "skill": item["skill"],
             "prompt": item["prompt"],
@@ -119,7 +152,7 @@ def rows(src: Path) -> tuple[str, list[dict]]:
             "media_type": media.get("type"),
             "media_path": media.get("path"),
             "media_caption": media.get("caption"),
-        })
+        }))
     return batch, result
 
 

@@ -42,6 +42,15 @@ class LifeInUkScreenTest {
     }
 
     @Test
+    fun anEmptyPackExplainsThatTeachersAreStillReviewing() {
+        val content = FakeContent().apply { packs.value = listOf(LevelPack(CefrLevel.LIFE_IN_UK, 0, 0)) }
+        val vm = LifeInUkViewModel("u1", content, FakePractice(FakeNetwork()), FakeNetwork())
+        compose.setContent { EnglishMasterTheme { LifeInUkScreen(vm, LifeInUkActions()) } }
+        compose.onNodeWithTag("lituk_pack_empty").assertIsDisplayed()
+        compose.onNodeWithTag("lituk_mock_start").assertDoesNotExist()
+    }
+
+    @Test
     fun chaptersAndMockTestOpenFromTheCoursePage() {
         val content = FakeContent().apply {
             packs.value = listOf(LevelPack(CefrLevel.LIFE_IN_UK, 400, 0))
