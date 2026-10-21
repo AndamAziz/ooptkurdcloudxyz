@@ -178,7 +178,7 @@ Applied to `nefpgqoykfndjvrdultp` with the owner's approval:
 | AI batch 03 (114 drafts) + 9 new sample media | published by the content workflow on push |
 | `20261020160000_certificate_approval` | applied 2026-10-20 — anon can only call `verify_certificate`; staff RPCs need teacher/admin |
 | `20261020180000_question_edit_delete` | applied 2026-10-20 — edit: teacher/admin; delete: admin only; anon cannot call either |
-| `20261021090000_account_deletion` | **pending** — contains `DELETE` statements (inside the function); the MCP confirmation was cancelled. Apply by pasting the file into the Supabase SQL Editor or with `supabase db push --workdir backend`. Until then "Delete account" in the app shows an error. |
+| `20261021090000_account_deletion` | applied 2026-10-21 by the owner in the SQL Editor — anon cannot call it; checked live in a rolled-back transaction (test user and profile deleted, real users untouched) |
 | edge function `verify-certificate` | v2 deployed 2026-10-21 (name changed to "EnglishMaster") |
 | `20261019220000_policy_consolidation` | **pending** — contains `DROP POLICY`; the MCP tooling waits for a destructive-statement confirmation it cannot show and times out (nothing is changed). Apply with `supabase db push --workdir backend` |
 
