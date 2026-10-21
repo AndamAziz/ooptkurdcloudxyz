@@ -135,6 +135,10 @@ class SessionAndAuthTest {
         assertEquals("Bearer AT", update.headers["Authorization"])
         assertEquals("""{"password":"newpass99"}""", update.body!!.utf8())
 
+        server.enqueue(json(429, """{"error_code":"over_email_send_rate_limit","msg":"email rate limit exceeded"}"""))
+        assertEquals(ApiResult.Failure(ApiError.Auth(AuthFailure.EMAIL_LIMIT)), repo.requestPasswordReset("a@b.co"))
+        server.takeRequest()
+
         server.enqueue(json(422, """{"error_code":"same_password","msg":"New password should be different"}"""))
         assertEquals(ApiResult.Failure(ApiError.Auth(AuthFailure.SAME_PASSWORD)), repo.updatePassword("newpass99"))
     }

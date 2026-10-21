@@ -95,4 +95,5 @@
     <string name="auth_error_same_password">وشەی نهێنییەک هەڵبژێرە کە جیاواز بێت لە کۆنەکە.</string>
     <string name="auth_error_link_expired">ئەم لینکەی ئیمەیڵ بەسەرچووە یان پێشتر بەکارهاتووە. لینکێکی نوێ داوا بکە.</string>
     <string name="auth_error_link_invalid">نەتوانرا ئەم لینکەی ئیمەیڵ بەکاربهێنرێت. تکایە دووبارە هەوڵ بدەرەوە.</string>
+    <string name="auth_error_email_limit">ئێستا ناتوانین ئیمەیڵێکی تر بنێرین، چونکە لەم دواییانەدا ئیمەیڵی زۆر نێردراون. تکایە دواتر هەوڵ بدەرەوە (لەوانەیە تا یەک کاتژمێر بخایەنێت).</string>
 </resources>
