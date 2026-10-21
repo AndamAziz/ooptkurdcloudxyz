@@ -185,6 +185,7 @@ Applied to `nefpgqoykfndjvrdultp` with the owner's approval:
 | `20261020180000_question_edit_delete` | applied 2026-10-20 — edit: teacher/admin; delete: admin only; anon cannot call either |
 | `20261021090000_account_deletion` | applied 2026-10-21 by the owner in the SQL Editor — anon cannot call it; checked live in a rolled-back transaction (test user and profile deleted, real users untouched) |
 | edge function `verify-certificate` | v2 deployed 2026-10-21 (name changed to "EnglishMaster") |
+| `20261021120000_explicit_service_role_grants` | applied 2026-10-21 — no-op on this project; keeps the content/release workflows working on schemas created after Supabase stops automatic Data API grants (30 Oct 2026) |
 | `20261019220000_policy_consolidation` | **pending** — contains `DROP POLICY`; the MCP tooling waits for a destructive-statement confirmation it cannot show and times out (nothing is changed). Apply with `supabase db push --workdir backend` |
 
 Verified on the live project: RLS on all tables; `anon` has no table grants and cannot execute any
