@@ -1,4 +1,4 @@
-# EnglishMaster AI — Supabase backend
+# EnglishMaster — Supabase backend
 
 Target project: **`nefpgqoykfndjvrdultp`** ("EnglishMaster AI", eu-west-1).
 
@@ -91,6 +91,10 @@ admin) bumps the version when prompt, options, key, passage, media or level chan
 `staff_delete_question` (admin) deletes an unused question or archives an answered one
 (`deleted_at`, retired), so answer history stays valid.
 
+Account deletion (`20261021090000_account_deletion`): `delete_my_account()` lets a learner delete their
+account and everything linked to it (Google Play requirement). Staff cannot self-delete; an admin removes
+the role first. It also works around `activity_logs` being append-only (the FK's SET NULL is an update).
+
 Permissions at a glance: **learner** — practise, exams, own profile and certificates; **teacher** —
 plus learner list and name corrections, question review/authoring/editing/publishing, certificate
 approval; **admin** — plus deleting questions, roles, suspensions and the activity log.
@@ -174,6 +178,8 @@ Applied to `nefpgqoykfndjvrdultp` with the owner's approval:
 | AI batch 03 (114 drafts) + 9 new sample media | published by the content workflow on push |
 | `20261020160000_certificate_approval` | applied 2026-10-20 — anon can only call `verify_certificate`; staff RPCs need teacher/admin |
 | `20261020180000_question_edit_delete` | applied 2026-10-20 — edit: teacher/admin; delete: admin only; anon cannot call either |
+| `20261021090000_account_deletion` | **pending** — contains `DELETE` statements (inside the function); the MCP confirmation was cancelled. Apply by pasting the file into the Supabase SQL Editor or with `supabase db push --workdir backend`. Until then "Delete account" in the app shows an error. |
+| edge function `verify-certificate` | v2 deployed 2026-10-21 (name changed to "EnglishMaster") |
 | `20261019220000_policy_consolidation` | **pending** — contains `DROP POLICY`; the MCP tooling waits for a destructive-statement confirmation it cannot show and times out (nothing is changed). Apply with `supabase db push --workdir backend` |
 
 Verified on the live project: RLS on all tables; `anon` has no table grants and cannot execute any

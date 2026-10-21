@@ -2,15 +2,9 @@
 <!-- Counts in exam rules are fixed values above one (20 questions, 30 minutes, 24 hours), and
      "%1$d of %2$d correct" uses "correct" as an adjective, so plurals are not needed there. -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="PluralsCandidate">
-    <string name="practice_home_title">EnglishMaster AI</string>
+    <string name="practice_home_title">EnglishMaster</string>
     <string name="practice_menu">Menu</string>
     <string name="practice_staff_tools">Staff tools</string>
-    <string name="practice_sign_out">Sign out</string>
-    <string name="practice_sign_out_confirm">Do you want to sign out on this device?</string>
-    <plurals name="practice_sign_out_pending">
-        <item quantity="one">%1$d answer has not been sent yet. It stays on this device and is sent the next time you sign in with this account.</item>
-        <item quantity="other">%1$d answers have not been sent yet. They stay on this device and are sent the next time you sign in with this account.</item>
-    </plurals>
     <string name="practice_cancel">Cancel</string>
     <string name="practice_levels_header">Practice levels</string>
     <string name="practice_cefr_note">Levels are CEFR-referenced practice sets, not an official CEFR certification. Items marked as not reviewed have not yet been checked by a teacher.</string>
@@ -148,4 +142,5 @@
     <string name="practice_topic_empty">No questions on this topic yet. Download or update a level first.</string>
     <string name="home_chip_awaiting_approval">Waiting for approval</string>
     <string name="home_status_awaiting_approval">Passed with %1$d / %2$d. Your teacher will review the result; the certificate appears here once it is approved.</string>
+    <string name="home_my_account">My account</string>
 </resources>

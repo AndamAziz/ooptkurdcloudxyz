@@ -36,8 +36,8 @@ android {
         applicationId = "app.englishmaster"
         minSdk = 26
         targetSdk = 36
-        versionCode = 12
-        versionName = "0.8.0"
+        versionCode = 13
+        versionName = "0.9.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SUPABASE_URL", "\"$supabaseUrl\"")
         buildConfigField("String", "SUPABASE_ANON_KEY", "\"$supabaseAnonKey\"")
@@ -83,6 +83,13 @@ android {
     }
 
     testOptions { unitTests.isIncludeAndroidResources = true }
+}
+
+// Google Play builds (englishmaster.selfUpdate=false) drop the install-packages permission.
+androidComponents {
+    onVariants { variant ->
+        if (!selfUpdate) variant.sources.manifests?.addStaticManifestFile("src/play/AndroidManifest.xml")
+    }
 }
 
 dependencies {

@@ -25,7 +25,7 @@ class AppSmokeTest {
     @Config(qualifiers = "en")
     fun firstLaunchShowsWelcomeAndReachesSignIn() {
         compose.waitUntil(5_000) { compose.onAllNodesWithText("Create account").fetchSemanticsNodes().isNotEmpty() }
-        compose.onNodeWithText("Create account").assertIsDisplayed()
+        compose.onNodeWithText("Create account").performScrollTo().assertIsDisplayed()
         compose.onNodeWithText("I already have an account").performScrollTo().performClick()
         compose.onNodeWithText("Forgot password?").assertIsDisplayed()
     }
@@ -45,6 +45,6 @@ class AppSmokeTest {
     @Test
     @Config(qualifiers = "b+ckb")
     fun soraniWelcomeScreen() {
-        compose.onNodeWithText("دروستکردنی هەژمار").assertIsDisplayed()
+        compose.onNodeWithText("دروستکردنی هەژمار").performScrollTo().assertIsDisplayed()
     }
 }

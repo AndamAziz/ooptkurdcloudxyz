@@ -6,7 +6,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -15,7 +14,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import xyz.kurdcloud.englishmaster.core.data.RegisterOutcome
 import xyz.kurdcloud.englishmaster.core.designsystem.LoadingState
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
@@ -30,6 +28,10 @@ import xyz.kurdcloud.englishmaster.feature.admin.AddQuestionViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.QuestionsViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.StaffScreen
 import xyz.kurdcloud.englishmaster.feature.admin.UsersViewModel
+import xyz.kurdcloud.englishmaster.feature.auth.AccountActions
+import xyz.kurdcloud.englishmaster.feature.auth.AccountScreen
+import xyz.kurdcloud.englishmaster.feature.auth.AccountViewModel
+import xyz.kurdcloud.englishmaster.feature.auth.PrivacyScreen
 import xyz.kurdcloud.englishmaster.feature.auth.AuthMessage
 import xyz.kurdcloud.englishmaster.feature.auth.CheckEmailReason
 import xyz.kurdcloud.englishmaster.feature.auth.CheckEmailScreen
@@ -67,6 +69,8 @@ private object Routes {
     const val EXAM = "exam/{level}"
     const val PLACEMENT = "placement"
     const val CERTIFICATES = "certificates"
+    const val ACCOUNT = "account"
+    const val PRIVACY = "privacy"
 
     fun signIn(expired: Boolean = false) = "sign-in?expired=$expired"
     fun checkEmail(reason: CheckEmailReason) = "check-email/${reason.name}"
@@ -90,7 +94,6 @@ fun EnglishMasterNavHost(
         return
     }
     val session by container.auth.session.collectAsStateWithLifecycle()
-    val scope = rememberCoroutineScope()
 
     // A rejected refresh token signs the user out; send them to sign-in with an explanation.
     LaunchedEffect(Unit) {
@@ -110,6 +113,30 @@ fun EnglishMasterNavHost(
                 onLanguageSelected = onLanguageSelected,
                 onCreateAccount = { navController.navigate(Routes.REGISTER) },
                 onSignIn = { navController.navigate(Routes.signIn()) },
+                onOpenPrivacy = { navController.navigate(Routes.PRIVACY) },
+            )
+        }
+        composable(Routes.PRIVACY) { PrivacyScreen(onBack = { navController.popBackStack() }) }
+        composable(Routes.ACCOUNT) {
+            val userId = session?.userId ?: return@composable
+            val pending by remember(userId) { container.practice.observePendingCount(userId) }.collectAsStateWithLifecycle(0)
+            AccountScreen(
+                viewModel = viewModel { AccountViewModel(container.auth, container.learning, container.account, container.staff) },
+                versionName = BuildConfig.VERSION_NAME,
+                pendingAnswers = pending,
+                actions = AccountActions(
+                    languageLabel = stringResource(
+                        if (currentLanguage == InterfaceLanguage.SORANI) R.string.app_language_sorani else R.string.app_language_english,
+                    ),
+                    onSwitchLanguage = {
+                        onLanguageSelected(if (currentLanguage == InterfaceLanguage.SORANI) InterfaceLanguage.ENGLISH else InterfaceLanguage.SORANI)
+                    },
+                    onOpenPrivacy = { navController.navigate(Routes.PRIVACY) },
+                    checkForUpdatesLabel = onCheckForUpdates?.let { stringResource(R.string.update_check, BuildConfig.VERSION_NAME) },
+                    onCheckForUpdates = onCheckForUpdates ?: {},
+                ),
+                onSignedOut = { navController.navigate(Routes.WELCOME) { popUpTo(0) } },
+                onBack = { navController.popBackStack() },
             )
         }
         composable(Routes.SIGN_IN) { entry ->
@@ -157,14 +184,7 @@ fun EnglishMasterNavHost(
             HomeScreen(
                 viewModel = homeViewModel,
                 onOpenStaff = { navController.navigate(Routes.STAFF) },
-                checkForUpdatesLabel = onCheckForUpdates?.let { stringResource(R.string.update_check, BuildConfig.VERSION_NAME) },
-                onCheckForUpdates = onCheckForUpdates ?: {},
-                switchLanguageLabel = stringResource(
-                    if (currentLanguage == InterfaceLanguage.SORANI) R.string.app_switch_to_english else R.string.app_switch_to_sorani,
-                ),
-                onSwitchLanguage = {
-                    onLanguageSelected(if (currentLanguage == InterfaceLanguage.SORANI) InterfaceLanguage.ENGLISH else InterfaceLanguage.SORANI)
-                },
+                onOpenAccount = { navController.navigate(Routes.ACCOUNT) },
                 onStartPractice = { navController.navigate(Routes.practice(it)) },
                 actions = HomeActions(
                     onStartPractice = { navController.navigate(Routes.practice(it)) },
@@ -174,12 +194,6 @@ fun EnglishMasterNavHost(
                     onCertificates = { navController.navigate(Routes.CERTIFICATES) },
                     onPractiseTopic = { navController.navigate(Routes.topic(it)) },
                 ),
-                onSignOut = {
-                    scope.launch {
-                        container.auth.signOut()
-                        navController.navigate(Routes.WELCOME) { popUpTo(0) }
-                    }
-                },
             )
         }
         composable(Routes.STAFF) {

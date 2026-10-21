@@ -40,6 +40,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import xyz.kurdcloud.englishmaster.core.designsystem.AppLogo
 import xyz.kurdcloud.englishmaster.core.data.RegisterOutcome
 
 /** Interface languages offered by the app. Independent of the language being learned (English). */
@@ -51,8 +52,11 @@ fun WelcomeScreen(
     onLanguageSelected: (InterfaceLanguage) -> Unit,
     onCreateAccount: () -> Unit,
     onSignIn: () -> Unit,
+    onOpenPrivacy: () -> Unit = {},
 ) {
     FormColumn {
+        AppLogo(size = 80.dp)
+        Spacer(Modifier.height(16.dp))
         Text(stringResource(R.string.auth_welcome_title), style = MaterialTheme.typography.headlineMedium, textAlign = TextAlign.Center)
         Spacer(Modifier.height(8.dp))
         Text(stringResource(R.string.auth_welcome_body), style = MaterialTheme.typography.bodyLarge, textAlign = TextAlign.Center)
@@ -72,7 +76,8 @@ fun WelcomeScreen(
         }
         Spacer(Modifier.height(24.dp))
         Text(stringResource(R.string.auth_privacy_summary), style = MaterialTheme.typography.bodySmall)
-        Spacer(Modifier.height(24.dp))
+        TextButton(onClick = onOpenPrivacy, modifier = Modifier.testTag("welcome_privacy")) { Text(stringResource(R.string.account_privacy_policy)) }
+        Spacer(Modifier.height(8.dp))
         Button(onClick = onCreateAccount, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.auth_create_account)) }
         OutlinedButton(onClick = onSignIn, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.auth_have_account)) }
     }

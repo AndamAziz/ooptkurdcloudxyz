@@ -1,4 +1,4 @@
-# EnglishMaster AI — Android student app
+# EnglishMaster — Android student app
 
 Kotlin · Jetpack Compose (Material 3) · single activity · ViewModel + StateFlow · Navigation
 Compose · Room · DataStore + Android Keystore · Retrofit/OkHttp · WorkManager.
