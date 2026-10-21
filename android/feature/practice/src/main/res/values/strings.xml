@@ -183,10 +183,10 @@
     <string name="lituk_chapter_empty">No questions for this chapter yet. Download or update the Life in the UK questions first.</string>
     <string name="lituk_official_title">Official sources</string>
     <string name="lituk_official_body">The test is based only on the official handbook \"Life in the United Kingdom: A Guide for New Residents\". Book the test only on GOV.UK.</string>
-    <string name="lituk_link_book">GOV.UK: about the test and booking</string>
+    <string name="lituk_link_book">GOV.UK: the test, booking and the official handbook</string>
     <string name="lituk_link_test_day">GOV.UK: what happens at the test</string>
-    <string name="lituk_link_handbook">The official handbook</string>
     <string name="lituk_disclaimer">These are original practice questions written from the official handbook, not the questions of the real test (those are not published). Facts are as given in the handbook; a few things, such as the monarch, have changed since it was printed.</string>
+    <string name="lituk_pack_empty">Teachers are still reviewing the Life in the UK questions. When they are published, tap Update to get them.</string>
     <string name="lituk_mock_marking">Marking your answers…</string>
     <string name="lituk_mock_previous">Previous</string>
     <string name="lituk_mock_finish">Finish test</string>

@@ -17,8 +17,6 @@ object LifeInUkTest {
     /** Booking and rules (GOV.UK). */
     const val OFFICIAL_TEST_URL = "https://www.gov.uk/life-in-the-uk-test"
     const val TEST_DAY_URL = "https://www.gov.uk/life-in-the-uk-test/what-happens-test"
-    /** Where GOV.UK sends people for the official handbook. */
-    const val HANDBOOK_URL = "https://www.officiallifeintheuk.co.uk/shop"
 }
 
 /** Handbook chapters; each question carries one chapter tag. */

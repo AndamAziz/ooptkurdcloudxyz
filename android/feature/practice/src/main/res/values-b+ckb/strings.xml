@@ -183,10 +183,10 @@
     <string name="lituk_chapter_empty">هێشتا هیچ پرسیارێک بۆ ئەم بەشە نییە. سەرەتا پرسیارەکانی Life in the UK دابەزێنە یان نوێیان بکەرەوە.</string>
     <string name="lituk_official_title">سەرچاوە فەرمییەکان</string>
     <string name="lituk_official_body">تاقیکردنەوەکە تەنها لەسەر کتێبە فەرمییەکەیە: \"Life in the United Kingdom: A Guide for New Residents\". تاقیکردنەوەکە تەنها لە GOV.UK حیجز بکە.</string>
-    <string name="lituk_link_book">GOV.UK: دەربارەی تاقیکردنەوە و حیجزکردن</string>
+    <string name="lituk_link_book">GOV.UK: تاقیکردنەوە، حیجزکردن و کتێبە فەرمییەکە</string>
     <string name="lituk_link_test_day">GOV.UK: ڕۆژی تاقیکردنەوە چی ڕوودەدات</string>
-    <string name="lituk_link_handbook">کتێبە فەرمییەکە</string>
     <string name="lituk_disclaimer">ئەمانە پرسیاری ڕاهێنانی ڕەسەنن کە لە کتێبە فەرمییەکەوە نووسراون، نەک پرسیارەکانی تاقیکردنەوە ڕاستەقینەکە (ئەوانە بڵاوناکرێنەوە). زانیارییەکان وەک ئەوەی لە کتێبەکەدا هاتووە؛ هەندێک شت، وەک پاشا، لە دوای چاپکردنی کتێبەکەوە گۆڕاون.</string>
+    <string name="lituk_pack_empty">مامۆستاکان هێشتا پێداچوونەوە بە پرسیارەکانی Life in the UK دەکەن. کاتێک بڵاوکرانەوە، Update دابگرە بۆ وەرگرتنیان.</string>
     <string name="lituk_mock_marking">نمرەدانی وەڵامەکانت…</string>
     <string name="lituk_mock_previous">پێشوو</string>
     <string name="lituk_mock_finish">کۆتاییهێنان بە تاقیکردنەوە</string>
