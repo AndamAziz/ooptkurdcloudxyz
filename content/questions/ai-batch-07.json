@@ -3047,7 +3047,7 @@
   {
    "level": "A1",
    "skill": "reading",
-   "prompt": "What is Biscuit?",
+   "prompt": "What kind of animal is Biscuit?",
    "answer": "her dog",
    "distractors": [
     "her cat",
