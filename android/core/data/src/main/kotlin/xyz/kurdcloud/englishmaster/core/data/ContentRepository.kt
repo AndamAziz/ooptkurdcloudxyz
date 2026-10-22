@@ -11,6 +11,7 @@ import xyz.kurdcloud.englishmaster.core.database.QuestionEntity
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.LevelPack
 import xyz.kurdcloud.englishmaster.core.model.MediaType
+import xyz.kurdcloud.englishmaster.core.model.PackVersion
 import xyz.kurdcloud.englishmaster.core.model.QuestionMedia
 import xyz.kurdcloud.englishmaster.core.model.Question
 import xyz.kurdcloud.englishmaster.core.model.Topic
@@ -45,6 +46,12 @@ interface ContentRepository {
 
     /** Downloaded questions per tag. */
     fun observeTagCounts(tags: List<String>): Flow<Map<String, Int>> = kotlinx.coroutines.flow.flowOf(emptyMap())
+
+    /** What the server currently publishes, per level. */
+    suspend fun serverVersions(): ApiResult<List<PackVersion>> = ApiResult.Success(emptyList())
+
+    /** What is downloaded, per level (levels never downloaded are missing). */
+    suspend fun localVersions(): List<PackVersion> = emptyList()
 }
 
 class OfflineFirstContentRepository(
@@ -124,6 +131,23 @@ class OfflineFirstContentRepository(
     override fun observeTagCounts(tags: List<String>): Flow<Map<String, Int>> = combine(
         tags.map { tag -> questionDao.observeTopicCount(tagPattern(tag), "", "", "", false, false).map { tag to it } },
     ) { pairs -> pairs.toMap() }
+
+    override suspend fun serverVersions(): ApiResult<List<PackVersion>> =
+        restCall { api.getQuestionPackVersions() }.map { rows ->
+            rows.mapNotNull { row ->
+                val level = CefrLevel.entries.firstOrNull { it.apiValue == row.level } ?: return@mapNotNull null
+                PackVersion(level, row.published, row.lastChangedAt?.let(::epochMillis))
+            }
+        }
+
+    override suspend fun localVersions(): List<PackVersion> {
+        val saved = questionDao.levelVersions().associateBy { it.cefrLevel }
+        return packDao.all().mapNotNull { pack ->
+            val level = CefrLevel.entries.firstOrNull { it.apiValue == pack.cefrLevel } ?: return@mapNotNull null
+            val row = saved[pack.cefrLevel]
+            PackVersion(level, row?.count ?: 0, row?.lastChanged?.let { runCatching { epochMillis(it) }.getOrNull() })
+        }
+    }
 
     private companion object {
         const val PAGE_SIZE = 100

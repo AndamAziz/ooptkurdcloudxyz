@@ -47,4 +47,8 @@ interface PracticeApi {
 
     @POST("rest/v1/rpc/get_my_practice_summary")
     suspend fun getMyPracticeSummary(@Body body: Map<String, String> = emptyMap()): List<PracticeSummaryDto>
+
+    /** Per level: published questions and the last change, to spot out-of-date packs. */
+    @POST("rest/v1/rpc/get_question_pack_versions")
+    suspend fun getQuestionPackVersions(@Body body: Map<String, String> = emptyMap()): List<PackVersionDto>
 }

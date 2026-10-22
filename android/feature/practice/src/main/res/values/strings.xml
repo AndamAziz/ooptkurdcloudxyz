@@ -124,7 +124,7 @@
     <string name="practice_media_unavailable">The picture could not be loaded. Check your internet connection.</string>
     <string name="topics_header">Practise by topic</string>
     <string name="topics_body">Mixed questions from all your downloaded levels.</string>
-    <string name="topics_update_levels">Tap Update on your downloaded levels to get the topic questions.</string>
+    <string name="topics_update_levels">Your questions are updated automatically when you are online, or tap Update all questions in My account.</string>
     <string name="topic_life_in_uk">Life in the UK</string>
     <string name="topic_life_in_uk_desc">History, traditions, government and everyday life — useful for the Life in the UK test</string>
     <string name="topic_britain">Britain</string>
@@ -186,7 +186,7 @@
     <string name="lituk_link_book">GOV.UK: the test, booking and the official handbook</string>
     <string name="lituk_link_test_day">GOV.UK: what happens at the test</string>
     <string name="lituk_disclaimer">These are original practice questions written from the official handbook, not the questions of the real test (those are not published). Facts are as given in the handbook; a few things, such as the monarch, have changed since it was printed.</string>
-    <string name="lituk_pack_empty">Teachers are still reviewing the Life in the UK questions. When they are published, tap Update to get them.</string>
+    <string name="lituk_pack_empty">Teachers are still reviewing the Life in the UK questions. They will arrive by themselves once published (or tap Update all questions in My account).</string>
     <string name="lituk_mock_marking">Marking your answers…</string>
     <string name="lituk_mock_previous">Previous</string>
     <string name="lituk_mock_finish">Finish test</string>
@@ -221,4 +221,7 @@
     <string name="fb_why_wrong">Why your answer is wrong</string>
     <string name="fb_why_wrong_body">You chose “%1$s”, but according to the official handbook the right answer is “%2$s”:</string>
     <string name="fb_source">Official handbook · Chapter %1$d: %2$s</string>
+    <string name="home_updating_title">Updating your questions</string>
+    <string name="home_updating_checking">Checking for new questions…</string>
+    <string name="home_updating_level">%1$s: section %2$d of %3$d</string>
 </resources>

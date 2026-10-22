@@ -58,7 +58,15 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.material3.Icon
+import androidx.compose.ui.graphics.vector.ImageVector
+import xyz.kurdcloud.englishmaster.core.designsystem.AppIcons
+import xyz.kurdcloud.englishmaster.core.designsystem.BadgeColors
+import xyz.kurdcloud.englishmaster.core.designsystem.GlassBadge
+import xyz.kurdcloud.englishmaster.core.designsystem.IconBadge
 import xyz.kurdcloud.englishmaster.core.designsystem.LevelColors
+import xyz.kurdcloud.englishmaster.core.designsystem.TextBadge
+import xyz.kurdcloud.englishmaster.core.model.QuestionUpdateState
 import xyz.kurdcloud.englishmaster.core.designsystem.OfflineBanner
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.ExamRules
@@ -109,12 +117,20 @@ private fun Topic.descriptionRes(): Int = when (this) {
     Topic.PICTURES -> R.string.topic_pictures_desc
 }
 
-private fun Topic.emoji(): String = when (this) {
-    Topic.LIFE_IN_UK -> "🇬🇧"
-    Topic.BRITAIN -> "🏰"
-    Topic.STORIES -> "📖"
-    Topic.WORLD -> "🌍"
-    Topic.PICTURES -> "🎬"
+private fun Topic.icon(): ImageVector = when (this) {
+    Topic.LIFE_IN_UK -> AppIcons.Flag
+    Topic.BRITAIN -> AppIcons.Landmark
+    Topic.STORIES -> AppIcons.Book
+    Topic.WORLD -> AppIcons.Globe
+    Topic.PICTURES -> AppIcons.Image
+}
+
+private fun Topic.badgeColor(): Color = when (this) {
+    Topic.LIFE_IN_UK -> BadgeColors.UnionBlue
+    Topic.BRITAIN -> BadgeColors.Britain
+    Topic.STORIES -> BadgeColors.Stories
+    Topic.WORLD -> BadgeColors.World
+    Topic.PICTURES -> BadgeColors.Pictures
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -194,6 +210,9 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.spacedBy(14.dp),
             ) {
                 item { HeroCard(state, actions.onCertificates) }
+                if (state.questionUpdate.running) {
+                    item { UpdatingCard(state.questionUpdate) }
+                }
                 if (state.pendingCount > 0) {
                     item { PendingCard(state.pendingCount, state.isOnline, state.syncing, viewModel::syncNow) }
                 }
@@ -286,11 +305,11 @@ private fun PlacementCard(placement: CefrLevel?, onPlacement: () -> Unit, onPrac
     Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer), shape = RoundedCornerShape(20.dp)) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             if (placement == null) {
-                Text(stringResource(R.string.home_placement_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                BadgeTitle(AppIcons.School, BadgeColors.Placement, stringResource(R.string.home_placement_title))
                 Text(stringResource(R.string.home_placement_body, ExamRules.PLACEMENT_QUESTIONS, ExamRules.PLACEMENT_MINUTES))
                 Button(onClick = onPlacement, modifier = Modifier.testTag("home_placement")) { Text(stringResource(R.string.home_placement_start)) }
             } else {
-                Text(stringResource(R.string.home_recommended, placement.label), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                BadgeTitle(AppIcons.School, BadgeColors.Placement, stringResource(R.string.home_recommended, placement.label))
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Button(onClick = { onPractise(placement) }) { Text(stringResource(R.string.home_practise_level, placement.label)) }
                     TextButton(onClick = onPlacement) { Text(stringResource(R.string.home_placement_retake)) }
@@ -314,7 +333,7 @@ private fun LifeInUkCard(onOpen: () -> Unit) {
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text("🇬🇧", style = MaterialTheme.typography.headlineMedium)
+            GlassBadge(AppIcons.Flag)
             Column(Modifier.weight(1f).padding(horizontal = 12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(stringResource(R.string.home_lituk_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, color = Color.White)
                 Text(stringResource(R.string.home_lituk_body), style = MaterialTheme.typography.bodySmall, color = Color.White.copy(alpha = 0.92f))
@@ -334,14 +353,14 @@ private fun HowCertificatesWork() {
     ) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("🏅", style = MaterialTheme.typography.titleLarge)
+                IconBadge(AppIcons.Trophy, BadgeColors.Certificates)
                 Text(
                     stringResource(R.string.home_how_title),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.weight(1f).padding(start = 10.dp),
+                    modifier = Modifier.weight(1f).padding(horizontal = 12.dp),
                 )
-                Text(if (open) "▲" else "▼", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Icon(if (open) AppIcons.ExpandLess else AppIcons.ExpandMore, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             if (open) {
                 Step(1, stringResource(R.string.home_how_step1, ExamRules.PRACTICE_PERCENT))
@@ -370,7 +389,7 @@ private fun TopicsSection(counts: Map<Topic, Int>, onPractise: (Topic) -> Unit) 
                 modifier = Modifier.fillMaxWidth().clickable(enabled = count > 0) { onPractise(topic) }.testTag("topic_${topic.apiValue}"),
             ) {
                 Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Text(topic.emoji(), style = MaterialTheme.typography.headlineSmall)
+                    IconBadge(topic.icon(), topic.badgeColor())
                     Column(Modifier.weight(1f).padding(horizontal = 12.dp)) {
                         Text(stringResource(topic.titleRes()), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
                         Text(stringResource(topic.descriptionRes()), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -411,10 +430,39 @@ private fun PendingCard(count: Int, online: Boolean, syncing: Boolean, onSync: (
 }
 
 @Composable
-private fun LevelBadge(level: CefrLevel) {
-    val color = LevelColors.of(level)
-    Box(Modifier.size(48.dp).background(color, CircleShape), contentAlignment = Alignment.Center) {
-        Text(level.label, color = Color.White, fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleMedium)
+private fun LevelBadge(level: CefrLevel) = TextBadge(level.label, LevelColors.of(level))
+
+@Composable
+private fun BadgeTitle(icon: ImageVector, color: Color, title: String) {
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        IconBadge(icon, color)
+        Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
+    }
+}
+
+/** Shown while downloaded questions are being refreshed (in the background or from Settings). */
+@Composable
+private fun UpdatingCard(update: QuestionUpdateState) {
+    Card(
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
+        modifier = Modifier.fillMaxWidth().testTag("home_updating"),
+    ) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            BadgeTitle(AppIcons.Refresh, BadgeColors.Update, stringResource(R.string.home_updating_title))
+            val current = update.current
+            Text(
+                if (current != null && update.total > 0) stringResource(R.string.home_updating_level, current.label, update.done + 1, update.total)
+                else stringResource(R.string.home_updating_checking),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            if (update.total > 0) {
+                LinearProgressIndicator(progress = { update.done.toFloat() / update.total }, modifier = Modifier.fillMaxWidth())
+            } else {
+                LinearProgressIndicator(Modifier.fillMaxWidth())
+            }
+        }
     }
 }
 
@@ -480,13 +528,8 @@ private fun LevelCard(
                                 Text(pluralStringResource(R.plurals.home_review_mistakes, row.mistakes, row.mistakes))
                             }
                         }
-                        if (onRemove != null) {
-                            LevelMenu(onUpdate = onDownload, onRemove = onRemove)
-                        } else {
-                            TextButton(onClick = onDownload, modifier = Modifier.testTag("update_${row.level.name}")) {
-                                Text(stringResource(R.string.practice_update))
-                            }
-                        }
+                        // Updating is automatic (and one button in Settings); staff can still remove a pack.
+                        if (onRemove != null) LevelMenu(onRemove = onRemove)
                     }
                 }
             }
@@ -544,12 +587,11 @@ private fun ProgressSection(o: LevelOverview, stage: LevelStage) {
 }
 
 @Composable
-private fun LevelMenu(onUpdate: () -> Unit, onRemove: () -> Unit) {
+private fun LevelMenu(onRemove: () -> Unit) {
     var open by remember { mutableStateOf(false) }
     Box {
         TextButton(onClick = { open = true }) { Text(stringResource(R.string.home_more)) }
         DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
-            DropdownMenuItem(text = { Text(stringResource(R.string.practice_update)) }, onClick = { open = false; onUpdate() })
             DropdownMenuItem(text = { Text(stringResource(R.string.practice_remove)) }, onClick = { open = false; onRemove() })
         }
     }

@@ -12,6 +12,8 @@ object ExamRules {
     const val PRACTICE_PERCENT = 70
     const val PLACEMENT_QUESTIONS = 18
     const val PLACEMENT_MINUTES = 20
+    /** Finished placement tests allowed in any 24 hours (tests left unfinished do not count). */
+    const val PLACEMENT_PER_DAY = 3
 }
 
 /** Where a learner stands on the way to a level certificate. */

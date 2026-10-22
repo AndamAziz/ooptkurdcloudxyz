@@ -56,6 +56,9 @@ interface QuestionDao {
         withPassage: Boolean, withMedia: Boolean, userId: String, limit: Int,
     ): List<QuestionEntity>
 
+    @Query("SELECT cefr_level, COUNT(*) AS count, MAX(server_updated_at) AS last_changed FROM questions GROUP BY cefr_level")
+    suspend fun levelVersions(): List<LevelVersionRow>
+
     @Query("SELECT COUNT(*) FROM questions q WHERE $TOPIC_MATCH")
     fun observeTopicCount(t1: String, t2: String, t3: String, t4: String, withPassage: Boolean, withMedia: Boolean): Flow<Int>
 
@@ -75,6 +78,9 @@ interface LevelPackDao {
 
     @Query("SELECT * FROM level_packs ORDER BY cefr_level")
     fun observeAll(): Flow<List<LevelPackEntity>>
+
+    @Query("SELECT * FROM level_packs")
+    suspend fun all(): List<LevelPackEntity>
 
     @Query("DELETE FROM level_packs WHERE cefr_level = :level")
     suspend fun delete(level: String)

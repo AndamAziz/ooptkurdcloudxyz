@@ -187,11 +187,12 @@ private fun Content(content: @Composable () -> Unit) {
 }
 
 @Composable
-private fun ProblemCard(problem: ExamProblem?) {
+private fun ProblemCard(problem: ExamProblem?, retryAtMillis: Long? = null) {
     if (problem == null) return
     Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer), modifier = Modifier.testTag("exam_problem")) {
         Text(
-            stringResource(problem.messageRes()),
+            if (problem == ExamProblem.RETRY_LATER && retryAtMillis != null) stringResource(R.string.problem_retry_at, formatDateTime(retryAtMillis))
+            else stringResource(problem.messageRes()),
             color = MaterialTheme.colorScheme.onErrorContainer,
             modifier = Modifier.padding(16.dp),
         )
@@ -214,7 +215,8 @@ private fun IntroView(state: ExamUiState, viewModel: ExamViewModel) {
                 if (placement) {
                     Rule("1", stringResource(R.string.placement_rule_questions, ExamRules.PLACEMENT_QUESTIONS))
                     Rule("2", stringResource(R.string.placement_rule_time, ExamRules.PLACEMENT_MINUTES))
-                    Rule("3", stringResource(R.string.exam_rule_online))
+                    Rule("3", stringResource(R.string.placement_rule_attempts, ExamRules.PLACEMENT_PER_DAY))
+                    Rule("4", stringResource(R.string.exam_rule_online))
                 } else {
                     Rule("1", stringResource(R.string.exam_rule_questions, ExamRules.EXAM_QUESTIONS, state.level?.label.orEmpty()))
                     Rule("2", stringResource(R.string.exam_rule_time, ExamRules.EXAM_MINUTES))
@@ -235,9 +237,19 @@ private fun IntroView(state: ExamUiState, viewModel: ExamViewModel) {
                 }
             }
         }
-        ProblemCard(state.problem)
-        Button(onClick = viewModel::start, modifier = Modifier.fillMaxWidth().testTag("exam_start")) {
-            Text(stringResource(if (placement) R.string.placement_start else R.string.exam_start))
+        if (placement) state.placementStatus?.let { PlacementStatusCard(it, state.placementLocked) }
+        // The status card already says when the next test opens; avoid repeating it.
+        if (!(state.placementLocked && state.problem == ExamProblem.RETRY_LATER)) ProblemCard(state.problem, state.retryAtMillis)
+        Button(onClick = viewModel::start, enabled = !state.placementLocked, modifier = Modifier.fillMaxWidth().testTag("exam_start")) {
+            Text(
+                stringResource(
+                    when {
+                        placement && state.placementStatus?.inProgress == true -> R.string.placement_continue
+                        placement -> R.string.placement_start
+                        else -> R.string.exam_start
+                    },
+                ),
+            )
         }
         Text(stringResource(R.string.certificate_note), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
@@ -246,6 +258,28 @@ private fun IntroView(state: ExamUiState, viewModel: ExamViewModel) {
             editName = false
             viewModel.updateName(name)
         }
+    }
+}
+
+@Composable
+private fun PlacementStatusCard(status: xyz.kurdcloud.englishmaster.core.model.PlacementStatus, locked: Boolean) {
+    val next = status.nextAttemptAtMillis
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = if (locked) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.secondaryContainer,
+        ),
+        modifier = Modifier.fillMaxWidth().testTag("placement_status"),
+    ) {
+        Text(
+            when {
+                status.inProgress -> stringResource(R.string.placement_status_in_progress)
+                locked && next != null -> stringResource(R.string.placement_status_locked, formatDateTime(next))
+                else -> pluralStringResource(R.plurals.placement_status_left, status.attemptsLeft, status.attemptsLeft)
+            },
+            style = MaterialTheme.typography.bodyLarge,
+            fontWeight = FontWeight.Medium,
+            modifier = Modifier.padding(16.dp),
+        )
     }
 }
 

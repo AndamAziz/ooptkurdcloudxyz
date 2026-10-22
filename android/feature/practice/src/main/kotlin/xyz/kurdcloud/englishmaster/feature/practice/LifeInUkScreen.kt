@@ -1,5 +1,8 @@
 package xyz.kurdcloud.englishmaster.feature.practice
 
+import xyz.kurdcloud.englishmaster.core.designsystem.AppIcons
+import xyz.kurdcloud.englishmaster.core.designsystem.GlassBadge
+import xyz.kurdcloud.englishmaster.core.designsystem.TextBadge
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -158,7 +161,7 @@ private fun HeaderCard() {
                 .padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Text("🇬🇧", style = MaterialTheme.typography.headlineMedium)
+            GlassBadge(AppIcons.Flag)
             Text(stringResource(R.string.lituk_header_title), style = MaterialTheme.typography.titleLarge, color = Color.White, fontWeight = FontWeight.Bold)
             Text(
                 stringResource(R.string.lituk_header_body, LifeInUkTest.QUESTIONS, LifeInUkTest.MINUTES, LifeInUkTest.PASS_MARK),
@@ -207,7 +210,6 @@ private fun PackCard(state: LifeInUkUiState, onDownload: () -> Unit) {
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
-                    TextButton(onClick = onDownload, modifier = Modifier.testTag("lituk_update")) { Text(stringResource(R.string.practice_update)) }
                 }
             }
         }
@@ -240,9 +242,7 @@ private fun ChapterCard(chapter: LifeInUkChapter, count: Int, onClick: () -> Uni
         modifier = Modifier.fillMaxWidth().clickable(enabled = count > 0, onClick = onClick).testTag("lituk_chapter_${chapter.number}"),
     ) {
         Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.size(36.dp).background(UnionBlue, CircleShape), contentAlignment = Alignment.Center) {
-                Text("${chapter.number}", color = Color.White, fontWeight = FontWeight.Bold)
-            }
+            TextBadge("${chapter.number}", UnionBlue)
             Column(Modifier.weight(1f).padding(horizontal = 12.dp)) {
                 Text(stringResource(chapter.titleRes()), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
                 Text(stringResource(chapter.descriptionRes()), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)

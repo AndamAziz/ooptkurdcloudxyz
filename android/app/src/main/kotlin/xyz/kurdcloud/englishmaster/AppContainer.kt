@@ -29,7 +29,11 @@ import xyz.kurdcloud.englishmaster.update.PackageInstallerApkInstaller
 import xyz.kurdcloud.englishmaster.core.data.SupabaseAuthRepository
 import xyz.kurdcloud.englishmaster.core.data.SyncScheduler
 import xyz.kurdcloud.englishmaster.core.data.WorkManagerSyncScheduler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
+import xyz.kurdcloud.englishmaster.core.data.QuestionUpdater
 import xyz.kurdcloud.englishmaster.core.database.EnglishMasterDatabase
 import xyz.kurdcloud.englishmaster.core.model.EmailLink
 import xyz.kurdcloud.englishmaster.core.network.NetworkFactory
@@ -55,6 +59,8 @@ class AppContainer(context: Context) {
     val content: ContentRepository = OfflineFirstContentRepository(
         services.practice, database.questions(), database.levelPacks(), database.content(), media = media,
     )
+    /** Refreshes downloaded question packs; outlives screens so an update is not cut short. */
+    val questionUpdater = QuestionUpdater(content, network, CoroutineScope(SupervisorJob() + Dispatchers.IO))
     val staff: StaffRepository = SupabaseStaffRepository(services.staff, media)
     val learning: LearningRepository = SupabaseLearningRepository(services.learning, media)
     val updates: UpdateRepository = SupabaseUpdateRepository(

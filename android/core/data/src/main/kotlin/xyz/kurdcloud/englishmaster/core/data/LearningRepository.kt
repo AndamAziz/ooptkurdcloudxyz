@@ -9,6 +9,8 @@ import xyz.kurdcloud.englishmaster.core.model.ExamSession
 import xyz.kurdcloud.englishmaster.core.model.LearnerProfile
 import xyz.kurdcloud.englishmaster.core.model.LevelOverview
 import xyz.kurdcloud.englishmaster.core.model.PlacementResult
+import xyz.kurdcloud.englishmaster.core.model.PlacementStatus
+import xyz.kurdcloud.englishmaster.core.network.ApiError
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.core.network.ExamStartDto
 import xyz.kurdcloud.englishmaster.core.network.LearningApi
@@ -32,6 +34,9 @@ interface LearningRepository {
     suspend fun startPlacement(): ApiResult<ExamSession>
     suspend fun submitPlacement(attemptId: String, answers: Map<String, String>): ApiResult<PlacementResult>
     suspend fun certificates(): ApiResult<List<Certificate>>
+
+    /** Placement tests left today and when the next one opens. */
+    suspend fun placementStatus(): ApiResult<PlacementStatus> = ApiResult.Failure(ApiError.NotConfigured)
 }
 
 class SupabaseLearningRepository(private val api: LearningApi, private val media: MediaFiles? = null) : LearningRepository {
@@ -82,6 +87,11 @@ class SupabaseLearningRepository(private val api: LearningApi, private val media
             val r = rows.single()
             PlacementResult(r.score, r.total, r.passedLevel?.let(CefrLevel::fromApi), CefrLevel.fromApi(r.recommendedLevel))
         }
+
+    override suspend fun placementStatus() = restCall { api.placementStatus() }.map { rows ->
+        val r = rows.single()
+        PlacementStatus(r.attemptsLeft, r.nextAttemptAt?.let(::epochMillis), r.inProgress)
+    }
 
     override suspend fun certificates() = restCall { api.certificates() }.map { rows ->
         rows.map { Certificate(CefrLevel.fromApi(it.level), it.holderName, it.score, it.total, it.code, epochMillis(it.issuedAt)) }

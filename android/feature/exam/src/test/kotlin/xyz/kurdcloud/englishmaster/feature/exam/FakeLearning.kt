@@ -24,7 +24,11 @@ class FakeLearning(var questions: List<ExamQuestion> = listOf(examQuestion("q1")
     /** False: a pass waits for a teacher's approval (no certificate code yet). */
     var certificateApproved = true
 
-    override suspend fun overview() = ApiResult.Success(emptyList<xyz.kurdcloud.englishmaster.core.model.LevelOverview>())
+    var placement: xyz.kurdcloud.englishmaster.core.model.PlacementStatus? = null
+    var levels = emptyList<xyz.kurdcloud.englishmaster.core.model.LevelOverview>()
+
+    override suspend fun overview() = ApiResult.Success(levels)
+    override suspend fun placementStatus() = placement?.let { ApiResult.Success(it) } ?: ApiResult.Failure(ApiError.Network)
     override suspend fun profile() = ApiResult.Success(LearnerProfile(name, null, 0, 0))
     override suspend fun updateDisplayName(name: String): ApiResult<String> { this.name = name.trim(); return ApiResult.Success(this.name) }
 

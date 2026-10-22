@@ -154,6 +154,7 @@ fun EnglishMasterNavHost(
         composable(Routes.ACCOUNT) {
             val userId = session?.userId ?: return@composable
             val pending by remember(userId) { container.practice.observePendingCount(userId) }.collectAsStateWithLifecycle(0)
+            val questionUpdate by container.questionUpdater.state.collectAsStateWithLifecycle()
             AccountScreen(
                 viewModel = viewModel { AccountViewModel(container.auth, container.learning, container.account, container.staff) },
                 versionName = BuildConfig.VERSION_NAME,
@@ -168,9 +169,11 @@ fun EnglishMasterNavHost(
                     onOpenPrivacy = { navController.navigate(Routes.PRIVACY) },
                     checkForUpdatesLabel = onCheckForUpdates?.let { stringResource(R.string.update_check, BuildConfig.VERSION_NAME) },
                     onCheckForUpdates = onCheckForUpdates ?: {},
+                    onUpdateQuestions = container.questionUpdater::updateAll,
                 ),
                 onSignedOut = { navController.navigate(Routes.WELCOME) { popUpTo(0) } },
                 onBack = { navController.popBackStack() },
+                questionUpdate = questionUpdate,
             )
         }
         composable(Routes.SIGN_IN) { entry ->
@@ -221,7 +224,7 @@ fun EnglishMasterNavHost(
         composable(Routes.HOME) {
             val userId = session?.userId ?: return@composable
             val homeViewModel = viewModel {
-                HomeViewModel(userId, container.content, container.practice, container.network, container.staff, container.learning)
+                HomeViewModel(userId, container.content, container.practice, container.network, container.staff, container.learning, updater = container.questionUpdater)
             }
             HomeScreen(
                 viewModel = homeViewModel,

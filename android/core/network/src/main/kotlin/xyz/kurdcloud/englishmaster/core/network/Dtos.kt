@@ -111,3 +111,10 @@ data class PracticeSummaryDto(
     val answered: Long,
     val correct: Long,
 )
+
+@Serializable
+data class PackVersionDto(
+    @SerialName("cefr_level") val level: String,
+    val published: Int,
+    @SerialName("last_changed_at") val lastChangedAt: String? = null,
+)

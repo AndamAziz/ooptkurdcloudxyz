@@ -61,6 +61,18 @@ class LearningRepositoryTest {
     }
 
     @Test
+    fun placementStatusSaysWhenTheNextAttemptOpens() = runTest {
+        server.enqueue(json(200, """[{"attempts_left":0,"next_attempt_at":"2026-10-21T03:00:00+00:00","in_progress":false}]"""))
+
+        val status = (repo.placementStatus() as ApiResult.Success).value
+
+        assertEquals(0, status.attemptsLeft)
+        assertEquals(1792551600000L, status.nextAttemptAtMillis)
+        assertEquals(false, status.inProgress)
+        assertEquals("/rest/v1/rpc/get_placement_status", server.takeRequest().url.encodedPath)
+    }
+
+    @Test
     fun passedExamWaitingForApprovalIsNotACertificateYet() = runTest {
         server.enqueue(json(200, """[{"cefr_level":"A2","published":40,"answered":30,"correct":28,"required":30,"required_percent":70,
             "exam_unlocked":true,"exam_available_at":null,"exam_in_progress":null,"last_exam_score":18,
