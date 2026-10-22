@@ -96,4 +96,17 @@
     <string name="auth_error_link_expired">This email link has expired or was already used. Request a new one.</string>
     <string name="auth_error_link_invalid">This email link could not be used. Please try again.</string>
     <string name="auth_error_email_limit">We cannot send another email right now because too many were sent recently. Please try again later (this can take up to an hour).</string>
+    <string name="account_section_questions">Questions</string>
+    <string name="account_update_questions">Update all questions</string>
+    <string name="account_update_hint">New questions are added automatically whenever you are online. You can also update every section now.</string>
+    <string name="account_update_now">Update now</string>
+    <string name="account_update_checking">Checking for new questions…</string>
+    <string name="account_update_progress">Updating %1$s (%2$d of %3$d)…</string>
+    <plurals name="account_update_done">
+        <item quantity="one">Updated: %1$d question is ready.</item>
+        <item quantity="other">Updated: %1$d questions are ready.</item>
+    </plurals>
+    <string name="account_update_up_to_date">All your questions are up to date.</string>
+    <string name="account_update_offline">Connect to the internet to update the questions.</string>
+    <string name="account_update_failed">The questions could not be updated. Please try again.</string>
 </resources>

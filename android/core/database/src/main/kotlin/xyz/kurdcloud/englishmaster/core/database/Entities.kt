@@ -68,6 +68,13 @@ data class LevelProgressRow(
     val correct: Int,
 )
 
+/** Questions saved for a level and the newest server change among them. */
+data class LevelVersionRow(
+    @ColumnInfo(name = "cefr_level") val cefrLevel: String,
+    val count: Int,
+    @ColumnInfo(name = "last_changed") val lastChanged: String?,
+)
+
 data class LevelCountRow(
     @ColumnInfo(name = "cefr_level") val cefrLevel: String,
     val count: Int,

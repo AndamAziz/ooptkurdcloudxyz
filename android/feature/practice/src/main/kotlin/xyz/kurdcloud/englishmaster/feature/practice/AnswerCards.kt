@@ -15,7 +15,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.graphics.vector.ImageVector
+import xyz.kurdcloud.englishmaster.core.designsystem.AppIcons
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -109,7 +112,7 @@ private fun MarkedFeedback(question: Question, answer: PracticeAnswer, modifier:
         Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(Modifier.size(44.dp).background(tone, CircleShape), contentAlignment = Alignment.Center) {
-                    Text(if (right) "✓" else "✗", color = Color.White, style = LearningType.heading)
+                    Icon(if (right) AppIcons.Check else AppIcons.Close, contentDescription = null, tint = Color.White, modifier = Modifier.size(26.dp))
                 }
                 Text(
                     stringResource(if (right) R.string.fb_correct_title else R.string.fb_wrong_title),
@@ -126,9 +129,9 @@ private fun MarkedFeedback(question: Question, answer: PracticeAnswer, modifier:
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     if (!right) {
-                        AnswerLine(stringResource(R.string.fb_your_answer), answer.chosenOption, question.optionFor(answer.chosenOption), FeedbackColors.incorrect(), "✗")
+                        AnswerLine(stringResource(R.string.fb_your_answer), answer.chosenOption, question.optionFor(answer.chosenOption), FeedbackColors.incorrect(), AppIcons.Close)
                     }
-                    AnswerLine(stringResource(R.string.fb_correct_answer), answer.correctOption, question.optionFor(answer.correctOption), FeedbackColors.correct(), "✓")
+                    AnswerLine(stringResource(R.string.fb_correct_answer), answer.correctOption, question.optionFor(answer.correctOption), FeedbackColors.correct(), AppIcons.Check)
                 }
             }
             if (parts != null && parts.body.isNotBlank()) {
@@ -139,12 +142,15 @@ private fun MarkedFeedback(question: Question, answer: PracticeAnswer, modifier:
                         .padding(14.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    Text(
-                        "💡  " + stringResource(if (right) R.string.fb_why_right else R.string.fb_why_wrong),
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary,
-                    )
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Icon(AppIcons.Lightbulb, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
+                        Text(
+                            stringResource(if (right) R.string.fb_why_right else R.string.fb_why_wrong),
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary,
+                        )
+                    }
                     if (!right) {
                         Text(
                             stringResource(R.string.fb_why_wrong_body, question.optionFor(answer.chosenOption).orEmpty(), question.optionFor(answer.correctOption).orEmpty()),
@@ -156,14 +162,20 @@ private fun MarkedFeedback(question: Question, answer: PracticeAnswer, modifier:
                         Text(parts.body, style = LearningType.body, modifier = Modifier.testTag("feedback_explanation"))
                     }
                     if (parts.chapter != null) {
-                        Text(
-                            "📖  " + stringResource(R.string.fb_source, parts.chapter, parts.chapterTitle.orEmpty()),
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer,
-                            modifier = Modifier
+                        Row(
+                            Modifier
                                 .background(MaterialTheme.colorScheme.secondaryContainer, CircleShape)
                                 .padding(horizontal = 12.dp, vertical = 6.dp),
-                        )
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        ) {
+                            Icon(AppIcons.Book, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer, modifier = Modifier.size(16.dp))
+                            Text(
+                                stringResource(R.string.fb_source, parts.chapter, parts.chapterTitle.orEmpty()),
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            )
+                        }
                     }
                 }
             }
@@ -172,7 +184,7 @@ private fun MarkedFeedback(question: Question, answer: PracticeAnswer, modifier:
 }
 
 @Composable
-private fun AnswerLine(label: String, letter: String?, text: String?, color: Color, mark: String) {
+private fun AnswerLine(label: String, letter: String?, text: String?, color: Color, mark: ImageVector) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -181,7 +193,7 @@ private fun AnswerLine(label: String, letter: String?, text: String?, color: Col
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(Modifier.size(28.dp).background(color, CircleShape), contentAlignment = Alignment.Center) {
-            Text(mark, color = Color.White, style = LearningType.label)
+            Icon(mark, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
         }
         Column(Modifier.weight(1f).padding(start = 12.dp)) {
             Text(label.uppercase(), style = LearningType.label, color = color)

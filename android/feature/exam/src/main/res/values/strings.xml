@@ -81,4 +81,13 @@
     <string name="exam_media_unavailable">The picture could not be loaded. Check your internet connection.</string>
     <string name="exam_awaiting_approval">Your result has been sent to your teacher. The %1$s certificate is issued as soon as a teacher or admin approves it — you will see it on the home screen.</string>
     <string name="problem_pending_approval">You passed this level. Your certificate is waiting for a teacher\'s approval.</string>
+    <string name="problem_retry_at">Your next attempt opens on %1$s.</string>
+    <string name="placement_rule_attempts">You can finish %1$d placement tests in 24 hours. A test you leave unfinished does not count.</string>
+    <string name="placement_continue">Continue test</string>
+    <string name="placement_status_in_progress">You have a placement test in progress. Continue where you left off.</string>
+    <string name="placement_status_locked">You have finished today\'s placement tests. Your next test opens on %1$s. Meanwhile, keep practising your level.</string>
+    <plurals name="placement_status_left">
+        <item quantity="one">You have %1$d placement test left today.</item>
+        <item quantity="other">You have %1$d placement tests left today.</item>
+    </plurals>
 </resources>

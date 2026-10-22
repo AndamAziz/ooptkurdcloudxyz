@@ -55,7 +55,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.FilledTonalButton
+import xyz.kurdcloud.englishmaster.core.designsystem.AppIcons
+import xyz.kurdcloud.englishmaster.core.designsystem.BadgeColors
+import xyz.kurdcloud.englishmaster.core.designsystem.IconBadge
 import xyz.kurdcloud.englishmaster.core.model.CredentialRules
+import xyz.kurdcloud.englishmaster.core.model.QuestionUpdateState
 import xyz.kurdcloud.englishmaster.core.model.Role as UserRole
 
 /** What the account screen can open or change outside itself. */
@@ -66,6 +72,8 @@ data class AccountActions(
     /** Menu label for the in-app update check; null hides it (e.g. Play builds). */
     val checkForUpdatesLabel: String? = null,
     val onCheckForUpdates: () -> Unit = {},
+    /** Refreshes every question section at once; null hides the row. */
+    val onUpdateQuestions: (() -> Unit)? = null,
 )
 
 /**
@@ -81,6 +89,7 @@ fun AccountScreen(
     actions: AccountActions,
     onSignedOut: () -> Unit,
     onBack: () -> Unit,
+    questionUpdate: QuestionUpdateState = QuestionUpdateState(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbar = remember { SnackbarHostState() }
@@ -120,6 +129,10 @@ fun AccountScreen(
                     )
                     HorizontalDivider()
                     SettingsRow(title = stringResource(R.string.account_email), value = state.email)
+                }
+
+                actions.onUpdateQuestions?.let { onUpdate ->
+                    Section(stringResource(R.string.account_section_questions)) { QuestionsUpdateRow(questionUpdate, onUpdate) }
                 }
 
                 Section(stringResource(R.string.account_section_app)) {
@@ -302,6 +315,51 @@ private fun SettingsRow(title: String, value: String? = null, action: String? = 
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.titleLarge,
             )
+        }
+    }
+}
+
+/** One button that updates the questions of every section; shows progress and the outcome. */
+@Composable
+private fun QuestionsUpdateRow(update: QuestionUpdateState, onUpdate: () -> Unit) {
+    Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            IconBadge(AppIcons.Refresh, BadgeColors.Update)
+            Column(Modifier.weight(1f).padding(horizontal = 12.dp)) {
+                Text(stringResource(R.string.account_update_questions), style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.SemiBold)
+                val current = update.current
+                val status = when {
+                    update.running && current != null && update.total > 0 ->
+                        stringResource(R.string.account_update_progress, current.label, update.done + 1, update.total)
+                    update.running -> stringResource(R.string.account_update_checking)
+                    update.result == QuestionUpdateState.Result.UPDATED ->
+                        pluralStringResource(R.plurals.account_update_done, update.updatedQuestions, update.updatedQuestions)
+                    update.result == QuestionUpdateState.Result.UP_TO_DATE -> stringResource(R.string.account_update_up_to_date)
+                    update.result == QuestionUpdateState.Result.OFFLINE -> stringResource(R.string.account_update_offline)
+                    update.result == QuestionUpdateState.Result.FAILED -> stringResource(R.string.account_update_failed)
+                    else -> stringResource(R.string.account_update_hint)
+                }
+                Text(
+                    status,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = when (update.result) {
+                        QuestionUpdateState.Result.OFFLINE, QuestionUpdateState.Result.FAILED -> MaterialTheme.colorScheme.error
+                        else -> MaterialTheme.colorScheme.onSurfaceVariant
+                    },
+                    modifier = Modifier.testTag("account_update_status"),
+                )
+            }
+        }
+        if (update.running) {
+            if (update.total > 0) {
+                LinearProgressIndicator(progress = { update.done.toFloat() / update.total }, modifier = Modifier.fillMaxWidth())
+            } else {
+                LinearProgressIndicator(Modifier.fillMaxWidth())
+            }
+        } else {
+            FilledTonalButton(onClick = onUpdate, modifier = Modifier.fillMaxWidth().testTag("account_update_questions")) {
+                Text(stringResource(R.string.account_update_now))
+            }
         }
     }
 }

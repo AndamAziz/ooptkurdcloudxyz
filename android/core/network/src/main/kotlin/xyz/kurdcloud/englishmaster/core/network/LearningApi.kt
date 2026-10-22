@@ -32,6 +32,10 @@ interface LearningApi {
     @POST("rest/v1/rpc/submit_placement_test")
     suspend fun submitPlacement(@Body body: SubmitExamRequest): List<PlacementResultDto>
 
+    /** Placement tests left in the rolling 24 hours and when the next one opens. */
+    @POST("rest/v1/rpc/get_placement_status")
+    suspend fun placementStatus(@Body body: Map<String, String> = emptyMap()): List<PlacementStatusDto>
+
     /** Deletes the signed-in learner's account and all their data (Google Play requirement). */
     @POST("rest/v1/rpc/delete_my_account")
     suspend fun deleteMyAccount(@Body body: Map<String, String> = emptyMap())
@@ -129,4 +133,11 @@ data class CertificateDto(
     val total: Int,
     @SerialName("verification_code") val code: String,
     @SerialName("issued_at") val issuedAt: String,
+)
+
+@Serializable
+data class PlacementStatusDto(
+    @SerialName("attempts_left") val attemptsLeft: Int,
+    @SerialName("next_attempt_at") val nextAttemptAt: String? = null,
+    @SerialName("in_progress") val inProgress: Boolean = false,
 )

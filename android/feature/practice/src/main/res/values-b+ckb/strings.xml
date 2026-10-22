@@ -124,7 +124,7 @@
     <string name="practice_media_unavailable">وێنەکە نەکرایەوە. پەیوەندی ئینتەرنێتەکەت بپشکنە.</string>
     <string name="topics_header">ڕاهێنان بەپێی بابەت</string>
     <string name="topics_body">پرسیاری تێکەڵ لە هەموو ئەو ئاستانەی دابەزاندووتن.</string>
-    <string name="topics_update_levels">دوگمەی نوێکردنەوە لەسەر ئاستە دابەزێنراوەکانت دابگرە بۆ ئەوەی پرسیارەکانی بابەتەکان وەربگریت.</string>
+    <string name="topics_update_levels">پرسیارەکانت خۆکارانە نوێ دەکرێنەوە کاتێک ئینتەرنێتت هەیە، یان لە هەژمارەکەم «نوێکردنەوەی هەموو پرسیارەکان» دابگرە.</string>
     <string name="topic_life_in_uk">ژیان لە بەریتانیا (Life in the UK)</string>
     <string name="topic_life_in_uk_desc">مێژوو، داب و نەریت، حکومەت و ژیانی ڕۆژانە — بەسوود بۆ تاقیکردنەوەی Life in the UK</string>
     <string name="topic_britain">بەریتانیا</string>
@@ -186,7 +186,7 @@
     <string name="lituk_link_book">GOV.UK: تاقیکردنەوە، حیجزکردن و کتێبە فەرمییەکە</string>
     <string name="lituk_link_test_day">GOV.UK: ڕۆژی تاقیکردنەوە چی ڕوودەدات</string>
     <string name="lituk_disclaimer">ئەمانە پرسیاری ڕاهێنانی ڕەسەنن کە لە کتێبە فەرمییەکەوە نووسراون، نەک پرسیارەکانی تاقیکردنەوە ڕاستەقینەکە (ئەوانە بڵاوناکرێنەوە). زانیارییەکان وەک ئەوەی لە کتێبەکەدا هاتووە؛ هەندێک شت، وەک پاشا، لە دوای چاپکردنی کتێبەکەوە گۆڕاون.</string>
-    <string name="lituk_pack_empty">مامۆستاکان هێشتا پێداچوونەوە بە پرسیارەکانی Life in the UK دەکەن. کاتێک بڵاوکرانەوە، Update دابگرە بۆ وەرگرتنیان.</string>
+    <string name="lituk_pack_empty">مامۆستاکان هێشتا پێداچوونەوە بە پرسیارەکانی Life in the UK دەکەن. کاتێک بڵاوکرانەوە خۆکارانە دێن (یان لە هەژمارەکەم «نوێکردنەوەی هەموو پرسیارەکان» دابگرە).</string>
     <string name="lituk_mock_marking">نمرەدانی وەڵامەکانت…</string>
     <string name="lituk_mock_previous">پێشوو</string>
     <string name="lituk_mock_finish">کۆتاییهێنان بە تاقیکردنەوە</string>
@@ -221,4 +221,7 @@
     <string name="fb_why_wrong">بۆچی وەڵامەکەت هەڵەیە</string>
     <string name="fb_why_wrong_body">تۆ «%1$s»ت هەڵبژارد، بەڵام بەپێی کتێبە فەرمییەکە وەڵامی ڕاست «%2$s»ە:</string>
     <string name="fb_source">کتێبی فەرمی · بەشی %1$d: %2$s</string>
+    <string name="home_updating_title">نوێکردنەوەی پرسیارەکانت</string>
+    <string name="home_updating_checking">پشکنین بۆ پرسیاری نوێ…</string>
+    <string name="home_updating_level">%1$s: بەشی %2$d لە %3$d</string>
 </resources>

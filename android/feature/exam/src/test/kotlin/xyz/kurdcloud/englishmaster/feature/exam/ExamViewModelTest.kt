@@ -20,6 +20,8 @@ import org.junit.Before
 import org.junit.Test
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.ExamKind
+import xyz.kurdcloud.englishmaster.core.model.LevelOverview
+import xyz.kurdcloud.englishmaster.core.model.PlacementStatus
 import xyz.kurdcloud.englishmaster.core.network.ApiError
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -73,6 +75,34 @@ class ExamViewModelTest {
         vm.start(); runCurrent()
         assertEquals(ExamPhase.INTRO, vm.uiState.value.phase)
         assertEquals(ExamProblem.RETRY_LATER, vm.uiState.value.problem)
+    }
+
+    @Test
+    fun placementSaysHowManyTestsAreLeftAndWhenTheNextOpens() = runTest(dispatcher) {
+        val repo = FakeLearning().apply { placement = PlacementStatus(2, null, false) }
+        val vm = ExamViewModel(ExamKind.PLACEMENT, null, repo)
+        runCurrent()
+        assertEquals(2, vm.uiState.value.placementStatus?.attemptsLeft)
+        assertEquals(false, vm.uiState.value.placementLocked)
+
+        // Used up meanwhile (e.g. on another device): the refusal comes with the exact time.
+        repo.placement = PlacementStatus(0, 86_400_000L, false)
+        repo.startFailure = ApiError.Validation("P0001", "retry_later")
+        vm.start(); runCurrent()
+        assertEquals(ExamProblem.RETRY_LATER, vm.uiState.value.problem)
+        assertEquals(86_400_000L, vm.uiState.value.retryAtMillis)
+        assertEquals(true, vm.uiState.value.placementLocked)
+    }
+
+    @Test
+    fun levelExamRefusalShowsWhenTheNextAttemptOpens() = runTest(dispatcher) {
+        val repo = FakeLearning().apply {
+            startFailure = ApiError.Validation("P0001", "retry_later")
+            levels = listOf(LevelOverview(CefrLevel.A1, 40, 30, 25, 30, 70, true, 7_200_000L, false, 12, 20, null, null))
+        }
+        val vm = ExamViewModel(ExamKind.LEVEL_FINAL, CefrLevel.A1, repo)
+        vm.start(); runCurrent()
+        assertEquals(7_200_000L, vm.uiState.value.retryAtMillis)
     }
 
     @Test

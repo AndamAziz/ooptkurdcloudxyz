@@ -14,6 +14,9 @@ import xyz.kurdcloud.englishmaster.core.data.ContentRepository
 import xyz.kurdcloud.englishmaster.core.data.LearningRepository
 import xyz.kurdcloud.englishmaster.core.data.NetworkMonitor
 import xyz.kurdcloud.englishmaster.core.data.PracticeRepository
+import xyz.kurdcloud.englishmaster.core.data.QuestionUpdater
+import xyz.kurdcloud.englishmaster.core.model.QuestionUpdateState
+import kotlinx.coroutines.flow.flowOf
 import xyz.kurdcloud.englishmaster.core.data.StaffRepository
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.LearnerProfile
@@ -53,6 +56,8 @@ data class HomeUiState(
     val nowMillis: Long = 0,
     /** Downloaded questions per topic (empty until a level is downloaded with topic tags). */
     val topics: Map<Topic, Int> = emptyMap(),
+    /** Downloaded questions being refreshed in the background or from Settings. */
+    val questionUpdate: QuestionUpdateState = QuestionUpdateState(),
 ) {
     val hasDownloads: Boolean get() = levels.any { it.pack != null }
     val certificates: Int get() = levels.count { it.overview?.certificateCode != null }
@@ -66,6 +71,7 @@ class HomeViewModel(
     private val staff: StaffRepository? = null,
     private val learning: LearningRepository? = null,
     private val clock: () -> Long = System::currentTimeMillis,
+    private val updater: QuestionUpdater? = null,
 ) : ViewModel() {
     private val transient = MutableStateFlow(Transient())
     private val downloadJobs = mutableMapOf<CefrLevel, Job>()
@@ -99,7 +105,8 @@ class HomeViewModel(
         practice.observePendingCount(userId),
         network.isOnline,
         transient,
-    ) { (packs, progress, mistakes, topics), pending, online, t ->
+        updater?.state ?: flowOf(QuestionUpdateState()),
+    ) { (packs, progress, mistakes, topics), pending, online, t, update ->
         HomeUiState(
             isOnline = online,
             pendingCount = pending,
@@ -119,6 +126,7 @@ class HomeViewModel(
             profile = t.profile,
             nowMillis = t.nowMillis,
             topics = topics,
+            questionUpdate = update,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUiState())
 
@@ -127,7 +135,15 @@ class HomeViewModel(
     init {
         refreshStaffAccess()
         // Progress towards certificates comes from the server; refresh it whenever we get online.
-        viewModelScope.launch { online.collect { if (it) refreshLearning() } }
+        // New questions reach downloaded packs by themselves whenever the app is online.
+        viewModelScope.launch {
+            online.collect {
+                if (it) {
+                    refreshLearning()
+                    updater?.autoUpdate()
+                }
+            }
+        }
     }
 
     /** Reloads exam/certificate standing and the learner profile; silently keeps old data on failure. */

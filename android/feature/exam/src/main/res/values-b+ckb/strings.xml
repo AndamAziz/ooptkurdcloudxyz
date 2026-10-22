@@ -81,4 +81,13 @@
     <string name="exam_media_unavailable">وێنەکە نەکرایەوە. پەیوەندی ئینتەرنێتەکەت بپشکنە.</string>
     <string name="exam_awaiting_approval">ئەنجامەکەت بۆ مامۆستاکەت نێردرا. هەر کە مامۆستا یان ئەدمین پەسەندی کرد بڕوانامەی %1$s دەردەچێت — لە پەڕەی سەرەکی دەیبینیت.</string>
     <string name="problem_pending_approval">ئەم ئاستەت بڕیوە. بڕوانامەکەت چاوەڕوانی پەسەندکردنی مامۆستایە.</string>
+    <string name="problem_retry_at">هەوڵی داهاتووت لە %1$s دەکرێتەوە.</string>
+    <string name="placement_rule_attempts">دەتوانیت لە ماوەی 24 کاتژمێردا %1$d تاقیکردنەوەی ئاست تەواو بکەیت. تاقیکردنەوەیەک کە بە ناتەواوی جێی بهێڵیت ناژمێردرێت.</string>
+    <string name="placement_continue">بەردەوامبوون لە تاقیکردنەوە</string>
+    <string name="placement_status_in_progress">تاقیکردنەوەیەکی ئاستت هەیە کە تەواو نەبووە. لەو شوێنەوە بەردەوام بە کە جێت هێشت.</string>
+    <string name="placement_status_locked">تاقیکردنەوەکانی ئەمڕۆت تەواو کردووە. تاقیکردنەوەی داهاتووت لە %1$s دەکرێتەوە. تا ئەو کاتە مەشق لەسەر ئاستەکەت بکە.</string>
+    <plurals name="placement_status_left">
+        <item quantity="one">%1$d تاقیکردنەوەی ئاستت بۆ ئەمڕۆ ماوە.</item>
+        <item quantity="other">%1$d تاقیکردنەوەی ئاستت بۆ ئەمڕۆ ماوە.</item>
+    </plurals>
 </resources>

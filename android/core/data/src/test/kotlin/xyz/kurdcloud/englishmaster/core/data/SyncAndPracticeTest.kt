@@ -28,6 +28,7 @@ import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.SyncReport.StopReason
 import xyz.kurdcloud.englishmaster.core.model.SyncState
 import xyz.kurdcloud.englishmaster.core.model.Topic
+import xyz.kurdcloud.englishmaster.core.model.isNewerThan
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.core.network.NetworkFactory
 import xyz.kurdcloud.englishmaster.core.network.SessionProvider
@@ -142,6 +143,35 @@ class SyncAndPracticeTest {
         assertEquals(listOf("read"), content.pickTopic(Topic.STORIES, "u1", 10).map { it.id })
         assertEquals(listOf("pic"), content.pickTopic(Topic.PICTURES, "u1", 10).map { it.id })
         assertEquals(1, content.pickTopic(Topic.LIFE_IN_UK, "u1", 1).size)
+    }
+
+    @Test
+    fun packVersionsCompareTheDeviceWithTheServer() = runTest {
+        val content = OfflineFirstContentRepository(services.practice, db.questions(), db.levelPacks(), db.content())
+        db.content().replaceLevel(
+            "A1",
+            listOf(
+                question("v1").copy(serverUpdatedAt = "2026-10-20T10:00:00+00:00"),
+                question("v2").copy(serverUpdatedAt = "2026-10-21T10:00:00.5+00:00"),
+            ),
+            LevelPackEntity("A1", 2, 1),
+        )
+        // Downloaded before the course was published: an empty pack.
+        db.content().replaceLevel("LIFE_IN_UK", emptyList(), LevelPackEntity("LIFE_IN_UK", 0, 1))
+        server.enqueue(
+            MockResponse.Builder().code(200).addHeader("Content-Type", "application/json").body(
+                """[{"cefr_level":"A1","published":2,"last_changed_at":"2026-10-21T10:00:00.5+00:00"},
+                {"cefr_level":"LIFE_IN_UK","published":1466,"last_changed_at":"2026-10-22T09:00:00+00:00"}]""",
+            ).build(),
+        )
+
+        val local = content.localVersions().associateBy { it.level }
+        val remote = (content.serverVersions() as ApiResult.Success).value.associateBy { it.level }
+
+        assertEquals(setOf(CefrLevel.A1, CefrLevel.LIFE_IN_UK), local.keys)
+        assertEquals(false, remote.getValue(CefrLevel.A1).isNewerThan(local[CefrLevel.A1]))
+        assertEquals(true, remote.getValue(CefrLevel.LIFE_IN_UK).isNewerThan(local[CefrLevel.LIFE_IN_UK]))
+        assertEquals("/rest/v1/rpc/get_question_pack_versions", server.takeRequest().url.encodedPath)
     }
 
     private fun question(id: String) =

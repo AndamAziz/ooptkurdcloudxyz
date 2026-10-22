@@ -1,0 +1,3 @@
+- New look: every section, topic and level now has the same style of icon badge.
+- One "Update all questions" button in My account updates every section. New questions also arrive by themselves when you are online.
+- Placement test: a test you leave unfinished no longer counts towards the daily limit, and the app shows how many tests are left and exactly when the next one opens.

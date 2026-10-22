@@ -130,12 +130,14 @@ class HomeLearningTest {
     }
 
     @Test
-    fun learnersCanUpdateButNotRemoveDownloadedLevels() {
+    fun learnersHaveNoPerLevelUpdateOrRemove() {
         val content = FakeContent().apply { packs.value = listOf(LevelPack(CefrLevel.A1, 3, 0)) }
         val vm = HomeViewModel("u1", content, FakePractice(FakeNetwork()), FakeNetwork(), learning = FakeLearningRepo(), clock = { 0L })
         compose.setContent { EnglishMasterTheme { HomeScreen(vm, {}) } }
-        compose.onNode(hasScrollToNodeAction()).performScrollToNode(hasTestTag("update_A1"))
-        compose.onNodeWithTag("update_A1").assertIsDisplayed()
+        compose.onNode(hasScrollToNodeAction()).performScrollToNode(hasTestTag("level_A1"))
+        // Updating is automatic, with one button in My account for every section.
+        compose.onNodeWithTag("update_A1").assertDoesNotExist()
+        compose.onNodeWithText("Update").assertDoesNotExist()
         compose.onNodeWithText("More").assertDoesNotExist()
         compose.onNodeWithText("Remove").assertDoesNotExist()
         // Even if asked directly, the view model keeps a learner's questions.

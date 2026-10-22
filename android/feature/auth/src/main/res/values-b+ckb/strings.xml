@@ -96,4 +96,17 @@
     <string name="auth_error_link_expired">ئەم لینکەی ئیمەیڵ بەسەرچووە یان پێشتر بەکارهاتووە. لینکێکی نوێ داوا بکە.</string>
     <string name="auth_error_link_invalid">نەتوانرا ئەم لینکەی ئیمەیڵ بەکاربهێنرێت. تکایە دووبارە هەوڵ بدەرەوە.</string>
     <string name="auth_error_email_limit">ئێستا ناتوانین ئیمەیڵێکی تر بنێرین، چونکە لەم دواییانەدا ئیمەیڵی زۆر نێردراون. تکایە دواتر هەوڵ بدەرەوە (لەوانەیە تا یەک کاتژمێر بخایەنێت).</string>
+    <string name="account_section_questions">پرسیارەکان</string>
+    <string name="account_update_questions">نوێکردنەوەی هەموو پرسیارەکان</string>
+    <string name="account_update_hint">پرسیارە نوێیەکان خۆکارانە زیاد دەکرێن هەرکاتێک ئینتەرنێتت هەبێت. دەتوانیت ئێستاش هەموو بەشەکان نوێ بکەیتەوە.</string>
+    <string name="account_update_now">ئێستا نوێ بکەرەوە</string>
+    <string name="account_update_checking">پشکنین بۆ پرسیاری نوێ…</string>
+    <string name="account_update_progress">نوێکردنەوەی %1$s (%2$d لە %3$d)…</string>
+    <plurals name="account_update_done">
+        <item quantity="one">نوێکرایەوە: %1$d پرسیار ئامادەیە.</item>
+        <item quantity="other">نوێکرایەوە: %1$d پرسیار ئامادەن.</item>
+    </plurals>
+    <string name="account_update_up_to_date">هەموو پرسیارەکانت نوێن.</string>
+    <string name="account_update_offline">بۆ نوێکردنەوەی پرسیارەکان پەیوەندی بە ئینتەرنێتەوە بکە.</string>
+    <string name="account_update_failed">پرسیارەکان نوێ نەکرانەوە. تکایە دووبارە هەوڵ بدەرەوە.</string>
 </resources>

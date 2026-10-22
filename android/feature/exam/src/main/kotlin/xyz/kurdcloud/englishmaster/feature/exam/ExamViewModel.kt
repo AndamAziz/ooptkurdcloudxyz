@@ -18,6 +18,7 @@ import xyz.kurdcloud.englishmaster.core.model.ExamRefusal
 import xyz.kurdcloud.englishmaster.core.model.ExamResult
 import xyz.kurdcloud.englishmaster.core.model.ExamSession
 import xyz.kurdcloud.englishmaster.core.model.PlacementResult
+import xyz.kurdcloud.englishmaster.core.model.PlacementStatus
 import xyz.kurdcloud.englishmaster.core.model.optionLetter
 import xyz.kurdcloud.englishmaster.core.network.ApiError
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
@@ -61,7 +62,15 @@ data class ExamUiState(
     val problem: ExamProblem? = null,
     /** True when the time ran out and the answers were sent automatically. */
     val autoSubmitted: Boolean = false,
+    /** Placement tests left today and when the next one opens; null until loaded or offline. */
+    val placementStatus: PlacementStatus? = null,
+    /** When the next attempt opens, after the server said "not yet". */
+    val retryAtMillis: Long? = null,
 ) {
+    /** No placement test left today (and none to continue): starting would be refused. */
+    val placementLocked: Boolean
+        get() = placementStatus?.let { it.attemptsLeft <= 0 && !it.inProgress } == true
+
     val question get() = session?.questions?.getOrNull(index)
     val total: Int get() = session?.questions?.size ?: 0
     val answeredCount: Int get() = answers.size
@@ -79,7 +88,24 @@ class ExamViewModel(
     private var timer: Job? = null
 
     init {
-        if (kind == ExamKind.LEVEL_FINAL) loadName()
+        if (kind == ExamKind.LEVEL_FINAL) loadName() else loadPlacementStatus()
+    }
+
+    private fun loadPlacementStatus() = viewModelScope.launch {
+        (repo.placementStatus() as? ApiResult.Success)?.let { r ->
+            state.update { it.copy(placementStatus = r.value, retryAtMillis = r.value.nextAttemptAtMillis) }
+        }
+    }
+
+    /** After a "not yet" from the server, find out exactly when the next attempt opens. */
+    private suspend fun loadRetryTime() {
+        val s = state.value
+        val at = if (s.kind == ExamKind.PLACEMENT) {
+            (repo.placementStatus() as? ApiResult.Success)?.value?.also { st -> state.update { it.copy(placementStatus = st) } }?.nextAttemptAtMillis
+        } else {
+            (repo.overview() as? ApiResult.Success)?.value?.firstOrNull { it.level == s.level }?.examAvailableAtMillis
+        }
+        state.update { it.copy(retryAtMillis = at) }
     }
 
     private fun loadName() = viewModelScope.launch {
@@ -110,7 +136,11 @@ class ExamViewModel(
                     state.update { it.copy(phase = ExamPhase.RUNNING, session = r.value, index = 0, answers = emptyMap()) }
                     startTimer(r.value.expiresAtMillis)
                 }
-                is ApiResult.Failure -> state.update { it.copy(phase = ExamPhase.INTRO, problem = ExamProblem.from(r.error)) }
+                is ApiResult.Failure -> {
+                    val problem = ExamProblem.from(r.error)
+                    state.update { it.copy(phase = ExamPhase.INTRO, problem = problem) }
+                    if (problem == ExamProblem.RETRY_LATER) loadRetryTime()
+                }
             }
         }
     }
