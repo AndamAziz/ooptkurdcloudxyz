@@ -5,11 +5,13 @@ package xyz.kurdcloud.englishmaster.core.model
  * The server decides; these numbers just explain the rules to the learner.
  */
 object ExamRules {
-    const val EXAM_QUESTIONS = 20
-    const val EXAM_MINUTES = 30
+    const val EXAM_QUESTIONS = 40
+    const val EXAM_MINUTES = 60
     const val PASS_PERCENT = 80
     const val RETRY_HOURS = 24
     const val PRACTICE_PERCENT = 70
+    /** Share of a level's questions to answer before its exam unlocks. */
+    const val PRACTICE_COVERAGE_PERCENT = 70
     const val PLACEMENT_QUESTIONS = 18
     const val PLACEMENT_MINUTES = 20
     /** Finished placement tests allowed in any 24 hours (tests left unfinished do not count). */

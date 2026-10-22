@@ -363,7 +363,7 @@ private fun HowCertificatesWork() {
                 Icon(if (open) AppIcons.ExpandLess else AppIcons.ExpandMore, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             if (open) {
-                Step(1, stringResource(R.string.home_how_step1, ExamRules.PRACTICE_PERCENT))
+                Step(1, stringResource(R.string.home_how_step1, ExamRules.PRACTICE_COVERAGE_PERCENT, ExamRules.PRACTICE_PERCENT))
                 Step(2, stringResource(R.string.home_how_step2, ExamRules.EXAM_QUESTIONS, ExamRules.EXAM_MINUTES))
                 Step(3, stringResource(R.string.home_how_step3, ExamRules.PASS_PERCENT))
                 Step(4, stringResource(R.string.home_how_step4, ExamRules.RETRY_HOURS))

@@ -1,11 +1,25 @@
 -- Level exams, certificates, verification and the placement test.
 begin;
-select plan(38);
+select plan(40);
 
 insert into auth.users (id, email, raw_user_meta_data) values
   ('a1000000-0000-0000-0000-00000000000a', 'exam.a@example.test', '{"display_name":"Sara Ahmed"}'),
   ('b1000000-0000-0000-0000-00000000000b', 'exam.b@example.test', '{"display_name":"Karwan Ali"}'),
   ('c1000000-0000-0000-0000-00000000000c', 'exam.c@example.test', '{"display_name":"New Learner"}');
+
+-- The level exam needs 40 questions: publish the whole A1 bank (the seed keeps some as drafts).
+update public.assessment_questions set status = 'published', review_status = 'approved' where cefr_level = 'A1';
+select ok((select count(*) from public.assessment_questions where cefr_level = 'A1' and status = 'published') >= 40,
+  'enough published A1 questions for a 40-question exam');
+
+-- Learner C answers only half of A1, all correctly: not enough for the exam.
+insert into public.assessment_attempts (id, user_id, kind, cefr_level) values
+  ('c1000000-0000-0000-0000-0000000000c1', 'c1000000-0000-0000-0000-00000000000c', 'practice', 'A1');
+insert into public.assessment_responses (id, attempt_id, user_id, question_id, question_version, chosen_option, is_correct)
+select gen_random_uuid(), 'c1000000-0000-0000-0000-0000000000c1', 'c1000000-0000-0000-0000-00000000000c',
+       q.id, q.version, q.correct_option, true
+  from (select * from public.assessment_questions where cefr_level = 'A1' and status = 'published' order by id
+         limit (select count(*) / 2 from public.assessment_questions where cefr_level = 'A1' and status = 'published')) q;
 
 -- Practice fixtures: A and B answer every published A1 question (A correctly, B 80% correctly).
 insert into public.assessment_attempts (id, user_id, kind, cefr_level) values
@@ -32,14 +46,14 @@ select throws_ok($$select * from public.certificates$$, '42501', null, 'anon can
 select is((select count(*)::int from public.verify_certificate('EM-AAAA-AAAA-AAAA')), 0, 'unknown code verifies as nothing');
 reset role;
 
--- Learner C has not practised --------------------------------------------------
+-- Learner C has practised only half the level --------------------------------------
 select set_config('request.jwt.claims', '{"sub":"c1000000-0000-0000-0000-00000000000c","role":"authenticated"}', true);
 set local role authenticated;
 select is((select exam_unlocked from public.get_learning_overview() where cefr_level = 'A1'), false,
-  'exam is locked without practice');
+  'answering half of the level (even all correctly) does not unlock the exam');
 select is((select required from public.get_learning_overview() where cefr_level = 'A1'),
-          (select least(30, v::int) from t where k = 'a1_published'),
-  'required practice = least(30, published questions)');
+          (select ceil(v::int * 0.7)::int from t where k = 'a1_published'),
+  'required practice = 70% of the level''s published questions');
 select throws_ok($$select * from public.start_level_exam('A1')$$, 'P0001', 'practise more before the exam',
   'locked exam cannot be started');
 select throws_ok($$insert into public.exam_attempts (user_id, kind, cefr_level, question_ids, expires_at)
@@ -53,7 +67,7 @@ set local role authenticated;
 select is((select exam_unlocked from public.get_learning_overview() where cefr_level = 'A1'), true,
   'practice at >= 70% unlocks the exam');
 insert into t select 'a_exam', to_jsonb(e) from public.start_level_exam('A1') e;
-select is((select jsonb_array_length(v -> 'questions') from t where k = 'a_exam'), 20, 'exam has 20 questions');
+select is((select jsonb_array_length(v -> 'questions') from t where k = 'a_exam'), 40, 'exam has 40 questions');
 select is((select count(*)::int from t, jsonb_array_elements(v -> 'questions') q where k = 'a_exam' and q ? 'correct_option'), 0,
   'exam questions carry no answer key');
 select is((select (v ->> 'attempt_id') from t where k = 'a_exam'),
@@ -70,8 +84,10 @@ insert into t select 'a_answers', jsonb_object_agg(q.id::text, q.correct_option)
 set local role authenticated;
 insert into t select 'a_result', to_jsonb(r) from public.submit_level_exam(
   (select (v ->> 'attempt_id')::uuid from t where k = 'a_exam'), (select v from t where k = 'a_answers')) r;
-select is((select (v ->> 'score')::int from t where k = 'a_result'), 20, 'all answers scored correct');
-select is((select (v ->> 'passed')::boolean from t where k = 'a_result'), true, '20/20 passes');
+select is((select (v ->> 'score')::int from t where k = 'a_result'), 40, 'all answers scored correct');
+select is((select (v ->> 'passed')::boolean from t where k = 'a_result'), true, '40/40 passes');
+select ok((select (v ->> 'expires_at')::timestamptz between now() + interval '59 minutes' and now() + interval '61 minutes'
+             from t where k = 'a_exam'), 'the exam lasts 60 minutes');
 select is((select v ->> 'certificate_code' from t where k = 'a_result'), null,
   'a pass requests a certificate; no code until a teacher approves it');
 select is((select count(*)::int from public.get_my_certificates()), 0, 'a pending certificate is not downloadable');
@@ -113,7 +129,7 @@ select set_config('request.jwt.claims', '{"role":"anon"}', true);
 select results_eq(
   format($$select valid, holder_name, cefr_level::text, score, total, revoked from public.verify_certificate(%L)$$,
          lower((select v ->> 'verification_code' from t where k = 'a_review'))),
-  $$values (true, 'Sara Ahmed'::text, 'A1'::text, 20, 20, false)$$,
+  $$values (true, 'Sara Ahmed'::text, 'A1'::text, 40, 40, false)$$,
   'anyone can verify a certificate by its code (case-insensitive)');
 reset role;
 
