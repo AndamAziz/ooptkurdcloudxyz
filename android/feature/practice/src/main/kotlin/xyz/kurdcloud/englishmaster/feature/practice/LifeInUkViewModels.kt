@@ -131,7 +131,8 @@ data class MockTestUiState(
 }
 
 /**
- * A mock Life in the UK test in the official format: [LifeInUkTest.QUESTIONS] random questions,
+ * A mock Life in the UK test in the official format: [LifeInUkTest.QUESTIONS] random questions spread
+ * over the handbook chapters like the official tests ([LifeInUkTest.CHAPTER_MIX]),
  * [LifeInUkTest.MINUTES] minutes, no feedback until the end. Answer keys stay on the server, so
  * answers are marked through the normal practice queue when the test is handed in (offline they
  * wait and the result completes once the device is back online).
@@ -149,7 +150,7 @@ class MockTestViewModel(
 
     init {
         viewModelScope.launch {
-            val questions = content.pickSession(CefrLevel.LIFE_IN_UK, userId, LifeInUkTest.QUESTIONS)
+            val questions = pickMockQuestions()
             if (questions.size < LifeInUkTest.QUESTIONS) {
                 state.update { it.copy(phase = MockPhase.NOT_ENOUGH, available = questions.size) }
             } else {
@@ -162,6 +163,21 @@ class MockTestViewModel(
                 state.update { s -> s.copy(marked = rows.associateBy { it.questionId }) }
             }
         }
+    }
+
+    /** Chapter spread like the official test, topped up from the whole set when a chapter runs short. */
+    private suspend fun pickMockQuestions(): List<Question> {
+        val picked = LinkedHashMap<String, Question>()
+        LifeInUkTest.CHAPTER_MIX.forEach { (chapter, count) ->
+            content.pickTagged(chapter.tag, userId, count)
+                .filter { it.level == CefrLevel.LIFE_IN_UK }
+                .forEach { picked.putIfAbsent(it.id, it) }
+        }
+        if (picked.size < LifeInUkTest.QUESTIONS) {
+            content.pickSession(CefrLevel.LIFE_IN_UK, userId, LifeInUkTest.QUESTIONS * 3)
+                .forEach { if (picked.size < LifeInUkTest.QUESTIONS) picked.putIfAbsent(it.id, it) }
+        }
+        return picked.values.toList()
     }
 
     private fun startTimer(endsAt: Long) {

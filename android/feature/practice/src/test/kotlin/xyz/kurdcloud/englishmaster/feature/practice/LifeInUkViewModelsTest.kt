@@ -99,6 +99,26 @@ class LifeInUkViewModelsTest {
     }
 
     @Test
+    fun `a mock test follows the official chapter spread`() {
+        fun lituk(id: String) = question(id).copy(level = CefrLevel.LIFE_IN_UK)
+        val byChapter = LifeInUkChapter.entries.associate { ch -> ch.tag to (1..10).map { lituk("${ch.name}-$it") } }
+        val content = FakeContent(byChapter.values.flatten()).apply { taggedQuestions = byChapter }
+        val vm = MockTestViewModel("u1", content, FakePractice(FakeNetwork()), clock = { scheduler.currentTime })
+        val counts = vm.uiState.value.questions.groupingBy { it.id.substringBefore('-') }.eachCount()
+        assertEquals(LifeInUkTest.CHAPTER_MIX.mapKeys { it.key.name }, counts)
+    }
+
+    @Test
+    fun `a chapter that runs short is topped up from the whole set`() {
+        fun lituk(id: String) = question(id).copy(level = CefrLevel.LIFE_IN_UK)
+        val content = FakeContent((1..30).map { lituk("any$it") }).apply {
+            taggedQuestions = mapOf(LifeInUkChapter.HISTORY.tag to listOf(lituk("any1"), lituk("any2")))
+        }
+        val vm = MockTestViewModel("u1", content, FakePractice(FakeNetwork()), clock = { scheduler.currentTime })
+        assertEquals(LifeInUkTest.QUESTIONS, vm.uiState.value.questions.map { it.id }.distinct().size)
+    }
+
+    @Test
     fun `too few downloaded questions means no mock test`() {
         val vm = MockTestViewModel("u1", FakeContent(questions.take(10)), FakePractice(FakeNetwork()), clock = { scheduler.currentTime })
         assertEquals(MockPhase.NOT_ENOUGH, vm.uiState.value.phase)
