@@ -4,4 +4,8 @@
     <string name="ds_offline_banner">ئێستا ئۆفلاینیت. وانە داگیراوەکان کار دەکەن؛ وەڵامەکانت کاتێک هێڵت گەڕایەوە هەڵدەسەنگێنرێن.</string>
     <string name="ds_speak_listen">گوێگرتن</string>
     <string name="ds_speak_stop">ڕاگرتنی خوێندنەوە</string>
+    <string name="ds_speak_stop_short">ڕاگرتن</string>
+    <string name="ds_speak_auto">خوێندنەوەی خۆکار</string>
+    <string name="ds_speak_slow">هێواش</string>
+    <string name="ds_speak_explanation">گوێگرتن لە ڕوونکردنەوە</string>
 </resources>

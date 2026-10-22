@@ -118,7 +118,7 @@ class StaffRepositoryTest {
     fun questionsAreEditedAndDeleted() = runTest {
         server.enqueue(json(200, "3"))
         val edit = NewQuestion(CefrLevel.A1, "vocabulary", " What is the code? ", listOf("837631", "837613"), 0, " ", null,
-            MediaType.IMAGE, "staff/x.png", "Kurdistan IPTV", publish = false)
+            MediaType.IMAGE, "staff/x.png", "Union Flag", publish = false)
         assertEquals(ApiResult.Success(3), repo.updateQuestion("q1", edit))
         val update = server.takeRequest()
         assertEquals("/rest/v1/rpc/staff_update_question", update.url.encodedPath)
@@ -177,7 +177,7 @@ class StaffRepositoryTest {
 
         server.enqueue(json(200, "\"new-id\""))
         val created = repo.createQuestion(
-            NewQuestion(CefrLevel.A2, "reading", " Where is Ali? ", listOf("Erbil", "Duhok"), 1, "", "Ali lives in Duhok.",
+            NewQuestion(CefrLevel.A2, "reading", " Where is Ali? ", listOf("York", "Leeds"), 1, "", "Ali lives in Leeds.",
                 MediaType.IMAGE, "staff/id1.png", "A map", publish = false),
         )
         assertEquals(ApiResult.Success("new-id"), created)

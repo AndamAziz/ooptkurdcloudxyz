@@ -100,7 +100,7 @@ class HomeLearningTest {
     @Test
     fun topicsAppearOnceALevelIsDownloadedAndOpenATopicSession() {
         val content = FakeContent().apply {
-            topicQuestions = mapOf(Topic.KURDISTAN to listOf(question("k1"), question("k2")))
+            topicQuestions = mapOf(Topic.BRITAIN to listOf(question("k1"), question("k2")))
             packs.value = listOf(LevelPack(CefrLevel.A1, 3, 0))
         }
         val vm = HomeViewModel("u1", content, FakePractice(FakeNetwork()), FakeNetwork(), learning = FakeLearningRepo(), clock = { 0L })
@@ -112,15 +112,15 @@ class HomeLearningTest {
             }
         }
         val list = compose.onNode(hasScrollToNodeAction())
-        list.performScrollToNode(hasTestTag("topic_kurdistan"))
+        list.performScrollToNode(hasTestTag("topic_britain"))
         compose.onNodeWithText("2 questions").assertIsDisplayed()
-        compose.onNodeWithTag("topic_kurdistan").performClick()
-        assertEquals(Topic.KURDISTAN, opened)
+        compose.onNodeWithTag("topic_britain").performClick()
+        assertEquals(Topic.BRITAIN, opened)
 
         // A topic without questions cannot be opened.
         list.performScrollToNode(hasTestTag("topic_stories"))
         compose.onNodeWithTag("topic_stories").performClick()
-        assertEquals(Topic.KURDISTAN, opened)
+        assertEquals(Topic.BRITAIN, opened)
 
         // Life in the UK has its own course card instead of a topic tile.
         compose.onNodeWithTag("topic_life_in_uk").assertDoesNotExist()

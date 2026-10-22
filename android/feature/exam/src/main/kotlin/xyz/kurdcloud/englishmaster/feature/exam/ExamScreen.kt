@@ -40,6 +40,14 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import xyz.kurdcloud.englishmaster.core.designsystem.LearningType
+import xyz.kurdcloud.englishmaster.core.designsystem.ListenControls
+import xyz.kurdcloud.englishmaster.core.designsystem.LocalSpeaker
+import xyz.kurdcloud.englishmaster.core.designsystem.OptionCard
+import xyz.kurdcloud.englishmaster.core.designsystem.OptionState
+import xyz.kurdcloud.englishmaster.core.designsystem.questionSpeech
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -279,29 +287,34 @@ private fun RunningView(state: ExamUiState, viewModel: ExamViewModel) {
         Text(stringResource(R.string.exam_counter, state.index + 1, state.total), style = MaterialTheme.typography.labelLarge)
         QuestionStrip(state, viewModel::goTo)
         ProblemCard(state.problem)
+        val questionParts = remember(question.id) { questionSpeech(question.prompt, question.options) }
+        val speaker = LocalSpeaker.current
+        LaunchedEffect(question.id, speaker?.available) {
+            if (speaker?.autoRead == true && speaker.available) speaker.speakParts("question_${question.id}", questionParts)
+        }
+        val reading = speaker?.let { if (it.speakingId == "question_${question.id}") it.speakingPart else null }
+        ListenControls("question_${question.id}", questionParts)
         // Learning content is English: keep it left-to-right inside the Sorani UI.
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 question.passage?.let { PassageCard(it, speakId = "passage_${question.id}") }
                 question.media?.let { QuestionMediaView(it, stringResource(R.string.exam_media_unavailable)) }
-                Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text(question.prompt, style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f).testTag("exam_prompt"))
-                    SpeakButton("question_${question.id}", speechText(question.prompt, question.options))
-                }
-                Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(
+                    question.prompt,
+                    style = LearningType.question,
+                    color = if (reading == "prompt") MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.testTag("exam_prompt"),
+                )
+                Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     val chosen = state.answers[question.id]
                     question.options.forEachIndexed { i, option ->
                         val letter = optionLetter(i)
-                        OutlinedCard(
-                            border = if (chosen == i) BorderStroke(2.dp, MaterialTheme.colorScheme.primary) else CardDefaults.outlinedCardBorder(),
-                            modifier = Modifier.fillMaxWidth().testTag("exam_option_$letter")
-                                .selectable(selected = chosen == i, enabled = !submitting, role = Role.RadioButton) { viewModel.select(i) },
-                        ) {
-                            Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                                RadioButton(selected = chosen == i, onClick = null, enabled = !submitting)
-                                Text("$letter.  $option", style = MaterialTheme.typography.bodyLarge)
-                            }
-                        }
+                        OptionCard(
+                            letter, option,
+                            if (chosen == i) OptionState.SELECTED else OptionState.NEUTRAL,
+                            reading = reading == letter, enabled = !submitting, onClick = { viewModel.select(i) },
+                            modifier = Modifier.testTag("exam_option_$letter"),
+                        )
                     }
                 }
             }

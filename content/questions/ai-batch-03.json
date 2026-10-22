@@ -1,2002 +1,2021 @@
 {
- "batch": "ai-batch-03",
- "note": "AI-drafted (Claude) stories, dialogues and factual reading on the UK (Life in the UK topics), Kurdistan, history, geography and nature, with picture and video questions. Original wording; facts limited to well-established ones. Imported as drafts.",
- "passages": {
-  "A1_SAM": "Sam lives in London. London is the capital city of England and of the United Kingdom. The River Thames goes through London. Every day Sam walks to school. He likes the red buses. On Saturdays he visits his grandmother in Cardiff, the capital city of Wales.",
-  "A1_HANA": "My name is Hana. I live in Erbil. Erbil is the capital city of the Kurdistan Region. In the centre of the city there is a very old citadel on a hill. In March we celebrate Newroz. We go to the mountains and have a picnic with our family.",
-  "A1_CAFE": "Waiter: Hello! What would you like?\nAram: A cup of tea, please.\nWaiter: Anything to eat?\nAram: Yes, a cheese sandwich, please.\nWaiter: That's four pounds.\nAram: Here you are. Thank you!",
-  "A2_NEWROZ": "Newroz is the Kurdish New Year. It is celebrated on 21 March, at the start of spring. The story of Newroz tells of Kawa the blacksmith, who fought against a cruel king called Zuhak. After Kawa won, people lit fires on the hills to share the good news. Today people still light fires, wear traditional clothes and dance together.",
-  "A2_UK4": "The United Kingdom is made up of four countries: England, Scotland, Wales and Northern Ireland. Their capital cities are London, Edinburgh, Cardiff and Belfast. 'Great Britain' is the name for England, Scotland and Wales together. Northern Ireland is on the island of Ireland.",
-  "A2_GP": "Receptionist: Good morning, City Health Centre.\nLana: Hello. I'd like to make an appointment with a doctor, please.\nReceptionist: Are you registered with us?\nLana: Yes, I am.\nReceptionist: Is tomorrow at 10:30 OK?\nLana: Yes, that's fine. Thank you.",
-  "A2_TRAIN": "Passenger: A return ticket to Manchester, please.\nClerk: Travelling today?\nPassenger: Yes, and I'll come back on Sunday.\nClerk: That's 45 pounds. The train leaves from platform 6 at 14:20.\nPassenger: Thanks very much.",
-  "B1_SAINTS": "Each country of the UK has a patron saint with a special day. St David's Day, for Wales, is on 1 March. St Patrick's Day, for Northern Ireland, is on 17 March. St George's Day, for England, is on 23 April, and St Andrew's Day, for Scotland, is on 30 November. Only Scotland and Northern Ireland have their patron saint's day as an official holiday.",
-  "B1_MAGNA": "In 1215, King John was forced by his noblemen to agree to a number of their demands. The result was a charter of rights called the Magna Carta, which means 'Great Charter'. It established the idea that even the king was subject to the law. It protected the rights of the nobility and restricted the king's power to collect taxes or to make or change laws.",
-  "B1_NHS": "The National Health Service (NHS) began in 1948. Its aim was to give everyone in the UK healthcare that is free at the point of use. The minister responsible for setting it up was Aneurin (Nye) Bevan. To see a family doctor, called a GP, you usually need to register at a local surgery first.",
-  "B1_POPPY": "Remembrance Day, on 11 November, commemorates those who died fighting for the UK and its allies. It began after the First World War, which ended at 11 a.m. on 11 November 1918. People wear red poppies, and there is a two-minute silence at 11 a.m.",
-  "B1_VOTE": "Officer: To vote, you need to be on the electoral register.\nDara: How old do I need to be?\nOfficer: For UK general elections you must be at least 18.\nDara: And how often are general elections held?\nOfficer: At least every five years.",
-  "B2_ELIZ": "Elizabeth I, the daughter of Henry VIII, became queen in 1558. She was popular with her people, partly because of the defeat of the Spanish Armada in 1588, a large fleet of ships sent by Spain to invade England. Her reign also saw a flowering of English drama, with playwrights such as William Shakespeare.",
-  "B2_FIRE": "In 1666 a fire broke out in a bakery in Pudding Lane and spread across much of the City of London, destroying thousands of houses and many churches, including St Paul's Cathedral. The architect Sir Christopher Wren was responsible for rebuilding St Paul's, which still stands today.",
-  "B2_VOTES": "During the late 19th and early 20th centuries, women campaigned for the right to vote. In 1903 Emmeline Pankhurst founded the Women's Social and Political Union, whose members became known as suffragettes. In 1918 women over the age of 30 were given the vote, and in 1928 women were given the vote at 21, the same age as men.",
-  "B2_ZAGROS": "The Kurdistan Region of Iraq is mountainous, lying in the foothills and ranges of the Zagros Mountains. Rivers such as the Great Zab and the Little Zab flow south-west to join the Tigris. Lake Dukan, created by a dam on the Little Zab, is a popular place for visitors. Farmers in the valleys grow crops such as wheat, grapes and pomegranates.",
-  "B2_INTERVIEW": "Interviewer: Why do you want to work for us?\nShler: I've read about your work with refugees, and I'd like to use my languages to help.\nInterviewer: Which languages do you speak?\nShler: Kurdish, Arabic and English, and I'm learning Persian.\nInterviewer: Could you work at weekends?\nShler: Yes, as long as I know the rota a week in advance.",
-  "C1_CHURCHILL": "Winston Churchill became Prime Minister in 1940, at a time when much of Europe had fallen to Nazi Germany. He refused to surrender, and his speeches, including the promise that 'we shall fight on the beaches', helped to raise public morale. Although he was defeated in the general election of 1945, he returned as Prime Minister in 1951.",
-  "C1_INDUSTRY": "The Industrial Revolution, which began in Britain in the 18th century, transformed the way goods were produced. Machines powered by steam, using coal as fuel, replaced much work previously done by hand. Factories drew people from the countryside into rapidly growing cities, where working conditions were often harsh, and children as well as adults worked long hours.",
-  "C1_CITADEL": "Rising some 30 metres above the surrounding city, the Erbil Citadel is often described as one of the oldest continuously inhabited settlements in the world. Its oval mound has been built up over thousands of years by successive layers of occupation. In 2014 it was inscribed on the UNESCO World Heritage List, and restoration work has sought to preserve its traditional houses while making the site accessible to visitors.",
-  "C1_PARKS": "Presenter: Should national parks charge entry fees?\nRoza: I'm in favour. The money could fund conservation.\nPaul: I see the logic, but fees risk excluding families on low incomes.\nRoza: Then why not make entry free for local residents?\nPaul: That might be a reasonable compromise.",
-  "C2_DEVO": "Since 1997 the UK has seen a significant devolution of power. The Scottish Parliament and the National Assembly for Wales (renamed the Senedd in 2020) were established in 1999, while the Northern Ireland Assembly emerged from the 1998 Good Friday Agreement. The devolved administrations legislate on areas such as health and education, whereas defence and foreign affairs remain reserved to the UK Parliament at Westminster.",
-  "C2_SHAKES": "Shakespeare's influence on the English language is hard to overstate. Hundreds of words and phrases are first recorded in his plays and poems. Yet a first recorded use is not proof of invention: some expressions may simply reflect the everyday speech of his time, which happens to survive in his writing. Scholars therefore caution against crediting him with every phrase popularly attributed to him.",
-  "C2_KURDISH": "Kurdish is not a single standardised language but a cluster of related varieties. Kurmanji, spoken by most Kurds in Turkey and Syria and in the Duhok area, is generally written in a Latin-based alphabet, whereas Sorani, prevalent in Erbil and Sulaymaniyah, uses a modified Arabic script. Speakers of the two varieties may find mutual comprehension challenging, particularly in writing.",
-  "C2_PEAT": "Peatlands cover only around 3% of the Earth's land surface, yet they are estimated to store more carbon than all the world's forests combined. When drained for agriculture, peat decomposes and releases this carbon, turning a vital sink into a significant source of emissions. Restoration by re-wetting drained bogs is therefore increasingly seen as a cost-effective climate measure."
- },
- "items": [
-  {
-   "level": "A1",
-   "skill": "reading",
-   "prompt": "What is the capital city of the United Kingdom?",
-   "answer": "London",
-   "distractors": [
-    "Cardiff",
-    "Erbil",
-    "Paris"
-   ],
-   "explanation": "'London is the capital city of England and of the United Kingdom.'",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "A1_SAM"
-  },
-  {
-   "level": "A1",
-   "skill": "reading",
-   "prompt": "Which river goes through London?",
-   "answer": "the Thames",
-   "distractors": [
-    "the Tigris",
-    "the Nile",
-    "the Severn"
-   ],
-   "explanation": "'The River Thames goes through London.'",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "A1_SAM"
-  },
-  {
-   "level": "A1",
-   "skill": "reading",
-   "prompt": "Where does Sam's grandmother live?",
-   "answer": "in Cardiff",
-   "distractors": [
-    "in London",
-    "in Erbil",
-    "in Edinburgh"
-   ],
-   "explanation": "'He visits his grandmother in Cardiff.'",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "A1_SAM"
-  },
-  {
-   "level": "A1",
-   "skill": "reading",
-   "prompt": "What is in the centre of Erbil?",
-   "answer": "an old citadel",
-   "distractors": [
-    "a big lake",
-    "an airport",
-    "a beach"
-   ],
-   "explanation": "'In the centre of the city there is a very old citadel.'",
-   "tags": [
-    "kurdistan",
-    "story"
-   ],
-   "passage": "A1_HANA"
-  },
-  {
-   "level": "A1",
-   "skill": "reading",
-   "prompt": "When does Hana celebrate Newroz?",
-   "answer": "in March",
-   "distractors": [
-    "in December",
-    "in June",
-    "in October"
-   ],
-   "explanation": "'In March we celebrate Newroz.'",
-   "tags": [
-    "kurdistan",
-    "story"
-   ],
-   "passage": "A1_HANA"
-  },
-  {
-   "level": "A1",
-   "skill": "reading",
-   "prompt": "What does Hana's family do at Newroz?",
-   "answer": "They have a picnic in the mountains.",
-   "distractors": [
-    "They go to the beach.",
-    "They stay at home.",
-    "They go to school."
-   ],
-   "explanation": "'We go to the mountains and have a picnic.'",
-   "tags": [
-    "kurdistan",
-    "story"
-   ],
-   "passage": "A1_HANA"
-  },
-  {
-   "level": "A1",
-   "skill": "reading",
-   "prompt": "What does Aram want to drink?",
-   "answer": "tea",
-   "distractors": [
-    "coffee",
-    "water",
-    "juice"
-   ],
-   "explanation": "'A cup of tea, please.'",
-   "tags": [
-    "dialogue"
-   ],
-   "passage": "A1_CAFE"
-  },
-  {
-   "level": "A1",
-   "skill": "reading",
-   "prompt": "How much does Aram pay?",
-   "answer": "four pounds",
-   "distractors": [
-    "two pounds",
-    "five pounds",
-    "fourteen pounds"
-   ],
-   "explanation": "'That's four pounds.'",
-   "tags": [
-    "dialogue"
-   ],
-   "passage": "A1_CAFE"
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "The flag of the Kurdistan Region has a yellow ___ in the middle.",
-   "answer": "sun",
-   "distractors": [
-    "moon",
-    "star",
-    "tree"
-   ],
-   "explanation": "The flag is red, white and green with a yellow sun.",
-   "tags": [
-    "kurdistan"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "In the UK, people drive on the ___ side of the road.",
-   "answer": "left",
-   "distractors": [
-    "right",
-    "middle",
-    "wrong"
-   ],
-   "explanation": "In the UK you drive on the left.",
-   "tags": [
-    "life_in_uk"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "Christmas Day in the UK is on 25 ___.",
-   "answer": "December",
-   "distractors": [
-    "January",
-    "March",
-    "July"
-   ],
-   "explanation": "Christmas Day is 25 December.",
-   "tags": [
-    "life_in_uk"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "Which animal gives us milk?",
-   "answer": "a cow",
-   "distractors": [
-    "a cat",
-    "a fish",
-    "a bird"
-   ],
-   "explanation": "Cows give milk.",
-   "tags": [
-    "world_knowledge"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "The sun rises in the ___.",
-   "answer": "east",
-   "distractors": [
-    "west",
-    "north",
-    "south"
-   ],
-   "explanation": "The sun rises in the east and sets in the west.",
-   "tags": [
-    "world_knowledge"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "There are ___ days in a week.",
-   "answer": "seven",
-   "distractors": [
-    "five",
-    "six",
-    "ten"
-   ],
-   "explanation": "A week has seven days.",
-   "tags": [
-    "world_knowledge"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "Look at the flag. What colour is the sun?",
-   "answer": "yellow",
-   "distractors": [
-    "green",
-    "red",
-    "blue"
-   ],
-   "explanation": "The sun on the flag of the Kurdistan Region is yellow.",
-   "tags": [
-    "kurdistan"
-   ],
-   "media": {
-    "type": "image",
-    "path": "samples/flag_kurdistan_region.png",
-    "caption": "The flag of the Kurdistan Region"
-   }
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "Watch the video. What is the date of Newroz?",
-   "answer": "21 March",
-   "distractors": [
-    "1 January",
-    "21 June",
-    "12 March"
-   ],
-   "explanation": "The video shows 'Newroz, 21 March'.",
-   "tags": [
-    "kurdistan"
-   ],
-   "media": {
-    "type": "video",
-    "path": "samples/newroz.mp4",
-    "caption": "Newroz (7 seconds)"
-   }
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "prompt": "When is Newroz celebrated?",
-   "answer": "on 21 March",
-   "distractors": [
-    "on 1 January",
-    "on 21 June",
-    "on 31 December"
-   ],
-   "explanation": "'It is celebrated on 21 March, at the start of spring.'",
-   "tags": [
-    "kurdistan",
-    "story"
-   ],
-   "passage": "A2_NEWROZ"
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "prompt": "In the Newroz story, who was Kawa?",
-   "answer": "a blacksmith",
-   "distractors": [
-    "a king",
-    "a farmer",
-    "a teacher"
-   ],
-   "explanation": "'Kawa the blacksmith'.",
-   "tags": [
-    "kurdistan",
-    "story"
-   ],
-   "passage": "A2_NEWROZ"
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "prompt": "Why did people light fires on the hills?",
-   "answer": "to share the good news",
-   "distractors": [
-    "to keep warm",
-    "to cook food",
-    "to frighten animals"
-   ],
-   "explanation": "'People lit fires on the hills to share the good news.'",
-   "tags": [
-    "kurdistan",
-    "story"
-   ],
-   "passage": "A2_NEWROZ"
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "prompt": "How many countries make up the United Kingdom?",
-   "answer": "four",
-   "distractors": [
-    "three",
-    "five",
-    "two"
-   ],
-   "explanation": "England, Scotland, Wales and Northern Ireland.",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "A2_UK4"
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "prompt": "What is the capital city of Scotland?",
-   "answer": "Edinburgh",
-   "distractors": [
-    "Glasgow",
-    "Belfast",
-    "Cardiff"
-   ],
-   "explanation": "The capitals are London, Edinburgh, Cardiff and Belfast.",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "A2_UK4"
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "prompt": "Which country is NOT part of Great Britain?",
-   "answer": "Northern Ireland",
-   "distractors": [
-    "England",
-    "Scotland",
-    "Wales"
-   ],
-   "explanation": "Great Britain = England, Scotland and Wales.",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "A2_UK4"
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "prompt": "Why is Lana phoning the health centre?",
-   "answer": "to make an appointment with a doctor",
-   "distractors": [
-    "to buy medicine",
-    "to cancel an appointment",
-    "to register at a school"
-   ],
-   "explanation": "'I'd like to make an appointment with a doctor.'",
-   "tags": [
-    "dialogue",
-    "life_in_uk"
-   ],
-   "passage": "A2_GP"
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "prompt": "When is Lana's appointment?",
-   "answer": "tomorrow at 10:30",
-   "distractors": [
-    "today at 10:30",
-    "tomorrow at 1:30",
-    "next week"
-   ],
-   "explanation": "'Is tomorrow at 10:30 OK?' 'Yes, that's fine.'",
-   "tags": [
-    "dialogue"
-   ],
-   "passage": "A2_GP"
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "prompt": "What kind of ticket does the passenger buy?",
-   "answer": "a return ticket",
-   "distractors": [
-    "a single ticket",
-    "a bus ticket",
-    "a monthly ticket"
-   ],
-   "explanation": "'A return ticket to Manchester.'",
-   "tags": [
-    "dialogue"
-   ],
-   "passage": "A2_TRAIN"
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "prompt": "Which platform does the Manchester train leave from?",
-   "answer": "platform 6",
-   "distractors": [
-    "platform 4",
-    "platform 14",
-    "platform 20"
-   ],
-   "explanation": "'The train leaves from platform 6.'",
-   "tags": [
-    "dialogue"
-   ],
-   "passage": "A2_TRAIN"
-  },
-  {
-   "level": "A2",
-   "skill": "vocabulary",
-   "prompt": "In the UK, the emergency phone number for the police, fire service and ambulance is ___.",
-   "answer": "999",
-   "distractors": [
-    "100",
-    "911",
-    "123"
-   ],
-   "explanation": "In an emergency in the UK you call 999.",
-   "tags": [
-    "life_in_uk"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "vocabulary",
-   "prompt": "The longest river in the UK is the ___.",
-   "answer": "Severn",
-   "distractors": [
-    "Thames",
-    "Tigris",
-    "Clyde"
-   ],
-   "explanation": "The River Severn is the longest river in the UK.",
-   "tags": [
-    "life_in_uk",
-    "world_knowledge"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "vocabulary",
-   "prompt": "The highest mountain in the UK, Ben Nevis, is in ___.",
-   "answer": "Scotland",
-   "distractors": [
-    "Wales",
-    "England",
-    "Northern Ireland"
-   ],
-   "explanation": "Ben Nevis is in the Scottish Highlands.",
-   "tags": [
-    "life_in_uk",
-    "world_knowledge"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "vocabulary",
-   "prompt": "The Erbil Citadel is a UNESCO World ___ Site.",
-   "answer": "Heritage",
-   "distractors": [
-    "Wonder",
-    "Culture",
-    "History"
-   ],
-   "explanation": "It was added to the UNESCO World Heritage List in 2014.",
-   "tags": [
-    "kurdistan"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "vocabulary",
-   "prompt": "Sorani Kurdish is usually written with an alphabet based on the ___ script.",
-   "answer": "Arabic",
-   "distractors": [
-    "Latin",
-    "Cyrillic",
-    "Greek"
-   ],
-   "explanation": "Sorani uses a modified Arabic script; Kurmanji usually uses Latin letters.",
-   "tags": [
-    "kurdistan"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "vocabulary",
-   "prompt": "Look at the flag. Which country is it?",
-   "answer": "Scotland",
-   "distractors": [
-    "England",
-    "Wales",
-    "Northern Ireland"
-   ],
-   "explanation": "A white diagonal cross on blue is the Saltire, the flag of Scotland.",
-   "tags": [
-    "life_in_uk"
-   ],
-   "media": {
-    "type": "image",
-    "path": "samples/flag_scotland.png",
-    "caption": "A flag"
-   }
-  },
-  {
-   "level": "A2",
-   "skill": "vocabulary",
-   "prompt": "Look at the flag. It shows the cross of St George. Which country's flag is it?",
-   "answer": "England",
-   "distractors": [
-    "Scotland",
-    "Wales",
-    "Ireland"
-   ],
-   "explanation": "The red cross of St George on white is the flag of England.",
-   "tags": [
-    "life_in_uk"
-   ],
-   "media": {
-    "type": "image",
-    "path": "samples/flag_england.png",
-    "caption": "A flag"
-   }
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "prompt": "When is St David's Day?",
-   "answer": "1 March",
-   "distractors": [
-    "17 March",
-    "23 April",
-    "30 November"
-   ],
-   "explanation": "'St David's Day, for Wales, is on 1 March.'",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "B1_SAINTS"
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "prompt": "Who is the patron saint of Scotland?",
-   "answer": "St Andrew",
-   "distractors": [
-    "St George",
-    "St David",
-    "St Patrick"
-   ],
-   "explanation": "'St Andrew's Day, for Scotland'.",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "B1_SAINTS"
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "prompt": "Patron saints: which statement is true?",
-   "answer": "St Patrick's Day is an official holiday in Northern Ireland.",
-   "distractors": [
-    "St George's Day is an official holiday in England.",
-    "St David's Day is in April.",
-    "Scotland has no patron saint."
-   ],
-   "explanation": "Only Scotland and Northern Ireland have their saint's day as an official holiday.",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "B1_SAINTS"
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "prompt": "When was the Magna Carta agreed?",
-   "answer": "in 1215",
-   "distractors": [
-    "in 1066",
-    "in 1588",
-    "in 1666"
-   ],
-   "explanation": "'In 1215, King John was forced...'",
-   "tags": [
-    "life_in_uk",
-    "history",
-    "story"
-   ],
-   "passage": "B1_MAGNA"
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "prompt": "What important idea did the Magna Carta establish?",
-   "answer": "that even the king had to obey the law",
-   "distractors": [
-    "that the king could make any law",
-    "that everyone must pay more taxes",
-    "that Parliament must have two houses"
-   ],
-   "explanation": "'Even the king was subject to the law.'",
-   "tags": [
-    "life_in_uk",
-    "history",
-    "story"
-   ],
-   "passage": "B1_MAGNA"
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "prompt": "Who forced King John to agree to the Magna Carta?",
-   "answer": "his noblemen",
-   "distractors": [
-    "the French king",
-    "the farmers",
-    "the Romans"
-   ],
-   "explanation": "'Forced by his noblemen'.",
-   "tags": [
-    "life_in_uk",
-    "history",
-    "story"
-   ],
-   "passage": "B1_MAGNA"
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "prompt": "When did the NHS begin?",
-   "answer": "in 1948",
-   "distractors": [
-    "in 1918",
-    "in 1945",
-    "in 1966"
-   ],
-   "explanation": "'The NHS began in 1948.'",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "B1_NHS"
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "prompt": "Which minister set up the NHS?",
-   "answer": "Aneurin Bevan",
-   "distractors": [
-    "Winston Churchill",
-    "Florence Nightingale",
-    "Alexander Fleming"
-   ],
-   "explanation": "'The minister responsible... was Aneurin (Nye) Bevan.'",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "B1_NHS"
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "prompt": "What do you usually need to do before you can see a GP?",
-   "answer": "register at a local surgery",
-   "distractors": [
-    "go to a hospital first",
-    "call 999",
-    "buy medicine"
-   ],
-   "explanation": "'You usually need to register at a local surgery first.'",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "B1_NHS"
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "prompt": "What do people wear for Remembrance Day?",
-   "answer": "red poppies",
-   "distractors": [
-    "white roses",
-    "green ribbons",
-    "blue badges"
-   ],
-   "explanation": "'People wear red poppies.'",
-   "tags": [
-    "life_in_uk",
-    "history",
-    "story"
-   ],
-   "passage": "B1_POPPY"
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "prompt": "How long is the silence at 11 a.m. on Remembrance Day?",
-   "answer": "two minutes",
-   "distractors": [
-    "one minute",
-    "five minutes",
-    "eleven minutes"
-   ],
-   "explanation": "'There is a two-minute silence at 11 a.m.'",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "B1_POPPY"
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "prompt": "Which war ended on 11 November 1918?",
-   "answer": "the First World War",
-   "distractors": [
-    "the Second World War",
-    "the Crimean War",
-    "the Battle of Hastings"
-   ],
-   "explanation": "'The First World War, which ended at 11 a.m. on 11 November 1918.'",
-   "tags": [
-    "life_in_uk",
-    "history",
-    "story"
-   ],
-   "passage": "B1_POPPY"
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "prompt": "What is the minimum age to vote in UK general elections?",
-   "answer": "18",
-   "distractors": [
-    "16",
-    "21",
-    "25"
-   ],
-   "explanation": "'For UK general elections you must be at least 18.'",
-   "tags": [
-    "life_in_uk",
-    "dialogue"
-   ],
-   "passage": "B1_VOTE"
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "prompt": "How often must a UK general election be held?",
-   "answer": "at least every five years",
-   "distractors": [
-    "every year",
-    "every ten years",
-    "only when the King decides"
-   ],
-   "explanation": "'At least every five years.'",
-   "tags": [
-    "life_in_uk",
-    "dialogue"
-   ],
-   "passage": "B1_VOTE"
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "Bonfire Night, on 5 November, remembers a failed plot in 1605 to ___.",
-   "answer": "blow up the Houses of Parliament",
-   "distractors": [
-    "burn down London",
-    "invade France",
-    "close the theatres"
-   ],
-   "explanation": "Guy Fawkes and others planned to blow up Parliament in 1605.",
-   "tags": [
-    "life_in_uk",
-    "history"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "The UK is a constitutional ___, with the King as head of state.",
-   "answer": "monarchy",
-   "distractors": [
-    "republic",
-    "dictatorship",
-    "federation"
-   ],
-   "explanation": "The monarch is head of state; Parliament makes the laws.",
-   "tags": [
-    "life_in_uk"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "The two Houses of the UK Parliament are the House of Commons and the House of ___.",
-   "answer": "Lords",
-   "distractors": [
-    "Kings",
-    "People",
-    "Representatives"
-   ],
-   "explanation": "Parliament has the House of Commons and the House of Lords.",
-   "tags": [
-    "life_in_uk"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "What is the capital city of Northern Ireland?",
-   "answer": "Belfast",
-   "distractors": [
-    "Dublin",
-    "Londonderry",
-    "Cardiff"
-   ],
-   "explanation": "Belfast is the capital of Northern Ireland; Dublin is the capital of Ireland.",
-   "tags": [
-    "life_in_uk"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "Hadrian's Wall, in the north of England, was built by the ___.",
-   "answer": "Romans",
-   "distractors": [
-    "Vikings",
-    "Normans",
-    "Saxons"
-   ],
-   "explanation": "The Roman emperor Hadrian ordered the wall to be built.",
-   "tags": [
-    "life_in_uk",
-    "history"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "In 1066, William of Normandy defeated King Harold at the Battle of ___.",
-   "answer": "Hastings",
-   "distractors": [
-    "Waterloo",
-    "Bosworth",
-    "Trafalgar"
-   ],
-   "explanation": "The Norman Conquest began with the Battle of Hastings in 1066.",
-   "tags": [
-    "life_in_uk",
-    "history"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "Which famous writer was born in Stratford-upon-Avon?",
-   "answer": "William Shakespeare",
-   "distractors": [
-    "Charles Dickens",
-    "Robert Burns",
-    "Jane Austen"
-   ],
-   "explanation": "Shakespeare was born in Stratford-upon-Avon in 1564.",
-   "tags": [
-    "life_in_uk",
-    "culture"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "The Kurdish town of ___ was attacked with chemical weapons on 16 March 1988.",
-   "answer": "Halabja",
-   "distractors": [
-    "Duhok",
-    "Zakho",
-    "Koya"
-   ],
-   "explanation": "The Halabja chemical attack took place on 16 March 1988.",
-   "tags": [
-    "kurdistan",
-    "history"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "Lalish, near Duhok, is the most holy place of the ___ people.",
-   "answer": "Yazidi",
-   "distractors": [
-    "Roman",
-    "Viking",
-    "Mongol"
-   ],
-   "explanation": "Lalish is the holiest site of the Yazidi faith.",
-   "tags": [
-    "kurdistan",
-    "culture"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "Look at the Union Flag. It combines the crosses of three patron saints. Which country's saint is NOT shown?",
-   "answer": "Wales",
-   "distractors": [
-    "Scotland",
-    "England",
-    "Ireland"
-   ],
-   "explanation": "The Union Flag has the crosses of St George, St Andrew and St Patrick; Wales is not represented.",
-   "tags": [
-    "life_in_uk"
-   ],
-   "media": {
-    "type": "image",
-    "path": "samples/union_flag.png",
-    "caption": "The Union Flag"
-   }
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "Look at the flag. The sun has 21 rays. Which day is this number usually linked to?",
-   "answer": "Newroz, 21 March",
-   "distractors": [
-    "Christmas Day",
-    "21 June, the longest day",
-    "New Year's Day"
-   ],
-   "explanation": "The 21 rays are usually linked to Newroz on 21 March.",
-   "tags": [
-    "kurdistan"
-   ],
-   "media": {
-    "type": "image",
-    "path": "samples/flag_kurdistan_region.png",
-    "caption": "The flag of the Kurdistan Region"
-   }
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "prompt": "Whose daughter was Elizabeth I?",
-   "answer": "Henry VIII's",
-   "distractors": [
-    "Henry VII's",
-    "James I's",
-    "Charles I's"
-   ],
-   "explanation": "'Elizabeth I, the daughter of Henry VIII'.",
-   "tags": [
-    "life_in_uk",
-    "history",
-    "story"
-   ],
-   "passage": "B2_ELIZ"
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "prompt": "What was the Spanish Armada?",
-   "answer": "a fleet of ships sent to invade England",
-   "distractors": [
-    "a Spanish army that captured London",
-    "a trade agreement",
-    "a royal wedding"
-   ],
-   "explanation": "'A large fleet of ships sent by Spain to invade England.'",
-   "tags": [
-    "life_in_uk",
-    "history",
-    "story"
-   ],
-   "passage": "B2_ELIZ"
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "prompt": "Elizabeth I: which statement is supported by the text?",
-   "answer": "English drama flourished during her reign.",
-   "distractors": [
-    "She was unpopular with her people.",
-    "She became queen in 1588.",
-    "She was defeated by Spain."
-   ],
-   "explanation": "'Her reign also saw a flowering of English drama.'",
-   "tags": [
-    "life_in_uk",
-    "history",
-    "story"
-   ],
-   "passage": "B2_ELIZ"
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "prompt": "Where did the Great Fire of London start?",
-   "answer": "in a bakery",
-   "distractors": [
-    "in a church",
-    "in Parliament",
-    "on a ship"
-   ],
-   "explanation": "'A fire broke out in a bakery in Pudding Lane.'",
-   "tags": [
-    "life_in_uk",
-    "history",
-    "story"
-   ],
-   "passage": "B2_FIRE"
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "prompt": "Who rebuilt St Paul's Cathedral?",
-   "answer": "Sir Christopher Wren",
-   "distractors": [
-    "Isaac Newton",
-    "Henry VIII",
-    "Isambard Kingdom Brunel"
-   ],
-   "explanation": "'Sir Christopher Wren was responsible for rebuilding St Paul's.'",
-   "tags": [
-    "life_in_uk",
-    "history",
-    "story"
-   ],
-   "passage": "B2_FIRE"
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "prompt": "What were members of the Women's Social and Political Union called?",
-   "answer": "suffragettes",
-   "distractors": [
-    "Chartists",
-    "Roundheads",
-    "Cavaliers"
-   ],
-   "explanation": "'Its members became known as suffragettes.'",
-   "tags": [
-    "life_in_uk",
-    "history",
-    "story"
-   ],
-   "passage": "B2_VOTES"
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "prompt": "In which year did women get the vote on the same terms as men?",
-   "answer": "1928",
-   "distractors": [
-    "1903",
-    "1918",
-    "1945"
-   ],
-   "explanation": "'In 1928 women were given the vote at 21, the same age as men.'",
-   "tags": [
-    "life_in_uk",
-    "history",
-    "story"
-   ],
-   "passage": "B2_VOTES"
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "prompt": "Which mountain range does the passage mention?",
-   "answer": "the Zagros",
-   "distractors": [
-    "the Alps",
-    "the Himalayas",
-    "the Pennines"
-   ],
-   "explanation": "'The foothills and ranges of the Zagros Mountains'.",
-   "tags": [
-    "kurdistan",
-    "world_knowledge",
-    "story"
-   ],
-   "passage": "B2_ZAGROS"
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "prompt": "How was Lake Dukan formed?",
-   "answer": "by a dam on the Little Zab",
-   "distractors": [
-    "by a volcano",
-    "by melting ice",
-    "by an earthquake"
-   ],
-   "explanation": "'Lake Dukan, created by a dam on the Little Zab'.",
-   "tags": [
-    "kurdistan",
-    "world_knowledge",
-    "story"
-   ],
-   "passage": "B2_ZAGROS"
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "prompt": "Which river do the Great and Little Zab join?",
-   "answer": "the Tigris",
-   "distractors": [
-    "the Euphrates",
-    "the Nile",
-    "the Thames"
-   ],
-   "explanation": "'Flow south-west to join the Tigris.'",
-   "tags": [
-    "kurdistan",
-    "world_knowledge",
-    "story"
-   ],
-   "passage": "B2_ZAGROS"
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "prompt": "Why does Shler want the job?",
-   "answer": "to use languages to help refugees",
-   "distractors": [
-    "to earn more money",
-    "to work only at weekends",
-    "to learn Arabic"
-   ],
-   "explanation": "'I'd like to use my languages to help.'",
-   "tags": [
-    "dialogue"
-   ],
-   "passage": "B2_INTERVIEW"
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "prompt": "Which language is Shler still learning?",
-   "answer": "Persian",
-   "distractors": [
-    "Arabic",
-    "English",
-    "Kurdish"
-   ],
-   "explanation": "'I'm learning Persian.'",
-   "tags": [
-    "dialogue"
-   ],
-   "passage": "B2_INTERVIEW"
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "prompt": "What condition does Shler give for weekend work?",
-   "answer": "knowing the rota a week in advance",
-   "distractors": [
-    "higher pay",
-    "working from home",
-    "shorter shifts"
-   ],
-   "explanation": "'As long as I know the rota a week in advance.'",
-   "tags": [
-    "dialogue"
-   ],
-   "passage": "B2_INTERVIEW"
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "The Act of Union of 1707 created the Kingdom of Great Britain by uniting England and ___.",
-   "answer": "Scotland",
-   "distractors": [
-    "Ireland",
-    "Wales",
-    "France"
-   ],
-   "explanation": "In 1707 England (with Wales) and Scotland were united.",
-   "tags": [
-    "life_in_uk",
-    "history"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "At the Battle of Waterloo in 1815, the Duke of Wellington defeated ___.",
-   "answer": "Napoleon",
-   "distractors": [
-    "Philip II of Spain",
-    "King Harold",
-    "Julius Caesar"
-   ],
-   "explanation": "Wellington defeated Napoleon at Waterloo.",
-   "tags": [
-    "life_in_uk",
-    "history"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "The Scottish scientist Alexander Fleming discovered ___ in 1928.",
-   "answer": "penicillin",
-   "distractors": [
-    "the telephone",
-    "gravity",
-    "DNA"
-   ],
-   "explanation": "Fleming discovered penicillin, the first antibiotic.",
-   "tags": [
-    "life_in_uk",
-    "world_knowledge"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "Sir Tim Berners-Lee is famous for inventing the ___.",
-   "answer": "World Wide Web",
-   "distractors": [
-    "television",
-    "jet engine",
-    "telephone"
-   ],
-   "explanation": "Berners-Lee invented the World Wide Web in 1989-90.",
-   "tags": [
-    "life_in_uk",
-    "world_knowledge"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "Florence Nightingale is famous for her work as a ___ during the Crimean War.",
-   "answer": "nurse",
-   "distractors": [
-    "soldier",
-    "journalist",
-    "engineer"
-   ],
-   "explanation": "She is often seen as the founder of modern nursing.",
-   "tags": [
-    "life_in_uk",
-    "history"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "Shanidar Cave in the Kurdistan Region is famous for the remains of ___ found there.",
-   "answer": "Neanderthals",
-   "distractors": [
-    "dinosaurs",
-    "Roman soldiers",
-    "mammoths"
-   ],
-   "explanation": "Neanderthal remains were found at Shanidar from the 1950s.",
-   "tags": [
-    "kurdistan",
-    "world_knowledge"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "The poet Ahmad Khani wrote the famous Kurdish love story ___.",
-   "answer": "Mem and Zin",
-   "distractors": [
-    "Romeo and Juliet",
-    "Layla and Majnun",
-    "Pride and Prejudice"
-   ],
-   "explanation": "Ahmad Khani wrote 'Mem û Zîn' in the 17th century.",
-   "tags": [
-    "kurdistan",
-    "culture"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "prompt": "Look at the timeline. How many years passed between the Norman Conquest and the Magna Carta?",
-   "answer": "149",
-   "distractors": [
-    "151",
-    "139",
-    "249"
-   ],
-   "explanation": "1215 - 1066 = 149.",
-   "tags": [
-    "life_in_uk",
-    "history"
-   ],
-   "media": {
-    "type": "image",
-    "path": "samples/uk_timeline.png",
-    "caption": "Five dates in British history"
-   }
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "prompt": "Watch the timeline. Which event came between the Magna Carta and the Great Fire of London?",
-   "answer": "the Spanish Armada",
-   "distractors": [
-    "the Norman Conquest",
-    "the Act of Union",
-    "the Battle of Waterloo"
-   ],
-   "explanation": "1215 Magna Carta, 1588 Spanish Armada, 1666 Great Fire.",
-   "tags": [
-    "life_in_uk",
-    "history"
-   ],
-   "media": {
-    "type": "video",
-    "path": "samples/uk_timeline.mp4",
-    "caption": "Five dates in British history (10 seconds)"
-   }
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "prompt": "According to the passage, what did Churchill's speeches do?",
-   "answer": "They raised public morale.",
-   "distractors": [
-    "They ended the war.",
-    "They won the 1945 election.",
-    "They created the NHS."
-   ],
-   "explanation": "His speeches 'helped to raise public morale'.",
-   "tags": [
-    "life_in_uk",
-    "history",
-    "story"
-   ],
-   "passage": "C1_CHURCHILL"
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "prompt": "What happened to Churchill in 1945?",
-   "answer": "He lost the general election.",
-   "distractors": [
-    "He became Prime Minister for the first time.",
-    "He surrendered to Germany.",
-    "He retired from politics for good."
-   ],
-   "explanation": "'He was defeated in the general election of 1945.'",
-   "tags": [
-    "life_in_uk",
-    "history",
-    "story"
-   ],
-   "passage": "C1_CHURCHILL"
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "prompt": "Churchill: which statement is true according to the text?",
-   "answer": "He served as Prime Minister on two separate occasions.",
-   "distractors": [
-    "He became Prime Minister after the war ended.",
-    "He supported surrender in 1940.",
-    "He never lost an election."
-   ],
-   "explanation": "1940 and again from 1951.",
-   "tags": [
-    "life_in_uk",
-    "history",
-    "story"
-   ],
-   "passage": "C1_CHURCHILL"
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "prompt": "Which fuel powered the steam machines?",
-   "answer": "coal",
-   "distractors": [
-    "oil",
-    "wood",
-    "electricity"
-   ],
-   "explanation": "'Machines powered by steam, using coal as fuel'.",
-   "tags": [
-    "life_in_uk",
-    "world_knowledge",
-    "story"
-   ],
-   "passage": "C1_INDUSTRY"
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "prompt": "What social change does the passage describe?",
-   "answer": "people moving from the countryside to cities",
-   "distractors": [
-    "people leaving cities for farms",
-    "fewer factories being built",
-    "shorter working hours for children"
-   ],
-   "explanation": "'Factories drew people from the countryside into rapidly growing cities.'",
-   "tags": [
-    "life_in_uk",
-    "world_knowledge",
-    "story"
-   ],
-   "passage": "C1_INDUSTRY"
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "prompt": "In the passage on the Industrial Revolution, 'harsh' is closest in meaning to ___.",
-   "answer": "severe",
-   "distractors": [
-    "pleasant",
-    "unusual",
-    "temporary"
-   ],
-   "explanation": "Harsh conditions are severe and unpleasant.",
-   "tags": [
-    "life_in_uk",
-    "world_knowledge",
-    "story"
-   ],
-   "passage": "C1_INDUSTRY"
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "prompt": "How was the Citadel's mound formed?",
-   "answer": "by layers of settlement built up over thousands of years",
-   "distractors": [
-    "by a volcanic eruption",
-    "by a single king's building project",
-    "by river sediment"
-   ],
-   "explanation": "'Built up over thousands of years by successive layers of occupation.'",
-   "tags": [
-    "kurdistan",
-    "history",
-    "story"
-   ],
-   "passage": "C1_CITADEL"
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "prompt": "When was the Erbil Citadel added to the UNESCO list?",
-   "answer": "in 2014",
-   "distractors": [
-    "in 1988",
-    "in 2004",
-    "in 2024"
-   ],
-   "explanation": "'In 2014 it was inscribed on the UNESCO World Heritage List.'",
-   "tags": [
-    "kurdistan",
-    "history",
-    "story"
-   ],
-   "passage": "C1_CITADEL"
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "prompt": "What is the aim of the restoration work, according to the passage?",
-   "answer": "to preserve traditional houses while welcoming visitors",
-   "distractors": [
-    "to replace old houses with modern ones",
-    "to close the site to the public",
-    "to build a new city on the mound"
-   ],
-   "explanation": "'Preserve its traditional houses while making the site accessible to visitors.'",
-   "tags": [
-    "kurdistan",
-    "history",
-    "story"
-   ],
-   "passage": "C1_CITADEL"
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "prompt": "What is Paul's main concern about entry fees?",
-   "answer": "that they could exclude poorer families",
-   "distractors": [
-    "that parks are too crowded",
-    "that conservation is unnecessary",
-    "that local residents pay too much"
-   ],
-   "explanation": "'Fees risk excluding families on low incomes.'",
-   "tags": [
-    "dialogue",
-    "world_knowledge"
-   ],
-   "passage": "C1_PARKS"
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "prompt": "How does the discussion about national parks end?",
-   "answer": "Paul accepts a possible compromise.",
-   "distractors": [
-    "Roza changes her mind.",
-    "Both reject fees completely.",
-    "The presenter makes the decision."
-   ],
-   "explanation": "'That might be a reasonable compromise.'",
-   "tags": [
-    "dialogue"
-   ],
-   "passage": "C1_PARKS"
-  },
-  {
-   "level": "C1",
-   "skill": "vocabulary",
-   "prompt": "The Domesday Book, compiled in 1086 for William the Conqueror, was essentially a ___.",
-   "answer": "survey of land and property",
-   "distractors": [
-    "book of prayers",
-    "collection of poems",
-    "list of kings"
-   ],
-   "explanation": "It recorded who owned land and property in England.",
-   "tags": [
-    "life_in_uk",
-    "history"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "vocabulary",
-   "prompt": "In the Glorious Revolution of 1688, William of Orange replaced King ___ on the throne.",
-   "answer": "James II",
-   "distractors": [
-    "Charles I",
-    "Henry VIII",
-    "George III"
-   ],
-   "explanation": "James II fled and William and Mary took the throne.",
-   "tags": [
-    "life_in_uk",
-    "history"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "vocabulary",
-   "prompt": "Charles Darwin's best-known theory is evolution by natural ___.",
-   "answer": "selection",
-   "distractors": [
-    "election",
-    "collection",
-    "reflection"
-   ],
-   "explanation": "Darwin's 'On the Origin of Species' (1859).",
-   "tags": [
-    "life_in_uk",
-    "world_knowledge"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "vocabulary",
-   "prompt": "The city of Sulaymaniyah was founded in ___ by the Baban prince Ibrahim Pasha.",
-   "answer": "1784",
-   "distractors": [
-    "1484",
-    "1884",
-    "1924"
-   ],
-   "explanation": "Sulaymaniyah was founded in 1784.",
-   "tags": [
-    "kurdistan",
-    "history"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "prompt": "Which conclusion can be drawn from the timeline?",
-   "answer": "More than 600 years separate the Norman Conquest and the Act of Union.",
-   "distractors": [
-    "The Great Fire happened before the Spanish Armada.",
-    "The Magna Carta was agreed in the 17th century.",
-    "The Act of Union and the Great Fire happened in the same century."
-   ],
-   "explanation": "1707 - 1066 = 641 years.",
-   "tags": [
-    "life_in_uk",
-    "history"
-   ],
-   "media": {
-    "type": "image",
-    "path": "samples/uk_timeline.png",
-    "caption": "Five dates in British history"
-   }
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "prompt": "Watch the chart. In which month is the temperature difference between Erbil and London greatest?",
-   "answer": "July",
-   "distractors": [
-    "January",
-    "April",
-    "October"
-   ],
-   "explanation": "July: 34 - 19 = 15 degrees, the largest gap.",
-   "tags": [
-    "kurdistan",
-    "life_in_uk",
-    "world_knowledge"
-   ],
-   "media": {
-    "type": "video",
-    "path": "samples/temperature_erbil_london.mp4",
-    "caption": "Erbil and London temperatures (8 seconds)"
-   }
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "prompt": "Which policy area remains reserved to Westminster?",
-   "answer": "defence",
-   "distractors": [
-    "education",
-    "health",
-    "none of them"
-   ],
-   "explanation": "'Defence and foreign affairs remain reserved.'",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "C2_DEVO"
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "prompt": "What was the National Assembly for Wales renamed in 2020?",
-   "answer": "the Senedd",
-   "distractors": [
-    "Holyrood",
-    "Stormont",
-    "the Dail"
-   ],
-   "explanation": "'Renamed the Senedd in 2020'.",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "C2_DEVO"
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "prompt": "What gave rise to the Northern Ireland Assembly?",
-   "answer": "the Good Friday Agreement",
-   "distractors": [
-    "the Act of Union",
-    "the Magna Carta",
-    "the Glorious Revolution"
-   ],
-   "explanation": "'Emerged from the 1998 Good Friday Agreement.'",
-   "tags": [
-    "life_in_uk",
-    "story"
-   ],
-   "passage": "C2_DEVO"
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "prompt": "What point does the author make about 'first recorded' uses?",
-   "answer": "They do not prove that Shakespeare invented the expressions.",
-   "distractors": [
-    "They show that Shakespeare invented all of them.",
-    "They are always inaccurate.",
-    "They were added by later editors."
-   ],
-   "explanation": "'A first recorded use is not proof of invention.'",
-   "tags": [
-    "life_in_uk",
-    "culture",
-    "story"
-   ],
-   "passage": "C2_SHAKES"
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "prompt": "The author's attitude to popular claims about Shakespeare's inventions is best described as ___.",
-   "answer": "cautious",
-   "distractors": [
-    "enthusiastic",
-    "indifferent",
-    "hostile"
-   ],
-   "explanation": "Scholars 'caution against crediting him with every phrase'.",
-   "tags": [
-    "life_in_uk",
-    "culture",
-    "story"
-   ],
-   "passage": "C2_SHAKES"
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "prompt": "Which script is used for Sorani?",
-   "answer": "a modified Arabic script",
-   "distractors": [
-    "a Latin-based alphabet",
-    "the Cyrillic alphabet",
-    "no written form"
-   ],
-   "explanation": "'Sorani... uses a modified Arabic script.'",
-   "tags": [
-    "kurdistan",
-    "culture",
-    "story"
-   ],
-   "passage": "C2_KURDISH"
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "prompt": "According to the passage, mutual comprehension between Kurmanji and Sorani speakers is ___.",
-   "answer": "sometimes difficult, especially in writing",
-   "distractors": [
-    "always easy",
-    "completely impossible",
-    "identical in speech and writing"
-   ],
-   "explanation": "'May find mutual comprehension challenging, particularly in writing.'",
-   "tags": [
-    "kurdistan",
-    "culture",
-    "story"
-   ],
-   "passage": "C2_KURDISH"
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "prompt": "Where in the Kurdistan Region is Kurmanji spoken, according to the text?",
-   "answer": "in the Duhok area",
-   "distractors": [
-    "only in Sulaymaniyah",
-    "only in Erbil",
-    "nowhere in the Region"
-   ],
-   "explanation": "'And in the Duhok area'.",
-   "tags": [
-    "kurdistan",
-    "culture",
-    "story"
-   ],
-   "passage": "C2_KURDISH"
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "prompt": "What happens when peatland is drained?",
-   "answer": "It releases the carbon it stores.",
-   "distractors": [
-    "It absorbs more carbon.",
-    "It turns into forest.",
-    "It stops decomposing."
-   ],
-   "explanation": "'Peat decomposes and releases this carbon.'",
-   "tags": [
-    "world_knowledge",
-    "nature",
-    "story"
-   ],
-   "passage": "C2_PEAT"
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "prompt": "In the passage on peatlands, a 'sink' is ___.",
-   "answer": "something that absorbs and stores carbon",
-   "distractors": [
-    "a place where water drains away",
-    "a type of farm",
-    "a source of emissions"
-   ],
-   "explanation": "A carbon sink takes in and stores carbon.",
-   "tags": [
-    "world_knowledge",
-    "nature",
-    "story"
-   ],
-   "passage": "C2_PEAT"
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "prompt": "Why is re-wetting bogs increasingly favoured?",
-   "answer": "It is a cost-effective way to reduce emissions.",
-   "distractors": [
-    "It creates new farmland.",
-    "It is required by law everywhere.",
-    "It increases the area covered by forests."
-   ],
-   "explanation": "'Increasingly seen as a cost-effective climate measure.'",
-   "tags": [
-    "world_knowledge",
-    "nature",
-    "story"
-   ],
-   "passage": "C2_PEAT"
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "To 'cross the Rubicon' means to ___.",
-   "answer": "pass a point of no return",
-   "distractors": [
-    "avoid a difficult decision",
-    "travel abroad",
-    "change sides repeatedly"
-   ],
-   "explanation": "Julius Caesar crossed the river Rubicon in 49 BC, a step he could not undo.",
-   "tags": [
-    "world_knowledge",
-    "history"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "The Magna Carta is often cited as an early step towards the ___ of law.",
-   "answer": "rule",
-   "distractors": [
-    "reign",
-    "throne",
-    "crown"
-   ],
-   "explanation": "The 'rule of law': no one is above the law.",
-   "tags": [
-    "life_in_uk",
-    "history"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "prompt": "Which statement is best supported by the chart?",
-   "answer": "The seasonal range of temperature is much greater in Erbil than in London.",
-   "distractors": [
-    "London is warmer than Erbil in January.",
-    "Both cities have the same temperature in October.",
-    "London's summers are hotter than Erbil's."
-   ],
-   "explanation": "Erbil ranges from about 7 to 34 degrees; London from about 5 to 19.",
-   "tags": [
-    "kurdistan",
-    "life_in_uk",
-    "world_knowledge"
-   ],
-   "media": {
-    "type": "image",
-    "path": "samples/temperature_erbil_london.png",
-    "caption": "Erbil and London temperatures (approximate)"
-   }
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "prompt": "Which pair of events on the timeline is separated by the shortest interval?",
-   "answer": "the Great Fire of London and the Act of Union",
-   "distractors": [
-    "the Norman Conquest and the Magna Carta",
-    "the Magna Carta and the Spanish Armada",
-    "the Spanish Armada and the Great Fire of London"
-   ],
-   "explanation": "1666 to 1707 is only 41 years.",
-   "tags": [
-    "life_in_uk",
-    "history"
-   ],
-   "media": {
-    "type": "image",
-    "path": "samples/uk_timeline.png",
-    "caption": "Five dates in British history"
-   }
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "prompt": "Watch the timeline. Which event marks the creation of the Kingdom of Great Britain?",
-   "answer": "the Act of Union",
-   "distractors": [
-    "the Norman Conquest",
-    "the Magna Carta",
-    "the Great Fire of London"
-   ],
-   "explanation": "The Act of Union of 1707 united England and Scotland.",
-   "tags": [
-    "life_in_uk",
-    "history"
-   ],
-   "media": {
-    "type": "video",
-    "path": "samples/uk_timeline.mp4",
-    "caption": "Five dates in British history (10 seconds)"
-   }
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "prompt": "Watch the video. Approximately how much warmer is Erbil than London in July?",
-   "answer": "about 15 degrees",
-   "distractors": [
-    "about 5 degrees",
-    "about 10 degrees",
-    "about 25 degrees"
-   ],
-   "explanation": "34 - 19 = 15 degrees.",
-   "tags": [
-    "kurdistan",
-    "life_in_uk",
-    "world_knowledge"
-   ],
-   "media": {
-    "type": "video",
-    "path": "samples/temperature_erbil_london.mp4",
-    "caption": "Erbil and London temperatures (8 seconds)"
-   }
-  }
- ]
+  "batch": "ai-batch-03",
+  "note": "AI-drafted (Claude) stories, dialogues and factual reading on the UK (Life in the UK topics), Kurdistan, history, geography and nature, with picture and video questions. Original wording; facts limited to well-established ones. Imported as drafts.",
+  "passages": {
+    "A1_SAM": "Sam lives in London. London is the capital city of England and of the United Kingdom. The River Thames goes through London. Every day Sam walks to school. He likes the red buses. On Saturdays he visits his grandmother in Cardiff, the capital city of Wales.",
+    "A1_CAFE": "Waiter: Hello! What would you like?\nHarry: A cup of tea, please.\nWaiter: Anything to eat?\nHarry: Yes, a cheese sandwich, please.\nWaiter: That's four pounds.\nHarry: Here you are. Thank you!",
+    "A2_UK4": "The United Kingdom is made up of four countries: England, Scotland, Wales and Northern Ireland. Their capital cities are London, Edinburgh, Cardiff and Belfast. 'Great Britain' is the name for England, Scotland and Wales together. Northern Ireland is on the island of Ireland.",
+    "A2_GP": "Receptionist: Good morning, City Health Centre.\nSophie: Hello. I'd like to make an appointment with a doctor, please.\nReceptionist: Are you registered with us?\nSophie: Yes, I am.\nReceptionist: Is tomorrow at 10:30 OK?\nSophie: Yes, that's fine. Thank you.",
+    "A2_TRAIN": "Passenger: A return ticket to Manchester, please.\nClerk: Travelling today?\nPassenger: Yes, and I'll come back on Sunday.\nClerk: That's 45 pounds. The train leaves from platform 6 at 14:20.\nPassenger: Thanks very much.",
+    "B1_SAINTS": "Each country of the UK has a patron saint with a special day. St David's Day, for Wales, is on 1 March. St Patrick's Day, for Northern Ireland, is on 17 March. St George's Day, for England, is on 23 April, and St Andrew's Day, for Scotland, is on 30 November. Only Scotland and Northern Ireland have their patron saint's day as an official holiday.",
+    "B1_MAGNA": "In 1215, King John was forced by his noblemen to agree to a number of their demands. The result was a charter of rights called the Magna Carta, which means 'Great Charter'. It established the idea that even the king was subject to the law. It protected the rights of the nobility and restricted the king's power to collect taxes or to make or change laws.",
+    "B1_NHS": "The National Health Service (NHS) began in 1948. Its aim was to give everyone in the UK healthcare that is free at the point of use. The minister responsible for setting it up was Aneurin (Nye) Bevan. To see a family doctor, called a GP, you usually need to register at a local surgery first.",
+    "B1_POPPY": "Remembrance Day, on 11 November, commemorates those who died fighting for the UK and its allies. It began after the First World War, which ended at 11 a.m. on 11 November 1918. People wear red poppies, and there is a two-minute silence at 11 a.m.",
+    "B1_VOTE": "Officer: To vote, you need to be on the electoral register.\nJames: How old do I need to be?\nOfficer: For UK general elections you must be at least 18.\nJames: And how often are general elections held?\nOfficer: At least every five years.",
+    "B2_ELIZ": "Elizabeth I, the daughter of Henry VIII, became queen in 1558. She was popular with her people, partly because of the defeat of the Spanish Armada in 1588, a large fleet of ships sent by Spain to invade England. Her reign also saw a flowering of English drama, with playwrights such as William Shakespeare.",
+    "B2_FIRE": "In 1666 a fire broke out in a bakery in Pudding Lane and spread across much of the City of London, destroying thousands of houses and many churches, including St Paul's Cathedral. The architect Sir Christopher Wren was responsible for rebuilding St Paul's, which still stands today.",
+    "B2_VOTES": "During the late 19th and early 20th centuries, women campaigned for the right to vote. In 1903 Emmeline Pankhurst founded the Women's Social and Political Union, whose members became known as suffragettes. In 1918 women over the age of 30 were given the vote, and in 1928 women were given the vote at 21, the same age as men.",
+    "C1_CHURCHILL": "Winston Churchill became Prime Minister in 1940, at a time when much of Europe had fallen to Nazi Germany. He refused to surrender, and his speeches, including the promise that 'we shall fight on the beaches', helped to raise public morale. Although he was defeated in the general election of 1945, he returned as Prime Minister in 1951.",
+    "C1_INDUSTRY": "The Industrial Revolution, which began in Britain in the 18th century, transformed the way goods were produced. Machines powered by steam, using coal as fuel, replaced much work previously done by hand. Factories drew people from the countryside into rapidly growing cities, where working conditions were often harsh, and children as well as adults worked long hours.",
+    "C1_PARKS": "Presenter: Should national parks charge entry fees?\nRoza: I'm in favour. The money could fund conservation.\nPaul: I see the logic, but fees risk excluding families on low incomes.\nRoza: Then why not make entry free for local residents?\nPaul: That might be a reasonable compromise.",
+    "C2_DEVO": "Since 1997 the UK has seen a significant devolution of power. The Scottish Parliament and the National Assembly for Wales (renamed the Senedd in 2020) were established in 1999, while the Northern Ireland Assembly emerged from the 1998 Good Friday Agreement. The devolved administrations legislate on areas such as health and education, whereas defence and foreign affairs remain reserved to the UK Parliament at Westminster.",
+    "C2_SHAKES": "Shakespeare's influence on the English language is hard to overstate. Hundreds of words and phrases are first recorded in his plays and poems. Yet a first recorded use is not proof of invention: some expressions may simply reflect the everyday speech of his time, which happens to survive in his writing. Scholars therefore caution against crediting him with every phrase popularly attributed to him.",
+    "C2_PEAT": "Peatlands cover only around 3% of the Earth's land surface, yet they are estimated to store more carbon than all the world's forests combined. When drained for agriculture, peat decomposes and releases this carbon, turning a vital sink into a significant source of emissions. Restoration by re-wetting drained bogs is therefore increasingly seen as a cost-effective climate measure.",
+    "A1_ELLA": "My name is Ella. I live in Edinburgh. Edinburgh is the capital city of Scotland. In the centre of the city there is a very old castle on a hill. On 31 December we celebrate Hogmanay, the Scottish New Year. We watch the fireworks with our family.",
+    "A2_BONFIRE": "Bonfire Night is on 5 November. It remembers an event in 1605. A group of Catholics, led by Guy Fawkes, planned to kill the Protestant king with a bomb in the Houses of Parliament. Their plan failed. Today people in Great Britain light bonfires and set off fireworks at home or at big public displays.",
+    "B2_LAKES": "The Lake District in north-west England is the country's largest national park. Its long, narrow lakes and steep valleys were carved by glaciers during the last Ice Age. Windermere is the biggest stretch of water, and Scafell Pike, at 978 metres, is the highest mountain in England. Sheep farming has shaped the landscape for centuries, and the area inspired the poet William Wordsworth.",
+    "B2_INTERVIEW_UK": "Interviewer: Why do you want to work for us?\nAmira: I've read about your work with refugees in Manchester, and I'd like to use my languages to help.\nInterviewer: Which languages do you speak?\nAmira: English, French and Arabic, and I'm learning Spanish.\nInterviewer: Could you work at weekends?\nAmira: Yes, as long as I know the rota a week in advance.",
+    "C1_TOWER": "Standing on the north bank of the River Thames, the Tower of London was begun by William the Conqueror soon after his victory at Hastings in 1066. Over the centuries it has served as a royal palace, a fortress and a prison, and it still houses the Crown Jewels. The Tower is guarded by the Yeoman Warders, popularly known as Beefeaters, and in 1988 it was added to the UNESCO World Heritage List.",
+    "C2_LANGUAGES": "English is not the only language with deep roots in the UK. Welsh, a Celtic language, is spoken by many people in Wales and is taught in its schools; in parts of the Highlands and Islands of Scotland, Gaelic is still spoken, while some people in Northern Ireland speak Irish Gaelic. English itself was shaped by successive arrivals: the Anglo-Saxons brought the Germanic dialects at its core, and after the Norman Conquest of 1066 French added words such as 'park' and 'beauty'."
+  },
+  "items": [
+    {
+      "level": "A1",
+      "skill": "reading",
+      "prompt": "What is the capital city of the United Kingdom?",
+      "answer": "London",
+      "distractors": [
+        "Cardiff",
+        "Belfast",
+        "Paris"
+      ],
+      "explanation": "'London is the capital city of England and of the United Kingdom.'",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "A1_SAM"
+    },
+    {
+      "level": "A1",
+      "skill": "reading",
+      "prompt": "Which river goes through London?",
+      "answer": "the Thames",
+      "distractors": [
+        "the Clyde",
+        "the Nile",
+        "the Severn"
+      ],
+      "explanation": "'The River Thames goes through London.'",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "A1_SAM"
+    },
+    {
+      "level": "A1",
+      "skill": "reading",
+      "prompt": "Where does Sam's grandmother live?",
+      "answer": "in Cardiff",
+      "distractors": [
+        "in London",
+        "in Belfast",
+        "in Edinburgh"
+      ],
+      "explanation": "'He visits his grandmother in Cardiff.'",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "A1_SAM"
+    },
+    {
+      "level": "A1",
+      "skill": "reading",
+      "prompt": "What is in the centre of Edinburgh?",
+      "answer": "an old castle",
+      "distractors": [
+        "a big lake",
+        "an airport",
+        "a beach"
+      ],
+      "explanation": "'In the centre of the city there is a very old castle on a hill.'",
+      "tags": [
+        "britain",
+        "story"
+      ],
+      "passage": "A1_ELLA"
+    },
+    {
+      "level": "A1",
+      "skill": "reading",
+      "prompt": "When does Ella celebrate Hogmanay?",
+      "answer": "on 31 December",
+      "distractors": [
+        "in March",
+        "on 5 November",
+        "in June"
+      ],
+      "explanation": "'On 31 December we celebrate Hogmanay, the Scottish New Year.'",
+      "tags": [
+        "britain",
+        "story"
+      ],
+      "passage": "A1_ELLA"
+    },
+    {
+      "level": "A1",
+      "skill": "reading",
+      "prompt": "What does Ella's family do at Hogmanay?",
+      "answer": "They watch the fireworks.",
+      "distractors": [
+        "They go to the beach.",
+        "They stay in bed.",
+        "They go to school."
+      ],
+      "explanation": "'We watch the fireworks with our family.'",
+      "tags": [
+        "britain",
+        "story"
+      ],
+      "passage": "A1_ELLA"
+    },
+    {
+      "level": "A1",
+      "skill": "reading",
+      "prompt": "What does Harry want to drink?",
+      "answer": "tea",
+      "distractors": [
+        "coffee",
+        "water",
+        "juice"
+      ],
+      "explanation": "'A cup of tea, please.'",
+      "tags": [
+        "dialogue"
+      ],
+      "passage": "A1_CAFE"
+    },
+    {
+      "level": "A1",
+      "skill": "reading",
+      "prompt": "How much does Harry pay?",
+      "answer": "four pounds",
+      "distractors": [
+        "two pounds",
+        "five pounds",
+        "fourteen pounds"
+      ],
+      "explanation": "'That's four pounds.'",
+      "tags": [
+        "dialogue"
+      ],
+      "passage": "A1_CAFE"
+    },
+    {
+      "level": "A1",
+      "skill": "reading",
+      "prompt": "Look at the flag. This is the flag of ___.",
+      "answer": "England",
+      "distractors": [
+        "Scotland",
+        "Wales",
+        "France"
+      ],
+      "explanation": "The flag of England is the cross of St George: a red cross on a white background.",
+      "tags": [
+        "britain",
+        "picture"
+      ],
+      "media": {
+        "type": "image",
+        "path": "samples/flag_england.png",
+        "caption": "A flag"
+      }
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "In the UK, people drive on the ___ side of the road.",
+      "answer": "left",
+      "distractors": [
+        "right",
+        "middle",
+        "wrong"
+      ],
+      "explanation": "In the UK you drive on the left.",
+      "tags": [
+        "life_in_uk"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "Christmas Day in the UK is on 25 ___.",
+      "answer": "December",
+      "distractors": [
+        "January",
+        "March",
+        "July"
+      ],
+      "explanation": "Christmas Day is 25 December.",
+      "tags": [
+        "life_in_uk"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "Which animal gives us milk?",
+      "answer": "a cow",
+      "distractors": [
+        "a cat",
+        "a fish",
+        "a bird"
+      ],
+      "explanation": "Cows give milk.",
+      "tags": [
+        "world_knowledge"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "The sun rises in the ___.",
+      "answer": "east",
+      "distractors": [
+        "west",
+        "north",
+        "south"
+      ],
+      "explanation": "The sun rises in the east and sets in the west.",
+      "tags": [
+        "world_knowledge"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "There are ___ days in a week.",
+      "answer": "seven",
+      "distractors": [
+        "five",
+        "six",
+        "ten"
+      ],
+      "explanation": "A week has seven days.",
+      "tags": [
+        "world_knowledge"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "reading",
+      "prompt": "Look at the flag of Scotland. What colour is the cross?",
+      "answer": "white",
+      "distractors": [
+        "red",
+        "yellow",
+        "green"
+      ],
+      "explanation": "The flag of Scotland, the cross of St Andrew, is a white diagonal cross on a blue background.",
+      "tags": [
+        "britain",
+        "picture"
+      ],
+      "media": {
+        "type": "image",
+        "path": "samples/flag_scotland.png",
+        "caption": "The flag of Scotland"
+      }
+    },
+    {
+      "level": "A1",
+      "skill": "reading",
+      "prompt": "Watch the video. What is the date of Bonfire Night?",
+      "answer": "5 November",
+      "distractors": [
+        "1 March",
+        "23 April",
+        "30 November"
+      ],
+      "explanation": "The video shows Bonfire Night on 5 November.",
+      "tags": [
+        "britain",
+        "video"
+      ],
+      "media": {
+        "type": "video",
+        "path": "samples/uk_calendar.mp4",
+        "caption": "Special days in the UK"
+      }
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "When is Bonfire Night?",
+      "answer": "on 5 November",
+      "distractors": [
+        "on 31 October",
+        "on 25 December",
+        "on 1 March"
+      ],
+      "explanation": "'Bonfire Night is on 5 November.'",
+      "tags": [
+        "britain",
+        "story",
+        "history"
+      ],
+      "passage": "A2_BONFIRE"
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "In the Bonfire Night story, who was Guy Fawkes?",
+      "answer": "the leader of the plotters",
+      "distractors": [
+        "the Protestant king",
+        "a famous firework maker",
+        "a soldier who saved Parliament"
+      ],
+      "explanation": "'A group of Catholics, led by Guy Fawkes, planned to kill the Protestant king.'",
+      "tags": [
+        "britain",
+        "story",
+        "history"
+      ],
+      "passage": "A2_BONFIRE"
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "What do people do on Bonfire Night today?",
+      "answer": "They light bonfires and set off fireworks.",
+      "distractors": [
+        "They go to Parliament.",
+        "They give presents to children.",
+        "They have a picnic in the mountains."
+      ],
+      "explanation": "'Today people in Great Britain light bonfires and set off fireworks.'",
+      "tags": [
+        "britain",
+        "story",
+        "history"
+      ],
+      "passage": "A2_BONFIRE"
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "How many countries make up the United Kingdom?",
+      "answer": "four",
+      "distractors": [
+        "three",
+        "five",
+        "two"
+      ],
+      "explanation": "England, Scotland, Wales and Northern Ireland.",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "A2_UK4"
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "What is the capital city of Scotland?",
+      "answer": "Edinburgh",
+      "distractors": [
+        "Glasgow",
+        "Belfast",
+        "Cardiff"
+      ],
+      "explanation": "The capitals are London, Edinburgh, Cardiff and Belfast.",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "A2_UK4"
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "Which country is NOT part of Great Britain?",
+      "answer": "Northern Ireland",
+      "distractors": [
+        "England",
+        "Scotland",
+        "Wales"
+      ],
+      "explanation": "Great Britain = England, Scotland and Wales.",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "A2_UK4"
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "Why is Sophie phoning the health centre?",
+      "answer": "to make an appointment with a doctor",
+      "distractors": [
+        "to buy medicine",
+        "to cancel an appointment",
+        "to register at a school"
+      ],
+      "explanation": "'I'd like to make an appointment with a doctor.'",
+      "tags": [
+        "dialogue",
+        "life_in_uk"
+      ],
+      "passage": "A2_GP"
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "When is Sophie's appointment?",
+      "answer": "tomorrow at 10:30",
+      "distractors": [
+        "today at 10:30",
+        "tomorrow at 1:30",
+        "next week"
+      ],
+      "explanation": "'Is tomorrow at 10:30 OK?' 'Yes, that's fine.'",
+      "tags": [
+        "dialogue"
+      ],
+      "passage": "A2_GP"
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "What kind of ticket does the passenger buy?",
+      "answer": "a return ticket",
+      "distractors": [
+        "a single ticket",
+        "a bus ticket",
+        "a monthly ticket"
+      ],
+      "explanation": "'A return ticket to Manchester.'",
+      "tags": [
+        "dialogue"
+      ],
+      "passage": "A2_TRAIN"
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "Which platform does the Manchester train leave from?",
+      "answer": "platform 6",
+      "distractors": [
+        "platform 4",
+        "platform 14",
+        "platform 20"
+      ],
+      "explanation": "'The train leaves from platform 6.'",
+      "tags": [
+        "dialogue"
+      ],
+      "passage": "A2_TRAIN"
+    },
+    {
+      "level": "A2",
+      "skill": "vocabulary",
+      "prompt": "In the UK, the emergency phone number for the police, fire service and ambulance is ___.",
+      "answer": "999",
+      "distractors": [
+        "100",
+        "911",
+        "123"
+      ],
+      "explanation": "In an emergency in the UK you call 999.",
+      "tags": [
+        "life_in_uk"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "vocabulary",
+      "prompt": "The longest river in the UK is the ___.",
+      "answer": "Severn",
+      "distractors": [
+        "Thames",
+        "Trent",
+        "Clyde"
+      ],
+      "explanation": "The River Severn is the longest river in the UK.",
+      "tags": [
+        "life_in_uk",
+        "world_knowledge"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "vocabulary",
+      "prompt": "The highest mountain in the UK, Ben Nevis, is in ___.",
+      "answer": "Scotland",
+      "distractors": [
+        "Wales",
+        "England",
+        "Northern Ireland"
+      ],
+      "explanation": "Ben Nevis is in the Scottish Highlands.",
+      "tags": [
+        "life_in_uk",
+        "world_knowledge"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "Stonehenge, the famous stone circle in Wiltshire, is a World ___ Site.",
+      "answer": "Heritage",
+      "distractors": [
+        "History",
+        "Holiday",
+        "Hobby"
+      ],
+      "explanation": "Stonehenge is a UNESCO World Heritage Site.",
+      "tags": [
+        "britain",
+        "history"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "In Wales, many people speak ___ as well as English.",
+      "answer": "Welsh",
+      "distractors": [
+        "Gaelic",
+        "French",
+        "Cornish"
+      ],
+      "explanation": "Welsh is spoken by many people in Wales, alongside English.",
+      "tags": [
+        "britain",
+        "world_knowledge"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "vocabulary",
+      "prompt": "Look at the flag. Which country is it?",
+      "answer": "Scotland",
+      "distractors": [
+        "England",
+        "Wales",
+        "Northern Ireland"
+      ],
+      "explanation": "A white diagonal cross on blue is the Saltire, the flag of Scotland.",
+      "tags": [
+        "life_in_uk"
+      ],
+      "media": {
+        "type": "image",
+        "path": "samples/flag_scotland.png",
+        "caption": "A flag"
+      }
+    },
+    {
+      "level": "A2",
+      "skill": "vocabulary",
+      "prompt": "Look at the flag. It shows the cross of St George. Which country's flag is it?",
+      "answer": "England",
+      "distractors": [
+        "Scotland",
+        "Wales",
+        "Ireland"
+      ],
+      "explanation": "The red cross of St George on white is the flag of England.",
+      "tags": [
+        "life_in_uk"
+      ],
+      "media": {
+        "type": "image",
+        "path": "samples/flag_england.png",
+        "caption": "A flag"
+      }
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "When is St David's Day?",
+      "answer": "1 March",
+      "distractors": [
+        "17 March",
+        "23 April",
+        "30 November"
+      ],
+      "explanation": "'St David's Day, for Wales, is on 1 March.'",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "B1_SAINTS"
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "Who is the patron saint of Scotland?",
+      "answer": "St Andrew",
+      "distractors": [
+        "St George",
+        "St David",
+        "St Patrick"
+      ],
+      "explanation": "'St Andrew's Day, for Scotland'.",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "B1_SAINTS"
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "Patron saints: which statement is true?",
+      "answer": "St Patrick's Day is an official holiday in Northern Ireland.",
+      "distractors": [
+        "St George's Day is an official holiday in England.",
+        "St David's Day is in April.",
+        "Scotland has no patron saint."
+      ],
+      "explanation": "Only Scotland and Northern Ireland have their saint's day as an official holiday.",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "B1_SAINTS"
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "When was the Magna Carta agreed?",
+      "answer": "in 1215",
+      "distractors": [
+        "in 1066",
+        "in 1588",
+        "in 1666"
+      ],
+      "explanation": "'In 1215, King John was forced...'",
+      "tags": [
+        "life_in_uk",
+        "history",
+        "story"
+      ],
+      "passage": "B1_MAGNA"
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "What important idea did the Magna Carta establish?",
+      "answer": "that even the king had to obey the law",
+      "distractors": [
+        "that the king could make any law",
+        "that everyone must pay more taxes",
+        "that Parliament must have two houses"
+      ],
+      "explanation": "'Even the king was subject to the law.'",
+      "tags": [
+        "life_in_uk",
+        "history",
+        "story"
+      ],
+      "passage": "B1_MAGNA"
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "Who forced King John to agree to the Magna Carta?",
+      "answer": "his noblemen",
+      "distractors": [
+        "the French king",
+        "the farmers",
+        "the Romans"
+      ],
+      "explanation": "'Forced by his noblemen'.",
+      "tags": [
+        "life_in_uk",
+        "history",
+        "story"
+      ],
+      "passage": "B1_MAGNA"
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "When did the NHS begin?",
+      "answer": "in 1948",
+      "distractors": [
+        "in 1918",
+        "in 1945",
+        "in 1966"
+      ],
+      "explanation": "'The NHS began in 1948.'",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "B1_NHS"
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "Which minister set up the NHS?",
+      "answer": "Aneurin Bevan",
+      "distractors": [
+        "Winston Churchill",
+        "Florence Nightingale",
+        "Alexander Fleming"
+      ],
+      "explanation": "'The minister responsible... was Aneurin (Nye) Bevan.'",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "B1_NHS"
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "What do you usually need to do before you can see a GP?",
+      "answer": "register at a local surgery",
+      "distractors": [
+        "go to a hospital first",
+        "call 999",
+        "buy medicine"
+      ],
+      "explanation": "'You usually need to register at a local surgery first.'",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "B1_NHS"
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "What do people wear for Remembrance Day?",
+      "answer": "red poppies",
+      "distractors": [
+        "white roses",
+        "green ribbons",
+        "blue badges"
+      ],
+      "explanation": "'People wear red poppies.'",
+      "tags": [
+        "life_in_uk",
+        "history",
+        "story"
+      ],
+      "passage": "B1_POPPY"
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "How long is the silence at 11 a.m. on Remembrance Day?",
+      "answer": "two minutes",
+      "distractors": [
+        "one minute",
+        "five minutes",
+        "eleven minutes"
+      ],
+      "explanation": "'There is a two-minute silence at 11 a.m.'",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "B1_POPPY"
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "Which war ended on 11 November 1918?",
+      "answer": "the First World War",
+      "distractors": [
+        "the Second World War",
+        "the Crimean War",
+        "the Battle of Hastings"
+      ],
+      "explanation": "'The First World War, which ended at 11 a.m. on 11 November 1918.'",
+      "tags": [
+        "life_in_uk",
+        "history",
+        "story"
+      ],
+      "passage": "B1_POPPY"
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "What is the minimum age to vote in UK general elections?",
+      "answer": "18",
+      "distractors": [
+        "16",
+        "21",
+        "25"
+      ],
+      "explanation": "'For UK general elections you must be at least 18.'",
+      "tags": [
+        "life_in_uk",
+        "dialogue"
+      ],
+      "passage": "B1_VOTE"
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "How often must a UK general election be held?",
+      "answer": "at least every five years",
+      "distractors": [
+        "every year",
+        "every ten years",
+        "only when the King decides"
+      ],
+      "explanation": "'At least every five years.'",
+      "tags": [
+        "life_in_uk",
+        "dialogue"
+      ],
+      "passage": "B1_VOTE"
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "Bonfire Night, on 5 November, remembers a failed plot in 1605 to ___.",
+      "answer": "blow up the Houses of Parliament",
+      "distractors": [
+        "burn down London",
+        "invade France",
+        "close the theatres"
+      ],
+      "explanation": "Guy Fawkes and others planned to blow up Parliament in 1605.",
+      "tags": [
+        "life_in_uk",
+        "history"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "The UK is a constitutional ___, with the King as head of state.",
+      "answer": "monarchy",
+      "distractors": [
+        "republic",
+        "dictatorship",
+        "federation"
+      ],
+      "explanation": "The monarch is head of state; Parliament makes the laws.",
+      "tags": [
+        "life_in_uk"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "The two Houses of the UK Parliament are the House of Commons and the House of ___.",
+      "answer": "Lords",
+      "distractors": [
+        "Kings",
+        "People",
+        "Representatives"
+      ],
+      "explanation": "Parliament has the House of Commons and the House of Lords.",
+      "tags": [
+        "life_in_uk"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "What is the capital city of Northern Ireland?",
+      "answer": "Belfast",
+      "distractors": [
+        "Dublin",
+        "Londonderry",
+        "Cardiff"
+      ],
+      "explanation": "Belfast is the capital of Northern Ireland; Dublin is the capital of Ireland.",
+      "tags": [
+        "life_in_uk"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "Hadrian's Wall, in the north of England, was built by the ___.",
+      "answer": "Romans",
+      "distractors": [
+        "Vikings",
+        "Normans",
+        "Saxons"
+      ],
+      "explanation": "The Roman emperor Hadrian ordered the wall to be built.",
+      "tags": [
+        "life_in_uk",
+        "history"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "In 1066, William of Normandy defeated King Harold at the Battle of ___.",
+      "answer": "Hastings",
+      "distractors": [
+        "Waterloo",
+        "Bosworth",
+        "Trafalgar"
+      ],
+      "explanation": "The Norman Conquest began with the Battle of Hastings in 1066.",
+      "tags": [
+        "life_in_uk",
+        "history"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "Which famous writer was born in Stratford-upon-Avon?",
+      "answer": "William Shakespeare",
+      "distractors": [
+        "Charles Dickens",
+        "Robert Burns",
+        "Jane Austen"
+      ],
+      "explanation": "Shakespeare was born in Stratford-upon-Avon in 1564.",
+      "tags": [
+        "life_in_uk",
+        "culture"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "After the Great Fire of London in 1666, the new St Paul's Cathedral was designed by Sir Christopher ___.",
+      "answer": "Wren",
+      "distractors": [
+        "Brunel",
+        "Drake",
+        "Wordsworth"
+      ],
+      "explanation": "Sir Christopher Wren designed the new St Paul's Cathedral after the Great Fire of London.",
+      "tags": [
+        "britain",
+        "history"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "St Augustine became the first Archbishop of ___.",
+      "answer": "Canterbury",
+      "distractors": [
+        "York",
+        "London",
+        "Westminster"
+      ],
+      "explanation": "St Augustine, a missionary from Rome, became the first Archbishop of Canterbury.",
+      "tags": [
+        "britain",
+        "history",
+        "culture"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "Look at the Union Flag. It combines the crosses of three patron saints. Which country's saint is NOT shown?",
+      "answer": "Wales",
+      "distractors": [
+        "Scotland",
+        "England",
+        "Ireland"
+      ],
+      "explanation": "The Union Flag has the crosses of St George, St Andrew and St Patrick; Wales is not represented.",
+      "tags": [
+        "life_in_uk"
+      ],
+      "media": {
+        "type": "image",
+        "path": "samples/union_flag.png",
+        "caption": "The Union Flag"
+      }
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "prompt": "Look at the Union Flag. The red diagonal cross stands for which patron saint?",
+      "answer": "St Patrick",
+      "distractors": [
+        "St George",
+        "St Andrew",
+        "St David"
+      ],
+      "explanation": "The Union Flag combines the crosses of St George (England), St Andrew (Scotland) and St Patrick (Ireland); St Patrick's cross is the red diagonal one.",
+      "tags": [
+        "britain",
+        "picture"
+      ],
+      "media": {
+        "type": "image",
+        "path": "samples/union_flag.png",
+        "caption": "The Union Flag"
+      }
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "Whose daughter was Elizabeth I?",
+      "answer": "Henry VIII's",
+      "distractors": [
+        "Henry VII's",
+        "James I's",
+        "Charles I's"
+      ],
+      "explanation": "'Elizabeth I, the daughter of Henry VIII'.",
+      "tags": [
+        "life_in_uk",
+        "history",
+        "story"
+      ],
+      "passage": "B2_ELIZ"
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "What was the Spanish Armada?",
+      "answer": "a fleet of ships sent to invade England",
+      "distractors": [
+        "a Spanish army that captured London",
+        "a trade agreement",
+        "a royal wedding"
+      ],
+      "explanation": "'A large fleet of ships sent by Spain to invade England.'",
+      "tags": [
+        "life_in_uk",
+        "history",
+        "story"
+      ],
+      "passage": "B2_ELIZ"
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "Elizabeth I: which statement is supported by the text?",
+      "answer": "English drama flourished during her reign.",
+      "distractors": [
+        "She was unpopular with her people.",
+        "She became queen in 1588.",
+        "She was defeated by Spain."
+      ],
+      "explanation": "'Her reign also saw a flowering of English drama.'",
+      "tags": [
+        "life_in_uk",
+        "history",
+        "story"
+      ],
+      "passage": "B2_ELIZ"
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "Where did the Great Fire of London start?",
+      "answer": "in a bakery",
+      "distractors": [
+        "in a church",
+        "in Parliament",
+        "on a ship"
+      ],
+      "explanation": "'A fire broke out in a bakery in Pudding Lane.'",
+      "tags": [
+        "life_in_uk",
+        "history",
+        "story"
+      ],
+      "passage": "B2_FIRE"
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "Who rebuilt St Paul's Cathedral?",
+      "answer": "Sir Christopher Wren",
+      "distractors": [
+        "Isaac Newton",
+        "Henry VIII",
+        "Isambard Kingdom Brunel"
+      ],
+      "explanation": "'Sir Christopher Wren was responsible for rebuilding St Paul's.'",
+      "tags": [
+        "life_in_uk",
+        "history",
+        "story"
+      ],
+      "passage": "B2_FIRE"
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "What were members of the Women's Social and Political Union called?",
+      "answer": "suffragettes",
+      "distractors": [
+        "Chartists",
+        "Roundheads",
+        "Cavaliers"
+      ],
+      "explanation": "'Its members became known as suffragettes.'",
+      "tags": [
+        "life_in_uk",
+        "history",
+        "story"
+      ],
+      "passage": "B2_VOTES"
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "In which year did women get the vote on the same terms as men?",
+      "answer": "1928",
+      "distractors": [
+        "1903",
+        "1918",
+        "1945"
+      ],
+      "explanation": "'In 1928 women were given the vote at 21, the same age as men.'",
+      "tags": [
+        "life_in_uk",
+        "history",
+        "story"
+      ],
+      "passage": "B2_VOTES"
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "Which mountain does the passage describe as the highest in England?",
+      "answer": "Scafell Pike",
+      "distractors": [
+        "Ben Nevis",
+        "Snowdon",
+        "Windermere"
+      ],
+      "explanation": "'Scafell Pike, at 978 metres, is the highest mountain in England.'",
+      "tags": [
+        "britain",
+        "world_knowledge",
+        "story"
+      ],
+      "passage": "B2_LAKES"
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "How were the Lake District's long, narrow lakes formed?",
+      "answer": "by glaciers during the last Ice Age",
+      "distractors": [
+        "by dams built on the rivers",
+        "by volcanic eruptions",
+        "by sheep farmers digging them"
+      ],
+      "explanation": "'Its long, narrow lakes and steep valleys were carved by glaciers during the last Ice Age.'",
+      "tags": [
+        "britain",
+        "world_knowledge",
+        "story"
+      ],
+      "passage": "B2_LAKES"
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "Which poet was inspired by the Lake District, according to the passage?",
+      "answer": "William Wordsworth",
+      "distractors": [
+        "William Shakespeare",
+        "Robert Burns",
+        "Dylan Thomas"
+      ],
+      "explanation": "'The area inspired the poet William Wordsworth.'",
+      "tags": [
+        "britain",
+        "world_knowledge",
+        "story"
+      ],
+      "passage": "B2_LAKES"
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "Why does Amira want the job?",
+      "answer": "to use languages to help refugees",
+      "distractors": [
+        "to earn more money at weekends",
+        "to learn Spanish at work",
+        "to move to Manchester"
+      ],
+      "explanation": "'I've read about your work with refugees in Manchester, and I'd like to use my languages to help.'",
+      "tags": [
+        "dialogue",
+        "britain"
+      ],
+      "passage": "B2_INTERVIEW_UK"
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "Which language is Amira still learning?",
+      "answer": "Spanish",
+      "distractors": [
+        "French",
+        "Arabic",
+        "English"
+      ],
+      "explanation": "'English, French and Arabic, and I'm learning Spanish.'",
+      "tags": [
+        "dialogue",
+        "britain"
+      ],
+      "passage": "B2_INTERVIEW_UK"
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "What condition does Amira give for weekend work?",
+      "answer": "knowing the rota a week in advance",
+      "distractors": [
+        "being paid extra at weekends",
+        "working only on Saturdays",
+        "finishing early on Sundays"
+      ],
+      "explanation": "'Yes, as long as I know the rota a week in advance.'",
+      "tags": [
+        "dialogue",
+        "britain"
+      ],
+      "passage": "B2_INTERVIEW_UK"
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "The Act of Union of 1707 created the Kingdom of Great Britain by uniting England and ___.",
+      "answer": "Scotland",
+      "distractors": [
+        "Ireland",
+        "Wales",
+        "France"
+      ],
+      "explanation": "In 1707 England (with Wales) and Scotland were united.",
+      "tags": [
+        "life_in_uk",
+        "history"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "At the Battle of Waterloo in 1815, the Duke of Wellington defeated ___.",
+      "answer": "Napoleon",
+      "distractors": [
+        "Philip II of Spain",
+        "King Harold",
+        "Julius Caesar"
+      ],
+      "explanation": "Wellington defeated Napoleon at Waterloo.",
+      "tags": [
+        "life_in_uk",
+        "history"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "The Scottish scientist Alexander Fleming discovered ___ in 1928.",
+      "answer": "penicillin",
+      "distractors": [
+        "the telephone",
+        "gravity",
+        "DNA"
+      ],
+      "explanation": "Fleming discovered penicillin, the first antibiotic.",
+      "tags": [
+        "life_in_uk",
+        "world_knowledge"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "Sir Tim Berners-Lee is famous for inventing the ___.",
+      "answer": "World Wide Web",
+      "distractors": [
+        "television",
+        "jet engine",
+        "telephone"
+      ],
+      "explanation": "Berners-Lee invented the World Wide Web in 1989-90.",
+      "tags": [
+        "life_in_uk",
+        "world_knowledge"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "Florence Nightingale is famous for her work as a ___ during the Crimean War.",
+      "answer": "nurse",
+      "distractors": [
+        "soldier",
+        "journalist",
+        "engineer"
+      ],
+      "explanation": "She is often seen as the founder of modern nursing.",
+      "tags": [
+        "life_in_uk",
+        "history"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "Skara Brae on Orkney is the best-preserved prehistoric ___ in northern Europe.",
+      "answer": "village",
+      "distractors": [
+        "castle",
+        "cathedral",
+        "bridge"
+      ],
+      "explanation": "Skara Brae, off the north coast of Scotland, is the best-preserved prehistoric village in northern Europe.",
+      "tags": [
+        "britain",
+        "history"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "Geoffrey Chaucer's collection of stories told by pilgrims on their way to Canterbury is called ___.",
+      "answer": "The Canterbury Tales",
+      "distractors": [
+        "Paradise Lost",
+        "Pride and Prejudice",
+        "The Lord of the Rings"
+      ],
+      "explanation": "Chaucer wrote The Canterbury Tales, stories told by pilgrims travelling to Canterbury; it was one of the first books printed by William Caxton.",
+      "tags": [
+        "britain",
+        "culture",
+        "history"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "Look at the timeline. How many years passed between the Norman Conquest and the Magna Carta?",
+      "answer": "149",
+      "distractors": [
+        "151",
+        "139",
+        "249"
+      ],
+      "explanation": "1215 - 1066 = 149.",
+      "tags": [
+        "life_in_uk",
+        "history"
+      ],
+      "media": {
+        "type": "image",
+        "path": "samples/uk_timeline.png",
+        "caption": "Five dates in British history"
+      }
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "prompt": "Watch the timeline. Which event came between the Magna Carta and the Great Fire of London?",
+      "answer": "the Spanish Armada",
+      "distractors": [
+        "the Norman Conquest",
+        "the Act of Union",
+        "the Battle of Waterloo"
+      ],
+      "explanation": "1215 Magna Carta, 1588 Spanish Armada, 1666 Great Fire.",
+      "tags": [
+        "life_in_uk",
+        "history"
+      ],
+      "media": {
+        "type": "video",
+        "path": "samples/uk_timeline.mp4",
+        "caption": "Five dates in British history (10 seconds)"
+      }
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "prompt": "According to the passage, what did Churchill's speeches do?",
+      "answer": "They raised public morale.",
+      "distractors": [
+        "They ended the war.",
+        "They won the 1945 election.",
+        "They created the NHS."
+      ],
+      "explanation": "His speeches 'helped to raise public morale'.",
+      "tags": [
+        "life_in_uk",
+        "history",
+        "story"
+      ],
+      "passage": "C1_CHURCHILL"
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "prompt": "What happened to Churchill in 1945?",
+      "answer": "He lost the general election.",
+      "distractors": [
+        "He became Prime Minister for the first time.",
+        "He surrendered to Germany.",
+        "He retired from politics for good."
+      ],
+      "explanation": "'He was defeated in the general election of 1945.'",
+      "tags": [
+        "life_in_uk",
+        "history",
+        "story"
+      ],
+      "passage": "C1_CHURCHILL"
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "prompt": "Churchill: which statement is true according to the text?",
+      "answer": "He served as Prime Minister on two separate occasions.",
+      "distractors": [
+        "He became Prime Minister after the war ended.",
+        "He supported surrender in 1940.",
+        "He never lost an election."
+      ],
+      "explanation": "1940 and again from 1951.",
+      "tags": [
+        "life_in_uk",
+        "history",
+        "story"
+      ],
+      "passage": "C1_CHURCHILL"
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "prompt": "Which fuel powered the steam machines?",
+      "answer": "coal",
+      "distractors": [
+        "oil",
+        "wood",
+        "electricity"
+      ],
+      "explanation": "'Machines powered by steam, using coal as fuel'.",
+      "tags": [
+        "life_in_uk",
+        "world_knowledge",
+        "story"
+      ],
+      "passage": "C1_INDUSTRY"
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "prompt": "What social change does the passage describe?",
+      "answer": "people moving from the countryside to cities",
+      "distractors": [
+        "people leaving cities for farms",
+        "fewer factories being built",
+        "shorter working hours for children"
+      ],
+      "explanation": "'Factories drew people from the countryside into rapidly growing cities.'",
+      "tags": [
+        "life_in_uk",
+        "world_knowledge",
+        "story"
+      ],
+      "passage": "C1_INDUSTRY"
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "prompt": "In the passage on the Industrial Revolution, 'harsh' is closest in meaning to ___.",
+      "answer": "severe",
+      "distractors": [
+        "pleasant",
+        "unusual",
+        "temporary"
+      ],
+      "explanation": "Harsh conditions are severe and unpleasant.",
+      "tags": [
+        "life_in_uk",
+        "world_knowledge",
+        "story"
+      ],
+      "passage": "C1_INDUSTRY"
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "prompt": "Who began building the Tower of London, according to the passage?",
+      "answer": "William the Conqueror",
+      "distractors": [
+        "Henry VIII",
+        "Alfred the Great",
+        "Queen Victoria"
+      ],
+      "explanation": "'The Tower of London was begun by William the Conqueror soon after his victory at Hastings in 1066.'",
+      "tags": [
+        "britain",
+        "history",
+        "story"
+      ],
+      "passage": "C1_TOWER"
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "prompt": "When was the Tower of London added to the UNESCO World Heritage List?",
+      "answer": "in 1988",
+      "distractors": [
+        "in 1066",
+        "in 1666",
+        "in 2012"
+      ],
+      "explanation": "'In 1988 it was added to the UNESCO World Heritage List.'",
+      "tags": [
+        "britain",
+        "history",
+        "story"
+      ],
+      "passage": "C1_TOWER"
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "prompt": "Which role has the Tower NOT had, according to the passage?",
+      "answer": "a parliament building",
+      "distractors": [
+        "a royal palace",
+        "a fortress",
+        "a prison"
+      ],
+      "explanation": "The passage says the Tower has been a royal palace, a fortress and a prison; it does not mention a parliament.",
+      "tags": [
+        "britain",
+        "history",
+        "story"
+      ],
+      "passage": "C1_TOWER"
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "prompt": "What is Paul's main concern about entry fees?",
+      "answer": "that they could exclude poorer families",
+      "distractors": [
+        "that parks are too crowded",
+        "that conservation is unnecessary",
+        "that local residents pay too much"
+      ],
+      "explanation": "'Fees risk excluding families on low incomes.'",
+      "tags": [
+        "dialogue",
+        "world_knowledge"
+      ],
+      "passage": "C1_PARKS"
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "prompt": "How does the discussion about national parks end?",
+      "answer": "Paul accepts a possible compromise.",
+      "distractors": [
+        "Roza changes her mind.",
+        "Both reject fees completely.",
+        "The presenter makes the decision."
+      ],
+      "explanation": "'That might be a reasonable compromise.'",
+      "tags": [
+        "dialogue"
+      ],
+      "passage": "C1_PARKS"
+    },
+    {
+      "level": "C1",
+      "skill": "vocabulary",
+      "prompt": "The Domesday Book, compiled in 1086 for William the Conqueror, was essentially a ___.",
+      "answer": "survey of land and property",
+      "distractors": [
+        "book of prayers",
+        "collection of poems",
+        "list of kings"
+      ],
+      "explanation": "It recorded who owned land and property in England.",
+      "tags": [
+        "life_in_uk",
+        "history"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "vocabulary",
+      "prompt": "In the Glorious Revolution of 1688, William of Orange replaced King ___ on the throne.",
+      "answer": "James II",
+      "distractors": [
+        "Charles I",
+        "Henry VIII",
+        "George III"
+      ],
+      "explanation": "James II fled and William and Mary took the throne.",
+      "tags": [
+        "life_in_uk",
+        "history"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "vocabulary",
+      "prompt": "Charles Darwin's best-known theory is evolution by natural ___.",
+      "answer": "selection",
+      "distractors": [
+        "election",
+        "collection",
+        "reflection"
+      ],
+      "explanation": "Darwin's 'On the Origin of Species' (1859).",
+      "tags": [
+        "life_in_uk",
+        "world_knowledge"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "prompt": "In ___, King John was forced by his noblemen to agree to the Magna Carta.",
+      "answer": "1215",
+      "distractors": [
+        "1066",
+        "1314",
+        "1485"
+      ],
+      "explanation": "In 1215 King John agreed to the Magna Carta, which established that even the king was subject to the law.",
+      "tags": [
+        "britain",
+        "history"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "prompt": "Which conclusion can be drawn from the timeline?",
+      "answer": "More than 600 years separate the Norman Conquest and the Act of Union.",
+      "distractors": [
+        "The Great Fire happened before the Spanish Armada.",
+        "The Magna Carta was agreed in the 17th century.",
+        "The Act of Union and the Great Fire happened in the same century."
+      ],
+      "explanation": "1707 - 1066 = 641 years.",
+      "tags": [
+        "life_in_uk",
+        "history"
+      ],
+      "media": {
+        "type": "image",
+        "path": "samples/uk_timeline.png",
+        "caption": "Five dates in British history"
+      }
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "prompt": "Watch the chart. Between which two years shown did the UK population grow the most?",
+      "answer": "between 1851 and 1901",
+      "distractors": [
+        "between 1801 and 1851",
+        "between 1901 and 1951",
+        "between 1951 and 2010"
+      ],
+      "explanation": "The population rose from 20 million in 1851 to 40 million in 1901, an increase of 20 million: the largest rise shown.",
+      "tags": [
+        "britain",
+        "life_in_uk",
+        "world_knowledge"
+      ],
+      "media": {
+        "type": "video",
+        "path": "samples/uk_population.mp4",
+        "caption": "UK population over time"
+      }
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "prompt": "Which policy area remains reserved to Westminster?",
+      "answer": "defence",
+      "distractors": [
+        "education",
+        "health",
+        "none of them"
+      ],
+      "explanation": "'Defence and foreign affairs remain reserved.'",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "C2_DEVO"
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "prompt": "What was the National Assembly for Wales renamed in 2020?",
+      "answer": "the Senedd",
+      "distractors": [
+        "Holyrood",
+        "Stormont",
+        "the Dail"
+      ],
+      "explanation": "'Renamed the Senedd in 2020'.",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "C2_DEVO"
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "prompt": "What gave rise to the Northern Ireland Assembly?",
+      "answer": "the Good Friday Agreement",
+      "distractors": [
+        "the Act of Union",
+        "the Magna Carta",
+        "the Glorious Revolution"
+      ],
+      "explanation": "'Emerged from the 1998 Good Friday Agreement.'",
+      "tags": [
+        "life_in_uk",
+        "story"
+      ],
+      "passage": "C2_DEVO"
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "prompt": "What point does the author make about 'first recorded' uses?",
+      "answer": "They do not prove that Shakespeare invented the expressions.",
+      "distractors": [
+        "They show that Shakespeare invented all of them.",
+        "They are always inaccurate.",
+        "They were added by later editors."
+      ],
+      "explanation": "'A first recorded use is not proof of invention.'",
+      "tags": [
+        "life_in_uk",
+        "culture",
+        "story"
+      ],
+      "passage": "C2_SHAKES"
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "prompt": "The author's attitude to popular claims about Shakespeare's inventions is best described as ___.",
+      "answer": "cautious",
+      "distractors": [
+        "enthusiastic",
+        "indifferent",
+        "hostile"
+      ],
+      "explanation": "Scholars 'caution against crediting him with every phrase'.",
+      "tags": [
+        "life_in_uk",
+        "culture",
+        "story"
+      ],
+      "passage": "C2_SHAKES"
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "prompt": "Which language does the passage describe as Celtic?",
+      "answer": "Welsh",
+      "distractors": [
+        "English",
+        "French",
+        "Anglo-Saxon"
+      ],
+      "explanation": "'Welsh, a Celtic language, is spoken by many people in Wales.'",
+      "tags": [
+        "britain",
+        "culture",
+        "story"
+      ],
+      "passage": "C2_LANGUAGES"
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "prompt": "According to the passage, the Germanic core of English was brought by ___.",
+      "answer": "the Anglo-Saxons",
+      "distractors": [
+        "the Normans",
+        "the Romans",
+        "the Vikings"
+      ],
+      "explanation": "'The Anglo-Saxons brought the Germanic dialects at its core.'",
+      "tags": [
+        "britain",
+        "culture",
+        "story"
+      ],
+      "passage": "C2_LANGUAGES"
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "prompt": "Which words, according to the text, entered English from French after 1066?",
+      "answer": "'park' and 'beauty'",
+      "distractors": [
+        "'apple' and 'cow'",
+        "'summer' and 'winter'",
+        "'house' and 'bread'"
+      ],
+      "explanation": "'After the Norman Conquest of 1066 French added words such as park and beauty.'",
+      "tags": [
+        "britain",
+        "culture",
+        "story"
+      ],
+      "passage": "C2_LANGUAGES"
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "prompt": "What happens when peatland is drained?",
+      "answer": "It releases the carbon it stores.",
+      "distractors": [
+        "It absorbs more carbon.",
+        "It turns into forest.",
+        "It stops decomposing."
+      ],
+      "explanation": "'Peat decomposes and releases this carbon.'",
+      "tags": [
+        "world_knowledge",
+        "nature",
+        "story"
+      ],
+      "passage": "C2_PEAT"
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "prompt": "In the passage on peatlands, a 'sink' is ___.",
+      "answer": "something that absorbs and stores carbon",
+      "distractors": [
+        "a place where water drains away",
+        "a type of farm",
+        "a source of emissions"
+      ],
+      "explanation": "A carbon sink takes in and stores carbon.",
+      "tags": [
+        "world_knowledge",
+        "nature",
+        "story"
+      ],
+      "passage": "C2_PEAT"
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "prompt": "Why is re-wetting bogs increasingly favoured?",
+      "answer": "It is a cost-effective way to reduce emissions.",
+      "distractors": [
+        "It creates new farmland.",
+        "It is required by law everywhere.",
+        "It increases the area covered by forests."
+      ],
+      "explanation": "'Increasingly seen as a cost-effective climate measure.'",
+      "tags": [
+        "world_knowledge",
+        "nature",
+        "story"
+      ],
+      "passage": "C2_PEAT"
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "To 'cross the Rubicon' means to ___.",
+      "answer": "pass a point of no return",
+      "distractors": [
+        "avoid a difficult decision",
+        "travel abroad",
+        "change sides repeatedly"
+      ],
+      "explanation": "Julius Caesar crossed the river Rubicon in 49 BC, a step he could not undo.",
+      "tags": [
+        "world_knowledge",
+        "history"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "The Magna Carta is often cited as an early step towards the ___ of law.",
+      "answer": "rule",
+      "distractors": [
+        "reign",
+        "throne",
+        "crown"
+      ],
+      "explanation": "The 'rule of law': no one is above the law.",
+      "tags": [
+        "life_in_uk",
+        "history"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "prompt": "Which statement is best supported by the chart?",
+      "answer": "The population grew more between 1801 and 1901 than between 1901 and 2010.",
+      "distractors": [
+        "The population doubled between 1951 and 2010.",
+        "The population fell between 1901 and 1951.",
+        "Population growth was the same in every period shown."
+      ],
+      "explanation": "1801-1901: from 8 to 40 million (+32 million); 1901-2010: from 40 to about 62 million (+22 million).",
+      "tags": [
+        "britain",
+        "life_in_uk",
+        "world_knowledge"
+      ],
+      "media": {
+        "type": "image",
+        "path": "samples/uk_population.png",
+        "caption": "UK population over time"
+      }
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "prompt": "Which pair of events on the timeline is separated by the shortest interval?",
+      "answer": "the Great Fire of London and the Act of Union",
+      "distractors": [
+        "the Norman Conquest and the Magna Carta",
+        "the Magna Carta and the Spanish Armada",
+        "the Spanish Armada and the Great Fire of London"
+      ],
+      "explanation": "1666 to 1707 is only 41 years.",
+      "tags": [
+        "life_in_uk",
+        "history"
+      ],
+      "media": {
+        "type": "image",
+        "path": "samples/uk_timeline.png",
+        "caption": "Five dates in British history"
+      }
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "prompt": "Watch the timeline. Which event marks the creation of the Kingdom of Great Britain?",
+      "answer": "the Act of Union",
+      "distractors": [
+        "the Norman Conquest",
+        "the Magna Carta",
+        "the Great Fire of London"
+      ],
+      "explanation": "The Act of Union of 1707 united England and Scotland.",
+      "tags": [
+        "life_in_uk",
+        "history"
+      ],
+      "media": {
+        "type": "video",
+        "path": "samples/uk_timeline.mp4",
+        "caption": "Five dates in British history (10 seconds)"
+      }
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "prompt": "Watch the video. Approximately how many times larger was the UK population in 1901 than in 1801?",
+      "answer": "about five times",
+      "distractors": [
+        "about twice",
+        "about three times",
+        "about ten times"
+      ],
+      "explanation": "The population grew from 8 million in 1801 to 40 million in 1901: five times larger.",
+      "tags": [
+        "britain",
+        "life_in_uk",
+        "world_knowledge"
+      ],
+      "media": {
+        "type": "video",
+        "path": "samples/uk_population.mp4",
+        "caption": "UK population over time"
+      }
+    }
+  ]
 }

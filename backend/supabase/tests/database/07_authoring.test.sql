@@ -39,8 +39,8 @@ create temp table ids (k text, id uuid);
 grant all on ids to authenticated;
 insert into ids select 'pub', public.staff_create_question('A1', 'vocabulary', 'What time is it? ___', array['three o''clock','half past three'],
   'a', 'The short hand points to 3.', null, 'image', 'samples/clock.png', 'A clock', true);
-insert into ids select 'draft', public.staff_create_question('A1', 'reading', 'Where does Ali live?', array['In Erbil','In Duhok'],
-  'B', null, 'Ali lives in Duhok with his family.', null, null, null, false);
+insert into ids select 'draft', public.staff_create_question('A1', 'reading', 'Where does Ali live?', array['In York','In Leeds'],
+  'B', null, 'Ali lives in Leeds with his family.', null, null, null, false);
 select is((select status || '/' || review_status from public.assessment_questions where id = (select id from ids where k = 'pub')),
   'published/approved', 'teacher-authored questions can be published directly');
 select is((select status from public.assessment_questions where id = (select id from ids where k = 'draft')), 'draft',
@@ -65,7 +65,7 @@ select results_eq(
   $$select media_type, media_path, passage from public.get_practice_questions_v2('A1', null, 200) where prompt like 'Where does Ali%'
     union all
     select media_type, media_path, passage from public.get_practice_questions_v2('A1', null, 200) where prompt like 'What time is it?%'$$,
-  $$values (null::text, null::text, 'Ali lives in Duhok with his family.'::text), ('image', 'samples/clock.png', null)$$,
+  $$values (null::text, null::text, 'Ali lives in Leeds with his family.'::text), ('image', 'samples/clock.png', null)$$,
   'v2 download includes passages and media');
 reset role;
 

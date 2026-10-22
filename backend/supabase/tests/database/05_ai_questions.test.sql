@@ -1,6 +1,6 @@
 -- AI-drafted question batches stay hidden from students until a teacher approves them.
 begin;
-select plan(13);
+select plan(15);
 
 select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-01:%'), 125,
   'AI batch 01 seeded: 125 items');
@@ -12,8 +12,8 @@ select is((select count(*)::int from public.assessment_questions where external_
 select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-02:%' and media_path like 'samples/%'), 21,
   'batch 02 picture and video questions point at the sample media');
 select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-03:%' and status = 'draft'), 114,
-  'AI batch 03 (stories, dialogues, Life in the UK, Kurdistan) seeded as 114 drafts');
-select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-03:%' and media_path like 'samples/%'), 14,
+  'AI batch 03 (stories, dialogues, Life in the UK, Britain) seeded as 114 drafts');
+select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-03:%' and media_path like 'samples/%'), 15,
   'batch 03 picture and video questions point at the sample media');
 select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:%' and source not like 'ai-draft:%'), 0,
   'AI items are labelled with their batch as source');
@@ -26,6 +26,10 @@ select is((select count(*)::int from public.assessment_questions
   'every AI item has four options, or is a True/False item');
 select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-04:%' and status = 'draft'), 400,
   'AI batch 04 (Life in the UK course) seeded as 400 drafts');
+select is((select count(*)::int from public.assessment_questions where external_ref like 'lituk:S%' and status = 'draft'), 1066,
+  'AI batch 05 (handbook-verified Life in the UK questions) seeded as 1066 drafts with stable lituk: refs');
+select is((select count(*)::int from public.assessment_questions where external_ref like 'lituk:%' and cefr_level <> 'LIFE_IN_UK'), 0,
+  'batch 05 questions all belong to the Life in the UK course');
 select is((select count(*)::int from public.assessment_questions
             where options = array['True', 'False'] and (cefr_level <> 'LIFE_IN_UK' or prompt not like 'TRUE or FALSE: %')), 0,
   'True/False items belong to the Life in the UK course and say so in the prompt');

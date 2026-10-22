@@ -127,8 +127,8 @@
     <string name="topics_update_levels">دوگمەی نوێکردنەوە لەسەر ئاستە دابەزێنراوەکانت دابگرە بۆ ئەوەی پرسیارەکانی بابەتەکان وەربگریت.</string>
     <string name="topic_life_in_uk">ژیان لە بەریتانیا (Life in the UK)</string>
     <string name="topic_life_in_uk_desc">مێژوو، داب و نەریت، حکومەت و ژیانی ڕۆژانە — بەسوود بۆ تاقیکردنەوەی Life in the UK</string>
-    <string name="topic_kurdistan">کوردستان</string>
-    <string name="topic_kurdistan_desc">شارەکان، نەورۆز، چیاکان، مێژوو و زمانی کوردی</string>
+    <string name="topic_britain">بەریتانیا</string>
+    <string name="topic_britain_desc">چیرۆکی بەریتانی، دایەلۆگی ڕۆژانە، شوێنەکان، جەژنەکان و مێژوو</string>
     <string name="topic_stories">چیرۆک و دیالۆگ</string>
     <string name="topic_stories_desc">چیرۆکێکی کورت یان گفتوگۆیەک بخوێنەوە، پاشان وەڵام بدەرەوە</string>
     <string name="topic_world">مێژوو و جیهانەکەمان</string>
@@ -212,4 +212,13 @@
     <string name="lituk_mock_not_answered">وەڵام نەدراوەتەوە</string>
     <string name="lituk_mock_practise_mistakes">ڕاهێنان لەسەر هەڵەکانم</string>
     <string name="lituk_mock_done">تەواو</string>
+    <!-- Answer feedback -->
+    <string name="fb_correct_title">ڕاستە! دەستت خۆش</string>
+    <string name="fb_wrong_title">بە تەواوی نا</string>
+    <string name="fb_your_answer">وەڵامی تۆ</string>
+    <string name="fb_correct_answer">وەڵامی ڕاست</string>
+    <string name="fb_why_right">بۆچی ئەمە وەڵامی ڕاستە</string>
+    <string name="fb_why_wrong">بۆچی وەڵامەکەت هەڵەیە</string>
+    <string name="fb_why_wrong_body">تۆ «%1$s»ت هەڵبژارد، بەڵام بەپێی کتێبە فەرمییەکە وەڵامی ڕاست «%2$s»ە:</string>
+    <string name="fb_source">کتێبی فەرمی · بەشی %1$d: %2$s</string>
 </resources>

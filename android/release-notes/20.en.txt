@@ -1,0 +1,1 @@
+Read-aloud: the gap in fill-in-the-blank questions is no longer read as the word "blank"; the voice pauses there instead, like a teacher.

@@ -259,10 +259,10 @@
         "the Archbishop of Canterbury",
         "their local Member of Parliament"
       ],
-      "explanation": "Handbook ch. 1 (The values and principles of the UK): In the oath or affirmation, new citizens promise to be faithful and bear true allegiance to the monarch, their heirs and successors, according to law.",
+      "explanation": "Handbook ch. 5 (The UK government, the law and your role): In the oath or affirmation, new citizens promise to be faithful and bear true allegiance to the monarch, their heirs and successors, according to law.",
       "tags": [
         "life_in_uk",
-        "lituk_values"
+        "lituk_government"
       ]
     },
     {
@@ -303,10 +303,10 @@
       "distractors": [
         "False"
       ],
-      "explanation": "Handbook ch. 1 (The values and principles of the UK): At the citizenship ceremony applicants make either an oath (sworn by God) or an affirmation, which has no religious wording.",
+      "explanation": "Handbook ch. 5 (The UK government, the law and your role): At the citizenship ceremony applicants make either an oath (sworn by God) or an affirmation, which has no religious wording.",
       "tags": [
         "life_in_uk",
-        "lituk_values"
+        "lituk_government"
       ]
     },
     {
@@ -425,10 +425,10 @@
         "Individual liberty",
         "The rule of law"
       ],
-      "explanation": "Handbook ch. 1 (The values and principles of the UK): Democracy is one of the fundamental principles of British life: the adult population chooses its government.",
+      "explanation": "Handbook ch. 5 (The UK government, the law and your role): Democracy is one of the fundamental principles of British life: the adult population chooses its government.",
       "tags": [
         "life_in_uk",
-        "lituk_values"
+        "lituk_government"
       ]
     },
     {
@@ -565,10 +565,10 @@
         "A red diagonal cross on a white ground",
         "A yellow cross on a black ground"
       ],
-      "explanation": "Handbook ch. 2 (What is the UK?): The cross of St Andrew, patron saint of Scotland, is a white diagonal cross on a blue ground.",
+      "explanation": "Handbook ch. 3 (A long and illustrious history): The cross of St Andrew, patron saint of Scotland, is a white diagonal cross on a blue ground.",
       "tags": [
         "life_in_uk",
-        "lituk_what_is_uk"
+        "lituk_history"
       ]
     },
     {
@@ -581,10 +581,10 @@
         "St Columba",
         "St Andrew"
       ],
-      "explanation": "Handbook ch. 2 (What is the UK?): The cross of St Patrick, patron saint of Ireland, is a red diagonal cross on a white ground.",
+      "explanation": "Handbook ch. 3 (A long and illustrious history): The cross of St Patrick, patron saint of Ireland, is a red diagonal cross on a white ground.",
       "tags": [
         "life_in_uk",
-        "lituk_what_is_uk"
+        "lituk_history"
       ]
     },
     {
@@ -595,10 +595,10 @@
       "distractors": [
         "True"
       ],
-      "explanation": "Handbook ch. 2 (What is the UK?): The Union Flag combines the crosses of St George, St Andrew and St Patrick. Wales is not represented on it.",
+      "explanation": "Handbook ch. 3 (A long and illustrious history): The Union Flag combines the crosses of St George, St Andrew and St Patrick. Wales is not represented on it.",
       "tags": [
         "life_in_uk",
-        "lituk_what_is_uk"
+        "lituk_history"
       ]
     },
     {
@@ -611,10 +611,10 @@
         "The dragon was thought too difficult to show",
         "Wales joined the United Kingdom after 1801"
       ],
-      "explanation": "Handbook ch. 2 (What is the UK?): The Welsh dragon does not appear because, when the first Union Flag was created, Wales was already united with England.",
+      "explanation": "Handbook ch. 3 (A long and illustrious history): The Welsh dragon does not appear because, when the first Union Flag was created, Wales was already united with England.",
       "tags": [
         "life_in_uk",
-        "lituk_what_is_uk"
+        "lituk_history"
       ]
     },
     {
@@ -627,10 +627,10 @@
         "The Royal Standard",
         "The Red Ensign"
       ],
-      "explanation": "Handbook ch. 2 (What is the UK?): The flag of the UK is the Union Flag, often called the Union Jack.",
+      "explanation": "Handbook ch. 3 (A long and illustrious history): The flag of the UK is the Union Flag, often called the Union Jack.",
       "tags": [
         "life_in_uk",
-        "lituk_what_is_uk"
+        "lituk_history"
       ]
     },
     {
@@ -643,10 +643,10 @@
         "Manchester and Edinburgh",
         "Glasgow and Manchester"
       ],
-      "explanation": "Handbook ch. 2 (What is the UK?): The capital cities are London (England), Edinburgh (Scotland), Cardiff (Wales) and Belfast (Northern Ireland).",
+      "explanation": "Handbook ch. 4 (A modern, thriving society): The capital cities are London (England), Edinburgh (Scotland), Cardiff (Wales) and Belfast (Northern Ireland).",
       "tags": [
         "life_in_uk",
-        "lituk_what_is_uk"
+        "lituk_society"
       ]
     },
     {
@@ -659,10 +659,10 @@
         "Armagh",
         "Dublin"
       ],
-      "explanation": "Handbook ch. 2 (What is the UK?): Belfast is the capital city of Northern Ireland.",
+      "explanation": "Handbook ch. 4 (A modern, thriving society): Belfast is the capital city of Northern Ireland.",
       "tags": [
         "life_in_uk",
-        "lituk_what_is_uk"
+        "lituk_society"
       ]
     },
     {
@@ -673,10 +673,10 @@
       "distractors": [
         "True"
       ],
-      "explanation": "Handbook ch. 2 (What is the UK?): Edinburgh is the capital city of Scotland.",
+      "explanation": "Handbook ch. 4 (A modern, thriving society): Edinburgh is the capital city of Scotland.",
       "tags": [
         "life_in_uk",
-        "lituk_what_is_uk"
+        "lituk_society"
       ]
     },
     {
@@ -689,10 +689,10 @@
         "The crown",
         "The guinea"
       ],
-      "explanation": "Handbook ch. 2 (What is the UK?): The currency in the UK is the pound sterling; there are 100 pence in a pound.",
+      "explanation": "Handbook ch. 4 (A modern, thriving society): The currency in the UK is the pound sterling; there are 100 pence in a pound.",
       "tags": [
         "life_in_uk",
-        "lituk_what_is_uk"
+        "lituk_society"
       ]
     },
     {
@@ -703,10 +703,10 @@
       "distractors": [
         "False"
       ],
-      "explanation": "Handbook ch. 2 (What is the UK?): Northern Ireland and Scotland have their own banknotes, which are valid everywhere in the UK, although shops and businesses do not have to accept them.",
+      "explanation": "Handbook ch. 4 (A modern, thriving society): Northern Ireland and Scotland have their own banknotes, which are valid everywhere in the UK, although shops and businesses do not have to accept them.",
       "tags": [
         "life_in_uk",
-        "lituk_what_is_uk"
+        "lituk_society"
       ]
     },
     {
@@ -719,10 +719,10 @@
         "In Cardiff and the Welsh valleys",
         "In the Channel Islands"
       ],
-      "explanation": "Handbook ch. 2 (What is the UK?): In Scotland, Gaelic is spoken in some parts of the Highlands and Islands.",
+      "explanation": "Handbook ch. 4 (A modern, thriving society): In Scotland, Gaelic is spoken in some parts of the Highlands and Islands.",
       "tags": [
         "life_in_uk",
-        "lituk_what_is_uk"
+        "lituk_society"
       ]
     },
     {
@@ -733,10 +733,10 @@
       "distractors": [
         "False"
       ],
-      "explanation": "Handbook ch. 2 (What is the UK?): A number of people in Northern Ireland speak Irish Gaelic.",
+      "explanation": "Handbook ch. 4 (A modern, thriving society): A number of people in Northern Ireland speak Irish Gaelic.",
       "tags": [
         "life_in_uk",
-        "lituk_what_is_uk"
+        "lituk_society"
       ]
     },
     {
@@ -749,10 +749,10 @@
         "Flemish and Gaelic",
         "Flemish and Breton"
       ],
-      "explanation": "Handbook ch. 2 (What is the UK?): Many people in Wales speak Welsh, which is taught in schools and universities, and Gaelic is spoken in parts of Scotland (Irish Gaelic in Northern Ireland).",
+      "explanation": "Handbook ch. 4 (A modern, thriving society): Many people in Wales speak Welsh, which is taught in schools and universities, and Gaelic is spoken in parts of Scotland (Irish Gaelic in Northern Ireland).",
       "tags": [
         "life_in_uk",
-        "lituk_what_is_uk"
+        "lituk_society"
       ]
     },
     {
@@ -4431,10 +4431,10 @@
         "Augustus Pugin",
         "Sir Edwin Lutyens"
       ],
-      "explanation": "Handbook ch. 4 (A modern, thriving society): After the Great Fire of 1666 Sir Christopher Wren helped rebuild London, including the new St Paul's Cathedral.",
+      "explanation": "Handbook ch. 3 (A long and illustrious history): After the Great Fire of 1666 Sir Christopher Wren helped rebuild London, including the new St Paul's Cathedral.",
       "tags": [
         "life_in_uk",
-        "lituk_society"
+        "lituk_history"
       ]
     },
     {
@@ -4555,10 +4555,10 @@
       "distractors": [
         "False"
       ],
-      "explanation": "Handbook ch. 4 (A modern, thriving society): Rudyard Kipling was born in India in 1865 and won the Nobel Prize in Literature in 1907.",
+      "explanation": "Handbook ch. 3 (A long and illustrious history): Rudyard Kipling was born in India in 1865 and won the Nobel Prize in Literature in 1907.",
       "tags": [
         "life_in_uk",
-        "lituk_society"
+        "lituk_history"
       ]
     },
     {

@@ -94,7 +94,7 @@ data class HomeActions(
 @StringRes
 internal fun Topic.titleRes(): Int = when (this) {
     Topic.LIFE_IN_UK -> R.string.topic_life_in_uk
-    Topic.KURDISTAN -> R.string.topic_kurdistan
+    Topic.BRITAIN -> R.string.topic_britain
     Topic.STORIES -> R.string.topic_stories
     Topic.WORLD -> R.string.topic_world
     Topic.PICTURES -> R.string.topic_pictures
@@ -103,7 +103,7 @@ internal fun Topic.titleRes(): Int = when (this) {
 @StringRes
 private fun Topic.descriptionRes(): Int = when (this) {
     Topic.LIFE_IN_UK -> R.string.topic_life_in_uk_desc
-    Topic.KURDISTAN -> R.string.topic_kurdistan_desc
+    Topic.BRITAIN -> R.string.topic_britain_desc
     Topic.STORIES -> R.string.topic_stories_desc
     Topic.WORLD -> R.string.topic_world_desc
     Topic.PICTURES -> R.string.topic_pictures_desc
@@ -111,7 +111,7 @@ private fun Topic.descriptionRes(): Int = when (this) {
 
 private fun Topic.emoji(): String = when (this) {
     Topic.LIFE_IN_UK -> "🇬🇧"
-    Topic.KURDISTAN -> "☀️"
+    Topic.BRITAIN -> "🏰"
     Topic.STORIES -> "📖"
     Topic.WORLD -> "🌍"
     Topic.PICTURES -> "🎬"

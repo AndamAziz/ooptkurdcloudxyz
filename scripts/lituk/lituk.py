@@ -255,6 +255,10 @@ def sync_meta(items, outline, meta) -> dict:
                 "notes": item.get("notes", ""),
                 "explanation_ckb": item.get("explanation_ckb"),
             }
+        src = item.get("source") or {}
+        if src.get("section") and entry.get("section_basis") != "handbook":
+            # Items written from the handbook carry their section; that beats the keyword mapping.
+            entry.update(section=src["section"], section_basis="handbook", chapter=src.get("chapter", entry.get("chapter")))
         entry["prompt"] = item["prompt"]  # readability of the meta file; refreshed each sync
     meta["schema"] = 1
     meta["questions"] = dict(sorted(qs.items(), key=lambda kv: (kv[1].get("chapter") or 9, kv[1].get("section") or "", kv[0])))

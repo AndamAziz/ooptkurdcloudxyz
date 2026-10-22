@@ -1,3246 +1,3256 @@
 {
- "batch": "ai-batch-02",
- "note": "AI-drafted (Claude) items in varied formats: reading passages, find-the-mistake, dialogue completion, word formation, collocations, idioms, picture and short-video questions. Imported as drafts; teachers approve them in Staff tools.",
- "passages": {
-  "A1_LANA": "Hi! My name is Lana. I am ten years old. I live in Erbil with my mother, my father and my little brother, Aram. Aram is six. We have a cat. Its name is Pishi. I like school and my favourite subject is English.",
-  "A1_NOTE": "Dear Mum,\nI am at Rozh's house. We are doing our homework together. I will be home at six o'clock.\nLove, Shilan",
-  "A2_EMAIL": "Hi Karim,\nThanks for your email. Last weekend I went to Duhok with my family. We stayed in a small hotel near the dam. On Saturday we walked in the mountains and on Sunday we visited the old market. The food was delicious, but the weather was cold. Next month I want to visit you in Sulaymaniyah. Is that OK?\nBest wishes,\nRebin",
-  "A2_POOL": "SWIMMING POOL NOTICE\nThe pool is closed for cleaning on Monday 3 June.\nChildren under 12 must swim with an adult.\nPlease take a shower before you swim.\nNo food or drinks near the pool.",
-  "B1_SCREENS": "Many teenagers today spend more than six hours a day looking at screens. A recent study of 2,000 students found that those who used their phones late at night slept, on average, one hour less than those who did not. The researchers suggest that students should turn off their phones an hour before bed. They also found that students who did sport three times a week said they felt happier and less stressed.",
-  "B1_VOLUNTEERS": "VOLUNTEERS WANTED!\nThe Green City project needs volunteers to plant trees in local parks every Saturday morning from April to June. No experience is necessary: we will give you training and all the tools you need. Volunteers must be over 16. Lunch is provided. To apply, send an email to Nazdar by 20 March.",
-  "B2_REMOTE": "Remote work, once a rare privilege, has become common in many industries. Supporters argue that it saves commuting time and allows people to organise their day more flexibly. Critics, however, point out that working from home can blur the line between professional and private life, and that new employees in particular may miss out on the informal learning that happens in an office. Some companies have therefore adopted a 'hybrid' model, in which staff spend part of the week at home and part in the office.",
-  "B2_REVIEW": "I had high hopes for 'The Silent River', but the film left me disappointed. The photography is breathtaking and the lead actress gives a convincing performance. Unfortunately, the plot is so slow that I kept checking the time, and the ending raises more questions than it answers. Worth watching for the scenery, but don't expect a gripping story.",
-  "C1_MULTITASK": "The assumption that multitasking boosts productivity has been increasingly called into question. Studies in cognitive psychology suggest that what we perceive as doing several things at once is, in reality, rapid switching between tasks, each switch carrying a small but measurable cost in time and accuracy. Paradoxically, people who consider themselves skilled multitaskers often perform worse on tests of attention than those who rarely multitask. Rather than abandoning multitasking entirely, researchers advocate 'batching' similar tasks together to minimise the number of switches.",
-  "C1_ROOFTOP": "Urban rooftop gardens are often praised for cooling buildings and providing fresh produce. Yet their benefits depend heavily on design. A shallow layer of soil, for instance, offers little insulation and dries out quickly in summer, requiring frequent watering, which in dry cities may cancel out the environmental gains. Deeper systems perform better but add considerable weight, so many older buildings cannot support them without costly reinforcement.",
-  "C2_INTELLIGENCE": "Few concepts have proved as slippery as 'intelligence'. Early psychometricians, armed with batteries of tests, assumed they were measuring a single, general capacity; critics countered that such tests merely rewarded familiarity with the culture of those who designed them. More recent theorists have splintered the notion into multiple intelligences (linguistic, spatial, interpersonal and so on), a move hailed by some as liberating and dismissed by others as so elastic as to be meaningless. What is not in dispute is that the way a society defines intelligence reveals as much about its values as about the minds it seeks to measure.",
-  "C2_PEDESTRIAN": "The town council's decision to pedestrianise the old quarter was greeted with a chorus of objections from shopkeepers, who predicted a collapse in trade. Two years on, footfall has risen by a third, and several of the most vocal opponents now concede that their fears were misplaced, though they are quick to add that rents have climbed accordingly, pricing some long-standing businesses out of the area."
- },
- "items": [
-  {
-   "level": "A1",
-   "skill": "grammar",
-   "prompt": "Choose the correct sentence:",
-   "answer": "She is a doctor.",
-   "distractors": [
-    "She are a doctor.",
-    "She am a doctor.",
-    "She be a doctor."
-   ],
-   "explanation": "With he/she/it we use 'is'.",
-   "tags": [
-    "verb_be",
-    "correct_sentence"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "grammar",
-   "prompt": "Find the mistake: \"He have a red car.\" Which word is wrong?",
-   "answer": "have",
-   "distractors": [
-    "He",
-    "red",
-    "car"
-   ],
-   "explanation": "With he/she/it we say 'has': He has a red car.",
-   "tags": [
-    "have_got",
-    "error_spotting"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "grammar",
-   "prompt": "Find the mistake: \"She like apples.\" Which word is wrong?",
-   "answer": "like",
-   "distractors": [
-    "She",
-    "apples",
-    "No mistake"
-   ],
-   "explanation": "Present simple with she: She likes apples.",
-   "tags": [
-    "present_simple",
-    "error_spotting"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "grammar",
-   "prompt": "Find the mistake: \"They is my friends.\" Which word is wrong?",
-   "answer": "is",
-   "distractors": [
-    "They",
-    "my",
-    "friends"
-   ],
-   "explanation": "With 'they' we use 'are': They are my friends.",
-   "tags": [
-    "verb_be",
-    "error_spotting"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "A: What's your name?  B: ___",
-   "answer": "My name is Dara.",
-   "distractors": [
-    "I'm fine, thanks.",
-    "I'm from Erbil.",
-    "It's ten o'clock."
-   ],
-   "explanation": "We answer 'What's your name?' with our name.",
-   "tags": [
-    "dialogue",
-    "greetings"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "A: How old are you?  B: ___",
-   "answer": "I'm twelve.",
-   "distractors": [
-    "I'm fine.",
-    "I'm a student.",
-    "I'm at home."
-   ],
-   "explanation": "'How old…?' asks about age.",
-   "tags": [
-    "dialogue",
-    "numbers"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "grammar",
-   "prompt": "___ is your favourite colour?",
-   "answer": "What",
-   "distractors": [
-    "Who",
-    "Where",
-    "When"
-   ],
-   "explanation": "We use 'What' to ask about things such as colours.",
-   "tags": [
-    "question_words"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "grammar",
-   "prompt": "___ do you live? In Duhok.",
-   "answer": "Where",
-   "distractors": [
-    "What",
-    "Who",
-    "How"
-   ],
-   "explanation": "'Where' asks about a place.",
-   "tags": [
-    "question_words"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "grammar",
-   "prompt": "I have two ___.",
-   "answer": "brothers",
-   "distractors": [
-    "brother",
-    "brotheres",
-    "a brother"
-   ],
-   "explanation": "After 'two' we use the plural noun: brothers.",
-   "tags": [
-    "plurals"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "grammar",
-   "prompt": "Please open ___ book.",
-   "answer": "your",
-   "distractors": [
-    "you",
-    "yours",
-    "you're"
-   ],
-   "explanation": "'Your' is the possessive adjective before a noun.",
-   "tags": [
-    "possessives"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "The opposite of 'big' is ___.",
-   "answer": "small",
-   "distractors": [
-    "tall",
-    "long",
-    "old"
-   ],
-   "explanation": "Big and small are opposites.",
-   "tags": [
-    "opposites"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "My father's father is my ___.",
-   "answer": "grandfather",
-   "distractors": [
-    "uncle",
-    "brother",
-    "son"
-   ],
-   "explanation": "Your parent's father is your grandfather.",
-   "tags": [
-    "family"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "Seven plus five is ___.",
-   "answer": "twelve",
-   "distractors": [
-    "eleven",
-    "thirteen",
-    "twenty"
-   ],
-   "explanation": "7 + 5 = 12 (twelve).",
-   "tags": [
-    "numbers"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "grammar",
-   "prompt": "I ___ to music every evening.",
-   "answer": "listen",
-   "distractors": [
-    "listens",
-    "listening",
-    "am listen"
-   ],
-   "explanation": "With 'I' in the present simple we use the base form.",
-   "tags": [
-    "present_simple"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "grammar",
-   "prompt": "Be quiet! The baby ___ now.",
-   "answer": "is sleeping",
-   "distractors": [
-    "sleep",
-    "sleeps",
-    "are sleeping"
-   ],
-   "explanation": "'Now' shows an action in progress: present continuous.",
-   "tags": [
-    "present_continuous"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "grammar",
-   "prompt": "Choose the correct question:",
-   "answer": "Do you like pizza?",
-   "distractors": [
-    "Does you like pizza?",
-    "You like pizza do?",
-    "Are you like pizza?"
-   ],
-   "explanation": "Present simple questions with 'you' start with 'Do'.",
-   "tags": [
-    "questions",
-    "correct_sentence"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "You sleep in a ___.",
-   "answer": "bed",
-   "distractors": [
-    "fridge",
-    "bookcase",
-    "kitchen"
-   ],
-   "explanation": "A bed is for sleeping.",
-   "tags": [
-    "home"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "January, February, ___",
-   "answer": "March",
-   "distractors": [
-    "April",
-    "May",
-    "June"
-   ],
-   "explanation": "March comes after February.",
-   "tags": [
-    "months"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "It's very cold today. Put on your ___.",
-   "answer": "coat",
-   "distractors": [
-    "sandals",
-    "sunglasses",
-    "swimsuit"
-   ],
-   "explanation": "A coat keeps you warm.",
-   "tags": [
-    "clothes"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "Which one is an animal?",
-   "answer": "horse",
-   "distractors": [
-    "pencil",
-    "window",
-    "bread"
-   ],
-   "explanation": "A horse is an animal.",
-   "tags": [
-    "categories"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "Which word is a colour?",
-   "answer": "green",
-   "distractors": [
-    "table",
-    "happy",
-    "run"
-   ],
-   "explanation": "Green is a colour.",
-   "tags": [
-    "categories",
-    "colours"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "prompt": "Which word does NOT belong with the others?",
-   "answer": "chair",
-   "distractors": [
-    "apple",
-    "banana",
-    "orange"
-   ],
-   "explanation": "Apple, banana and orange are fruit; a chair is furniture.",
-   "tags": [
-    "categories"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "grammar",
-   "prompt": "Look ___ the board, please.",
-   "answer": "at",
-   "distractors": [
-    "on",
-    "in",
-    "to"
-   ],
-   "explanation": "We say 'look at' something.",
-   "tags": [
-    "prepositions"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "grammar",
-   "prompt": "We ___ a car. It's blue.",
-   "answer": "have",
-   "distractors": [
-    "has",
-    "are",
-    "is"
-   ],
-   "explanation": "With 'we' we use 'have'.",
-   "tags": [
-    "have_got"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "reading",
-   "passage": "A1_LANA",
-   "prompt": "How old is Aram?",
-   "answer": "six",
-   "distractors": [
-    "ten",
-    "twelve",
-    "sixteen"
-   ],
-   "explanation": "The text says: 'Aram is six.'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "reading",
-   "passage": "A1_LANA",
-   "prompt": "What is Pishi?",
-   "answer": "a cat",
-   "distractors": [
-    "a dog",
-    "Lana's brother",
-    "a school"
-   ],
-   "explanation": "'We have a cat. Its name is Pishi.'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "reading",
-   "passage": "A1_LANA",
-   "prompt": "What is Lana's favourite subject?",
-   "answer": "English",
-   "distractors": [
-    "Maths",
-    "Art",
-    "Science"
-   ],
-   "explanation": "'My favourite subject is English.'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "reading",
-   "passage": "A1_NOTE",
-   "prompt": "Where is Shilan now?",
-   "answer": "at her friend's house",
-   "distractors": [
-    "at school",
-    "at home",
-    "at the shop"
-   ],
-   "explanation": "'I am at Rozh's house.'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "reading",
-   "passage": "A1_NOTE",
-   "prompt": "When will Shilan be home?",
-   "answer": "at six o'clock",
-   "distractors": [
-    "at five o'clock",
-    "in the morning",
-    "tomorrow"
-   ],
-   "explanation": "'I will be home at six o'clock.'",
-   "tags": [
-    "reading",
-    "time"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "media": {
-    "type": "image",
-    "path": "samples/clock_three.png",
-    "caption": "A clock"
-   },
-   "prompt": "Look at the clock. What time is it?",
-   "answer": "It's three o'clock.",
-   "distractors": [
-    "It's twelve o'clock.",
-    "It's half past three.",
-    "It's nine o'clock."
-   ],
-   "explanation": "The short hand points to 3 and the long hand points to 12.",
-   "tags": [
-    "picture",
-    "time"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "media": {
-    "type": "image",
-    "path": "samples/fruit_bowl.png",
-    "caption": "Some fruit"
-   },
-   "prompt": "Look at the picture. How many apples are there?",
-   "answer": "three",
-   "distractors": [
-    "two",
-    "four",
-    "five"
-   ],
-   "explanation": "There are three red apples.",
-   "tags": [
-    "picture",
-    "numbers"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "media": {
-    "type": "image",
-    "path": "samples/fruit_bowl.png",
-    "caption": "Some fruit"
-   },
-   "prompt": "Look at the picture. What else can you see?",
-   "answer": "two bananas",
-   "distractors": [
-    "two oranges",
-    "three bananas",
-    "one banana"
-   ],
-   "explanation": "Under the apples there are two yellow bananas.",
-   "tags": [
-    "picture",
-    "food"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "media": {
-    "type": "image",
-    "path": "samples/rainy_day.png",
-    "caption": "The weather today"
-   },
-   "prompt": "Look at the picture. What's the weather like?",
-   "answer": "It's raining.",
-   "distractors": [
-    "It's sunny.",
-    "It's snowing.",
-    "It's hot."
-   ],
-   "explanation": "There is a grey cloud, rain and an umbrella.",
-   "tags": [
-    "picture",
-    "weather"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "grammar",
-   "media": {
-    "type": "image",
-    "path": "samples/ball_and_table.png",
-    "caption": "A ball, a table and a box"
-   },
-   "prompt": "Look at the picture. Where is the ball?",
-   "answer": "under the table",
-   "distractors": [
-    "on the table",
-    "in the box",
-    "next to the box"
-   ],
-   "explanation": "The ball is on the floor, under the table.",
-   "tags": [
-    "picture",
-    "prepositions"
-   ]
-  },
-  {
-   "level": "A1",
-   "skill": "vocabulary",
-   "media": {
-    "type": "video",
-    "path": "samples/balloons.mp4",
-    "caption": "Balloons (7 seconds)"
-   },
-   "prompt": "Watch the video. How many balloons are there at the end?",
-   "answer": "four",
-   "distractors": [
-    "five",
-    "three",
-    "six"
-   ],
-   "explanation": "Five balloons appear, then the green one flies away: four are left.",
-   "tags": [
-    "video",
-    "numbers"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "grammar",
-   "prompt": "Choose the correct sentence about yesterday:",
-   "answer": "I didn't see him yesterday.",
-   "distractors": [
-    "I didn't saw him yesterday.",
-    "I don't saw him yesterday.",
-    "I not see him yesterday."
-   ],
-   "explanation": "After 'didn't' we use the base form: didn't see.",
-   "tags": [
-    "past_simple",
-    "correct_sentence"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "grammar",
-   "prompt": "Find the mistake: \"She is more taller than her sister.\" Which word should be removed?",
-   "answer": "more",
-   "distractors": [
-    "is",
-    "than",
-    "her"
-   ],
-   "explanation": "'Taller' is already comparative; we don't add 'more'.",
-   "tags": [
-    "comparatives",
-    "error_spotting"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "vocabulary",
-   "prompt": "A: Would you like some tea?  B: ___",
-   "answer": "Yes, please.",
-   "distractors": [
-    "Yes, I would like.",
-    "Yes, I like.",
-    "Yes, I'd."
-   ],
-   "explanation": "The polite short answer is 'Yes, please.'",
-   "tags": [
-    "dialogue",
-    "functions"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "vocabulary",
-   "prompt": "Shop assistant: Can I help you?  Customer: ___",
-   "answer": "Yes, I'm looking for a jacket.",
-   "distractors": [
-    "Yes, you can't.",
-    "No, I can't help.",
-    "I help you."
-   ],
-   "explanation": "The customer says what they want.",
-   "tags": [
-    "dialogue",
-    "shopping"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "vocabulary",
-   "prompt": "A: I've got a headache.  B: ___",
-   "answer": "Why don't you take a break?",
-   "distractors": [
-    "That's great news!",
-    "You're welcome.",
-    "Nice to meet you."
-   ],
-   "explanation": "'Why don't you…?' gives advice.",
-   "tags": [
-    "dialogue",
-    "advice"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "grammar",
-   "prompt": "We were watching TV when the lights ___ out.",
-   "answer": "went",
-   "distractors": [
-    "go",
-    "were going",
-    "goes"
-   ],
-   "explanation": "A short action interrupting a longer one uses the past simple.",
-   "tags": [
-    "past_continuous"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "grammar",
-   "prompt": "This is the ___ film I've ever seen.",
-   "answer": "best",
-   "distractors": [
-    "better",
-    "good",
-    "most good"
-   ],
-   "explanation": "Superlative of 'good' is 'best'.",
-   "tags": [
-    "superlatives"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "grammar",
-   "prompt": "You ___ use your phone here. It's an exam room.",
-   "answer": "mustn't",
-   "distractors": [
-    "don't have to",
-    "needn't",
-    "must"
-   ],
-   "explanation": "'Mustn't' means it is not allowed.",
-   "tags": [
-    "modals"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "grammar",
-   "prompt": "I'm tired ___ I went to bed late.",
-   "answer": "because",
-   "distractors": [
-    "so",
-    "but",
-    "or"
-   ],
-   "explanation": "'Because' gives the reason.",
-   "tags": [
-    "linkers"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "grammar",
-   "prompt": "It was raining, ___ we stayed at home.",
-   "answer": "so",
-   "distractors": [
-    "because",
-    "but",
-    "although"
-   ],
-   "explanation": "'So' gives the result.",
-   "tags": [
-    "linkers"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "grammar",
-   "prompt": "How ___ does this bag cost?",
-   "answer": "much",
-   "distractors": [
-    "many",
-    "long",
-    "often"
-   ],
-   "explanation": "We ask about price with 'How much…?'",
-   "tags": [
-    "quantifiers",
-    "shopping"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "grammar",
-   "prompt": "Have you finished your homework ___?",
-   "answer": "yet",
-   "distractors": [
-    "ago",
-    "since",
-    "for"
-   ],
-   "explanation": "'Yet' is used in present perfect questions.",
-   "tags": [
-    "present_perfect"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "grammar",
-   "prompt": "I have ___ finished my homework, so I can go out now.",
-   "answer": "already",
-   "distractors": [
-    "yet",
-    "ago",
-    "still"
-   ],
-   "explanation": "'Already' means sooner than expected, in positive sentences.",
-   "tags": [
-    "present_perfect"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "vocabulary",
-   "prompt": "Which word means 'not expensive'?",
-   "answer": "cheap",
-   "distractors": [
-    "poor",
-    "heavy",
-    "empty"
-   ],
-   "explanation": "Cheap = not expensive.",
-   "tags": [
-    "opposites"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "vocabulary",
-   "prompt": "He's very ___. He always helps other people.",
-   "answer": "kind",
-   "distractors": [
-    "lazy",
-    "rude",
-    "boring"
-   ],
-   "explanation": "A kind person helps others.",
-   "tags": [
-    "personality"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "vocabulary",
-   "prompt": "Which word does NOT belong: bus, train, plane, carrot?",
-   "answer": "carrot",
-   "distractors": [
-    "bus",
-    "train",
-    "plane"
-   ],
-   "explanation": "Bus, train and plane are transport; a carrot is food.",
-   "tags": [
-    "categories"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "grammar",
-   "prompt": "Excuse me, how do I get ___ the station?",
-   "answer": "to",
-   "distractors": [
-    "at",
-    "in",
-    "for"
-   ],
-   "explanation": "'Get to' a place = arrive there.",
-   "tags": [
-    "prepositions",
-    "directions"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "grammar",
-   "prompt": "She's good at ___ pictures.",
-   "answer": "drawing",
-   "distractors": [
-    "draw",
-    "to draw",
-    "draws"
-   ],
-   "explanation": "After a preposition (at) we use -ing.",
-   "tags": [
-    "gerunds"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "grammar",
-   "prompt": "I enjoy ___ to the beach in summer.",
-   "answer": "going",
-   "distractors": [
-    "go",
-    "to go",
-    "went"
-   ],
-   "explanation": "'Enjoy' is followed by -ing.",
-   "tags": [
-    "gerunds"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "passage": "A2_EMAIL",
-   "prompt": "Where did Rebin's family stay in Duhok?",
-   "answer": "in a small hotel",
-   "distractors": [
-    "with Karim",
-    "in a tent",
-    "at his grandmother's house"
-   ],
-   "explanation": "'We stayed in a small hotel near the dam.'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "passage": "A2_EMAIL",
-   "prompt": "What did they do on Sunday?",
-   "answer": "They visited the old market.",
-   "distractors": [
-    "They walked in the mountains.",
-    "They went home early.",
-    "They swam in the lake."
-   ],
-   "explanation": "'On Sunday we visited the old market.'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "passage": "A2_EMAIL",
-   "prompt": "Rebin's email: which sentence is true?",
-   "answer": "The weather was cold.",
-   "distractors": [
-    "The food was bad.",
-    "They stayed for a week.",
-    "Karim went with them."
-   ],
-   "explanation": "'The food was delicious, but the weather was cold.'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "passage": "A2_EMAIL",
-   "prompt": "Why is Rebin writing to Karim?",
-   "answer": "to ask if he can visit Karim",
-   "distractors": [
-    "to invite Karim to Duhok",
-    "to say sorry",
-    "to ask about a hotel"
-   ],
-   "explanation": "'Next month I want to visit you… Is that OK?'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "passage": "A2_POOL",
-   "prompt": "Why is the pool closed on 3 June?",
-   "answer": "for cleaning",
-   "distractors": [
-    "for a competition",
-    "because of the weather",
-    "for a holiday"
-   ],
-   "explanation": "'The pool is closed for cleaning.'",
-   "tags": [
-    "reading",
-    "notices"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "passage": "A2_POOL",
-   "prompt": "Who can swim without an adult?",
-   "answer": "a 14-year-old girl",
-   "distractors": [
-    "a 9-year-old boy",
-    "an 11-year-old girl",
-    "a 6-year-old child"
-   ],
-   "explanation": "Only children under 12 must swim with an adult.",
-   "tags": [
-    "reading",
-    "notices"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "vocabulary",
-   "media": {
-    "type": "image",
-    "path": "samples/clock_half_past_seven.png",
-    "caption": "A clock"
-   },
-   "prompt": "Look at the clock. What time does it show?",
-   "answer": "It's half past seven.",
-   "distractors": [
-    "It's quarter past seven.",
-    "It's half past six.",
-    "It's seven o'clock."
-   ],
-   "explanation": "The long hand is on 6 and the short hand is between 7 and 8: half past seven.",
-   "tags": [
-    "picture",
-    "time"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "media": {
-    "type": "image",
-    "path": "samples/bus_timetable.png",
-    "caption": "Bus timetable"
-   },
-   "prompt": "Look at the timetable. Which bus arrives in Sulaymaniyah at 10:45?",
-   "answer": "the 08:15 bus",
-   "distractors": [
-    "the 07:00 bus",
-    "the 12:30 bus",
-    "the 17:45 bus"
-   ],
-   "explanation": "Bus 2 leaves at 08:15 and arrives at 10:45.",
-   "tags": [
-    "picture",
-    "reading",
-    "time"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "media": {
-    "type": "image",
-    "path": "samples/bus_timetable.png",
-    "caption": "Bus timetable"
-   },
-   "prompt": "Look at the timetable. How long does the 12:30 bus take?",
-   "answer": "three hours",
-   "distractors": [
-    "two and a half hours",
-    "three and a half hours",
-    "two hours"
-   ],
-   "explanation": "12:30 to 15:30 is three hours.",
-   "tags": [
-    "picture",
-    "reading",
-    "time"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "media": {
-    "type": "image",
-    "path": "samples/shop_hours.png",
-    "caption": "Bookshop opening hours"
-   },
-   "prompt": "Look at the sign. When can you buy a book on Saturday?",
-   "answer": "between 10 a.m. and 2 p.m.",
-   "distractors": [
-    "between 9 a.m. and 5 p.m.",
-    "all day",
-    "You can't: the shop is closed."
-   ],
-   "explanation": "On Saturday the shop opens at 10:00 and closes at 14:00.",
-   "tags": [
-    "picture",
-    "reading",
-    "time"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "media": {
-    "type": "image",
-    "path": "samples/shop_hours.png",
-    "caption": "Bookshop opening hours"
-   },
-   "prompt": "Look at the sign. On which day is the bookshop closed?",
-   "answer": "Sunday",
-   "distractors": [
-    "Saturday",
-    "Monday",
-    "Friday"
-   ],
-   "explanation": "The sign says Sunday: closed.",
-   "tags": [
-    "picture",
-    "reading"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "vocabulary",
-   "media": {
-    "type": "video",
-    "path": "samples/clock_2_to_quarter_to_3.mp4",
-    "caption": "A clock (7 seconds)"
-   },
-   "prompt": "Watch the clock. What time is it at the end of the video?",
-   "answer": "It's quarter to three.",
-   "distractors": [
-    "It's quarter past two.",
-    "It's half past two.",
-    "It's quarter past three."
-   ],
-   "explanation": "The long hand stops on 9 and the short hand is almost on 3: 2:45, quarter to three.",
-   "tags": [
-    "video",
-    "time"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "media": {
-    "type": "video",
-    "path": "samples/saras_day.mp4",
-    "caption": "Sara's day (10 seconds)"
-   },
-   "prompt": "Watch the video. What does Sara do after breakfast?",
-   "answer": "She takes the bus to work.",
-   "distractors": [
-    "She goes to the gym.",
-    "She wakes up.",
-    "She has lunch with a friend."
-   ],
-   "explanation": "7:30 breakfast, then 8:00 the bus to work.",
-   "tags": [
-    "video",
-    "daily_routine"
-   ]
-  },
-  {
-   "level": "A2",
-   "skill": "reading",
-   "media": {
-    "type": "video",
-    "path": "samples/saras_day.mp4",
-    "caption": "Sara's day (10 seconds)"
-   },
-   "prompt": "Watch the video. What time does Sara go to the gym?",
-   "answer": "at 6 p.m.",
-   "distractors": [
-    "at 8 a.m.",
-    "at 1 p.m.",
-    "at 7.30 a.m."
-   ],
-   "explanation": "The last scene shows 18:00, which is 6 p.m.",
-   "tags": [
-    "video",
-    "time"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "grammar",
-   "prompt": "Choose the correct conditional sentence:",
-   "answer": "If I see her, I'll tell her.",
-   "distractors": [
-    "If I will see her, I'll tell her.",
-    "If I'll see her, I tell her.",
-    "If I saw her, I'll tell her."
-   ],
-   "explanation": "First conditional: if + present simple, will + verb.",
-   "tags": [
-    "conditionals",
-    "correct_sentence"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "grammar",
-   "prompt": "Find the mistake: \"I'm looking forward to meet you.\" Which word is wrong?",
-   "answer": "meet",
-   "distractors": [
-    "looking",
-    "forward",
-    "you"
-   ],
-   "explanation": "'Look forward to' is followed by -ing: to meeting you.",
-   "tags": [
-    "gerunds",
-    "error_spotting"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "grammar",
-   "prompt": "Find the mistake: \"She has worked here since three years.\" Which word is wrong?",
-   "answer": "since",
-   "distractors": [
-    "has",
-    "worked",
-    "here"
-   ],
-   "explanation": "With a period of time we use 'for': for three years.",
-   "tags": [
-    "present_perfect",
-    "error_spotting"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "A: Do you mind if I open the window?  B: ___",
-   "answer": "No, not at all. Go ahead.",
-   "distractors": [
-    "Yes, please open it.",
-    "No, I mind.",
-    "Yes, I don't mind."
-   ],
-   "explanation": "'Do you mind…?' = is it a problem? 'No, not at all' gives permission.",
-   "tags": [
-    "dialogue",
-    "functions"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "A: I failed my driving test again.  B: ___",
-   "answer": "Oh no, I'm sorry to hear that.",
-   "distractors": [
-    "Congratulations!",
-    "That's a pity you passed.",
-    "I'm glad to hear that."
-   ],
-   "explanation": "We show sympathy with 'I'm sorry to hear that.'",
-   "tags": [
-    "dialogue",
-    "functions"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "grammar",
-   "prompt": "The book ___ by millions of people since it came out.",
-   "answer": "has been read",
-   "distractors": [
-    "has read",
-    "was reading",
-    "is reading"
-   ],
-   "explanation": "Present perfect passive: has been + past participle.",
-   "tags": [
-    "passive",
-    "present_perfect"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "grammar",
-   "prompt": "He asked me if I ___ come to the party.",
-   "answer": "could",
-   "distractors": [
-    "can I",
-    "could I",
-    "will I"
-   ],
-   "explanation": "Reported questions use statement word order: if I could.",
-   "tags": [
-    "reported_speech"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "grammar",
-   "prompt": "You'd better ___ a coat; it's freezing.",
-   "answer": "wear",
-   "distractors": [
-    "to wear",
-    "wearing",
-    "wore"
-   ],
-   "explanation": "'Had better' is followed by the base form.",
-   "tags": [
-    "modals"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "grammar",
-   "prompt": "I'm interested ___ learning photography.",
-   "answer": "in",
-   "distractors": [
-    "on",
-    "for",
-    "about"
-   ],
-   "explanation": "We say 'interested in'.",
-   "tags": [
-    "adjective_prepositions"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "grammar",
-   "prompt": "Whether we go or not depends ___ the weather.",
-   "answer": "on",
-   "distractors": [
-    "of",
-    "from",
-    "in"
-   ],
-   "explanation": "We say 'depend on'.",
-   "tags": [
-    "verb_prepositions"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "Which word is closest in meaning to 'huge'?",
-   "answer": "enormous",
-   "distractors": [
-    "tiny",
-    "heavy",
-    "tall"
-   ],
-   "explanation": "Huge = enormous = very big.",
-   "tags": [
-    "synonyms"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "Which word is the opposite of 'generous'?",
-   "answer": "mean",
-   "distractors": [
-    "kind",
-    "poor",
-    "shy"
-   ],
-   "explanation": "A mean person does not like giving or spending.",
-   "tags": [
-    "opposites"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "Our teacher is very ___; she always explains things twice. (HELP)",
-   "answer": "helpful",
-   "distractors": [
-    "helpless",
-    "helping",
-    "helped"
-   ],
-   "explanation": "Help → helpful (adjective: giving help).",
-   "tags": [
-    "word_formation"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "I was very ___ with the hotel; the room was dirty. (SATISFY)",
-   "answer": "dissatisfied",
-   "distractors": [
-    "satisfied",
-    "satisfying",
-    "unsatisfy"
-   ],
-   "explanation": "A dirty room makes you dissatisfied (not happy).",
-   "tags": [
-    "word_formation"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "Could you turn ___ the music a little? I'm trying to sleep.",
-   "answer": "down",
-   "distractors": [
-    "up",
-    "over",
-    "into"
-   ],
-   "explanation": "'Turn down' = make quieter.",
-   "tags": [
-    "phrasal_verbs"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "Our flight was ___, so we had to book a new one for the next day.",
-   "answer": "cancelled",
-   "distractors": [
-    "boarded",
-    "landed",
-    "checked in"
-   ],
-   "explanation": "A cancelled flight does not happen, so you need another one.",
-   "tags": [
-    "travel"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "grammar",
-   "prompt": "'I am tired,' she said. Choose the correct reported sentence:",
-   "answer": "She said she was tired.",
-   "distractors": [
-    "She said I was tired.",
-    "She said she is tired yesterday.",
-    "She told she was tired."
-   ],
-   "explanation": "In reported speech 'am' usually becomes 'was'; 'tell' needs an object.",
-   "tags": [
-    "reported_speech"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "grammar",
-   "prompt": "Which sentence uses the passive correctly?",
-   "answer": "The windows are cleaned every week.",
-   "distractors": [
-    "The windows cleaned every week.",
-    "The windows are cleaning every week.",
-    "The windows is cleaned every week."
-   ],
-   "explanation": "Present simple passive: are + past participle.",
-   "tags": [
-    "passive"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "passage": "B1_SCREENS",
-   "prompt": "What did the study find about using phones late at night?",
-   "answer": "It was linked to less sleep.",
-   "distractors": [
-    "It helped students relax.",
-    "It made students happier.",
-    "It had no effect on sleep."
-   ],
-   "explanation": "They 'slept, on average, one hour less'.",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "passage": "B1_SCREENS",
-   "prompt": "What do the researchers recommend?",
-   "answer": "switching phones off an hour before going to bed",
-   "distractors": [
-    "using phones for only six hours a day",
-    "doing sport every day",
-    "sleeping one hour less"
-   ],
-   "explanation": "'Students should turn off their phones an hour before bed.'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "passage": "B1_SCREENS",
-   "prompt": "How many students took part in the study?",
-   "answer": "2,000",
-   "distractors": [
-    "6",
-    "200",
-    "20,000"
-   ],
-   "explanation": "'A recent study of 2,000 students'.",
-   "tags": [
-    "reading",
-    "numbers"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "passage": "B1_VOLUNTEERS",
-   "prompt": "What will the volunteers do?",
-   "answer": "plant trees in parks",
-   "distractors": [
-    "clean the streets",
-    "teach children",
-    "build a new park"
-   ],
-   "explanation": "'Volunteers to plant trees in local parks'.",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "passage": "B1_VOLUNTEERS",
-   "prompt": "Volunteer advert: which statement is true?",
-   "answer": "Volunteers do not need any experience.",
-   "distractors": [
-    "Volunteers must bring their own tools.",
-    "The project runs all year.",
-    "Anyone of any age can apply."
-   ],
-   "explanation": "'No experience is necessary.'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "passage": "B1_VOLUNTEERS",
-   "prompt": "What is the last day to apply?",
-   "answer": "20 March",
-   "distractors": [
-    "the first Saturday in April",
-    "the end of June",
-    "any Saturday morning"
-   ],
-   "explanation": "'Send an email to Nazdar by 20 March.'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "media": {
-    "type": "image",
-    "path": "samples/no_parking.png",
-    "caption": "A road sign"
-   },
-   "prompt": "Look at the sign. What does it mean?",
-   "answer": "You must not park here.",
-   "distractors": [
-    "You can park here for free.",
-    "There is a car park nearby.",
-    "Only buses can park here."
-   ],
-   "explanation": "A 'P' with a red line through it means no parking.",
-   "tags": [
-    "picture",
-    "signs"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "reading",
-   "media": {
-    "type": "image",
-    "path": "samples/sales_chart.png",
-    "caption": "A bar chart"
-   },
-   "prompt": "Look at the chart. In which month were the fewest bicycles sold?",
-   "answer": "March",
-   "distractors": [
-    "January",
-    "February",
-    "April"
-   ],
-   "explanation": "The March bar is the shortest (20).",
-   "tags": [
-    "picture",
-    "charts"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "grammar",
-   "prompt": "Choose the correct sentence about a past regret:",
-   "answer": "I wish I had studied harder for the exam.",
-   "distractors": [
-    "I wish I studied harder for the exam last year.",
-    "I wish I have studied harder for the exam.",
-    "I wish I would study harder for the exam yesterday."
-   ],
-   "explanation": "Regrets about the past: wish + past perfect.",
-   "tags": [
-    "wishes",
-    "correct_sentence"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "grammar",
-   "prompt": "Find the mistake: \"Despite of the rain, we enjoyed the trip.\" Which word is wrong?",
-   "answer": "of",
-   "distractors": [
-    "Despite",
-    "rain",
-    "enjoyed"
-   ],
-   "explanation": "'Despite' is not followed by 'of' (but 'in spite of' is).",
-   "tags": [
-    "linkers",
-    "error_spotting"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "grammar",
-   "prompt": "Find the mistake: \"The informations you gave me helped a lot.\" Which word is wrong?",
-   "answer": "informations",
-   "distractors": [
-    "gave",
-    "helped",
-    "lot"
-   ],
-   "explanation": "'Information' is uncountable: no plural -s.",
-   "tags": [
-    "uncountable",
-    "error_spotting"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "A: I'm thinking of quitting my job.  B: ___",
-   "answer": "Are you sure? You might regret it.",
-   "distractors": [
-    "Yes, I quit it yesterday.",
-    "Congratulations on your promotion!",
-    "No, thanks, I'm full."
-   ],
-   "explanation": "B reacts to a plan and gives a warning.",
-   "tags": [
-    "dialogue",
-    "functions"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "grammar",
-   "prompt": "By the time you arrive, we ___ dinner.",
-   "answer": "will have finished",
-   "distractors": [
-    "will finish",
-    "have finished",
-    "finished"
-   ],
-   "explanation": "Future perfect: completed before a future moment.",
-   "tags": [
-    "future_perfect"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "grammar",
-   "prompt": "She denied ___ the money.",
-   "answer": "taking",
-   "distractors": [
-    "to take",
-    "take",
-    "that take"
-   ],
-   "explanation": "'Deny' is followed by -ing.",
-   "tags": [
-    "gerunds"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "The film was so ___ that we left before the end.",
-   "answer": "dull",
-   "distractors": [
-    "thrilling",
-    "gripping",
-    "entertaining"
-   ],
-   "explanation": "We leave early when a film is dull (boring).",
-   "tags": [
-    "adjectives"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "grammar",
-   "prompt": "Unless you ___ now, you'll miss the train.",
-   "answer": "leave",
-   "distractors": [
-    "don't leave",
-    "will leave",
-    "left"
-   ],
-   "explanation": "'Unless' = if not, followed by a present verb.",
-   "tags": [
-    "conditionals"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "grammar",
-   "prompt": "The report needs ___ by Friday.",
-   "answer": "to be finished",
-   "distractors": [
-    "to finish",
-    "finish",
-    "be finished"
-   ],
-   "explanation": "Passive infinitive after 'need': needs to be finished.",
-   "tags": [
-    "passive"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "Which word is closest in meaning to 'reluctant'?",
-   "answer": "unwilling",
-   "distractors": [
-    "eager",
-    "relieved",
-    "careless"
-   ],
-   "explanation": "Reluctant = not wanting to do something.",
-   "tags": [
-    "synonyms"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "Which word is closest in meaning to 'reliable'?",
-   "answer": "dependable",
-   "distractors": [
-    "relaxed",
-    "available",
-    "flexible"
-   ],
-   "explanation": "Reliable = you can depend on it.",
-   "tags": [
-    "synonyms"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "The ___ of the new bridge took three years. (CONSTRUCT)",
-   "answer": "construction",
-   "distractors": [
-    "constructive",
-    "constructor",
-    "constructed"
-   ],
-   "explanation": "A noun is needed after 'the': construction.",
-   "tags": [
-    "word_formation"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "His ___ to help surprised everyone. (WILLING)",
-   "answer": "willingness",
-   "distractors": [
-    "unwilling",
-    "willingly",
-    "willed"
-   ],
-   "explanation": "A noun is needed after 'his': willingness.",
-   "tags": [
-    "word_formation"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "The company has ___ a profit for the first time in five years.",
-   "answer": "made",
-   "distractors": [
-    "done",
-    "taken",
-    "given"
-   ],
-   "explanation": "Collocation: make a profit.",
-   "tags": [
-    "collocations"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "She ___ a lot of attention when she walked into the room.",
-   "answer": "attracted",
-   "distractors": [
-    "pulled",
-    "made",
-    "paid"
-   ],
-   "explanation": "Collocation: attract attention.",
-   "tags": [
-    "collocations"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "I came ___ an old photo while I was cleaning the attic.",
-   "answer": "across",
-   "distractors": [
-    "up",
-    "through",
-    "along"
-   ],
-   "explanation": "'Come across' = find by chance.",
-   "tags": [
-    "phrasal_verbs"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "We've run ___ of milk, so I'm going to the shop.",
-   "answer": "out",
-   "distractors": [
-    "off",
-    "away",
-    "down"
-   ],
-   "explanation": "'Run out of' = have none left.",
-   "tags": [
-    "phrasal_verbs"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "grammar",
-   "prompt": "The hotel was expensive; ___, the service was excellent.",
-   "answer": "however",
-   "distractors": [
-    "therefore",
-    "for example",
-    "as a result"
-   ],
-   "explanation": "'However' introduces a contrast.",
-   "tags": [
-    "linkers"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "passage": "B2_REMOTE",
-   "prompt": "According to the text, what is one advantage of remote work?",
-   "answer": "People spend less time travelling to work.",
-   "distractors": [
-    "New employees learn faster.",
-    "Work and private life are clearly separated.",
-    "Companies pay higher salaries."
-   ],
-   "explanation": "Supporters say it 'saves commuting time'.",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "passage": "B2_REMOTE",
-   "prompt": "According to critics, who may lose out most from remote work?",
-   "answer": "new employees",
-   "distractors": [
-    "managers",
-    "commuters",
-    "older staff"
-   ],
-   "explanation": "'New employees in particular may miss out on the informal learning'.",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "passage": "B2_REMOTE",
-   "prompt": "What is a 'hybrid' model?",
-   "answer": "working partly at home and partly in the office",
-   "distractors": [
-    "working only from home",
-    "working for two different companies",
-    "working at night and at weekends"
-   ],
-   "explanation": "'Staff spend part of the week at home and part in the office.'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "passage": "B2_REMOTE",
-   "prompt": "In the text, the word 'blur' is closest in meaning to ___.",
-   "answer": "make less clear",
-   "distractors": [
-    "make stronger",
-    "separate",
-    "explain"
-   ],
-   "explanation": "To blur a line is to make it less clear.",
-   "tags": [
-    "reading",
-    "vocabulary_in_context"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "passage": "B2_REVIEW",
-   "prompt": "What is the writer's overall opinion of the film?",
-   "answer": "mixed, but mostly disappointed",
-   "distractors": [
-    "completely positive",
-    "completely negative",
-    "they have no opinion"
-   ],
-   "explanation": "The writer praises the photography and acting but was disappointed overall.",
-   "tags": [
-    "reading",
-    "attitude"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "passage": "B2_REVIEW",
-   "prompt": "What did the writer like about the film?",
-   "answer": "the photography and the lead actress",
-   "distractors": [
-    "the fast plot",
-    "the clear ending",
-    "the gripping story"
-   ],
-   "explanation": "'The photography is breathtaking and the lead actress gives a convincing performance.'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "passage": "B2_REVIEW",
-   "prompt": "Why did the writer keep checking the time?",
-   "answer": "The story moved very slowly.",
-   "distractors": [
-    "The film was too short.",
-    "The cinema was cold.",
-    "The writer was late for another film."
-   ],
-   "explanation": "'The plot is so slow that I kept checking the time.'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "media": {
-    "type": "image",
-    "path": "samples/sales_chart.png",
-    "caption": "A bar chart"
-   },
-   "prompt": "Look at the chart. Which statement is true?",
-   "answer": "Sales rose every month from March to June.",
-   "distractors": [
-    "Sales fell steadily over the six months.",
-    "Sales were highest in January.",
-    "Sales in May were lower than in April."
-   ],
-   "explanation": "March 20, April 30, May 45, June 60: they rose every month.",
-   "tags": [
-    "picture",
-    "charts"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "media": {
-    "type": "video",
-    "path": "samples/museum_visitors.mp4",
-    "caption": "Museum visitors (6 seconds)"
-   },
-   "prompt": "Watch the video. What happened to the number of visitors between 2020 and 2024?",
-   "answer": "It doubled.",
-   "distractors": [
-    "It halved.",
-    "It stayed the same.",
-    "It tripled."
-   ],
-   "explanation": "From 200,000 to 400,000: twice as many.",
-   "tags": [
-    "video",
-    "charts"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "reading",
-   "media": {
-    "type": "video",
-    "path": "samples/museum_visitors.mp4",
-    "caption": "Museum visitors (6 seconds)"
-   },
-   "prompt": "Watch the video. By how much did visitor numbers increase between 2022 and 2024?",
-   "answer": "by 100,000",
-   "distractors": [
-    "by 200,000",
-    "by 300,000",
-    "by 50,000"
-   ],
-   "explanation": "300,000 in 2022 and 400,000 in 2024.",
-   "tags": [
-    "video",
-    "charts",
-    "numbers"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "grammar",
-   "prompt": "Choose the most natural sentence:",
-   "answer": "Hardly anyone turned up to the meeting.",
-   "distractors": [
-    "Hardly no one turned up to the meeting.",
-    "Hardly anyone didn't turn up to the meeting.",
-    "Hard anyone turned up to the meeting."
-   ],
-   "explanation": "'Hardly' is already negative, so it takes 'anyone', not a second negative.",
-   "tags": [
-    "negatives",
-    "correct_sentence"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "grammar",
-   "prompt": "Find the mistake: \"The number of applicants have risen sharply.\" Which word is wrong?",
-   "answer": "have",
-   "distractors": [
-    "number",
-    "applicants",
-    "sharply"
-   ],
-   "explanation": "'The number of…' takes a singular verb: has risen.",
-   "tags": [
-    "agreement",
-    "error_spotting"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "grammar",
-   "prompt": "Find the mistake: \"She suggested me to apply for the job.\" Which part is wrong?",
-   "answer": "me to apply",
-   "distractors": [
-    "suggested",
-    "for",
-    "the job"
-   ],
-   "explanation": "Say 'suggested that I apply' or 'suggested applying'.",
-   "tags": [
-    "verb_patterns",
-    "error_spotting"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "grammar",
-   "prompt": "Should you need any help, ___ hesitate to contact us.",
-   "answer": "don't",
-   "distractors": [
-    "not",
-    "no",
-    "won't"
-   ],
-   "explanation": "Fixed formal phrase: 'Should you need…, don't hesitate to…'.",
-   "tags": [
-    "inversion",
-    "formal"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "grammar",
-   "prompt": "It's no use ___ about it now; the decision has been made.",
-   "answer": "complaining",
-   "distractors": [
-    "to complain",
-    "complain",
-    "complained"
-   ],
-   "explanation": "'It's no use' is followed by -ing.",
-   "tags": [
-    "gerunds"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "grammar",
-   "prompt": "She is said to ___ fluent Arabic as a child.",
-   "answer": "have spoken",
-   "distractors": [
-    "speak",
-    "be speaking",
-    "had spoken"
-   ],
-   "explanation": "Reporting the past: be said to + have + past participle.",
-   "tags": [
-    "passive_reporting"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "vocabulary",
-   "prompt": "Which phrase is closest in meaning to 'scrutinise'?",
-   "answer": "examine closely",
-   "distractors": [
-    "praise",
-    "ignore",
-    "summarise"
-   ],
-   "explanation": "To scrutinise is to examine very carefully.",
-   "tags": [
-    "synonyms"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "vocabulary",
-   "prompt": "Which phrase is closest in meaning to 'mitigate'?",
-   "answer": "reduce the harm of",
-   "distractors": [
-    "make worse",
-    "measure",
-    "mention"
-   ],
-   "explanation": "To mitigate is to make something bad less severe.",
-   "tags": [
-    "synonyms"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "vocabulary",
-   "prompt": "The ___ of the data is questionable. (RELY)",
-   "answer": "reliability",
-   "distractors": [
-    "reliance",
-    "reliably",
-    "reliant"
-   ],
-   "explanation": "Reliability = how far something can be trusted.",
-   "tags": [
-    "word_formation"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "vocabulary",
-   "prompt": "Her ___ remarks offended several colleagues. (SENSITIVE)",
-   "answer": "insensitive",
-   "distractors": [
-    "sensitivity",
-    "sensible",
-    "sensitively"
-   ],
-   "explanation": "Remarks that offend people are insensitive.",
-   "tags": [
-    "word_formation"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "vocabulary",
-   "prompt": "The government has ___ a series of measures to tackle unemployment.",
-   "answer": "introduced",
-   "distractors": [
-    "made up",
-    "set off",
-    "brought round"
-   ],
-   "explanation": "Collocation: introduce measures.",
-   "tags": [
-    "collocations"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "vocabulary",
-   "prompt": "These findings ___ serious doubt on the theory.",
-   "answer": "cast",
-   "distractors": [
-    "give",
-    "put",
-    "make"
-   ],
-   "explanation": "Collocation: cast doubt on something.",
-   "tags": [
-    "collocations"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "vocabulary",
-   "prompt": "The negotiations broke ___ after the two sides failed to agree.",
-   "answer": "down",
-   "distractors": [
-    "in",
-    "away",
-    "through"
-   ],
-   "explanation": "'Break down' = fail and stop.",
-   "tags": [
-    "phrasal_verbs"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "grammar",
-   "prompt": "___ his lack of experience, he was offered the job.",
-   "answer": "Notwithstanding",
-   "distractors": [
-    "Although",
-    "Whereas",
-    "Provided"
-   ],
-   "explanation": "'Notwithstanding' (= despite) is followed by a noun phrase.",
-   "tags": [
-    "linkers",
-    "formal"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "vocabulary",
-   "prompt": "Which sentence has the right register for a formal letter?",
-   "answer": "I am writing to enquire about the position advertised.",
-   "distractors": [
-    "I'm writing to ask about the job you put up.",
-    "Just wanted to ask about that job.",
-    "Hey, is the job still free?"
-   ],
-   "explanation": "Formal letters avoid contractions and informal phrases.",
-   "tags": [
-    "register",
-    "writing"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "passage": "C1_MULTITASK",
-   "prompt": "According to the passage, multitasking is actually ___.",
-   "answer": "quick switching between tasks",
-   "distractors": [
-    "doing two things truly at the same time",
-    "a skill most people master with practice",
-    "the best way to save time"
-   ],
-   "explanation": "'…is, in reality, rapid switching between tasks'.",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "passage": "C1_MULTITASK",
-   "prompt": "What is paradoxical about people who think they multitask well?",
-   "answer": "They tend to do worse on attention tests.",
-   "distractors": [
-    "They sleep less than others.",
-    "They never switch tasks.",
-    "They are better at batching."
-   ],
-   "explanation": "They 'often perform worse on tests of attention'.",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "passage": "C1_MULTITASK",
-   "prompt": "What do the researchers recommend?",
-   "answer": "grouping similar tasks together",
-   "distractors": [
-    "giving up all multitasking",
-    "switching tasks more often",
-    "taking longer breaks"
-   ],
-   "explanation": "They advocate 'batching' similar tasks together.",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "passage": "C1_MULTITASK",
-   "prompt": "The phrase 'called into question' is closest in meaning to ___.",
-   "answer": "doubted",
-   "distractors": [
-    "confirmed",
-    "advertised",
-    "ignored"
-   ],
-   "explanation": "To call something into question is to doubt it.",
-   "tags": [
-    "reading",
-    "vocabulary_in_context"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "passage": "C1_ROOFTOP",
-   "prompt": "What is the main point of the passage about rooftop gardens?",
-   "answer": "Their benefits depend on how they are designed.",
-   "distractors": [
-    "They always save water.",
-    "Older buildings are ideal for them.",
-    "They should be banned in dry cities."
-   ],
-   "explanation": "'Yet their benefits depend heavily on design.'",
-   "tags": [
-    "reading",
-    "main_idea"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "passage": "C1_ROOFTOP",
-   "prompt": "Why might shallow gardens be a problem in dry cities?",
-   "answer": "They need a lot of watering.",
-   "distractors": [
-    "They are too heavy.",
-    "They make buildings hotter.",
-    "They are too expensive to build."
-   ],
-   "explanation": "Shallow soil 'dries out quickly… requiring frequent watering'.",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "passage": "C1_ROOFTOP",
-   "prompt": "What is the drawback of deeper systems?",
-   "answer": "their weight",
-   "distractors": [
-    "their poor insulation",
-    "their low cost",
-    "their constant need for water"
-   ],
-   "explanation": "Deeper systems 'add considerable weight'.",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "media": {
-    "type": "image",
-    "path": "samples/sales_chart.png",
-    "caption": "A bar chart"
-   },
-   "prompt": "Which description of the chart is most accurate?",
-   "answer": "After a dip in the first quarter, sales recovered strongly.",
-   "distractors": [
-    "Sales grew steadily throughout the period.",
-    "Sales peaked in January and then declined.",
-    "Sales remained broadly stable."
-   ],
-   "explanation": "Sales fell from 40 to 20 (Jan–Mar), then rose to 60 by June.",
-   "tags": [
-    "picture",
-    "charts",
-    "describing_trends"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "reading",
-   "media": {
-    "type": "video",
-    "path": "samples/museum_visitors.mp4",
-    "caption": "Museum visitors (6 seconds)"
-   },
-   "prompt": "Watch the video. Which sentence best describes the trend?",
-   "answer": "Visitor numbers rose steadily, doubling over four years.",
-   "distractors": [
-    "Visitor numbers fluctuated wildly.",
-    "Visitor numbers peaked in 2022 before falling.",
-    "Visitor numbers remained flat throughout."
-   ],
-   "explanation": "200 → 300 → 400 thousand: a steady rise that doubles the total.",
-   "tags": [
-    "video",
-    "charts",
-    "describing_trends"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "Choose the most idiomatic sentence:",
-   "answer": "The proposal was shelved for the time being.",
-   "distractors": [
-    "The proposal was put on the shelf for being.",
-    "The proposal was shelved for the being time.",
-    "The proposal was shelving for the time being."
-   ],
-   "explanation": "'Shelve' = postpone; 'for the time being' = for now.",
-   "tags": [
-    "idioms",
-    "correct_sentence"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "grammar",
-   "prompt": "Find the mistake: \"Scarcely had the meeting begun than the fire alarm went off.\" Which word is wrong?",
-   "answer": "than",
-   "distractors": [
-    "Scarcely",
-    "had",
-    "went off"
-   ],
-   "explanation": "The pattern is 'Scarcely… when'; 'than' goes with 'No sooner'.",
-   "tags": [
-    "inversion",
-    "error_spotting"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "grammar",
-   "prompt": "No sooner ___ the contract than the company went bankrupt.",
-   "answer": "had they signed",
-   "distractors": [
-    "they had signed",
-    "did they signed",
-    "they signed"
-   ],
-   "explanation": "'No sooner' at the start needs inversion: had they signed.",
-   "tags": [
-    "inversion"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "grammar",
-   "prompt": "Rarely ___ such a compelling argument been made.",
-   "answer": "has",
-   "distractors": [
-    "is",
-    "did",
-    "had been"
-   ],
-   "explanation": "Inversion with the present perfect passive: has … been made.",
-   "tags": [
-    "inversion"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "The minister was accused of being ___ with the truth.",
-   "answer": "economical",
-   "distractors": [
-    "economic",
-    "thrifty",
-    "frugal"
-   ],
-   "explanation": "'Economical with the truth' is an idiom meaning not telling the whole truth.",
-   "tags": [
-    "idioms"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "Which phrase is closest in meaning to 'obfuscate'?",
-   "answer": "make unclear",
-   "distractors": [
-    "make obvious",
-    "delay",
-    "exaggerate"
-   ],
-   "explanation": "To obfuscate is to make something deliberately unclear.",
-   "tags": [
-    "synonyms"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "Which phrase is closest in meaning to 'ubiquitous'?",
-   "answer": "found everywhere",
-   "distractors": [
-    "extremely rare",
-    "highly valuable",
-    "very old"
-   ],
-   "explanation": "Ubiquitous = present everywhere.",
-   "tags": [
-    "synonyms"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "Which word is closest in meaning to 'sanguine' (about the future)?",
-   "answer": "optimistic",
-   "distractors": [
-    "furious",
-    "indifferent",
-    "exhausted"
-   ],
-   "explanation": "Sanguine = cheerfully optimistic.",
-   "tags": [
-    "synonyms"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "The ___ of the evidence led to the case being dismissed. (SUFFICIENT)",
-   "answer": "insufficiency",
-   "distractors": [
-    "sufficiency",
-    "sufficiently",
-    "insufficient"
-   ],
-   "explanation": "A noun meaning 'not enough' is needed: insufficiency.",
-   "tags": [
-    "word_formation"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "His argument was full of ___. (CONSISTENT)",
-   "answer": "inconsistencies",
-   "distractors": [
-    "consistency",
-    "inconsistent",
-    "consistently"
-   ],
-   "explanation": "'Full of' needs a plural noun: inconsistencies.",
-   "tags": [
-    "word_formation"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "After weeks of arguing, they finally decided to bury the ___.",
-   "answer": "hatchet",
-   "distractors": [
-    "sword",
-    "knife",
-    "hammer"
-   ],
-   "explanation": "'Bury the hatchet' = make peace.",
-   "tags": [
-    "idioms"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "The new manager is a breath of fresh ___.",
-   "answer": "air",
-   "distractors": [
-    "wind",
-    "sky",
-    "spring"
-   ],
-   "explanation": "'A breath of fresh air' = someone new and refreshing.",
-   "tags": [
-    "idioms"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "The decision was met with ___ criticism from all sides.",
-   "answer": "fierce",
-   "distractors": [
-    "tall",
-    "steep",
-    "thick"
-   ],
-   "explanation": "Collocation: fierce criticism.",
-   "tags": [
-    "collocations"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "Which is the most formal way to say 'get rid of'?",
-   "answer": "dispose of",
-   "distractors": [
-    "chuck out",
-    "bin",
-    "ditch"
-   ],
-   "explanation": "'Dispose of' is formal; the others are informal.",
-   "tags": [
-    "register"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "grammar",
-   "prompt": "Which sentence expresses the strongest certainty about the past?",
-   "answer": "She must have left already.",
-   "distractors": [
-    "She might have left already.",
-    "She could have left already.",
-    "She may have left already."
-   ],
-   "explanation": "'Must have' = almost certain; might/could/may = possible.",
-   "tags": [
-    "modals_past"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "passage": "C2_INTELLIGENCE",
-   "prompt": "What criticism was made of early intelligence tests?",
-   "answer": "They favoured people familiar with the test-makers' culture.",
-   "distractors": [
-    "They were too short to be reliable.",
-    "They measured too many separate abilities.",
-    "They were designed by untrained psychologists."
-   ],
-   "explanation": "Critics said the tests 'rewarded familiarity with the culture of those who designed them'.",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "passage": "C2_INTELLIGENCE",
-   "prompt": "Why do some people dismiss the idea of multiple intelligences?",
-   "answer": "They think it is too broad to mean anything.",
-   "distractors": [
-    "They think it is too narrow.",
-    "They think it ignores spatial ability.",
-    "They believe no tests could be designed for it."
-   ],
-   "explanation": "It is dismissed 'as so elastic as to be meaningless'.",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "passage": "C2_INTELLIGENCE",
-   "prompt": "Which statement reflects the author's final point?",
-   "answer": "Definitions of intelligence reveal a society's values.",
-   "distractors": [
-    "Intelligence cannot be measured at all.",
-    "The theory of multiple intelligences is correct.",
-    "General intelligence is the only valid concept."
-   ],
-   "explanation": "The way a society defines intelligence 'reveals as much about its values'.",
-   "tags": [
-    "reading",
-    "main_idea"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "passage": "C2_INTELLIGENCE",
-   "prompt": "In the passage, 'slippery' means ___.",
-   "answer": "hard to define precisely",
-   "distractors": [
-    "dangerous to use",
-    "easy to measure",
-    "widely accepted"
-   ],
-   "explanation": "A slippery concept is hard to pin down.",
-   "tags": [
-    "reading",
-    "vocabulary_in_context"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "passage": "C2_PEDESTRIAN",
-   "prompt": "How did shopkeepers first react to the plan?",
-   "answer": "They opposed it, fearing a loss of business.",
-   "distractors": [
-    "They welcomed it enthusiastically.",
-    "They asked for higher rents.",
-    "They proposed it to the council."
-   ],
-   "explanation": "There was 'a chorus of objections… who predicted a collapse in trade'.",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "passage": "C2_PEDESTRIAN",
-   "prompt": "What has happened to the number of visitors to the old quarter?",
-   "answer": "It has risen by about a third.",
-   "distractors": [
-    "It has fallen by a third.",
-    "It has stayed the same.",
-    "It has tripled."
-   ],
-   "explanation": "'Footfall has risen by a third.'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "passage": "C2_PEDESTRIAN",
-   "prompt": "What new problem do the shopkeepers point out?",
-   "answer": "Rising rents are forcing some businesses out.",
-   "distractors": [
-    "There are now too few visitors.",
-    "Cars still enter the old quarter.",
-    "The council has closed several shops."
-   ],
-   "explanation": "'Rents have climbed accordingly, pricing some long-standing businesses out.'",
-   "tags": [
-    "reading"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "reading",
-   "passage": "C2_PEDESTRIAN",
-   "prompt": "'Their fears were misplaced' means the fears were ___.",
-   "answer": "unjustified",
-   "distractors": [
-    "hidden",
-    "deliberately exaggerated",
-    "shared by everyone"
-   ],
-   "explanation": "Misplaced fears turned out to be wrong.",
-   "tags": [
-    "reading",
-    "vocabulary_in_context"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "A: Shall we go to the cinema tonight?  B: ___",
-   "answer": "I'd love to, but I have to study.",
-   "distractors": [
-    "Yes, we shall went.",
-    "I'd love going, but I have studied.",
-    "No, we didn't."
-   ],
-   "explanation": "A polite refusal with a reason.",
-   "tags": [
-    "dialogue",
-    "invitations"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "grammar",
-   "prompt": "I've never been to Paris, and my sister hasn't ___.",
-   "answer": "either",
-   "distractors": [
-    "too",
-    "neither",
-    "also"
-   ],
-   "explanation": "In negative sentences we use 'either' at the end.",
-   "tags": [
-    "agreement"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "grammar",
-   "prompt": "If I were you, I ___ apply for that job.",
-   "answer": "would",
-   "distractors": [
-    "will",
-    "am",
-    "did"
-   ],
-   "explanation": "Advice: If I were you, I would…",
-   "tags": [
-    "conditionals",
-    "advice"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "grammar",
-   "prompt": "This is the town ___ I grew up.",
-   "answer": "where",
-   "distractors": [
-    "which",
-    "who",
-    "what"
-   ],
-   "explanation": "'Where' refers to a place in relative clauses.",
-   "tags": [
-    "relative_clauses"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "Which word is closest in meaning to 'purchase'?",
-   "answer": "buy",
-   "distractors": [
-    "sell",
-    "borrow",
-    "return"
-   ],
-   "explanation": "To purchase = to buy.",
-   "tags": [
-    "synonyms"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "Sorry I'm late. I got stuck in ___ traffic.",
-   "answer": "heavy",
-   "distractors": [
-    "hard",
-    "thick",
-    "fat"
-   ],
-   "explanation": "Collocation: heavy traffic.",
-   "tags": [
-    "collocations"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "She ___ her driving test on her first attempt.",
-   "answer": "passed",
-   "distractors": [
-    "succeeded",
-    "won",
-    "achieved"
-   ],
-   "explanation": "Collocation: pass a test.",
-   "tags": [
-    "collocations"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "grammar",
-   "prompt": "My phone needs ___. The battery is almost empty.",
-   "answer": "charging",
-   "distractors": [
-    "charge",
-    "charged",
-    "be charging"
-   ],
-   "explanation": "'Need + -ing' has a passive meaning: it needs to be charged.",
-   "tags": [
-    "gerunds"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "vocabulary",
-   "prompt": "We had to ___ the match because of the storm, so it never happened.",
-   "answer": "call off",
-   "distractors": [
-    "call up",
-    "call back",
-    "call in"
-   ],
-   "explanation": "'Call off' = cancel.",
-   "tags": [
-    "phrasal_verbs"
-   ]
-  },
-  {
-   "level": "B1",
-   "skill": "grammar",
-   "prompt": "Find the mistake: \"If it will rain tomorrow, we'll stay at home.\" Which word is wrong?",
-   "answer": "will",
-   "distractors": [
-    "If",
-    "rain",
-    "stay"
-   ],
-   "explanation": "After 'if' we use the present: If it rains…",
-   "tags": [
-    "conditionals",
-    "error_spotting"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "A: Could you possibly lend me your laptop?  B: ___",
-   "answer": "Sure, as long as you're careful with it.",
-   "distractors": [
-    "Sure, I could possibly.",
-    "Yes, I lend.",
-    "No problem, I borrowed it."
-   ],
-   "explanation": "Agreeing with a condition: as long as…",
-   "tags": [
-    "dialogue",
-    "requests"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "grammar",
-   "prompt": "I'd rather ___ at home tonight.",
-   "answer": "stay",
-   "distractors": [
-    "to stay",
-    "staying",
-    "stayed"
-   ],
-   "explanation": "'Would rather' + base form for your own preference.",
-   "tags": [
-    "preferences"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "grammar",
-   "prompt": "She was the first woman ___ the prize.",
-   "answer": "to win",
-   "distractors": [
-    "winning",
-    "won",
-    "who win"
-   ],
-   "explanation": "'The first/last/only' + to-infinitive.",
-   "tags": [
-    "infinitives"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "vocabulary",
-   "prompt": "Which phrase is closest in meaning to 'put up with'?",
-   "answer": "tolerate",
-   "distractors": [
-    "build",
-    "support financially",
-    "postpone"
-   ],
-   "explanation": "To put up with = to tolerate.",
-   "tags": [
-    "phrasal_verbs",
-    "synonyms"
-   ]
-  },
-  {
-   "level": "B2",
-   "skill": "grammar",
-   "prompt": "There's no point ___ to persuade him; he never changes his mind.",
-   "answer": "trying",
-   "distractors": [
-    "to try",
-    "try",
-    "tried"
-   ],
-   "explanation": "'There's no point' + -ing.",
-   "tags": [
-    "gerunds"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "grammar",
-   "prompt": "Not until I got home ___ that I had lost my keys.",
-   "answer": "did I realise",
-   "distractors": [
-    "I realised",
-    "I did realise",
-    "had I realised"
-   ],
-   "explanation": "'Not until…' at the start: inversion in the main clause (did I realise).",
-   "tags": [
-    "inversion"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "grammar",
-   "prompt": "The proposal was rejected ___ the grounds that it was too expensive.",
-   "answer": "on",
-   "distractors": [
-    "in",
-    "at",
-    "for"
-   ],
-   "explanation": "Fixed phrase: on the grounds that.",
-   "tags": [
-    "prepositions",
-    "formal"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "vocabulary",
-   "prompt": "Which phrase is closest in meaning to 'a foregone conclusion'?",
-   "answer": "a certain outcome",
-   "distractors": [
-    "an unexpected result",
-    "a forgotten decision",
-    "a long debate"
-   ],
-   "explanation": "A foregone conclusion is a result that is certain in advance.",
-   "tags": [
-    "idioms"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "vocabulary",
-   "prompt": "She has a ___ for languages; she speaks five fluently.",
-   "answer": "flair",
-   "distractors": [
-    "flare",
-    "flavour",
-    "fluency"
-   ],
-   "explanation": "'A flair for' = a natural talent for.",
-   "tags": [
-    "collocations"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "grammar",
-   "prompt": "Find the mistake: \"Each of the students have submitted their essay.\" Which word is wrong?",
-   "answer": "have",
-   "distractors": [
-    "Each",
-    "submitted",
-    "essay"
-   ],
-   "explanation": "'Each of…' takes a singular verb: has submitted.",
-   "tags": [
-    "agreement",
-    "error_spotting"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "vocabulary",
-   "prompt": "The two companies are ___ talks about a possible merger.",
-   "answer": "holding",
-   "distractors": [
-    "making",
-    "doing",
-    "keeping"
-   ],
-   "explanation": "Collocation: hold talks.",
-   "tags": [
-    "collocations"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "grammar",
-   "prompt": "Choose the sentence that uses 'whom' correctly:",
-   "answer": "To whom should I address the letter?",
-   "distractors": [
-    "Whom is calling, please?",
-    "Whom do you think is right?",
-    "The man whom lives next door is a pilot."
-   ],
-   "explanation": "'Whom' is an object form; after a preposition it is correct.",
-   "tags": [
-    "relative_clauses",
-    "formal"
-   ]
-  },
-  {
-   "level": "C1",
-   "skill": "grammar",
-   "prompt": "You may borrow the car ___ you return it by six.",
-   "answer": "provided that",
-   "distractors": [
-    "whereas",
-    "even though",
-    "so that"
-   ],
-   "explanation": "'Provided that' introduces a condition.",
-   "tags": [
-    "linkers",
-    "conditionals"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "Which word is closest in meaning to 'ephemeral'?",
-   "answer": "short-lived",
-   "distractors": [
-    "everlasting",
-    "imaginary",
-    "fragile"
-   ],
-   "explanation": "Ephemeral = lasting a very short time.",
-   "tags": [
-    "synonyms"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "His remarks were ___ to the point of rudeness.",
-   "answer": "blunt",
-   "distractors": [
-    "oblique",
-    "tactful",
-    "verbose"
-   ],
-   "explanation": "Blunt = very direct, without trying to be polite.",
-   "tags": [
-    "adjectives"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "grammar",
-   "prompt": "Had it not been for her help, we ___ the deadline.",
-   "answer": "would have missed",
-   "distractors": [
-    "would miss",
-    "had missed",
-    "will have missed"
-   ],
-   "explanation": "Inverted third conditional: Had it not been for…, would have + past participle.",
-   "tags": [
-    "inversion",
-    "conditionals"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "That's a red ___; it has nothing to do with the real issue.",
-   "answer": "herring",
-   "distractors": [
-    "fish",
-    "flag",
-    "carpet"
-   ],
-   "explanation": "A red herring distracts from the real issue.",
-   "tags": [
-    "idioms"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "The evidence is ___; it could support either interpretation.",
-   "answer": "equivocal",
-   "distractors": [
-    "unequivocal",
-    "irrefutable",
-    "conclusive"
-   ],
-   "explanation": "Equivocal = open to more than one interpretation.",
-   "tags": [
-    "advanced_adjectives"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "grammar",
-   "prompt": "Find the mistake: \"Hardly had I sat down when the phone rings.\" Which word is wrong?",
-   "answer": "rings",
-   "distractors": [
-    "Hardly",
-    "had",
-    "sat"
-   ],
-   "explanation": "The sentence is in the past: the phone rang.",
-   "tags": [
-    "inversion",
-    "error_spotting"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "Which is the most formal way to say 'look into the matter'?",
-   "answer": "investigate the matter",
-   "distractors": [
-    "check out the matter",
-    "dig into the matter",
-    "sort out the matter"
-   ],
-   "explanation": "'Investigate' is the formal equivalent.",
-   "tags": [
-    "register"
-   ]
-  },
-  {
-   "level": "C2",
-   "skill": "vocabulary",
-   "prompt": "The government's response was criticised as too little, too ___.",
-   "answer": "late",
-   "distractors": [
-    "slow",
-    "small",
-    "soon"
-   ],
-   "explanation": "Fixed phrase: too little, too late.",
-   "tags": [
-    "idioms"
-   ]
-  }
- ]
+  "batch": "ai-batch-02",
+  "note": "AI-drafted (Claude) items in varied formats: reading passages, find-the-mistake, dialogue completion, word formation, collocations, idioms, picture and short-video questions. Imported as drafts; teachers approve them in Staff tools.",
+  "passages": {
+    "A1_NOTE": "Dear Mum,\nI am at Rozh's house. We are doing our homework together. I will be home at six o'clock.\nLove, Shilan",
+    "A2_POOL": "SWIMMING POOL NOTICE\nThe pool is closed for cleaning on Monday 3 June.\nChildren under 12 must swim with an adult.\nPlease take a shower before you swim.\nNo food or drinks near the pool.",
+    "B1_SCREENS": "Many teenagers today spend more than six hours a day looking at screens. A recent study of 2,000 students found that those who used their phones late at night slept, on average, one hour less than those who did not. The researchers suggest that students should turn off their phones an hour before bed. They also found that students who did sport three times a week said they felt happier and less stressed.",
+    "B1_VOLUNTEERS": "VOLUNTEERS WANTED!\nThe Green City project needs volunteers to plant trees in local parks every Saturday morning from April to June. No experience is necessary: we will give you training and all the tools you need. Volunteers must be over 16. Lunch is provided. To apply, send an email to Nazdar by 20 March.",
+    "B2_REMOTE": "Remote work, once a rare privilege, has become common in many industries. Supporters argue that it saves commuting time and allows people to organise their day more flexibly. Critics, however, point out that working from home can blur the line between professional and private life, and that new employees in particular may miss out on the informal learning that happens in an office. Some companies have therefore adopted a 'hybrid' model, in which staff spend part of the week at home and part in the office.",
+    "B2_REVIEW": "I had high hopes for 'The Silent River', but the film left me disappointed. The photography is breathtaking and the lead actress gives a convincing performance. Unfortunately, the plot is so slow that I kept checking the time, and the ending raises more questions than it answers. Worth watching for the scenery, but don't expect a gripping story.",
+    "C1_MULTITASK": "The assumption that multitasking boosts productivity has been increasingly called into question. Studies in cognitive psychology suggest that what we perceive as doing several things at once is, in reality, rapid switching between tasks, each switch carrying a small but measurable cost in time and accuracy. Paradoxically, people who consider themselves skilled multitaskers often perform worse on tests of attention than those who rarely multitask. Rather than abandoning multitasking entirely, researchers advocate 'batching' similar tasks together to minimise the number of switches.",
+    "C1_ROOFTOP": "Urban rooftop gardens are often praised for cooling buildings and providing fresh produce. Yet their benefits depend heavily on design. A shallow layer of soil, for instance, offers little insulation and dries out quickly in summer, requiring frequent watering, which in dry cities may cancel out the environmental gains. Deeper systems perform better but add considerable weight, so many older buildings cannot support them without costly reinforcement.",
+    "C2_INTELLIGENCE": "Few concepts have proved as slippery as 'intelligence'. Early psychometricians, armed with batteries of tests, assumed they were measuring a single, general capacity; critics countered that such tests merely rewarded familiarity with the culture of those who designed them. More recent theorists have splintered the notion into multiple intelligences (linguistic, spatial, interpersonal and so on), a move hailed by some as liberating and dismissed by others as so elastic as to be meaningless. What is not in dispute is that the way a society defines intelligence reveals as much about its values as about the minds it seeks to measure.",
+    "C2_PEDESTRIAN": "The town council's decision to pedestrianise the old quarter was greeted with a chorus of objections from shopkeepers, who predicted a collapse in trade. Two years on, footfall has risen by a third, and several of the most vocal opponents now concede that their fears were misplaced, though they are quick to add that rents have climbed accordingly, pricing some long-standing businesses out of the area.",
+    "A1_LUCY": "Hi! My name is Lucy. I am ten years old. I live in York with my mother, my father and my little brother, Tom. Tom is six. We have a dog. Its name is Biscuit. I like school and my favourite subject is history.",
+    "A2_EMAIL_EDINBURGH": "Hi Jack,\nThanks for your email. Last weekend I went to Edinburgh with my family. We stayed in a small hotel near the castle. On Saturday we walked up Arthur's Seat and on Sunday we visited the National Museum of Scotland. The food was delicious, but the weather was cold. Next month I want to visit you in Cardiff. Is that OK?\nBest wishes,\nEmma"
+  },
+  "items": [
+    {
+      "level": "A1",
+      "skill": "grammar",
+      "prompt": "Choose the correct sentence:",
+      "answer": "She is a doctor.",
+      "distractors": [
+        "She are a doctor.",
+        "She am a doctor.",
+        "She be a doctor."
+      ],
+      "explanation": "With he/she/it we use 'is'.",
+      "tags": [
+        "verb_be",
+        "correct_sentence"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "grammar",
+      "prompt": "Find the mistake: \"He have a red car.\" Which word is wrong?",
+      "answer": "have",
+      "distractors": [
+        "He",
+        "red",
+        "car"
+      ],
+      "explanation": "With he/she/it we say 'has': He has a red car.",
+      "tags": [
+        "have_got",
+        "error_spotting"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "grammar",
+      "prompt": "Find the mistake: \"She like apples.\" Which word is wrong?",
+      "answer": "like",
+      "distractors": [
+        "She",
+        "apples",
+        "No mistake"
+      ],
+      "explanation": "Present simple with she: She likes apples.",
+      "tags": [
+        "present_simple",
+        "error_spotting"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "grammar",
+      "prompt": "Find the mistake: \"They is my friends.\" Which word is wrong?",
+      "answer": "is",
+      "distractors": [
+        "They",
+        "my",
+        "friends"
+      ],
+      "explanation": "With 'they' we use 'are': They are my friends.",
+      "tags": [
+        "verb_be",
+        "error_spotting"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "A: What's your name?  B: ___",
+      "answer": "My name is Oliver.",
+      "distractors": [
+        "I am fine, thanks.",
+        "I live in Leeds.",
+        "It is Monday."
+      ],
+      "explanation": "'What's your name?' asks for a name, so the answer is 'My name is Oliver.'",
+      "tags": [
+        "dialogue",
+        "greetings",
+        "britain"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "A: How old are you?  B: ___",
+      "answer": "I'm twelve.",
+      "distractors": [
+        "I'm fine.",
+        "I'm a student.",
+        "I'm at home."
+      ],
+      "explanation": "'How old…?' asks about age.",
+      "tags": [
+        "dialogue",
+        "numbers"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "grammar",
+      "prompt": "___ is your favourite colour?",
+      "answer": "What",
+      "distractors": [
+        "Who",
+        "Where",
+        "When"
+      ],
+      "explanation": "We use 'What' to ask about things such as colours.",
+      "tags": [
+        "question_words"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "grammar",
+      "prompt": "___ do you live? In Manchester.",
+      "answer": "Where",
+      "distractors": [
+        "What",
+        "Who",
+        "When"
+      ],
+      "explanation": "We ask about a place with 'Where': Where do you live? In Manchester.",
+      "tags": [
+        "question_words",
+        "britain"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "grammar",
+      "prompt": "I have two ___.",
+      "answer": "brothers",
+      "distractors": [
+        "brother",
+        "brotheres",
+        "a brother"
+      ],
+      "explanation": "After 'two' we use the plural noun: brothers.",
+      "tags": [
+        "plurals"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "grammar",
+      "prompt": "Please open ___ book.",
+      "answer": "your",
+      "distractors": [
+        "you",
+        "yours",
+        "you're"
+      ],
+      "explanation": "'Your' is the possessive adjective before a noun.",
+      "tags": [
+        "possessives"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "The opposite of 'big' is ___.",
+      "answer": "small",
+      "distractors": [
+        "tall",
+        "long",
+        "old"
+      ],
+      "explanation": "Big and small are opposites.",
+      "tags": [
+        "opposites"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "My father's father is my ___.",
+      "answer": "grandfather",
+      "distractors": [
+        "uncle",
+        "brother",
+        "son"
+      ],
+      "explanation": "Your parent's father is your grandfather.",
+      "tags": [
+        "family"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "Seven plus five is ___.",
+      "answer": "twelve",
+      "distractors": [
+        "eleven",
+        "thirteen",
+        "twenty"
+      ],
+      "explanation": "7 + 5 = 12 (twelve).",
+      "tags": [
+        "numbers"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "grammar",
+      "prompt": "I ___ to music every evening.",
+      "answer": "listen",
+      "distractors": [
+        "listens",
+        "listening",
+        "am listen"
+      ],
+      "explanation": "With 'I' in the present simple we use the base form.",
+      "tags": [
+        "present_simple"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "grammar",
+      "prompt": "Be quiet! The baby ___ now.",
+      "answer": "is sleeping",
+      "distractors": [
+        "sleep",
+        "sleeps",
+        "are sleeping"
+      ],
+      "explanation": "'Now' shows an action in progress: present continuous.",
+      "tags": [
+        "present_continuous"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "grammar",
+      "prompt": "Choose the correct question:",
+      "answer": "Do you like pizza?",
+      "distractors": [
+        "Does you like pizza?",
+        "You like pizza do?",
+        "Are you like pizza?"
+      ],
+      "explanation": "Present simple questions with 'you' start with 'Do'.",
+      "tags": [
+        "questions",
+        "correct_sentence"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "You sleep in a ___.",
+      "answer": "bed",
+      "distractors": [
+        "fridge",
+        "bookcase",
+        "kitchen"
+      ],
+      "explanation": "A bed is for sleeping.",
+      "tags": [
+        "home"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "January, February, ___",
+      "answer": "March",
+      "distractors": [
+        "April",
+        "May",
+        "June"
+      ],
+      "explanation": "March comes after February.",
+      "tags": [
+        "months"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "It's very cold today. Put on your ___.",
+      "answer": "coat",
+      "distractors": [
+        "sandals",
+        "sunglasses",
+        "swimsuit"
+      ],
+      "explanation": "A coat keeps you warm.",
+      "tags": [
+        "clothes"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "Which one is an animal?",
+      "answer": "horse",
+      "distractors": [
+        "pencil",
+        "window",
+        "bread"
+      ],
+      "explanation": "A horse is an animal.",
+      "tags": [
+        "categories"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "Which word is a colour?",
+      "answer": "green",
+      "distractors": [
+        "table",
+        "happy",
+        "run"
+      ],
+      "explanation": "Green is a colour.",
+      "tags": [
+        "categories",
+        "colours"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "prompt": "Which word does NOT belong with the others?",
+      "answer": "chair",
+      "distractors": [
+        "apple",
+        "banana",
+        "orange"
+      ],
+      "explanation": "Apple, banana and orange are fruit; a chair is furniture.",
+      "tags": [
+        "categories"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "grammar",
+      "prompt": "Look ___ the board, please.",
+      "answer": "at",
+      "distractors": [
+        "on",
+        "in",
+        "to"
+      ],
+      "explanation": "We say 'look at' something.",
+      "tags": [
+        "prepositions"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "grammar",
+      "prompt": "We ___ a car. It's blue.",
+      "answer": "have",
+      "distractors": [
+        "has",
+        "are",
+        "is"
+      ],
+      "explanation": "With 'we' we use 'have'.",
+      "tags": [
+        "have_got"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "reading",
+      "prompt": "How old is Tom?",
+      "answer": "six",
+      "distractors": [
+        "ten",
+        "eight",
+        "four"
+      ],
+      "explanation": "'Tom is six.'",
+      "tags": [
+        "reading",
+        "britain"
+      ],
+      "passage": "A1_LUCY"
+    },
+    {
+      "level": "A1",
+      "skill": "reading",
+      "prompt": "What is Biscuit?",
+      "answer": "a dog",
+      "distractors": [
+        "a cat",
+        "a horse",
+        "a bird"
+      ],
+      "explanation": "'We have a dog. Its name is Biscuit.'",
+      "tags": [
+        "reading",
+        "britain"
+      ],
+      "passage": "A1_LUCY"
+    },
+    {
+      "level": "A1",
+      "skill": "reading",
+      "prompt": "What is Lucy's favourite subject?",
+      "answer": "history",
+      "distractors": [
+        "English",
+        "maths",
+        "music"
+      ],
+      "explanation": "'My favourite subject is history.'",
+      "tags": [
+        "reading",
+        "britain"
+      ],
+      "passage": "A1_LUCY"
+    },
+    {
+      "level": "A1",
+      "skill": "reading",
+      "passage": "A1_NOTE",
+      "prompt": "Where is Shilan now?",
+      "answer": "at her friend's house",
+      "distractors": [
+        "at school",
+        "at home",
+        "at the shop"
+      ],
+      "explanation": "'I am at Rozh's house.'",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "reading",
+      "passage": "A1_NOTE",
+      "prompt": "When will Shilan be home?",
+      "answer": "at six o'clock",
+      "distractors": [
+        "at five o'clock",
+        "in the morning",
+        "tomorrow"
+      ],
+      "explanation": "'I will be home at six o'clock.'",
+      "tags": [
+        "reading",
+        "time"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "media": {
+        "type": "image",
+        "path": "samples/clock_three.png",
+        "caption": "A clock"
+      },
+      "prompt": "Look at the clock. What time is it?",
+      "answer": "It's three o'clock.",
+      "distractors": [
+        "It's twelve o'clock.",
+        "It's half past three.",
+        "It's nine o'clock."
+      ],
+      "explanation": "The short hand points to 3 and the long hand points to 12.",
+      "tags": [
+        "picture",
+        "time"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "media": {
+        "type": "image",
+        "path": "samples/fruit_bowl.png",
+        "caption": "Some fruit"
+      },
+      "prompt": "Look at the picture. How many apples are there?",
+      "answer": "three",
+      "distractors": [
+        "two",
+        "four",
+        "five"
+      ],
+      "explanation": "There are three red apples.",
+      "tags": [
+        "picture",
+        "numbers"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "media": {
+        "type": "image",
+        "path": "samples/fruit_bowl.png",
+        "caption": "Some fruit"
+      },
+      "prompt": "Look at the picture. What else can you see?",
+      "answer": "two bananas",
+      "distractors": [
+        "two oranges",
+        "three bananas",
+        "one banana"
+      ],
+      "explanation": "Under the apples there are two yellow bananas.",
+      "tags": [
+        "picture",
+        "food"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "media": {
+        "type": "image",
+        "path": "samples/rainy_day.png",
+        "caption": "The weather today"
+      },
+      "prompt": "Look at the picture. What's the weather like?",
+      "answer": "It's raining.",
+      "distractors": [
+        "It's sunny.",
+        "It's snowing.",
+        "It's hot."
+      ],
+      "explanation": "There is a grey cloud, rain and an umbrella.",
+      "tags": [
+        "picture",
+        "weather"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "grammar",
+      "media": {
+        "type": "image",
+        "path": "samples/ball_and_table.png",
+        "caption": "A ball, a table and a box"
+      },
+      "prompt": "Look at the picture. Where is the ball?",
+      "answer": "under the table",
+      "distractors": [
+        "on the table",
+        "in the box",
+        "next to the box"
+      ],
+      "explanation": "The ball is on the floor, under the table.",
+      "tags": [
+        "picture",
+        "prepositions"
+      ]
+    },
+    {
+      "level": "A1",
+      "skill": "vocabulary",
+      "media": {
+        "type": "video",
+        "path": "samples/balloons.mp4",
+        "caption": "Balloons (7 seconds)"
+      },
+      "prompt": "Watch the video. How many balloons are there at the end?",
+      "answer": "four",
+      "distractors": [
+        "five",
+        "three",
+        "six"
+      ],
+      "explanation": "Five balloons appear, then the green one flies away: four are left.",
+      "tags": [
+        "video",
+        "numbers"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "Choose the correct sentence about yesterday:",
+      "answer": "I didn't see him yesterday.",
+      "distractors": [
+        "I didn't saw him yesterday.",
+        "I don't saw him yesterday.",
+        "I not see him yesterday."
+      ],
+      "explanation": "After 'didn't' we use the base form: didn't see.",
+      "tags": [
+        "past_simple",
+        "correct_sentence"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "Find the mistake: \"She is more taller than her sister.\" Which word should be removed?",
+      "answer": "more",
+      "distractors": [
+        "is",
+        "than",
+        "her"
+      ],
+      "explanation": "'Taller' is already comparative; we don't add 'more'.",
+      "tags": [
+        "comparatives",
+        "error_spotting"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "vocabulary",
+      "prompt": "A: Would you like some tea?  B: ___",
+      "answer": "Yes, please.",
+      "distractors": [
+        "Yes, I would like.",
+        "Yes, I like.",
+        "Yes, I'd."
+      ],
+      "explanation": "The polite short answer is 'Yes, please.'",
+      "tags": [
+        "dialogue",
+        "functions"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "vocabulary",
+      "prompt": "Shop assistant: Can I help you?  Customer: ___",
+      "answer": "Yes, I'm looking for a jacket.",
+      "distractors": [
+        "Yes, you can't.",
+        "No, I can't help.",
+        "I help you."
+      ],
+      "explanation": "The customer says what they want.",
+      "tags": [
+        "dialogue",
+        "shopping"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "vocabulary",
+      "prompt": "A: I've got a headache.  B: ___",
+      "answer": "Why don't you take a break?",
+      "distractors": [
+        "That's great news!",
+        "You're welcome.",
+        "Nice to meet you."
+      ],
+      "explanation": "'Why don't you…?' gives advice.",
+      "tags": [
+        "dialogue",
+        "advice"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "We were watching TV when the lights ___ out.",
+      "answer": "went",
+      "distractors": [
+        "go",
+        "were going",
+        "goes"
+      ],
+      "explanation": "A short action interrupting a longer one uses the past simple.",
+      "tags": [
+        "past_continuous"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "This is the ___ film I've ever seen.",
+      "answer": "best",
+      "distractors": [
+        "better",
+        "good",
+        "most good"
+      ],
+      "explanation": "Superlative of 'good' is 'best'.",
+      "tags": [
+        "superlatives"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "You ___ use your phone here. It's an exam room.",
+      "answer": "mustn't",
+      "distractors": [
+        "don't have to",
+        "needn't",
+        "must"
+      ],
+      "explanation": "'Mustn't' means it is not allowed.",
+      "tags": [
+        "modals"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "I'm tired ___ I went to bed late.",
+      "answer": "because",
+      "distractors": [
+        "so",
+        "but",
+        "or"
+      ],
+      "explanation": "'Because' gives the reason.",
+      "tags": [
+        "linkers"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "It was raining, ___ we stayed at home.",
+      "answer": "so",
+      "distractors": [
+        "because",
+        "but",
+        "although"
+      ],
+      "explanation": "'So' gives the result.",
+      "tags": [
+        "linkers"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "How ___ does this bag cost?",
+      "answer": "much",
+      "distractors": [
+        "many",
+        "long",
+        "often"
+      ],
+      "explanation": "We ask about price with 'How much…?'",
+      "tags": [
+        "quantifiers",
+        "shopping"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "Have you finished your homework ___?",
+      "answer": "yet",
+      "distractors": [
+        "ago",
+        "since",
+        "for"
+      ],
+      "explanation": "'Yet' is used in present perfect questions.",
+      "tags": [
+        "present_perfect"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "I have ___ finished my homework, so I can go out now.",
+      "answer": "already",
+      "distractors": [
+        "yet",
+        "ago",
+        "still"
+      ],
+      "explanation": "'Already' means sooner than expected, in positive sentences.",
+      "tags": [
+        "present_perfect"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "vocabulary",
+      "prompt": "Which word means 'not expensive'?",
+      "answer": "cheap",
+      "distractors": [
+        "poor",
+        "heavy",
+        "empty"
+      ],
+      "explanation": "Cheap = not expensive.",
+      "tags": [
+        "opposites"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "vocabulary",
+      "prompt": "He's very ___. He always helps other people.",
+      "answer": "kind",
+      "distractors": [
+        "lazy",
+        "rude",
+        "boring"
+      ],
+      "explanation": "A kind person helps others.",
+      "tags": [
+        "personality"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "vocabulary",
+      "prompt": "Which word does NOT belong: bus, train, plane, carrot?",
+      "answer": "carrot",
+      "distractors": [
+        "bus",
+        "train",
+        "plane"
+      ],
+      "explanation": "Bus, train and plane are transport; a carrot is food.",
+      "tags": [
+        "categories"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "Excuse me, how do I get ___ the station?",
+      "answer": "to",
+      "distractors": [
+        "at",
+        "in",
+        "for"
+      ],
+      "explanation": "'Get to' a place = arrive there.",
+      "tags": [
+        "prepositions",
+        "directions"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "She's good at ___ pictures.",
+      "answer": "drawing",
+      "distractors": [
+        "draw",
+        "to draw",
+        "draws"
+      ],
+      "explanation": "After a preposition (at) we use -ing.",
+      "tags": [
+        "gerunds"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "I enjoy ___ to the beach in summer.",
+      "answer": "going",
+      "distractors": [
+        "go",
+        "to go",
+        "went"
+      ],
+      "explanation": "'Enjoy' is followed by -ing.",
+      "tags": [
+        "gerunds"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "Where did Emma's family stay in Edinburgh?",
+      "answer": "in a small hotel near the castle",
+      "distractors": [
+        "with friends near the castle",
+        "in a big hotel by the sea",
+        "in a flat near the museum"
+      ],
+      "explanation": "'We stayed in a small hotel near the castle.'",
+      "tags": [
+        "reading",
+        "britain"
+      ],
+      "passage": "A2_EMAIL_EDINBURGH"
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "What did Emma's family do on Sunday?",
+      "answer": "They visited the National Museum of Scotland.",
+      "distractors": [
+        "They walked up Arthur's Seat.",
+        "They went to the castle.",
+        "They travelled to Cardiff."
+      ],
+      "explanation": "'On Sunday we visited the National Museum of Scotland.'",
+      "tags": [
+        "reading",
+        "britain"
+      ],
+      "passage": "A2_EMAIL_EDINBURGH"
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "Emma's email: which sentence is true?",
+      "answer": "The weather was cold.",
+      "distractors": [
+        "The food was not good.",
+        "They stayed with Jack.",
+        "They went to Edinburgh by plane."
+      ],
+      "explanation": "'The food was delicious, but the weather was cold.'",
+      "tags": [
+        "reading",
+        "britain"
+      ],
+      "passage": "A2_EMAIL_EDINBURGH"
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "Why is Emma writing to Jack?",
+      "answer": "to ask if she can visit Jack",
+      "distractors": [
+        "to invite Jack to Edinburgh",
+        "to say sorry to Jack",
+        "to ask Jack for a hotel"
+      ],
+      "explanation": "'Next month I want to visit you in Cardiff. Is that OK?'",
+      "tags": [
+        "reading",
+        "britain"
+      ],
+      "passage": "A2_EMAIL_EDINBURGH"
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "passage": "A2_POOL",
+      "prompt": "Why is the pool closed on 3 June?",
+      "answer": "for cleaning",
+      "distractors": [
+        "for a competition",
+        "because of the weather",
+        "for a holiday"
+      ],
+      "explanation": "'The pool is closed for cleaning.'",
+      "tags": [
+        "reading",
+        "notices"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "passage": "A2_POOL",
+      "prompt": "Who can swim without an adult?",
+      "answer": "a 14-year-old girl",
+      "distractors": [
+        "a 9-year-old boy",
+        "an 11-year-old girl",
+        "a 6-year-old child"
+      ],
+      "explanation": "Only children under 12 must swim with an adult.",
+      "tags": [
+        "reading",
+        "notices"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "vocabulary",
+      "media": {
+        "type": "image",
+        "path": "samples/clock_half_past_seven.png",
+        "caption": "A clock"
+      },
+      "prompt": "Look at the clock. What time does it show?",
+      "answer": "It's half past seven.",
+      "distractors": [
+        "It's quarter past seven.",
+        "It's half past six.",
+        "It's seven o'clock."
+      ],
+      "explanation": "The long hand is on 6 and the short hand is between 7 and 8: half past seven.",
+      "tags": [
+        "picture",
+        "time"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "prompt": "Look at the timetable. Which bus arrives in Oxford at 10:45?",
+      "answer": "the 08:15 bus",
+      "distractors": [
+        "the 07:00 bus",
+        "the 12:30 bus",
+        "the 17:45 bus"
+      ],
+      "explanation": "Bus 2 leaves London at 08:15 and arrives in Oxford at 10:45.",
+      "tags": [
+        "picture",
+        "reading",
+        "time",
+        "britain"
+      ],
+      "media": {
+        "type": "image",
+        "path": "samples/bus_timetable_uk.png",
+        "caption": "Bus timetable: London to Oxford"
+      }
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "media": {
+        "type": "image",
+        "path": "samples/bus_timetable_uk.png",
+        "caption": "Bus timetable"
+      },
+      "prompt": "Look at the timetable. How long does the 12:30 bus take?",
+      "answer": "three hours",
+      "distractors": [
+        "two and a half hours",
+        "three and a half hours",
+        "two hours"
+      ],
+      "explanation": "12:30 to 15:30 is three hours.",
+      "tags": [
+        "picture",
+        "reading",
+        "time"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "media": {
+        "type": "image",
+        "path": "samples/shop_hours.png",
+        "caption": "Bookshop opening hours"
+      },
+      "prompt": "Look at the sign. When can you buy a book on Saturday?",
+      "answer": "between 10 a.m. and 2 p.m.",
+      "distractors": [
+        "between 9 a.m. and 5 p.m.",
+        "all day",
+        "You can't: the shop is closed."
+      ],
+      "explanation": "On Saturday the shop opens at 10:00 and closes at 14:00.",
+      "tags": [
+        "picture",
+        "reading",
+        "time"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "media": {
+        "type": "image",
+        "path": "samples/shop_hours.png",
+        "caption": "Bookshop opening hours"
+      },
+      "prompt": "Look at the sign. On which day is the bookshop closed?",
+      "answer": "Sunday",
+      "distractors": [
+        "Saturday",
+        "Monday",
+        "Friday"
+      ],
+      "explanation": "The sign says Sunday: closed.",
+      "tags": [
+        "picture",
+        "reading"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "vocabulary",
+      "media": {
+        "type": "video",
+        "path": "samples/clock_2_to_quarter_to_3.mp4",
+        "caption": "A clock (7 seconds)"
+      },
+      "prompt": "Watch the clock. What time is it at the end of the video?",
+      "answer": "It's quarter to three.",
+      "distractors": [
+        "It's quarter past two.",
+        "It's half past two.",
+        "It's quarter past three."
+      ],
+      "explanation": "The long hand stops on 9 and the short hand is almost on 3: 2:45, quarter to three.",
+      "tags": [
+        "video",
+        "time"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "media": {
+        "type": "video",
+        "path": "samples/saras_day.mp4",
+        "caption": "Sara's day (10 seconds)"
+      },
+      "prompt": "Watch the video. What does Sara do after breakfast?",
+      "answer": "She takes the bus to work.",
+      "distractors": [
+        "She goes to the gym.",
+        "She wakes up.",
+        "She has lunch with a friend."
+      ],
+      "explanation": "7:30 breakfast, then 8:00 the bus to work.",
+      "tags": [
+        "video",
+        "daily_routine"
+      ]
+    },
+    {
+      "level": "A2",
+      "skill": "reading",
+      "media": {
+        "type": "video",
+        "path": "samples/saras_day.mp4",
+        "caption": "Sara's day (10 seconds)"
+      },
+      "prompt": "Watch the video. What time does Sara go to the gym?",
+      "answer": "at 6 p.m.",
+      "distractors": [
+        "at 8 a.m.",
+        "at 1 p.m.",
+        "at 7.30 a.m."
+      ],
+      "explanation": "The last scene shows 18:00, which is 6 p.m.",
+      "tags": [
+        "video",
+        "time"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "grammar",
+      "prompt": "Choose the correct conditional sentence:",
+      "answer": "If I see her, I'll tell her.",
+      "distractors": [
+        "If I will see her, I'll tell her.",
+        "If I'll see her, I tell her.",
+        "If I saw her, I'll tell her."
+      ],
+      "explanation": "First conditional: if + present simple, will + verb.",
+      "tags": [
+        "conditionals",
+        "correct_sentence"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "grammar",
+      "prompt": "Find the mistake: \"I'm looking forward to meet you.\" Which word is wrong?",
+      "answer": "meet",
+      "distractors": [
+        "looking",
+        "forward",
+        "you"
+      ],
+      "explanation": "'Look forward to' is followed by -ing: to meeting you.",
+      "tags": [
+        "gerunds",
+        "error_spotting"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "grammar",
+      "prompt": "Find the mistake: \"She has worked here since three years.\" Which word is wrong?",
+      "answer": "since",
+      "distractors": [
+        "has",
+        "worked",
+        "here"
+      ],
+      "explanation": "With a period of time we use 'for': for three years.",
+      "tags": [
+        "present_perfect",
+        "error_spotting"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "A: Do you mind if I open the window?  B: ___",
+      "answer": "No, not at all. Go ahead.",
+      "distractors": [
+        "Yes, please open it.",
+        "No, I mind.",
+        "Yes, I don't mind."
+      ],
+      "explanation": "'Do you mind…?' = is it a problem? 'No, not at all' gives permission.",
+      "tags": [
+        "dialogue",
+        "functions"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "A: I failed my driving test again.  B: ___",
+      "answer": "Oh no, I'm sorry to hear that.",
+      "distractors": [
+        "Congratulations!",
+        "That's a pity you passed.",
+        "I'm glad to hear that."
+      ],
+      "explanation": "We show sympathy with 'I'm sorry to hear that.'",
+      "tags": [
+        "dialogue",
+        "functions"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "grammar",
+      "prompt": "The book ___ by millions of people since it came out.",
+      "answer": "has been read",
+      "distractors": [
+        "has read",
+        "was reading",
+        "is reading"
+      ],
+      "explanation": "Present perfect passive: has been + past participle.",
+      "tags": [
+        "passive",
+        "present_perfect"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "grammar",
+      "prompt": "He asked me if I ___ come to the party.",
+      "answer": "could",
+      "distractors": [
+        "can I",
+        "could I",
+        "will I"
+      ],
+      "explanation": "Reported questions use statement word order: if I could.",
+      "tags": [
+        "reported_speech"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "grammar",
+      "prompt": "You'd better ___ a coat; it's freezing.",
+      "answer": "wear",
+      "distractors": [
+        "to wear",
+        "wearing",
+        "wore"
+      ],
+      "explanation": "'Had better' is followed by the base form.",
+      "tags": [
+        "modals"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "grammar",
+      "prompt": "I'm interested ___ learning photography.",
+      "answer": "in",
+      "distractors": [
+        "on",
+        "for",
+        "about"
+      ],
+      "explanation": "We say 'interested in'.",
+      "tags": [
+        "adjective_prepositions"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "grammar",
+      "prompt": "Whether we go or not depends ___ the weather.",
+      "answer": "on",
+      "distractors": [
+        "of",
+        "from",
+        "in"
+      ],
+      "explanation": "We say 'depend on'.",
+      "tags": [
+        "verb_prepositions"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "Which word is closest in meaning to 'huge'?",
+      "answer": "enormous",
+      "distractors": [
+        "tiny",
+        "heavy",
+        "tall"
+      ],
+      "explanation": "Huge = enormous = very big.",
+      "tags": [
+        "synonyms"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "Which word is the opposite of 'generous'?",
+      "answer": "mean",
+      "distractors": [
+        "kind",
+        "poor",
+        "shy"
+      ],
+      "explanation": "A mean person does not like giving or spending.",
+      "tags": [
+        "opposites"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "Our teacher is very ___; she always explains things twice. (HELP)",
+      "answer": "helpful",
+      "distractors": [
+        "helpless",
+        "helping",
+        "helped"
+      ],
+      "explanation": "Help → helpful (adjective: giving help).",
+      "tags": [
+        "word_formation"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "I was very ___ with the hotel; the room was dirty. (SATISFY)",
+      "answer": "dissatisfied",
+      "distractors": [
+        "satisfied",
+        "satisfying",
+        "unsatisfy"
+      ],
+      "explanation": "A dirty room makes you dissatisfied (not happy).",
+      "tags": [
+        "word_formation"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "Could you turn ___ the music a little? I'm trying to sleep.",
+      "answer": "down",
+      "distractors": [
+        "up",
+        "over",
+        "into"
+      ],
+      "explanation": "'Turn down' = make quieter.",
+      "tags": [
+        "phrasal_verbs"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "Our flight was ___, so we had to book a new one for the next day.",
+      "answer": "cancelled",
+      "distractors": [
+        "boarded",
+        "landed",
+        "checked in"
+      ],
+      "explanation": "A cancelled flight does not happen, so you need another one.",
+      "tags": [
+        "travel"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "grammar",
+      "prompt": "'I am tired,' she said. Choose the correct reported sentence:",
+      "answer": "She said she was tired.",
+      "distractors": [
+        "She said I was tired.",
+        "She said she is tired yesterday.",
+        "She told she was tired."
+      ],
+      "explanation": "In reported speech 'am' usually becomes 'was'; 'tell' needs an object.",
+      "tags": [
+        "reported_speech"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "grammar",
+      "prompt": "Which sentence uses the passive correctly?",
+      "answer": "The windows are cleaned every week.",
+      "distractors": [
+        "The windows cleaned every week.",
+        "The windows are cleaning every week.",
+        "The windows is cleaned every week."
+      ],
+      "explanation": "Present simple passive: are + past participle.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "passage": "B1_SCREENS",
+      "prompt": "What did the study find about using phones late at night?",
+      "answer": "It was linked to less sleep.",
+      "distractors": [
+        "It helped students relax.",
+        "It made students happier.",
+        "It had no effect on sleep."
+      ],
+      "explanation": "They 'slept, on average, one hour less'.",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "passage": "B1_SCREENS",
+      "prompt": "What do the researchers recommend?",
+      "answer": "switching phones off an hour before going to bed",
+      "distractors": [
+        "using phones for only six hours a day",
+        "doing sport every day",
+        "sleeping one hour less"
+      ],
+      "explanation": "'Students should turn off their phones an hour before bed.'",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "passage": "B1_SCREENS",
+      "prompt": "How many students took part in the study?",
+      "answer": "2,000",
+      "distractors": [
+        "6",
+        "200",
+        "20,000"
+      ],
+      "explanation": "'A recent study of 2,000 students'.",
+      "tags": [
+        "reading",
+        "numbers"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "passage": "B1_VOLUNTEERS",
+      "prompt": "What will the volunteers do?",
+      "answer": "plant trees in parks",
+      "distractors": [
+        "clean the streets",
+        "teach children",
+        "build a new park"
+      ],
+      "explanation": "'Volunteers to plant trees in local parks'.",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "passage": "B1_VOLUNTEERS",
+      "prompt": "Volunteer advert: which statement is true?",
+      "answer": "Volunteers do not need any experience.",
+      "distractors": [
+        "Volunteers must bring their own tools.",
+        "The project runs all year.",
+        "Anyone of any age can apply."
+      ],
+      "explanation": "'No experience is necessary.'",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "passage": "B1_VOLUNTEERS",
+      "prompt": "What is the last day to apply?",
+      "answer": "20 March",
+      "distractors": [
+        "the first Saturday in April",
+        "the end of June",
+        "any Saturday morning"
+      ],
+      "explanation": "'Send an email to Nazdar by 20 March.'",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "media": {
+        "type": "image",
+        "path": "samples/no_parking.png",
+        "caption": "A road sign"
+      },
+      "prompt": "Look at the sign. What does it mean?",
+      "answer": "You must not park here.",
+      "distractors": [
+        "You can park here for free.",
+        "There is a car park nearby.",
+        "Only buses can park here."
+      ],
+      "explanation": "A 'P' with a red line through it means no parking.",
+      "tags": [
+        "picture",
+        "signs"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "reading",
+      "media": {
+        "type": "image",
+        "path": "samples/sales_chart.png",
+        "caption": "A bar chart"
+      },
+      "prompt": "Look at the chart. In which month were the fewest bicycles sold?",
+      "answer": "March",
+      "distractors": [
+        "January",
+        "February",
+        "April"
+      ],
+      "explanation": "The March bar is the shortest (20).",
+      "tags": [
+        "picture",
+        "charts"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "Choose the correct sentence about a past regret:",
+      "answer": "I wish I had studied harder for the exam.",
+      "distractors": [
+        "I wish I studied harder for the exam last year.",
+        "I wish I have studied harder for the exam.",
+        "I wish I would study harder for the exam yesterday."
+      ],
+      "explanation": "Regrets about the past: wish + past perfect.",
+      "tags": [
+        "wishes",
+        "correct_sentence"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "Find the mistake: \"Despite of the rain, we enjoyed the trip.\" Which word is wrong?",
+      "answer": "of",
+      "distractors": [
+        "Despite",
+        "rain",
+        "enjoyed"
+      ],
+      "explanation": "'Despite' is not followed by 'of' (but 'in spite of' is).",
+      "tags": [
+        "linkers",
+        "error_spotting"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "Find the mistake: \"The informations you gave me helped a lot.\" Which word is wrong?",
+      "answer": "informations",
+      "distractors": [
+        "gave",
+        "helped",
+        "lot"
+      ],
+      "explanation": "'Information' is uncountable: no plural -s.",
+      "tags": [
+        "uncountable",
+        "error_spotting"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "A: I'm thinking of quitting my job.  B: ___",
+      "answer": "Are you sure? You might regret it.",
+      "distractors": [
+        "Yes, I quit it yesterday.",
+        "Congratulations on your promotion!",
+        "No, thanks, I'm full."
+      ],
+      "explanation": "B reacts to a plan and gives a warning.",
+      "tags": [
+        "dialogue",
+        "functions"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "By the time you arrive, we ___ dinner.",
+      "answer": "will have finished",
+      "distractors": [
+        "will finish",
+        "have finished",
+        "finished"
+      ],
+      "explanation": "Future perfect: completed before a future moment.",
+      "tags": [
+        "future_perfect"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "She denied ___ the money.",
+      "answer": "taking",
+      "distractors": [
+        "to take",
+        "take",
+        "that take"
+      ],
+      "explanation": "'Deny' is followed by -ing.",
+      "tags": [
+        "gerunds"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "The film was so ___ that we left before the end.",
+      "answer": "dull",
+      "distractors": [
+        "thrilling",
+        "gripping",
+        "entertaining"
+      ],
+      "explanation": "We leave early when a film is dull (boring).",
+      "tags": [
+        "adjectives"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "Unless you ___ now, you'll miss the train.",
+      "answer": "leave",
+      "distractors": [
+        "don't leave",
+        "will leave",
+        "left"
+      ],
+      "explanation": "'Unless' = if not, followed by a present verb.",
+      "tags": [
+        "conditionals"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "The report needs ___ by Friday.",
+      "answer": "to be finished",
+      "distractors": [
+        "to finish",
+        "finish",
+        "be finished"
+      ],
+      "explanation": "Passive infinitive after 'need': needs to be finished.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "Which word is closest in meaning to 'reluctant'?",
+      "answer": "unwilling",
+      "distractors": [
+        "eager",
+        "relieved",
+        "careless"
+      ],
+      "explanation": "Reluctant = not wanting to do something.",
+      "tags": [
+        "synonyms"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "Which word is closest in meaning to 'reliable'?",
+      "answer": "dependable",
+      "distractors": [
+        "relaxed",
+        "available",
+        "flexible"
+      ],
+      "explanation": "Reliable = you can depend on it.",
+      "tags": [
+        "synonyms"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "The ___ of the new bridge took three years. (CONSTRUCT)",
+      "answer": "construction",
+      "distractors": [
+        "constructive",
+        "constructor",
+        "constructed"
+      ],
+      "explanation": "A noun is needed after 'the': construction.",
+      "tags": [
+        "word_formation"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "His ___ to help surprised everyone. (WILLING)",
+      "answer": "willingness",
+      "distractors": [
+        "unwilling",
+        "willingly",
+        "willed"
+      ],
+      "explanation": "A noun is needed after 'his': willingness.",
+      "tags": [
+        "word_formation"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "The company has ___ a profit for the first time in five years.",
+      "answer": "made",
+      "distractors": [
+        "done",
+        "taken",
+        "given"
+      ],
+      "explanation": "Collocation: make a profit.",
+      "tags": [
+        "collocations"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "She ___ a lot of attention when she walked into the room.",
+      "answer": "attracted",
+      "distractors": [
+        "pulled",
+        "made",
+        "paid"
+      ],
+      "explanation": "Collocation: attract attention.",
+      "tags": [
+        "collocations"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "I came ___ an old photo while I was cleaning the attic.",
+      "answer": "across",
+      "distractors": [
+        "up",
+        "through",
+        "along"
+      ],
+      "explanation": "'Come across' = find by chance.",
+      "tags": [
+        "phrasal_verbs"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "We've run ___ of milk, so I'm going to the shop.",
+      "answer": "out",
+      "distractors": [
+        "off",
+        "away",
+        "down"
+      ],
+      "explanation": "'Run out of' = have none left.",
+      "tags": [
+        "phrasal_verbs"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "The hotel was expensive; ___, the service was excellent.",
+      "answer": "however",
+      "distractors": [
+        "therefore",
+        "for example",
+        "as a result"
+      ],
+      "explanation": "'However' introduces a contrast.",
+      "tags": [
+        "linkers"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "passage": "B2_REMOTE",
+      "prompt": "According to the text, what is one advantage of remote work?",
+      "answer": "People spend less time travelling to work.",
+      "distractors": [
+        "New employees learn faster.",
+        "Work and private life are clearly separated.",
+        "Companies pay higher salaries."
+      ],
+      "explanation": "Supporters say it 'saves commuting time'.",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "passage": "B2_REMOTE",
+      "prompt": "According to critics, who may lose out most from remote work?",
+      "answer": "new employees",
+      "distractors": [
+        "managers",
+        "commuters",
+        "older staff"
+      ],
+      "explanation": "'New employees in particular may miss out on the informal learning'.",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "passage": "B2_REMOTE",
+      "prompt": "What is a 'hybrid' model?",
+      "answer": "working partly at home and partly in the office",
+      "distractors": [
+        "working only from home",
+        "working for two different companies",
+        "working at night and at weekends"
+      ],
+      "explanation": "'Staff spend part of the week at home and part in the office.'",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "passage": "B2_REMOTE",
+      "prompt": "In the text, the word 'blur' is closest in meaning to ___.",
+      "answer": "make less clear",
+      "distractors": [
+        "make stronger",
+        "separate",
+        "explain"
+      ],
+      "explanation": "To blur a line is to make it less clear.",
+      "tags": [
+        "reading",
+        "vocabulary_in_context"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "passage": "B2_REVIEW",
+      "prompt": "What is the writer's overall opinion of the film?",
+      "answer": "mixed, but mostly disappointed",
+      "distractors": [
+        "completely positive",
+        "completely negative",
+        "they have no opinion"
+      ],
+      "explanation": "The writer praises the photography and acting but was disappointed overall.",
+      "tags": [
+        "reading",
+        "attitude"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "passage": "B2_REVIEW",
+      "prompt": "What did the writer like about the film?",
+      "answer": "the photography and the lead actress",
+      "distractors": [
+        "the fast plot",
+        "the clear ending",
+        "the gripping story"
+      ],
+      "explanation": "'The photography is breathtaking and the lead actress gives a convincing performance.'",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "passage": "B2_REVIEW",
+      "prompt": "Why did the writer keep checking the time?",
+      "answer": "The story moved very slowly.",
+      "distractors": [
+        "The film was too short.",
+        "The cinema was cold.",
+        "The writer was late for another film."
+      ],
+      "explanation": "'The plot is so slow that I kept checking the time.'",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "media": {
+        "type": "image",
+        "path": "samples/sales_chart.png",
+        "caption": "A bar chart"
+      },
+      "prompt": "Look at the chart. Which statement is true?",
+      "answer": "Sales rose every month from March to June.",
+      "distractors": [
+        "Sales fell steadily over the six months.",
+        "Sales were highest in January.",
+        "Sales in May were lower than in April."
+      ],
+      "explanation": "March 20, April 30, May 45, June 60: they rose every month.",
+      "tags": [
+        "picture",
+        "charts"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "media": {
+        "type": "video",
+        "path": "samples/museum_visitors.mp4",
+        "caption": "Museum visitors (6 seconds)"
+      },
+      "prompt": "Watch the video. What happened to the number of visitors between 2020 and 2024?",
+      "answer": "It doubled.",
+      "distractors": [
+        "It halved.",
+        "It stayed the same.",
+        "It tripled."
+      ],
+      "explanation": "From 200,000 to 400,000: twice as many.",
+      "tags": [
+        "video",
+        "charts"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "reading",
+      "media": {
+        "type": "video",
+        "path": "samples/museum_visitors.mp4",
+        "caption": "Museum visitors (6 seconds)"
+      },
+      "prompt": "Watch the video. By how much did visitor numbers increase between 2022 and 2024?",
+      "answer": "by 100,000",
+      "distractors": [
+        "by 200,000",
+        "by 300,000",
+        "by 50,000"
+      ],
+      "explanation": "300,000 in 2022 and 400,000 in 2024.",
+      "tags": [
+        "video",
+        "charts",
+        "numbers"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "Choose the most natural sentence:",
+      "answer": "Hardly anyone turned up to the meeting.",
+      "distractors": [
+        "Hardly no one turned up to the meeting.",
+        "Hardly anyone didn't turn up to the meeting.",
+        "Hard anyone turned up to the meeting."
+      ],
+      "explanation": "'Hardly' is already negative, so it takes 'anyone', not a second negative.",
+      "tags": [
+        "negatives",
+        "correct_sentence"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "Find the mistake: \"The number of applicants have risen sharply.\" Which word is wrong?",
+      "answer": "have",
+      "distractors": [
+        "number",
+        "applicants",
+        "sharply"
+      ],
+      "explanation": "'The number of…' takes a singular verb: has risen.",
+      "tags": [
+        "agreement",
+        "error_spotting"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "Find the mistake: \"She suggested me to apply for the job.\" Which part is wrong?",
+      "answer": "me to apply",
+      "distractors": [
+        "suggested",
+        "for",
+        "the job"
+      ],
+      "explanation": "Say 'suggested that I apply' or 'suggested applying'.",
+      "tags": [
+        "verb_patterns",
+        "error_spotting"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "Should you need any help, ___ hesitate to contact us.",
+      "answer": "don't",
+      "distractors": [
+        "not",
+        "no",
+        "won't"
+      ],
+      "explanation": "Fixed formal phrase: 'Should you need…, don't hesitate to…'.",
+      "tags": [
+        "inversion",
+        "formal"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "It's no use ___ about it now; the decision has been made.",
+      "answer": "complaining",
+      "distractors": [
+        "to complain",
+        "complain",
+        "complained"
+      ],
+      "explanation": "'It's no use' is followed by -ing.",
+      "tags": [
+        "gerunds"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "She is said to ___ fluent Arabic as a child.",
+      "answer": "have spoken",
+      "distractors": [
+        "speak",
+        "be speaking",
+        "had spoken"
+      ],
+      "explanation": "Reporting the past: be said to + have + past participle.",
+      "tags": [
+        "passive_reporting"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "vocabulary",
+      "prompt": "Which phrase is closest in meaning to 'scrutinise'?",
+      "answer": "examine closely",
+      "distractors": [
+        "praise",
+        "ignore",
+        "summarise"
+      ],
+      "explanation": "To scrutinise is to examine very carefully.",
+      "tags": [
+        "synonyms"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "vocabulary",
+      "prompt": "Which phrase is closest in meaning to 'mitigate'?",
+      "answer": "reduce the harm of",
+      "distractors": [
+        "make worse",
+        "measure",
+        "mention"
+      ],
+      "explanation": "To mitigate is to make something bad less severe.",
+      "tags": [
+        "synonyms"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "vocabulary",
+      "prompt": "The ___ of the data is questionable. (RELY)",
+      "answer": "reliability",
+      "distractors": [
+        "reliance",
+        "reliably",
+        "reliant"
+      ],
+      "explanation": "Reliability = how far something can be trusted.",
+      "tags": [
+        "word_formation"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "vocabulary",
+      "prompt": "Her ___ remarks offended several colleagues. (SENSITIVE)",
+      "answer": "insensitive",
+      "distractors": [
+        "sensitivity",
+        "sensible",
+        "sensitively"
+      ],
+      "explanation": "Remarks that offend people are insensitive.",
+      "tags": [
+        "word_formation"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "vocabulary",
+      "prompt": "The government has ___ a series of measures to tackle unemployment.",
+      "answer": "introduced",
+      "distractors": [
+        "made up",
+        "set off",
+        "brought round"
+      ],
+      "explanation": "Collocation: introduce measures.",
+      "tags": [
+        "collocations"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "vocabulary",
+      "prompt": "These findings ___ serious doubt on the theory.",
+      "answer": "cast",
+      "distractors": [
+        "give",
+        "put",
+        "make"
+      ],
+      "explanation": "Collocation: cast doubt on something.",
+      "tags": [
+        "collocations"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "vocabulary",
+      "prompt": "The negotiations broke ___ after the two sides failed to agree.",
+      "answer": "down",
+      "distractors": [
+        "in",
+        "away",
+        "through"
+      ],
+      "explanation": "'Break down' = fail and stop.",
+      "tags": [
+        "phrasal_verbs"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "___ his lack of experience, he was offered the job.",
+      "answer": "Notwithstanding",
+      "distractors": [
+        "Although",
+        "Whereas",
+        "Provided"
+      ],
+      "explanation": "'Notwithstanding' (= despite) is followed by a noun phrase.",
+      "tags": [
+        "linkers",
+        "formal"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "vocabulary",
+      "prompt": "Which sentence has the right register for a formal letter?",
+      "answer": "I am writing to enquire about the position advertised.",
+      "distractors": [
+        "I'm writing to ask about the job you put up.",
+        "Just wanted to ask about that job.",
+        "Hey, is the job still free?"
+      ],
+      "explanation": "Formal letters avoid contractions and informal phrases.",
+      "tags": [
+        "register",
+        "writing"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "passage": "C1_MULTITASK",
+      "prompt": "According to the passage, multitasking is actually ___.",
+      "answer": "quick switching between tasks",
+      "distractors": [
+        "doing two things truly at the same time",
+        "a skill most people master with practice",
+        "the best way to save time"
+      ],
+      "explanation": "'…is, in reality, rapid switching between tasks'.",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "passage": "C1_MULTITASK",
+      "prompt": "What is paradoxical about people who think they multitask well?",
+      "answer": "They tend to do worse on attention tests.",
+      "distractors": [
+        "They sleep less than others.",
+        "They never switch tasks.",
+        "They are better at batching."
+      ],
+      "explanation": "They 'often perform worse on tests of attention'.",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "passage": "C1_MULTITASK",
+      "prompt": "What do the researchers recommend?",
+      "answer": "grouping similar tasks together",
+      "distractors": [
+        "giving up all multitasking",
+        "switching tasks more often",
+        "taking longer breaks"
+      ],
+      "explanation": "They advocate 'batching' similar tasks together.",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "passage": "C1_MULTITASK",
+      "prompt": "The phrase 'called into question' is closest in meaning to ___.",
+      "answer": "doubted",
+      "distractors": [
+        "confirmed",
+        "advertised",
+        "ignored"
+      ],
+      "explanation": "To call something into question is to doubt it.",
+      "tags": [
+        "reading",
+        "vocabulary_in_context"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "passage": "C1_ROOFTOP",
+      "prompt": "What is the main point of the passage about rooftop gardens?",
+      "answer": "Their benefits depend on how they are designed.",
+      "distractors": [
+        "They always save water.",
+        "Older buildings are ideal for them.",
+        "They should be banned in dry cities."
+      ],
+      "explanation": "'Yet their benefits depend heavily on design.'",
+      "tags": [
+        "reading",
+        "main_idea"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "passage": "C1_ROOFTOP",
+      "prompt": "Why might shallow gardens be a problem in dry cities?",
+      "answer": "They need a lot of watering.",
+      "distractors": [
+        "They are too heavy.",
+        "They make buildings hotter.",
+        "They are too expensive to build."
+      ],
+      "explanation": "Shallow soil 'dries out quickly… requiring frequent watering'.",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "passage": "C1_ROOFTOP",
+      "prompt": "What is the drawback of deeper systems?",
+      "answer": "their weight",
+      "distractors": [
+        "their poor insulation",
+        "their low cost",
+        "their constant need for water"
+      ],
+      "explanation": "Deeper systems 'add considerable weight'.",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "media": {
+        "type": "image",
+        "path": "samples/sales_chart.png",
+        "caption": "A bar chart"
+      },
+      "prompt": "Which description of the chart is most accurate?",
+      "answer": "After a dip in the first quarter, sales recovered strongly.",
+      "distractors": [
+        "Sales grew steadily throughout the period.",
+        "Sales peaked in January and then declined.",
+        "Sales remained broadly stable."
+      ],
+      "explanation": "Sales fell from 40 to 20 (Jan–Mar), then rose to 60 by June.",
+      "tags": [
+        "picture",
+        "charts",
+        "describing_trends"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "reading",
+      "media": {
+        "type": "video",
+        "path": "samples/museum_visitors.mp4",
+        "caption": "Museum visitors (6 seconds)"
+      },
+      "prompt": "Watch the video. Which sentence best describes the trend?",
+      "answer": "Visitor numbers rose steadily, doubling over four years.",
+      "distractors": [
+        "Visitor numbers fluctuated wildly.",
+        "Visitor numbers peaked in 2022 before falling.",
+        "Visitor numbers remained flat throughout."
+      ],
+      "explanation": "200 → 300 → 400 thousand: a steady rise that doubles the total.",
+      "tags": [
+        "video",
+        "charts",
+        "describing_trends"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "Choose the most idiomatic sentence:",
+      "answer": "The proposal was shelved for the time being.",
+      "distractors": [
+        "The proposal was put on the shelf for being.",
+        "The proposal was shelved for the being time.",
+        "The proposal was shelving for the time being."
+      ],
+      "explanation": "'Shelve' = postpone; 'for the time being' = for now.",
+      "tags": [
+        "idioms",
+        "correct_sentence"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "grammar",
+      "prompt": "Find the mistake: \"Scarcely had the meeting begun than the fire alarm went off.\" Which word is wrong?",
+      "answer": "than",
+      "distractors": [
+        "Scarcely",
+        "had",
+        "went off"
+      ],
+      "explanation": "The pattern is 'Scarcely… when'; 'than' goes with 'No sooner'.",
+      "tags": [
+        "inversion",
+        "error_spotting"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "grammar",
+      "prompt": "No sooner ___ the contract than the company went bankrupt.",
+      "answer": "had they signed",
+      "distractors": [
+        "they had signed",
+        "did they signed",
+        "they signed"
+      ],
+      "explanation": "'No sooner' at the start needs inversion: had they signed.",
+      "tags": [
+        "inversion"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "grammar",
+      "prompt": "Rarely ___ such a compelling argument been made.",
+      "answer": "has",
+      "distractors": [
+        "is",
+        "did",
+        "had been"
+      ],
+      "explanation": "Inversion with the present perfect passive: has … been made.",
+      "tags": [
+        "inversion"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "The minister was accused of being ___ with the truth.",
+      "answer": "economical",
+      "distractors": [
+        "economic",
+        "thrifty",
+        "frugal"
+      ],
+      "explanation": "'Economical with the truth' is an idiom meaning not telling the whole truth.",
+      "tags": [
+        "idioms"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "Which phrase is closest in meaning to 'obfuscate'?",
+      "answer": "make unclear",
+      "distractors": [
+        "make obvious",
+        "delay",
+        "exaggerate"
+      ],
+      "explanation": "To obfuscate is to make something deliberately unclear.",
+      "tags": [
+        "synonyms"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "Which phrase is closest in meaning to 'ubiquitous'?",
+      "answer": "found everywhere",
+      "distractors": [
+        "extremely rare",
+        "highly valuable",
+        "very old"
+      ],
+      "explanation": "Ubiquitous = present everywhere.",
+      "tags": [
+        "synonyms"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "Which word is closest in meaning to 'sanguine' (about the future)?",
+      "answer": "optimistic",
+      "distractors": [
+        "furious",
+        "indifferent",
+        "exhausted"
+      ],
+      "explanation": "Sanguine = cheerfully optimistic.",
+      "tags": [
+        "synonyms"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "The ___ of the evidence led to the case being dismissed. (SUFFICIENT)",
+      "answer": "insufficiency",
+      "distractors": [
+        "sufficiency",
+        "sufficiently",
+        "insufficient"
+      ],
+      "explanation": "A noun meaning 'not enough' is needed: insufficiency.",
+      "tags": [
+        "word_formation"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "His argument was full of ___. (CONSISTENT)",
+      "answer": "inconsistencies",
+      "distractors": [
+        "consistency",
+        "inconsistent",
+        "consistently"
+      ],
+      "explanation": "'Full of' needs a plural noun: inconsistencies.",
+      "tags": [
+        "word_formation"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "After weeks of arguing, they finally decided to bury the ___.",
+      "answer": "hatchet",
+      "distractors": [
+        "sword",
+        "knife",
+        "hammer"
+      ],
+      "explanation": "'Bury the hatchet' = make peace.",
+      "tags": [
+        "idioms"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "The new manager is a breath of fresh ___.",
+      "answer": "air",
+      "distractors": [
+        "wind",
+        "sky",
+        "spring"
+      ],
+      "explanation": "'A breath of fresh air' = someone new and refreshing.",
+      "tags": [
+        "idioms"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "The decision was met with ___ criticism from all sides.",
+      "answer": "fierce",
+      "distractors": [
+        "tall",
+        "steep",
+        "thick"
+      ],
+      "explanation": "Collocation: fierce criticism.",
+      "tags": [
+        "collocations"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "Which is the most formal way to say 'get rid of'?",
+      "answer": "dispose of",
+      "distractors": [
+        "chuck out",
+        "bin",
+        "ditch"
+      ],
+      "explanation": "'Dispose of' is formal; the others are informal.",
+      "tags": [
+        "register"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "grammar",
+      "prompt": "Which sentence expresses the strongest certainty about the past?",
+      "answer": "She must have left already.",
+      "distractors": [
+        "She might have left already.",
+        "She could have left already.",
+        "She may have left already."
+      ],
+      "explanation": "'Must have' = almost certain; might/could/may = possible.",
+      "tags": [
+        "modals_past"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "passage": "C2_INTELLIGENCE",
+      "prompt": "What criticism was made of early intelligence tests?",
+      "answer": "They favoured people familiar with the test-makers' culture.",
+      "distractors": [
+        "They were too short to be reliable.",
+        "They measured too many separate abilities.",
+        "They were designed by untrained psychologists."
+      ],
+      "explanation": "Critics said the tests 'rewarded familiarity with the culture of those who designed them'.",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "passage": "C2_INTELLIGENCE",
+      "prompt": "Why do some people dismiss the idea of multiple intelligences?",
+      "answer": "They think it is too broad to mean anything.",
+      "distractors": [
+        "They think it is too narrow.",
+        "They think it ignores spatial ability.",
+        "They believe no tests could be designed for it."
+      ],
+      "explanation": "It is dismissed 'as so elastic as to be meaningless'.",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "passage": "C2_INTELLIGENCE",
+      "prompt": "Which statement reflects the author's final point?",
+      "answer": "Definitions of intelligence reveal a society's values.",
+      "distractors": [
+        "Intelligence cannot be measured at all.",
+        "The theory of multiple intelligences is correct.",
+        "General intelligence is the only valid concept."
+      ],
+      "explanation": "The way a society defines intelligence 'reveals as much about its values'.",
+      "tags": [
+        "reading",
+        "main_idea"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "passage": "C2_INTELLIGENCE",
+      "prompt": "In the passage, 'slippery' means ___.",
+      "answer": "hard to define precisely",
+      "distractors": [
+        "dangerous to use",
+        "easy to measure",
+        "widely accepted"
+      ],
+      "explanation": "A slippery concept is hard to pin down.",
+      "tags": [
+        "reading",
+        "vocabulary_in_context"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "passage": "C2_PEDESTRIAN",
+      "prompt": "How did shopkeepers first react to the plan?",
+      "answer": "They opposed it, fearing a loss of business.",
+      "distractors": [
+        "They welcomed it enthusiastically.",
+        "They asked for higher rents.",
+        "They proposed it to the council."
+      ],
+      "explanation": "There was 'a chorus of objections… who predicted a collapse in trade'.",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "passage": "C2_PEDESTRIAN",
+      "prompt": "What has happened to the number of visitors to the old quarter?",
+      "answer": "It has risen by about a third.",
+      "distractors": [
+        "It has fallen by a third.",
+        "It has stayed the same.",
+        "It has tripled."
+      ],
+      "explanation": "'Footfall has risen by a third.'",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "passage": "C2_PEDESTRIAN",
+      "prompt": "What new problem do the shopkeepers point out?",
+      "answer": "Rising rents are forcing some businesses out.",
+      "distractors": [
+        "There are now too few visitors.",
+        "Cars still enter the old quarter.",
+        "The council has closed several shops."
+      ],
+      "explanation": "'Rents have climbed accordingly, pricing some long-standing businesses out.'",
+      "tags": [
+        "reading"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "reading",
+      "passage": "C2_PEDESTRIAN",
+      "prompt": "'Their fears were misplaced' means the fears were ___.",
+      "answer": "unjustified",
+      "distractors": [
+        "hidden",
+        "deliberately exaggerated",
+        "shared by everyone"
+      ],
+      "explanation": "Misplaced fears turned out to be wrong.",
+      "tags": [
+        "reading",
+        "vocabulary_in_context"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "A: Shall we go to the cinema tonight?  B: ___",
+      "answer": "I'd love to, but I have to study.",
+      "distractors": [
+        "Yes, we shall went.",
+        "I'd love going, but I have studied.",
+        "No, we didn't."
+      ],
+      "explanation": "A polite refusal with a reason.",
+      "tags": [
+        "dialogue",
+        "invitations"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "grammar",
+      "prompt": "I've never been to Paris, and my sister hasn't ___.",
+      "answer": "either",
+      "distractors": [
+        "too",
+        "neither",
+        "also"
+      ],
+      "explanation": "In negative sentences we use 'either' at the end.",
+      "tags": [
+        "agreement"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "grammar",
+      "prompt": "If I were you, I ___ apply for that job.",
+      "answer": "would",
+      "distractors": [
+        "will",
+        "am",
+        "did"
+      ],
+      "explanation": "Advice: If I were you, I would…",
+      "tags": [
+        "conditionals",
+        "advice"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "grammar",
+      "prompt": "This is the town ___ I grew up.",
+      "answer": "where",
+      "distractors": [
+        "which",
+        "who",
+        "what"
+      ],
+      "explanation": "'Where' refers to a place in relative clauses.",
+      "tags": [
+        "relative_clauses"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "Which word is closest in meaning to 'purchase'?",
+      "answer": "buy",
+      "distractors": [
+        "sell",
+        "borrow",
+        "return"
+      ],
+      "explanation": "To purchase = to buy.",
+      "tags": [
+        "synonyms"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "Sorry I'm late. I got stuck in ___ traffic.",
+      "answer": "heavy",
+      "distractors": [
+        "hard",
+        "thick",
+        "fat"
+      ],
+      "explanation": "Collocation: heavy traffic.",
+      "tags": [
+        "collocations"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "She ___ her driving test on her first attempt.",
+      "answer": "passed",
+      "distractors": [
+        "succeeded",
+        "won",
+        "achieved"
+      ],
+      "explanation": "Collocation: pass a test.",
+      "tags": [
+        "collocations"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "grammar",
+      "prompt": "My phone needs ___. The battery is almost empty.",
+      "answer": "charging",
+      "distractors": [
+        "charge",
+        "charged",
+        "be charging"
+      ],
+      "explanation": "'Need + -ing' has a passive meaning: it needs to be charged.",
+      "tags": [
+        "gerunds"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "vocabulary",
+      "prompt": "We had to ___ the match because of the storm, so it never happened.",
+      "answer": "call off",
+      "distractors": [
+        "call up",
+        "call back",
+        "call in"
+      ],
+      "explanation": "'Call off' = cancel.",
+      "tags": [
+        "phrasal_verbs"
+      ]
+    },
+    {
+      "level": "B1",
+      "skill": "grammar",
+      "prompt": "Find the mistake: \"If it will rain tomorrow, we'll stay at home.\" Which word is wrong?",
+      "answer": "will",
+      "distractors": [
+        "If",
+        "rain",
+        "stay"
+      ],
+      "explanation": "After 'if' we use the present: If it rains…",
+      "tags": [
+        "conditionals",
+        "error_spotting"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "A: Could you possibly lend me your laptop?  B: ___",
+      "answer": "Sure, as long as you're careful with it.",
+      "distractors": [
+        "Sure, I could possibly.",
+        "Yes, I lend.",
+        "No problem, I borrowed it."
+      ],
+      "explanation": "Agreeing with a condition: as long as…",
+      "tags": [
+        "dialogue",
+        "requests"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "I'd rather ___ at home tonight.",
+      "answer": "stay",
+      "distractors": [
+        "to stay",
+        "staying",
+        "stayed"
+      ],
+      "explanation": "'Would rather' + base form for your own preference.",
+      "tags": [
+        "preferences"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "She was the first woman ___ the prize.",
+      "answer": "to win",
+      "distractors": [
+        "winning",
+        "won",
+        "who win"
+      ],
+      "explanation": "'The first/last/only' + to-infinitive.",
+      "tags": [
+        "infinitives"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "vocabulary",
+      "prompt": "Which phrase is closest in meaning to 'put up with'?",
+      "answer": "tolerate",
+      "distractors": [
+        "build",
+        "support financially",
+        "postpone"
+      ],
+      "explanation": "To put up with = to tolerate.",
+      "tags": [
+        "phrasal_verbs",
+        "synonyms"
+      ]
+    },
+    {
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "There's no point ___ to persuade him; he never changes his mind.",
+      "answer": "trying",
+      "distractors": [
+        "to try",
+        "try",
+        "tried"
+      ],
+      "explanation": "'There's no point' + -ing.",
+      "tags": [
+        "gerunds"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "Not until I got home ___ that I had lost my keys.",
+      "answer": "did I realise",
+      "distractors": [
+        "I realised",
+        "I did realise",
+        "had I realised"
+      ],
+      "explanation": "'Not until…' at the start: inversion in the main clause (did I realise).",
+      "tags": [
+        "inversion"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "The proposal was rejected ___ the grounds that it was too expensive.",
+      "answer": "on",
+      "distractors": [
+        "in",
+        "at",
+        "for"
+      ],
+      "explanation": "Fixed phrase: on the grounds that.",
+      "tags": [
+        "prepositions",
+        "formal"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "vocabulary",
+      "prompt": "Which phrase is closest in meaning to 'a foregone conclusion'?",
+      "answer": "a certain outcome",
+      "distractors": [
+        "an unexpected result",
+        "a forgotten decision",
+        "a long debate"
+      ],
+      "explanation": "A foregone conclusion is a result that is certain in advance.",
+      "tags": [
+        "idioms"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "vocabulary",
+      "prompt": "She has a ___ for languages; she speaks five fluently.",
+      "answer": "flair",
+      "distractors": [
+        "flare",
+        "flavour",
+        "fluency"
+      ],
+      "explanation": "'A flair for' = a natural talent for.",
+      "tags": [
+        "collocations"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "Find the mistake: \"Each of the students have submitted their essay.\" Which word is wrong?",
+      "answer": "have",
+      "distractors": [
+        "Each",
+        "submitted",
+        "essay"
+      ],
+      "explanation": "'Each of…' takes a singular verb: has submitted.",
+      "tags": [
+        "agreement",
+        "error_spotting"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "vocabulary",
+      "prompt": "The two companies are ___ talks about a possible merger.",
+      "answer": "holding",
+      "distractors": [
+        "making",
+        "doing",
+        "keeping"
+      ],
+      "explanation": "Collocation: hold talks.",
+      "tags": [
+        "collocations"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "Choose the sentence that uses 'whom' correctly:",
+      "answer": "To whom should I address the letter?",
+      "distractors": [
+        "Whom is calling, please?",
+        "Whom do you think is right?",
+        "The man whom lives next door is a pilot."
+      ],
+      "explanation": "'Whom' is an object form; after a preposition it is correct.",
+      "tags": [
+        "relative_clauses",
+        "formal"
+      ]
+    },
+    {
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "You may borrow the car ___ you return it by six.",
+      "answer": "provided that",
+      "distractors": [
+        "whereas",
+        "even though",
+        "so that"
+      ],
+      "explanation": "'Provided that' introduces a condition.",
+      "tags": [
+        "linkers",
+        "conditionals"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "Which word is closest in meaning to 'ephemeral'?",
+      "answer": "short-lived",
+      "distractors": [
+        "everlasting",
+        "imaginary",
+        "fragile"
+      ],
+      "explanation": "Ephemeral = lasting a very short time.",
+      "tags": [
+        "synonyms"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "His remarks were ___ to the point of rudeness.",
+      "answer": "blunt",
+      "distractors": [
+        "oblique",
+        "tactful",
+        "verbose"
+      ],
+      "explanation": "Blunt = very direct, without trying to be polite.",
+      "tags": [
+        "adjectives"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "grammar",
+      "prompt": "Had it not been for her help, we ___ the deadline.",
+      "answer": "would have missed",
+      "distractors": [
+        "would miss",
+        "had missed",
+        "will have missed"
+      ],
+      "explanation": "Inverted third conditional: Had it not been for…, would have + past participle.",
+      "tags": [
+        "inversion",
+        "conditionals"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "That's a red ___; it has nothing to do with the real issue.",
+      "answer": "herring",
+      "distractors": [
+        "fish",
+        "flag",
+        "carpet"
+      ],
+      "explanation": "A red herring distracts from the real issue.",
+      "tags": [
+        "idioms"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "The evidence is ___; it could support either interpretation.",
+      "answer": "equivocal",
+      "distractors": [
+        "unequivocal",
+        "irrefutable",
+        "conclusive"
+      ],
+      "explanation": "Equivocal = open to more than one interpretation.",
+      "tags": [
+        "advanced_adjectives"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "grammar",
+      "prompt": "Find the mistake: \"Hardly had I sat down when the phone rings.\" Which word is wrong?",
+      "answer": "rings",
+      "distractors": [
+        "Hardly",
+        "had",
+        "sat"
+      ],
+      "explanation": "The sentence is in the past: the phone rang.",
+      "tags": [
+        "inversion",
+        "error_spotting"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "Which is the most formal way to say 'look into the matter'?",
+      "answer": "investigate the matter",
+      "distractors": [
+        "check out the matter",
+        "dig into the matter",
+        "sort out the matter"
+      ],
+      "explanation": "'Investigate' is the formal equivalent.",
+      "tags": [
+        "register"
+      ]
+    },
+    {
+      "level": "C2",
+      "skill": "vocabulary",
+      "prompt": "The government's response was criticised as too little, too ___.",
+      "answer": "late",
+      "distractors": [
+        "slow",
+        "small",
+        "soon"
+      ],
+      "explanation": "Fixed phrase: too little, too late.",
+      "tags": [
+        "idioms"
+      ]
+    }
+  ]
 }
