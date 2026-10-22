@@ -32,7 +32,7 @@ The direct-download build (GitHub Releases / Supabase link) keeps `selfUpdate=tr
 * **Full description (EN):**
   > EnglishMaster helps Kurdish and English speakers learn English step by step, from A1 to C2.
   > • Hundreds of grammar, vocabulary and reading questions, with stories, dialogues, pictures and short videos
-  > • Practise by topic: Life in the UK, Kurdistan, history and our world
+  > • Practise by topic: Life in the UK, Britain, history and our world
   > • Listen button reads questions aloud in British English
   > • Works offline once a level is downloaded
   > • Placement test, timed level exams and PDF certificates with a QR code (issued after a teacher approves)

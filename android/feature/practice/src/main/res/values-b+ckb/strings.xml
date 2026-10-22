@@ -127,8 +127,8 @@
     <string name="topics_update_levels">دوگمەی نوێکردنەوە لەسەر ئاستە دابەزێنراوەکانت دابگرە بۆ ئەوەی پرسیارەکانی بابەتەکان وەربگریت.</string>
     <string name="topic_life_in_uk">ژیان لە بەریتانیا (Life in the UK)</string>
     <string name="topic_life_in_uk_desc">مێژوو، داب و نەریت، حکومەت و ژیانی ڕۆژانە — بەسوود بۆ تاقیکردنەوەی Life in the UK</string>
-    <string name="topic_kurdistan">کوردستان</string>
-    <string name="topic_kurdistan_desc">شارەکان، نەورۆز، چیاکان، مێژوو و زمانی کوردی</string>
+    <string name="topic_britain">بەریتانیا</string>
+    <string name="topic_britain_desc">چیرۆکی بەریتانی، دایەلۆگی ڕۆژانە، شوێنەکان، جەژنەکان و مێژوو</string>
     <string name="topic_stories">چیرۆک و دیالۆگ</string>
     <string name="topic_stories_desc">چیرۆکێکی کورت یان گفتوگۆیەک بخوێنەوە، پاشان وەڵام بدەرەوە</string>
     <string name="topic_world">مێژوو و جیهانەکەمان</string>

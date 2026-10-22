@@ -35,10 +35,10 @@ reset role;
 select set_config('request.jwt.claims', '{"sub":"b1100000-0000-0000-0000-00000000000b","role":"authenticated"}', true);
 set local role authenticated;
 select is(public.staff_update_question('e1100000-0000-0000-0000-0000000000a1', 'A1', 'vocabulary', ' What is the activation code? ',
-            array['837631','837613','873631','837361'], 'a', 'Read the code under the map.', null, 'image', 'staff/x.png', 'Kurdistan IPTV'),
+            array['837631','837613','873631','837361'], 'a', 'Read the code under the map.', null, 'image', 'staff/x.png', 'Union Flag'),
           2, 'editing the prompt and options bumps the version');
 select is(public.staff_update_question('e1100000-0000-0000-0000-0000000000a1', 'A1', 'vocabulary', 'What is the activation code?',
-            array['837631','837613','873631','837361'], 'A', 'Look at the big gold numbers.', null, 'image', 'staff/x.png', 'Kurdistan IPTV'),
+            array['837631','837613','873631','837361'], 'A', 'Look at the big gold numbers.', null, 'image', 'staff/x.png', 'Union Flag'),
           2, 'an explanation-only edit keeps the version');
 select throws_ok($$select public.staff_update_question('e1100000-0000-0000-0000-0000000000a1', 'A1', 'grammar', 'x?', array['a','a'], 'A')$$,
   '22023', null, 'duplicate options are refused');
@@ -50,7 +50,7 @@ reset role;
 select results_eq($$select prompt, options, correct_option, status, review_status, media_caption, skill
                      from public.assessment_questions where id = 'e1100000-0000-0000-0000-0000000000a1'$$,
   $$values ('What is the activation code?'::text, array['837631','837613','873631','837361']::text[], 'A'::text,
-            'published'::text, 'approved'::text, 'Kurdistan IPTV'::text, 'vocabulary'::text)$$,
+            'published'::text, 'approved'::text, 'Union Flag'::text, 'vocabulary'::text)$$,
   'edit is saved and keeps the review/publish state');
 -- Removing the picture also clears its caption.
 select set_config('request.jwt.claims', '{"sub":"b1100000-0000-0000-0000-00000000000b","role":"authenticated"}', true);

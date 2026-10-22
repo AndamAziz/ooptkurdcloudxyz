@@ -160,10 +160,10 @@ def table(d, rows, col_x, top, row_h, header_fill=(58, 79, 196)):
 
 def timetable():
     img, d = canvas()
-    centered(d, (W // 2, 45), "Bus timetable: Erbil -> Sulaymaniyah", 28, bold=True)
-    table(d, [["Bus", "Leaves Erbil", "Arrives"], ["1", "07:00", "10:15"], ["2", "08:15", "10:45"],
+    centered(d, (W // 2, 45), "Bus timetable: London -> Oxford", 28, bold=True)
+    table(d, [["Bus", "Leaves London", "Arrives"], ["1", "07:00", "10:15"], ["2", "08:15", "10:45"],
               ["3", "12:30", "15:30"], ["4", "17:45", "20:45"]], [70, 260, 560], 100, 70)
-    img.save(OUT / "bus_timetable.png")
+    img.save(OUT / "bus_timetable_uk.png")
 
 
 def shop_hours():
@@ -292,25 +292,6 @@ def union_flag():
     save_flag(img, "union_flag.png")
 
 
-def kurdistan_flag():
-    img, d, (x0, y0, x1, y1) = flag_canvas()
-    h = (y1 - y0) / 3
-    d.rectangle((x0, y0, x1, y0 + h), fill=(237, 33, 36))
-    d.rectangle((x0, y0 + h, x1, y0 + 2 * h), fill="white")
-    d.rectangle((x0, y0 + 2 * h, x1, y1), fill=(39, 136, 69))
-    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
-    rays = []
-    for i in range(21):  # the sun has 21 rays
-        a = 2 * math.pi * i / 21 - math.pi / 2
-        b1, b2 = a - math.pi / 21 * 0.55, a + math.pi / 21 * 0.55
-        rays.append([(cx + math.cos(b1) * 42, cy + math.sin(b1) * 42), (cx + math.cos(a) * 92, cy + math.sin(a) * 92),
-                     (cx + math.cos(b2) * 42, cy + math.sin(b2) * 42)])
-    for r in rays:
-        d.polygon(r, fill=(253, 200, 47))
-    d.ellipse((cx - 46, cy - 46, cx + 46, cy + 46), fill=(253, 200, 47))
-    save_flag(img, "flag_kurdistan_region.png")
-
-
 TIMELINE = [(1066, "Norman Conquest"), (1215, "Magna Carta"), (1588, "Spanish Armada"),
             (1666, "Great Fire of London"), (1707, "Act of Union")]
 
@@ -342,83 +323,68 @@ def timeline_video():
     video("uk_timeline.mp4", 10, 10, draw)
 
 
-# Approximate average daily temperatures (degrees C), rounded: Erbil and London.
-TEMPS = {"Erbil": [7, 18, 34, 22], "London": [5, 11, 19, 14]}
-MONTHS = ["Jan", "Apr", "Jul", "Oct"]
+# UK population in millions, from the table in "Life in the United Kingdom: A Guide for New
+# Residents" (3rd edition): 1801 8, 1851 20, 1901 40, 1951 50, 2010 just over 62.
+POPULATION = [(1801, 8), (1851, 20), (1901, 40), (1951, 50), (2010, 62)]
 
 
-def draw_temperatures(d, progress=1.0):
-    centered(d, (W // 2, 40), "Average temperature (approx., degrees C)", 26, bold=True)
-    left, right, base, top = 110, 740, 430, 90
+def draw_population(d, progress=1.0):
+    centered(d, (W // 2, 40), "UK population (millions)", 28, bold=True)
+    left, right, base, height = 110, 760, 430, 320
     d.line((left, base, right, base), fill=INK, width=3)
-    d.line((left, base, left, top), fill=INK, width=3)
-    for v in range(0, 41, 10):
-        y = base - (base - top) * v / 40
+    d.line((left, base, left, base - height - 10), fill=INK, width=3)
+    for v in range(0, 71, 10):
+        y = base - height * v / 70
         d.line((left - 6, y, left, y), fill=INK, width=2)
         d.text((left - 40, y - 10), str(v), font=font(18), fill=INK)
-    xs = [left + 60 + i * (right - left - 120) / 3 for i in range(4)]
-    for x, m in zip(xs, MONTHS):
-        centered(d, (x, base + 22), m, 20)
-    colors = {"Erbil": (214, 40, 40), "London": (30, 90, 200)}
-    for city, vals in TEMPS.items():
-        pts = [(x, base - (base - top) * v / 40) for x, v in zip(xs, vals)]
-        n = progress * 3
-        for i in range(3):
-            if n <= i:
-                break
-            f = min(1.0, n - i)
-            (ax, ay), (bx, by) = pts[i], pts[i + 1]
-            d.line((ax, ay, ax + (bx - ax) * f, ay + (by - ay) * f), fill=colors[city], width=6)
-        for i, (x, y) in enumerate(pts):
-            if i <= n:
-                d.ellipse((x - 8, y - 8, x + 8, y + 8), fill=colors[city])
-                d.text((x + 10, y - 30), str(vals[i]), font=font(18, bold=True), fill=colors[city])
-    d.text((140, 95), "Erbil", font=font(22, bold=True), fill=colors["Erbil"])
-    d.text((140, 125), "London", font=font(22, bold=True), fill=colors["London"])
+    step = (right - left) / len(POPULATION)
+    for i, (year, pop) in enumerate(POPULATION):
+        f = max(0.0, min(1.0, progress * len(POPULATION) - i))  # bars grow one after another
+        x0 = left + i * step + step * 0.2
+        x1 = left + (i + 1) * step - step * 0.2
+        top = base - height * pop * f / 70
+        d.rectangle((x0, top, x1, base), fill=(1, 33, 105))
+        centered(d, ((x0 + x1) / 2, base + 22), str(year), 20)
+        if f >= 1.0:
+            centered(d, ((x0 + x1) / 2, top - 22), str(pop), 22, bold=True)
 
 
-def temperature_picture():
+def population_picture():
     img, d = canvas()
-    draw_temperatures(d)
-    img.save(OUT / "temperature_erbil_london.png")
+    draw_population(d)
+    img.save(OUT / "uk_population.png")
 
 
-def temperature_video():
-    video("temperature_erbil_london.mp4", 8, 15, lambda d, t: draw_temperatures(d, min(1.0, t / 0.85)))
+def population_video():
+    video("uk_population.mp4", 8, 15, lambda d, t: draw_population(d, min(1.0, t / 0.85)))
 
 
-def newroz_video():
-    import random as _r
-    rng = _r.Random(21)
-    sparks = [(rng.uniform(320, 480), rng.uniform(0, 1), rng.uniform(0.6, 1.4)) for _ in range(60)]
+# Special days from the handbook's "Customs and traditions" section.
+SPECIAL_DAYS = [("St David's Day", "1 March"), ("St Patrick's Day", "17 March"), ("St George's Day", "23 April"),
+                ("Bonfire Night", "5 November"), ("St Andrew's Day", "30 November")]
 
+
+def calendar_video():
     def draw(d, t):
-        d.rectangle((0, 0, W, H), fill=(28, 30, 60))
-        d.polygon([(0, 500), (180, 250), (330, 400), (520, 220), (800, 470), (800, 500)], fill=(40, 70, 60))
-        fy = 400
-        for i in range(6):  # flickering flames
-            w = 80 - i * 10 + 10 * math.sin(t * 40 + i)
-            d.ellipse((400 - w, fy - 120 + i * 15 - 15 * math.sin(t * 30 + i), 400 + w, fy), fill=[(255, 90, 20), (255, 150, 30), (255, 210, 60)][i % 3])
-        for x, phase, speed in sparks:
-            y = fy - ((t * speed + phase) % 1.0) * 320
-            d.ellipse((x - 3, y - 3, x + 3, y + 3), fill=(255, 220, 120))
-        if t > 0.35:
-            centered(d, (W // 2, 70), "Newroz", 56, fill=(255, 220, 120), bold=True)
-        if t > 0.55:
-            centered(d, (W // 2, 140), "21 March", 40, fill="white")
-    video("newroz.mp4", 7, 15, draw)
+        centered(d, (W // 2, 50), "Special days in the UK", 34, bold=True)
+        shown = min(len(SPECIAL_DAYS), 1 + int(t * len(SPECIAL_DAYS) * 0.999))
+        for i, (name, date) in enumerate(SPECIAL_DAYS[:shown]):
+            y = 110 + i * 72
+            d.rounded_rectangle((120, y, 680, y + 58), radius=14, fill=(222, 224, 255))
+            d.text((150, y + 14), name, font=font(26, bold=True), fill=INK)
+            d.text((500, y + 14), date, font=font(26), fill=(200, 16, 46))
+    video("uk_calendar.mp4", 10, 10, draw)
 
 
 def batch03():
     scotland_flag()
     england_flag()
     union_flag()
-    kurdistan_flag()
     timeline_picture()
     timeline_video()
-    temperature_picture()
-    temperature_video()
-    newroz_video()
+    population_picture()
+    population_video()
+    calendar_video()
 
 
 def main():

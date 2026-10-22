@@ -68,7 +68,7 @@ class PracticeViewModelsTest {
         val vm = PracticeViewModel(null, "u1", content, FakePractice(FakeNetwork()), topic = Topic.LIFE_IN_UK)
         assertEquals(listOf("uk1", "uk2"), vm.uiState.value.questions.map { it.id })
 
-        val empty = PracticeViewModel(null, "u1", content, FakePractice(FakeNetwork()), topic = Topic.KURDISTAN)
+        val empty = PracticeViewModel(null, "u1", content, FakePractice(FakeNetwork()), topic = Topic.BRITAIN)
         assertTrue(empty.uiState.value.isEmpty)
     }
 

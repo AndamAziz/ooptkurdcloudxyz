@@ -70,11 +70,11 @@ class PracticeScreenTest {
     @Test
     @Config(qualifiers = "b+ckb")
     fun topicSessionShowsTopicTitleAndEachQuestionsLevel() {
-        val content = FakeContent().apply { topicQuestions = mapOf(Topic.KURDISTAN to listOf(question("k1").copy(level = CefrLevel.B2))) }
-        val vm = PracticeViewModel(null, "u1", content, FakePractice(FakeNetwork()), topic = Topic.KURDISTAN)
+        val content = FakeContent().apply { topicQuestions = mapOf(Topic.BRITAIN to listOf(question("k1").copy(level = CefrLevel.B2))) }
+        val vm = PracticeViewModel(null, "u1", content, FakePractice(FakeNetwork()), topic = Topic.BRITAIN)
         compose.setContent { EnglishMasterTheme { PracticeScreen(null, vm, onExit = {}) } }
 
-        compose.onNodeWithText("کوردستان").assertIsDisplayed()
+        compose.onNodeWithText("بەریتانیا").assertIsDisplayed()
         compose.onNodeWithTag("practice_counter").assertTextContains("B2", substring = true)
     }
 
@@ -176,13 +176,13 @@ class PracticeScreenTest {
     @Test
     fun readingPassageAndPictureAreShownAboveTheQuestion() {
         val q = question("r1").copy(
-            passage = "Ali lives in Duhok with his family.",
+            passage = "Ali lives in Leeds with his family.",
             media = QuestionMedia(MediaType.IMAGE, "https://invalid.localhost/x.png", "A map", localPath = null),
         )
         val vm = PracticeViewModel(CefrLevel.A1, "u1", FakeContent(listOf(q)), FakePractice(FakeNetwork()))
         compose.setContent { EnglishMasterTheme { PracticeScreen(CefrLevel.A1, vm, onExit = {}) } }
 
-        compose.onNodeWithText("Ali lives in Duhok with his family.").assertIsDisplayed()
+        compose.onNodeWithText("Ali lives in Leeds with his family.").assertIsDisplayed()
         compose.onNodeWithTag("question_image").assertExists()
         compose.onNodeWithText("A map").assertExists()
     }

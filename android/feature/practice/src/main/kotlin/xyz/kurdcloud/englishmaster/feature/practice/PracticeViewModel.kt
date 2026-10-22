@@ -51,7 +51,7 @@ class PracticeViewModel(
     private val sessionSize: Int = 10,
     /** Review session: only questions whose latest marked answer was wrong. */
     val mistakesOnly: Boolean = false,
-    /** Topic session (Life in the UK, Kurdistan, ...) across all downloaded levels. */
+    /** Topic session (Life in the UK, Britain, ...) across all downloaded levels. */
     val topic: Topic? = null,
     /** Session on one exact tag (a Life in the UK chapter) across all downloaded levels. */
     private val tag: String? = null,

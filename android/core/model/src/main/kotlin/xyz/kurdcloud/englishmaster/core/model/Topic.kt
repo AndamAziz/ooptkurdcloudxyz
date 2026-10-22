@@ -7,7 +7,7 @@ package xyz.kurdcloud.englishmaster.core.model
  */
 enum class Topic(val apiValue: String, val tags: List<String>, val withPassage: Boolean = false, val withMedia: Boolean = false) {
     LIFE_IN_UK("life_in_uk", listOf("life_in_uk")),
-    KURDISTAN("kurdistan", listOf("kurdistan")),
+    BRITAIN("britain", listOf("britain")),
     STORIES("stories", listOf("story", "dialogue"), withPassage = true),
     WORLD("world", listOf("history", "world_knowledge", "culture", "nature")),
     PICTURES("pictures", listOf("picture", "video"), withMedia = true);

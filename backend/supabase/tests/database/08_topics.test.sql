@@ -12,7 +12,7 @@ select ok((select tags @> array['life_in_uk', 'story'] from public.get_practice_
             where prompt = 'How many countries make up the United Kingdom?'),
   'v3 download includes the topic tags');
 select is((select count(*)::int from public.get_practice_questions_v3('A2', null, 200)
-            where prompt = 'In the Newroz story, who was Kawa?'), 0,
+            where prompt = 'In the Bonfire Night story, who was Guy Fawkes?'), 0,
   'unapproved drafts are not downloaded');
 select is((select count(*)::int from public.get_practice_questions_v3('A2', null, 200)),
           (select count(*)::int from public.get_practice_questions_v2('A2', null, 200)),

@@ -101,7 +101,7 @@ class SyncAndPracticeTest {
                 "version":1,"review_status":"approved","updated_at":"t","media_type":"image","media_path":"samples/clock.png",
                 "media_caption":"A clock","passage":null},
                 {"id":"p2","cefr_level":"A1","skill":"reading","prompt":"Where?","options":["a","b"],"version":1,
-                "review_status":"approved","updated_at":"t","passage":"Ali lives in Duhok.","tags":["kurdistan","story"]}]""",
+                "review_status":"approved","updated_at":"t","passage":"Ali lives in Leeds.","tags":["britain","story"]}]""",
             ).build(),
         )
         server.enqueue(MockResponse.Builder().code(200).addHeader("Content-Type", "image/png").body("PNGDATA").build())
@@ -113,8 +113,8 @@ class SyncAndPracticeTest {
         val pic = content.questions(listOf("p1")).single().media!!
         assertEquals(base + "samples/clock.png", pic.url)
         assertEquals("PNGDATA", java.io.File(pic.localPath!!).readText())
-        assertEquals("Ali lives in Duhok.", content.questions(listOf("p2")).single().passage)
-        assertEquals(listOf("kurdistan", "story"), db.questions().byId("p2")!!.tags)
+        assertEquals("Ali lives in Leeds.", content.questions(listOf("p2")).single().passage)
+        assertEquals(listOf("britain", "story"), db.questions().byId("p2")!!.tags)
         dir.deleteRecursively()
     }
 
@@ -125,8 +125,8 @@ class SyncAndPracticeTest {
             "A1",
             listOf(
                 question("uk").copy(tags = listOf("life_in_uk", "history")),
-                question("ku").copy(tags = listOf("kurdistan")),
-                question("read").copy(passage = "Hana lives in Erbil."),
+                question("ku").copy(tags = listOf("britain")),
+                question("read").copy(passage = "Ella lives in Edinburgh."),
                 question("pic").copy(mediaType = "image", mediaPath = "samples/flag.png"),
                 // "life_in_uk_extra" must not match the whole tag "life_in_uk".
                 question("other").copy(tags = listOf("grammar", "life_in_uk_extra")),
@@ -136,7 +136,7 @@ class SyncAndPracticeTest {
         db.content().replaceLevel("B2", listOf(question("uk2").copy(cefrLevel = "B2", tags = listOf("life_in_uk"))), LevelPackEntity("B2", 1, 1))
 
         val counts = content.observeTopicCounts().first()
-        assertEquals(mapOf(Topic.LIFE_IN_UK to 2, Topic.KURDISTAN to 1, Topic.STORIES to 1, Topic.WORLD to 1, Topic.PICTURES to 1), counts)
+        assertEquals(mapOf(Topic.LIFE_IN_UK to 2, Topic.BRITAIN to 1, Topic.STORIES to 1, Topic.WORLD to 1, Topic.PICTURES to 1), counts)
         assertEquals(setOf("uk", "uk2"), content.pickTopic(Topic.LIFE_IN_UK, "u1", 10).map { it.id }.toSet())
         assertEquals(setOf(CefrLevel.A1, CefrLevel.B2), content.pickTopic(Topic.LIFE_IN_UK, "u1", 10).map { it.level }.toSet())
         assertEquals(listOf("read"), content.pickTopic(Topic.STORIES, "u1", 10).map { it.id })
