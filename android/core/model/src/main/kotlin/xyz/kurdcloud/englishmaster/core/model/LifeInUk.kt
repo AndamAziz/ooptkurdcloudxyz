@@ -14,6 +14,18 @@ object LifeInUkTest {
     /** Tag every Life in the UK question carries. */
     const val TAG = "life_in_uk"
 
+    /**
+     * Questions per handbook chapter in a mock test, following the spread of the official practice
+     * tests (about 1 + 1 + 8 + 7 + 7). Missing questions are filled from the whole set.
+     */
+    val CHAPTER_MIX: Map<LifeInUkChapter, Int> = mapOf(
+        LifeInUkChapter.VALUES to 1,
+        LifeInUkChapter.WHAT_IS_UK to 1,
+        LifeInUkChapter.HISTORY to 8,
+        LifeInUkChapter.SOCIETY to 7,
+        LifeInUkChapter.GOVERNMENT to 7,
+    )
+
     /** Booking and rules (GOV.UK). */
     const val OFFICIAL_TEST_URL = "https://www.gov.uk/life-in-the-uk-test"
     const val TEST_DAY_URL = "https://www.gov.uk/life-in-the-uk-test/what-happens-test"

@@ -1,66 +1,730 @@
 {
-  "source": "Life in the United Kingdom: A Guide for New Residents, 3rd edition (TSO, 2013; later impressions amended)",
-  "toc_status": "UNCONFIRMED",
-  "toc_note": "Chapter titles match the official course structure. Section headings are a working outline written without access to the book; confirm every heading and add page ranges from the table of contents before marking any section reviewed. Keywords only drive the provisional mapping of existing questions.",
-  "publisher_notes": [
-    "TSO's eBook listing states that the sections on EU membership and the monarchy are out of date, have been removed from later prints, and are not examined in the Home Office approved test based on the 3rd edition. Confirm the exact wording and which passages are affected against the current impression."
-  ],
-  "chapters": [
-    {"number": 1, "tag": "lituk_values", "title": "The values and principles of the UK", "sections": [
-      {"id": "1.1", "title": "British values: fundamental principles, responsibilities and freedoms",
-       "keywords": ["fundamental principle", "democracy", "rule of law", "individual liberty", "tolerance", "participation", "responsibilit", "freedom", "fair trial", "respect"]},
-      {"id": "1.2", "title": "Becoming a permanent resident or citizen; citizenship ceremony, oath and pledge",
-       "keywords": ["permanent resident", "citizen", "ceremony", "oath", "affirmation", "pledge", "allegiance", "settlement", "english"]},
-      {"id": "1.3", "title": "Taking the Life in the UK test",
-       "keywords": ["life in the uk test", "test centre", "handbook"]}
-    ]},
-    {"number": 2, "tag": "lituk_what_is_uk", "title": "What is the UK?", "sections": [
-      {"id": "2.1", "title": "The UK, Great Britain and the nations; capitals",
-       "keywords": ["great britain", "united kingdom", "england, scotland", "capital", "official name", "belfast", "cardiff", "edinburgh", "glasgow"]},
-      {"id": "2.2", "title": "Crown dependencies and British overseas territories",
-       "keywords": ["channel islands", "isle of man", "crown dependenc", "overseas territor", "falkland", "st helena"]},
-      {"id": "2.3", "title": "Flags, languages and currency (placement in the book to be confirmed)",
-       "keywords": ["union flag", "union jack", "cross", "dragon", "gaelic", "welsh", "irish", "pound sterling", "banknote", "currency"]}
-    ]},
-    {"number": 3, "tag": "lituk_history", "title": "A long and illustrious history", "sections": [
-      {"id": "3.1", "title": "Early Britain (to 1066)", "years": [-100000, 1065],
-       "keywords": ["stone age", "bronze age", "iron age", "roman", "hadrian", "boudicca", "anglo-saxon", "viking", "skara brae", "stonehenge", "maiden castle", "hunter-gatherer", "first farmers", "celtic", "picts", "jutes", "sutton hoo", "iona", "augustine", "columba", "alfred", "danelaw", "kenneth macalpin", "grimsby", "continent"]},
-      {"id": "3.2", "title": "The Middle Ages (1066-1485)", "years": [1066, 1484],
-       "keywords": ["norman", "hastings", "bayeux", "domesday", "magna carta", "bannockburn", "agincourt", "black death", "chaucer", "caxton", "hundred years", "wars of the roses", "the pale", "edward i", "common law", "lancaster", "york", "cathedral", "middle ages", "norman french"]},
-      {"id": "3.3", "title": "The Tudors and Stuarts (1485-1714)", "years": [1485, 1713],
-       "keywords": ["tudor", "henry vii", "henry viii", "catherine", "anne boleyn", "jane seymour", "anne of cleves", "elizabeth i", "mary i", "armada", "drake", "shakespeare", "james vi", "james i", "king james", "charles i", "civil war", "cavalier", "roundhead", "cromwell", "restoration", "charles ii", "great fire", "plague", "habeas corpus", "glorious revolution", "william of orange", "bill of rights", "boyne", "act of union", "huguenot", "queen anne", "whig", "tor", "plantation", "book of common prayer", "royal society", "wren", "newton", "divine right", "marston moor", "mary, queen of scots", "james ii"]},
-      {"id": "3.4", "title": "A global power (1714-1900)", "years": [1714, 1899],
-       "keywords": ["george i", "walpole", "bonnie prince", "culloden", "highland clearances", "burns", "enlightenment", "adam smith", "hume", "watt", "industrial revolution", "bessemer", "canal", "arkwright", "slave", "wilberforce", "quaker", "american colonies", "trafalgar", "nelson", "waterloo", "wellington", "1801", "victoria", "reform act", "chartist", "married women", "nightingale", "crimean", "brunel", "potato", "famine", "boer", "dean mahomet", "empire"]},
-      {"id": "3.5", "title": "The 20th century to 1945", "years": [1900, 1944],
-       "keywords": ["first world war", "somme", "pankhurst", "suffragette", "1918", "1928", "partition", "1922", "depression", "second world war", "churchill", "dunkirk", "battle of britain", "spitfire", "blitz", "d-day", "fleming", "penicillin", "baird", "radar", "watson-watt", "whittle", "turing", "beveridge"]},
-      {"id": "3.6", "title": "Britain since 1945", "years": [1945, 2013],
-       "keywords": ["nhs", "bevan", "attlee", "butler", "education act", "dylan thomas", "west indies", "independence", "1947", "european economic", "thatcher", "falkland", "major", "blair", "good friday", "devolution", "hovercraft", "cockerell", "dolly", "world wide web", "berners-lee", "ivf", "test-tube"]}
-    ]},
-    {"number": 4, "tag": "lituk_society", "title": "A modern, thriving society", "sections": [
-      {"id": "4.1", "title": "The UK today (nations, cities, population, an equal society)", "keywords": ["population", "equal society", "cities of the uk"]},
-      {"id": "4.2", "title": "Religion", "keywords": ["church of england", "church of scotland", "archbishop", "presbyterian", "moderator", "religion", "established church", "supreme governor"]},
-      {"id": "4.3", "title": "Customs and traditions (festivals, patron saints, other festivals, bank holidays)",
-       "keywords": ["christmas", "boxing day", "easter", "lent", "shrove", "pancake", "hogmanay", "new year", "valentine", "april", "mothering sunday", "halloween", "bonfire", "remembrance", "poppies", "poppy", "diwali", "hannukah", "eid", "vaisakhi", "patron saint", "st david", "st andrew", "st george", "st patrick", "bank holiday", "christian festival", "cenotaph", "notting hill", "eisteddfod"]},
-      {"id": "4.4", "title": "Sport", "keywords": ["olympic", "paralympic", "bannister", "jackie stewart", "bobby moore", "wiggins", "wimbledon", "golf", "st andrews", "grand national", "six nations", "rugby", "cricket", "ashes", "football", "tennis", "tour de france", "millennium stadium"]},
-      {"id": "4.5", "title": "Arts and culture (music, theatre, art, architecture, fashion, literature, poetry, film, comedy)",
-       "keywords": ["handel", "elgar", "purcell", "proms", "gilbert", "lloyd webber", "olivier", "constable", "henry moore", "capability", "austen", "conan doyle", "lord of the rings", "booker", "wordsworth", "wilfred owen", "kipling", "bafta", "mary quant", "westwood", "fashion", "musical", "composer", "painted", "novel", "poet"]},
-      {"id": "4.6", "title": "Leisure (gardening, food, cinema, television, social activities)",
-       "keywords": ["haggis", "flower show", "garden", "food", "dish", "tv licence", "pub"]},
-      {"id": "4.7", "title": "Places of interest", "keywords": ["big ben", "elizabeth tower", "eden project", "edinburgh castle", "giant's causeway", "loch lomond", "loch ness", "london eye", "snowdon", "tower of london", "beefeater", "yeoman", "lake district", "national trust", "national park"]}
-    ]},
-    {"number": 5, "tag": "lituk_government", "title": "The UK government, the law and your role", "sections": [
-      {"id": "5.1", "title": "The development of British democracy and the British constitution (monarchy, constitution)",
-       "keywords": ["constitution", "constitutional monarch", "national anthem", "ceremonial", "advise, warn", "parliamentary democracy", "monarch"]},
-      {"id": "5.2", "title": "Parliament, elections and government (Commons, Lords, Speaker, PM, Cabinet, opposition, civil service, local and devolved government, media)",
-       "keywords": ["constituenc", "member of parliament", "mp", "house of commons", "house of lords", "speaker", "peer", "general election", "by-election", "first past the post", "vote", "voting", "electoral", "polling", "hansard", "downing street", "chequers", "cabinet", "chancellor", "home secretary", "foreign secretary", "opposition", "shadow", "prime minister", "civil serv", "pressure", "lobby", "independent", "coalition", "council", "scottish parliament", "welsh government", "northern ireland assembly", "devolved", "newspaper", "surgeries", "public galleries"]},
-      {"id": "5.3", "title": "The UK and international institutions", "keywords": ["commonwealth", "council of europe", "united nations", "security council", "nato", "human rights act", "european convention"]},
-      {"id": "5.4", "title": "Respecting the law (criminal and civil law, police, courts, legal advice)",
-       "keywords": ["criminal", "civil", "police", "pcso", "crime commissioner", "magistrat", "crown court", "jury", "youth court", "small claims", "justice of the peace", "citizens advice", "court"]},
-      {"id": "5.5", "title": "Fundamental principles, equal opportunities and protection (human rights, discrimination, domestic violence, FGM, forced marriage)",
-       "keywords": ["right to life", "torture", "religion", "female genital", "fgm", "forced marriage", "rape", "discriminat"]},
-      {"id": "5.6", "title": "Taxation and driving", "keywords": ["tax", "hmrc", "national insurance", "self-assessment", "driving", "drive", "mot", "insurance", "licence"]},
-      {"id": "5.7", "title": "Your role in the community (volunteering, school governors, environment, emergencies)",
-       "keywords": ["school governor", "volunteer", "environment", "recycl", "neighbour", "999", "emergency", "blood", "organ"]}
-    ]}
-  ]
+ "source": "Life in the United Kingdom: A Guide for New Residents, 3rd edition. Section ids and page numbers follow the Britizen PDF edition (98 pages) held in content/lituk/private/ (not committed); they are not the page numbers of the printed TSO book.",
+ "toc_status": "CONFIRMED",
+ "toc_note": "Sections and page ranges taken from the table of contents of the Britizen PDF edition. Its chapter-intro study notes (N.1) and the summary pages 96-98 are not handbook text and are not used as evidence. That edition has been updated in places (for example the Commonwealth member list).",
+ "publisher_notes": [
+  "TSO's eBook listing states that the sections on EU membership and the monarchy are out of date, have been removed from later prints, and are not examined in the Home Office approved test based on the 3rd edition. Confirm the exact wording and which passages are affected against the current impression."
+ ],
+ "chapters": [
+  {
+   "number": 1,
+   "tag": "lituk_values",
+   "title": "The values and principles of the UK",
+   "sections": [
+    {
+     "id": "1.1",
+     "title": "Introduction",
+     "pages": [
+      4,
+      4
+     ],
+     "keywords": []
+    },
+    {
+     "id": "1.2",
+     "title": "Becoming a permanent resident",
+     "pages": [
+      5,
+      5
+     ],
+     "keywords": [
+      "permanent resident",
+      "citizen",
+      "ceremony",
+      "oath",
+      "affirmation",
+      "pledge",
+      "allegiance",
+      "settlement",
+      "english"
+     ]
+    },
+    {
+     "id": "1.3",
+     "title": "The values and principles of the UK",
+     "pages": [
+      6,
+      6
+     ],
+     "keywords": [
+      "fundamental principle",
+      "democracy",
+      "rule of law",
+      "individual liberty",
+      "tolerance",
+      "participation",
+      "responsibilit",
+      "freedom",
+      "fair trial",
+      "respect"
+     ]
+    },
+    {
+     "id": "1.4",
+     "title": "Taking the Life in the UK test",
+     "pages": [
+      7,
+      7
+     ],
+     "keywords": [
+      "life in the uk test",
+      "test centre",
+      "handbook"
+     ]
+    }
+   ]
+  },
+  {
+   "number": 2,
+   "tag": "lituk_what_is_uk",
+   "title": "What is the UK?",
+   "sections": [
+    {
+     "id": "2.2",
+     "title": "What is the UK?",
+     "pages": [
+      8,
+      9
+     ],
+     "keywords": [
+      "great britain",
+      "united kingdom",
+      "england, scotland",
+      "capital",
+      "official name",
+      "belfast",
+      "cardiff",
+      "edinburgh",
+      "glasgow",
+      "channel islands",
+      "isle of man",
+      "crown dependenc",
+      "overseas territor",
+      "falkland",
+      "st helena",
+      "union flag",
+      "union jack",
+      "cross",
+      "dragon",
+      "gaelic",
+      "welsh",
+      "irish",
+      "pound sterling",
+      "banknote",
+      "currency"
+     ]
+    }
+   ]
+  },
+  {
+   "number": 3,
+   "tag": "lituk_history",
+   "title": "A long and illustrious history",
+   "sections": [
+    {
+     "id": "3.7",
+     "title": "Early Britain",
+     "pages": [
+      39,
+      42
+     ],
+     "keywords": [
+      "stone age",
+      "bronze age",
+      "iron age",
+      "roman",
+      "hadrian",
+      "boudicca",
+      "anglo-saxon",
+      "viking",
+      "skara brae",
+      "stonehenge",
+      "maiden castle",
+      "hunter-gatherer",
+      "first farmers",
+      "celtic",
+      "picts",
+      "jutes",
+      "sutton hoo",
+      "iona",
+      "augustine",
+      "columba",
+      "alfred",
+      "danelaw",
+      "kenneth macalpin",
+      "grimsby",
+      "continent"
+     ],
+     "years": [
+      -100000,
+      1065
+     ]
+    },
+    {
+     "id": "3.5",
+     "title": "The Middle Ages",
+     "pages": [
+      27,
+      31
+     ],
+     "keywords": [
+      "norman",
+      "hastings",
+      "bayeux",
+      "domesday",
+      "magna carta",
+      "bannockburn",
+      "agincourt",
+      "black death",
+      "chaucer",
+      "caxton",
+      "hundred years",
+      "wars of the roses",
+      "the pale",
+      "edward i",
+      "common law",
+      "lancaster",
+      "york",
+      "cathedral",
+      "middle ages",
+      "norman french"
+     ],
+     "years": [
+      1066,
+      1484
+     ]
+    },
+    {
+     "id": "3.6",
+     "title": "The Tudors and Stuarts",
+     "pages": [
+      32,
+      38
+     ],
+     "keywords": [
+      "tudor",
+      "henry vii",
+      "henry viii",
+      "catherine",
+      "anne boleyn",
+      "jane seymour",
+      "anne of cleves",
+      "elizabeth i",
+      "mary i",
+      "armada",
+      "drake",
+      "shakespeare",
+      "james vi",
+      "james i",
+      "king james",
+      "charles i",
+      "civil war",
+      "cavalier",
+      "roundhead",
+      "cromwell",
+      "restoration",
+      "charles ii",
+      "great fire",
+      "plague",
+      "habeas corpus",
+      "glorious revolution",
+      "william of orange",
+      "bill of rights",
+      "boyne",
+      "act of union",
+      "huguenot",
+      "queen anne",
+      "whig",
+      "tor",
+      "plantation",
+      "book of common prayer",
+      "royal society",
+      "wren",
+      "newton",
+      "divine right",
+      "marston moor",
+      "mary, queen of scots",
+      "james ii"
+     ],
+     "years": [
+      1485,
+      1713
+     ]
+    },
+    {
+     "id": "3.3",
+     "title": "A global power",
+     "pages": [
+      16,
+      22
+     ],
+     "keywords": [
+      "george i",
+      "walpole",
+      "bonnie prince",
+      "culloden",
+      "highland clearances",
+      "burns",
+      "enlightenment",
+      "adam smith",
+      "hume",
+      "watt",
+      "industrial revolution",
+      "bessemer",
+      "canal",
+      "arkwright",
+      "slave",
+      "wilberforce",
+      "quaker",
+      "american colonies",
+      "trafalgar",
+      "nelson",
+      "waterloo",
+      "wellington",
+      "1801",
+      "victoria",
+      "reform act",
+      "chartist",
+      "married women",
+      "nightingale",
+      "crimean",
+      "brunel",
+      "potato",
+      "famine",
+      "boer",
+      "dean mahomet",
+      "empire"
+     ],
+     "years": [
+      1714,
+      1899
+     ]
+    },
+    {
+     "id": "3.4",
+     "title": "The 20th century",
+     "pages": [
+      23,
+      26
+     ],
+     "keywords": [
+      "first world war",
+      "somme",
+      "pankhurst",
+      "suffragette",
+      "1918",
+      "1928",
+      "partition",
+      "1922",
+      "depression",
+      "second world war",
+      "churchill",
+      "dunkirk",
+      "battle of britain",
+      "spitfire",
+      "blitz",
+      "d-day",
+      "fleming",
+      "penicillin",
+      "baird",
+      "radar",
+      "watson-watt",
+      "whittle",
+      "turing",
+      "beveridge"
+     ],
+     "years": [
+      1900,
+      1944
+     ]
+    },
+    {
+     "id": "3.2",
+     "title": "Britain since 1945",
+     "pages": [
+      11,
+      15
+     ],
+     "keywords": [
+      "nhs",
+      "bevan",
+      "attlee",
+      "butler",
+      "education act",
+      "dylan thomas",
+      "west indies",
+      "independence",
+      "1947",
+      "european economic",
+      "thatcher",
+      "falkland",
+      "major",
+      "blair",
+      "good friday",
+      "devolution",
+      "hovercraft",
+      "cockerell",
+      "dolly",
+      "world wide web",
+      "berners-lee",
+      "ivf",
+      "test-tube"
+     ],
+     "years": [
+      1945,
+      2013
+     ]
+    }
+   ]
+  },
+  {
+   "number": 4,
+   "tag": "lituk_society",
+   "title": "A modern, thriving society",
+   "sections": [
+    {
+     "id": "4.8",
+     "title": "The UK today",
+     "pages": [
+      68,
+      71
+     ],
+     "keywords": [
+      "population",
+      "equal society",
+      "cities of the uk"
+     ]
+    },
+    {
+     "id": "4.6",
+     "title": "Religion",
+     "pages": [
+      62,
+      63
+     ],
+     "keywords": [
+      "church of england",
+      "church of scotland",
+      "archbishop",
+      "presbyterian",
+      "moderator",
+      "religion",
+      "established church",
+      "supreme governor"
+     ]
+    },
+    {
+     "id": "4.3",
+     "title": "Customs and traditions",
+     "pages": [
+      51,
+      53
+     ],
+     "keywords": [
+      "christmas",
+      "boxing day",
+      "easter",
+      "lent",
+      "shrove",
+      "pancake",
+      "hogmanay",
+      "new year",
+      "valentine",
+      "april",
+      "mothering sunday",
+      "halloween",
+      "bonfire",
+      "remembrance",
+      "poppies",
+      "poppy",
+      "diwali",
+      "hannukah",
+      "eid",
+      "vaisakhi",
+      "patron saint",
+      "st david",
+      "st andrew",
+      "st george",
+      "st patrick",
+      "bank holiday",
+      "christian festival",
+      "cenotaph",
+      "notting hill",
+      "eisteddfod"
+     ]
+    },
+    {
+     "id": "4.7",
+     "title": "Sport",
+     "pages": [
+      64,
+      67
+     ],
+     "keywords": [
+      "olympic",
+      "paralympic",
+      "bannister",
+      "jackie stewart",
+      "bobby moore",
+      "wiggins",
+      "wimbledon",
+      "golf",
+      "st andrews",
+      "grand national",
+      "six nations",
+      "rugby",
+      "cricket",
+      "ashes",
+      "football",
+      "tennis",
+      "tour de france",
+      "millennium stadium"
+     ]
+    },
+    {
+     "id": "4.2",
+     "title": "Arts and culture",
+     "pages": [
+      44,
+      50
+     ],
+     "keywords": [
+      "handel",
+      "elgar",
+      "purcell",
+      "proms",
+      "gilbert",
+      "lloyd webber",
+      "olivier",
+      "constable",
+      "henry moore",
+      "capability",
+      "austen",
+      "conan doyle",
+      "lord of the rings",
+      "booker",
+      "wordsworth",
+      "wilfred owen",
+      "kipling",
+      "bafta",
+      "mary quant",
+      "westwood",
+      "fashion",
+      "musical",
+      "composer",
+      "painted",
+      "novel",
+      "poet"
+     ]
+    },
+    {
+     "id": "4.4",
+     "title": "Leisure",
+     "pages": [
+      54,
+      58
+     ],
+     "keywords": [
+      "haggis",
+      "flower show",
+      "garden",
+      "food",
+      "dish",
+      "tv licence",
+      "pub"
+     ]
+    },
+    {
+     "id": "4.5",
+     "title": "Places of interest",
+     "pages": [
+      59,
+      61
+     ],
+     "keywords": [
+      "big ben",
+      "elizabeth tower",
+      "eden project",
+      "edinburgh castle",
+      "giant's causeway",
+      "loch lomond",
+      "loch ness",
+      "london eye",
+      "snowdon",
+      "tower of london",
+      "beefeater",
+      "yeoman",
+      "lake district",
+      "national trust",
+      "national park"
+     ]
+    }
+   ]
+  },
+  {
+   "number": 5,
+   "tag": "lituk_government",
+   "title": "The UK government, the law and your role",
+   "sections": [
+    {
+     "id": "5.2",
+     "title": "The development of British democracy",
+     "pages": [
+      73,
+      73
+     ],
+     "keywords": []
+    },
+    {
+     "id": "5.3",
+     "title": "The British constitution",
+     "pages": [
+      74,
+      78
+     ],
+     "keywords": [
+      "constitution",
+      "constitutional monarch",
+      "national anthem",
+      "ceremonial",
+      "advise, warn",
+      "parliamentary democracy",
+      "monarch",
+      "constituenc",
+      "member of parliament",
+      "mp",
+      "house of commons",
+      "house of lords",
+      "speaker",
+      "peer",
+      "general election",
+      "by-election",
+      "first past the post",
+      "vote",
+      "voting",
+      "electoral",
+      "polling",
+      "hansard",
+      "downing street",
+      "chequers",
+      "cabinet",
+      "chancellor",
+      "home secretary",
+      "foreign secretary",
+      "opposition",
+      "shadow",
+      "prime minister",
+      "civil serv",
+      "pressure",
+      "lobby",
+      "independent",
+      "coalition",
+      "council",
+      "scottish parliament",
+      "welsh government",
+      "northern ireland assembly",
+      "devolved",
+      "newspaper",
+      "surgeries",
+      "public galleries"
+     ]
+    },
+    {
+     "id": "5.4",
+     "title": "Fundamental principles",
+     "pages": [
+      79,
+      81
+     ],
+     "keywords": [
+      "right to life",
+      "torture",
+      "religion",
+      "female genital",
+      "fgm",
+      "forced marriage",
+      "rape",
+      "discriminat"
+     ]
+    },
+    {
+     "id": "5.5",
+     "title": "Respecting the law",
+     "pages": [
+      82,
+      85
+     ],
+     "keywords": [
+      "criminal",
+      "civil",
+      "police",
+      "pcso",
+      "crime commissioner",
+      "magistrat",
+      "crown court",
+      "jury",
+      "youth court",
+      "small claims",
+      "justice of the peace",
+      "citizens advice",
+      "court",
+      "tax",
+      "hmrc",
+      "national insurance",
+      "self-assessment",
+      "driving",
+      "drive",
+      "mot",
+      "insurance",
+      "licence"
+     ]
+    },
+    {
+     "id": "5.6",
+     "title": "The government",
+     "pages": [
+      86,
+      89
+     ],
+     "keywords": []
+    },
+    {
+     "id": "5.7",
+     "title": "The UK and international institutions",
+     "pages": [
+      90,
+      92
+     ],
+     "keywords": [
+      "commonwealth",
+      "council of europe",
+      "united nations",
+      "security council",
+      "nato",
+      "human rights act",
+      "european convention"
+     ]
+    },
+    {
+     "id": "5.8",
+     "title": "Your role in the community",
+     "pages": [
+      93,
+      95
+     ],
+     "keywords": [
+      "school governor",
+      "volunteer",
+      "environment",
+      "recycl",
+      "neighbour",
+      "999",
+      "emergency",
+      "blood",
+      "organ"
+     ]
+    }
+   ]
+  }
+ ]
 }
