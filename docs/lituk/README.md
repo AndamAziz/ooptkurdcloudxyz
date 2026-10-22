@@ -34,7 +34,7 @@ still needs the handbook check. `needs_review` = a recorded doubt; `rejected` = 
 staff in the app (the tools never delete anything). Duplicates are marked with `duplicate_of`
 and kept until the bank is finalised.
 
-## When the handbook is available
+## Adding or correcting questions from the handbook
 
 1. Put the PDF in `content/lituk/private/`.
 2. Confirm the table of contents: correct `handbook-outline.json` (headings, page ranges) and set
