@@ -207,18 +207,32 @@ class TextToSpeechSpeaker(context: Context) : Speaker {
 }
 
 /**
- * Text for reading a multiple-choice question aloud: the gap is read as "blank" and the options
- * follow with their letters ("A: goes. B: go. ...").
+ * Text for reading a multiple-choice question aloud, as one string: a gap ("___") becomes a
+ * spoken pause ("…") and the options follow with their letters ("A: goes. B: go. ...").
  */
 fun speechText(prompt: String, options: List<String>): String = questionSpeech(prompt, options).joinToString(" ") { it.text }
 
-/** The question and each option as separate parts (keys "prompt", "A", "B", ...), so options can be highlighted as they are read. */
+/**
+ * The question and each option as separate parts (keys "prompt", "A", "B", ...), so options can
+ * be highlighted as they are read. A gap is never read as a word: the prompt is split around it
+ * and the speaker pauses there, like a teacher reading a fill-in-the-blank sentence.
+ */
 fun questionSpeech(prompt: String, options: List<String>): List<SpeechPart> {
     val trueFalse = prompt.startsWith("TRUE or FALSE:")
-    var text = prompt.removePrefix("TRUE or FALSE:").replace(Regex("_{2,}"), " blank ").replace(Regex("\\s+"), " ").trim()
+    var text = prompt.removePrefix("TRUE or FALSE:").replace(Regex("\\s+"), " ").trim()
     if (trueFalse) text = "True or false? $text"
     if (!text.endsWith('.') && !text.endsWith('?') && !text.endsWith('!') && !text.endsWith(':')) text += "."
-    return listOf(SpeechPart("prompt", text)) + options.mapIndexed { i, option ->
+    val hasGap = Regex("_{2,}").containsMatchIn(text)
+    val pieces = text.split(Regex("_{2,}")).map { it.trim() }.filter { piece -> piece.any { it.isLetterOrDigit() } }
+    val promptParts = if (pieces.size <= 1) {
+        // No gap, or a gap at the very start or end: one part, with the pause marked where the gap was.
+        val only = pieces.firstOrNull() ?: text
+        listOf(SpeechPart("prompt", if (hasGap && text.trimEnd('.', '?', '!', ' ').endsWith("_")) "$only …" else only))
+    } else {
+        // "She" … "happy." — the pause between the parts stands for the gap.
+        pieces.mapIndexed { i, piece -> SpeechPart("prompt", if (i < pieces.lastIndex) "$piece …" else piece) }
+    }
+    return promptParts + options.mapIndexed { i, option ->
         val letter = ('A' + i).toString()
         SpeechPart(letter, "$letter: ${option.trim().trimEnd('.')}.")
     }

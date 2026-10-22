@@ -24,6 +24,7 @@ import org.robolectric.annotation.Config
 import xyz.kurdcloud.englishmaster.core.designsystem.EnglishMasterTheme
 import xyz.kurdcloud.englishmaster.core.designsystem.LocalSpeaker
 import xyz.kurdcloud.englishmaster.core.designsystem.Speaker
+import xyz.kurdcloud.englishmaster.core.designsystem.questionSpeech
 import xyz.kurdcloud.englishmaster.core.designsystem.speechText
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.MediaType
@@ -97,7 +98,7 @@ class PracticeScreenTest {
             EnglishMasterTheme { CompositionLocalProvider(LocalSpeaker provides speaker) { PracticeScreen(CefrLevel.A1, vm, onExit = {}) } }
         }
         compose.onNodeWithTag("listen_pill").assertIsDisplayed().performClick()
-        assertEquals("She blank a teacher (q1). A: am. B: is. C: are. D: be.", speaker.spoken.single())
+        assertEquals("She … a teacher (q1). A: am. B: is. C: are. D: be.", speaker.spoken.single())
         compose.onNodeWithText("Stop").performClick()
         assertEquals(null, speaker.speakingId)
 
@@ -125,7 +126,7 @@ class PracticeScreenTest {
             EnglishMasterTheme { CompositionLocalProvider(LocalSpeaker provides speaker) { PracticeScreen(CefrLevel.A1, vm, onExit = {}) } }
         }
         compose.waitForIdle()
-        assertEquals("She blank a teacher (q1). A: am. B: is. C: are. D: be.", speaker.spoken.single())
+        assertEquals("She … a teacher (q1). A: am. B: is. C: are. D: be.", speaker.spoken.single())
         compose.onNodeWithTag("option_C").performScrollTo().performClick()
         compose.onNodeWithTag("check_answer").performScrollTo().performClick()
         compose.waitForIdle()
@@ -161,7 +162,13 @@ class PracticeScreenTest {
 
     @Test
     fun speechTextReadsGapsAndLetters() {
-        assertEquals("I have lived here blank 2019. A: since. B: for.", speechText("I have lived here ___ 2019.", listOf("since", "for")))
+        assertEquals("I have lived here … 2019. A: since. B: for.", speechText("I have lived here ___ 2019.", listOf("since", "for")))
+        // The gap is a pause between two spoken parts, never the word "blank".
+        val parts = questionSpeech("Choose the correct form of 'be': She ___ happy.", listOf("be", "am"))
+        assertEquals(listOf("Choose the correct form of 'be': She …", "happy."), parts.filter { it.key == "prompt" }.map { it.text })
+        assertEquals(false, parts.any { "blank" in it.text || "_" in it.text })
+        // A gap at the end of the sentence is just a pause before the options.
+        assertEquals(listOf("I go to school by …"), questionSpeech("I go to school by ___.", listOf("bus")).filter { it.key == "prompt" }.map { it.text })
         assertEquals("Which river goes through London? A: the Thames. B: the Tigris.",
             speechText("Which river goes through London?", listOf("the Thames", "the Tigris")))
     }

@@ -69,7 +69,8 @@ fun feedbackSpeech(question: Question, answer: PracticeAnswer): List<SpeechPart>
         parts += SpeechPart("verdict", "Not quite. You chose ${answer.chosenOption}: ${question.optionFor(answer.chosenOption).orEmpty()}.")
         parts += SpeechPart("correct", "The correct answer is $correct")
     }
-    answer.explanation?.let { explanationParts(it).body }?.takeIf { it.isNotBlank() }?.let { parts += SpeechPart("why", "Why? $it") }
+    answer.explanation?.let { explanationParts(it).body }?.takeIf { it.isNotBlank() }
+        ?.let { parts += SpeechPart("why", "Why? " + it.replace(Regex("_{2,}"), "…")) }
     return parts
 }
 
