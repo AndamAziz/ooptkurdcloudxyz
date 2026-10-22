@@ -19,6 +19,8 @@ import xyz.kurdcloud.englishmaster.core.model.QuestionUpdateState
 import kotlinx.coroutines.flow.flowOf
 import xyz.kurdcloud.englishmaster.core.data.StaffRepository
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
+import xyz.kurdcloud.englishmaster.core.model.CheckpointStatus
+import xyz.kurdcloud.englishmaster.core.model.PlacementStatus
 import xyz.kurdcloud.englishmaster.core.model.LearnerProfile
 import xyz.kurdcloud.englishmaster.core.model.LevelOverview
 import xyz.kurdcloud.englishmaster.core.model.LevelPack
@@ -42,6 +44,8 @@ data class LevelRow(
     val overview: LevelOverview? = null,
     /** Downloaded questions whose latest marked answer was wrong. */
     val mistakes: Int = 0,
+    /** The level's three checkpoints (empty offline or before they load). */
+    val checkpoints: List<CheckpointStatus> = emptyList(),
 )
 
 data class HomeUiState(
@@ -58,6 +62,8 @@ data class HomeUiState(
     val topics: Map<Topic, Int> = emptyMap(),
     /** Downloaded questions being refreshed in the background or from Settings. */
     val questionUpdate: QuestionUpdateState = QuestionUpdateState(),
+    /** Placement tests left and whether a result waits for its confirmation test. */
+    val placementStatus: PlacementStatus? = null,
 ) {
     val hasDownloads: Boolean get() = levels.any { it.pack != null }
     val certificates: Int get() = levels.count { it.overview?.certificateCode != null }
@@ -84,6 +90,8 @@ class HomeViewModel(
         val overview: Map<CefrLevel, LevelOverview> = emptyMap(),
         val profile: LearnerProfile? = null,
         val nowMillis: Long = 0,
+        val checkpoints: Map<CefrLevel, List<CheckpointStatus>> = emptyMap(),
+        val placementStatus: PlacementStatus? = null,
     )
 
     private val local = combine(
@@ -118,6 +126,7 @@ class HomeViewModel(
                     t.downloads[level],
                     t.overview[level],
                     mistakes[level] ?: 0,
+                    t.checkpoints[level].orEmpty(),
                 )
             },
             syncing = t.syncing,
@@ -127,6 +136,7 @@ class HomeViewModel(
             nowMillis = t.nowMillis,
             topics = topics,
             questionUpdate = update,
+            placementStatus = t.placementStatus,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUiState())
 
@@ -153,10 +163,14 @@ class HomeViewModel(
         viewModelScope.launch {
             val overview = (repo.overview() as? ApiResult.Success)?.value
             val profile = (repo.profile() as? ApiResult.Success)?.value
+            val checkpoints = (repo.checkpoints() as? ApiResult.Success)?.value
+            val placementStatus = (repo.placementStatus() as? ApiResult.Success)?.value
             transient.update { t ->
                 t.copy(
                     overview = overview?.associateBy { it.level } ?: t.overview,
                     profile = profile ?: t.profile,
+                    checkpoints = checkpoints?.groupBy { it.level }?.mapValues { (_, v) -> v.sortedBy { it.number } } ?: t.checkpoints,
+                    placementStatus = placementStatus ?: t.placementStatus,
                     nowMillis = clock(),
                 )
             }

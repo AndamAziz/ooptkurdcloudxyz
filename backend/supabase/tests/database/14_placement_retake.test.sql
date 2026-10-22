@@ -63,10 +63,10 @@ select throws_ok($$select * from public.start_placement_test()$$, 'P0001', 'plac
 select ok((select count(*) from public.get_question_pack_versions()) >= 6, 'learners see a version for each level');
 reset role;
 select is((select published from public.get_question_pack_versions() where cefr_level = 'A1'),
-          (select count(*)::int from public.assessment_questions where cefr_level = 'A1' and status = 'published'),
+          (select count(*)::int from public.assessment_questions where cefr_level = 'A1' and status = 'published' and pool = 'practice'),
   'the version counts the published questions');
 select is((select last_changed_at from public.get_question_pack_versions() where cefr_level = 'A1'),
-          (select max(updated_at) from public.assessment_questions where cefr_level = 'A1' and status = 'published'),
+          (select max(updated_at) from public.assessment_questions where cefr_level = 'A1' and status = 'published' and pool = 'practice'),
   'and carries the last change');
 
 set local role anon;

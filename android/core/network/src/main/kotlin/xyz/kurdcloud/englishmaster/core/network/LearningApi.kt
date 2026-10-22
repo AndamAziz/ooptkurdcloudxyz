@@ -32,8 +32,24 @@ interface LearningApi {
     @POST("rest/v1/rpc/submit_placement_test")
     suspend fun submitPlacement(@Body body: SubmitExamRequest): List<PlacementResultDto>
 
+    @POST("rest/v1/rpc/get_checkpoints")
+    suspend fun checkpoints(@Body body: Map<String, String> = emptyMap()): List<CheckpointDto>
+
+    @POST("rest/v1/rpc/start_checkpoint")
+    suspend fun startCheckpoint(@Body body: StartCheckpointRequest): List<ExamStartDto>
+
+    @POST("rest/v1/rpc/submit_checkpoint")
+    suspend fun submitCheckpoint(@Body body: SubmitExamRequest): List<ExamResultDto>
+
+    /** Placement stage 2. */
+    @POST("rest/v1/rpc/start_placement_confirmation")
+    suspend fun startPlacementConfirmation(@Body body: Map<String, String> = emptyMap()): List<ExamStartDto>
+
+    @POST("rest/v1/rpc/submit_placement_confirmation")
+    suspend fun submitPlacementConfirmation(@Body body: SubmitExamRequest): List<ConfirmationResultDto>
+
     /** Placement tests left in the rolling 24 hours and when the next one opens. */
-    @POST("rest/v1/rpc/get_placement_status")
+    @POST("rest/v1/rpc/get_placement_status_v2")
     suspend fun placementStatus(@Body body: Map<String, String> = emptyMap()): List<PlacementStatusDto>
 
     /** Deletes the signed-in learner's account and all their data (Google Play requirement). */
@@ -140,4 +156,35 @@ data class PlacementStatusDto(
     @SerialName("attempts_left") val attemptsLeft: Int,
     @SerialName("next_attempt_at") val nextAttemptAt: String? = null,
     @SerialName("in_progress") val inProgress: Boolean = false,
+    @SerialName("confirm_level") val confirmLevel: String? = null,
+    @SerialName("confirm_in_progress") val confirmInProgress: Boolean = false,
+    val confirmed: Boolean = false,
+)
+
+@Serializable
+data class CheckpointDto(
+    @SerialName("cefr_level") val level: String,
+    val checkpoint: Int,
+    val required: Int,
+    val unlocked: Boolean,
+    val passed: Boolean,
+    @SerialName("last_score") val lastScore: Int? = null,
+    @SerialName("last_total") val lastTotal: Int? = null,
+    @SerialName("available_at") val availableAt: String? = null,
+    @SerialName("in_progress") val inProgress: String? = null,
+)
+
+@Serializable
+data class StartCheckpointRequest(
+    @SerialName("p_cefr_level") val level: String,
+    @SerialName("p_checkpoint") val checkpoint: Int,
+)
+
+@Serializable
+data class ConfirmationResultDto(
+    val score: Int,
+    val total: Int,
+    val confirmed: Boolean,
+    @SerialName("tested_level") val testedLevel: String,
+    @SerialName("recommended_level") val recommendedLevel: String,
 )

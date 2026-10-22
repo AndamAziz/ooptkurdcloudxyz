@@ -1,0 +1,3 @@
+- Fairer, harder exams: each level's final exam now uses an exam-only question bank, and a retake never repeats questions from your earlier exams.
+- Checkpoints: every level has three short tests (at 25%, 50% and 70% of the level practised) on questions you have not practised. Pass all three to unlock the final exam.
+- Placement test in two stages: after the first test, a 20-question confirmation test at your level makes sure the result is right. A placement retake avoids questions you have already seen.

@@ -67,6 +67,9 @@ import xyz.kurdcloud.englishmaster.core.designsystem.IconBadge
 import xyz.kurdcloud.englishmaster.core.designsystem.LevelColors
 import xyz.kurdcloud.englishmaster.core.designsystem.TextBadge
 import xyz.kurdcloud.englishmaster.core.model.QuestionUpdateState
+import xyz.kurdcloud.englishmaster.core.model.CheckpointStatus
+import xyz.kurdcloud.englishmaster.core.model.PlacementStatus
+import xyz.kurdcloud.englishmaster.core.designsystem.FeedbackColors
 import xyz.kurdcloud.englishmaster.core.designsystem.OfflineBanner
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.ExamRules
@@ -97,6 +100,9 @@ data class HomeActions(
     val onCertificates: () -> Unit = {},
     val onPractiseTopic: (Topic) -> Unit = {},
     val onLifeInUk: () -> Unit = {},
+    /** Placement stage 2: confirm the level the screening test found. */
+    val onConfirmPlacement: () -> Unit = {},
+    val onCheckpoint: (CefrLevel, Int) -> Unit = { _, _ -> },
 )
 
 @StringRes
@@ -217,7 +223,7 @@ fun HomeScreen(
                     item { PendingCard(state.pendingCount, state.isOnline, state.syncing, viewModel::syncNow) }
                 }
                 state.profile?.let { profile ->
-                    item { PlacementCard(profile.placementLevel, actions.onPlacementTest, actions.onStartPractice) }
+                    item { PlacementCard(profile.placementLevel, state.placementStatus, actions) }
                 }
                 item { LifeInUkCard(actions.onLifeInUk) }
                 item { HowCertificatesWork() }
@@ -301,10 +307,20 @@ private fun Stat(value: String, label: String, modifier: Modifier) {
 }
 
 @Composable
-private fun PlacementCard(placement: CefrLevel?, onPlacement: () -> Unit, onPractise: (CefrLevel) -> Unit) {
+private fun PlacementCard(placement: CefrLevel?, status: PlacementStatus?, actions: HomeActions) {
+    val onPlacement = actions.onPlacementTest
+    val onPractise = actions.onStartPractice
     Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer), shape = RoundedCornerShape(20.dp)) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            if (placement == null) {
+            val confirmLevel = status?.confirmLevel
+            if (confirmLevel != null) {
+                // Stage 2 of the placement test is still to do.
+                BadgeTitle(AppIcons.School, BadgeColors.Placement, stringResource(R.string.home_confirm_title, confirmLevel.label))
+                Text(stringResource(R.string.home_confirm_body, ExamRules.CONFIRM_QUESTIONS, confirmLevel.label))
+                Button(onClick = actions.onConfirmPlacement, modifier = Modifier.testTag("home_confirm_placement")) {
+                    Text(stringResource(if (status.confirmInProgress) R.string.home_confirm_continue else R.string.home_confirm_start))
+                }
+            } else if (placement == null) {
                 BadgeTitle(AppIcons.School, BadgeColors.Placement, stringResource(R.string.home_placement_title))
                 Text(stringResource(R.string.home_placement_body, ExamRules.PLACEMENT_QUESTIONS, ExamRules.PLACEMENT_MINUTES))
                 Button(onClick = onPlacement, modifier = Modifier.testTag("home_placement")) { Text(stringResource(R.string.home_placement_start)) }
@@ -501,7 +517,10 @@ private fun LevelCard(
                     else -> Unit
                 }
             }
-            if (overview != null) ProgressSection(overview, stage!!)
+            if (overview != null) ProgressSection(overview, stage!!, row.checkpoints)
+            if (overview != null && row.checkpoints.isNotEmpty() && stage != LevelStage.CERTIFIED && stage != LevelStage.AWAITING_APPROVAL) {
+                CheckpointsSection(row.checkpoints, nowMillis) { actions.onCheckpoint(row.level, it) }
+            }
 
             val pack = row.pack
             when {
@@ -557,7 +576,7 @@ private fun StatusChip(text: String, color: Color) {
 }
 
 @Composable
-private fun ProgressSection(o: LevelOverview, stage: LevelStage) {
+private fun ProgressSection(o: LevelOverview, stage: LevelStage, checkpoints: List<CheckpointStatus> = emptyList()) {
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         if (stage == LevelStage.PRACTISE || stage == LevelStage.EXAM_READY) {
             LinearProgressIndicator(
@@ -571,6 +590,7 @@ private fun ProgressSection(o: LevelOverview, stage: LevelStage) {
         }
         val status = when (stage) {
             LevelStage.PRACTISE -> if (o.needsBetterAccuracy) stringResource(R.string.home_status_accuracy, o.requiredPercent)
+            else if (o.remainingToUnlock == 0 && checkpoints.any { !it.passed }) stringResource(R.string.home_status_checkpoints)
             else pluralStringResource(R.plurals.home_status_practise_more, o.remainingToUnlock, o.remainingToUnlock, o.requiredPercent)
             LevelStage.EXAM_READY -> stringResource(R.string.home_status_exam_ready, ExamRules.PASS_PERCENT)
             LevelStage.EXAM_IN_PROGRESS -> stringResource(R.string.home_status_in_progress)
@@ -585,6 +605,42 @@ private fun ProgressSection(o: LevelOverview, stage: LevelStage) {
         Text(status, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium, modifier = Modifier.testTag("level_status_${o.level.name}"))
     }
 }
+
+/** The level's three checkpoints: passed, open (with a button), waiting after a fail, or locked. */
+@Composable
+private fun CheckpointsSection(checkpoints: List<CheckpointStatus>, nowMillis: Long, onStart: (Int) -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.testTag("checkpoints")) {
+        Text(stringResource(R.string.home_checkpoints_header), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
+        checkpoints.forEach { cp ->
+            val waiting = cp.waiting(nowMillis)
+            val open = cp.unlocked && !cp.passed && !waiting
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                when {
+                    cp.passed -> IconBadge(AppIcons.Check, FeedbackColors.correct(), size = 36.dp)
+                    open -> TextBadge("${cp.number}", BadgeColors.Update, size = 36.dp)
+                    else -> TextBadge("${cp.number}", Color(0xFF9E9E9E), size = 36.dp)
+                }
+                Text(
+                    when {
+                        cp.passed -> stringResource(R.string.home_checkpoint_passed, cp.number, cp.lastScore ?: 0, cp.lastTotal ?: 0)
+                        waiting -> stringResource(R.string.home_checkpoint_wait, cp.number, formatDate(cp.availableAtMillis ?: 0))
+                        open -> stringResource(R.string.home_checkpoint_open, cp.number)
+                        else -> pluralStringResource(R.plurals.home_checkpoint_locked, cp.required, cp.number, cp.required)
+                    },
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.weight(1f),
+                )
+                if (open) {
+                    FilledTonalButton(onClick = { onStart(cp.number) }, modifier = Modifier.testTag("checkpoint_${cp.level.name}_${cp.number}")) {
+                        Text(stringResource(if (cp.inProgress) R.string.home_checkpoint_continue else R.string.home_checkpoint_start))
+                    }
+                }
+            }
+        }
+    }
+}
+
+private fun formatDate(millis: Long): String = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(millis))
 
 @Composable
 private fun LevelMenu(onRemove: () -> Unit) {

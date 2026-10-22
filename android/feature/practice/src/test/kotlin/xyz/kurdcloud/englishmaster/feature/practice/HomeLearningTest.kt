@@ -8,6 +8,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.hasScrollToNodeAction
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -40,7 +41,11 @@ class FakeLearningRepo(
         overview(CefrLevel.B1, 35, 30, unlocked = true, certificate = "EM-ABCD-EFGH-JKLM"),
     ),
     var placement: CefrLevel? = null,
+    var checkpoints: List<xyz.kurdcloud.englishmaster.core.model.CheckpointStatus> = emptyList(),
+    var placementStatus: xyz.kurdcloud.englishmaster.core.model.PlacementStatus? = null,
 ) : LearningRepository {
+    override suspend fun checkpoints() = ApiResult.Success(checkpoints)
+    override suspend fun placementStatus() = placementStatus?.let { ApiResult.Success(it) } ?: ApiResult.Failure(ApiError.Network)
     override suspend fun overview() = ApiResult.Success(levels)
     override suspend fun profile() = ApiResult.Success(LearnerProfile("Sara", placement, 87, 3))
     override suspend fun updateDisplayName(name: String) = ApiResult.Success(name)
@@ -79,6 +84,43 @@ class HomeLearningTest {
         assertEquals(CefrLevel.A2, exam)
         list.performScrollToNode(hasTestTag("level_status_B1"))
         compose.onNodeWithText("Certificate earned with 19 / 20.").assertIsDisplayed()
+    }
+
+    @Test
+    fun checkpointsShowWhatIsPassedOpenAndLocked() {
+        fun cp(n: Int, unlocked: Boolean, passed: Boolean, required: Int) =
+            xyz.kurdcloud.englishmaster.core.model.CheckpointStatus(CefrLevel.A1, n, required, unlocked, passed, if (passed) 14 else null, if (passed) 15 else null, null, false)
+        val learning = FakeLearningRepo(checkpoints = listOf(cp(1, true, true, 10), cp(2, true, false, 20), cp(3, false, false, 28)))
+        var started: Pair<CefrLevel, Int>? = null
+        compose.setContent {
+            EnglishMasterTheme {
+                HomeScreen(vm(learning), {}, actions = HomeActions(onStartPractice = {}, onCheckpoint = { l, n -> started = l to n }))
+            }
+        }
+        val list = compose.onNode(hasScrollToNodeAction())
+        list.performScrollToNode(hasTestTag("checkpoint_A1_2"))
+        compose.onNodeWithText("Checkpoint 1 passed (14/15)").assertIsDisplayed()
+        compose.onNodeWithText("Checkpoint 2 is ready").assertIsDisplayed()
+        list.performScrollToNode(hasText("Checkpoint 3 opens after 28 questions practised"))
+        compose.onNodeWithText("Checkpoint 3 opens after 28 questions practised").assertIsDisplayed()
+        compose.onNodeWithTag("checkpoint_A1_3").assertDoesNotExist()
+        compose.onNodeWithTag("checkpoint_A1_2").performClick()
+        assertEquals(CefrLevel.A1 to 2, started)
+    }
+
+    @Test
+    fun aPlacementResultWaitingForConfirmationIsOffered() {
+        val learning = FakeLearningRepo(
+            placement = CefrLevel.B1,
+            placementStatus = xyz.kurdcloud.englishmaster.core.model.PlacementStatus(2, null, false, confirmLevel = CefrLevel.A2),
+        )
+        var confirm = false
+        compose.setContent {
+            EnglishMasterTheme { HomeScreen(vm(learning), {}, actions = HomeActions(onStartPractice = {}, onConfirmPlacement = { confirm = true })) }
+        }
+        compose.onNodeWithText("Confirm your level: A2").assertIsDisplayed()
+        compose.onNodeWithTag("home_confirm_placement").performClick()
+        assertEquals(true, confirm)
     }
 
     @Test

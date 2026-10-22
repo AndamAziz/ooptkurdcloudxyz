@@ -84,6 +84,7 @@ internal fun ExamProblem.messageRes(): Int = when (this) {
     ExamProblem.ALREADY_CERTIFIED -> R.string.problem_already_certified
     ExamProblem.PENDING_APPROVAL -> R.string.problem_pending_approval
     ExamProblem.NOT_ENOUGH_QUESTIONS -> R.string.problem_not_enough
+    ExamProblem.ALREADY_DONE -> R.string.problem_already_done
     ExamProblem.INVALID_NAME -> R.string.problem_invalid_name
     ExamProblem.UNEXPECTED -> R.string.problem_unexpected
 }
@@ -98,14 +99,20 @@ fun ExamScreen(
     onClose: () -> Unit,
     onViewCertificates: () -> Unit,
     onPractise: (CefrLevel) -> Unit,
+    /** Opens placement stage 2 (the confirmation test). */
+    onConfirmPlacement: () -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     var confirmLeave by rememberSaveable { mutableStateOf(false) }
     val running = state.phase == ExamPhase.RUNNING || state.phase == ExamPhase.SUBMITTING
     BackHandler(enabled = running) { confirmLeave = true }
 
-    val title = if (state.kind == ExamKind.PLACEMENT) stringResource(R.string.placement_title)
-    else stringResource(R.string.exam_title, state.level?.label.orEmpty())
+    val title = when (state.kind) {
+        ExamKind.PLACEMENT -> stringResource(R.string.placement_title)
+        ExamKind.LEVEL_FINAL -> stringResource(R.string.exam_title, state.level?.label.orEmpty())
+        ExamKind.CHECKPOINT -> stringResource(R.string.checkpoint_title, state.level?.label.orEmpty(), state.checkpoint ?: 1)
+        ExamKind.PLACEMENT_CONFIRM -> stringResource(R.string.confirm_title)
+    }
 
     Scaffold(
         topBar = {
@@ -128,7 +135,7 @@ fun ExamScreen(
                     ExamPhase.INTRO -> IntroView(state, viewModel)
                     ExamPhase.STARTING -> Busy(stringResource(R.string.exam_starting))
                     ExamPhase.RUNNING, ExamPhase.SUBMITTING -> RunningView(state, viewModel)
-                    ExamPhase.FINISHED -> ResultView(state, onClose, onViewCertificates, onPractise)
+                    ExamPhase.FINISHED -> ResultView(state, onClose, onViewCertificates, onPractise, onConfirmPlacement)
                 }
             }
         }
@@ -205,14 +212,27 @@ private fun IntroView(state: ExamUiState, viewModel: ExamViewModel) {
     Content {
         val placement = state.kind == ExamKind.PLACEMENT
         Text(
-            if (placement) stringResource(R.string.placement_intro_heading)
-            else stringResource(R.string.exam_intro_heading, state.level?.label.orEmpty()),
+            when (state.kind) {
+                ExamKind.PLACEMENT -> stringResource(R.string.placement_intro_heading)
+                ExamKind.LEVEL_FINAL -> stringResource(R.string.exam_intro_heading, state.level?.label.orEmpty())
+                ExamKind.CHECKPOINT -> stringResource(R.string.checkpoint_intro_heading, state.checkpoint ?: 1, state.level?.label.orEmpty())
+                ExamKind.PLACEMENT_CONFIRM -> stringResource(R.string.confirm_intro_heading)
+            },
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.SemiBold,
         )
         Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh)) {
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                if (placement) {
+                if (state.kind == ExamKind.CHECKPOINT) {
+                    Rule("1", stringResource(R.string.checkpoint_rule_questions, ExamRules.CHECKPOINT_QUESTIONS, ExamRules.CHECKPOINT_MINUTES))
+                    Rule("2", stringResource(R.string.checkpoint_rule_pass, ExamRules.CHECKPOINT_PASS_PERCENT))
+                    Rule("3", stringResource(R.string.checkpoint_rule_retry, ExamRules.CHECKPOINT_RETRY_HOURS))
+                    Rule("4", stringResource(R.string.exam_rule_online))
+                } else if (state.kind == ExamKind.PLACEMENT_CONFIRM) {
+                    Rule("1", stringResource(R.string.confirm_rule_questions, ExamRules.CONFIRM_QUESTIONS, ExamRules.CONFIRM_MINUTES))
+                    Rule("2", stringResource(R.string.confirm_rule_pass, ExamRules.CONFIRM_PASS_PERCENT))
+                    Rule("3", stringResource(R.string.exam_rule_online))
+                } else if (placement) {
                     Rule("1", stringResource(R.string.placement_rule_questions, ExamRules.PLACEMENT_QUESTIONS))
                     Rule("2", stringResource(R.string.placement_rule_time, ExamRules.PLACEMENT_MINUTES))
                     Rule("3", stringResource(R.string.placement_rule_attempts, ExamRules.PLACEMENT_PER_DAY))
@@ -226,7 +246,7 @@ private fun IntroView(state: ExamUiState, viewModel: ExamViewModel) {
                 }
             }
         }
-        if (!placement) {
+        if (state.kind == ExamKind.LEVEL_FINAL) {
             OutlinedCard(Modifier.fillMaxWidth()) {
                 Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
@@ -245,13 +265,16 @@ private fun IntroView(state: ExamUiState, viewModel: ExamViewModel) {
                 stringResource(
                     when {
                         placement && state.placementStatus?.inProgress == true -> R.string.placement_continue
-                        placement -> R.string.placement_start
+                        placement || state.kind == ExamKind.PLACEMENT_CONFIRM -> R.string.placement_start
+                        state.kind == ExamKind.CHECKPOINT -> R.string.checkpoint_start
                         else -> R.string.exam_start
                     },
                 ),
             )
         }
-        Text(stringResource(R.string.certificate_note), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (state.kind == ExamKind.LEVEL_FINAL) {
+            Text(stringResource(R.string.certificate_note), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
     }
     if (editName) {
         NameDialog(initial = state.displayName.orEmpty(), onDismiss = { editName = false }) { name ->
@@ -419,12 +442,61 @@ private fun QuestionStrip(state: ExamUiState, onSelect: (Int) -> Unit) {
 }
 
 @Composable
-private fun ResultView(state: ExamUiState, onClose: () -> Unit, onViewCertificates: () -> Unit, onPractise: (CefrLevel) -> Unit) {
+private fun ResultView(
+    state: ExamUiState,
+    onClose: () -> Unit,
+    onViewCertificates: () -> Unit,
+    onPractise: (CefrLevel) -> Unit,
+    onConfirmPlacement: () -> Unit,
+) {
     Content {
         if (state.autoSubmitted) Text(stringResource(R.string.exam_auto_submitted), style = MaterialTheme.typography.bodyMedium)
         val result = state.result
         val placement = state.placement
-        if (result != null) {
+        val confirmation = state.confirmation
+        if (result != null && state.kind == ExamKind.CHECKPOINT) {
+            ScoreBadge(result.percent, result.passed)
+            Text(
+                stringResource(if (result.passed) R.string.checkpoint_passed_title else R.string.checkpoint_failed_title, state.checkpoint ?: 1),
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth().testTag("checkpoint_result_title"),
+            )
+            Text(stringResource(R.string.exam_score, result.score, result.total, result.percent), textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
+            Text(
+                if (result.passed) stringResource(if ((state.checkpoint ?: 1) < 3) R.string.checkpoint_passed_next else R.string.checkpoint_passed_last)
+                else stringResource(R.string.checkpoint_failed_advice, result.passPercent),
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            if (!result.passed) {
+                if (result.expired) Text(stringResource(R.string.exam_expired), color = MaterialTheme.colorScheme.error)
+                result.nextAttemptAtMillis?.let { Text(stringResource(R.string.exam_next_attempt, formatDateTime(it))) }
+            }
+            state.level?.let { level ->
+                Button(onClick = { onPractise(level) }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.placement_start_level, level.label)) }
+            }
+            OutlinedButton(onClick = onClose, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.exam_back_home)) }
+        } else if (confirmation != null) {
+            ScoreBadge(confirmation.percent, passed = true, label = confirmation.recommendedLevel.label)
+            Text(
+                stringResource(
+                    if (confirmation.confirmed) R.string.confirm_result_confirmed else R.string.confirm_result_not_confirmed,
+                    confirmation.testedLevel.label,
+                ),
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth().testTag("confirm_result"),
+            )
+            Text(stringResource(R.string.exam_score, confirmation.score, confirmation.total, confirmation.percent), textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
+            Text(stringResource(R.string.confirm_result_study, confirmation.recommendedLevel.label), textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
+            Button(onClick = { onPractise(confirmation.recommendedLevel) }, modifier = Modifier.fillMaxWidth()) {
+                Text(stringResource(R.string.placement_start_level, confirmation.recommendedLevel.label))
+            }
+            OutlinedButton(onClick = onClose, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.exam_back_home)) }
+        } else if (result != null) {
             val passed = result.passed
             ScoreBadge(result.percent, passed)
             Text(
@@ -470,8 +542,25 @@ private fun ResultView(state: ExamUiState, onClose: () -> Unit, onViewCertificat
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
             )
-            Button(onClick = { onPractise(placement.recommendedLevel) }, modifier = Modifier.fillMaxWidth()) {
-                Text(stringResource(R.string.placement_start_level, placement.recommendedLevel.label))
+            val confirmLevel = placement.passedLevel
+            if (confirmLevel != null) {
+                // Stage 2: make sure the learner really has the level the screening test found.
+                Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer), modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        stringResource(R.string.placement_confirm_offer, confirmLevel.label, ExamRules.CONFIRM_QUESTIONS),
+                        modifier = Modifier.padding(16.dp),
+                    )
+                }
+                Button(onClick = onConfirmPlacement, modifier = Modifier.fillMaxWidth().testTag("placement_confirm")) {
+                    Text(stringResource(R.string.placement_confirm_start, confirmLevel.label))
+                }
+                OutlinedButton(onClick = { onPractise(placement.recommendedLevel) }, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(R.string.placement_start_level, placement.recommendedLevel.label))
+                }
+            } else {
+                Button(onClick = { onPractise(placement.recommendedLevel) }, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(R.string.placement_start_level, placement.recommendedLevel.label))
+                }
             }
             OutlinedButton(onClick = onClose, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.exam_back_home)) }
         }

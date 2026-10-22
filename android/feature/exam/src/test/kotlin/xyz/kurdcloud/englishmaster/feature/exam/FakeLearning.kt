@@ -51,6 +51,22 @@ class FakeLearning(var questions: List<ExamQuestion> = listOf(examQuestion("q1")
         return ApiResult.Success(PlacementResult(answers.size, questions.size, CefrLevel.A2, CefrLevel.B1))
     }
 
+    var checkpointNumber: Int? = null
+    override suspend fun startCheckpoint(level: CefrLevel, number: Int): ApiResult<ExamSession> {
+        checkpointNumber = number
+        return startFailure?.let { ApiResult.Failure(it) } ?: ApiResult.Success(ExamSession("cp", ExamKind.CHECKPOINT, level, expiresAt, questions))
+    }
+    override suspend fun submitCheckpoint(attemptId: String, answers: Map<String, String>): ApiResult<ExamResult> {
+        submitted = answers
+        val score = questions.count { answers[it.id] == "B" }
+        val passed = score * 100 >= 70 * questions.size
+        return ApiResult.Success(ExamResult(score, questions.size, passed, 70, null, if (passed) null else 7_200_000L, false))
+    }
+    override suspend fun startPlacementConfirmation() =
+        ApiResult.Success(ExamSession("conf", ExamKind.PLACEMENT_CONFIRM, CefrLevel.A2, expiresAt, questions))
+    override suspend fun submitPlacementConfirmation(attemptId: String, answers: Map<String, String>) =
+        ApiResult.Success(xyz.kurdcloud.englishmaster.core.model.ConfirmationResult(answers.size, questions.size, true, CefrLevel.A2, CefrLevel.B1))
+
     override suspend fun certificates() =
         ApiResult.Success(listOf(Certificate(CefrLevel.A1, name, 18, 20, "EM-ABCD-EFGH-JKLM", 0)))
 }

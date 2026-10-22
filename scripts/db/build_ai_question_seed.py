@@ -17,6 +17,8 @@ approval, retirement or later edit is never overwritten.
 
 Source-verified batches (Life in the UK) set "verified_only": true; then only items with
 "verification": "verified" and a "source" page are imported, and items may carry a stable "ref".
+Exam-only batches set "pool": "exam": their questions are only ever used in level exams (never
+downloaded for practice), so a learner meets them for the first time in the exam.
 Extra item fields (source, verification, difficulty, explanation_ckb, notes) are not imported;
 they are review data checked by scripts/lituk/lituk.py.
 
@@ -105,6 +107,9 @@ def item_rows(src: Path, include_unimportable: bool = False) -> tuple[str, list[
     batch = data["batch"]
     passages = data.get("passages", {})
     verified_only = bool(data.get("verified_only"))
+    pool = data.get("pool", "practice")
+    if pool not in ("practice", "exam"):
+        raise SystemExit(f"{src.name}: pool must be practice or exam")
     seen = set()
     refs = set()
     result = []
@@ -152,7 +157,10 @@ def item_rows(src: Path, include_unimportable: bool = False) -> tuple[str, list[
             "media_type": media.get("type"),
             "media_path": media.get("path"),
             "media_caption": media.get("caption"),
+            "pool": pool,
         }))
+        if pool == "exam" and item["level"] not in LEVELS[:6]:
+            raise SystemExit(f"{src.name}: exam-only questions must be English levels, not {item['level']}")
     return batch, result
 
 
@@ -167,7 +175,7 @@ def build(src: Path) -> None:
             q(r["external_ref"]), q(r["cefr_level"]) + "::public.cefr_level", q(r["skill"]),
             q(r["prompt"]), arr(r["options"]), q(r["correct_option"]), q(r["explanation"]),
             arr(r["tags"]), "'draft'", "'unreviewed'", q(r["source"]),
-            opt(r["passage"]), opt(r["media_type"]), opt(r["media_path"]), opt(r["media_caption"]),
+            opt(r["passage"]), opt(r["media_type"]), opt(r["media_path"]), opt(r["media_caption"]), q(r["pool"]),
         ]) + ")")
 
     out = ROOT / f"backend/supabase/seed/assessment_questions_{batch.replace('-', '_')}.sql"
@@ -180,13 +188,14 @@ def build(src: Path) -> None:
     body = (
         f"insert into {t}\n"
         "  (external_ref, cefr_level, skill, prompt, options, correct_option, explanation, tags, status, review_status, source,\n"
-        "   passage, media_type, media_path, media_caption)\n"
+        "   passage, media_type, media_path, media_caption, pool)\n"
         "values\n  " + ",\n  ".join(values) + "\n"
         "on conflict (external_ref) do update set\n"
         "  cefr_level = excluded.cefr_level, skill = excluded.skill, prompt = excluded.prompt,\n"
         "  options = excluded.options, correct_option = excluded.correct_option,\n"
         "  explanation = excluded.explanation, tags = excluded.tags, passage = excluded.passage,\n"
-        "  media_type = excluded.media_type, media_path = excluded.media_path, media_caption = excluded.media_caption\n"
+        "  media_type = excluded.media_type, media_path = excluded.media_path, media_caption = excluded.media_caption,\n"
+        "  pool = excluded.pool\n"
         f"where {t}.status = 'draft' and {t}.review_status = 'unreviewed';\n"
     )
     out.write_text(header + body, encoding="utf-8")

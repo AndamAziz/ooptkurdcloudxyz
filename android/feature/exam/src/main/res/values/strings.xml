@@ -90,4 +90,25 @@
         <item quantity="one">You have %1$d placement test left today.</item>
         <item quantity="other">You have %1$d placement tests left today.</item>
     </plurals>
+    <string name="problem_already_done">You have already done this test.</string>
+    <string name="checkpoint_title">%1$s · Checkpoint %2$d</string>
+    <string name="checkpoint_intro_heading">Checkpoint %1$d of 3 · Level %2$s</string>
+    <string name="checkpoint_rule_questions">%1$d questions you have not practised, in %2$d minutes</string>
+    <string name="checkpoint_rule_pass">Pass with %1$d%% or more. All three checkpoints must be passed before the final exam opens.</string>
+    <string name="checkpoint_rule_retry">If you do not pass, practise more and try again after %1$d hours — with new questions.</string>
+    <string name="checkpoint_start">Start checkpoint</string>
+    <string name="checkpoint_passed_title">Checkpoint %1$d passed!</string>
+    <string name="checkpoint_failed_title">Checkpoint %1$d not passed yet</string>
+    <string name="checkpoint_passed_next">Well done. Keep practising to open the next checkpoint.</string>
+    <string name="checkpoint_passed_last">All checkpoints passed. The final exam opens once your practice target is reached.</string>
+    <string name="checkpoint_failed_advice">You need %1$d%% to pass. Review your mistakes and practise more; the next try has different questions.</string>
+    <string name="confirm_title">Confirm your level</string>
+    <string name="confirm_intro_heading">Placement test · Stage 2</string>
+    <string name="confirm_rule_questions">%1$d new questions at this level, in %2$d minutes</string>
+    <string name="confirm_rule_pass">Score %1$d%% or more to confirm the level. Otherwise we recommend studying it first.</string>
+    <string name="confirm_result_confirmed">Level %1$s confirmed!</string>
+    <string name="confirm_result_not_confirmed">Level %1$s not confirmed yet</string>
+    <string name="confirm_result_study">We recommend you study level %1$s.</string>
+    <string name="placement_confirm_offer">The screening test says you know level %1$s. To be sure, take a short confirmation test: %2$d new questions at that level.</string>
+    <string name="placement_confirm_start">Confirm level %1$s</string>
 </resources>

@@ -12,6 +12,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import xyz.kurdcloud.englishmaster.core.data.LearningRepository
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
+import xyz.kurdcloud.englishmaster.core.model.ConfirmationResult
 import xyz.kurdcloud.englishmaster.core.model.CredentialRules
 import xyz.kurdcloud.englishmaster.core.model.ExamKind
 import xyz.kurdcloud.englishmaster.core.model.ExamRefusal
@@ -27,7 +28,7 @@ enum class ExamPhase { INTRO, STARTING, RUNNING, SUBMITTING, FINISHED }
 
 /** Problems shown to the learner. */
 enum class ExamProblem {
-    OFFLINE, SIGN_IN_AGAIN, NOT_UNLOCKED, RETRY_LATER, ALREADY_CERTIFIED, PENDING_APPROVAL, NOT_ENOUGH_QUESTIONS, INVALID_NAME, UNEXPECTED;
+    OFFLINE, SIGN_IN_AGAIN, NOT_UNLOCKED, RETRY_LATER, ALREADY_CERTIFIED, PENDING_APPROVAL, NOT_ENOUGH_QUESTIONS, ALREADY_DONE, INVALID_NAME, UNEXPECTED;
 
     companion object {
         fun from(error: ApiError): ExamProblem = when (error) {
@@ -39,6 +40,7 @@ enum class ExamProblem {
                 ExamRefusal.ALREADY_CERTIFIED -> ALREADY_CERTIFIED
                 ExamRefusal.PENDING_APPROVAL -> PENDING_APPROVAL
                 ExamRefusal.NOT_ENOUGH_QUESTIONS -> NOT_ENOUGH_QUESTIONS
+                ExamRefusal.ALREADY_DONE -> ALREADY_DONE
                 else -> UNEXPECTED
             }
             else -> UNEXPECTED
@@ -49,6 +51,8 @@ enum class ExamProblem {
 data class ExamUiState(
     val kind: ExamKind,
     val level: CefrLevel?,
+    /** For [ExamKind.CHECKPOINT]: which of the level's checkpoints (1-3). */
+    val checkpoint: Int? = null,
     val phase: ExamPhase = ExamPhase.INTRO,
     /** Name printed on the certificate (level exams); null while loading or offline. */
     val displayName: String? = null,
@@ -59,6 +63,7 @@ data class ExamUiState(
     val remainingSeconds: Long = 0,
     val result: ExamResult? = null,
     val placement: PlacementResult? = null,
+    val confirmation: ConfirmationResult? = null,
     val problem: ExamProblem? = null,
     /** True when the time ran out and the answers were sent automatically. */
     val autoSubmitted: Boolean = false,
@@ -82,13 +87,18 @@ class ExamViewModel(
     level: CefrLevel?,
     private val repo: LearningRepository,
     private val clock: () -> Long = System::currentTimeMillis,
+    checkpoint: Int? = null,
 ) : ViewModel() {
-    private val state = MutableStateFlow(ExamUiState(kind, level))
+    private val state = MutableStateFlow(ExamUiState(kind, level, checkpoint))
     val uiState: StateFlow<ExamUiState> = state.asStateFlow()
     private var timer: Job? = null
 
     init {
-        if (kind == ExamKind.LEVEL_FINAL) loadName() else loadPlacementStatus()
+        when (kind) {
+            ExamKind.LEVEL_FINAL -> loadName()
+            ExamKind.PLACEMENT -> loadPlacementStatus()
+            else -> Unit
+        }
     }
 
     private fun loadPlacementStatus() = viewModelScope.launch {
@@ -100,10 +110,13 @@ class ExamViewModel(
     /** After a "not yet" from the server, find out exactly when the next attempt opens. */
     private suspend fun loadRetryTime() {
         val s = state.value
-        val at = if (s.kind == ExamKind.PLACEMENT) {
-            (repo.placementStatus() as? ApiResult.Success)?.value?.also { st -> state.update { it.copy(placementStatus = st) } }?.nextAttemptAtMillis
-        } else {
-            (repo.overview() as? ApiResult.Success)?.value?.firstOrNull { it.level == s.level }?.examAvailableAtMillis
+        val at = when (s.kind) {
+            ExamKind.PLACEMENT ->
+                (repo.placementStatus() as? ApiResult.Success)?.value?.also { st -> state.update { it.copy(placementStatus = st) } }?.nextAttemptAtMillis
+            ExamKind.LEVEL_FINAL -> (repo.overview() as? ApiResult.Success)?.value?.firstOrNull { it.level == s.level }?.examAvailableAtMillis
+            ExamKind.CHECKPOINT -> (repo.checkpoints() as? ApiResult.Success)?.value
+                ?.firstOrNull { it.level == s.level && it.number == s.checkpoint }?.availableAtMillis
+            ExamKind.PLACEMENT_CONFIRM -> null
         }
         state.update { it.copy(retryAtMillis = at) }
     }
@@ -130,7 +143,12 @@ class ExamViewModel(
         if (s.phase != ExamPhase.INTRO) return
         state.update { it.copy(phase = ExamPhase.STARTING, problem = null) }
         viewModelScope.launch {
-            val r = if (s.kind == ExamKind.PLACEMENT) repo.startPlacement() else repo.startLevelExam(checkNotNull(s.level))
+            val r = when (s.kind) {
+                ExamKind.PLACEMENT -> repo.startPlacement()
+                ExamKind.LEVEL_FINAL -> repo.startLevelExam(checkNotNull(s.level))
+                ExamKind.CHECKPOINT -> repo.startCheckpoint(checkNotNull(s.level), checkNotNull(s.checkpoint))
+                ExamKind.PLACEMENT_CONFIRM -> repo.startPlacementConfirmation()
+            }
             when (r) {
                 is ApiResult.Success -> {
                     state.update { it.copy(phase = ExamPhase.RUNNING, session = r.value, index = 0, answers = emptyMap()) }
@@ -177,14 +195,24 @@ class ExamViewModel(
         state.update { it.copy(phase = ExamPhase.SUBMITTING, problem = null, autoSubmitted = auto) }
         val letters = s.answers.mapValues { optionLetter(it.value) }
         viewModelScope.launch {
-            if (session.kind == ExamKind.PLACEMENT) {
-                when (val r = repo.submitPlacement(session.attemptId, letters)) {
-                    is ApiResult.Success -> finish { it.copy(placement = r.value) }
+            when (session.kind) {
+                ExamKind.PLACEMENT -> when (val r = repo.submitPlacement(session.attemptId, letters)) {
+                    is ApiResult.Success -> {
+                        finish { it.copy(placement = r.value) }
+                        loadPlacementStatus()
+                    }
                     is ApiResult.Failure -> submitFailed(r.error)
                 }
-            } else {
-                when (val r = repo.submitLevelExam(session.attemptId, letters)) {
+                ExamKind.LEVEL_FINAL -> when (val r = repo.submitLevelExam(session.attemptId, letters)) {
                     is ApiResult.Success -> finish { it.copy(result = r.value) }
+                    is ApiResult.Failure -> submitFailed(r.error)
+                }
+                ExamKind.CHECKPOINT -> when (val r = repo.submitCheckpoint(session.attemptId, letters)) {
+                    is ApiResult.Success -> finish { it.copy(result = r.value) }
+                    is ApiResult.Failure -> submitFailed(r.error)
+                }
+                ExamKind.PLACEMENT_CONFIRM -> when (val r = repo.submitPlacementConfirmation(session.attemptId, letters)) {
+                    is ApiResult.Success -> finish { it.copy(confirmation = r.value) }
                     is ApiResult.Failure -> submitFailed(r.error)
                 }
             }
