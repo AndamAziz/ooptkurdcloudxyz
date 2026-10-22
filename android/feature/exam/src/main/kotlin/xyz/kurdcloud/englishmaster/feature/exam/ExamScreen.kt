@@ -526,6 +526,12 @@ private fun ResultView(
                 result.nextAttemptAtMillis?.let { Text(stringResource(R.string.exam_next_attempt, formatDateTime(it))) }
                 Text(stringResource(R.string.exam_failed_advice))
             }
+            val nextLevel = state.level?.let(CefrLevel::next)
+            if (passed && nextLevel != null) {
+                Button(onClick = { onPractise(nextLevel) }, modifier = Modifier.fillMaxWidth().testTag("exam_next_level")) {
+                    Text(stringResource(R.string.exam_next_level, nextLevel.label))
+                }
+            }
             OutlinedButton(onClick = onClose, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.exam_back_home)) }
         } else if (placement != null) {
             ScoreBadge(if (placement.total == 0) 0 else placement.score * 100 / placement.total, passed = true, label = placement.recommendedLevel.label)

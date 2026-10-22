@@ -11,6 +11,11 @@ import xyz.kurdcloud.englishmaster.core.database.QuestionEntity
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.LevelPack
 import xyz.kurdcloud.englishmaster.core.model.MediaType
+import xyz.kurdcloud.englishmaster.core.model.MistakeStats
+import xyz.kurdcloud.englishmaster.core.model.ReviewSchedule
+import xyz.kurdcloud.englishmaster.core.database.AnswerRow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 import xyz.kurdcloud.englishmaster.core.model.PackVersion
 import xyz.kurdcloud.englishmaster.core.model.QuestionMedia
 import xyz.kurdcloud.englishmaster.core.model.Question
@@ -31,9 +36,15 @@ interface ContentRepository {
     suspend fun pickSession(level: CefrLevel, userId: String, count: Int): List<Question>
     suspend fun questions(ids: List<String>): List<Question>
 
-    /** Downloaded questions whose latest marked answer was wrong, for a review session. */
+    /** Mistakes whose review is due now (see [ReviewSchedule]), for a review session. */
     suspend fun pickMistakes(level: CefrLevel, userId: String, count: Int): List<Question> = emptyList()
-    fun observeMistakeCounts(userId: String): Flow<Map<CefrLevel, Int>> = kotlinx.coroutines.flow.flowOf(emptyMap())
+
+    /** Mistakes that can be reviewed now, per level. */
+    fun observeMistakeCounts(userId: String): Flow<Map<CefrLevel, Int>> =
+        observeMistakeStats(userId).map { stats -> stats.mapValues { it.value.due }.filterValues { it > 0 } }
+
+    /** Mistakes per level: due now, waiting, and when the next one is due. Refreshes every minute. */
+    fun observeMistakeStats(userId: String): Flow<Map<CefrLevel, MistakeStats>> = kotlinx.coroutines.flow.flowOf(emptyMap())
 
     /** Questions on one topic from every downloaded level. */
     suspend fun pickTopic(topic: Topic, userId: String, count: Int): List<Question> = emptyList()
@@ -101,21 +112,47 @@ class OfflineFirstContentRepository(
         packDao.delete(level.apiValue)
     }
 
-    override suspend fun pickSession(level: CefrLevel, userId: String, count: Int): List<Question> =
-        questionDao.pickForSession(level.apiValue, userId, count).map { it.toModel(media) }
+    override suspend fun pickSession(level: CefrLevel, userId: String, count: Int): List<Question> {
+        val locked = lockedMistakes(userId)
+        return questionDao.pickForSession(level.apiValue, userId, count + locked.size)
+            .filter { it.id !in locked }.take(count).map { it.toModel(media) }
+    }
+
+    /** Mistakes waiting for their review: kept out of practice until they are due. */
+    private suspend fun lockedMistakes(userId: String): Set<String> {
+        val now = nowMillis()
+        return ReviewSchedule.mistakes(questionDao.answerHistory(userId).map(AnswerRow::toAnswer))
+            .values.filter { !it.isDue(now) }.mapTo(HashSet()) { it.questionId }
+    }
 
     override suspend fun questions(ids: List<String>): List<Question> =
         questionDao.byIds(ids).map { it.toModel(media) }
 
-    override suspend fun pickMistakes(level: CefrLevel, userId: String, count: Int): List<Question> =
-        questionDao.pickMistakes(level.apiValue, userId, count).map { it.toModel(media) }
+    override suspend fun pickMistakes(level: CefrLevel, userId: String, count: Int): List<Question> {
+        val now = nowMillis()
+        val rows = questionDao.answerHistory(userId)
+        val levelOf = rows.associate { it.questionId to it.cefrLevel }
+        val due = ReviewSchedule.mistakes(rows.map(AnswerRow::toAnswer)).values
+            .filter { it.isDue(now) && levelOf[it.questionId] == level.apiValue }
+            .map { it.questionId }.shuffled().take(count)
+        return questionDao.byIds(due).map { it.toModel(media) }
+    }
 
-    override fun observeMistakeCounts(userId: String): Flow<Map<CefrLevel, Int>> =
-        questionDao.observeMistakeCounts(userId).map { rows -> rows.associate { CefrLevel.fromApi(it.cefrLevel) to it.count } }
+    override fun observeMistakeStats(userId: String): Flow<Map<CefrLevel, MistakeStats>> =
+        combine(questionDao.observeAnswerHistory(userId), minuteTicker()) { rows, _ -> mistakeStats(rows, nowMillis()) }
+
+    private fun minuteTicker() = flow {
+        while (true) {
+            emit(Unit)
+            delay(60_000)
+        }
+    }
 
     override suspend fun pickTopic(topic: Topic, userId: String, count: Int): List<Question> {
         val p = topic.likePatterns()
-        return questionDao.pickForTopic(p[0], p[1], p[2], p[3], topic.withPassage, topic.withMedia, userId, count).map { it.toModel(media) }
+        val locked = lockedMistakes(userId)
+        return questionDao.pickForTopic(p[0], p[1], p[2], p[3], topic.withPassage, topic.withMedia, userId, count + locked.size)
+            .filter { it.id !in locked }.take(count).map { it.toModel(media) }
     }
 
     override fun observeTopicCounts(): Flow<Map<Topic, Int>> = combine(
@@ -125,8 +162,11 @@ class OfflineFirstContentRepository(
         },
     ) { pairs -> pairs.toMap() }
 
-    override suspend fun pickTagged(tag: String, userId: String, count: Int): List<Question> =
-        questionDao.pickForTopic(tagPattern(tag), "", "", "", false, false, userId, count).map { it.toModel(media) }
+    override suspend fun pickTagged(tag: String, userId: String, count: Int): List<Question> {
+        val locked = lockedMistakes(userId)
+        return questionDao.pickForTopic(tagPattern(tag), "", "", "", false, false, userId, count + locked.size)
+            .filter { it.id !in locked }.take(count).map { it.toModel(media) }
+    }
 
     override fun observeTagCounts(tags: List<String>): Flow<Map<String, Int>> = combine(
         tags.map { tag -> questionDao.observeTopicCount(tagPattern(tag), "", "", "", false, false).map { tag to it } },
@@ -179,4 +219,17 @@ internal fun questionMedia(type: String?, path: String?, caption: String?, local
     val t = MediaType.fromApi(type) ?: return null
     if (path == null) return null
     return QuestionMedia(t, media?.url(path) ?: path, caption, local)
+}
+
+private fun AnswerRow.toAnswer() = ReviewSchedule.Answer(questionId, isCorrect, answeredAtMillis)
+
+internal fun mistakeStats(rows: List<AnswerRow>, nowMillis: Long): Map<CefrLevel, MistakeStats> {
+    val levelOf = rows.associate { it.questionId to it.cefrLevel }
+    return ReviewSchedule.mistakes(rows.map(AnswerRow::toAnswer)).values
+        .groupBy { levelOf.getValue(it.questionId) }
+        .mapNotNull { (level, list) ->
+            val cefr = CefrLevel.entries.firstOrNull { it.apiValue == level } ?: return@mapNotNull null
+            val waiting = list.filter { !it.isDue(nowMillis) }
+            cefr to MistakeStats(list.size - waiting.size, waiting.size, waiting.minOfOrNull { it.dueAtMillis })
+        }.toMap()
 }

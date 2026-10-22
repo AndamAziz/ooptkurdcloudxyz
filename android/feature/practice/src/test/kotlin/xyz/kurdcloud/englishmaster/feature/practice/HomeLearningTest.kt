@@ -124,6 +124,20 @@ class HomeLearningTest {
     }
 
     @Test
+    fun afterACertificateTheNextLevelIsOfferedAndDownloaded() {
+        val content = FakeContent()
+        val vm = HomeViewModel("u1", content, FakePractice(FakeNetwork()), FakeNetwork(), learning = FakeLearningRepo(), clock = { 0L })
+        compose.setContent { EnglishMasterTheme { HomeScreen(vm, {}) } }
+        val list = compose.onNode(hasScrollToNodeAction())
+        list.performScrollToNode(hasTestTag("path_card"))
+        compose.onNodeWithText("You are working on level A1. Each level has its own certificate.").assertIsDisplayed()
+        list.performScrollToNode(hasTestTag("next_level_B1"))
+        compose.onNodeWithText("Continue to level B2").assertIsDisplayed()
+        // B1 is certified, so B2 was downloaded in the background.
+        compose.waitUntil { content.packs.value.any { it.level == CefrLevel.B2 } }
+    }
+
+    @Test
     fun howToEarnACertificateIsExplained() {
         compose.setContent { EnglishMasterTheme { HomeScreen(vm(), {}) } }
         compose.onNode(hasScrollToNodeAction()).performScrollToNode(hasTestTag("how_certificates"))
@@ -184,7 +198,7 @@ class HomeLearningTest {
         compose.onNodeWithText("Remove").assertDoesNotExist()
         // Even if asked directly, the view model keeps a learner's questions.
         vm.remove(CefrLevel.A1)
-        assertEquals(1, content.packs.value.size)
+        assertEquals(true, content.packs.value.any { it.level == CefrLevel.A1 })
     }
 
     @Test

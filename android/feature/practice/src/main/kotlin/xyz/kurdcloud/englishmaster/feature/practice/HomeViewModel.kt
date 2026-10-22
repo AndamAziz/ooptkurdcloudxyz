@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -42,8 +43,11 @@ data class LevelRow(
     val downloading: Int?,
     /** Server standing towards the level certificate; null offline or before it loads. */
     val overview: LevelOverview? = null,
-    /** Downloaded questions whose latest marked answer was wrong. */
+    /** Mistakes whose review is due now. */
     val mistakes: Int = 0,
+    /** Mistakes waiting for their review (24 hours after a wrong answer, then 3 days). */
+    val mistakesWaiting: Int = 0,
+    val nextReviewAtMillis: Long? = null,
     /** The level's three checkpoints (empty offline or before they load). */
     val checkpoints: List<CheckpointStatus> = emptyList(),
 )
@@ -97,14 +101,14 @@ class HomeViewModel(
     private val local = combine(
         content.observePacks(),
         practice.observeProgress(userId),
-        content.observeMistakeCounts(userId),
+        content.observeMistakeStats(userId),
         content.observeTopicCounts(),
     ) { packs, progress, mistakes, topics -> LocalData(packs, progress, mistakes, topics) }
 
     private data class LocalData(
         val packs: List<LevelPack>,
         val progress: List<LevelProgress>,
-        val mistakes: Map<CefrLevel, Int>,
+        val mistakes: Map<CefrLevel, xyz.kurdcloud.englishmaster.core.model.MistakeStats>,
         val topics: Map<Topic, Int>,
     )
 
@@ -125,7 +129,9 @@ class HomeViewModel(
                     progress.find { it.level == level },
                     t.downloads[level],
                     t.overview[level],
-                    mistakes[level] ?: 0,
+                    mistakes[level]?.due ?: 0,
+                    mistakes[level]?.waiting ?: 0,
+                    mistakes[level]?.nextDueAtMillis,
                     t.checkpoints[level].orEmpty(),
                 )
             },
@@ -174,7 +180,15 @@ class HomeViewModel(
                     nowMillis = clock(),
                 )
             }
+            downloadNextLevels(overview)
         }
+    }
+
+    /** After a certificate (or one waiting for approval) the next level is downloaded, ready to start. */
+    private suspend fun downloadNextLevels(overview: List<LevelOverview>?) {
+        val earned = overview?.filter { it.certificateCode != null || it.certificatePending } ?: return
+        val packs = content.observePacks().first().map { it.level }.toSet()
+        earned.mapNotNull { CefrLevel.next(it.level) }.filter { it !in packs }.forEach { download(it, quiet = true) }
     }
 
     /** Asks the server which roles the user has; offline or on error no staff entry is shown. */
@@ -186,10 +200,11 @@ class HomeViewModel(
         }
     }
 
-    fun download(level: CefrLevel) {
+    /** [quiet]: a background download (e.g. the next level after a certificate) shows no message. */
+    fun download(level: CefrLevel, quiet: Boolean = false) {
         if (downloadJobs[level]?.isActive == true) return
         if (!online.value) {
-            transient.update { it.copy(message = UiMessage(R.string.practice_download_needs_internet)) }
+            if (!quiet) transient.update { it.copy(message = UiMessage(R.string.practice_download_needs_internet)) }
             return
         }
         transient.update { it.copy(downloads = it.downloads + (level to 0), message = null) }
@@ -204,7 +219,7 @@ class HomeViewModel(
                         if (result.error == ApiError.Network) R.string.practice_download_failed_network else R.string.practice_download_failed,
                     )
                 }
-                transient.update { it.copy(message = message) }
+                if (!quiet) transient.update { it.copy(message = message) }
             } finally {
                 transient.update { it.copy(downloads = it.downloads - level) }
             }

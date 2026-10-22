@@ -31,16 +31,12 @@ interface QuestionDao {
     @Query("DELETE FROM questions WHERE cefr_level = :level")
     suspend fun deleteLevel(level: String)
 
-    /** Downloaded questions whose latest marked answer by this user was wrong. */
-    @Query(
-        """SELECT q.* FROM questions q
-           WHERE q.cefr_level = :level AND ($LATEST_VERDICT) = 0
-           ORDER BY RANDOM() LIMIT :limit"""
-    )
-    suspend fun pickMistakes(level: String, userId: String, limit: Int): List<QuestionEntity>
+    /** This user's marked practice answers on downloaded questions (the input of the review schedule). */
+    @Query(ANSWER_HISTORY)
+    suspend fun answerHistory(userId: String): List<AnswerRow>
 
-    @Query("SELECT q.cefr_level AS cefr_level, COUNT(*) AS count FROM questions q WHERE ($LATEST_VERDICT) = 0 GROUP BY q.cefr_level")
-    fun observeMistakeCounts(userId: String): Flow<List<LevelCountRow>>
+    @Query(ANSWER_HISTORY)
+    fun observeAnswerHistory(userId: String): Flow<List<AnswerRow>>
 
     /**
      * Random questions from every downloaded level that match a topic, preferring unanswered ones.
@@ -65,9 +61,10 @@ interface QuestionDao {
     private companion object {
         const val TOPIC_MATCH = """(q.tags LIKE :t1 OR q.tags LIKE :t2 OR q.tags LIKE :t3 OR q.tags LIKE :t4
             OR (:withPassage AND q.passage IS NOT NULL) OR (:withMedia AND q.media_path IS NOT NULL))"""
-        const val LATEST_VERDICT = """SELECT r.is_correct FROM responses r
-            WHERE r.question_id = q.id AND r.user_id = :userId AND r.sync_state = 'SYNCED'
-            ORDER BY r.answered_at DESC LIMIT 1"""
+        const val ANSWER_HISTORY = """SELECT r.question_id AS question_id, q.cefr_level AS cefr_level,
+            r.is_correct AS is_correct, r.answered_at AS answered_at
+            FROM responses r JOIN questions q ON q.id = r.question_id
+            WHERE r.user_id = :userId AND r.sync_state = 'SYNCED' AND r.is_correct IS NOT NULL"""
     }
 }
 

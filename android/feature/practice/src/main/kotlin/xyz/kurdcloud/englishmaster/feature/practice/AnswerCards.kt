@@ -134,6 +134,14 @@ private fun MarkedFeedback(question: Question, answer: PracticeAnswer, modifier:
                     AnswerLine(stringResource(R.string.fb_correct_answer), answer.correctOption, question.optionFor(answer.correctOption), FeedbackColors.correct(), AppIcons.Check)
                 }
             }
+            if (!right) {
+                Text(
+                    stringResource(R.string.fb_review_later),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.testTag("feedback_review_later"),
+                )
+            }
             if (parts != null && parts.body.isNotBlank()) {
                 Column(
                     Modifier

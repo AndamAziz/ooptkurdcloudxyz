@@ -111,4 +111,5 @@
     <string name="confirm_result_study">پێشنیار دەکەین ئاستی %1$s بخوێنیت.</string>
     <string name="placement_confirm_offer">تاقیکردنەوەی سەرەتایی دەڵێت تۆ ئاستی %1$s دەزانیت. بۆ دڵنیابوون، تاقیکردنەوەیەکی کورتی پشتڕاستکردنەوە بکە: %2$d پرسیاری نوێ لەو ئاستەدا.</string>
     <string name="placement_confirm_start">پشتڕاستکردنەوەی ئاستی %1$s</string>
+    <string name="exam_next_level">دەستپێکردنی ئاستی %1$s</string>
 </resources>

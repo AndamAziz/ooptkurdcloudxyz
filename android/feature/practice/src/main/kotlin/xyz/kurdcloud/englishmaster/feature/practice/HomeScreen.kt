@@ -230,6 +230,9 @@ fun HomeScreen(
                 if (state.hasDownloads) {
                     item { TopicsSection(state.topics, actions.onPractiseTopic) }
                 }
+                if (state.levels.any { it.overview != null }) {
+                    item { PathCard(state.levels) }
+                }
                 item {
                     Text(stringResource(R.string.practice_levels_header), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
                 }
@@ -242,6 +245,9 @@ fun HomeScreen(
                         onCancel = { viewModel.cancelDownload(row.level) },
                         onRemove = if (state.staffAccess.any) ({ confirmRemove = row.level }) else null,
                         actions = actions,
+                        onNextLevel = { next ->
+                            if (state.levels.find { it.level == next }?.pack != null) actions.onStartPractice(next) else viewModel.download(next)
+                        },
                     )
                 }
                 item {
@@ -448,6 +454,40 @@ private fun PendingCard(count: Int, online: Boolean, syncing: Boolean, onSync: (
 @Composable
 private fun LevelBadge(level: CefrLevel) = TextBadge(level.label, LevelColors.of(level))
 
+/** A1 → C2 at a glance: certified levels ticked, the level being worked on highlighted. */
+@Composable
+private fun PathCard(levels: List<LevelRow>) {
+    val current = levels.firstOrNull { it.overview?.certificateCode == null && it.overview?.certificatePending != true }?.level
+    Card(
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
+        modifier = Modifier.fillMaxWidth().testTag("path_card"),
+    ) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text(stringResource(R.string.home_path_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+            Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
+                levels.forEach { row ->
+                    val o = row.overview
+                    Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        when {
+                            o?.certificateCode != null -> IconBadge(AppIcons.Check, FeedbackColors.correct(), size = 40.dp)
+                            o?.certificatePending == true -> IconBadge(AppIcons.Trophy, BadgeColors.Certificates, size = 40.dp)
+                            row.level == current -> TextBadge(row.level.label, LevelColors.of(row.level), size = 40.dp)
+                            else -> TextBadge(row.level.label, Color(0xFFBDBDBD), size = 40.dp)
+                        }
+                        Text(row.level.label, style = MaterialTheme.typography.labelSmall)
+                    }
+                }
+            }
+            Text(
+                current?.let { stringResource(R.string.home_path_current, it.label) } ?: stringResource(R.string.home_path_done),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    }
+}
+
 @Composable
 private fun BadgeTitle(icon: ImageVector, color: Color, title: String) {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -492,6 +532,8 @@ private fun LevelCard(
     /** Null for learners: only staff may delete a downloaded level from the device. */
     onRemove: (() -> Unit)?,
     actions: HomeActions,
+    /** After a certificate: go on to the next level (downloading it first if needed). */
+    onNextLevel: (CefrLevel) -> Unit = {},
 ) {
     val overview = row.overview
     val stage = overview?.stage(nowMillis)
@@ -547,6 +589,18 @@ private fun LevelCard(
                                 Text(pluralStringResource(R.plurals.home_review_mistakes, row.mistakes, row.mistakes))
                             }
                         }
+                    }
+                    if (row.mistakesWaiting > 0 && row.nextReviewAtMillis != null) {
+                        Text(
+                            pluralStringResource(
+                                R.plurals.home_mistakes_waiting, row.mistakesWaiting, row.mistakesWaiting, formatDate(row.nextReviewAtMillis),
+                            ),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.testTag("mistakes_waiting_${row.level.name}"),
+                        )
+                    }
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         // Updating is automatic (and one button in Settings); staff can still remove a pack.
                         if (onRemove != null) LevelMenu(onRemove = onRemove)
                     }
@@ -560,6 +614,12 @@ private fun LevelCard(
                 LevelStage.CERTIFIED ->
                     OutlinedButton(onClick = actions.onCertificates, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.home_view_certificate)) }
                 else -> Unit
+            }
+            val next = CefrLevel.next(row.level)
+            if (next != null && (stage == LevelStage.CERTIFIED || stage == LevelStage.AWAITING_APPROVAL)) {
+                Button(onClick = { onNextLevel(next) }, modifier = Modifier.fillMaxWidth().testTag("next_level_${row.level.name}")) {
+                    Text(stringResource(R.string.home_next_level, next.label))
+                }
             }
         }
     }

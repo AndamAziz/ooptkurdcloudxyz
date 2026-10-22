@@ -1,0 +1,2 @@
+- Smarter mistake review: a wrong answer comes back for review after 24 hours, then again 3 days later. A mistake counts as fixed only after two right answers on different days, so it cannot be fixed by answering again straight away.
+- Your path A1 → C2 on the home screen. After each certificate the next level is downloaded and a "Continue to level" button takes you there; every level has its own certificate.

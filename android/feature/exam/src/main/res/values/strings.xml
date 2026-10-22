@@ -111,4 +111,5 @@
     <string name="confirm_result_study">We recommend you study level %1$s.</string>
     <string name="placement_confirm_offer">The screening test says you know level %1$s. To be sure, take a short confirmation test: %2$d new questions at that level.</string>
     <string name="placement_confirm_start">Confirm level %1$s</string>
+    <string name="exam_next_level">Start level %1$s</string>
 </resources>
