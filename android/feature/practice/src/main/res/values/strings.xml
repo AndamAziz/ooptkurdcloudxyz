@@ -212,4 +212,13 @@
     <string name="lituk_mock_not_answered">Not answered</string>
     <string name="lituk_mock_practise_mistakes">Practise my mistakes</string>
     <string name="lituk_mock_done">Done</string>
+    <!-- Answer feedback -->
+    <string name="fb_correct_title">Correct! Well done</string>
+    <string name="fb_wrong_title">Not quite</string>
+    <string name="fb_your_answer">Your answer</string>
+    <string name="fb_correct_answer">Correct answer</string>
+    <string name="fb_why_right">Why this is the right answer</string>
+    <string name="fb_why_wrong">Why your answer is wrong</string>
+    <string name="fb_why_wrong_body">You chose “%1$s”, but according to the official handbook the right answer is “%2$s”:</string>
+    <string name="fb_source">Official handbook · Chapter %1$d: %2$s</string>
 </resources>

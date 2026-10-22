@@ -4,4 +4,8 @@
     <string name="ds_offline_banner">You are offline. Downloaded lessons still work; answers will be marked when you reconnect.</string>
     <string name="ds_speak_listen">Listen</string>
     <string name="ds_speak_stop">Stop reading</string>
+    <string name="ds_speak_stop_short">Stop</string>
+    <string name="ds_speak_auto">Auto-read</string>
+    <string name="ds_speak_slow">Slow</string>
+    <string name="ds_speak_explanation">Listen to the explanation</string>
 </resources>

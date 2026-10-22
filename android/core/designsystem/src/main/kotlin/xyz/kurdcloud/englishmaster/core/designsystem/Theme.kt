@@ -9,7 +9,11 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 
@@ -79,6 +83,22 @@ private val AppTypography = Typography().run {
         titleMedium = titleMedium.copy(fontWeight = FontWeight.SemiBold),
         labelLarge = labelLarge.copy(fontWeight = FontWeight.SemiBold),
     )
+}
+
+/** Nunito (SIL Open Font License, see NUNITO-OFL.txt): rounded and very legible for English learning content. */
+val LearningFont = FontFamily(
+    Font(R.font.nunito_regular, FontWeight.Normal),
+    Font(R.font.nunito_semibold, FontWeight.SemiBold),
+    Font(R.font.nunito_bold, FontWeight.Bold),
+)
+
+/** Text styles for questions, answers and explanations (English content; the UI keeps the system font for Sorani). */
+object LearningType {
+    val question = TextStyle(fontFamily = LearningFont, fontWeight = FontWeight.Bold, fontSize = 22.sp, lineHeight = 30.sp)
+    val option = TextStyle(fontFamily = LearningFont, fontWeight = FontWeight.SemiBold, fontSize = 17.sp, lineHeight = 24.sp)
+    val body = TextStyle(fontFamily = LearningFont, fontWeight = FontWeight.Normal, fontSize = 16.sp, lineHeight = 24.sp)
+    val heading = TextStyle(fontFamily = LearningFont, fontWeight = FontWeight.Bold, fontSize = 20.sp, lineHeight = 26.sp)
+    val label = TextStyle(fontFamily = LearningFont, fontWeight = FontWeight.Bold, fontSize = 13.sp, lineHeight = 18.sp, letterSpacing = 0.6.sp)
 }
 
 /** Semantic colours for answer feedback, readable in both themes. */

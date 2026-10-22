@@ -59,9 +59,11 @@ class PracticeScreenTest {
         compose.onNodeWithTag("option_A").performScrollTo().performClick()
         compose.onNodeWithTag("check_answer").performScrollTo().performClick()
 
-        compose.onNodeWithText("Not quite. The correct answer is:").performScrollTo().assertIsDisplayed()
-        compose.onAllNodesWithText("B.  is").assertCountEquals(2) // the option itself and the feedback
-        compose.onNodeWithText("Use is with she.").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithTag("feedback_title").performScrollTo().assertTextContains("Not quite")
+        compose.onNodeWithText("A.  am").performScrollTo().assertIsDisplayed() // your answer
+        compose.onNodeWithText("B.  is").performScrollTo().assertIsDisplayed() // the correct answer
+        compose.onNodeWithText("You chose “am”, but according to the official handbook the right answer is “is”:").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithTag("feedback_explanation").performScrollTo().assertTextContains("Use is with she.")
     }
 
     @Test
@@ -78,9 +80,11 @@ class PracticeScreenTest {
     private class FakeSpeaker : Speaker {
         override var available by mutableStateOf(true)
         override var speakingId by mutableStateOf<String?>(null)
+        override var autoRead by mutableStateOf(false)
         val spoken = mutableListOf<String>()
         override fun speak(id: String, text: String) { speakingId = id; spoken += text }
         override fun stop() { speakingId = null }
+        override fun updateAutoRead(on: Boolean) { autoRead = on }
     }
 
     @Test
@@ -92,9 +96,9 @@ class PracticeScreenTest {
         compose.setContent {
             EnglishMasterTheme { CompositionLocalProvider(LocalSpeaker provides speaker) { PracticeScreen(CefrLevel.A1, vm, onExit = {}) } }
         }
-        compose.onNodeWithTag("speak_question_q1").assertIsDisplayed().performClick()
+        compose.onNodeWithTag("listen_pill").assertIsDisplayed().performClick()
         assertEquals("She blank a teacher (q1). A: am. B: is. C: are. D: be.", speaker.spoken.single())
-        compose.onNodeWithContentDescription("Stop reading").performClick()
+        compose.onNodeWithText("Stop").performClick()
         assertEquals(null, speaker.speakingId)
 
         compose.onNodeWithTag("speak_passage_q1").performClick()
@@ -109,7 +113,50 @@ class PracticeScreenTest {
             EnglishMasterTheme { CompositionLocalProvider(LocalSpeaker provides speaker) { PracticeScreen(CefrLevel.A1, vm, onExit = {}) } }
         }
         compose.onNodeWithTag("question_prompt").assertIsDisplayed()
-        compose.onNodeWithTag("speak_question_q1").assertDoesNotExist()
+        compose.onNodeWithTag("listen_controls").assertDoesNotExist()
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    fun autoReadReadsTheQuestionAndThenTheExplanation() {
+        val speaker = FakeSpeaker().apply { autoRead = true }
+        val vm = PracticeViewModel(CefrLevel.A1, "u1", FakeContent(listOf(question("q1"))), FakePractice(FakeNetwork(online = true)))
+        compose.setContent {
+            EnglishMasterTheme { CompositionLocalProvider(LocalSpeaker provides speaker) { PracticeScreen(CefrLevel.A1, vm, onExit = {}) } }
+        }
+        compose.waitForIdle()
+        assertEquals("She blank a teacher (q1). A: am. B: is. C: are. D: be.", speaker.spoken.single())
+        compose.onNodeWithTag("option_C").performScrollTo().performClick()
+        compose.onNodeWithTag("check_answer").performScrollTo().performClick()
+        compose.waitForIdle()
+        assertEquals("Not quite. You chose C: are. The correct answer is B: is. Why? Use is with she.", speaker.spoken.last())
+        // Turning auto-read off from the listening bar.
+        compose.onNodeWithTag("listen_auto").performScrollTo().performClick()
+        assertEquals(false, speaker.autoRead)
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    fun theExplanationCanBeHeardAgain() {
+        val speaker = FakeSpeaker()
+        val vm = PracticeViewModel(CefrLevel.A1, "u1", FakeContent(listOf(question("q1"))), FakePractice(FakeNetwork(online = true)))
+        compose.setContent {
+            EnglishMasterTheme { CompositionLocalProvider(LocalSpeaker provides speaker) { PracticeScreen(CefrLevel.A1, vm, onExit = {}) } }
+        }
+        compose.onNodeWithTag("option_B").performScrollTo().performClick()
+        compose.onNodeWithTag("check_answer").performScrollTo().performClick()
+        compose.onNodeWithTag("feedback_title").performScrollTo().assertTextContains("Correct! Well done")
+        compose.onNodeWithTag("speak_feedback_q1").performScrollTo().performClick()
+        assertEquals("Correct! The answer is B: is. Why? Use is with she.", speaker.spoken.last())
+    }
+
+    @Test
+    fun explanationsSplitTheHandbookReference() {
+        val parts = explanationParts("Handbook ch. 3 (A long and illustrious history): Alfred defeated the Vikings.")
+        assertEquals(3, parts.chapter)
+        assertEquals("A long and illustrious history", parts.chapterTitle)
+        assertEquals("Alfred defeated the Vikings.", parts.body)
+        assertEquals(null, explanationParts("Use is with she.").chapter)
     }
 
     @Test

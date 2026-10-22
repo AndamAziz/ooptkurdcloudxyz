@@ -36,6 +36,14 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import xyz.kurdcloud.englishmaster.core.designsystem.LearningType
+import xyz.kurdcloud.englishmaster.core.designsystem.OptionCard
+import xyz.kurdcloud.englishmaster.core.designsystem.OptionState
+import xyz.kurdcloud.englishmaster.core.designsystem.ListenControls
+import xyz.kurdcloud.englishmaster.core.designsystem.LocalSpeaker
+import xyz.kurdcloud.englishmaster.core.designsystem.questionSpeech
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -136,27 +144,32 @@ private fun RunningView(state: MockTestUiState, viewModel: MockTestViewModel, mo
         LinearProgressIndicator(progress = { state.answeredCount.toFloat() / state.total }, modifier = Modifier.fillMaxWidth())
         Text(stringResource(R.string.practice_counter, state.index + 1, state.total), style = MaterialTheme.typography.labelLarge, modifier = Modifier.testTag("mock_counter"))
         QuestionStrip(state, viewModel::goTo)
+        val questionParts = remember(question.id) { questionSpeech(question.prompt, question.options) }
+        val speaker = LocalSpeaker.current
+        LaunchedEffect(question.id, speaker?.available) {
+            if (speaker?.autoRead == true && speaker.available) speaker.speakParts("question_${question.id}", questionParts)
+        }
+        val reading = speaker?.let { if (it.speakingId == "question_${question.id}") it.speakingPart else null }
+        ListenControls("question_${question.id}", questionParts)
         // Learning content is English: keep it left-to-right inside the Sorani UI.
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text(question.prompt, style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f).testTag("mock_prompt"))
-                    SpeakButton("question_${question.id}", speechText(question.prompt, question.options))
-                }
-                Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Text(
+                    question.prompt,
+                    style = LearningType.question,
+                    color = if (reading == "prompt") MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.testTag("mock_prompt"),
+                )
+                Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     val chosen = state.choices[question.id]
                     question.options.forEachIndexed { i, option ->
                         val letter = optionLetter(i)
-                        OutlinedCard(
-                            border = if (chosen == i) BorderStroke(2.dp, MaterialTheme.colorScheme.primary) else CardDefaults.outlinedCardBorder(),
-                            modifier = Modifier.fillMaxWidth().testTag("mock_option_$letter")
-                                .selectable(selected = chosen == i, role = Role.RadioButton) { viewModel.select(i) },
-                        ) {
-                            Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                                RadioButton(selected = chosen == i, onClick = null)
-                                Text("$letter.  $option", style = MaterialTheme.typography.bodyLarge)
-                            }
-                        }
+                        OptionCard(
+                            letter, option,
+                            if (chosen == i) OptionState.SELECTED else OptionState.NEUTRAL,
+                            reading = reading == letter, enabled = true, onClick = { viewModel.select(i) },
+                            modifier = Modifier.testTag("mock_option_$letter"),
+                        )
                     }
                 }
             }
@@ -265,20 +278,14 @@ private fun ResultView(state: MockTestUiState, modifier: Modifier, onClose: () -
 
 @Composable
 private fun ReviewItem(question: xyz.kurdcloud.englishmaster.core.model.Question, answer: xyz.kurdcloud.englishmaster.core.model.PracticeAnswer?) {
-    OutlinedCard(Modifier.fillMaxWidth().testTag("mock_review_item")) {
-        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text(question.prompt, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-                    fun option(letter: String?) = letter?.let { l -> question.options.getOrNull(l.single() - 'A')?.let { "$l.  $it" } }
-                    option(answer?.chosenOption)?.let { Text("✗  $it", color = MaterialTheme.colorScheme.error) }
-                    option(answer?.correctOption)?.let { Text("✓  $it", color = FeedbackColors.correct()) }
-                    answer?.explanation?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
-                }
-            }
-            if (answer == null) {
-                Text(stringResource(R.string.lituk_mock_not_answered), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
+    Column(Modifier.fillMaxWidth().testTag("mock_review_item"), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+            Text(question.prompt, style = LearningType.option)
+        }
+        if (answer == null) {
+            Text(stringResource(R.string.lituk_mock_not_answered), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        } else {
+            FeedbackCard(question, answer)
         }
     }
 }
