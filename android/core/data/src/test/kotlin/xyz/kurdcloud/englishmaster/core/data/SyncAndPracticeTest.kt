@@ -1,5 +1,6 @@
 package xyz.kurdcloud.englishmaster.core.data
 
+import xyz.kurdcloud.englishmaster.core.model.KurdishText
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.work.ListenableWorker
@@ -110,20 +111,24 @@ class SyncAndPracticeTest {
                 "version":1,"review_status":"approved","updated_at":"t","media_type":"image","media_path":"samples/clock.png",
                 "media_caption":"A clock","passage":null},
                 {"id":"p2","cefr_level":"A1","skill":"reading","prompt":"Where?","options":["a","b"],"version":1,
-                "review_status":"approved","updated_at":"t","passage":"Ali lives in Leeds.","tags":["britain","story"]}]""",
+                "review_status":"approved","updated_at":"t","passage":"Ali lives in Leeds.","tags":["britain","story"],
+                "prompt_ckb":"لە کوێ؟","options_ckb":["ئا",null],"passage_ckb":"عەلی لە لیدز دەژی."}]""",
             ).build(),
         )
         server.enqueue(MockResponse.Builder().code(200).addHeader("Content-Type", "image/png").body("PNGDATA").build())
 
         assertEquals(ApiResult.Success(2), content.downloadLevel(CefrLevel.A1))
 
-        assertEquals("/rest/v1/rpc/get_practice_questions_v3", server.takeRequest().url.encodedPath)
+        assertEquals("/rest/v1/rpc/get_practice_questions_v4", server.takeRequest().url.encodedPath)
         assertEquals("/storage/v1/object/public/question-media/samples/clock.png", server.takeRequest().url.encodedPath)
         val pic = content.questions(listOf("p1")).single().media!!
         assertEquals(base + "samples/clock.png", pic.url)
         assertEquals("PNGDATA", java.io.File(pic.localPath!!).readText())
         assertEquals("Ali lives in Leeds.", content.questions(listOf("p2")).single().passage)
         assertEquals(listOf("britain", "story"), db.questions().byId("p2")!!.tags)
+        // The Kurdish translation is stored for offline use; a question without one has none.
+        assertEquals(KurdishText("لە کوێ؟", listOf("ئا", null), "عەلی لە لیدز دەژی."), content.questions(listOf("p2")).single().kurdish)
+        assertEquals(null, content.questions(listOf("p1")).single().kurdish)
         dir.deleteRecursively()
     }
 
@@ -189,7 +194,7 @@ class SyncAndPracticeTest {
 
     private fun verdict(responseId: String, correct: Boolean, duplicate: Boolean = false) = MockResponse.Builder()
         .code(200).addHeader("Content-Type", "application/json")
-        .body("""[{"response_id":"$responseId","is_correct":$correct,"correct_option":"B","explanation":"why","received_at":"2026-10-19T10:00:00Z","duplicate":$duplicate}]""")
+        .body("""[{"response_id":"$responseId","is_correct":$correct,"correct_option":"B","explanation":"why","explanation_ckb":"بۆچی","received_at":"2026-10-19T10:00:00Z","duplicate":$duplicate}]""")
         .build()
 
     private fun error(code: Int, sqlState: String) = MockResponse.Builder()
@@ -204,7 +209,10 @@ class SyncAndPracticeTest {
         assertEquals(SyncState.SYNCED, answer.syncState)
         assertEquals(true, answer.isCorrect)
         assertEquals("B", answer.correctOption)
-        val body = server.takeRequest().body!!.utf8()
+        assertEquals("بۆچی", answer.explanationKu)
+        val request = server.takeRequest()
+        assertEquals("/rest/v1/rpc/submit_practice_response_v2", request.url.encodedPath)
+        val body = request.body!!.utf8()
         assertTrue(body.contains("\"p_response_id\":\"r1\""))
         assertTrue(body.contains("\"p_chosen_option\":\"B\""))
         assertEquals(0, syncRequests)

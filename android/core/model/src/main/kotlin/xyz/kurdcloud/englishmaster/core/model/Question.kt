@@ -13,7 +13,17 @@ data class Question(
     /** Reading text shown above the question, if any. */
     val passage: String? = null,
     val media: QuestionMedia? = null,
+    /** Sorani translation for learners who want help with the meaning (practice only). */
+    val kurdish: KurdishText? = null,
 )
+
+/**
+ * Sorani translation of a question. [options] has one entry per option (null where an option is
+ * not translated) or is null when the options are English forms that have no useful translation.
+ */
+data class KurdishText(val prompt: String?, val options: List<String?>?, val passage: String?) {
+    val isEmpty: Boolean get() = prompt.isNullOrBlank() && passage.isNullOrBlank() && options.orEmpty().all { it.isNullOrBlank() }
+}
 
 enum class MediaType(val apiValue: String) {
     IMAGE("image"), VIDEO("video");

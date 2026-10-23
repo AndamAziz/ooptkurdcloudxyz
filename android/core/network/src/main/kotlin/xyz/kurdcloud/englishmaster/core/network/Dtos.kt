@@ -84,6 +84,9 @@ data class PracticeQuestionDto(
     @SerialName("media_path") val mediaPath: String? = null,
     @SerialName("media_caption") val mediaCaption: String? = null,
     val tags: List<String> = emptyList(),
+    @SerialName("prompt_ckb") val promptCkb: String? = null,
+    @SerialName("options_ckb") val optionsCkb: List<String?>? = null,
+    @SerialName("passage_ckb") val passageCkb: String? = null,
 )
 
 @Serializable
@@ -103,6 +106,7 @@ data class SubmitResultDto(
     val explanation: String? = null,
     @SerialName("received_at") val receivedAt: String,
     val duplicate: Boolean,
+    @SerialName("explanation_ckb") val explanationCkb: String? = null,
 )
 
 @Serializable

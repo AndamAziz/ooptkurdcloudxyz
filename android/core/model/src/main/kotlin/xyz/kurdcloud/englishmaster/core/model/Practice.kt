@@ -23,6 +23,8 @@ data class PracticeAnswer(
     val correctOption: String?,
     val explanation: String?,
     val failureReason: String?,
+    /** Sorani explanation, when the question has one. */
+    val explanationKu: String? = null,
 )
 
 /** Downloaded question pack for one level. */

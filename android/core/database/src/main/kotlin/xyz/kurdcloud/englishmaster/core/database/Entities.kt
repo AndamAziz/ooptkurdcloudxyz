@@ -26,6 +26,10 @@ data class QuestionEntity(
     @ColumnInfo(name = "media_local") val mediaLocal: String? = null,
     /** Content tags (JSON list) used for topic practice, e.g. ["life_in_uk","history"]. */
     @ColumnInfo(defaultValue = "[]") val tags: List<String> = emptyList(),
+    /** Sorani translation (v4): the question, the options as a JSON list (null entries allowed), the passage. */
+    @ColumnInfo(name = "prompt_ckb") val promptCkb: String? = null,
+    @ColumnInfo(name = "options_ckb") val optionsCkbJson: String? = null,
+    @ColumnInfo(name = "passage_ckb") val passageCkb: String? = null,
 )
 
 /** A completed download of one level's question pack. */
@@ -57,6 +61,7 @@ data class ResponseEntity(
     @ColumnInfo(name = "is_correct") val isCorrect: Boolean? = null,
     @ColumnInfo(name = "correct_option") val correctOption: String? = null,
     val explanation: String? = null,
+    @ColumnInfo(name = "explanation_ckb") val explanationCkb: String? = null,
     @ColumnInfo(name = "failure_reason") val failureReason: String? = null,
     @ColumnInfo(name = "sync_attempts") val syncAttempts: Int = 0,
     @ColumnInfo(name = "synced_at") val syncedAtMillis: Long? = null,

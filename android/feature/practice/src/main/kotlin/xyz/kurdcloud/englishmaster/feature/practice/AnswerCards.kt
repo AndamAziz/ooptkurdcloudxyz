@@ -1,5 +1,7 @@
 package xyz.kurdcloud.englishmaster.feature.practice
 
+import xyz.kurdcloud.englishmaster.core.designsystem.KurdishLine
+import xyz.kurdcloud.englishmaster.core.designsystem.KurdishPanel
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -61,6 +63,9 @@ fun explanationParts(explanation: String): ExplanationParts {
 /** Option text for display ("A" -> its option), or null when the letter is unknown. */
 fun Question.optionFor(letter: String?): String? = letter?.singleOrNull()?.let { options.getOrNull(it - 'A') }
 
+/** Kurdish translation of the option with this letter, when there is one. */
+fun Question.kurdishOptionFor(letter: String?): String? = letter?.singleOrNull()?.let { kurdish?.options?.getOrNull(it - 'A') }
+
 /** What is read aloud after an answer is marked: the verdict, the right answer and why. */
 fun feedbackSpeech(question: Question, answer: PracticeAnswer): List<SpeechPart> {
     val correctLetter = answer.correctOption ?: return emptyList()
@@ -82,12 +87,12 @@ fun feedbackSpeech(question: Question, answer: PracticeAnswer): List<SpeechPart>
  * correct answer is right (with its handbook chapter), and a button to hear it all.
  */
 @Composable
-fun FeedbackCard(question: Question, answer: PracticeAnswer, modifier: Modifier = Modifier) {
+fun FeedbackCard(question: Question, answer: PracticeAnswer, modifier: Modifier = Modifier, showKurdish: Boolean = false) {
     val live = Modifier.semantics { liveRegion = LiveRegionMode.Polite }.testTag("feedback")
     when (answer.syncState) {
         SyncState.PENDING -> InfoCard(stringResource(R.string.practice_saved_pending), MaterialTheme.colorScheme.secondaryContainer, modifier.then(live))
         SyncState.FAILED -> InfoCard(stringResource(R.string.practice_rejected), MaterialTheme.colorScheme.errorContainer, modifier.then(live))
-        SyncState.SYNCED -> MarkedFeedback(question, answer, modifier.then(live))
+        SyncState.SYNCED -> MarkedFeedback(question, answer, showKurdish, modifier.then(live))
     }
 }
 
@@ -99,7 +104,7 @@ private fun InfoCard(text: String, color: Color, modifier: Modifier) {
 }
 
 @Composable
-private fun MarkedFeedback(question: Question, answer: PracticeAnswer, modifier: Modifier) {
+private fun MarkedFeedback(question: Question, answer: PracticeAnswer, showKurdish: Boolean, modifier: Modifier) {
     val right = answer.isCorrect == true
     val tone = if (right) FeedbackColors.correct() else FeedbackColors.incorrect()
     val parts = answer.explanation?.let(::explanationParts)
@@ -129,9 +134,15 @@ private fun MarkedFeedback(question: Question, answer: PracticeAnswer, modifier:
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     if (!right) {
-                        AnswerLine(stringResource(R.string.fb_your_answer), answer.chosenOption, question.optionFor(answer.chosenOption), FeedbackColors.incorrect(), AppIcons.Close)
+                        AnswerLine(
+                            stringResource(R.string.fb_your_answer), answer.chosenOption, question.optionFor(answer.chosenOption), FeedbackColors.incorrect(), AppIcons.Close,
+                            question.kurdishOptionFor(answer.chosenOption), showKurdish,
+                        )
                     }
-                    AnswerLine(stringResource(R.string.fb_correct_answer), answer.correctOption, question.optionFor(answer.correctOption), FeedbackColors.correct(), AppIcons.Check)
+                    AnswerLine(
+                        stringResource(R.string.fb_correct_answer), answer.correctOption, question.optionFor(answer.correctOption), FeedbackColors.correct(), AppIcons.Check,
+                        question.kurdishOptionFor(answer.correctOption), showKurdish,
+                    )
                 }
             }
             if (!right) {
@@ -169,6 +180,7 @@ private fun MarkedFeedback(question: Question, answer: PracticeAnswer, modifier:
                     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                         Text(parts.body, style = LearningType.body, modifier = Modifier.testTag("feedback_explanation"))
                     }
+                    KurdishPanel(answer.explanationKu, showKurdish, tag = "kurdish_explanation")
                     if (parts.chapter != null) {
                         Row(
                             Modifier
@@ -192,7 +204,7 @@ private fun MarkedFeedback(question: Question, answer: PracticeAnswer, modifier:
 }
 
 @Composable
-private fun AnswerLine(label: String, letter: String?, text: String?, color: Color, mark: ImageVector) {
+private fun AnswerLine(label: String, letter: String?, text: String?, color: Color, mark: ImageVector, kurdish: String? = null, showKurdish: Boolean = false) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -206,6 +218,7 @@ private fun AnswerLine(label: String, letter: String?, text: String?, color: Col
         Column(Modifier.weight(1f).padding(start = 12.dp)) {
             Text(label.uppercase(), style = LearningType.label, color = color)
             Text("${letter.orEmpty()}.  ${text.orEmpty()}", style = LearningType.option)
+            KurdishLine(kurdish, showKurdish)
         }
     }
 }

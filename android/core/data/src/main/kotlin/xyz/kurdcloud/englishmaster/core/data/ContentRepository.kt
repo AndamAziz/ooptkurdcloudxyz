@@ -20,6 +20,11 @@ import xyz.kurdcloud.englishmaster.core.model.PackVersion
 import xyz.kurdcloud.englishmaster.core.model.QuestionMedia
 import xyz.kurdcloud.englishmaster.core.model.Question
 import xyz.kurdcloud.englishmaster.core.model.Topic
+import xyz.kurdcloud.englishmaster.core.model.KurdishText
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.nullable
+import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.json.Json
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.core.network.PracticeApi
 import xyz.kurdcloud.englishmaster.core.network.PracticeQuestionDto
@@ -201,7 +206,17 @@ private fun Topic.likePatterns(): List<String> = tags.map(::tagPattern) + List(T
 private fun tagPattern(tag: String) = "%\"$tag\"%"
 
 private fun PracticeQuestionDto.toEntity(now: Long, mediaLocal: String?) =
-    QuestionEntity(id, level, skill, prompt, options, version, reviewStatus, updatedAt, now, passage, mediaType, mediaPath, mediaCaption, mediaLocal, tags)
+    QuestionEntity(
+        id, level, skill, prompt, options, version, reviewStatus, updatedAt, now, passage, mediaType, mediaPath, mediaCaption, mediaLocal, tags,
+        promptCkb = promptCkb,
+        optionsCkbJson = optionsCkb?.takeIf { it.size == options.size }?.let { Json.encodeToString(KURDISH_OPTIONS, it) },
+        passageCkb = passageCkb,
+    )
+
+private val KURDISH_OPTIONS = ListSerializer(String.serializer().nullable)
+
+private fun kurdishOptions(json: String?): List<String?>? =
+    json?.let { runCatching { Json.decodeFromString(KURDISH_OPTIONS, it) }.getOrNull() }
 
 internal fun QuestionEntity.toModel(media: MediaFiles? = null) = Question(
     id = id,
@@ -213,6 +228,7 @@ internal fun QuestionEntity.toModel(media: MediaFiles? = null) = Question(
     reviewed = reviewStatus == "approved",
     passage = passage,
     media = questionMedia(mediaType, mediaPath, mediaCaption, mediaLocal, media),
+    kurdish = KurdishText(promptCkb, kurdishOptions(optionsCkbJson), passageCkb).takeUnless { it.isEmpty },
 )
 
 internal fun questionMedia(type: String?, path: String?, caption: String?, local: String?, media: MediaFiles?): QuestionMedia? {

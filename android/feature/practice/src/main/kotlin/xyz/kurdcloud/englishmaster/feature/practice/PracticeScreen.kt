@@ -1,5 +1,11 @@
 package xyz.kurdcloud.englishmaster.feature.practice
 
+import xyz.kurdcloud.englishmaster.core.designsystem.KurdishPanel
+import xyz.kurdcloud.englishmaster.core.designsystem.KurdishToggle
+import xyz.kurdcloud.englishmaster.core.designsystem.KurdishType
+import xyz.kurdcloud.englishmaster.core.designsystem.rememberShowKurdish
+import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -108,6 +114,7 @@ private fun QuestionView(state: PracticeUiState, viewModel: PracticeViewModel, m
     val answer = state.currentAnswer
     val speaker = LocalSpeaker.current
     val questionParts = remember(question.id) { questionSpeech(question.prompt, question.options) }
+    var showKurdish by rememberShowKurdish()
     // Auto-read: the question when it appears, the explanation once the answer is marked.
     LaunchedEffect(question.id, speaker?.available) {
         if (speaker?.autoRead == true && speaker.available) speaker.speakParts("question_${question.id}", questionParts)
@@ -121,19 +128,24 @@ private fun QuestionView(state: PracticeUiState, viewModel: PracticeViewModel, m
     ) {
         Column(Modifier.widthIn(max = 640.dp).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             LinearProgressIndicator(progress = { (state.index + 1f) / state.questions.size }, modifier = Modifier.fillMaxWidth())
-            Text(
-                stringResource(R.string.practice_counter, state.index + 1, state.questions.size) +
-                    if (showLevel) "  ·  ${question.level.label}" else "",
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.testTag("practice_counter"),
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    stringResource(R.string.practice_counter, state.index + 1, state.questions.size) +
+                        if (showLevel) "  ·  ${question.level.label}" else "",
+                    style = MaterialTheme.typography.labelLarge,
+                    modifier = Modifier.weight(1f).testTag("practice_counter"),
+                )
+                if (question.kurdish != null) {
+                    KurdishToggle(showKurdish, { showKurdish = !showKurdish }, stringResource(R.string.practice_show_kurdish))
+                }
+            }
             if (!question.reviewed) {
                 Text(stringResource(R.string.practice_unreviewed), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             ListenControls("question_${question.id}", questionParts)
             // Learning content is English: keep it left-to-right inside the Sorani UI.
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-                QuestionContent(question, state.selected, answer, viewModel::select)
+                QuestionContent(question, state.selected, answer, showKurdish, viewModel::select)
             }
             if (answer == null) {
                 Button(
@@ -142,7 +154,7 @@ private fun QuestionView(state: PracticeUiState, viewModel: PracticeViewModel, m
                     modifier = Modifier.fillMaxWidth().height(52.dp).testTag("check_answer"),
                 ) { Text(stringResource(R.string.practice_check)) }
             } else {
-                FeedbackCard(question, answer)
+                FeedbackCard(question, answer, showKurdish = showKurdish)
                 Button(onClick = viewModel::next, modifier = Modifier.fillMaxWidth().height(52.dp).testTag("next_question")) {
                     Text(stringResource(if (state.index + 1 >= state.questions.size) R.string.practice_finish else R.string.practice_next))
                 }
@@ -152,10 +164,12 @@ private fun QuestionView(state: PracticeUiState, viewModel: PracticeViewModel, m
 }
 
 @Composable
-private fun QuestionContent(question: Question, selected: Int?, answer: PracticeAnswer?, onSelect: (Int) -> Unit) {
+private fun QuestionContent(question: Question, selected: Int?, answer: PracticeAnswer?, showKurdish: Boolean, onSelect: (Int) -> Unit) {
+    val kurdish = question.kurdish
     val reading = LocalSpeaker.current?.let { if (it.speakingId == "question_${question.id}") it.speakingPart else null }
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         question.passage?.let { PassageCard(it, speakId = "passage_${question.id}") }
+        KurdishPanel(kurdish?.passage, showKurdish, maxHeight = 320, tag = "kurdish_passage")
         question.media?.let { QuestionMediaView(it, stringResource(R.string.practice_media_unavailable)) }
         Text(
             question.prompt,
@@ -163,6 +177,7 @@ private fun QuestionContent(question: Question, selected: Int?, answer: Practice
             color = if (reading == "prompt") MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.testTag("question_prompt"),
         )
+        KurdishPanel(kurdish?.prompt, showKurdish, style = KurdishType.question, tag = "kurdish_prompt")
         Spacer(Modifier.height(2.dp))
         Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             question.options.forEachIndexed { index, option ->
@@ -175,7 +190,10 @@ private fun QuestionContent(question: Question, selected: Int?, answer: Practice
                     selected == index -> OptionState.SELECTED
                     else -> OptionState.NEUTRAL
                 }
-                OptionCard(letter, option, optionState, reading == letter, enabled = answer == null, onClick = { onSelect(index) })
+                OptionCard(
+                    letter, option, optionState, reading == letter, enabled = answer == null, onClick = { onSelect(index) },
+                    translation = kurdish?.options?.getOrNull(index), showTranslation = showKurdish,
+                )
             }
         }
     }

@@ -1,0 +1,284 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 4,
+    "identityHash": "3720180a8f372f1845d4ad2a4b1e9f23",
+    "entities": [
+      {
+        "tableName": "questions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `cefr_level` TEXT NOT NULL, `skill` TEXT NOT NULL, `prompt` TEXT NOT NULL, `options` TEXT NOT NULL, `version` INTEGER NOT NULL, `review_status` TEXT NOT NULL, `server_updated_at` TEXT NOT NULL, `downloaded_at` INTEGER NOT NULL, `passage` TEXT, `media_type` TEXT, `media_path` TEXT, `media_caption` TEXT, `media_local` TEXT, `tags` TEXT NOT NULL DEFAULT '[]', `prompt_ckb` TEXT, `options_ckb` TEXT, `passage_ckb` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cefrLevel",
+            "columnName": "cefr_level",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "skill",
+            "columnName": "skill",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "prompt",
+            "columnName": "prompt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "options",
+            "columnName": "options",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "version",
+            "columnName": "version",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reviewStatus",
+            "columnName": "review_status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "serverUpdatedAt",
+            "columnName": "server_updated_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "downloadedAtMillis",
+            "columnName": "downloaded_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "passage",
+            "columnName": "passage",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "mediaType",
+            "columnName": "media_type",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "mediaPath",
+            "columnName": "media_path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "mediaCaption",
+            "columnName": "media_caption",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "mediaLocal",
+            "columnName": "media_local",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "tags",
+            "columnName": "tags",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'[]'"
+          },
+          {
+            "fieldPath": "promptCkb",
+            "columnName": "prompt_ckb",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "optionsCkbJson",
+            "columnName": "options_ckb",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "passageCkb",
+            "columnName": "passage_ckb",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_questions_cefr_level",
+            "unique": false,
+            "columnNames": [
+              "cefr_level"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_questions_cefr_level` ON `${TABLE_NAME}` (`cefr_level`)"
+          }
+        ]
+      },
+      {
+        "tableName": "level_packs",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cefr_level` TEXT NOT NULL, `question_count` INTEGER NOT NULL, `downloaded_at` INTEGER NOT NULL, PRIMARY KEY(`cefr_level`))",
+        "fields": [
+          {
+            "fieldPath": "cefrLevel",
+            "columnName": "cefr_level",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionCount",
+            "columnName": "question_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "downloadedAtMillis",
+            "columnName": "downloaded_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "cefr_level"
+          ]
+        }
+      },
+      {
+        "tableName": "responses",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`response_id` TEXT NOT NULL, `user_id` TEXT NOT NULL, `attempt_id` TEXT NOT NULL, `question_id` TEXT NOT NULL, `cefr_level` TEXT NOT NULL, `chosen_option` TEXT NOT NULL, `answered_at` INTEGER NOT NULL, `sync_state` TEXT NOT NULL, `is_correct` INTEGER, `correct_option` TEXT, `explanation` TEXT, `explanation_ckb` TEXT, `failure_reason` TEXT, `sync_attempts` INTEGER NOT NULL, `synced_at` INTEGER, PRIMARY KEY(`response_id`))",
+        "fields": [
+          {
+            "fieldPath": "responseId",
+            "columnName": "response_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "user_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "attemptId",
+            "columnName": "attempt_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionId",
+            "columnName": "question_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cefrLevel",
+            "columnName": "cefr_level",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chosenOption",
+            "columnName": "chosen_option",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "answeredAtMillis",
+            "columnName": "answered_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "syncState",
+            "columnName": "sync_state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isCorrect",
+            "columnName": "is_correct",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "correctOption",
+            "columnName": "correct_option",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "explanation",
+            "columnName": "explanation",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "explanationCkb",
+            "columnName": "explanation_ckb",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "failureReason",
+            "columnName": "failure_reason",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "syncAttempts",
+            "columnName": "sync_attempts",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "syncedAtMillis",
+            "columnName": "synced_at",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "response_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_responses_user_id_sync_state",
+            "unique": false,
+            "columnNames": [
+              "user_id",
+              "sync_state"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_responses_user_id_sync_state` ON `${TABLE_NAME}` (`user_id`, `sync_state`)"
+          },
+          {
+            "name": "index_responses_attempt_id",
+            "unique": false,
+            "columnNames": [
+              "attempt_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_responses_attempt_id` ON `${TABLE_NAME}` (`attempt_id`)"
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3720180a8f372f1845d4ad2a4b1e9f23')"
+    ]
+  }
+}

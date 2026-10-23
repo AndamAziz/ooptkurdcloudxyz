@@ -15,11 +15,12 @@ import kotlinx.serialization.json.Json
 
 @Database(
     entities = [QuestionEntity::class, LevelPackEntity::class, ResponseEntity::class],
-    version = 3,
+    version = 4,
     exportSchema = true,
     // v2: passage and media columns on questions (all nullable, so Room migrates automatically).
     // v3: tags column on questions (defaults to an empty list until the level is downloaded again).
-    autoMigrations = [AutoMigration(from = 1, to = 2), AutoMigration(from = 2, to = 3)],
+    // v4: Kurdish translation columns on questions and responses.
+    autoMigrations = [AutoMigration(from = 1, to = 2), AutoMigration(from = 2, to = 3), AutoMigration(from = 3, to = 4)],
 )
 @TypeConverters(Converters::class)
 abstract class EnglishMasterDatabase : RoomDatabase() {

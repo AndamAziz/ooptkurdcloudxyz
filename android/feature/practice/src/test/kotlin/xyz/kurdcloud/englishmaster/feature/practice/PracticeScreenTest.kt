@@ -27,6 +27,8 @@ import xyz.kurdcloud.englishmaster.core.designsystem.Speaker
 import xyz.kurdcloud.englishmaster.core.designsystem.questionSpeech
 import xyz.kurdcloud.englishmaster.core.designsystem.speechText
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
+import xyz.kurdcloud.englishmaster.core.model.KurdishText
+import androidx.compose.ui.test.onAllNodesWithTag
 import xyz.kurdcloud.englishmaster.core.model.MediaType
 import xyz.kurdcloud.englishmaster.core.model.QuestionMedia
 import xyz.kurdcloud.englishmaster.core.model.Topic
@@ -49,6 +51,41 @@ class PracticeScreenTest {
         compose.onNodeWithText("وەڵامەکە لەسەر ئەم ئامێرە پاشەکەوت کرا. کاتێک گەڕایتەوە سەر هێڵ هەڵدەسەنگێنرێت.").performScrollTo().assertIsDisplayed()
         compose.onNodeWithTag("next_question").performScrollTo().performClick()
         compose.onNodeWithTag("summary").assertIsDisplayed()
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    fun kurdishTranslationOpensUnderQuestionAnswersAndExplanation() {
+        val translated = question("q1").copy(
+            kurdish = KurdishText("ئەو ___ مامۆستایە.", listOf(null, null, null, null), null),
+        )
+        val withWords = question("q2").copy(
+            options = listOf("happy", "tired", "angry", "hungry"),
+            kurdish = KurdishText("ئەو هەست بە ___ دەکات.", listOf("دڵخۆش", "ماندوو", "تووڕە", "برسی"), null),
+        )
+        val vm = PracticeViewModel(CefrLevel.A1, "u1", FakeContent(listOf(translated, withWords, question("q3"))), FakePractice(FakeNetwork(online = true)))
+        compose.setContent { EnglishMasterTheme { PracticeScreen(CefrLevel.A1, vm, onExit = {}) } }
+
+        compose.onNodeWithTag("kurdish_prompt").assertDoesNotExist()
+        compose.onNodeWithTag("kurdish_toggle").performClick()
+        compose.onNodeWithText("ئەو ___ مامۆستایە.").assertIsDisplayed()
+        compose.onAllNodesWithTag("kurdish_option").assertCountEquals(0) // grammar forms are not translated
+
+        compose.onNodeWithTag("option_A").performScrollTo().performClick()
+        compose.onNodeWithTag("check_answer").performScrollTo().performClick()
+        compose.onNodeWithTag("kurdish_explanation").performScrollTo().assertTextContains("لەگەڵ she فرمانی is بەکاردێت.")
+        compose.onNodeWithTag("next_question").performScrollTo().performClick()
+
+        // The choice is remembered for the next question, and each answer has its own line.
+        compose.onNodeWithText("ئەو هەست بە ___ دەکات.").assertIsDisplayed()
+        compose.onNodeWithText("ماندوو").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithTag("kurdish_toggle").performScrollTo().performClick()
+        compose.waitUntil(3_000) { compose.onAllNodesWithTag("kurdish_prompt").fetchSemanticsNodes().isEmpty() } // slides closed
+
+        compose.onNodeWithTag("option_A").performScrollTo().performClick()
+        compose.onNodeWithTag("check_answer").performScrollTo().performClick()
+        compose.onNodeWithTag("next_question").performScrollTo().performClick()
+        compose.onNodeWithTag("kurdish_toggle").assertDoesNotExist() // q3 has no translation
     }
 
     @Test
