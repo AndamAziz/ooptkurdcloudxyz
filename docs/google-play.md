@@ -60,7 +60,8 @@ uninstall the APK first.
   > • دوگمەی گوێگرتن پرسیارەکان بە ئینگلیزی بەریتانی دەخوێنێتەوە
   > • دوای داگرتنی ئاستێک بێ ئینتەرنێت کار دەکات
   > • ئەپەکە بە کوردی (سۆرانی) یان ئینگلیزی
-* **Graphics:** `docs/brand/icon-512.png` (hi-res icon), `docs/brand/feature-graphic-1024x500.png`,
+* **Graphics:** `docs/brand/icon-512.png` (hi-res icon), `docs/brand/feature-graphic-1024x500.png`
+  (full logo with the name: `docs/brand/logo-full.png`; all from `scripts/media/make_logo.py`),
   phone screenshots in `docs/brand/screenshots/` (1080×1920, English and Sorani). They are the real
   screens with sample data, rendered by `feature/practice/.../StoreScreenshotTest.kt`:
   `STORE_SCREENSHOTS=$PWD/../docs/brand/screenshots ./gradlew :feature:practice:testDebugUnitTest --tests '*StoreScreenshotTest*'`.

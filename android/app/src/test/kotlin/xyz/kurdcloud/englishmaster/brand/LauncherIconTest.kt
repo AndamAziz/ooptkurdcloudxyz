@@ -35,14 +35,18 @@ class LauncherIconTest {
         layer(xyz.kurdcloud.englishmaster.core.designsystem.R.drawable.ic_launcher_foreground, canvas)
         System.getenv("LAUNCHER_ICON_PREVIEW")?.let { path -> File(path).outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) } }
 
-        val s = size / 108f
-        val corner = bitmap.getPixel((4 * s).toInt(), (4 * s).toInt())
-        assertTrue("indigo background", Color.blue(corner) > 150 && Color.red(corner) < 90)
-        val sun = bitmap.getPixel((54 * s).toInt(), (50.5 * s).toInt())
-        assertTrue("golden sun", Color.red(sun) > 230 && Color.green(sun) > 170 && Color.blue(sun) < 150)
-        val page = bitmap.getPixel((40 * s).toInt(), (60 * s).toInt())
-        assertTrue("white page", Color.red(page) > 240 && Color.green(page) > 240 && Color.blue(page) > 240)
+        // Artwork coordinates (1024 canvas) map to 18 + x * 72 / 1024 dp.
+        fun at(x: Int, y: Int) = bitmap.getPixel(((18 + x * 72f / 1024) * size / 108).toInt(), ((18 + y * 72f / 1024) * size / 108).toInt())
+        val corner = bitmap.getPixel(4, 4)
+        assertTrue("navy background", Color.blue(corner) > Color.red(corner) && Color.red(corner) < 60)
+        val tower = at(470, 560)
+        assertTrue("gold tower", Color.red(tower) > 190 && Color.green(tower) > 120 && Color.blue(tower) < 110)
+        val page = at(330, 690)
+        assertTrue("cream page", Color.red(page) > 225 && Color.green(page) > 210 && Color.blue(page) > 160)
+        val flag = at(780, 290)
+        assertTrue("Union flag", Color.red(flag) > 150 || Color.blue(flag) > 80)
 
+        val s = size / 108f
         // Nothing but background outside the 66dp circle a launcher may keep.
         val bg = ContextCompat.getDrawable(context, xyz.kurdcloud.englishmaster.core.designsystem.R.drawable.ic_launcher_background)!!
         val plain = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888).also { bg.setBounds(0, 0, size, size); bg.draw(Canvas(it)) }
@@ -60,7 +64,7 @@ class LauncherIconTest {
         val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
         layer(xyz.kurdcloud.englishmaster.core.designsystem.R.drawable.ic_launcher_monochrome, Canvas(bitmap))
         val s = size / 108f
-        assertTrue(Color.alpha(bitmap.getPixel((54 * s).toInt(), (50.5 * s).toInt())) > 200)
+        assertTrue(Color.alpha(bitmap.getPixel(((18 + 470 * 72f / 1024) * s).toInt(), ((18 + 560 * 72f / 1024) * s).toInt())) > 200)
         assertTrue(Color.alpha(bitmap.getPixel((4 * s).toInt(), (4 * s).toInt())) == 0)
     }
 }
