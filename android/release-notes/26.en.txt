@@ -1,0 +1,1 @@
+- New app icon and splash screen: a brighter open book with the rising sun, on a deeper indigo-to-violet background. Themed (monochrome) icons on Android 13+ use the new design too.
