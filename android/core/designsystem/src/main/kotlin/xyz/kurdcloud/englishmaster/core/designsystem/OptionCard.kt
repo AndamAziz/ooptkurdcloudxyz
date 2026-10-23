@@ -4,6 +4,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -37,6 +38,9 @@ fun OptionCard(
     enabled: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    /** Kurdish translation shown under the option while [showTranslation] is on. */
+    translation: String? = null,
+    showTranslation: Boolean = false,
 ) {
     val scheme = MaterialTheme.colorScheme
     val good = FeedbackColors.correct()
@@ -80,12 +84,14 @@ fun OptionCard(
                     style = LearningType.option,
                 )
             }
-            Text(
-                text,
-                style = LearningType.option,
-                color = if (state == OptionState.DIMMED) scheme.onSurfaceVariant else scheme.onSurface,
-                modifier = Modifier.weight(1f).padding(start = 14.dp),
-            )
+            Column(Modifier.weight(1f).padding(start = 14.dp)) {
+                Text(
+                    text,
+                    style = LearningType.option,
+                    color = if (state == OptionState.DIMMED) scheme.onSurfaceVariant else scheme.onSurface,
+                )
+                KurdishLine(translation, showTranslation)
+            }
         }
     }
 }

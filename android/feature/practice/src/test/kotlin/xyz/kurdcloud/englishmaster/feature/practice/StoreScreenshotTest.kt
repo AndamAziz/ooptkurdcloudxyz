@@ -17,6 +17,7 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 import xyz.kurdcloud.englishmaster.core.designsystem.EnglishMasterTheme
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
+import xyz.kurdcloud.englishmaster.core.model.KurdishText
 import xyz.kurdcloud.englishmaster.core.model.Question
 import java.io.File
 
@@ -55,6 +56,25 @@ class StoreScreenshotTest {
         compose.waitForIdle()
         save(name)
     }
+
+    private fun practiceWithKurdish(name: String) {
+        val q = Question(
+            "q1", CefrLevel.A2, "vocabulary", "After the long journey, the children were very ___ and went straight to bed.",
+            listOf("tired", "hungry", "excited", "angry"), 1, reviewed = true,
+            kurdish = KurdishText(
+                "دوای گەشتە درێژەکە، منداڵەکان زۆر ___ بوون و یەکسەر چوونە ناو جێگاکانیان.",
+                listOf("ماندوو", "برسی", "بە پەرۆش", "تووڕە"), null,
+            ),
+        )
+        val vm = PracticeViewModel(CefrLevel.A2, "u1", FakeContent(listOf(q)), FakePractice(FakeNetwork(online = true)))
+        compose.setContent { EnglishMasterTheme { PracticeScreen(CefrLevel.A2, vm, onExit = {}) } }
+        compose.onNodeWithTag("kurdish_toggle").performClick()
+        compose.waitForIdle()
+        save(name)
+    }
+
+    @Test @Config(qualifiers = "b+ckb-w360dp-h640dp-xxhdpi")
+    fun practiceKurdishTranslation() = practiceWithKurdish("5-practice-kurdish-translation")
 
     @Test @Config(qualifiers = "en-w360dp-h640dp-xxhdpi")
     fun homeEnglish() = home("1-home-en")

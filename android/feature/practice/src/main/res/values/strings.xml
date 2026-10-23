@@ -248,4 +248,5 @@
     <string name="home_path_current">You are working on level %1$s. Each level has its own certificate.</string>
     <string name="home_path_done">All levels certified. Congratulations!</string>
     <string name="fb_review_later">This question goes to your mistakes. You can review it after 24 hours; it counts as fixed after two right answers on different days.</string>
+    <string name="practice_show_kurdish">Show the Kurdish translation</string>
 </resources>

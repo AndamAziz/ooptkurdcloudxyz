@@ -76,4 +76,5 @@ internal fun ResponseEntity.toModel() = PracticeAnswer(
     correctOption = correctOption,
     explanation = explanation,
     failureReason = failureReason,
+    explanationKu = explanationCkb,
 )

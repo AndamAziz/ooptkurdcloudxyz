@@ -102,10 +102,12 @@ interface ResponseDao {
 
     @Query(
         """UPDATE responses SET sync_state = 'SYNCED', is_correct = :isCorrect, correct_option = :correctOption,
-           explanation = :explanation, synced_at = :syncedAt, failure_reason = NULL
+           explanation = :explanation, explanation_ckb = :explanationCkb, synced_at = :syncedAt, failure_reason = NULL
            WHERE response_id = :responseId AND sync_state != 'SYNCED'"""
     )
-    suspend fun markSynced(responseId: String, isCorrect: Boolean, correctOption: String, explanation: String?, syncedAt: Long)
+    suspend fun markSynced(
+        responseId: String, isCorrect: Boolean, correctOption: String, explanation: String?, syncedAt: Long, explanationCkb: String? = null,
+    )
 
     @Query("UPDATE responses SET sync_state = 'FAILED', failure_reason = :reason WHERE response_id = :responseId")
     suspend fun markFailed(responseId: String, reason: String)

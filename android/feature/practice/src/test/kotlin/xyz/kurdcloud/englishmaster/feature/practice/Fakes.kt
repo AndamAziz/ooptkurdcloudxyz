@@ -64,7 +64,8 @@ class FakePractice(private val network: FakeNetwork) : PracticeRepository {
         val letter = optionLetter(optionIndex)
         correctOptions[question.id] = "B"
         val answer = if (network.isOnline.value) {
-            PracticeAnswer("r-${question.id}", attemptId, question.id, letter, SyncState.SYNCED, letter == "B", "B", "Use is with she.", null)
+            PracticeAnswer("r-${question.id}", attemptId, question.id, letter, SyncState.SYNCED, letter == "B", "B", "Use is with she.", null,
+                explanationKu = question.kurdish?.let { "لەگەڵ she فرمانی is بەکاردێت." })
         } else {
             PracticeAnswer("r-${question.id}", attemptId, question.id, letter, SyncState.PENDING, null, null, null, null)
         }

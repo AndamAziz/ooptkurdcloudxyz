@@ -47,7 +47,7 @@ class ResponseSyncer(
                     dao.countSyncAttempt(row.responseId)
                     Outcome.Stop(StopReason.SERVER_UNAVAILABLE)
                 } else {
-                    dao.markSynced(row.responseId, verdict.isCorrect, verdict.correctOption, verdict.explanation, nowMillis())
+                    dao.markSynced(row.responseId, verdict.isCorrect, verdict.correctOption, verdict.explanation, nowMillis(), verdict.explanationCkb)
                     Outcome.Synced
                 }
             }
