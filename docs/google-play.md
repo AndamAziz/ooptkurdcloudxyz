@@ -12,8 +12,15 @@ cd android
 ./gradlew bundleRelease -Penglishmaster.selfUpdate=false   # → app/build/outputs/bundle/release/app-release.aab
 ```
 
-Upload the **.aab** (not the APK). Use Play App Signing; keep the existing upload key safe.
+Upload the **.aab** (not the APK). The release workflow builds it on every `v*` tag next to the
+direct-download APK and attaches it to the run as `englishmaster-<version>-google-play`.
 The direct-download build (GitHub Releases / Supabase link) keeps `selfUpdate=true`.
+
+**Play App Signing:** when Play Console asks for the app signing key, choose *Use a key from
+Android Studio / Java keystore* and upload the existing release key (the one the APK is signed
+with; Play Console shows the PEPK steps). Then people who installed the APK directly can update
+from Play, because the signature is the same. If Play generates a new key instead, they must
+uninstall the APK first.
 
 | Requirement | State |
 |---|---|
@@ -31,16 +38,34 @@ The direct-download build (GitHub Releases / Supabase link) keeps `selfUpdate=tr
 * **Short description (ckb):** ئینگلیزی هەنگاو بە هەنگاو فێربە، لە A1 تا C2 — ڕاهێنان، تاقیکردنەوە و بڕوانامە.
 * **Full description (EN):**
   > EnglishMaster helps Kurdish and English speakers learn English step by step, from A1 to C2.
-  > • Hundreds of grammar, vocabulary and reading questions, with stories, dialogues, pictures and short videos
+  > • Thousands of grammar, vocabulary and reading questions, with stories, dialogues, pictures and short videos
+  > • A placement test finds your level, and a short confirmation test makes sure of it
+  > • Smart mistake review: a wrong answer comes back after 24 hours and again 3 days later
+  > • Three checkpoints in every level, then a timed final exam with questions you have never practised
+  > • A certificate for every level, as a PDF with a QR code anyone can check (issued after a teacher approves)
+  > • Your path from A1 to C2: the next level is ready as soon as you finish one
   > • Practise by topic: Life in the UK, Britain, history and our world
   > • Listen button reads questions aloud in British English
   > • Works offline once a level is downloaded
-  > • Placement test, timed level exams and PDF certificates with a QR code (issued after a teacher approves)
-  > • Review your mistakes
   > • App in Kurdish (Sorani) or English
-  > Practice certificates are EnglishMaster achievements, aligned to CEFR descriptors; they are not official CEFR or Life in the UK certificates.
-* **Graphics:** `docs/brand/icon-512.png` (hi-res icon), `docs/brand/feature-graphic-1024x500.png`.
-  Phone screenshots: at least 2 (home, practice with a picture question, exam result, certificates).
+  > EnglishMaster certificates are achievements in this app, aligned to CEFR descriptors; they are not official CEFR or Life in the UK certificates.
+* **Full description (ckb):**
+  > ئینگلیشماستەر یارمەتی قسەکەرانی کوردی و ئینگلیزی دەدات هەنگاو بە هەنگاو ئینگلیزی فێربن، لە A1 تا C2.
+  > • هەزاران پرسیاری ڕێزمان، وشە و خوێندنەوە، لەگەڵ چیرۆک، گفتوگۆ، وێنە و ڤیدیۆی کورت
+  > • تاقیکردنەوەی دیاریکردنی ئاست، و تاقیکردنەوەیەکی کورتی دڵنیابوونەوە
+  > • پێداچوونەوەی زیرەکی هەڵەکان: وەڵامی هەڵە دوای 24 کاتژمێر و دوای 3 ڕۆژ دەگەڕێتەوە
+  > • سێ خاڵی پشکنین لە هەر ئاستێک، پاشان تاقیکردنەوەی کۆتایی بە کات و بە پرسیاری نوێ
+  > • بڕوانامە بۆ هەر ئاستێک، وەک PDF لەگەڵ QR کە هەر کەسێک دەتوانێت پشکنینی بۆ بکات (دوای ڕەزامەندی مامۆستا)
+  > • ڕێگاکەت لە A1 بۆ C2: ئاستی داهاتوو ئامادە دەبێت هەر کە ئاستێک تەواو دەکەیت
+  > • دوگمەی گوێگرتن پرسیارەکان بە ئینگلیزی بەریتانی دەخوێنێتەوە
+  > • دوای داگرتنی ئاستێک بێ ئینتەرنێت کار دەکات
+  > • ئەپەکە بە کوردی (سۆرانی) یان ئینگلیزی
+* **Graphics:** `docs/brand/icon-512.png` (hi-res icon), `docs/brand/feature-graphic-1024x500.png`
+  (full logo with the name: `docs/brand/logo-full.png`; all from `scripts/media/make_logo.py`),
+  phone screenshots in `docs/brand/screenshots/` (1080×1920, English and Sorani). They are the real
+  screens with sample data, rendered by `feature/practice/.../StoreScreenshotTest.kt`:
+  `STORE_SCREENSHOTS=$PWD/../docs/brand/screenshots ./gradlew :feature:practice:testDebugUnitTest --tests '*StoreScreenshotTest*'`.
+  Play needs 2 to 8; screenshots from a real phone (exam result, certificate) can be added.
 * **Category:** Education. **Tags:** Language learning.
 * **Contact email:** required — the same address as in the privacy policy.
 

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="brand_primary">#3A4FC4</color>
+    <!-- Splash background: the navy of the launcher icon. -->
+    <color name="brand_splash">#0D1838</color>
     <color name="window_background">#FAF9FD</color>
 </resources>

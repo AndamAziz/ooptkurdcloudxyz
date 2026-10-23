@@ -1,0 +1,1 @@
+- New logo and app icon: Big Ben rising from an open book, with a graduation cap, the Union flag and a speech bubble, in gold on navy. The splash screen and themed (monochrome) icons on Android 13+ use it too.

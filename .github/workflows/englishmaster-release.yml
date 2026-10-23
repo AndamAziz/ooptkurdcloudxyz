@@ -69,6 +69,8 @@ jobs:
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           ./gradlew --no-daemon test assembleRelease
+          # Google Play bundle: no in-app updater and no install-packages permission (Play updates the app).
+          ./gradlew --no-daemon bundleRelease -Penglishmaster.selfUpdate=false
           rm -f "$ANDROID_KEYSTORE_PATH"
 
       - name: Verify signature and read version
@@ -96,3 +98,15 @@ jobs:
         with:
           name: englishmaster-${{ steps.apk.outputs.name }}
           path: android/app/build/outputs/apk/release/app-release.apk
+
+      - name: Check the Play bundle
+        run: |
+          AAB=app/build/outputs/bundle/release/app-release.aab
+          jarsigner -verify "$AAB" > /dev/null
+          ! unzip -p "$AAB" base/manifest/AndroidManifest.xml | grep -a -q REQUEST_INSTALL_PACKAGES \
+            || { echo "::error::the Play bundle must not ask to install packages"; exit 1; }
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: englishmaster-${{ steps.apk.outputs.name }}-google-play
+          path: android/app/build/outputs/bundle/release/app-release.aab
