@@ -90,4 +90,26 @@
         <item quantity="one">%1$d تاقیکردنەوەی ئاستت بۆ ئەمڕۆ ماوە.</item>
         <item quantity="other">%1$d تاقیکردنەوەی ئاستت بۆ ئەمڕۆ ماوە.</item>
     </plurals>
+    <string name="problem_already_done">ئەم تاقیکردنەوەیەت پێشتر کردووە.</string>
+    <string name="checkpoint_title">%1$s · چێکپۆینتی %2$d</string>
+    <string name="checkpoint_intro_heading">چێکپۆینتی %1$d لە 3 · ئاستی %2$s</string>
+    <string name="checkpoint_rule_questions">%1$d پرسیار کە مەشقت لەسەر نەکردوون، لە %2$d خولەکدا</string>
+    <string name="checkpoint_rule_pass">بە %1$d%% یان زیاتر دەردەچیت. پێش کردنەوەی تاقیکردنەوەی کۆتایی دەبێت لە هەر سێ چێکپۆینتەکە دەربچیت.</string>
+    <string name="checkpoint_rule_retry">ئەگەر دەرنەچوویت، زیاتر مەشق بکە و دوای %1$d کاتژمێر دووبارە هەوڵ بدەرەوە — بە پرسیاری نوێ.</string>
+    <string name="checkpoint_start">دەستپێکردنی چێکپۆینت</string>
+    <string name="checkpoint_passed_title">لە چێکپۆینتی %1$d دەرچوویت!</string>
+    <string name="checkpoint_failed_title">هێشتا لە چێکپۆینتی %1$d دەرنەچوویت</string>
+    <string name="checkpoint_passed_next">دەستخۆش. بەردەوام بە لە مەشق بۆ کردنەوەی چێکپۆینتی داهاتوو.</string>
+    <string name="checkpoint_passed_last">لە هەموو چێکپۆینتەکان دەرچوویت. تاقیکردنەوەی کۆتایی دەکرێتەوە کاتێک ئامانجی مەشقەکەت تەواو دەکەیت.</string>
+    <string name="checkpoint_failed_advice">بۆ دەرچوون %1$d%% پێویستە. پێداچوونەوە بە هەڵەکانتدا بکە و زیاتر مەشق بکە؛ هەوڵی داهاتوو پرسیاری جیاوازی تێدایە.</string>
+    <string name="confirm_title">پشتڕاستکردنەوەی ئاستەکەت</string>
+    <string name="confirm_intro_heading">تاقیکردنەوەی ئاست · قۆناغی 2</string>
+    <string name="confirm_rule_questions">%1$d پرسیاری نوێ لەم ئاستەدا، لە %2$d خولەکدا</string>
+    <string name="confirm_rule_pass">بە %1$d%% یان زیاتر ئاستەکە پشتڕاست دەکرێتەوە. ئەگەرنا پێشنیار دەکەین سەرەتا ئەو ئاستە بخوێنیت.</string>
+    <string name="confirm_result_confirmed">ئاستی %1$s پشتڕاست کرایەوە!</string>
+    <string name="confirm_result_not_confirmed">ئاستی %1$s هێشتا پشتڕاست نەکرایەوە</string>
+    <string name="confirm_result_study">پێشنیار دەکەین ئاستی %1$s بخوێنیت.</string>
+    <string name="placement_confirm_offer">تاقیکردنەوەی سەرەتایی دەڵێت تۆ ئاستی %1$s دەزانیت. بۆ دڵنیابوون، تاقیکردنەوەیەکی کورتی پشتڕاستکردنەوە بکە: %2$d پرسیاری نوێ لەو ئاستەدا.</string>
+    <string name="placement_confirm_start">پشتڕاستکردنەوەی ئاستی %1$s</string>
+    <string name="exam_next_level">دەستپێکردنی ئاستی %1$s</string>
 </resources>

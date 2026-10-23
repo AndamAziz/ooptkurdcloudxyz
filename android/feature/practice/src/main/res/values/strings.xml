@@ -94,8 +94,8 @@
     <string name="home_recommended">Your recommended level: %1$s</string>
     <string name="home_practise_level">Practise %1$s</string>
     <string name="home_how_title">How do I earn a certificate?</string>
-    <string name="home_how_step1">Practise a level until you have answered at least %1$d%% of all its questions, with at least %2$d%% of your latest answers correct. Wrong answers can be fixed with “Review mistakes”.</string>
-    <string name="home_how_step2">The level\'s final exam then unlocks: %1$d random questions in %2$d minutes, marked on the server.</string>
+    <string name="home_how_step1">Practise a level until you have answered at least %1$d%% of all its questions, with at least %2$d%% of your latest answers correct, and pass its three short checkpoint tests on questions you have not practised. A mistake can be reviewed after 24 hours and counts as fixed after two right answers on different days.</string>
+    <string name="home_how_step2">The level\'s final exam then unlocks: %1$d questions in %2$d minutes, chosen from an exam-only bank so they are new to you. A retake never repeats questions from your earlier exams.</string>
     <string name="home_how_step3">Score %1$d%% or more, then your teacher approves the result and your certificate is issued as a PDF with a QR code anyone can scan to check it.</string>
     <string name="home_how_step4">Did not pass? Review your mistakes; the next attempt opens after %1$d hours.</string>
     <string name="home_level_title">Level %1$s</string>
@@ -224,4 +224,28 @@
     <string name="home_updating_title">Updating your questions</string>
     <string name="home_updating_checking">Checking for new questions…</string>
     <string name="home_updating_level">%1$s: section %2$d of %3$d</string>
+    <string name="home_confirm_title">Confirm your level: %1$s</string>
+    <string name="home_confirm_body">Your placement test found level %2$s. Take %1$d new questions at that level to confirm it.</string>
+    <string name="home_confirm_start">Take the confirmation test</string>
+    <string name="home_confirm_continue">Continue the confirmation test</string>
+    <string name="home_status_checkpoints">Practice target reached. Pass the checkpoints below to unlock the final exam.</string>
+    <string name="home_checkpoints_header">Checkpoints</string>
+    <string name="home_checkpoint_passed">Checkpoint %1$d passed (%2$d/%3$d)</string>
+    <string name="home_checkpoint_wait">Checkpoint %1$d: next try opens %2$s</string>
+    <string name="home_checkpoint_open">Checkpoint %1$d is ready</string>
+    <plurals name="home_checkpoint_locked">
+        <item quantity="one">Checkpoint %1$d opens after %2$d question practised</item>
+        <item quantity="other">Checkpoint %1$d opens after %2$d questions practised</item>
+    </plurals>
+    <string name="home_checkpoint_start">Start</string>
+    <string name="home_checkpoint_continue">Continue</string>
+    <plurals name="home_mistakes_waiting">
+        <item quantity="one">%1$d mistake waits for its review — next on %2$s</item>
+        <item quantity="other">%1$d mistakes wait for their review — next on %2$s</item>
+    </plurals>
+    <string name="home_next_level">Continue to level %1$s</string>
+    <string name="home_path_title">Your path to C2</string>
+    <string name="home_path_current">You are working on level %1$s. Each level has its own certificate.</string>
+    <string name="home_path_done">All levels certified. Congratulations!</string>
+    <string name="fb_review_later">This question goes to your mistakes. You can review it after 24 hours; it counts as fixed after two right answers on different days.</string>
 </resources>

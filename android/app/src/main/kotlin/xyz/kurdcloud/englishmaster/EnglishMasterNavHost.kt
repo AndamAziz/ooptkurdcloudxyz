@@ -81,6 +81,8 @@ private object Routes {
     const val EDIT_QUESTION = "staff/edit-question/{level}/{id}"
     const val EXAM = "exam/{level}"
     const val PLACEMENT = "placement"
+    const val PLACEMENT_CONFIRM = "placement/confirm"
+    const val CHECKPOINT = "checkpoint/{level}/{number}"
     const val CERTIFICATES = "certificates"
     const val ACCOUNT = "account"
     const val PRIVACY = "privacy"
@@ -93,6 +95,7 @@ private object Routes {
     fun checkEmail(reason: CheckEmailReason) = "check-email/${reason.name}"
     fun practice(level: CefrLevel, mistakes: Boolean = false) = "practice/${level.apiValue}?mistakes=$mistakes"
     fun exam(level: CefrLevel) = "exam/${level.apiValue}"
+    fun checkpoint(level: CefrLevel, number: Int) = "checkpoint/${level.apiValue}/$number"
     fun topic(topic: Topic) = "topic/${topic.apiValue}"
     fun lifeInUkChapter(tag: String) = "life-in-uk/chapter/$tag"
 }
@@ -236,6 +239,8 @@ fun EnglishMasterNavHost(
                     onReviewMistakes = { navController.navigate(Routes.practice(it, mistakes = true)) },
                     onTakeExam = { navController.navigate(Routes.exam(it)) },
                     onPlacementTest = { navController.navigate(Routes.PLACEMENT) },
+                    onConfirmPlacement = { navController.navigate(Routes.PLACEMENT_CONFIRM) },
+                    onCheckpoint = { level, n -> navController.navigate(Routes.checkpoint(level, n)) },
                     onCertificates = { navController.navigate(Routes.CERTIFICATES) },
                     onPractiseTopic = { navController.navigate(Routes.topic(it)) },
                     onLifeInUk = { navController.navigate(Routes.LIFE_IN_UK) },
@@ -346,6 +351,25 @@ fun EnglishMasterNavHost(
         composable(Routes.PLACEMENT) {
             ExamScreen(
                 viewModel = viewModel { ExamViewModel(ExamKind.PLACEMENT, null, container.learning) },
+                onClose = { navController.popBackStack() },
+                onViewCertificates = { navController.navigate(Routes.CERTIFICATES) { popUpTo(Routes.HOME) } },
+                onPractise = { navController.navigate(Routes.practice(it)) { popUpTo(Routes.HOME) } },
+                onConfirmPlacement = { navController.navigate(Routes.PLACEMENT_CONFIRM) { popUpTo(Routes.HOME) } },
+            )
+        }
+        composable(Routes.PLACEMENT_CONFIRM) {
+            ExamScreen(
+                viewModel = viewModel { ExamViewModel(ExamKind.PLACEMENT_CONFIRM, null, container.learning) },
+                onClose = { navController.popBackStack() },
+                onViewCertificates = { navController.navigate(Routes.CERTIFICATES) { popUpTo(Routes.HOME) } },
+                onPractise = { navController.navigate(Routes.practice(it)) { popUpTo(Routes.HOME) } },
+            )
+        }
+        composable(Routes.CHECKPOINT) { entry ->
+            val level = CefrLevel.fromApi(entry.arguments?.getString("level") ?: CefrLevel.A1.apiValue)
+            val number = entry.arguments?.getString("number")?.toIntOrNull()?.coerceIn(1, 3) ?: 1
+            ExamScreen(
+                viewModel = viewModel { ExamViewModel(ExamKind.CHECKPOINT, level, container.learning, checkpoint = number) },
                 onClose = { navController.popBackStack() },
                 onViewCertificates = { navController.navigate(Routes.CERTIFICATES) { popUpTo(Routes.HOME) } },
                 onPractise = { navController.navigate(Routes.practice(it)) { popUpTo(Routes.HOME) } },

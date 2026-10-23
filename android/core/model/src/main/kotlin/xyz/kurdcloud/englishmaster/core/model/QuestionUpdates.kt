@@ -31,4 +31,13 @@ data class QuestionUpdateState(
 }
 
 /** Placement tests left in the rolling 24 hours, and when the next one opens if none are left. */
-data class PlacementStatus(val attemptsLeft: Int, val nextAttemptAtMillis: Long?, val inProgress: Boolean)
+data class PlacementStatus(
+    val attemptsLeft: Int,
+    val nextAttemptAtMillis: Long?,
+    val inProgress: Boolean,
+    /** Level to confirm with the stage-2 test (null when there is nothing to confirm). */
+    val confirmLevel: CefrLevel? = null,
+    val confirmInProgress: Boolean = false,
+    /** The latest placement result was confirmed by the stage-2 test. */
+    val confirmed: Boolean = false,
+)

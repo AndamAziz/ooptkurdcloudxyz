@@ -1,0 +1,9334 @@
+{
+ "batch": "ai-batch-07",
+ "note": "Practice questions (Claude-drafted, original wording) for A1 and A2, 300 per level, written to the CEFR scope of each level (grammar and vocabulary in line with the English Grammar Profile / English Vocabulary Profile level descriptions) with everyday British contexts. Imported as drafts for teacher review.",
+ "passages": {
+  "A1P_MAYA": "Maya is nine. She lives in Bristol with her mum and her grandfather. Every morning her grandfather takes her to school. Maya's favourite lesson is art. She doesn't like maths. After school she plays with her dog, Biscuit, in the park. On Sundays she visits her dad in Bath.",
+  "A1P_CAFE": "Rosie's Café. Breakfast 8 – 11 am. Lunch 12 – 3 pm. Tea and coffee £2. Sandwiches £4.50. Soup of the day £3.50. Closed on Mondays. Free Wi-Fi.",
+  "A1P_JOE": "Hi, I'm Joe. I'm a bus driver in Manchester. I start work at six in the morning, so I get up very early. I finish at two o'clock. In the afternoon I sleep for an hour and then I cook dinner. My wife is a teacher. We have two sons, Leo and Max.",
+  "A1P_WEEKEND": "Last weekend was great. On Saturday I went to the market with my sister. We bought fruit and a new bag for her. In the evening we watched a film at home. On Sunday it rained, so we stayed in and played board games. I was very tired on Monday!",
+  "A1P_SIGN": "SWIMMING POOL. Open every day 7 am – 9 pm. Children under 8 must be with an adult. No food or drinks in the pool area. Please have a shower before you swim.",
+  "A1P_FLAT": "I live in a flat on the third floor. It has two bedrooms, a kitchen, a small bathroom and a living room. There is no garden, but there is a balcony with lots of plants. The flat is near the station, so I walk to the train every day.",
+  "A1P_TEXT": "Hi Tom! I'm at the supermarket. Do we need anything? I've got milk, eggs and tomatoes. Do we have rice? Text me before 5 pm. See you at home. Dad",
+  "A1P_PEN": "My pen friend's name is Aiko. She is 15 and she lives in Osaka, in Japan. She has one brother. She likes music and she plays the piano. Her favourite food is sushi. She wants to visit London next summer.",
+  "A1P_CLASS": "Our English class is on Tuesdays and Thursdays from 6 to 8 pm. The teacher is Mr Green. There are twelve students in the class. They come from six countries. After the class some students go to the café for a cup of tea.",
+  "A1P_LOST": "LOST! Small black cat. Her name is Luna. She has a white nose and a red collar. She was last seen on Hill Road on Friday evening. Please call Ben on 07700 900456.",
+  "A1P_MARKET": "The Saturday market is in the town square. It opens at 8 am and closes at 2 pm. You can buy fresh fruit, vegetables, cheese and flowers. There is also a stall with hot food. Many people go there for breakfast.",
+  "A1P_TRIP": "Dear Grandma, We are in Cornwall! Our hotel is next to the beach. The weather is warm and sunny. Every day we swim in the sea and eat ice cream. Yesterday Dad took us on a boat. Tomorrow we are going to a castle. Love, Emma",
+  "A1P_BUS": "Bus 22 to the City Centre. Monday to Saturday: every 15 minutes from 6 am to 7 pm, then every 30 minutes until 11 pm. Sunday: every hour from 9 am to 6 pm. Single ticket £2. Day ticket £5.",
+  "A1P_NEW": "Hello, I'm Daniel. I'm new at this school. I'm from Poland but I live in Leeds now. I speak Polish and a little English. I like football and computer games. I'm in class 7B. Can somebody help me find the library?",
+  "A1P_DIALOGUE": "Assistant: Good morning. Can I help you? — Customer: Yes, please. I'd like a ticket to Oxford. — Assistant: Single or return? — Customer: Return, please. — Assistant: That's £18. — Customer: Can I pay by card? — Assistant: Of course. The train leaves from platform 4 at 10:15.",
+  "A1P_DAYOFF": "Nadia works in a hotel from Monday to Friday. Saturday is her day off. On Saturday morning she sleeps late and has a big breakfast. Then she phones her mother in Egypt. In the afternoon she goes shopping or meets her friends. She goes to bed early because on Sunday she has a cooking class.",
+  "A1P_NOTICE": "Library News. The library is closed on Friday 12th May for cleaning. From Monday 15th May there are new opening times: Monday to Friday 9 am – 7 pm, Saturday 10 am – 4 pm. You can now borrow ten books at a time.",
+  "A2P_MOVE": "Six months ago Carlos moved from Madrid to Edinburgh to study engineering. At first he found it difficult: the weather was cold and wet, and he didn't understand the Scottish accent. He also missed his family and Spanish food. But now he has made friends from many countries, and he has joined a hiking club. Last month he climbed Arthur's Seat, a hill in the middle of the city, and saw the whole of Edinburgh. He says his English has improved a lot because he only speaks English at university.",
+  "A2P_ADVERT": "WANTED: Part-time waiter or waitress for a busy Italian restaurant in York. Evenings and weekends, about 20 hours a week. No experience needed — we will train you. You must be friendly, polite and over 18. Pay: £11 an hour plus tips. Free meal every shift. Send your CV to jobs@example.com before 30th June.",
+  "A2P_EMAIL": "Hi Sam, Thanks for inviting me to your party on Saturday. I'd love to come, but I'm afraid I'll be a bit late. I have to work until 7, and then I need to go home and change. I'll probably arrive at about 8.30. Is that OK? Shall I bring something? I could make my chocolate cake — everyone liked it last time! See you soon, Lily",
+  "A2P_GYM": "FitLife Gym — New Year Offer! Join before 31st January and pay only £20 a month (normal price £30). Open 6 am – 10 pm every day. Free fitness classes: yoga on Mondays, dance on Wednesdays, boxing on Fridays. Students get a further 10% off. Bring a photo and your bank details to join.",
+  "A2P_HISTORY": "Stonehenge is a famous circle of large stones in the south of England. People started building it about 5,000 years ago. Some of the stones came from Wales, more than 200 kilometres away. Nobody knows exactly how people moved them or why they built it. Some experts think it was a kind of calendar, because on the longest day of the year the sun rises in line with the stones. Today more than a million people visit it every year.",
+  "A2P_PROBLEM": "Dear Sir or Madam, Last week I bought a coffee machine from your online shop. When it arrived, I noticed that the box was damaged. I tried to use the machine, but it didn't work. I would like to return it and get my money back. Could you tell me how to send it back? My order number is 45721. Yours faithfully, P. Ahmed",
+  "A2P_DIARY": "Monday: I started my new job today. My manager, Jane, showed me the office and introduced me to everyone. I had lunch with two colleagues, Raj and Ellie. The work was more difficult than I expected, but everyone was helpful. Tuesday: I arrived late because my train was delayed. I felt terrible, but Jane said it wasn't a problem. In the afternoon I wrote my first report.",
+  "A2P_ISLAND": "The Isle of Skye is an island off the west coast of Scotland. It is famous for its mountains, waterfalls and castles. You can get there by car over a bridge, so you don't need to take a boat. The weather changes quickly, so visitors should bring warm clothes and waterproofs, even in summer. In August the island is very busy, so it is best to book accommodation early.",
+  "A2P_RECIPE": "Easy pancakes (makes 8). You need: 100 g flour, 2 eggs, 300 ml milk, a little oil. First, put the flour in a bowl and add the eggs. Then slowly add the milk and mix well. Heat a little oil in a frying pan. Pour in some of the mixture and cook for one minute on each side. Serve with lemon and sugar.",
+  "A2P_VOLUNTEER": "Every Saturday morning, Grace volunteers at an animal shelter near Cardiff. She walks the dogs, cleans the cages and helps visitors who want to adopt a pet. She started two years ago because she couldn't have a dog in her flat. 'It's the best part of my week,' she says. 'The animals are so happy to see me.' Last year Grace helped find homes for more than thirty dogs.",
+  "A2P_TRAINS": "Dear passengers, because of engineering work, there will be no trains between Bath and Bristol this Sunday. A bus service will replace the trains. Buses will leave from outside the main entrance every 20 minutes. Journeys will take about 30 minutes longer than usual. Tickets for the train are valid on the bus. We are sorry for any inconvenience.",
+  "A2P_TWINS": "Ruth and Rachel are twins, but they are very different. Ruth is outgoing and loves parties, while Rachel is quiet and prefers reading at home. Ruth studied business and now works in a bank in London. Rachel became a vet and lives in a small village in Devon. They talk on the phone every evening and spend every Christmas together.",
+  "A2P_PARK": "Welcome to Greenfield Park. Please keep dogs on a lead near the children's playground. Cycling is allowed only on the marked paths. Barbecues are not permitted. The café is open from 9 am to 5 pm in summer and from 10 am to 3 pm in winter. Free guided walks start at the main gate every Sunday at 11 am.",
+  "A2P_INVENTION": "The first successful telephone call was made by Alexander Graham Bell in 1876. Bell was born in Edinburgh in 1847 and later moved to Canada and then to the United States. His mother and his wife were both deaf, and much of his work was about helping deaf people communicate. Today, more than five billion people around the world use a mobile phone.",
+  "A2P_CLUB": "The Hilltop Book Club meets on the first Thursday of every month at 7 pm in the community centre. Each month we read one novel and then discuss it together over tea and biscuits. New members are always welcome. You don't need to buy the books — the local library keeps copies for us. This month's book is 'The Secret Garden'.",
+  "A2P_ADVICE": "Q: I want to save money but I always spend everything by the end of the month. What can I do? — A: First, write down everything you spend for a month. You'll be surprised how much goes on coffee and snacks! Then decide on a small amount to save each week, even £5, and put it in a separate account as soon as you are paid. Finally, try cooking at home more often instead of buying lunch.",
+  "A2P_SPORTS": "Our school sports day was last Friday. The weather was perfect — sunny but not too hot. There were running races, the long jump and a tug of war between the teachers and the students. The students won the tug of war for the first time in ten years! My class came second overall, just behind class 9C. After the events, parents sold cakes to raise money for new football shirts."
+ },
+ "items": [
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I ___ a student at Leeds College.",
+   "answer": "am",
+   "distractors": [
+    "is",
+    "are",
+    "be"
+   ],
+   "explanation": "With 'I' the verb 'be' is 'am'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "You ___ late again!",
+   "answer": "are",
+   "distractors": [
+    "is",
+    "am",
+    "be"
+   ],
+   "explanation": "With 'you' the verb 'be' is 'are'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "It ___ very cold today.",
+   "answer": "is",
+   "distractors": [
+    "are",
+    "am",
+    "be"
+   ],
+   "explanation": "With 'it' the verb 'be' is 'is'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ they your neighbours?",
+   "answer": "Are",
+   "distractors": [
+    "Is",
+    "Am",
+    "Do"
+   ],
+   "explanation": "Questions with 'they' + be begin with 'Are'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "My name ___ Hassan.",
+   "answer": "is",
+   "distractors": [
+    "are",
+    "am",
+    "has"
+   ],
+   "explanation": "'My name' is singular: 'is'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "We ___ not hungry, thank you.",
+   "answer": "are",
+   "distractors": [
+    "is",
+    "am",
+    "do"
+   ],
+   "explanation": "With 'we' the verb 'be' is 'are'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "Where ___ the toilets, please?",
+   "answer": "are",
+   "distractors": [
+    "is",
+    "am",
+    "be"
+   ],
+   "explanation": "'The toilets' is plural: 'are'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ she a nurse? — Yes, she is.",
+   "answer": "Is",
+   "distractors": [
+    "Are",
+    "Does",
+    "Has"
+   ],
+   "explanation": "Questions with 'she' + be begin with 'Is'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I ___ two cats and a rabbit.",
+   "answer": "have",
+   "distractors": [
+    "has",
+    "am",
+    "having"
+   ],
+   "explanation": "With 'I' we use 'have'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "She ___ long brown hair.",
+   "answer": "has",
+   "distractors": [
+    "have",
+    "is",
+    "having"
+   ],
+   "explanation": "With 'she' we use 'has'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "Do you have a pen? — Yes, I ___.",
+   "answer": "do",
+   "distractors": [
+    "have",
+    "am",
+    "does"
+   ],
+   "explanation": "Short answer to a 'Do you...?' question: 'Yes, I do'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "Has your flat got a balcony? — No, it ___.",
+   "answer": "hasn't",
+   "distractors": [
+    "doesn't",
+    "isn't",
+    "haven't"
+   ],
+   "explanation": "Short answer to 'Has it got...?': 'No, it hasn't'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "My brother ___ in a bank.",
+   "answer": "works",
+   "distractors": [
+    "work",
+    "working",
+    "is work"
+   ],
+   "explanation": "Present simple with he/she/it adds -s.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "They ___ tennis on Saturdays.",
+   "answer": "play",
+   "distractors": [
+    "plays",
+    "playing",
+    "are play"
+   ],
+   "explanation": "With 'they' the present simple has no -s.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "She ___ TV in the morning.",
+   "answer": "doesn't watch",
+   "distractors": [
+    "don't watch",
+    "not watch",
+    "isn't watch"
+   ],
+   "explanation": "Negative with she: doesn't + base form.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "We ___ meat. We are vegetarians.",
+   "answer": "don't eat",
+   "distractors": [
+    "doesn't eat",
+    "not eat",
+    "aren't eat"
+   ],
+   "explanation": "Negative with 'we': don't + base form.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ he speak Arabic?",
+   "answer": "Does",
+   "distractors": [
+    "Do",
+    "Is",
+    "Has"
+   ],
+   "explanation": "Questions with 'he' in the present simple use 'Does'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "What time ___ you finish work?",
+   "answer": "do",
+   "distractors": [
+    "does",
+    "are",
+    "is"
+   ],
+   "explanation": "'You' takes 'do' in present simple questions.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "My father ___ the dishes every evening.",
+   "answer": "washes",
+   "distractors": [
+    "wash",
+    "washs",
+    "washing"
+   ],
+   "explanation": "Verbs ending in -sh add -es: washes.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "The baby ___ a lot at night.",
+   "answer": "cries",
+   "distractors": [
+    "crys",
+    "cry",
+    "crying"
+   ],
+   "explanation": "Consonant + y changes to -ies: cries.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "She ___ to the gym on Mondays.",
+   "answer": "goes",
+   "distractors": [
+    "go",
+    "gos",
+    "going"
+   ],
+   "explanation": "'Go' becomes 'goes' with he/she/it.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I'm ___ a letter to my aunt.",
+   "answer": "writing",
+   "distractors": [
+    "write",
+    "writeing",
+    "writes"
+   ],
+   "explanation": "Remove the final -e before -ing: writing.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "They're ___ in the sea.",
+   "answer": "swimming",
+   "distractors": [
+    "swiming",
+    "swim",
+    "swims"
+   ],
+   "explanation": "Short verbs with one vowel + consonant double it: swimming.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "What ___ you doing? — I'm cooking.",
+   "answer": "are",
+   "distractors": [
+    "do",
+    "is",
+    "does"
+   ],
+   "explanation": "Present continuous questions: are + subject + -ing.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "He ___ wearing a jacket today. It's warm.",
+   "answer": "isn't",
+   "distractors": [
+    "doesn't",
+    "don't",
+    "aren't"
+   ],
+   "explanation": "Present continuous negative: isn't + -ing.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "Look at those ___! They're beautiful.",
+   "answer": "flowers",
+   "distractors": [
+    "flower",
+    "flowers's",
+    "flowres"
+   ],
+   "explanation": "After 'those' we use a plural noun.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "My little brother has two loose ___.",
+   "answer": "teeth",
+   "distractors": [
+    "tooths",
+    "tooth",
+    "teeths"
+   ],
+   "explanation": "'Tooth' has an irregular plural: teeth.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "There are three ___ in the kitchen.",
+   "answer": "knives",
+   "distractors": [
+    "knifes",
+    "knife",
+    "knivs"
+   ],
+   "explanation": "Most nouns ending in -fe change to -ves: knives.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "My feet hurt. I need new ___.",
+   "answer": "shoes",
+   "distractors": [
+    "shoe",
+    "shoeses",
+    "shoe's"
+   ],
+   "explanation": "After 'new' here we need the plural 'shoes'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "Two ___ are standing at the bus stop.",
+   "answer": "women",
+   "distractors": [
+    "woman",
+    "womans",
+    "womens"
+   ],
+   "explanation": "'Woman' has an irregular plural: women.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I'd like ___ apple, please.",
+   "answer": "an",
+   "distractors": [
+    "a",
+    "the a",
+    "some an"
+   ],
+   "explanation": "'Apple' starts with a vowel sound: 'an'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "She is ___ engineer.",
+   "answer": "an",
+   "distractors": [
+    "a",
+    "the",
+    "—"
+   ],
+   "explanation": "'Engineer' starts with a vowel sound: 'an'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "He's ___ university student.",
+   "answer": "a",
+   "distractors": [
+    "an",
+    "the",
+    "some"
+   ],
+   "explanation": "'University' starts with a 'yoo' sound, so we use 'a'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ sun is very hot today.",
+   "answer": "The",
+   "distractors": [
+    "A",
+    "An",
+    "Some"
+   ],
+   "explanation": "There is only one sun, so we use 'the'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I play ___ guitar in a band.",
+   "answer": "the",
+   "distractors": [
+    "a",
+    "an",
+    "—"
+   ],
+   "explanation": "We use 'the' with musical instruments: play the guitar.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "We have ___ breakfast at seven.",
+   "answer": "—",
+   "distractors": [
+    "a",
+    "the",
+    "an"
+   ],
+   "explanation": "No article before meals: have breakfast.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "This is my friend. ___ name is Omar.",
+   "answer": "His",
+   "distractors": [
+    "He",
+    "Him",
+    "He's"
+   ],
+   "explanation": "Before a noun, the possessive is 'his'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "Can you help ___? I'm lost.",
+   "answer": "me",
+   "distractors": [
+    "I",
+    "my",
+    "mine"
+   ],
+   "explanation": "After a verb we use the object pronoun 'me'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I love these songs. I listen to ___ every day.",
+   "answer": "them",
+   "distractors": [
+    "they",
+    "their",
+    "theirs"
+   ],
+   "explanation": "After a preposition we use the object pronoun 'them'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "That's not my coat. Mine is the blue ___.",
+   "answer": "one",
+   "distractors": [
+    "it",
+    "that",
+    "ones"
+   ],
+   "explanation": "We use 'one' to avoid repeating a singular noun.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "Is this ___ bag? — Yes, it's mine.",
+   "answer": "your",
+   "distractors": [
+    "you",
+    "yours",
+    "you're"
+   ],
+   "explanation": "Before a noun: possessive adjective 'your'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ car is that? — It's Anna's.",
+   "answer": "Whose",
+   "distractors": [
+    "Who",
+    "Who's",
+    "Which"
+   ],
+   "explanation": "We ask about the owner with 'Whose'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "This is ___ house.",
+   "answer": "my parents'",
+   "distractors": [
+    "my parent's",
+    "my parents",
+    "my parents's"
+   ],
+   "explanation": "For a plural noun ending in -s, the apostrophe goes after the s.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "That's ___ bike.",
+   "answer": "Sarah's",
+   "distractors": [
+    "Sarahs",
+    "Sarahs'",
+    "of Sarah"
+   ],
+   "explanation": "For a singular name we add 's.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "The keys are ___ the table.",
+   "answer": "on",
+   "distractors": [
+    "in",
+    "at",
+    "under of"
+   ],
+   "explanation": "Something on a surface is 'on' it.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "The milk is ___ the fridge.",
+   "answer": "in",
+   "distractors": [
+    "on",
+    "at",
+    "into of"
+   ],
+   "explanation": "Inside a container or space we use 'in'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I'm waiting ___ the bus stop.",
+   "answer": "at",
+   "distractors": [
+    "in",
+    "on",
+    "to"
+   ],
+   "explanation": "We use 'at' for a point or place such as a bus stop.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "My flat is ___ the first floor.",
+   "answer": "on",
+   "distractors": [
+    "in",
+    "at",
+    "to"
+   ],
+   "explanation": "Floors of a building take 'on'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "The cat is ___ the bed. I can only see its tail.",
+   "answer": "under",
+   "distractors": [
+    "on",
+    "over",
+    "between"
+   ],
+   "explanation": "Under means below something.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "There's a garden ___ the house.",
+   "answer": "behind",
+   "distractors": [
+    "between",
+    "among",
+    "into"
+   ],
+   "explanation": "Behind means at the back of something.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I get up ___ six o'clock.",
+   "answer": "at",
+   "distractors": [
+    "in",
+    "on",
+    "by"
+   ],
+   "explanation": "Clock times take 'at'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "We go skiing ___ winter.",
+   "answer": "in",
+   "distractors": [
+    "on",
+    "at",
+    "by"
+   ],
+   "explanation": "Seasons take 'in'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "The shop is closed ___ Sunday.",
+   "answer": "on",
+   "distractors": [
+    "in",
+    "at",
+    "by"
+   ],
+   "explanation": "Days take 'on'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I study ___ the evening.",
+   "answer": "in",
+   "distractors": [
+    "on",
+    "at",
+    "by"
+   ],
+   "explanation": "We say 'in the morning/afternoon/evening'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "We don't work ___ night.",
+   "answer": "at",
+   "distractors": [
+    "in",
+    "on",
+    "by"
+   ],
+   "explanation": "We say 'at night'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "My birthday is ___ 3rd April.",
+   "answer": "on",
+   "distractors": [
+    "in",
+    "at",
+    "by"
+   ],
+   "explanation": "Dates take 'on'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ do you go to work? — By bus.",
+   "answer": "How",
+   "distractors": [
+    "What",
+    "Where",
+    "Why"
+   ],
+   "explanation": "We ask about the way of travelling with 'How'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ are you sad? — Because I lost my phone.",
+   "answer": "Why",
+   "distractors": [
+    "What",
+    "When",
+    "Who"
+   ],
+   "explanation": "We ask for a reason with 'Why'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ is your favourite singer?",
+   "answer": "Who",
+   "distractors": [
+    "What",
+    "Where",
+    "Whose"
+   ],
+   "explanation": "We ask about a person with 'Who'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ old is your daughter?",
+   "answer": "How",
+   "distractors": [
+    "What",
+    "Which",
+    "When"
+   ],
+   "explanation": "We ask about age with 'How old'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ bus goes to the station, the 12 or the 15?",
+   "answer": "Which",
+   "distractors": [
+    "What",
+    "Who",
+    "Whose"
+   ],
+   "explanation": "We use 'Which' to choose between a few options.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "How ___ do you go swimming? — Twice a week.",
+   "answer": "often",
+   "distractors": [
+    "many",
+    "much",
+    "long"
+   ],
+   "explanation": "'How often' asks about frequency.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "There ___ a supermarket near my house.",
+   "answer": "is",
+   "distractors": [
+    "are",
+    "has",
+    "be"
+   ],
+   "explanation": "Singular 'a supermarket': 'there is'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "There ___ any chairs in the room.",
+   "answer": "aren't",
+   "distractors": [
+    "isn't",
+    "not",
+    "haven't"
+   ],
+   "explanation": "Plural negative: 'there aren't any'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ there any eggs? — Yes, there are.",
+   "answer": "Are",
+   "distractors": [
+    "Is",
+    "Do",
+    "Have"
+   ],
+   "explanation": "Plural question: 'Are there any...?'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I'd like ___ water, please.",
+   "answer": "some",
+   "distractors": [
+    "any",
+    "a",
+    "many"
+   ],
+   "explanation": "In offers and requests we use 'some'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "We don't have ___ bread.",
+   "answer": "any",
+   "distractors": [
+    "some",
+    "a",
+    "many"
+   ],
+   "explanation": "Negative sentences usually take 'any'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "How ___ money do you need?",
+   "answer": "much",
+   "distractors": [
+    "many",
+    "lot",
+    "more"
+   ],
+   "explanation": "'Money' is uncountable: 'How much'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "How ___ people are in your class?",
+   "answer": "many",
+   "distractors": [
+    "much",
+    "lot",
+    "few of"
+   ],
+   "explanation": "'People' is countable plural: 'How many'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "She ___ swim, but she can't dance.",
+   "answer": "can",
+   "distractors": [
+    "cans",
+    "can to",
+    "is can"
+   ],
+   "explanation": "'Can' never takes -s and has no 'to' after it.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ I use your phone, please?",
+   "answer": "Can",
+   "distractors": [
+    "Do",
+    "Am",
+    "Will to"
+   ],
+   "explanation": "We ask for permission with 'Can I...?'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I ___ ride a bike when I was five.",
+   "answer": "could",
+   "distractors": [
+    "can",
+    "can't to",
+    "couldn't to"
+   ],
+   "explanation": "The past of 'can' is 'could'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "She ___ at home last night.",
+   "answer": "wasn't",
+   "distractors": [
+    "weren't",
+    "didn't",
+    "isn't"
+   ],
+   "explanation": "Past of 'be' with she, negative: 'wasn't'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "Where ___ you born?",
+   "answer": "were",
+   "distractors": [
+    "was",
+    "did",
+    "are"
+   ],
+   "explanation": "Past questions with 'you': 'were'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I ___ my homework yesterday evening.",
+   "answer": "finished",
+   "distractors": [
+    "finish",
+    "finishes",
+    "finishing"
+   ],
+   "explanation": "Regular past simple adds -ed.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "We ___ a great film last Friday.",
+   "answer": "saw",
+   "distractors": [
+    "seed",
+    "see",
+    "sees"
+   ],
+   "explanation": "'See' has an irregular past: saw.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "He ___ to Glasgow by train.",
+   "answer": "went",
+   "distractors": [
+    "goed",
+    "go",
+    "gone"
+   ],
+   "explanation": "'Go' has an irregular past: went.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "They ___ pizza for dinner.",
+   "answer": "had",
+   "distractors": [
+    "haved",
+    "has",
+    "have"
+   ],
+   "explanation": "'Have' has an irregular past: had.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "Did you ___ the news?",
+   "answer": "hear",
+   "distractors": [
+    "heard",
+    "hears",
+    "hearing"
+   ],
+   "explanation": "After 'did' we use the base form.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I ___ like the film. It was boring.",
+   "answer": "didn't",
+   "distractors": [
+    "don't",
+    "wasn't",
+    "not"
+   ],
+   "explanation": "Past simple negative: didn't + base form.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "What ___ you do at the weekend?",
+   "answer": "did",
+   "distractors": [
+    "do",
+    "were",
+    "was"
+   ],
+   "explanation": "Past simple question: did + subject + base form.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ your shoes, please. The floor is clean.",
+   "answer": "Take off",
+   "distractors": [
+    "Taking off",
+    "To take off",
+    "Takes off"
+   ],
+   "explanation": "Instructions use the base form of the verb.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ worry! Everything is fine.",
+   "answer": "Don't",
+   "distractors": [
+    "Not",
+    "Doesn't",
+    "No"
+   ],
+   "explanation": "Negative imperative: Don't + verb.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ go to the park. It's sunny!",
+   "answer": "Let's",
+   "distractors": [
+    "Let",
+    "Lets",
+    "Let us to"
+   ],
+   "explanation": "'Let's' + base form makes a suggestion.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I ___ to visit Scotland one day.",
+   "answer": "would like",
+   "distractors": [
+    "like",
+    "would",
+    "am like"
+   ],
+   "explanation": "'Would like' + to + verb expresses a wish.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "Would you like ___ tea?",
+   "answer": "some",
+   "distractors": [
+    "any",
+    "many",
+    "a"
+   ],
+   "explanation": "In offers we use 'some'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I like ___ to music.",
+   "answer": "listening",
+   "distractors": [
+    "listen",
+    "listens",
+    "to listening"
+   ],
+   "explanation": "'Like' is often followed by -ing.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "She is ___ than her sister.",
+   "answer": "older",
+   "distractors": [
+    "more old",
+    "oldest",
+    "old"
+   ],
+   "explanation": "One-syllable adjectives add -er.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "My bag is ___ than yours.",
+   "answer": "heavier",
+   "distractors": [
+    "heavyer",
+    "more heavy",
+    "heaviest"
+   ],
+   "explanation": "Consonant + y becomes -ier: heavier.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "Today is ___ than yesterday.",
+   "answer": "hotter",
+   "distractors": [
+    "hoter",
+    "more hot",
+    "hottest"
+   ],
+   "explanation": "Short adjectives with one vowel + consonant double it: hotter.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "This film is ___ than the book.",
+   "answer": "worse",
+   "distractors": [
+    "badder",
+    "more bad",
+    "worst"
+   ],
+   "explanation": "The comparative of 'bad' is 'worse'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I'm going ___ my homework now.",
+   "answer": "to do",
+   "distractors": [
+    "do",
+    "doing",
+    "to doing"
+   ],
+   "explanation": "'Be going to' + base form for plans.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "We ___ going to buy a new car next year.",
+   "answer": "are",
+   "distractors": [
+    "is",
+    "am",
+    "do"
+   ],
+   "explanation": "With 'we': 'we are going to'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "He has a ___ car.",
+   "answer": "big red",
+   "distractors": [
+    "red big",
+    "bigs red",
+    "red and big a"
+   ],
+   "explanation": "Size comes before colour: a big red car.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I always ___ breakfast.",
+   "answer": "have",
+   "distractors": [
+    "has",
+    "having",
+    "am have"
+   ],
+   "explanation": "Adverbs of frequency go before the main verb.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "She is ___ late for class.",
+   "answer": "never",
+   "distractors": [
+    "ever",
+    "sometime",
+    "once a"
+   ],
+   "explanation": "With 'be', frequency adverbs go after the verb: 'is never late'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I go to the cinema ___.",
+   "answer": "once a month",
+   "distractors": [
+    "a month once",
+    "one month",
+    "once month"
+   ],
+   "explanation": "We say 'once a month', 'twice a week'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "Please call ___ tomorrow.",
+   "answer": "us",
+   "distractors": [
+    "we",
+    "our",
+    "ours"
+   ],
+   "explanation": "After a verb: object pronoun 'us'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "This is ___ book. I bought it yesterday.",
+   "answer": "my new",
+   "distractors": [
+    "new my",
+    "mine new",
+    "the my new"
+   ],
+   "explanation": "Possessive + adjective + noun: my new book.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "Is ___ your coat on the chair?",
+   "answer": "that",
+   "distractors": [
+    "those",
+    "these",
+    "them"
+   ],
+   "explanation": "'That' is used for one thing that is not near you.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Your father's sister is your ___.",
+   "answer": "aunt",
+   "distractors": [
+    "uncle",
+    "niece",
+    "cousin"
+   ],
+   "explanation": "Your parent's sister is your aunt.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The child of your aunt is your ___.",
+   "answer": "cousin",
+   "distractors": [
+    "nephew",
+    "brother",
+    "grandson"
+   ],
+   "explanation": "Your aunt's or uncle's child is your cousin.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "My parents' son is my ___.",
+   "answer": "brother",
+   "distractors": [
+    "uncle",
+    "father",
+    "husband"
+   ],
+   "explanation": "Your parents' son (not you) is your brother.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "A woman who is married to you is your ___.",
+   "answer": "wife",
+   "distractors": [
+    "sister",
+    "daughter",
+    "aunt"
+   ],
+   "explanation": "A married woman is the wife of her husband.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "We use a ___ to cut bread.",
+   "answer": "knife",
+   "distractors": [
+    "spoon",
+    "cup",
+    "bowl"
+   ],
+   "explanation": "A knife is for cutting.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "You drink tea from a ___.",
+   "answer": "cup",
+   "distractors": [
+    "plate",
+    "fork",
+    "pan"
+   ],
+   "explanation": "Hot drinks are served in a cup.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "You cook pasta in a ___.",
+   "answer": "pan",
+   "distractors": [
+    "fridge",
+    "cupboard",
+    "glass"
+   ],
+   "explanation": "You cook food in a pan or pot.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Which room has a shower and a toilet?",
+   "answer": "the bathroom",
+   "distractors": [
+    "the kitchen",
+    "the living room",
+    "the hall"
+   ],
+   "explanation": "The bathroom has a shower and toilet.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "We watch TV in the ___.",
+   "answer": "living room",
+   "distractors": [
+    "bathroom",
+    "garage",
+    "bedroom cupboard"
+   ],
+   "explanation": "The living room is for relaxing and watching TV.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "You put clothes in a ___.",
+   "answer": "wardrobe",
+   "distractors": [
+    "fridge",
+    "sink",
+    "cooker"
+   ],
+   "explanation": "Clothes go in a wardrobe.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The opposite of 'clean' is ___.",
+   "answer": "dirty",
+   "distractors": [
+    "tidy",
+    "new",
+    "empty"
+   ],
+   "explanation": "Clean and dirty are opposites.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The opposite of 'long' is ___.",
+   "answer": "short",
+   "distractors": [
+    "small",
+    "thin",
+    "low"
+   ],
+   "explanation": "Long and short are opposites.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The opposite of 'happy' is ___.",
+   "answer": "sad",
+   "distractors": [
+    "tired",
+    "hungry",
+    "angry with"
+   ],
+   "explanation": "Happy and sad are opposites.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The opposite of 'easy' is ___.",
+   "answer": "difficult",
+   "distractors": [
+    "cheap",
+    "slow",
+    "boring"
+   ],
+   "explanation": "Easy and difficult are opposites.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The opposite of 'old' (for a person) is ___.",
+   "answer": "young",
+   "distractors": [
+    "new",
+    "short",
+    "small"
+   ],
+   "explanation": "For people: old and young; for things: old and new.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The opposite of 'fast' is ___.",
+   "answer": "slow",
+   "distractors": [
+    "late",
+    "short",
+    "quiet"
+   ],
+   "explanation": "Fast and slow are opposites.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The opposite of 'full' is ___.",
+   "answer": "empty",
+   "distractors": [
+    "open",
+    "light",
+    "thin"
+   ],
+   "explanation": "A full glass vs an empty glass.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The opposite of 'right' (direction) is ___.",
+   "answer": "left",
+   "distractors": [
+    "wrong",
+    "straight",
+    "back"
+   ],
+   "explanation": "Turn right or turn left.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "What is 15 + 15?",
+   "answer": "thirty",
+   "distractors": [
+    "thirteen",
+    "fifty",
+    "forty"
+   ],
+   "explanation": "15 + 15 = 30.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "What comes after 'nineteen'?",
+   "answer": "twenty",
+   "distractors": [
+    "ninety",
+    "eighteen",
+    "twelve"
+   ],
+   "explanation": "19, 20...",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Which is the third month of the year?",
+   "answer": "March",
+   "distractors": [
+    "May",
+    "January",
+    "April"
+   ],
+   "explanation": "January, February, March.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The day before Friday is ___.",
+   "answer": "Thursday",
+   "distractors": [
+    "Saturday",
+    "Tuesday",
+    "Sunday"
+   ],
+   "explanation": "Thursday comes before Friday.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Saturday and Sunday are the ___.",
+   "answer": "weekend",
+   "distractors": [
+    "weekdays",
+    "week",
+    "holiday week"
+   ],
+   "explanation": "Saturday and Sunday are the weekend.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "What season comes after summer?",
+   "answer": "autumn",
+   "distractors": [
+    "spring",
+    "winter",
+    "June"
+   ],
+   "explanation": "Spring, summer, autumn, winter.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "It's 12 o'clock at night. It's ___.",
+   "answer": "midnight",
+   "distractors": [
+    "midday",
+    "morning",
+    "afternoon"
+   ],
+   "explanation": "12 at night is midnight.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "60 minutes make one ___.",
+   "answer": "hour",
+   "distractors": [
+    "second",
+    "day",
+    "week"
+   ],
+   "explanation": "An hour has 60 minutes.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "What colour is the sky on a sunny day?",
+   "answer": "blue",
+   "distractors": [
+    "red",
+    "black",
+    "brown"
+   ],
+   "explanation": "A clear sky is blue.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Which one is a bird?",
+   "answer": "eagle",
+   "distractors": [
+    "eel",
+    "elephant",
+    "earth"
+   ],
+   "explanation": "An eagle is a bird.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Which animal gives us wool?",
+   "answer": "a sheep",
+   "distractors": [
+    "a horse",
+    "a chicken",
+    "a fish"
+   ],
+   "explanation": "Wool comes from sheep.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Which one is a drink?",
+   "answer": "juice",
+   "distractors": [
+    "cheese",
+    "bread",
+    "rice"
+   ],
+   "explanation": "Juice is something you drink.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Which one is a vegetable?",
+   "answer": "carrot",
+   "distractors": [
+    "apple",
+    "orange",
+    "grape"
+   ],
+   "explanation": "A carrot is a vegetable.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "You wear a ___ on your head.",
+   "answer": "hat",
+   "distractors": [
+    "sock",
+    "glove",
+    "belt"
+   ],
+   "explanation": "A hat goes on your head.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "You wear ___ on your hands when it is cold.",
+   "answer": "gloves",
+   "distractors": [
+    "boots",
+    "scarves",
+    "socks"
+   ],
+   "explanation": "Gloves keep your hands warm.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "You see with your ___.",
+   "answer": "eyes",
+   "distractors": [
+    "ears",
+    "nose",
+    "mouth"
+   ],
+   "explanation": "We see with our eyes.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "You hear with your ___.",
+   "answer": "ears",
+   "distractors": [
+    "eyes",
+    "hands",
+    "feet"
+   ],
+   "explanation": "We hear with our ears.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "A person who sells things in a shop is a ___.",
+   "answer": "shop assistant",
+   "distractors": [
+    "customer",
+    "cook",
+    "pilot"
+   ],
+   "explanation": "A shop assistant serves customers.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "A person who looks after sick people in hospital is a ___.",
+   "answer": "nurse",
+   "distractors": [
+    "farmer",
+    "waiter",
+    "driver"
+   ],
+   "explanation": "Nurses care for patients.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "A ___ grows food on a farm.",
+   "answer": "farmer",
+   "distractors": [
+    "chef",
+    "dentist",
+    "builder"
+   ],
+   "explanation": "Farmers grow food.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "You go to a ___ when you have toothache.",
+   "answer": "dentist",
+   "distractors": [
+    "vet",
+    "mechanic",
+    "hairdresser"
+   ],
+   "explanation": "A dentist looks after teeth.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "You catch a train at the ___.",
+   "answer": "station",
+   "distractors": [
+    "airport",
+    "port",
+    "garage"
+   ],
+   "explanation": "Trains leave from a station.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "You buy medicine at a ___.",
+   "answer": "pharmacy",
+   "distractors": [
+    "bakery",
+    "butcher's",
+    "bookshop"
+   ],
+   "explanation": "A pharmacy (chemist's) sells medicine.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "You buy bread at a ___.",
+   "answer": "bakery",
+   "distractors": [
+    "library",
+    "bank",
+    "post office"
+   ],
+   "explanation": "A bakery sells bread.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "You keep your money in a ___.",
+   "answer": "wallet",
+   "distractors": [
+    "watch",
+    "pocket knife",
+    "suitcase"
+   ],
+   "explanation": "A wallet holds money and cards.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "It's very sunny. Put on your ___.",
+   "answer": "sunglasses",
+   "distractors": [
+    "umbrella",
+    "scarf",
+    "gloves"
+   ],
+   "explanation": "Sunglasses protect your eyes from the sun.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "What do you say when you give someone something?",
+   "answer": "Here you are.",
+   "distractors": [
+    "Excuse me.",
+    "Bless you.",
+    "Never mind."
+   ],
+   "explanation": "'Here you are' is said when giving something.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "What do you say when you want to get past someone?",
+   "answer": "Excuse me.",
+   "distractors": [
+    "Thank you.",
+    "You're welcome.",
+    "Good night."
+   ],
+   "explanation": "'Excuse me' politely asks someone to move.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "How are you? — ___",
+   "answer": "Fine, thanks.",
+   "distractors": [
+    "I'm 20.",
+    "I'm a teacher.",
+    "Nice to meet you, too."
+   ],
+   "explanation": "'Fine, thanks' answers 'How are you?'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Nice to meet you. — ___",
+   "answer": "Nice to meet you, too.",
+   "distractors": [
+    "You're welcome.",
+    "I'm fine.",
+    "Goodbye."
+   ],
+   "explanation": "We answer with 'Nice to meet you, too'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I'm sorry. I don't ___. Can you say it again?",
+   "answer": "understand",
+   "distractors": [
+    "know",
+    "speak",
+    "listen"
+   ],
+   "explanation": "'I don't understand' asks for repetition.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Can I ___ by card?",
+   "answer": "pay",
+   "distractors": [
+    "buy",
+    "spend",
+    "cost"
+   ],
+   "explanation": "You pay by card or in cash.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "How much does it ___? — £3.",
+   "answer": "cost",
+   "distractors": [
+    "pay",
+    "buy",
+    "price"
+   ],
+   "explanation": "'How much does it cost?' asks the price.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I ___ my teeth every morning.",
+   "answer": "brush",
+   "distractors": [
+    "wash up",
+    "comb",
+    "cut"
+   ],
+   "explanation": "You brush your teeth.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "She ___ a shower before work.",
+   "answer": "has",
+   "distractors": [
+    "does",
+    "makes",
+    "takes up"
+   ],
+   "explanation": "We say 'have a shower'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "They ___ their homework after school.",
+   "answer": "do",
+   "distractors": [
+    "make",
+    "have",
+    "play"
+   ],
+   "explanation": "We say 'do homework'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "He ___ dinner for the family.",
+   "answer": "makes",
+   "distractors": [
+    "does",
+    "plays",
+    "goes"
+   ],
+   "explanation": "We say 'make dinner' (or cook dinner).",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I ___ football on Saturdays.",
+   "answer": "play",
+   "distractors": [
+    "do",
+    "go",
+    "make"
+   ],
+   "explanation": "We 'play' ball games.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "We ___ swimming in the summer.",
+   "answer": "go",
+   "distractors": [
+    "play",
+    "do",
+    "make"
+   ],
+   "explanation": "We say 'go swimming'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The train ___ at 9 and arrives at 11.",
+   "answer": "leaves",
+   "distractors": [
+    "goes out",
+    "opens",
+    "starts off"
+   ],
+   "explanation": "Trains leave and arrive.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "It's raining. The streets are ___.",
+   "answer": "wet",
+   "distractors": [
+    "dry",
+    "dirty",
+    "sunny"
+   ],
+   "explanation": "Rain makes streets wet.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "It's 30 degrees. It's ___.",
+   "answer": "hot",
+   "distractors": [
+    "cold",
+    "cool",
+    "snowy"
+   ],
+   "explanation": "30°C is hot.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "There's no wind and no clouds. The weather is ___.",
+   "answer": "lovely",
+   "distractors": [
+    "terrible",
+    "stormy",
+    "foggy"
+   ],
+   "explanation": "Clear calm weather is lovely.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "My phone is old and ___. It doesn't work.",
+   "answer": "broken",
+   "distractors": [
+    "cheap",
+    "new",
+    "closed"
+   ],
+   "explanation": "A broken phone doesn't work.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The street is very ___ at night. There are no people.",
+   "answer": "quiet",
+   "distractors": [
+    "noisy",
+    "busy",
+    "crowded"
+   ],
+   "explanation": "Few people and little noise: quiet.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I'm ___. I want to sleep.",
+   "answer": "tired",
+   "distractors": [
+    "thirsty",
+    "hungry",
+    "happy"
+   ],
+   "explanation": "When you want to sleep you're tired.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "What do you call the meal in the middle of the day?",
+   "answer": "lunch",
+   "distractors": [
+    "breakfast",
+    "dinner",
+    "supper time"
+   ],
+   "explanation": "The midday meal is lunch.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Which word means 'not on time'?",
+   "answer": "late",
+   "distractors": [
+    "early",
+    "soon",
+    "quick"
+   ],
+   "explanation": "Late means after the right time.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "You can see animals at the ___.",
+   "answer": "zoo",
+   "distractors": [
+    "bank",
+    "library",
+    "office"
+   ],
+   "explanation": "Zoos keep animals for people to see.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "You can borrow books from the ___.",
+   "answer": "library",
+   "distractors": [
+    "bookshop",
+    "museum",
+    "newsagent's"
+   ],
+   "explanation": "Libraries lend books.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I send messages with my ___.",
+   "answer": "phone",
+   "distractors": [
+    "television",
+    "fridge",
+    "oven"
+   ],
+   "explanation": "We send messages with phones.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Which word is a job?",
+   "answer": "waiter",
+   "distractors": [
+    "weather",
+    "water",
+    "winter"
+   ],
+   "explanation": "A waiter works in a restaurant.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Which word is a part of the body?",
+   "answer": "knee",
+   "distractors": [
+    "key",
+    "kite",
+    "kitchen"
+   ],
+   "explanation": "The knee is part of the leg.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Which is a means of transport?",
+   "answer": "bus",
+   "distractors": [
+    "bed",
+    "box",
+    "bag"
+   ],
+   "explanation": "A bus is transport.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I need some ___ to write on.",
+   "answer": "paper",
+   "distractors": [
+    "pen",
+    "ink",
+    "ruler"
+   ],
+   "explanation": "You write on paper.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "In winter it sometimes ___ in Scotland.",
+   "answer": "snows",
+   "distractors": [
+    "sunny",
+    "hot",
+    "snowy"
+   ],
+   "explanation": "The verb is 'snow': it snows.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Monday is the ___ day of the working week.",
+   "answer": "first",
+   "distractors": [
+    "one",
+    "last",
+    "second"
+   ],
+   "explanation": "Monday is the first working day.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The bus stop is ___ the street from my house — on the other side.",
+   "answer": "across",
+   "distractors": [
+    "along",
+    "through",
+    "under"
+   ],
+   "explanation": "Across = on the other side.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Turn ___ at the traffic lights and the bank is on your right.",
+   "answer": "left",
+   "distractors": [
+    "leave",
+    "lift",
+    "lost"
+   ],
+   "explanation": "'Turn left' gives a direction.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Go ___ on, then take the second street.",
+   "answer": "straight",
+   "distractors": [
+    "strong",
+    "strange",
+    "still"
+   ],
+   "explanation": "'Go straight on' means continue forward.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "A ___ has 365 days.",
+   "answer": "year",
+   "distractors": [
+    "month",
+    "week",
+    "century"
+   ],
+   "explanation": "A year has 365 days.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Which one is something you drink?",
+   "answer": "lemonade",
+   "distractors": [
+    "lemon cake",
+    "lettuce",
+    "lamb"
+   ],
+   "explanation": "Lemonade is a drink.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I'm cold. Can you close the ___?",
+   "answer": "window",
+   "distractors": [
+    "floor",
+    "wall",
+    "table"
+   ],
+   "explanation": "Closing a window keeps the cold out.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "There's someone at the ___. Can you open it?",
+   "answer": "door",
+   "distractors": [
+    "roof",
+    "floor",
+    "ceiling"
+   ],
+   "explanation": "People knock at the door.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I need to wash my clothes. Where is the washing ___?",
+   "answer": "machine",
+   "distractors": [
+    "maker",
+    "cooker",
+    "engine"
+   ],
+   "explanation": "A washing machine washes clothes.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "What time is it? — It's ___ past three. (3:30)",
+   "answer": "half",
+   "distractors": [
+    "quarter",
+    "twenty",
+    "ten"
+   ],
+   "explanation": "3:30 is half past three.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "What time is it? — It's a ___ to five. (4:45)",
+   "answer": "quarter",
+   "distractors": [
+    "half",
+    "third",
+    "ten"
+   ],
+   "explanation": "4:45 is a quarter to five.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "A ___ is a person who studies at a school or university.",
+   "answer": "student",
+   "distractors": [
+    "teacher",
+    "doctor",
+    "cleaner"
+   ],
+   "explanation": "Students study.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Please sit ___. The doctor will see you soon.",
+   "answer": "down",
+   "distractors": [
+    "up",
+    "off",
+    "on"
+   ],
+   "explanation": "'Sit down' means take a seat.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Please stand ___ when the teacher comes in.",
+   "answer": "up",
+   "distractors": [
+    "down",
+    "off",
+    "over"
+   ],
+   "explanation": "'Stand up' means get on your feet.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I'm sorry, the shop is ___. It opens at nine.",
+   "answer": "closed",
+   "distractors": [
+    "open",
+    "empty",
+    "finished"
+   ],
+   "explanation": "Before opening time a shop is closed.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The film is very ___. Everyone is laughing.",
+   "answer": "funny",
+   "distractors": [
+    "sad",
+    "scary",
+    "boring"
+   ],
+   "explanation": "Funny things make people laugh.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I love this song. It's ___!",
+   "answer": "great",
+   "distractors": [
+    "terrible",
+    "awful",
+    "bad"
+   ],
+   "explanation": "Great means very good.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Her house has a garden with lots of ___.",
+   "answer": "trees",
+   "distractors": [
+    "trains",
+    "trucks",
+    "tickets"
+   ],
+   "explanation": "Gardens have trees and flowers.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "We have English lessons in ___ 12.",
+   "answer": "room",
+   "distractors": [
+    "home",
+    "house",
+    "flat"
+   ],
+   "explanation": "Classrooms are numbered: room 12.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Can you spell your ___, please? — S-M-I-T-H.",
+   "answer": "surname",
+   "distractors": [
+    "address",
+    "age",
+    "phone number"
+   ],
+   "explanation": "A surname is a family name.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "What's your ___? — 14 King Street, Bath.",
+   "answer": "address",
+   "distractors": [
+    "name",
+    "job",
+    "email password"
+   ],
+   "explanation": "Your address is where you live.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I'm from Spain. I'm ___.",
+   "answer": "Spanish",
+   "distractors": [
+    "Spain",
+    "Spainish",
+    "Spanian"
+   ],
+   "explanation": "The nationality from Spain is Spanish.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "She is from France. She speaks ___.",
+   "answer": "French",
+   "distractors": [
+    "France",
+    "Franch",
+    "Frenchy"
+   ],
+   "explanation": "People from France speak French.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Who does Maya live with?",
+   "answer": "her mum and her grandfather",
+   "distractors": [
+    "her mum and dad",
+    "her grandmother",
+    "her dad in Bath"
+   ],
+   "explanation": "'She lives in Bristol with her mum and her grandfather.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_MAYA"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Who takes Maya to school?",
+   "answer": "her grandfather",
+   "distractors": [
+    "her mum",
+    "her dad",
+    "nobody — she walks alone"
+   ],
+   "explanation": "'Every morning her grandfather takes her to school.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_MAYA"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Which lesson does Maya like most?",
+   "answer": "art",
+   "distractors": [
+    "maths",
+    "English",
+    "music"
+   ],
+   "explanation": "'Maya's favourite lesson is art.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_MAYA"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What kind of animal is Biscuit?",
+   "answer": "her dog",
+   "distractors": [
+    "her cat",
+    "her friend",
+    "a cake shop"
+   ],
+   "explanation": "'She plays with her dog, Biscuit.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_MAYA"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Where does Maya's dad live?",
+   "answer": "in Bath",
+   "distractors": [
+    "in Bristol",
+    "in the park",
+    "with Maya"
+   ],
+   "explanation": "'On Sundays she visits her dad in Bath.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_MAYA"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Can you have lunch at Rosie's Café at 1 pm?",
+   "answer": "Yes",
+   "distractors": [
+    "No, only breakfast",
+    "No, it is closed",
+    "Only on Mondays"
+   ],
+   "explanation": "'Lunch 12 – 3 pm.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_CAFE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "How much is a sandwich?",
+   "answer": "£4.50",
+   "distractors": [
+    "£2",
+    "£3.50",
+    "£4"
+   ],
+   "explanation": "'Sandwiches £4.50.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_CAFE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "When is the café closed?",
+   "answer": "on Mondays",
+   "distractors": [
+    "on Sundays",
+    "every evening",
+    "at lunchtime"
+   ],
+   "explanation": "'Closed on Mondays.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_CAFE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "You buy soup and a tea. How much do you pay?",
+   "answer": "£5.50",
+   "distractors": [
+    "£4.50",
+    "£6.50",
+    "£5"
+   ],
+   "explanation": "Soup £3.50 + tea £2 = £5.50.",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_CAFE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What is Joe's job?",
+   "answer": "bus driver",
+   "distractors": [
+    "teacher",
+    "cook",
+    "taxi driver"
+   ],
+   "explanation": "'I'm a bus driver in Manchester.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_JOE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Why does Joe get up very early?",
+   "answer": "He starts work at six.",
+   "distractors": [
+    "He takes his sons to school.",
+    "He goes running.",
+    "He finishes at two."
+   ],
+   "explanation": "'I start work at six in the morning, so I get up very early.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_JOE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What does Joe do after he sleeps in the afternoon?",
+   "answer": "He cooks dinner.",
+   "distractors": [
+    "He goes to work.",
+    "He teaches.",
+    "He drives the bus."
+   ],
+   "explanation": "'...then I cook dinner.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_JOE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "How many children does Joe have?",
+   "answer": "two",
+   "distractors": [
+    "one",
+    "three",
+    "four"
+   ],
+   "explanation": "'We have two sons, Leo and Max.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_JOE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Where did the writer go on Saturday?",
+   "answer": "to the market",
+   "distractors": [
+    "to the cinema",
+    "to the beach",
+    "to school"
+   ],
+   "explanation": "'On Saturday I went to the market with my sister.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_WEEKEND"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What did they buy?",
+   "answer": "fruit and a bag",
+   "distractors": [
+    "a film and fruit",
+    "board games",
+    "a new phone"
+   ],
+   "explanation": "'We bought fruit and a new bag for her.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_WEEKEND"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Why did they stay at home on Sunday?",
+   "answer": "It rained.",
+   "distractors": [
+    "They were ill.",
+    "The market was closed.",
+    "They had homework."
+   ],
+   "explanation": "'On Sunday it rained, so we stayed in.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_WEEKEND"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "How did the writer feel on Monday?",
+   "answer": "very tired",
+   "distractors": [
+    "very happy",
+    "bored",
+    "hungry"
+   ],
+   "explanation": "'I was very tired on Monday!'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_WEEKEND"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "When does the swimming pool close?",
+   "answer": "at 9 pm",
+   "distractors": [
+    "at 7 am",
+    "at 8 pm",
+    "at midnight"
+   ],
+   "explanation": "'Open every day 7 am – 9 pm.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_SIGN"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "A 6-year-old wants to swim. What must happen?",
+   "answer": "An adult must go with the child.",
+   "distractors": [
+    "The child can't swim.",
+    "The child must pay more.",
+    "The child must swim in the morning."
+   ],
+   "explanation": "'Children under 8 must be with an adult.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_SIGN"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What must you do before you swim?",
+   "answer": "have a shower",
+   "distractors": [
+    "eat something",
+    "buy a drink",
+    "go to the café"
+   ],
+   "explanation": "'Please have a shower before you swim.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_SIGN"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What can't you do in the pool area?",
+   "answer": "eat or drink",
+   "distractors": [
+    "swim",
+    "take a shower",
+    "go with an adult"
+   ],
+   "explanation": "'No food or drinks in the pool area.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_SIGN"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Which floor is the flat on?",
+   "answer": "the third floor",
+   "distractors": [
+    "the ground floor",
+    "the first floor",
+    "the top floor"
+   ],
+   "explanation": "'I live in a flat on the third floor.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_FLAT"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "How many bedrooms does the flat have?",
+   "answer": "two",
+   "distractors": [
+    "one",
+    "three",
+    "four"
+   ],
+   "explanation": "'It has two bedrooms.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_FLAT"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Where are the plants?",
+   "answer": "on the balcony",
+   "distractors": [
+    "in the garden",
+    "in the kitchen",
+    "at the station"
+   ],
+   "explanation": "'There is a balcony with lots of plants.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_FLAT"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "How does the writer go to the train?",
+   "answer": "on foot",
+   "distractors": [
+    "by bus",
+    "by car",
+    "by bike"
+   ],
+   "explanation": "'I walk to the train every day.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_FLAT"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Where is Tom's dad?",
+   "answer": "at the supermarket",
+   "distractors": [
+    "at home",
+    "at work",
+    "at the station"
+   ],
+   "explanation": "'I'm at the supermarket.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_TEXT"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What does Dad want to know?",
+   "answer": "if they have rice",
+   "distractors": [
+    "if Tom wants eggs",
+    "when Tom gets home",
+    "where the supermarket is"
+   ],
+   "explanation": "'Do we have rice?'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_TEXT"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "When should Tom answer?",
+   "answer": "before 5 pm",
+   "distractors": [
+    "after 5 pm",
+    "tomorrow",
+    "at home"
+   ],
+   "explanation": "'Text me before 5 pm.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_TEXT"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Where does Aiko live?",
+   "answer": "in Osaka",
+   "distractors": [
+    "in London",
+    "in Tokyo",
+    "in Leeds"
+   ],
+   "explanation": "'She lives in Osaka, in Japan.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_PEN"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What instrument does Aiko play?",
+   "answer": "the piano",
+   "distractors": [
+    "the guitar",
+    "the violin",
+    "the drums"
+   ],
+   "explanation": "'She plays the piano.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_PEN"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What is Aiko's favourite food?",
+   "answer": "sushi",
+   "distractors": [
+    "pizza",
+    "fish and chips",
+    "rice and beans"
+   ],
+   "explanation": "'Her favourite food is sushi.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_PEN"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "When does Aiko want to visit London?",
+   "answer": "next summer",
+   "distractors": [
+    "this weekend",
+    "next winter",
+    "in two years"
+   ],
+   "explanation": "'She wants to visit London next summer.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_PEN"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "On which days is the English class?",
+   "answer": "Tuesdays and Thursdays",
+   "distractors": [
+    "Mondays and Wednesdays",
+    "every day",
+    "Saturdays"
+   ],
+   "explanation": "'Our English class is on Tuesdays and Thursdays.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_CLASS"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "How long is each class?",
+   "answer": "two hours",
+   "distractors": [
+    "one hour",
+    "three hours",
+    "half an hour"
+   ],
+   "explanation": "From 6 to 8 pm is two hours.",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_CLASS"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "How many students are there?",
+   "answer": "twelve",
+   "distractors": [
+    "six",
+    "two",
+    "twenty"
+   ],
+   "explanation": "'There are twelve students in the class.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_CLASS"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What do some students do after the class?",
+   "answer": "go to a café",
+   "distractors": [
+    "play football",
+    "go home by bus",
+    "do homework at school"
+   ],
+   "explanation": "'Some students go to the café for a cup of tea.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_CLASS"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What colour is Luna?",
+   "answer": "black with a white nose",
+   "distractors": [
+    "white with a black nose",
+    "red",
+    "grey"
+   ],
+   "explanation": "'Small black cat... She has a white nose.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_LOST"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Where was Luna last seen?",
+   "answer": "on Hill Road",
+   "distractors": [
+    "at Ben's house",
+    "in the park",
+    "at the vet's"
+   ],
+   "explanation": "'She was last seen on Hill Road.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_LOST"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "When was Luna last seen?",
+   "answer": "on Friday evening",
+   "distractors": [
+    "on Friday morning",
+    "on Saturday",
+    "yesterday"
+   ],
+   "explanation": "'...on Friday evening.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_LOST"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Where is the market?",
+   "answer": "in the town square",
+   "distractors": [
+    "at the station",
+    "in the park",
+    "next to the school"
+   ],
+   "explanation": "'The Saturday market is in the town square.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_MARKET"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "When does the market close?",
+   "answer": "at 2 pm",
+   "distractors": [
+    "at 8 am",
+    "at 5 pm",
+    "at midnight"
+   ],
+   "explanation": "'It opens at 8 am and closes at 2 pm.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_MARKET"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Why do many people go there in the morning?",
+   "answer": "to have breakfast",
+   "distractors": [
+    "to buy cars",
+    "to see films",
+    "to work"
+   ],
+   "explanation": "'Many people go there for breakfast.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_MARKET"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Which of these can you NOT buy at the market, according to the text?",
+   "answer": "shoes",
+   "distractors": [
+    "cheese",
+    "flowers",
+    "vegetables"
+   ],
+   "explanation": "The text lists fruit, vegetables, cheese, flowers and hot food.",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_MARKET"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Where is Emma's hotel?",
+   "answer": "next to the beach",
+   "distractors": [
+    "in the town centre",
+    "in a castle",
+    "on a boat"
+   ],
+   "explanation": "'Our hotel is next to the beach.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_TRIP"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What did Emma do yesterday?",
+   "answer": "went on a boat",
+   "distractors": [
+    "visited a castle",
+    "stayed in the hotel",
+    "went home"
+   ],
+   "explanation": "'Yesterday Dad took us on a boat.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_TRIP"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What will they do tomorrow?",
+   "answer": "go to a castle",
+   "distractors": [
+    "swim in the sea",
+    "go on a boat",
+    "go home"
+   ],
+   "explanation": "'Tomorrow we are going to a castle.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_TRIP"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Who is the postcard for?",
+   "answer": "Emma's grandmother",
+   "distractors": [
+    "Emma's dad",
+    "Emma's friend",
+    "the hotel"
+   ],
+   "explanation": "'Dear Grandma'.",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_TRIP"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "How often does bus 22 run at 10 am on a Tuesday?",
+   "answer": "every 15 minutes",
+   "distractors": [
+    "every 30 minutes",
+    "every hour",
+    "it doesn't run"
+   ],
+   "explanation": "Monday to Saturday: every 15 minutes from 6 am to 7 pm.",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_BUS"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "How often does it run on Sundays?",
+   "answer": "every hour",
+   "distractors": [
+    "every 15 minutes",
+    "every 30 minutes",
+    "not at all"
+   ],
+   "explanation": "'Sunday: every hour from 9 am to 6 pm.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_BUS"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "You want to travel many times in one day. What is the best ticket?",
+   "answer": "a day ticket",
+   "distractors": [
+    "a single ticket",
+    "two single tickets",
+    "a Sunday ticket"
+   ],
+   "explanation": "A day ticket (£5) is for the whole day.",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_BUS"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What is the last time a bus runs on a weekday?",
+   "answer": "11 pm",
+   "distractors": [
+    "7 pm",
+    "6 pm",
+    "9 pm"
+   ],
+   "explanation": "'...then every 30 minutes until 11 pm.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_BUS"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Where is Daniel from?",
+   "answer": "Poland",
+   "distractors": [
+    "Leeds",
+    "England",
+    "the library"
+   ],
+   "explanation": "'I'm from Poland but I live in Leeds now.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_NEW"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What languages does Daniel speak?",
+   "answer": "Polish and a little English",
+   "distractors": [
+    "only English",
+    "English and French",
+    "only Polish"
+   ],
+   "explanation": "'I speak Polish and a little English.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_NEW"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What does Daniel need help with?",
+   "answer": "finding the library",
+   "distractors": [
+    "learning Polish",
+    "playing football",
+    "finding class 7B"
+   ],
+   "explanation": "'Can somebody help me find the library?'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_NEW"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Which class is Daniel in?",
+   "answer": "7B",
+   "distractors": [
+    "6B",
+    "7A",
+    "8B"
+   ],
+   "explanation": "'I'm in class 7B.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_NEW"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What does Joe's wife do?",
+   "answer": "She is a teacher.",
+   "distractors": [
+    "She is a bus driver.",
+    "She is a cook.",
+    "She doesn't work."
+   ],
+   "explanation": "'My wife is a teacher.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_JOE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Is there free internet at Rosie's Café?",
+   "answer": "Yes",
+   "distractors": [
+    "No",
+    "Only at lunch",
+    "Only for £2"
+   ],
+   "explanation": "'Free Wi-Fi.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_CAFE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "How old is Aiko?",
+   "answer": "15",
+   "distractors": [
+    "9",
+    "12",
+    "50"
+   ],
+   "explanation": "'She is 15.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_PEN"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What does Luna wear?",
+   "answer": "a red collar",
+   "distractors": [
+    "a white collar",
+    "a bell",
+    "a blue coat"
+   ],
+   "explanation": "'She has... a red collar.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_LOST"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What is the weather like in Cornwall?",
+   "answer": "warm and sunny",
+   "distractors": [
+    "cold and rainy",
+    "windy",
+    "snowy"
+   ],
+   "explanation": "'The weather is warm and sunny.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_TRIP"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What doesn't Maya like?",
+   "answer": "maths",
+   "distractors": [
+    "art",
+    "her dog",
+    "the park"
+   ],
+   "explanation": "'She doesn't like maths.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_MAYA"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Who teaches the English class?",
+   "answer": "Mr Green",
+   "distractors": [
+    "Mr Brown",
+    "Mrs Green",
+    "one of the students"
+   ],
+   "explanation": "'The teacher is Mr Green.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_CLASS"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What did they do on Saturday evening?",
+   "answer": "watched a film",
+   "distractors": [
+    "went to the market",
+    "played board games",
+    "went swimming"
+   ],
+   "explanation": "'In the evening we watched a film at home.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_WEEKEND"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Where does the customer want to go?",
+   "answer": "Oxford",
+   "distractors": [
+    "London",
+    "Platform 4",
+    "the airport"
+   ],
+   "explanation": "'I'd like a ticket to Oxford.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_DIALOGUE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What kind of ticket does the customer buy?",
+   "answer": "a return ticket",
+   "distractors": [
+    "a single ticket",
+    "a day ticket",
+    "two tickets"
+   ],
+   "explanation": "'Return, please.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_DIALOGUE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "How much is the ticket?",
+   "answer": "£18",
+   "distractors": [
+    "£10.15",
+    "£4",
+    "£8"
+   ],
+   "explanation": "'That's £18.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_DIALOGUE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "How does the customer pay?",
+   "answer": "by card",
+   "distractors": [
+    "in cash",
+    "by phone",
+    "he doesn't pay"
+   ],
+   "explanation": "'Can I pay by card? — Of course.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_DIALOGUE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What time does the train leave?",
+   "answer": "10:15",
+   "distractors": [
+    "10:40",
+    "4:15",
+    "10:04"
+   ],
+   "explanation": "'The train leaves from platform 4 at 10:15.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_DIALOGUE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Where does Nadia work?",
+   "answer": "in a hotel",
+   "distractors": [
+    "in a restaurant",
+    "in a school",
+    "in Egypt"
+   ],
+   "explanation": "'Nadia works in a hotel.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_DAYOFF"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "What does Nadia do on Saturday morning?",
+   "answer": "She sleeps late and has a big breakfast.",
+   "distractors": [
+    "She goes to work.",
+    "She has a cooking class.",
+    "She goes shopping."
+   ],
+   "explanation": "'She sleeps late and has a big breakfast.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_DAYOFF"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Who does Nadia phone?",
+   "answer": "her mother",
+   "distractors": [
+    "her friends",
+    "her boss",
+    "her cooking teacher"
+   ],
+   "explanation": "'Then she phones her mother in Egypt.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_DAYOFF"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Why does Nadia go to bed early on Saturday?",
+   "answer": "She has a cooking class on Sunday.",
+   "distractors": [
+    "She works on Sunday.",
+    "She is ill.",
+    "Her mother visits."
+   ],
+   "explanation": "'...because on Sunday she has a cooking class.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_DAYOFF"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Why is the library closed on 12th May?",
+   "answer": "for cleaning",
+   "distractors": [
+    "for a holiday",
+    "because of new books",
+    "because it is Saturday"
+   ],
+   "explanation": "'...closed on Friday 12th May for cleaning.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_NOTICE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "From 15th May, when does the library close on weekdays?",
+   "answer": "7 pm",
+   "distractors": [
+    "4 pm",
+    "9 pm",
+    "6 pm"
+   ],
+   "explanation": "'Monday to Friday 9 am – 7 pm.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_NOTICE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "How many books can you borrow now?",
+   "answer": "ten",
+   "distractors": [
+    "five",
+    "four",
+    "twelve"
+   ],
+   "explanation": "'You can now borrow ten books at a time.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_NOTICE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "When does the library open on Saturdays?",
+   "answer": "10 am",
+   "distractors": [
+    "9 am",
+    "4 pm",
+    "7 pm"
+   ],
+   "explanation": "'Saturday 10 am – 4 pm.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_NOTICE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Which platform does the train leave from?",
+   "answer": "4",
+   "distractors": [
+    "10",
+    "15",
+    "18"
+   ],
+   "explanation": "'...from platform 4.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_DIALOGUE"
+  },
+  {
+   "level": "A1",
+   "skill": "reading",
+   "prompt": "Where is Nadia's mother?",
+   "answer": "in Egypt",
+   "distractors": [
+    "in the hotel",
+    "in England",
+    "at the shops"
+   ],
+   "explanation": "'...her mother in Egypt.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A1P_DAYOFF"
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "There ___ a lot of people at the concert last night.",
+   "answer": "were",
+   "distractors": [
+    "was",
+    "are",
+    "is"
+   ],
+   "explanation": "Past + plural: there were.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "My sister and I ___ twins.",
+   "answer": "are",
+   "distractors": [
+    "is",
+    "am",
+    "be"
+   ],
+   "explanation": "'My sister and I' = we: are.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "___ your teacher from Canada?",
+   "answer": "Is",
+   "distractors": [
+    "Are",
+    "Do",
+    "Does"
+   ],
+   "explanation": "Singular subject + be: Is.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I don't like coffee, and my wife doesn't like it ___.",
+   "answer": "either",
+   "distractors": [
+    "too",
+    "also",
+    "neither"
+   ],
+   "explanation": "In negative sentences we use 'either'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "This bag is ___. It belongs to me.",
+   "answer": "mine",
+   "distractors": [
+    "my",
+    "me",
+    "I"
+   ],
+   "explanation": "Without a noun: possessive pronoun 'mine'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "He ___ his keys yesterday.",
+   "answer": "lost",
+   "distractors": [
+    "losed",
+    "lose",
+    "loses"
+   ],
+   "explanation": "'Lose' has an irregular past: lost.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "We ___ to music in the car.",
+   "answer": "often listen",
+   "distractors": [
+    "listen often",
+    "often listens",
+    "are often listen"
+   ],
+   "explanation": "Frequency adverb before the main verb.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "There's ___ milk in the fridge. Can you buy some?",
+   "answer": "no",
+   "distractors": [
+    "any",
+    "not",
+    "none"
+   ],
+   "explanation": "'No' + noun = not any.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "I ___ my grandparents last Sunday.",
+   "answer": "visited",
+   "distractors": [
+    "visit",
+    "visits",
+    "visiting"
+   ],
+   "explanation": "'Last Sunday' needs the past simple.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "grammar",
+   "prompt": "The children ___ asleep now.",
+   "answer": "are",
+   "distractors": [
+    "is",
+    "be",
+    "am"
+   ],
+   "explanation": "'The children' is plural: are.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "It's my sister's birthday. I'm buying her a ___.",
+   "answer": "present",
+   "distractors": [
+    "parent",
+    "postcard stamp",
+    "price"
+   ],
+   "explanation": "A present is a gift.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I'm ill. I'm going to see the ___.",
+   "answer": "doctor",
+   "distractors": [
+    "teacher",
+    "driver",
+    "cook"
+   ],
+   "explanation": "Doctors help ill people.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "What is the opposite of 'buy'?",
+   "answer": "sell",
+   "distractors": [
+    "pay",
+    "spend",
+    "cost"
+   ],
+   "explanation": "You buy from someone who sells.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "What is the opposite of 'open'?",
+   "answer": "close",
+   "distractors": [
+    "shut up",
+    "stop",
+    "end"
+   ],
+   "explanation": "To open or to close a door.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "What is the opposite of 'come'?",
+   "answer": "go",
+   "distractors": [
+    "stay",
+    "leave on",
+    "arrive"
+   ],
+   "explanation": "Come and go are opposites.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "A small house for a dog is a ___.",
+   "answer": "kennel",
+   "distractors": [
+    "cage",
+    "nest",
+    "stable"
+   ],
+   "explanation": "Dogs can sleep in a kennel.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I need a ___ to send this letter.",
+   "answer": "stamp",
+   "distractors": [
+    "ticket",
+    "receipt",
+    "card game"
+   ],
+   "explanation": "Letters need stamps.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "We eat ___ in the evening.",
+   "answer": "dinner",
+   "distractors": [
+    "lunch",
+    "breakfast",
+    "midday"
+   ],
+   "explanation": "The evening meal is dinner.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "My grandfather is ___ — he doesn't work now.",
+   "answer": "retired",
+   "distractors": [
+    "tired",
+    "young",
+    "busy"
+   ],
+   "explanation": "Retired people have stopped working.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "There are seven ___ in a week.",
+   "answer": "days",
+   "distractors": [
+    "months",
+    "years",
+    "hours"
+   ],
+   "explanation": "A week has seven days.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "I'm hungry. Let's have a ___.",
+   "answer": "snack",
+   "distractors": [
+    "sleep",
+    "shower",
+    "walk"
+   ],
+   "explanation": "A snack is a small amount of food.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "Please write your answer with a ___.",
+   "answer": "pencil",
+   "distractors": [
+    "rubber",
+    "ruler",
+    "paper clip"
+   ],
+   "explanation": "You write with a pencil or pen.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "In the UK people drive on the ___.",
+   "answer": "left",
+   "distractors": [
+    "right",
+    "middle",
+    "front"
+   ],
+   "explanation": "Cars in the UK drive on the left.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "The ___ of Scotland is Edinburgh.",
+   "answer": "capital",
+   "distractors": [
+    "city centre",
+    "country",
+    "village"
+   ],
+   "explanation": "Edinburgh is Scotland's capital city.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A1",
+   "skill": "vocabulary",
+   "prompt": "He is very ___. He is 1.95 metres.",
+   "answer": "tall",
+   "distractors": [
+    "long",
+    "high",
+    "big up"
+   ],
+   "explanation": "People are tall; buildings are high.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I ___ my umbrella. Can I borrow yours?",
+   "answer": "have forgotten",
+   "distractors": [
+    "forgot yesterday",
+    "forget",
+    "am forgetting"
+   ],
+   "explanation": "A past action with a result now: present perfect.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "She ___ in this company since 2018.",
+   "answer": "has worked",
+   "distractors": [
+    "works",
+    "worked",
+    "is working"
+   ],
+   "explanation": "'Since' + a starting point needs the present perfect.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "We ___ each other for ten years.",
+   "answer": "have known",
+   "distractors": [
+    "know",
+    "knew",
+    "are knowing"
+   ],
+   "explanation": "'For' + a period up to now: present perfect.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Have you finished your report ___?",
+   "answer": "yet",
+   "distractors": [
+    "already",
+    "just",
+    "still"
+   ],
+   "explanation": "'Yet' is used in present perfect questions.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "He has ___ left. You just missed him.",
+   "answer": "just",
+   "distractors": [
+    "yet",
+    "ever",
+    "since"
+   ],
+   "explanation": "'Just' = a very short time ago.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I've ___ seen this film. Let's watch something else.",
+   "answer": "already",
+   "distractors": [
+    "yet",
+    "ever",
+    "still"
+   ],
+   "explanation": "'Already' = earlier than expected.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I've never ___ a horse.",
+   "answer": "ridden",
+   "distractors": [
+    "rode",
+    "ride",
+    "riding"
+   ],
+   "explanation": "Present perfect uses the past participle: ridden.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Have you ever ___ sushi?",
+   "answer": "tried",
+   "distractors": [
+    "try",
+    "trying",
+    "tryed"
+   ],
+   "explanation": "Past participle of 'try': tried.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I ___ to Rome last year.",
+   "answer": "went",
+   "distractors": [
+    "have gone",
+    "have been",
+    "go"
+   ],
+   "explanation": "A finished time ('last year') needs the past simple.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "When ___ you start learning English?",
+   "answer": "did",
+   "distractors": [
+    "have",
+    "were",
+    "do"
+   ],
+   "explanation": "Questions about a finished past time use 'did'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "While she ___, the phone rang.",
+   "answer": "was cooking",
+   "distractors": [
+    "cooked",
+    "cooks",
+    "has cooked"
+   ],
+   "explanation": "Background action in the past: past continuous.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I ___ when the lights went out.",
+   "answer": "was reading",
+   "distractors": [
+    "read",
+    "am reading",
+    "have read"
+   ],
+   "explanation": "An action in progress when something else happened.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "What ___ at 8 o'clock last night?",
+   "answer": "were you doing",
+   "distractors": [
+    "did you do now",
+    "are you doing",
+    "have you done"
+   ],
+   "explanation": "Past continuous asks about an activity at a past moment.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I ___ play the piano when I was a child, but I don't now.",
+   "answer": "used to",
+   "distractors": [
+    "use to",
+    "was used to",
+    "usually"
+   ],
+   "explanation": "'Used to' for past habits that have stopped.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Did you ___ live in London?",
+   "answer": "use to",
+   "distractors": [
+    "used to",
+    "using to",
+    "use"
+   ],
+   "explanation": "In questions with 'did', we write 'use to'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "It ___ tomorrow, so take a coat.",
+   "answer": "will probably rain",
+   "distractors": [
+    "probably will rains",
+    "is raining probably",
+    "rains probably"
+   ],
+   "explanation": "Predictions: will + probably + verb.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I think Spain ___ the match.",
+   "answer": "will win",
+   "distractors": [
+    "wins",
+    "is winning",
+    "won"
+   ],
+   "explanation": "Opinions about the future often use 'will'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "The phone is ringing. — I ___ it!",
+   "answer": "'ll answer",
+   "distractors": [
+    "answer",
+    "'m answering tomorrow",
+    "answered"
+   ],
+   "explanation": "A decision at the moment of speaking: will.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "We ___ our cousins this weekend. It's all arranged.",
+   "answer": "are visiting",
+   "distractors": [
+    "visit",
+    "will visiting",
+    "visited"
+   ],
+   "explanation": "Fixed arrangements: present continuous.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Look at those clouds! It's ___ rain.",
+   "answer": "going to",
+   "distractors": [
+    "will",
+    "goes to",
+    "going"
+   ],
+   "explanation": "Evidence now for the future: going to.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "If you ___ hard, you will pass.",
+   "answer": "study",
+   "distractors": [
+    "will study",
+    "studied",
+    "studying"
+   ],
+   "explanation": "First conditional: if + present simple.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "If I see her, I ___ her the news.",
+   "answer": "'ll tell",
+   "distractors": [
+    "tell",
+    "told",
+    "'d told"
+   ],
+   "explanation": "First conditional result: will + verb.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "If you mix blue and yellow, you ___ green.",
+   "answer": "get",
+   "distractors": [
+    "will got",
+    "got",
+    "are getting"
+   ],
+   "explanation": "Zero conditional for facts: present + present.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "You ___ smoke in the hospital. It's forbidden.",
+   "answer": "mustn't",
+   "distractors": [
+    "don't have to",
+    "needn't",
+    "haven't to"
+   ],
+   "explanation": "Prohibition: mustn't.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "You ___ come if you don't want to. It's optional.",
+   "answer": "don't have to",
+   "distractors": [
+    "mustn't",
+    "can't",
+    "haven't"
+   ],
+   "explanation": "No obligation: don't have to.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I ___ get up early tomorrow. My train is at 6.",
+   "answer": "have to",
+   "distractors": [
+    "must to",
+    "has to",
+    "having to"
+   ],
+   "explanation": "External obligation: have to.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "You look tired. You ___ go to bed.",
+   "answer": "should",
+   "distractors": [
+    "shouldn't",
+    "must to",
+    "ought"
+   ],
+   "explanation": "Advice: should + verb.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "___ you help me carry these bags?",
+   "answer": "Could",
+   "distractors": [
+    "Should",
+    "Must",
+    "Shall you"
+   ],
+   "explanation": "Polite requests: Could you...?",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "She ___ be at home. Her car is outside.",
+   "answer": "might",
+   "distractors": [
+    "mights",
+    "mighted",
+    "might to"
+   ],
+   "explanation": "'Might' = possibility; no 's', no 'to'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "This is the ___ film I have ever seen.",
+   "answer": "funniest",
+   "distractors": [
+    "funnyest",
+    "most funny",
+    "funnier"
+   ],
+   "explanation": "Two-syllable adjectives ending in -y: -iest.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Mount Everest is the ___ mountain in the world.",
+   "answer": "highest",
+   "distractors": [
+    "higher",
+    "most high",
+    "high"
+   ],
+   "explanation": "Superlative of 'high': the highest.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "My brother drives ___ than me.",
+   "answer": "more carefully",
+   "distractors": [
+    "carefuller",
+    "more careful",
+    "most carefully"
+   ],
+   "explanation": "Comparative adverb: more carefully.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "This exercise is ___ difficult as the last one.",
+   "answer": "as",
+   "distractors": [
+    "so",
+    "than",
+    "like"
+   ],
+   "explanation": "Equal comparison: as + adjective + as.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Your English is getting ___.",
+   "answer": "better and better",
+   "distractors": [
+    "good and good",
+    "more better",
+    "best and best"
+   ],
+   "explanation": "Repeated comparatives show a gradual change.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "She sang ___.",
+   "answer": "beautifully",
+   "distractors": [
+    "beautiful",
+    "more beautiful",
+    "beauty"
+   ],
+   "explanation": "Adverbs describe how we do something.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "He works very ___.",
+   "answer": "hard",
+   "distractors": [
+    "hardly",
+    "hardy",
+    "harder of"
+   ],
+   "explanation": "'Hard' is both adjective and adverb; 'hardly' means almost not.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I've got ___ homework tonight.",
+   "answer": "a lot of",
+   "distractors": [
+    "many",
+    "a few",
+    "much of"
+   ],
+   "explanation": "'A lot of' works with uncountable nouns in positive sentences.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "There were only ___ people at the meeting.",
+   "answer": "a few",
+   "distractors": [
+    "a little",
+    "much",
+    "little of"
+   ],
+   "explanation": "'A few' + countable plural.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Would you like ___ more cake?",
+   "answer": "a little",
+   "distractors": [
+    "a few",
+    "many",
+    "few of"
+   ],
+   "explanation": "'A little' + uncountable noun.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "There's ___ sugar in my coffee. It's too sweet.",
+   "answer": "too much",
+   "distractors": [
+    "too many",
+    "enough",
+    "very"
+   ],
+   "explanation": "'Too much' + uncountable = more than wanted.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I don't have ___ money to buy a new phone.",
+   "answer": "enough",
+   "distractors": [
+    "too",
+    "so",
+    "such"
+   ],
+   "explanation": "'Enough' comes before a noun.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "The man ___ helped me was very kind.",
+   "answer": "who",
+   "distractors": [
+    "which",
+    "what",
+    "whose"
+   ],
+   "explanation": "'Who' for people in relative clauses.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "This is the shop ___ I bought my jacket.",
+   "answer": "where",
+   "distractors": [
+    "which",
+    "what",
+    "who"
+   ],
+   "explanation": "'Where' for places in relative clauses.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Do you remember the day ___ we met?",
+   "answer": "when",
+   "distractors": [
+    "where",
+    "which in",
+    "what"
+   ],
+   "explanation": "'When' for times in relative clauses.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "The book ___ I'm reading is great.",
+   "answer": "that",
+   "distractors": [
+    "who",
+    "where",
+    "what"
+   ],
+   "explanation": "'That/which' for things.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I enjoy ___ new people.",
+   "answer": "meeting",
+   "distractors": [
+    "to meet",
+    "meet",
+    "met"
+   ],
+   "explanation": "'Enjoy' + -ing.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "She decided ___ a new job.",
+   "answer": "to look for",
+   "distractors": [
+    "looking for",
+    "look for",
+    "for looking"
+   ],
+   "explanation": "'Decide' + to-infinitive.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I'm thinking ___ learning Spanish.",
+   "answer": "about",
+   "distractors": [
+    "to",
+    "for",
+    "in"
+   ],
+   "explanation": "'Think about' + -ing.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "He's afraid ___ dogs.",
+   "answer": "of",
+   "distractors": [
+    "from",
+    "about",
+    "with"
+   ],
+   "explanation": "'Afraid of'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "We're interested ___ history.",
+   "answer": "in",
+   "distractors": [
+    "on",
+    "about",
+    "for"
+   ],
+   "explanation": "'Interested in'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I went to the shop ___ buy some milk.",
+   "answer": "to",
+   "distractors": [
+    "for",
+    "for to",
+    "so"
+   ],
+   "explanation": "Purpose: to + verb.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "___ it was raining, we went for a walk.",
+   "answer": "Although",
+   "distractors": [
+    "Because",
+    "So",
+    "But"
+   ],
+   "explanation": "'Although' introduces a contrast.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I was late ___ the traffic was terrible.",
+   "answer": "because",
+   "distractors": [
+    "so",
+    "although",
+    "but"
+   ],
+   "explanation": "'Because' gives a reason.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "The museum ___ in 1890.",
+   "answer": "was built",
+   "distractors": [
+    "built",
+    "is building",
+    "has built"
+   ],
+   "explanation": "Past passive: was + past participle.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Cheese ___ from milk.",
+   "answer": "is made",
+   "distractors": [
+    "makes",
+    "is making",
+    "made"
+   ],
+   "explanation": "Present passive: is + past participle.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "My bike ___ last week.",
+   "answer": "was stolen",
+   "distractors": [
+    "stole",
+    "has stolen",
+    "is stolen"
+   ],
+   "explanation": "Past passive for a finished event.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "She asked me if I ___ tea.",
+   "answer": "wanted",
+   "distractors": [
+    "want",
+    "will want",
+    "am wanting"
+   ],
+   "explanation": "Reported questions move the tense back.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "He said he ___ tired.",
+   "answer": "was",
+   "distractors": [
+    "is",
+    "has",
+    "were"
+   ],
+   "explanation": "Reported speech: is → was.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "You're from Scotland, ___ you?",
+   "answer": "aren't",
+   "distractors": [
+    "don't",
+    "isn't",
+    "weren't"
+   ],
+   "explanation": "Positive statement → negative tag: aren't you?",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "She can't swim, ___ she?",
+   "answer": "can",
+   "distractors": [
+    "can't",
+    "does",
+    "is"
+   ],
+   "explanation": "Negative statement → positive tag.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "___ you mind closing the window?",
+   "answer": "Would",
+   "distractors": [
+    "Will you to",
+    "Do you to",
+    "Shall"
+   ],
+   "explanation": "Polite request: Would you mind + -ing?",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I've lived here ___ three years.",
+   "answer": "for",
+   "distractors": [
+    "since",
+    "during",
+    "from"
+   ],
+   "explanation": "'For' + a length of time.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I haven't seen him ___ Christmas.",
+   "answer": "since",
+   "distractors": [
+    "for",
+    "ago",
+    "from"
+   ],
+   "explanation": "'Since' + a point in time.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I met her two years ___.",
+   "answer": "ago",
+   "distractors": [
+    "before",
+    "since",
+    "for"
+   ],
+   "explanation": "'Ago' goes after a period of time with the past simple.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "___ to the party? — Yes, everyone from work.",
+   "answer": "Is anyone coming",
+   "distractors": [
+    "Is someone come",
+    "Are anyone coming",
+    "Does anyone coming"
+   ],
+   "explanation": "'Anyone' in questions; present continuous for arrangements.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "There's ___ at the door. Can you see who it is?",
+   "answer": "somebody",
+   "distractors": [
+    "anybody",
+    "nobody",
+    "everybody"
+   ],
+   "explanation": "'Somebody' in positive sentences.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I looked everywhere, but I found ___.",
+   "answer": "nothing",
+   "distractors": [
+    "anything",
+    "something",
+    "nowhere"
+   ],
+   "explanation": "'Nothing' = not anything.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "We didn't go ___ last summer.",
+   "answer": "anywhere",
+   "distractors": [
+    "somewhere",
+    "nowhere",
+    "everywhere"
+   ],
+   "explanation": "In negative sentences: anywhere.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Each of the students ___ a book.",
+   "answer": "has",
+   "distractors": [
+    "have",
+    "are having",
+    "having"
+   ],
+   "explanation": "'Each' takes a singular verb.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I'd rather ___ home tonight.",
+   "answer": "stay",
+   "distractors": [
+    "to stay",
+    "staying",
+    "stayed"
+   ],
+   "explanation": "'Would rather' + base form.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "How long does it ___ to get to the airport?",
+   "answer": "take",
+   "distractors": [
+    "spend",
+    "last of",
+    "need"
+   ],
+   "explanation": "'How long does it take?' asks about duration.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "He made me ___.",
+   "answer": "laugh",
+   "distractors": [
+    "to laugh",
+    "laughing",
+    "laughed"
+   ],
+   "explanation": "'Make someone do something'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "My parents let me ___ out until 10 pm.",
+   "answer": "stay",
+   "distractors": [
+    "to stay",
+    "staying",
+    "stayed"
+   ],
+   "explanation": "'Let someone do something'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I'm too tired ___ to the gym tonight.",
+   "answer": "to go",
+   "distractors": [
+    "going",
+    "go",
+    "for going"
+   ],
+   "explanation": "'Too + adjective + to-infinitive'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Is the water warm ___ to swim in?",
+   "answer": "enough",
+   "distractors": [
+    "too",
+    "so",
+    "very"
+   ],
+   "explanation": "'Adjective + enough + to'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "___ you like me to help you?",
+   "answer": "Would",
+   "distractors": [
+    "Do",
+    "Will",
+    "Are"
+   ],
+   "explanation": "Offers: Would you like me to...?",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "He's the man ___ car was stolen.",
+   "answer": "whose",
+   "distractors": [
+    "who",
+    "who's",
+    "which"
+   ],
+   "explanation": "'Whose' shows possession.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I haven't got ___ time. Let's hurry.",
+   "answer": "much",
+   "distractors": [
+    "many",
+    "a few",
+    "lots"
+   ],
+   "explanation": "'Much' with uncountable nouns in negatives.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "___ of my friends live in London. — Both of them?",
+   "answer": "Both",
+   "distractors": [
+    "Each",
+    "Every",
+    "Either"
+   ],
+   "explanation": "'Both' = the two together.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "You can have ___ the chicken or the fish.",
+   "answer": "either",
+   "distractors": [
+    "both",
+    "neither",
+    "each"
+   ],
+   "explanation": "'Either... or' = one of two choices.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "___ my brother nor my sister likes coffee.",
+   "answer": "Neither",
+   "distractors": [
+    "Either",
+    "Both",
+    "Not"
+   ],
+   "explanation": "'Neither... nor' = not one and not the other.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I'll call you as soon as I ___ home.",
+   "answer": "get",
+   "distractors": [
+    "will get",
+    "got",
+    "am getting"
+   ],
+   "explanation": "After 'as soon as' about the future: present simple.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "By the time we arrived, the film ___.",
+   "answer": "had started",
+   "distractors": [
+    "started",
+    "has started",
+    "was start"
+   ],
+   "explanation": "An earlier past action: past perfect.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "She told me ___ late.",
+   "answer": "not to be",
+   "distractors": [
+    "to not be",
+    "don't be",
+    "not be"
+   ],
+   "explanation": "Reported orders: tell + someone + not to + verb.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I'm used to ___ on the left now.",
+   "answer": "driving",
+   "distractors": [
+    "drive",
+    "drove",
+    "driven"
+   ],
+   "explanation": "'Be used to' + -ing.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "He has been ___ for an hour.",
+   "answer": "waiting",
+   "distractors": [
+    "waited",
+    "wait",
+    "waits"
+   ],
+   "explanation": "Present perfect continuous: has been + -ing.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "It's the first time I ___ snow.",
+   "answer": "have seen",
+   "distractors": [
+    "saw",
+    "see",
+    "am seeing"
+   ],
+   "explanation": "'It's the first time' + present perfect.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Can you tell me what time ___?",
+   "answer": "it is",
+   "distractors": [
+    "is it",
+    "it's is",
+    "is"
+   ],
+   "explanation": "Indirect questions use statement word order.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I wish I ___ a car.",
+   "answer": "had",
+   "distractors": [
+    "have",
+    "will have",
+    "having"
+   ],
+   "explanation": "Wishes about the present use the past simple.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "___ playing football, he also enjoys tennis.",
+   "answer": "Besides",
+   "distractors": [
+    "Beside",
+    "Except",
+    "Despite"
+   ],
+   "explanation": "'Besides' = in addition to.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I don't know ___ to go: left or right.",
+   "answer": "which way",
+   "distractors": [
+    "what way to",
+    "which ways",
+    "where way"
+   ],
+   "explanation": "'Which way' asks for a direction among options.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "She's lived in four countries, ___ she?",
+   "answer": "hasn't",
+   "distractors": [
+    "isn't",
+    "doesn't",
+    "didn't"
+   ],
+   "explanation": "'She's lived' = she has lived: tag 'hasn't she?'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "___ do you think of my new haircut?",
+   "answer": "What",
+   "distractors": [
+    "How",
+    "Which",
+    "Who"
+   ],
+   "explanation": "'What do you think of...?' asks for an opinion.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "How ___ is it from here to the beach?",
+   "answer": "far",
+   "distractors": [
+    "long",
+    "much",
+    "many"
+   ],
+   "explanation": "'How far' asks about distance.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I've ___ my keys. I can't get in.",
+   "answer": "lost",
+   "distractors": [
+    "losed",
+    "loss",
+    "lose"
+   ],
+   "explanation": "Past participle of 'lose': lost.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'm going to ___ a bath and go to bed.",
+   "answer": "have",
+   "distractors": [
+    "make",
+    "do",
+    "get on"
+   ],
+   "explanation": "We say 'have a bath'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Could you ___ me a favour?",
+   "answer": "do",
+   "distractors": [
+    "make",
+    "give",
+    "take"
+   ],
+   "explanation": "We say 'do someone a favour'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I always ___ mistakes with irregular verbs.",
+   "answer": "make",
+   "distractors": [
+    "do",
+    "have",
+    "take"
+   ],
+   "explanation": "We say 'make a mistake'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Let's ___ a break. We've worked for three hours.",
+   "answer": "take",
+   "distractors": [
+    "make",
+    "do",
+    "give"
+   ],
+   "explanation": "We say 'take a break'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "She ___ a lot of noise when she came in.",
+   "answer": "made",
+   "distractors": [
+    "did",
+    "had",
+    "took"
+   ],
+   "explanation": "We say 'make noise'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I need to ___ some exercise. I sit all day.",
+   "answer": "do",
+   "distractors": [
+    "make",
+    "play",
+    "have on"
+   ],
+   "explanation": "We say 'do exercise'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "He ___ his best in the exam.",
+   "answer": "did",
+   "distractors": [
+    "made",
+    "had",
+    "took"
+   ],
+   "explanation": "We say 'do your best'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Please ___ a seat. The doctor is coming.",
+   "answer": "take",
+   "distractors": [
+    "make",
+    "do",
+    "sit"
+   ],
+   "explanation": "We say 'take a seat'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I can't hear you. Can you ___ up?",
+   "answer": "speak",
+   "distractors": [
+    "talk on",
+    "tell",
+    "say"
+   ],
+   "explanation": "'Speak up' = speak more loudly.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Can you ___ me the way to the station?",
+   "answer": "tell",
+   "distractors": [
+    "say",
+    "speak",
+    "talk"
+   ],
+   "explanation": "We say 'tell someone the way'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "What did he ___? I didn't hear.",
+   "answer": "say",
+   "distractors": [
+    "tell",
+    "speak",
+    "talk to"
+   ],
+   "explanation": "'Say' is used for the words someone uses.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'm ___ for my glasses. Have you seen them?",
+   "answer": "looking",
+   "distractors": [
+    "watching",
+    "seeing",
+    "finding"
+   ],
+   "explanation": "'Look for' = try to find.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Could you ___ after my cat this weekend?",
+   "answer": "look",
+   "distractors": [
+    "take",
+    "see",
+    "watch for"
+   ],
+   "explanation": "'Look after' = take care of.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "He ___ up smoking last year.",
+   "answer": "gave",
+   "distractors": [
+    "got",
+    "put",
+    "took"
+   ],
+   "explanation": "'Give up' = stop doing something.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I ___ up at 7 every morning.",
+   "answer": "get",
+   "distractors": [
+    "go",
+    "take",
+    "put"
+   ],
+   "explanation": "'Get up' = leave your bed.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Please ___ on your seatbelt.",
+   "answer": "put",
+   "distractors": [
+    "wear up",
+    "dress",
+    "take"
+   ],
+   "explanation": "'Put on' = start wearing.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "It's hot in here. I'm going to ___ off my jumper.",
+   "answer": "take",
+   "distractors": [
+    "put",
+    "get",
+    "turn"
+   ],
+   "explanation": "'Take off' clothes = remove them.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Can you ___ on the light? It's dark.",
+   "answer": "turn",
+   "distractors": [
+    "take",
+    "put up",
+    "make"
+   ],
+   "explanation": "'Turn on' = start a device.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "We ___ out of milk. Can you buy some?",
+   "answer": "have run",
+   "distractors": [
+    "have made",
+    "have come",
+    "have gone"
+   ],
+   "explanation": "'Run out of' = have none left.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "She ___ along well with her colleagues.",
+   "answer": "gets",
+   "distractors": [
+    "goes",
+    "takes",
+    "makes"
+   ],
+   "explanation": "'Get along with' = have a good relationship.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'm going to ___ up early tomorrow.",
+   "answer": "wake",
+   "distractors": [
+    "walk",
+    "work",
+    "wait"
+   ],
+   "explanation": "'Wake up' = stop sleeping.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The plane ___ at 10.30 in Paris.",
+   "answer": "landed",
+   "distractors": [
+    "arrived to",
+    "got",
+    "reached at"
+   ],
+   "explanation": "Planes take off and land.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'd like to ___ a room for two nights.",
+   "answer": "book",
+   "distractors": [
+    "read",
+    "order up",
+    "rent off"
+   ],
+   "explanation": "You book a hotel room.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The ___ at the hotel gave us our keys.",
+   "answer": "receptionist",
+   "distractors": [
+    "guest",
+    "passenger",
+    "customer service"
+   ],
+   "explanation": "A hotel receptionist welcomes guests.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "We stayed in a ___ near the beach.",
+   "answer": "guest house",
+   "distractors": [
+    "guest home",
+    "house guest",
+    "guest hall"
+   ],
+   "explanation": "A guest house is a small hotel.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Our flight was ___ because of the storm.",
+   "answer": "cancelled",
+   "distractors": [
+    "cancelling",
+    "finished",
+    "closed"
+   ],
+   "explanation": "A cancelled flight doesn't happen.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Please show your ___ at passport control.",
+   "answer": "passport",
+   "distractors": [
+    "ticket office",
+    "luggage",
+    "boarding gate"
+   ],
+   "explanation": "You show your passport at passport control.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "My ___ was too heavy, so I paid extra.",
+   "answer": "suitcase",
+   "distractors": [
+    "passport",
+    "wallet",
+    "ticket"
+   ],
+   "explanation": "A suitcase carries your clothes when travelling.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The ___ was crowded, so we stood all the way.",
+   "answer": "train",
+   "distractors": [
+    "platform",
+    "station",
+    "ticket"
+   ],
+   "explanation": "You stand on a crowded train.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'd like a ___ ticket to Cardiff — there and back.",
+   "answer": "return",
+   "distractors": [
+    "single",
+    "one-way",
+    "double"
+   ],
+   "explanation": "A return ticket is there and back.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "You need to ___ the bus at the next stop.",
+   "answer": "get off",
+   "distractors": [
+    "get out",
+    "go off",
+    "take off"
+   ],
+   "explanation": "You get on and get off a bus.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "It's quicker to go on ___. It's only five minutes.",
+   "answer": "foot",
+   "distractors": [
+    "feet",
+    "walk",
+    "walking"
+   ],
+   "explanation": "We say 'on foot'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "She works in an office. She is ___ for the company's accounts.",
+   "answer": "responsible",
+   "distractors": [
+    "response",
+    "responsibility",
+    "responding"
+   ],
+   "explanation": "'Responsible for' = in charge of.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "He was ___ from his job for being late every day.",
+   "answer": "fired",
+   "distractors": [
+    "fried",
+    "fined",
+    "filled"
+   ],
+   "explanation": "To be fired = to lose your job.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "She earns a good ___.",
+   "answer": "salary",
+   "distractors": [
+    "price",
+    "cost",
+    "bill"
+   ],
+   "explanation": "Your salary is the money you earn from your job.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I have a job ___ next Monday. I'm nervous.",
+   "answer": "interview",
+   "distractors": [
+    "meeting up",
+    "inspection",
+    "examination room"
+   ],
+   "explanation": "You have an interview before getting a job.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'm going to ___ for a job at the bank.",
+   "answer": "apply",
+   "distractors": [
+    "ask on",
+    "demand",
+    "appeal"
+   ],
+   "explanation": "You apply for a job.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "My ___ is very kind. She lets me leave early on Fridays.",
+   "answer": "boss",
+   "distractors": [
+    "colleague's",
+    "employee",
+    "customer"
+   ],
+   "explanation": "Your boss is the person in charge of you.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "We had a ___ time at the party.",
+   "answer": "great",
+   "distractors": [
+    "large",
+    "big",
+    "huge of"
+   ],
+   "explanation": "'A great time' = very enjoyable.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'm ___ about my exam. I haven't studied.",
+   "answer": "worried",
+   "distractors": [
+    "worrying",
+    "worry",
+    "worries"
+   ],
+   "explanation": "People feel worried.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The film was ___. I fell asleep.",
+   "answer": "boring",
+   "distractors": [
+    "bored",
+    "bore",
+    "boredom"
+   ],
+   "explanation": "Things are boring; people are bored.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I was very ___ when I heard the news.",
+   "answer": "surprised",
+   "distractors": [
+    "surprising",
+    "surprise",
+    "surprises"
+   ],
+   "explanation": "People feel surprised.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "She's very ___. She never talks to people she doesn't know.",
+   "answer": "shy",
+   "distractors": [
+    "rude",
+    "proud",
+    "lazy"
+   ],
+   "explanation": "A shy person feels nervous with new people.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "He's very ___. He tells everyone how good he is.",
+   "answer": "proud",
+   "distractors": [
+    "polite",
+    "patient",
+    "shy"
+   ],
+   "explanation": "Here 'proud' means thinking you are better than others.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "My teacher is very ___. She never gets angry.",
+   "answer": "patient",
+   "distractors": [
+    "patience",
+    "impatient",
+    "nervous"
+   ],
+   "explanation": "A patient person stays calm.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "It was ___ of you to help that old man.",
+   "answer": "kind",
+   "distractors": [
+    "kindly",
+    "kindness",
+    "kinds"
+   ],
+   "explanation": "'It was kind of you to...'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I feel ___. I think I've got a cold.",
+   "answer": "ill",
+   "distractors": [
+    "bad ill",
+    "illness",
+    "healthy"
+   ],
+   "explanation": "Ill = not well.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I've got a ___ throat. It hurts when I swallow.",
+   "answer": "sore",
+   "distractors": [
+    "sour",
+    "sure",
+    "soar"
+   ],
+   "explanation": "A sore throat is painful.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The doctor gave me a ___ for some medicine.",
+   "answer": "prescription",
+   "distractors": [
+    "recipe",
+    "receipt",
+    "description"
+   ],
+   "explanation": "A prescription allows you to get medicine.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "He broke his leg and was in ___ for a week.",
+   "answer": "hospital",
+   "distractors": [
+    "a hospital room",
+    "hotel",
+    "home"
+   ],
+   "explanation": "In British English: 'in hospital'.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "You should ___ more vegetables.",
+   "answer": "eat",
+   "distractors": [
+    "drink",
+    "cook up",
+    "take"
+   ],
+   "explanation": "We eat vegetables.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'd like my steak well ___, please.",
+   "answer": "done",
+   "distractors": [
+    "made",
+    "cooked up",
+    "finished"
+   ],
+   "explanation": "'Well done' = cooked for a long time.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Could I see the ___, please? I want to order.",
+   "answer": "menu",
+   "distractors": [
+    "bill",
+    "recipe",
+    "list of prices up"
+   ],
+   "explanation": "You choose food from a menu.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Can we have the ___, please? We'd like to pay.",
+   "answer": "bill",
+   "distractors": [
+    "menu",
+    "tip",
+    "change"
+   ],
+   "explanation": "You ask for the bill to pay.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "We left a ___ for the waiter because the service was good.",
+   "answer": "tip",
+   "distractors": [
+    "top",
+    "tap",
+    "tick"
+   ],
+   "explanation": "A tip is extra money for good service.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "This soup has no taste. Can you pass the ___?",
+   "answer": "salt",
+   "distractors": [
+    "sugar cube",
+    "spoon",
+    "glass"
+   ],
+   "explanation": "Salt adds flavour.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'm on a ___. I'm trying to lose weight.",
+   "answer": "diet",
+   "distractors": [
+    "died",
+    "dinner",
+    "dessert"
+   ],
+   "explanation": "A diet controls what you eat.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Let's go to the ___ to see a play.",
+   "answer": "theatre",
+   "distractors": [
+    "cinema screen",
+    "gallery",
+    "stadium"
+   ],
+   "explanation": "Plays are performed at a theatre.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "There's a great ___ of paintings at the gallery.",
+   "answer": "exhibition",
+   "distractors": [
+    "exhibit room",
+    "show off",
+    "exam"
+   ],
+   "explanation": "An exhibition shows art to the public.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "We watched the match at the ___.",
+   "answer": "stadium",
+   "distractors": [
+    "studio",
+    "station",
+    "theatre"
+   ],
+   "explanation": "Football matches are played in stadiums.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "My hobby is ___. I've got 500 stamps.",
+   "answer": "collecting stamps",
+   "distractors": [
+    "stamping",
+    "collect stamps",
+    "collections"
+   ],
+   "explanation": "Collecting stamps is a hobby.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "He's a great ___. He has written ten novels.",
+   "answer": "writer",
+   "distractors": [
+    "printer",
+    "reader",
+    "publisher"
+   ],
+   "explanation": "A writer writes books.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The ___ played a wonderful concert.",
+   "answer": "orchestra",
+   "distractors": [
+    "orchard",
+    "audience",
+    "conductor's stick"
+   ],
+   "explanation": "An orchestra is a large group of musicians.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'm going to ___ the dishes.",
+   "answer": "wash up",
+   "distractors": [
+    "wash on",
+    "do washing up the",
+    "clean off"
+   ],
+   "explanation": "In British English we 'wash up' after meals.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Can you ___ the table? Dinner is ready.",
+   "answer": "lay",
+   "distractors": [
+    "lie",
+    "put on",
+    "make up"
+   ],
+   "explanation": "'Lay the table' = put plates and cutlery on it.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I need to ___ the floor. It's dirty.",
+   "answer": "clean",
+   "distractors": [
+    "clear",
+    "tidy away",
+    "sweep up off"
+   ],
+   "explanation": "You clean a dirty floor.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Please ___ your room. It's a mess!",
+   "answer": "tidy",
+   "distractors": [
+    "clean up off",
+    "order",
+    "arrange up"
+   ],
+   "explanation": "'Tidy your room' = put things in their place.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "We ___ in a flat in the city centre.",
+   "answer": "rent",
+   "distractors": [
+    "lend",
+    "borrow",
+    "hire out"
+   ],
+   "explanation": "You rent a home you don't own.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The flat has central ___, so it's warm in winter.",
+   "answer": "heating",
+   "distractors": [
+    "heater",
+    "heat up",
+    "hot"
+   ],
+   "explanation": "Central heating warms the whole home.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Our new ___ are very friendly. They live next door.",
+   "answer": "neighbours",
+   "distractors": [
+    "neighbourhood",
+    "colleagues",
+    "relatives"
+   ],
+   "explanation": "Neighbours live near you.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "It's a quiet ___ with lots of parks.",
+   "answer": "neighbourhood",
+   "distractors": [
+    "neighbour",
+    "country",
+    "nature"
+   ],
+   "explanation": "A neighbourhood is an area of a town.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Prices in London are very ___.",
+   "answer": "high",
+   "distractors": [
+    "tall",
+    "expensive up",
+    "big"
+   ],
+   "explanation": "Prices are high or low.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "This jacket was ___ — only £10!",
+   "answer": "a bargain",
+   "distractors": [
+    "a barrier",
+    "a budget",
+    "a bill"
+   ],
+   "explanation": "A bargain is something cheap and good.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Do you have this shirt in a bigger ___?",
+   "answer": "size",
+   "distractors": [
+    "number",
+    "height",
+    "measure"
+   ],
+   "explanation": "Clothes come in different sizes.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Can I ___ this dress on?",
+   "answer": "try",
+   "distractors": [
+    "test",
+    "put",
+    "wear"
+   ],
+   "explanation": "You try on clothes before buying.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "These shoes don't ___ me. They're too small.",
+   "answer": "fit",
+   "distractors": [
+    "suit",
+    "match",
+    "go"
+   ],
+   "explanation": "Clothes fit if they are the right size.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "That colour really ___ you. You look great.",
+   "answer": "suits",
+   "distractors": [
+    "fits",
+    "matches with",
+    "agrees"
+   ],
+   "explanation": "A colour suits you if it looks good on you.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Keep your ___. You may need to return the item.",
+   "answer": "receipt",
+   "distractors": [
+    "recipe",
+    "reception",
+    "price tag up"
+   ],
+   "explanation": "A receipt proves you paid.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The shop gave me my money ___.",
+   "answer": "back",
+   "distractors": [
+    "again",
+    "return",
+    "away"
+   ],
+   "explanation": "You get your money back.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Our team ___ 2–0. It was a bad day.",
+   "answer": "lost",
+   "distractors": [
+    "loosed",
+    "failed",
+    "missed"
+   ],
+   "explanation": "You win or lose a match.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The final ___ of the match was 3–2.",
+   "answer": "score",
+   "distractors": [
+    "point",
+    "mark",
+    "goal number"
+   ],
+   "explanation": "The score shows the result.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "In winter the ___ is often below zero in Moscow.",
+   "answer": "temperature",
+   "distractors": [
+    "weather degree",
+    "climate",
+    "heat"
+   ],
+   "explanation": "Temperature is how hot or cold it is.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "There was a terrible ___ last night with thunder and lightning.",
+   "answer": "storm",
+   "distractors": [
+    "wind",
+    "cloud",
+    "shower"
+   ],
+   "explanation": "A storm has strong wind, rain and often thunder.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "It's very ___ today. I can't see the end of the street.",
+   "answer": "foggy",
+   "distractors": [
+    "sunny",
+    "windy",
+    "dry"
+   ],
+   "explanation": "Fog makes it hard to see.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The ___ says it will rain this afternoon.",
+   "answer": "forecast",
+   "distractors": [
+    "foresight",
+    "report card",
+    "prediction up"
+   ],
+   "explanation": "A weather forecast predicts the weather.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I sent you an ___ yesterday. Did you get it?",
+   "answer": "email",
+   "distractors": [
+    "address",
+    "internet",
+    "website"
+   ],
+   "explanation": "You send and receive emails.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I need to ___ the file before I close the program.",
+   "answer": "save",
+   "distractors": [
+    "keep up",
+    "store off",
+    "protect"
+   ],
+   "explanation": "You save a computer file.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Can you ___ me the photo? I want to see it.",
+   "answer": "send",
+   "distractors": [
+    "sent",
+    "post up",
+    "show to"
+   ],
+   "explanation": "You send a photo to someone.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "My phone ___ is dead. I need to charge it.",
+   "answer": "battery",
+   "distractors": [
+    "charger",
+    "power off",
+    "cable"
+   ],
+   "explanation": "A phone's battery needs charging.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I can't ___ to the Wi-Fi. What's the password?",
+   "answer": "connect",
+   "distractors": [
+    "join up",
+    "link off",
+    "attach"
+   ],
+   "explanation": "You connect to a network.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Please ___ your name in the box.",
+   "answer": "write",
+   "distractors": [
+    "draw",
+    "type up",
+    "sign up for"
+   ],
+   "explanation": "Write your name in a form.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The ___ for this course is £200.",
+   "answer": "fee",
+   "distractors": [
+    "fare",
+    "fine",
+    "fair"
+   ],
+   "explanation": "A fee is money you pay for a service.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The bus ___ is £2.",
+   "answer": "fare",
+   "distractors": [
+    "fee",
+    "fine",
+    "fair"
+   ],
+   "explanation": "A fare is the price of a journey.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "He had to pay a £60 ___ for parking in the wrong place.",
+   "answer": "fine",
+   "distractors": [
+    "fare",
+    "fee",
+    "fair"
+   ],
+   "explanation": "A fine is money paid as a punishment.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I ___ to tell you something important.",
+   "answer": "need",
+   "distractors": [
+    "must to",
+    "should to",
+    "have"
+   ],
+   "explanation": "'Need to' + verb.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "She's ___ in Spanish. She lived in Madrid for years.",
+   "answer": "fluent",
+   "distractors": [
+    "fluid",
+    "flowing",
+    "flown"
+   ],
+   "explanation": "Fluent = able to speak a language easily.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I didn't ___ the exam. I need to take it again.",
+   "answer": "pass",
+   "distractors": [
+    "succeed",
+    "win",
+    "make"
+   ],
+   "explanation": "You pass or fail an exam.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "He ___ the exam because he didn't study.",
+   "answer": "failed",
+   "distractors": [
+    "fell",
+    "lost",
+    "missed"
+   ],
+   "explanation": "To fail an exam = not pass it.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'll ___ you at the station at five.",
+   "answer": "meet",
+   "distractors": [
+    "see up",
+    "know",
+    "join on"
+   ],
+   "explanation": "Meet = come together at a place.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'm ___ forward to the holidays.",
+   "answer": "looking",
+   "distractors": [
+    "seeing",
+    "waiting",
+    "watching"
+   ],
+   "explanation": "'Look forward to' = feel happy about something coming.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "He ___ the bus by one minute.",
+   "answer": "missed",
+   "distractors": [
+    "lost",
+    "passed",
+    "failed"
+   ],
+   "explanation": "You miss a bus when you arrive too late.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I don't ___ what to do.",
+   "answer": "know",
+   "distractors": [
+    "now",
+    "knew",
+    "known"
+   ],
+   "explanation": "'I don't know' = I have no information.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Why did Carlos move to Edinburgh?",
+   "answer": "to study engineering",
+   "distractors": [
+    "to work in a restaurant",
+    "to join a hiking club",
+    "to live with his family"
+   ],
+   "explanation": "'...moved from Madrid to Edinburgh to study engineering.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_MOVE"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What was a problem for Carlos at first?",
+   "answer": "understanding the Scottish accent",
+   "distractors": [
+    "finding a university",
+    "the cost of food",
+    "making phone calls"
+   ],
+   "explanation": "'He didn't understand the Scottish accent.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_MOVE"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What did Carlos do last month?",
+   "answer": "climbed a hill in the city",
+   "distractors": [
+    "went back to Madrid",
+    "started university",
+    "cooked Spanish food"
+   ],
+   "explanation": "'Last month he climbed Arthur's Seat.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_MOVE"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Why has Carlos's English improved?",
+   "answer": "He only speaks English at university.",
+   "distractors": [
+    "He takes evening classes.",
+    "He lives with a Scottish family.",
+    "He watches English films."
+   ],
+   "explanation": "'...because he only speaks English at university.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_MOVE"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How does Carlos feel now compared with the beginning?",
+   "answer": "happier and more settled",
+   "distractors": [
+    "more homesick",
+    "more confused",
+    "bored"
+   ],
+   "explanation": "He has friends and a club now, unlike at first.",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_MOVE"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How many hours a week is the restaurant job?",
+   "answer": "about 20",
+   "distractors": [
+    "about 11",
+    "about 18",
+    "about 30"
+   ],
+   "explanation": "'About 20 hours a week.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_ADVERT"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Who can apply for the job?",
+   "answer": "someone over 18 with no experience",
+   "distractors": [
+    "only people with experience",
+    "anyone under 18",
+    "only Italians"
+   ],
+   "explanation": "'No experience needed... over 18.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_ADVERT"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What do workers get every shift?",
+   "answer": "a free meal",
+   "distractors": [
+    "£11 in tips",
+    "a train ticket",
+    "free Italian lessons"
+   ],
+   "explanation": "'Free meal every shift.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_ADVERT"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How should you apply?",
+   "answer": "send a CV by email",
+   "distractors": [
+    "phone the restaurant",
+    "visit on a weekend",
+    "write a letter"
+   ],
+   "explanation": "'Send your CV to jobs@example.com.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_ADVERT"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "When will Lily probably arrive?",
+   "answer": "at about 8.30",
+   "distractors": [
+    "at 7",
+    "at 8",
+    "she can't come"
+   ],
+   "explanation": "'I'll probably arrive at about 8.30.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_EMAIL"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Why will Lily be late?",
+   "answer": "She has to work and then change.",
+   "distractors": [
+    "Her train is late.",
+    "She has to make a cake.",
+    "She forgot the time."
+   ],
+   "explanation": "'I have to work until 7, and then I need to go home and change.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_EMAIL"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What does Lily offer to bring?",
+   "answer": "a chocolate cake",
+   "distractors": [
+    "drinks",
+    "music",
+    "a present for Sam"
+   ],
+   "explanation": "'I could make my chocolate cake.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_EMAIL"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How do we know people liked her cake before?",
+   "answer": "She says everyone liked it last time.",
+   "distractors": [
+    "Sam asked for it.",
+    "She won a prize.",
+    "She sells cakes."
+   ],
+   "explanation": "'...everyone liked it last time!'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_EMAIL"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How much is the gym if you join in January?",
+   "answer": "£20 a month",
+   "distractors": [
+    "£30 a month",
+    "£10 a month",
+    "£20 a year"
+   ],
+   "explanation": "'Pay only £20 a month (normal price £30).'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_GYM"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Which class is on Wednesdays?",
+   "answer": "dance",
+   "distractors": [
+    "yoga",
+    "boxing",
+    "swimming"
+   ],
+   "explanation": "'...dance on Wednesdays.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_GYM"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Who can get an extra discount?",
+   "answer": "students",
+   "distractors": [
+    "children",
+    "people who join in February",
+    "people over 60"
+   ],
+   "explanation": "'Students get a further 10% off.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_GYM"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What do you need to bring to join?",
+   "answer": "a photo and bank details",
+   "distractors": [
+    "£30 in cash",
+    "a student card only",
+    "sports shoes"
+   ],
+   "explanation": "'Bring a photo and your bank details to join.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_GYM"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "When did people start building Stonehenge?",
+   "answer": "about 5,000 years ago",
+   "distractors": [
+    "about 500 years ago",
+    "200 years ago",
+    "a million years ago"
+   ],
+   "explanation": "'People started building it about 5,000 years ago.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_HISTORY"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Where did some of the stones come from?",
+   "answer": "Wales",
+   "distractors": [
+    "Scotland",
+    "France",
+    "the south of England"
+   ],
+   "explanation": "'Some of the stones came from Wales.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_HISTORY"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Why do some experts think Stonehenge was a calendar?",
+   "answer": "The sun rises in line with the stones on the longest day.",
+   "distractors": [
+    "It has twelve stones.",
+    "It shows the months.",
+    "People wrote dates on it."
+   ],
+   "explanation": "'On the longest day of the year the sun rises in line with the stones.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_HISTORY"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What does the text say we don't know?",
+   "answer": "how and why it was built",
+   "distractors": [
+    "where it is",
+    "how old it is",
+    "how many people visit"
+   ],
+   "explanation": "'Nobody knows exactly how people moved them or why they built it.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_HISTORY"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What was wrong with the coffee machine?",
+   "answer": "It didn't work.",
+   "distractors": [
+    "It was the wrong colour.",
+    "It was too expensive.",
+    "It arrived late."
+   ],
+   "explanation": "'I tried to use the machine, but it didn't work.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_PROBLEM"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What does P. Ahmed want?",
+   "answer": "to return it and get a refund",
+   "distractors": [
+    "a new box",
+    "a discount",
+    "to buy another machine"
+   ],
+   "explanation": "'I would like to return it and get my money back.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_PROBLEM"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What did the writer notice when the parcel arrived?",
+   "answer": "The box was damaged.",
+   "distractors": [
+    "The machine was missing.",
+    "The order number was wrong.",
+    "It was the wrong size."
+   ],
+   "explanation": "'I noticed that the box was damaged.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_PROBLEM"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What information does the writer ask for?",
+   "answer": "how to send it back",
+   "distractors": [
+    "the shop's opening hours",
+    "the price",
+    "a new order number"
+   ],
+   "explanation": "'Could you tell me how to send it back?'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_PROBLEM"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Who showed the writer the office?",
+   "answer": "the manager, Jane",
+   "distractors": [
+    "Raj",
+    "Ellie",
+    "a receptionist"
+   ],
+   "explanation": "'My manager, Jane, showed me the office.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_DIARY"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How did the writer find the work on the first day?",
+   "answer": "more difficult than expected",
+   "distractors": [
+    "very easy",
+    "boring",
+    "exactly as expected"
+   ],
+   "explanation": "'The work was more difficult than I expected.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_DIARY"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Why was the writer late on Tuesday?",
+   "answer": "The train was delayed.",
+   "distractors": [
+    "The alarm didn't ring.",
+    "There was a lot of traffic.",
+    "The writer was ill."
+   ],
+   "explanation": "'I arrived late because my train was delayed.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_DIARY"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How did Jane react?",
+   "answer": "She said it wasn't a problem.",
+   "distractors": [
+    "She was angry.",
+    "She sent the writer home.",
+    "She didn't notice."
+   ],
+   "explanation": "'Jane said it wasn't a problem.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_DIARY"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How can you get to Skye without a boat?",
+   "answer": "by car over a bridge",
+   "distractors": [
+    "by train",
+    "by plane",
+    "on foot through a tunnel"
+   ],
+   "explanation": "'You can get there by car over a bridge.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_ISLAND"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Why should visitors bring waterproofs even in summer?",
+   "answer": "The weather changes quickly.",
+   "distractors": [
+    "It always rains in summer.",
+    "There are many waterfalls.",
+    "The castles are wet."
+   ],
+   "explanation": "'The weather changes quickly, so visitors should bring warm clothes and waterproofs.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_ISLAND"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What advice does the text give about August?",
+   "answer": "Book accommodation early.",
+   "distractors": [
+    "Don't visit in August.",
+    "Take a boat.",
+    "Bring summer clothes only."
+   ],
+   "explanation": "'In August the island is very busy, so it is best to book accommodation early.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_ISLAND"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What is Skye famous for?",
+   "answer": "mountains, waterfalls and castles",
+   "distractors": [
+    "beaches and hot weather",
+    "big cities",
+    "its bridge"
+   ],
+   "explanation": "'It is famous for its mountains, waterfalls and castles.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_ISLAND"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How many pancakes does the recipe make?",
+   "answer": "8",
+   "distractors": [
+    "2",
+    "100",
+    "300"
+   ],
+   "explanation": "'Easy pancakes (makes 8).'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_RECIPE"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What do you add to the flour first?",
+   "answer": "the eggs",
+   "distractors": [
+    "the milk",
+    "the oil",
+    "lemon and sugar"
+   ],
+   "explanation": "'Put the flour in a bowl and add the eggs.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_RECIPE"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How long do you cook each side?",
+   "answer": "one minute",
+   "distractors": [
+    "two minutes",
+    "five minutes",
+    "until it's black"
+   ],
+   "explanation": "'Cook for one minute on each side.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_RECIPE"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How should you add the milk?",
+   "answer": "slowly",
+   "distractors": [
+    "all at once",
+    "before the flour",
+    "after cooking"
+   ],
+   "explanation": "'Then slowly add the milk and mix well.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_RECIPE"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "When does Grace volunteer?",
+   "answer": "every Saturday morning",
+   "distractors": [
+    "every evening",
+    "on Sundays",
+    "once a month"
+   ],
+   "explanation": "'Every Saturday morning, Grace volunteers at an animal shelter.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_VOLUNTEER"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Why did Grace start volunteering?",
+   "answer": "She couldn't have a dog in her flat.",
+   "distractors": [
+    "Her friend asked her.",
+    "She wanted to be a vet.",
+    "She needed money."
+   ],
+   "explanation": "'...because she couldn't have a dog in her flat.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_VOLUNTEER"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Which job does Grace NOT do at the shelter?",
+   "answer": "feeding the cats",
+   "distractors": [
+    "walking the dogs",
+    "cleaning the cages",
+    "helping visitors"
+   ],
+   "explanation": "The text mentions walking dogs, cleaning cages and helping visitors.",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_VOLUNTEER"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What did Grace achieve last year?",
+   "answer": "helped find homes for over thirty dogs",
+   "distractors": [
+    "adopted thirty dogs",
+    "opened a new shelter",
+    "became a manager"
+   ],
+   "explanation": "'Last year Grace helped find homes for more than thirty dogs.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_VOLUNTEER"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Why will there be no trains between Bath and Bristol on Sunday?",
+   "answer": "engineering work",
+   "distractors": [
+    "a strike",
+    "bad weather",
+    "a holiday"
+   ],
+   "explanation": "'...because of engineering work.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_TRAINS"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Where do the replacement buses leave from?",
+   "answer": "outside the main entrance",
+   "distractors": [
+    "platform 1",
+    "the bus station",
+    "Bristol city centre"
+   ],
+   "explanation": "'Buses will leave from outside the main entrance.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_TRAINS"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How much longer will the journey take?",
+   "answer": "about 30 minutes",
+   "distractors": [
+    "about 20 minutes",
+    "about an hour",
+    "no longer"
+   ],
+   "explanation": "'Journeys will take about 30 minutes longer than usual.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_TRAINS"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Can you use your train ticket on the bus?",
+   "answer": "Yes",
+   "distractors": [
+    "No, you need a new ticket",
+    "Only on Sunday morning",
+    "Only return tickets"
+   ],
+   "explanation": "'Tickets for the train are valid on the bus.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_TRAINS"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How is Ruth different from Rachel?",
+   "answer": "Ruth is outgoing, but Rachel is quiet.",
+   "distractors": [
+    "Ruth is quiet, but Rachel loves parties.",
+    "Ruth lives in Devon.",
+    "Ruth is a vet."
+   ],
+   "explanation": "'Ruth is outgoing... Rachel is quiet.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_TWINS"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What is Rachel's job?",
+   "answer": "vet",
+   "distractors": [
+    "banker",
+    "teacher",
+    "librarian"
+   ],
+   "explanation": "'Rachel became a vet.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_TWINS"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How often do the twins talk on the phone?",
+   "answer": "every evening",
+   "distractors": [
+    "every Christmas",
+    "once a week",
+    "never"
+   ],
+   "explanation": "'They talk on the phone every evening.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_TWINS"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Where does Ruth work?",
+   "answer": "in a bank in London",
+   "distractors": [
+    "in a village in Devon",
+    "at home",
+    "in a shop"
+   ],
+   "explanation": "'Ruth... now works in a bank in London.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_TWINS"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Where must dogs be on a lead?",
+   "answer": "near the children's playground",
+   "distractors": [
+    "everywhere in the park",
+    "in the café",
+    "on the cycle paths"
+   ],
+   "explanation": "'Please keep dogs on a lead near the children's playground.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_PARK"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What is NOT allowed in the park?",
+   "answer": "barbecues",
+   "distractors": [
+    "cycling on marked paths",
+    "dogs",
+    "guided walks"
+   ],
+   "explanation": "'Barbecues are not permitted.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_PARK"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "When does the café close in winter?",
+   "answer": "3 pm",
+   "distractors": [
+    "5 pm",
+    "10 am",
+    "9 am"
+   ],
+   "explanation": "'...from 10 am to 3 pm in winter.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_PARK"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How much do the guided walks cost?",
+   "answer": "nothing",
+   "distractors": [
+    "£11",
+    "£3",
+    "£5"
+   ],
+   "explanation": "'Free guided walks...'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_PARK"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Where was Alexander Graham Bell born?",
+   "answer": "in Edinburgh",
+   "distractors": [
+    "in Canada",
+    "in the United States",
+    "in London"
+   ],
+   "explanation": "'Bell was born in Edinburgh in 1847.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_INVENTION"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "When was the first successful telephone call?",
+   "answer": "1876",
+   "distractors": [
+    "1847",
+    "1906",
+    "1776"
+   ],
+   "explanation": "'...made by Alexander Graham Bell in 1876.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_INVENTION"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Why was much of Bell's work about helping deaf people?",
+   "answer": "His mother and his wife were deaf.",
+   "distractors": [
+    "He was deaf himself.",
+    "He was a doctor.",
+    "The government paid him."
+   ],
+   "explanation": "'His mother and his wife were both deaf.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_INVENTION"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How many people use a mobile phone today, according to the text?",
+   "answer": "more than five billion",
+   "distractors": [
+    "about one million",
+    "five hundred million",
+    "everyone in the world"
+   ],
+   "explanation": "'...more than five billion people around the world use a mobile phone.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_INVENTION"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "When does the book club meet?",
+   "answer": "the first Thursday of every month",
+   "distractors": [
+    "every Thursday",
+    "the last Friday of the month",
+    "every week"
+   ],
+   "explanation": "'...meets on the first Thursday of every month.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_CLUB"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Do members have to buy the books?",
+   "answer": "No, the library keeps copies.",
+   "distractors": [
+    "Yes, every month.",
+    "Only new members.",
+    "Yes, from the club."
+   ],
+   "explanation": "'You don't need to buy the books — the local library keeps copies.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_CLUB"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What do members do at the meetings?",
+   "answer": "discuss the book",
+   "distractors": [
+    "write a book",
+    "read aloud for an hour",
+    "sell books"
+   ],
+   "explanation": "'...discuss it together over tea and biscuits.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_CLUB"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Where does the club meet?",
+   "answer": "in the community centre",
+   "distractors": [
+    "in the library",
+    "in a café",
+    "at members' homes"
+   ],
+   "explanation": "'...at 7 pm in the community centre.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_CLUB"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What is the first piece of advice?",
+   "answer": "write down everything you spend for a month",
+   "distractors": [
+    "open a new bank account",
+    "stop buying coffee",
+    "ask for a pay rise"
+   ],
+   "explanation": "'First, write down everything you spend for a month.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_ADVICE"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "When should you move money into savings?",
+   "answer": "as soon as you are paid",
+   "distractors": [
+    "at the end of the month",
+    "once a year",
+    "when you have £100"
+   ],
+   "explanation": "'...put it in a separate account as soon as you are paid.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_ADVICE"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What might surprise the person?",
+   "answer": "how much they spend on coffee and snacks",
+   "distractors": [
+    "how much they earn",
+    "how cheap food is",
+    "how much they save"
+   ],
+   "explanation": "'You'll be surprised how much goes on coffee and snacks!'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_ADVICE"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "How did the writer's class do overall?",
+   "answer": "They came second.",
+   "distractors": [
+    "They won.",
+    "They came last.",
+    "They didn't take part."
+   ],
+   "explanation": "'My class came second overall.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_SPORTS"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What was special about the tug of war this year?",
+   "answer": "The students won for the first time in ten years.",
+   "distractors": [
+    "The teachers won again.",
+    "It was cancelled.",
+    "Parents took part."
+   ],
+   "explanation": "'The students won the tug of war for the first time in ten years!'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_SPORTS"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "Why did parents sell cakes?",
+   "answer": "to raise money for football shirts",
+   "distractors": [
+    "to pay the teachers",
+    "for a school trip",
+    "to buy new books"
+   ],
+   "explanation": "'...to raise money for new football shirts.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_SPORTS"
+  },
+  {
+   "level": "A2",
+   "skill": "reading",
+   "prompt": "What was the weather like on sports day?",
+   "answer": "sunny but not too hot",
+   "distractors": [
+    "very hot",
+    "cold and wet",
+    "windy"
+   ],
+   "explanation": "'The weather was perfect — sunny but not too hot.'",
+   "tags": [
+    "reading",
+    "story"
+   ],
+   "passage": "A2P_SPORTS"
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I'm not sure, but I ___ go to the concert tonight.",
+   "answer": "may",
+   "distractors": [
+    "must",
+    "have to",
+    "should to"
+   ],
+   "explanation": "'May' expresses possibility.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "You ___ eat so much sugar. It's bad for you.",
+   "answer": "shouldn't",
+   "distractors": [
+    "mustn't to",
+    "don't should",
+    "haven't"
+   ],
+   "explanation": "Advice not to do something: shouldn't.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "She has been learning English ___ she was six.",
+   "answer": "since",
+   "distractors": [
+    "for",
+    "from",
+    "ago"
+   ],
+   "explanation": "'Since' + a past point.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "This is the most beautiful beach I ___.",
+   "answer": "have ever seen",
+   "distractors": [
+    "ever saw",
+    "have never seen",
+    "am seeing"
+   ],
+   "explanation": "Superlative + present perfect with 'ever'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I'll lend you the book when I ___ it.",
+   "answer": "finish",
+   "distractors": [
+    "will finish",
+    "finished",
+    "am finish"
+   ],
+   "explanation": "After 'when' about the future: present simple.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "It ___ rain later, so take an umbrella just in case.",
+   "answer": "might",
+   "distractors": [
+    "must",
+    "should to",
+    "is"
+   ],
+   "explanation": "'Might' = maybe.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "We were ___ tired that we went straight to bed.",
+   "answer": "so",
+   "distractors": [
+    "such",
+    "too",
+    "very"
+   ],
+   "explanation": "'So + adjective + that'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "It was ___ a lovely day that we went to the beach.",
+   "answer": "such",
+   "distractors": [
+    "so",
+    "too",
+    "very"
+   ],
+   "explanation": "'Such a + adjective + noun'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I've been to Paris, but I ___ been to Rome.",
+   "answer": "haven't",
+   "distractors": [
+    "didn't",
+    "wasn't",
+    "hasn't"
+   ],
+   "explanation": "Present perfect negative: haven't been.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "She speaks English ___ than her brother.",
+   "answer": "better",
+   "distractors": [
+    "gooder",
+    "more good",
+    "best"
+   ],
+   "explanation": "The comparative of 'well' is 'better'.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "___ is a good way to relax.",
+   "answer": "Swimming",
+   "distractors": [
+    "Swim",
+    "To swimming",
+    "Swims"
+   ],
+   "explanation": "An -ing form can be the subject of a sentence.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I promise I ___ tell anyone.",
+   "answer": "won't",
+   "distractors": [
+    "don't",
+    "am not",
+    "didn't"
+   ],
+   "explanation": "Promises use will/won't.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Neither of us ___ the answer.",
+   "answer": "knew",
+   "distractors": [
+    "knowing",
+    "know to",
+    "knowed"
+   ],
+   "explanation": "Past simple of 'know': knew.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'd like to ___ some money from the cash machine.",
+   "answer": "take out",
+   "distractors": [
+    "take off",
+    "put out",
+    "get off"
+   ],
+   "explanation": "You take out (withdraw) money.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "She ___ her driving test last week. Now she can drive alone.",
+   "answer": "passed",
+   "distractors": [
+    "past",
+    "passing",
+    "pass"
+   ],
+   "explanation": "You pass a test.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The ___ of this jacket is £45.",
+   "answer": "price",
+   "distractors": [
+    "cost of paying",
+    "value up",
+    "money"
+   ],
+   "explanation": "The price is what you pay.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "My grandmother ___ me a birthday card every year.",
+   "answer": "sends",
+   "distractors": [
+    "sells",
+    "spends",
+    "sees"
+   ],
+   "explanation": "You send a card to someone.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "We're going ___ for a meal tonight.",
+   "answer": "out",
+   "distractors": [
+    "outside",
+    "away",
+    "off"
+   ],
+   "explanation": "'Go out for a meal' = eat at a restaurant.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Could you ___ the radio down? It's too loud.",
+   "answer": "turn",
+   "distractors": [
+    "take",
+    "put",
+    "make"
+   ],
+   "explanation": "'Turn down' = make quieter.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The ___ of the book is a young girl in Victorian London.",
+   "answer": "main character",
+   "distractors": [
+    "main actor",
+    "main role",
+    "head person"
+   ],
+   "explanation": "The main character is the most important person in a story.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I've got a ___ for the concert. Do you want to come?",
+   "answer": "spare ticket",
+   "distractors": [
+    "spare tickets",
+    "free ticket off",
+    "extra seat up"
+   ],
+   "explanation": "A spare ticket is one you don't need.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "He ___ his arm playing rugby.",
+   "answer": "broke",
+   "distractors": [
+    "broken",
+    "break",
+    "brake"
+   ],
+   "explanation": "Past of 'break': broke.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Please ___ quiet. The baby is sleeping.",
+   "answer": "be",
+   "distractors": [
+    "do",
+    "make",
+    "stay at"
+   ],
+   "explanation": "'Be quiet' = don't make noise.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "There's a ___ outside. Let's go for a walk in the sun.",
+   "answer": "lovely day",
+   "distractors": [
+    "lovely weather day",
+    "love day",
+    "lovely sun day"
+   ],
+   "explanation": "'It's a lovely day' describes nice weather.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "He's very good ___ cooking.",
+   "answer": "at",
+   "distractors": [
+    "in",
+    "on",
+    "for"
+   ],
+   "explanation": "'Good at' something.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'm sorry ___ being late.",
+   "answer": "for",
+   "distractors": [
+    "about to",
+    "of",
+    "at"
+   ],
+   "explanation": "'Sorry for' + -ing.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "Could you tell me where the post office ___?",
+   "answer": "is",
+   "distractors": [
+    "is it",
+    "it is located is",
+    "are"
+   ],
+   "explanation": "Indirect questions: subject + verb at the end.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "If it ___ sunny tomorrow, we'll have a picnic.",
+   "answer": "is",
+   "distractors": [
+    "will be",
+    "was",
+    "be"
+   ],
+   "explanation": "First conditional: if + present simple.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "I'm looking forward to ___ my cousins.",
+   "answer": "seeing",
+   "distractors": [
+    "see",
+    "seen",
+    "saw"
+   ],
+   "explanation": "'Look forward to' + -ing.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "grammar",
+   "prompt": "My keys? I think I left ___ in the car.",
+   "answer": "them",
+   "distractors": [
+    "it",
+    "they",
+    "their"
+   ],
+   "explanation": "'Keys' is plural: them.",
+   "tags": [
+    "grammar"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Don't ___ to lock the door when you leave.",
+   "answer": "forget",
+   "distractors": [
+    "remember",
+    "remind",
+    "lose"
+   ],
+   "explanation": "'Don't forget to...' = remember to.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "Can you ___ me to call Mum tonight?",
+   "answer": "remind",
+   "distractors": [
+    "remember",
+    "forget",
+    "memory"
+   ],
+   "explanation": "You remind someone to do something.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "I'd like to ___ my English, so I'm taking a course.",
+   "answer": "improve",
+   "distractors": [
+    "increase",
+    "grow up",
+    "raise"
+   ],
+   "explanation": "You improve a skill.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "The train was ___, so we couldn't find seats.",
+   "answer": "crowded",
+   "distractors": [
+    "crowd",
+    "empty",
+    "quiet"
+   ],
+   "explanation": "Crowded = full of people.",
+   "tags": [
+    "vocabulary"
+   ]
+  },
+  {
+   "level": "A2",
+   "skill": "vocabulary",
+   "prompt": "It's ___ to cycle without lights at night.",
+   "answer": "dangerous",
+   "distractors": [
+    "danger",
+    "safe",
+    "dangerously"
+   ],
+   "explanation": "Cycling at night without lights is dangerous.",
+   "tags": [
+    "vocabulary"
+   ]
+  }
+ ]
+}

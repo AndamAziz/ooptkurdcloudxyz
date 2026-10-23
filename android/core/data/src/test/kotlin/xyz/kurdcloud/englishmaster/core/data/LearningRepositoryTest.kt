@@ -69,7 +69,7 @@ class LearningRepositoryTest {
         assertEquals(0, status.attemptsLeft)
         assertEquals(1792551600000L, status.nextAttemptAtMillis)
         assertEquals(false, status.inProgress)
-        assertEquals("/rest/v1/rpc/get_placement_status", server.takeRequest().url.encodedPath)
+        assertEquals("/rest/v1/rpc/get_placement_status_v2", server.takeRequest().url.encodedPath)
     }
 
     @Test

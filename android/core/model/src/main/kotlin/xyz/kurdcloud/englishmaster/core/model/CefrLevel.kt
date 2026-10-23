@@ -22,6 +22,10 @@ enum class CefrLevel(val apiValue: String, val label: String) {
         /** Question sets staff can write for: the English levels and the Life in the UK course. */
         val authoringLevels: List<CefrLevel> = practiceLevels + LIFE_IN_UK
 
+        /** The English level after [level] (null for C2 and for Life in the UK). */
+        fun next(level: CefrLevel): CefrLevel? = practiceLevels.getOrNull(practiceLevels.indexOf(level) + 1)
+            ?.takeIf { level in practiceLevels }
+
         fun fromApi(value: String): CefrLevel =
             entries.firstOrNull { it.apiValue == value } ?: error("Unknown CEFR level: $value")
     }

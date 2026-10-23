@@ -106,6 +106,31 @@ class ExamViewModelTest {
     }
 
     @Test
+    fun checkpointIsStartedForItsLevelAndNumberAndMarked() = runTest(dispatcher) {
+        val repo = FakeLearning()
+        val vm = ExamViewModel(ExamKind.CHECKPOINT, CefrLevel.B1, repo, clock = { testScheduler.currentTime }, checkpoint = 2)
+        vm.start(); runCurrent()
+        assertEquals(2, repo.checkpointNumber)
+        vm.select(1); vm.next(); vm.select(0)
+        vm.submit(); runCurrent()
+        val s = vm.uiState.value
+        assertEquals(ExamPhase.FINISHED, s.phase)
+        assertEquals(false, s.result?.passed)
+        assertEquals(7_200_000L, s.result?.nextAttemptAtMillis)
+    }
+
+    @Test
+    fun placementConfirmationReportsTheConfirmedLevel() = runTest(dispatcher) {
+        val repo = FakeLearning()
+        val vm = ExamViewModel(ExamKind.PLACEMENT_CONFIRM, null, repo, clock = { testScheduler.currentTime })
+        vm.start(); runCurrent()
+        vm.select(1)
+        vm.submit(); runCurrent()
+        assertEquals(true, vm.uiState.value.confirmation?.confirmed)
+        assertEquals(CefrLevel.B1, vm.uiState.value.confirmation?.recommendedLevel)
+    }
+
+    @Test
     fun answersAreSentAutomaticallyWhenTimeRunsOut() = runTest(dispatcher) {
         val repo = FakeLearning(expiresAt = 5_000)
         val vm = ExamViewModel(ExamKind.LEVEL_FINAL, CefrLevel.A1, repo, clock = { testScheduler.currentTime })

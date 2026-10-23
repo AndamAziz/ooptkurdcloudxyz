@@ -1,6 +1,9 @@
 package xyz.kurdcloud.englishmaster.core.data
 
 import xyz.kurdcloud.englishmaster.core.model.Certificate
+import xyz.kurdcloud.englishmaster.core.model.CheckpointStatus
+import xyz.kurdcloud.englishmaster.core.model.ConfirmationResult
+import xyz.kurdcloud.englishmaster.core.network.StartCheckpointRequest
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.ExamKind
 import xyz.kurdcloud.englishmaster.core.model.ExamQuestion
@@ -37,6 +40,17 @@ interface LearningRepository {
 
     /** Placement tests left today and when the next one opens. */
     suspend fun placementStatus(): ApiResult<PlacementStatus> = ApiResult.Failure(ApiError.NotConfigured)
+
+    /** The three checkpoints of every English level. */
+    suspend fun checkpoints(): ApiResult<List<CheckpointStatus>> = ApiResult.Failure(ApiError.NotConfigured)
+    suspend fun startCheckpoint(level: CefrLevel, number: Int): ApiResult<ExamSession> = ApiResult.Failure(ApiError.NotConfigured)
+    suspend fun submitCheckpoint(attemptId: String, answers: Map<String, String>): ApiResult<ExamResult> =
+        ApiResult.Failure(ApiError.NotConfigured)
+
+    /** Placement stage 2: a confirmation test at the level the screening test says was passed. */
+    suspend fun startPlacementConfirmation(): ApiResult<ExamSession> = ApiResult.Failure(ApiError.NotConfigured)
+    suspend fun submitPlacementConfirmation(attemptId: String, answers: Map<String, String>): ApiResult<ConfirmationResult> =
+        ApiResult.Failure(ApiError.NotConfigured)
 }
 
 class SupabaseLearningRepository(private val api: LearningApi, private val media: MediaFiles? = null) : LearningRepository {
@@ -90,8 +104,38 @@ class SupabaseLearningRepository(private val api: LearningApi, private val media
 
     override suspend fun placementStatus() = restCall { api.placementStatus() }.map { rows ->
         val r = rows.single()
-        PlacementStatus(r.attemptsLeft, r.nextAttemptAt?.let(::epochMillis), r.inProgress)
+        PlacementStatus(
+            r.attemptsLeft, r.nextAttemptAt?.let(::epochMillis), r.inProgress,
+            r.confirmLevel?.let(CefrLevel::fromApi), r.confirmInProgress, r.confirmed,
+        )
     }
+
+    override suspend fun checkpoints() = restCall { api.checkpoints() }.map { rows ->
+        rows.map {
+            CheckpointStatus(
+                CefrLevel.fromApi(it.level), it.checkpoint, it.required, it.unlocked, it.passed,
+                it.lastScore, it.lastTotal, it.availableAt?.let(::epochMillis), it.inProgress != null,
+            )
+        }
+    }
+
+    override suspend fun startCheckpoint(level: CefrLevel, number: Int) =
+        restCall { api.startCheckpoint(StartCheckpointRequest(level.apiValue, number)) }.map { it.single().toSession(ExamKind.CHECKPOINT, media) }
+
+    override suspend fun submitCheckpoint(attemptId: String, answers: Map<String, String>) =
+        restCall { api.submitCheckpoint(SubmitExamRequest(attemptId, answers)) }.map { rows ->
+            val r = rows.single()
+            ExamResult(r.score, r.total, r.passed, r.passPercent, null, r.nextAttemptAt?.let(::epochMillis), r.expired)
+        }
+
+    override suspend fun startPlacementConfirmation() =
+        restCall { api.startPlacementConfirmation() }.map { it.single().toSession(ExamKind.PLACEMENT_CONFIRM, media) }
+
+    override suspend fun submitPlacementConfirmation(attemptId: String, answers: Map<String, String>) =
+        restCall { api.submitPlacementConfirmation(SubmitExamRequest(attemptId, answers)) }.map { rows ->
+            val r = rows.single()
+            ConfirmationResult(r.score, r.total, r.confirmed, CefrLevel.fromApi(r.testedLevel), CefrLevel.fromApi(r.recommendedLevel))
+        }
 
     override suspend fun certificates() = restCall { api.certificates() }.map { rows ->
         rows.map { Certificate(CefrLevel.fromApi(it.level), it.holderName, it.score, it.total, it.code, epochMillis(it.issuedAt)) }

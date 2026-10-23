@@ -18,8 +18,8 @@ insert into public.assessment_attempts (id, user_id, kind, cefr_level) values
 insert into public.assessment_responses (id, attempt_id, user_id, question_id, question_version, chosen_option, is_correct)
 select gen_random_uuid(), 'c1000000-0000-0000-0000-0000000000c1', 'c1000000-0000-0000-0000-00000000000c',
        q.id, q.version, q.correct_option, true
-  from (select * from public.assessment_questions where cefr_level = 'A1' and status = 'published' order by id
-         limit (select count(*) / 2 from public.assessment_questions where cefr_level = 'A1' and status = 'published')) q;
+  from (select * from public.assessment_questions where cefr_level = 'A1' and status = 'published' and pool = 'practice' order by id
+         limit (select count(*) / 2 from public.assessment_questions where cefr_level = 'A1' and status = 'published' and pool = 'practice')) q;
 
 -- Practice fixtures: A and B answer every published A1 question (A correctly, B 80% correctly).
 insert into public.assessment_attempts (id, user_id, kind, cefr_level) values
@@ -28,15 +28,22 @@ insert into public.assessment_attempts (id, user_id, kind, cefr_level) values
 insert into public.assessment_responses (id, attempt_id, user_id, question_id, question_version, chosen_option, is_correct)
 select gen_random_uuid(), 'a1000000-0000-0000-0000-0000000000a1', 'a1000000-0000-0000-0000-00000000000a',
        q.id, q.version, q.correct_option, true
-  from public.assessment_questions q where q.cefr_level = 'A1' and q.status = 'published';
+  from public.assessment_questions q where q.cefr_level = 'A1' and q.status = 'published' and q.pool = 'practice';
 insert into public.assessment_responses (id, attempt_id, user_id, question_id, question_version, chosen_option, is_correct)
 select gen_random_uuid(), 'b1000000-0000-0000-0000-0000000000b1', 'b1000000-0000-0000-0000-00000000000b',
        q.id, q.version, q.correct_option, (row_number() over (order by q.id)) % 5 <> 0
-  from public.assessment_questions q where q.cefr_level = 'A1' and q.status = 'published';
+  from public.assessment_questions q where q.cefr_level = 'A1' and q.status = 'published' and q.pool = 'practice';
+
+-- A and B have passed the level's three checkpoints (tested in 15_stricter_assessment).
+insert into public.exam_attempts (user_id, kind, cefr_level, checkpoint, question_ids, status, expires_at, submitted_at, score, total, passed)
+select u.id, 'checkpoint', 'A1', k, array[(select id from public.assessment_questions where cefr_level = 'A1' limit 1)],
+       'submitted', now(), now(), 15, 15, true
+  from (values ('a1000000-0000-0000-0000-00000000000a'::uuid), ('b1000000-0000-0000-0000-00000000000b'::uuid)) u(id),
+       generate_series(1, 3) k;
 
 create temp table t (k text primary key, v jsonb);
 grant select, insert, update on t to authenticated, anon;
-insert into t select 'a1_published', to_jsonb(count(*)) from public.assessment_questions where cefr_level = 'A1' and status = 'published';
+insert into t select 'a1_published', to_jsonb(count(*)) from public.assessment_questions where cefr_level = 'A1' and status = 'published' and pool = 'practice';
 
 -- Anonymous -----------------------------------------------------------------
 set local role anon;

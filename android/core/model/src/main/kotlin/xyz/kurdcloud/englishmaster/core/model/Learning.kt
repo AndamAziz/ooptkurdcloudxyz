@@ -16,6 +16,19 @@ object ExamRules {
     const val PLACEMENT_MINUTES = 20
     /** Finished placement tests allowed in any 24 hours (tests left unfinished do not count). */
     const val PLACEMENT_PER_DAY = 3
+
+    /** Checkpoints inside each level; all must be passed before the level exam unlocks. */
+    const val CHECKPOINT_QUESTIONS = 15
+    const val CHECKPOINT_MINUTES = 15
+    const val CHECKPOINT_PASS_PERCENT = 70
+    const val CHECKPOINT_RETRY_HOURS = 2
+    /** Share of the level answered that opens checkpoint 1, 2 and 3. */
+    val CHECKPOINT_COVERAGE = listOf(25, 50, 70)
+
+    /** Placement stage 2: confirms the highest level the screening test says was passed. */
+    const val CONFIRM_QUESTIONS = 20
+    const val CONFIRM_MINUTES = 20
+    const val CONFIRM_PASS_PERCENT = 70
 }
 
 /** Where a learner stands on the way to a level certificate. */
@@ -94,7 +107,7 @@ data class ExamQuestion(
     val media: QuestionMedia? = null,
 )
 
-enum class ExamKind { LEVEL_FINAL, PLACEMENT }
+enum class ExamKind { LEVEL_FINAL, PLACEMENT, CHECKPOINT, PLACEMENT_CONFIRM }
 
 data class ExamSession(
     val attemptId: String,
@@ -122,6 +135,28 @@ data class ExamResult(
 
 data class PlacementResult(val score: Int, val total: Int, val passedLevel: CefrLevel?, val recommendedLevel: CefrLevel)
 
+/** Placement stage 2: [confirmed] means the learner really has [testedLevel] and should study [recommendedLevel]. */
+data class ConfirmationResult(val score: Int, val total: Int, val confirmed: Boolean, val testedLevel: CefrLevel, val recommendedLevel: CefrLevel) {
+    val percent: Int get() = if (total == 0) 0 else score * 100 / total
+}
+
+/** One of a level's three checkpoints. */
+data class CheckpointStatus(
+    val level: CefrLevel,
+    val number: Int,
+    /** Distinct practice questions of the level to answer before it opens. */
+    val required: Int,
+    val unlocked: Boolean,
+    val passed: Boolean,
+    val lastScore: Int?,
+    val lastTotal: Int?,
+    /** After a failed try: when the next one opens. */
+    val availableAtMillis: Long?,
+    val inProgress: Boolean,
+) {
+    fun waiting(nowMillis: Long) = !passed && availableAtMillis != null && availableAtMillis > nowMillis
+}
+
 data class Certificate(
     val level: CefrLevel,
     val holderName: String,
@@ -136,7 +171,7 @@ data class Certificate(
 }
 
 /** Why the server refused to start or submit an exam (from the RPC's error hint). */
-enum class ExamRefusal { NOT_UNLOCKED, RETRY_LATER, ALREADY_CERTIFIED, PENDING_APPROVAL, NOT_ENOUGH_QUESTIONS, NOT_FOUND, OTHER;
+enum class ExamRefusal { NOT_UNLOCKED, RETRY_LATER, ALREADY_CERTIFIED, PENDING_APPROVAL, NOT_ENOUGH_QUESTIONS, NOT_FOUND, ALREADY_DONE, OTHER;
     companion object {
         fun fromHint(hint: String?): ExamRefusal = when (hint) {
             "not_unlocked" -> NOT_UNLOCKED
@@ -145,6 +180,7 @@ enum class ExamRefusal { NOT_UNLOCKED, RETRY_LATER, ALREADY_CERTIFIED, PENDING_A
             "pending_approval" -> PENDING_APPROVAL
             "not_enough_questions" -> NOT_ENOUGH_QUESTIONS
             "not_found" -> NOT_FOUND
+            "already_passed", "nothing_to_confirm" -> ALREADY_DONE
             else -> OTHER
         }
     }

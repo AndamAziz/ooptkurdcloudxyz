@@ -75,6 +75,14 @@ data class LevelVersionRow(
     @ColumnInfo(name = "last_changed") val lastChanged: String?,
 )
 
+/** One marked practice answer, with the level of its (downloaded) question. */
+data class AnswerRow(
+    @ColumnInfo(name = "question_id") val questionId: String,
+    @ColumnInfo(name = "cefr_level") val cefrLevel: String,
+    @ColumnInfo(name = "is_correct") val isCorrect: Boolean,
+    @ColumnInfo(name = "answered_at") val answeredAtMillis: Long,
+)
+
 data class LevelCountRow(
     @ColumnInfo(name = "cefr_level") val cefrLevel: String,
     val count: Int,

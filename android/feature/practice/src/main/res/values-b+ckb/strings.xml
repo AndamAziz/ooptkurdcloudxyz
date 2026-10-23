@@ -94,8 +94,8 @@
     <string name="home_recommended">ئاستی پێشنیارکراوت: %1$s</string>
     <string name="home_practise_level">مەشقی %1$s</string>
     <string name="home_how_title">چۆن بڕوانامە وەربگرم؟</string>
-    <string name="home_how_step1">لە ئاستێکدا مەشق بکە تا لانیکەم %1$d%% ی هەموو پرسیارەکانی وەڵام دەدەیتەوە، و لانیکەم %2$d%% ی دوایین وەڵامەکانت ڕاست بن. هەڵەکان بە «پێداچوونەوەی هەڵەکان» چاک دەکرێنەوە.</string>
-    <string name="home_how_step2">ئینجا تاقیکردنەوەی کۆتایی ئاستەکە دەکرێتەوە: %1$d پرسیاری هەڕەمەکی لە %2$d خولەکدا، لەسەر سێرڤەر هەڵدەسەنگێنرێت.</string>
+    <string name="home_how_step1">لە ئاستێکدا مەشق بکە تا لانیکەم %1$d%% ی هەموو پرسیارەکانی وەڵام دەدەیتەوە، و لانیکەم %2$d%% ی دوایین وەڵامەکانت ڕاست بن، و لە سێ چێکپۆینتی کورتی ئەو ئاستە دەربچیت کە پرسیارەکانیان مەشقت لەسەر نەکردوون. هەڵەیەک دوای 24 کاتژمێر پێداچوونەوەی بۆ دەکرێت و کاتێک چاک دەبێتەوە کە لە دوو ڕۆژی جیاوازدا دوو جار ڕاست وەڵامی بدەیتەوە.</string>
+    <string name="home_how_step2">ئینجا تاقیکردنەوەی کۆتایی ئاستەکە دەکرێتەوە: %1$d پرسیار لە %2$d خولەکدا، لە بانکێکی تایبەت بە تاقیکردنەوە هەڵدەبژێردرێن بۆیە بۆت نوێن. دووبارەکردنەوەی تاقیکردنەوە هەرگیز پرسیارەکانی تاقیکردنەوە پێشووەکانت دووبارە ناکاتەوە.</string>
     <string name="home_how_step3">ئەگەر %1$d%% یان زیاتر بەدەستبهێنیت، دوای پەسەندکردنی مامۆستاکەت بڕوانامەکەت دەردەچێت، وەک PDF بە کۆدی QR کە هەر کەسێک دەتوانێت سکانی بکات و پشتڕاستی بکاتەوە.</string>
     <string name="home_how_step4">دەرنەچوویت؟ پێداچوونەوە بە هەڵەکانتدا بکە؛ هەوڵی داهاتوو دوای %1$d کاتژمێر دەکرێتەوە.</string>
     <string name="home_level_title">ئاستی %1$s</string>
@@ -224,4 +224,28 @@
     <string name="home_updating_title">نوێکردنەوەی پرسیارەکانت</string>
     <string name="home_updating_checking">پشکنین بۆ پرسیاری نوێ…</string>
     <string name="home_updating_level">%1$s: بەشی %2$d لە %3$d</string>
+    <string name="home_confirm_title">پشتڕاستکردنەوەی ئاستەکەت: %1$s</string>
+    <string name="home_confirm_body">تاقیکردنەوەی ئاست ئاستی %2$sی دۆزییەوە. %1$d پرسیاری نوێ لەو ئاستەدا وەڵام بدەرەوە بۆ پشتڕاستکردنەوەی.</string>
+    <string name="home_confirm_start">تاقیکردنەوەی پشتڕاستکردنەوە بکە</string>
+    <string name="home_confirm_continue">بەردەوامبوون لە تاقیکردنەوەی پشتڕاستکردنەوە</string>
+    <string name="home_status_checkpoints">ئامانجی مەشقەکەت تەواو بوو. لە چێکپۆینتەکانی خوارەوە دەربچۆ بۆ کردنەوەی تاقیکردنەوەی کۆتایی.</string>
+    <string name="home_checkpoints_header">چێکپۆینتەکان</string>
+    <string name="home_checkpoint_passed">لە چێکپۆینتی %1$d دەرچوویت (%2$d/%3$d)</string>
+    <string name="home_checkpoint_wait">چێکپۆینتی %1$d: هەوڵی داهاتوو %2$s دەکرێتەوە</string>
+    <string name="home_checkpoint_open">چێکپۆینتی %1$d ئامادەیە</string>
+    <plurals name="home_checkpoint_locked">
+        <item quantity="one">چێکپۆینتی %1$d دوای مەشقکردن لەسەر %2$d پرسیار دەکرێتەوە</item>
+        <item quantity="other">چێکپۆینتی %1$d دوای مەشقکردن لەسەر %2$d پرسیار دەکرێتەوە</item>
+    </plurals>
+    <string name="home_checkpoint_start">دەستپێکردن</string>
+    <string name="home_checkpoint_continue">بەردەوامبوون</string>
+    <plurals name="home_mistakes_waiting">
+        <item quantity="one">%1$d هەڵە چاوەڕێی پێداچوونەوەیە — داهاتوو لە %2$s</item>
+        <item quantity="other">%1$d هەڵە چاوەڕێی پێداچوونەوەن — داهاتوو لە %2$s</item>
+    </plurals>
+    <string name="home_next_level">بەردەوامبوون بۆ ئاستی %1$s</string>
+    <string name="home_path_title">ڕێگاکەت بەرەو C2</string>
+    <string name="home_path_current">ئێستا لەسەر ئاستی %1$s کار دەکەیت. هەر ئاستێک بڕوانامەی تایبەتی خۆی هەیە.</string>
+    <string name="home_path_done">هەموو ئاستەکانت بڕوانامە وەرگرت. پیرۆزە!</string>
+    <string name="fb_review_later">ئەم پرسیارە دەچێتە ناو هەڵەکانتەوە. دوای 24 کاتژمێر دەتوانیت پێداچوونەوەی پێدا بکەیت؛ کاتێک چاک دەبێتەوە کە لە دوو ڕۆژی جیاوازدا دوو جار ڕاست وەڵامی بدەیتەوە.</string>
 </resources>

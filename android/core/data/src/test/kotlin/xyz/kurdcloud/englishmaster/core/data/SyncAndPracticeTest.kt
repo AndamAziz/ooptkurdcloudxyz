@@ -28,6 +28,7 @@ import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.SyncReport.StopReason
 import xyz.kurdcloud.englishmaster.core.model.SyncState
 import xyz.kurdcloud.englishmaster.core.model.Topic
+import xyz.kurdcloud.englishmaster.core.model.MistakeStats
 import xyz.kurdcloud.englishmaster.core.model.isNewerThan
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.core.network.NetworkFactory
@@ -74,19 +75,26 @@ class SyncAndPracticeTest {
     }
 
     @Test
-    fun mistakesAreQuestionsWhoseLatestMarkedAnswerWasWrong() = runTest {
+    fun mistakesComeBackForReviewOnlyAfter24Hours() = runTest {
         val r = db.responses()
-        // q1: wrong then right -> not a mistake. q2: right then wrong -> mistake. q3: wrong but still pending -> not counted.
-        r.insert(ResponseEntity("a1", "u1", "att", "q1", "A1", "A", 1, SyncState.SYNCED.name, isCorrect = false))
-        r.insert(ResponseEntity("a2", "u1", "att", "q1", "A1", "B", 2, SyncState.SYNCED.name, isCorrect = true))
-        r.insert(ResponseEntity("a3", "u1", "att", "q2", "A1", "B", 1, SyncState.SYNCED.name, isCorrect = true))
-        r.insert(ResponseEntity("a4", "u1", "att", "q2", "A1", "A", 2, SyncState.SYNCED.name, isCorrect = false))
+        val hour = 60 * 60 * 1000L
+        // q1: wrong, then right straight away -> still a mistake, due 24 h after the wrong answer.
+        r.insert(ResponseEntity("a1", "u1", "att", "q1", "A1", "A", 0, SyncState.SYNCED.name, isCorrect = false))
+        r.insert(ResponseEntity("a2", "u1", "att", "q1", "A1", "B", hour, SyncState.SYNCED.name, isCorrect = true))
+        // q2: right, then wrong 30 h later -> a mistake due at 54 h. q3: still pending -> not counted.
+        r.insert(ResponseEntity("a3", "u1", "att", "q2", "A1", "B", 0, SyncState.SYNCED.name, isCorrect = true))
+        r.insert(ResponseEntity("a4", "u1", "att", "q2", "A1", "A", 30 * hour, SyncState.SYNCED.name, isCorrect = false))
         r.insert(ResponseEntity("a5", "u1", "att", "q3", "A1", "A", 1, SyncState.PENDING.name))
         r.insert(ResponseEntity("a6", "u2", "att2", "q1", "A1", "A", 3, SyncState.SYNCED.name, isCorrect = false))
-        val content = OfflineFirstContentRepository(services.practice, db.questions(), db.levelPacks(), db.content())
+        var now = 31 * hour
+        val content = OfflineFirstContentRepository(services.practice, db.questions(), db.levelPacks(), db.content(), nowMillis = { now })
 
-        assertEquals(listOf("q2"), content.pickMistakes(CefrLevel.A1, "u1", 10).map { it.id })
-        assertEquals(mapOf(CefrLevel.A1 to 1), content.observeMistakeCounts("u1").first())
+        assertEquals(listOf("q1"), content.pickMistakes(CefrLevel.A1, "u1", 10).map { it.id })
+        assertEquals(MistakeStats(1, 1, 54 * hour), content.observeMistakeStats("u1").first()[CefrLevel.A1])
+        // A waiting mistake is kept out of normal practice until it is due.
+        assertEquals(false, content.pickSession(CefrLevel.A1, "u1", 10).any { it.id == "q2" })
+        now = 54 * hour
+        assertEquals(setOf("q1", "q2"), content.pickMistakes(CefrLevel.A1, "u1", 10).map { it.id }.toSet())
         assertEquals(mapOf(CefrLevel.A1 to 1), content.observeMistakeCounts("u2").first())
     }
 

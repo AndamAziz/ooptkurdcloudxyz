@@ -1,6 +1,6 @@
 -- AI-drafted question batches stay hidden from students until a teacher approves them.
 begin;
-select plan(15);
+select plan(19);
 
 select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-01:%'), 125,
   'AI batch 01 seeded: 125 items');
@@ -15,6 +15,14 @@ select is((select count(*)::int from public.assessment_questions where external_
   'AI batch 03 (stories, dialogues, Life in the UK, Britain) seeded as 114 drafts');
 select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-03:%' and media_path like 'samples/%'), 15,
   'batch 03 picture and video questions point at the sample media');
+select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-06:%' and pool = 'exam' and status = 'draft'), 720,
+  'batch 06 adds 120 exam-only drafts per English level');
+select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-07:%' and pool = 'practice'), 600,
+  'batch 07 adds 300 practice drafts each for A1 and A2');
+select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-08:%' and pool = 'practice'), 600,
+  'batch 08 adds 300 practice drafts each for B1 and B2');
+select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:ai-batch-09:%' and pool = 'practice'), 600,
+  'batch 09 adds 300 practice drafts each for C1 and C2');
 select is((select count(*)::int from public.assessment_questions where external_ref like 'ai:%' and source not like 'ai-draft:%'), 0,
   'AI items are labelled with their batch as source');
 select is((select count(*)::int from (

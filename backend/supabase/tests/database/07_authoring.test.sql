@@ -58,13 +58,35 @@ select is((select count(*)::int from public.activity_logs
             where event_type = 'staff.display_name_changed' and metadata = '{}'::jsonb), 1,
   'the change is logged without copying names');
 
--- Learner downloads the new question with its passage/media fields.
+-- Learner downloads the new question with its passage/media fields (every page of the level).
+create function pg_temp.all_v2(p_level public.cefr_level)
+returns setof record language plpgsql as $f$
+declare
+  v_after uuid;
+  r record;
+  n int;
+begin
+  loop
+    n := 0;
+    for r in select * from public.get_practice_questions_v2(p_level, v_after, 200) loop
+      n := n + 1;
+      v_after := r.id;
+      return next r;
+    end loop;
+    exit when n < 200;
+  end loop;
+end;
+$f$;
 select set_config('request.jwt.claims', '{"sub":"d1000000-0000-0000-0000-00000000000a","role":"authenticated"}', true);
 set local role authenticated;
 select results_eq(
-  $$select media_type, media_path, passage from public.get_practice_questions_v2('A1', null, 200) where prompt like 'Where does Ali%'
+  $$select media_type, media_path, passage from pg_temp.all_v2('A1') as q(id uuid, cefr_level public.cefr_level, skill text,
+      prompt text, options text[], version integer, review_status text, updated_at timestamptz, passage text, media_type text,
+      media_path text, media_caption text) where prompt like 'Where does Ali live%'
     union all
-    select media_type, media_path, passage from public.get_practice_questions_v2('A1', null, 200) where prompt like 'What time is it?%'$$,
+    select media_type, media_path, passage from pg_temp.all_v2('A1') as q(id uuid, cefr_level public.cefr_level, skill text,
+      prompt text, options text[], version integer, review_status text, updated_at timestamptz, passage text, media_type text,
+      media_path text, media_caption text) where prompt = 'What time is it? ___'$$,
   $$values (null::text, null::text, 'Ali lives in Leeds with his family.'::text), ('image', 'samples/clock.png', null)$$,
   'v2 download includes passages and media');
 reset role;
