@@ -100,6 +100,13 @@ Auth email links: password-reset and sign-up confirmation emails redirect to
 password"). In the dashboard, Authentication → URL Configuration must list it under **Redirect URLs**,
 and the **Site URL** should be set to the same value (the default `http://localhost:3000` leads nowhere).
 
+Password reset uses the **code**, not the link. Browsers refuse to hand a server-side redirect to an
+app's own URL scheme, so the link in the email opens nothing on Android; the same email also carries a
+six-digit code, and the app asks for that instead (`POST /auth/v1/verify` with
+`{email, token, type: "recovery"}`, then `PUT /auth/v1/user`). The **Reset Password** email template
+must therefore show `{{ .Token }}`; keeping `{{ .ConfirmationURL }}` as well does no harm. Codes are
+valid for one hour and for a single use.
+
 Permissions at a glance: **learner** — practise, exams, own profile and certificates; **teacher** —
 plus learner list and name corrections, question review/authoring/editing/publishing, certificate
 approval; **admin** — plus deleting questions, roles, suspensions and the activity log.

@@ -1,5 +1,6 @@
 package xyz.kurdcloud.englishmaster
 
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -42,6 +43,8 @@ import xyz.kurdcloud.englishmaster.feature.auth.CheckEmailReason
 import xyz.kurdcloud.englishmaster.feature.auth.CheckEmailScreen
 import xyz.kurdcloud.englishmaster.feature.auth.ForgotPasswordScreen
 import xyz.kurdcloud.englishmaster.feature.auth.ForgotPasswordViewModel
+import xyz.kurdcloud.englishmaster.feature.auth.ResetCodeScreen
+import xyz.kurdcloud.englishmaster.feature.auth.ResetCodeViewModel
 import xyz.kurdcloud.englishmaster.feature.auth.InterfaceLanguage
 import xyz.kurdcloud.englishmaster.feature.auth.RegisterScreen
 import xyz.kurdcloud.englishmaster.feature.auth.RegisterViewModel
@@ -72,6 +75,7 @@ private object Routes {
     const val SET_PASSWORD = "set-password"
     const val REGISTER = "register"
     const val FORGOT = "forgot-password"
+    const val RESET_CODE = "reset-code/{email}"
     const val CHECK_EMAIL = "check-email/{reason}"
     const val HOME = "home"
     const val PRACTICE = "practice/{level}?mistakes={mistakes}"
@@ -93,6 +97,7 @@ private object Routes {
     /** [notice]: a message to show on arrival (session expired, email link expired, ...). */
     fun signIn(notice: AuthMessage? = null) = "sign-in?notice=${notice?.name.orEmpty()}"
     fun checkEmail(reason: CheckEmailReason) = "check-email/${reason.name}"
+    fun resetCode(email: String) = "reset-code/${Uri.encode(email)}"
     fun practice(level: CefrLevel, mistakes: Boolean = false) = "practice/${level.apiValue}?mistakes=$mistakes"
     fun exam(level: CefrLevel) = "exam/${level.apiValue}"
     fun checkpoint(level: CefrLevel, number: Int) = "checkpoint/${level.apiValue}/$number"
@@ -216,7 +221,18 @@ fun EnglishMasterNavHost(
         composable(Routes.FORGOT) {
             ForgotPasswordScreen(
                 viewModel = viewModel { ForgotPasswordViewModel(container.auth) },
-                onSent = { navController.navigate(Routes.checkEmail(CheckEmailReason.PASSWORD_RESET)) { popUpTo(Routes.WELCOME) } },
+                // The email carries a code: the link in it cannot open the app from a browser redirect.
+                onSent = { email -> navController.navigate(Routes.resetCode(email)) },
+                onBack = { navController.popBackStack() },
+            )
+        }
+        composable(Routes.RESET_CODE) { entry ->
+            val email = entry.arguments?.getString("email").orEmpty()
+            ResetCodeScreen(
+                email = email,
+                viewModel = viewModel { ResetCodeViewModel(email, container.auth) },
+                // The code signed the user in, so the new password takes them straight into the app.
+                onDone = ::goHome,
                 onBack = { navController.popBackStack() },
             )
         }

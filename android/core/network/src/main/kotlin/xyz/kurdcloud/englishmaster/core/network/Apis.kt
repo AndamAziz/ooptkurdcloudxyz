@@ -20,6 +20,10 @@ interface AuthApi {
     @POST("auth/v1/recover")
     suspend fun recover(@Body body: RecoverRequest, @Query("redirect_to") redirectTo: String? = null)
 
+    /** Exchanges the code from a password-reset email for a session. */
+    @POST("auth/v1/verify")
+    suspend fun verifyOtp(@Body body: VerifyOtpRequest): TokenResponseDto
+
     /** The user an access token belongs to (used after an email link signs the user in). */
     @GET("auth/v1/user")
     suspend fun user(@Header("Authorization") bearer: String): AuthUserDto

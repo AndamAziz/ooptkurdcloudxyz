@@ -93,6 +93,34 @@ class AuthViewModelTest {
     }
 
     @Test
+    fun `reset code signs the user in and then saves the new password`() {
+        val vm = ResetCodeViewModel("a@b.co", repo)
+
+        // Digits only, and all six are needed before anything is sent.
+        vm.onCodeChange("12 34-5x")
+        assertEquals("12345", vm.uiState.value.code)
+        vm.onPasswordChange("newpass99")
+        vm.onConfirmChange("newpass99")
+        vm.submit()
+        assertTrue(vm.uiState.value.codeError)
+        assertTrue(repo.calls.isEmpty())
+
+        // A wrong or stale code is named as such, and no password is saved.
+        vm.onCodeChange("123456")
+        repo.verifyRecoveryCodeResult = ApiResult.Failure(ApiError.Auth(AuthFailure.CODE_INVALID))
+        vm.submit()
+        assertEquals(AuthMessage.CODE_INVALID, vm.uiState.value.message)
+        assertEquals(listOf("verifyRecoveryCode:a@b.co:123456"), repo.calls)
+
+        repo.calls.clear()
+        repo.verifyRecoveryCodeResult = ApiResult.Success(Unit)
+        vm.submit()
+        assertTrue(vm.uiState.value.done)
+        assertEquals(listOf("verifyRecoveryCode:a@b.co:123456", "updatePassword"), repo.calls)
+        assertEquals("", vm.uiState.value.password)
+    }
+
+    @Test
     fun `new password is checked, must be repeated, and server refusals are explained`() {
         val vm = SetPasswordViewModel(repo)
         vm.onPasswordChange("short")
