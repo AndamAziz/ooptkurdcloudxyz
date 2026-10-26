@@ -163,14 +163,59 @@ fun RegisterScreen(
 }
 
 @Composable
-fun ForgotPasswordScreen(viewModel: ForgotPasswordViewModel, onSent: () -> Unit, onBack: () -> Unit) {
+fun ForgotPasswordScreen(viewModel: ForgotPasswordViewModel, onSent: (String) -> Unit, onBack: () -> Unit) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    LaunchedEffect(state.sent) { if (state.sent) onSent() }
+    LaunchedEffect(state.sent) { if (state.sent) onSent(state.email.trim()) }
     AuthScaffold(title = stringResource(R.string.auth_forgot_password), onBack = onBack) {
         Text(stringResource(R.string.auth_reset_explainer), style = MaterialTheme.typography.bodyMedium)
         EmailField(state.email, viewModel::onEmailChange, state.emailError, enabled = !state.submitting, imeAction = ImeAction.Done)
         MessageText(state.message)
         SubmitButton(stringResource(R.string.auth_send_reset_link), state.submitting, viewModel::submit)
+    }
+}
+
+/** Password reset with the code from the email: enter the code and the new password together. */
+@Composable
+fun ResetCodeScreen(email: String, viewModel: ResetCodeViewModel, onDone: () -> Unit, onBack: () -> Unit) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    LaunchedEffect(state.done) { if (state.done) onDone() }
+    AuthScaffold(title = stringResource(R.string.auth_reset_code_title), onBack = onBack) {
+        Text(stringResource(R.string.auth_reset_code_body, email), style = MaterialTheme.typography.bodyMedium)
+        OutlinedTextField(
+            value = state.code,
+            onValueChange = viewModel::onCodeChange,
+            label = { Text(stringResource(R.string.auth_reset_code_label)) },
+            isError = state.codeError,
+            supportingText = if (state.codeError) ({ Text(stringResource(R.string.auth_reset_code_invalid)) }) else null,
+            singleLine = true,
+            enabled = !state.submitting,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword, imeAction = ImeAction.Next),
+            modifier = Modifier.fillMaxWidth().testTag("reset_code"),
+        )
+        PasswordField(
+            value = state.password,
+            onValueChange = viewModel::onPasswordChange,
+            isError = state.passwordError,
+            errorText = stringResource(R.string.auth_password_rules),
+            enabled = !state.submitting,
+            newPassword = true,
+            onDone = {},
+        )
+        OutlinedTextField(
+            value = state.confirm,
+            onValueChange = viewModel::onConfirmChange,
+            label = { Text(stringResource(R.string.auth_set_password_confirm)) },
+            isError = state.mismatch,
+            supportingText = if (state.mismatch) ({ Text(stringResource(R.string.auth_set_password_mismatch)) }) else null,
+            singleLine = true,
+            enabled = !state.submitting,
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(onDone = { viewModel.submit() }),
+            modifier = Modifier.fillMaxWidth().testTag("reset_code_confirm"),
+        )
+        MessageText(state.message)
+        SubmitButton(stringResource(R.string.auth_set_password_save), state.submitting, viewModel::submit)
     }
 }
 

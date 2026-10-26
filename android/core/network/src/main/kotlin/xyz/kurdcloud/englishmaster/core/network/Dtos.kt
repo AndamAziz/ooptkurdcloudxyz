@@ -18,6 +18,13 @@ data class SignUpMetadata(@SerialName("display_name") val displayName: String)
 @Serializable
 data class RecoverRequest(val email: String)
 
+/**
+ * One-time code from a password-reset email. Browsers refuse to follow the reset link's redirect to
+ * the app's own URL scheme, so the code in the same email is what the app actually uses.
+ */
+@Serializable
+data class VerifyOtpRequest(val email: String, val token: String, val type: String)
+
 @Serializable
 data class UpdateUserRequest(val password: String)
 

@@ -19,8 +19,12 @@
     <string name="auth_display_name_invalid">Enter a name (1–80 characters)</string>
     <string name="auth_consent">I agree that my name, email address, answers and progress are stored to provide this service.</string>
     <string name="auth_consent_required">You need to agree before creating an account</string>
-    <string name="auth_reset_explainer">Enter your account email. If an account exists, we will send a link to reset your password.</string>
-    <string name="auth_send_reset_link">Send reset link</string>
+    <string name="auth_reset_explainer">Enter your account email. If an account exists, we will send you a code to reset your password.</string>
+    <string name="auth_send_reset_link">Send code</string>
+    <string name="auth_reset_code_title">Enter the code</string>
+    <string name="auth_reset_code_body">If an account exists for %1$s, we sent it a 6-digit code. Enter the code and choose a new password. The code is valid for one hour.</string>
+    <string name="auth_reset_code_label">6-digit code</string>
+    <string name="auth_reset_code_invalid">Enter the 6 digits from the email</string>
     <string name="auth_check_email_title">Check your email</string>
     <string name="auth_check_email_confirm">We sent you a confirmation link. Open it, then sign in.</string>
     <string name="auth_check_email_reset">If an account exists for that address, a password reset link is on its way.</string>
@@ -95,6 +99,7 @@
     <string name="auth_error_same_password">Choose a password that is different from your old one.</string>
     <string name="auth_error_link_expired">This email link has expired or was already used. Request a new one.</string>
     <string name="auth_error_link_invalid">This email link could not be used. Please try again.</string>
+    <string name="auth_error_code_invalid">That code is wrong, already used or too old. Request a new one.</string>
     <string name="auth_error_email_limit">We cannot send another email right now because too many were sent recently. Please try again later (this can take up to an hour).</string>
     <string name="account_section_questions">Questions</string>
     <string name="account_update_questions">Update all questions</string>

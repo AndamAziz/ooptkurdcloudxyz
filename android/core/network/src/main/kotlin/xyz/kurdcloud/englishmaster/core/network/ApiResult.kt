@@ -41,7 +41,7 @@ sealed interface ApiError {
     data object NotConfigured : ApiError
 }
 
-enum class AuthFailure { INVALID_CREDENTIALS, EMAIL_NOT_CONFIRMED, USER_EXISTS, WEAK_PASSWORD, SAME_PASSWORD, SIGNUP_DISABLED, EMAIL_LIMIT, OTHER }
+enum class AuthFailure { INVALID_CREDENTIALS, EMAIL_NOT_CONFIRMED, USER_EXISTS, WEAK_PASSWORD, SAME_PASSWORD, SIGNUP_DISABLED, EMAIL_LIMIT, CODE_INVALID, OTHER }
 
 val ApiError.isRetryable: Boolean
     get() = this is ApiError.Network || this is ApiError.RateLimited || this is ApiError.Server
@@ -62,6 +62,8 @@ suspend fun <T> authCall(block: suspend () -> T): ApiResult<T> = runCatchingApi(
         code == "weak_password" -> ApiError.Auth(AuthFailure.WEAK_PASSWORD)
         code == "same_password" -> ApiError.Auth(AuthFailure.SAME_PASSWORD)
         code == "signup_disabled" -> ApiError.Auth(AuthFailure.SIGNUP_DISABLED)
+        // Wrong, already used or too old reset code.
+        code == "otp_expired" || code == "otp_disabled" -> ApiError.Auth(AuthFailure.CODE_INVALID)
         status >= 500 -> ApiError.Server(status)
         else -> ApiError.Auth(AuthFailure.OTHER)
     }

@@ -144,6 +144,23 @@ class SessionAndAuthTest {
     }
 
     @Test
+    fun theCodeFromAResetEmailSignsTheUserIn() = runTest {
+        val (repo, store) = repo(CoroutineScope(SupervisorJob() + UnconfinedTestDispatcher(testScheduler)))
+
+        // Spaces the mail client may add are stripped; the session is stored like any sign-in.
+        server.enqueue(json(200, """{"access_token":"a","refresh_token":"r","expires_in":3600,"user":{"id":"u9","email":"a@b.co"}}"""))
+        assertEquals(ApiResult.Success(Unit), repo.verifyRecoveryCode(" a@b.co ", "123 456"))
+        val verify = server.takeRequest()
+        assertEquals("/auth/v1/verify", verify.url.encodedPath)
+        assertEquals("""{"email":"a@b.co","token":"123456","type":"recovery"}""", verify.body!!.utf8())
+        assertEquals("u9", store.current()?.userId)
+
+        // A wrong, used or stale code is reported as such rather than as a generic failure.
+        server.enqueue(json(403, """{"error_code":"otp_expired","msg":"Token has expired or is invalid"}"""))
+        assertEquals(ApiResult.Failure(ApiError.Auth(AuthFailure.CODE_INVALID)), repo.verifyRecoveryCode("a@b.co", "000000"))
+    }
+
+    @Test
     fun signInStoresSessionAndSignOutClearsIt() = runTest {
         val (repo, store) = repo(CoroutineScope(SupervisorJob() + UnconfinedTestDispatcher(testScheduler)))
         server.enqueue(json(200, """{"access_token":"a","refresh_token":"r","expires_in":3600,"user":{"id":"u1","email":"a@b.co"}}"""))

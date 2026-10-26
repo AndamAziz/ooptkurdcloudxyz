@@ -14,6 +14,7 @@ import xyz.kurdcloud.englishmaster.core.network.SignUpRequest
 import xyz.kurdcloud.englishmaster.core.network.SupabaseConfig
 import xyz.kurdcloud.englishmaster.core.network.TokenResponseDto
 import xyz.kurdcloud.englishmaster.core.network.UpdateUserRequest
+import xyz.kurdcloud.englishmaster.core.network.VerifyOtpRequest
 import xyz.kurdcloud.englishmaster.core.network.authCall
 import xyz.kurdcloud.englishmaster.core.network.toSession
 
@@ -29,6 +30,9 @@ interface AuthRepository {
 
     /** Signs in with the tokens from an email link (password reset or sign-up confirmation). */
     suspend fun completeEmailLink(link: EmailLink.SignedIn): ApiResult<Unit> = ApiResult.Failure(ApiError.NotConfigured)
+
+    /** Signs in with the code from a password-reset email, so the user can then set a new password. */
+    suspend fun verifyRecoveryCode(email: String, code: String): ApiResult<Unit> = ApiResult.Failure(ApiError.NotConfigured)
 
     /** Sets a new password for the signed-in user. */
     suspend fun updatePassword(newPassword: String): ApiResult<Unit> = ApiResult.Failure(ApiError.NotConfigured)
@@ -85,6 +89,18 @@ class SupabaseAuthRepository(
                 store.save(dto.toSession(nowEpochSeconds()))
                 ApiResult.Success(Unit)
             }
+        }
+    }
+
+    override suspend fun verifyRecoveryCode(email: String, code: String): ApiResult<Unit> = guarded {
+        // Codes are shown with a space in some mail clients; the server wants the digits only.
+        val token = code.filter { !it.isWhitespace() }
+        when (val result = authCall { api.verifyOtp(VerifyOtpRequest(email.trim(), token, type = "recovery")) }) {
+            is ApiResult.Success -> {
+                store.save(result.value.toSession(nowEpochSeconds()))
+                ApiResult.Success(Unit)
+            }
+            is ApiResult.Failure -> result
         }
     }
 

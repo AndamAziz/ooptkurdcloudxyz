@@ -32,6 +32,12 @@ class FakeAuthRepository : AuthRepository {
         return ApiResult.Success(Unit)
     }
 
+    var verifyRecoveryCodeResult: ApiResult<Unit> = ApiResult.Success(Unit)
+    override suspend fun verifyRecoveryCode(email: String, code: String): ApiResult<Unit> {
+        calls += "verifyRecoveryCode:$email:$code"
+        return verifyRecoveryCodeResult
+    }
+
     var updatePasswordResult: ApiResult<Unit> = ApiResult.Success(Unit)
     override suspend fun updatePassword(newPassword: String): ApiResult<Unit> {
         calls += "updatePassword"

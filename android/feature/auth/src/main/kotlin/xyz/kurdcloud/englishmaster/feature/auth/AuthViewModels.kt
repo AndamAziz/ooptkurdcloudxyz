@@ -127,6 +127,65 @@ class ForgotPasswordViewModel(private val auth: AuthRepository) : ViewModel() {
     }
 }
 
+data class ResetCodeUiState(
+    val code: String = "",
+    val password: String = "",
+    val confirm: String = "",
+    val codeError: Boolean = false,
+    val passwordError: Boolean = false,
+    val mismatch: Boolean = false,
+    val submitting: Boolean = false,
+    val message: AuthMessage? = null,
+    val done: Boolean = false,
+)
+
+/**
+ * Password reset with the code from the email: the code signs the user in, then the new password is
+ * saved. Browsers do not reliably open the app from the link in the same email, a code always works.
+ */
+class ResetCodeViewModel(private val email: String, private val auth: AuthRepository) : ViewModel() {
+    private val state = MutableStateFlow(ResetCodeUiState())
+    val uiState: StateFlow<ResetCodeUiState> = state.asStateFlow()
+
+    /** Keeps digits only: mail clients may show the code with spaces. */
+    fun onCodeChange(value: String) =
+        state.update { it.copy(code = value.filter(Char::isDigit).take(CODE_LENGTH), codeError = false, message = null) }
+
+    fun onPasswordChange(value: String) = state.update { it.copy(password = value, passwordError = false, mismatch = false, message = null) }
+    fun onConfirmChange(value: String) = state.update { it.copy(confirm = value, mismatch = false, message = null) }
+
+    fun submit() {
+        val s = state.value
+        if (s.submitting) return
+        if (s.code.length != CODE_LENGTH) {
+            state.update { it.copy(codeError = true) }
+            return
+        }
+        if (!CredentialRules.isValidPassword(s.password)) {
+            state.update { it.copy(passwordError = true) }
+            return
+        }
+        if (s.password != s.confirm) {
+            state.update { it.copy(mismatch = true) }
+            return
+        }
+        state.update { it.copy(submitting = true, message = null) }
+        viewModelScope.launch {
+            when (val verified = auth.verifyRecoveryCode(email, s.code)) {
+                is ApiResult.Failure -> state.update { it.copy(submitting = false, message = AuthMessage.from(verified.error)) }
+                is ApiResult.Success -> when (val saved = auth.updatePassword(s.password)) {
+                    is ApiResult.Success -> state.update { it.copy(submitting = false, done = true, password = "", confirm = "") }
+                    is ApiResult.Failure -> state.update { it.copy(submitting = false, message = AuthMessage.from(saved.error)) }
+                }
+            }
+        }
+    }
+
+    companion object {
+        const val CODE_LENGTH = 6
+    }
+}
+
 data class SetPasswordUiState(
     val password: String = "",
     val confirm: String = "",
