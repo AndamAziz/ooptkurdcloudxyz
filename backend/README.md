@@ -184,13 +184,26 @@ In test mode the app builds four options by borrowing answers from other questio
 chapter, so practice feels like the real multiple-choice exam without anyone writing distractors.
 
 Content: `content/theory/uk-theory-questions.json` (520 questions in 10 of the 15 chapters, English
-with a Sorani translation). The **EnglishMaster content** workflow inserts them as **drafts** with
+with a Sorani translation), supplied by the project owner. The **EnglishMaster content** workflow inserts them as **drafts** with
 `scripts/release/publish_theory_questions.py`, so nothing reaches learners until a teacher publishes
 the chapter. `scripts/db/build_theory_seed.py` writes the equivalent SQL seed for local tests.
 
-> These questions follow the official DVSA revision questions closely. DVSA material is Crown
-> copyright; redistribution rights have **not** been established. Before publishing the app to a
-> store, either license the questions or rewrite them in your own words.
+## Kurdish translations (`20261027120000_translation_content`)
+
+`content/translations/ckb/*.json` (one file per level, keyed by `external_ref`, holding the Sorani
+prompt, options, explanation and reading passage) is applied by the **EnglishMaster content**
+workflow with `scripts/release/publish_translations.py`, which calls
+`content_set_question_translations()`. Before, the files were rendered to SQL
+(`scripts/db/build_translation_sql.py`) and run by hand.
+
+The function only ever writes the `*_ckb` columns, so the English question, its options and its
+answer key cannot change: re-running the workflow is safe and reports 0 updated rows once
+everything is in. A translated option list is stored only when it has exactly as many entries as
+the English options, so a half-translated question shows English options rather than a mismatched
+set. It is granted to `service_role` alone — learners and staff cannot call it.
+
+Translated so far: 3,789 of 4,557 questions (A1 391, A2 385, B1 402, B2 387, C1 380, C2 378,
+Life in the UK 1,466).
 
 ## Running the database tests locally (no Docker needed)
 

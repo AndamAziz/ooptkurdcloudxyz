@@ -2,7 +2,8 @@ name: EnglishMaster content
 
 # Publishes question media (content/media/**) to the question-media bucket and inserts new
 # question batches as drafts: the AI-drafted English questions and the driving-theory questions.
-# Existing questions are never modified.
+# It also applies the Kurdish translations in content/translations/, which only ever write the
+# *_ckb columns. Existing English questions, options and answer keys are never modified.
 on:
   push:
     paths:
@@ -10,6 +11,7 @@ on:
       - "scripts/media/upload_question_media.sh"
       - "scripts/release/publish_questions.py"
       - "scripts/release/publish_theory_questions.py"
+      - "scripts/release/publish_translations.py"
   workflow_dispatch:
 
 permissions:
@@ -42,3 +44,9 @@ jobs:
         run: |
           export SUPABASE_URL=$(sed -nE 's/^englishmaster.supabase.url=//p' android/gradle.properties)
           python3 scripts/release/publish_theory_questions.py
+      - name: Apply the Kurdish translations
+        env:
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          export SUPABASE_URL=$(sed -nE 's/^englishmaster.supabase.url=//p' android/gradle.properties)
+          python3 scripts/release/publish_translations.py
