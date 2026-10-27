@@ -625,6 +625,1101 @@
   "passage": null,
   "prompt": "سەیری ڤیدیۆکە بکە. شەوی ئاگرکردنەوە (بۆنفایەر نایت) لە چ ڕێکەوتێکدایە؟"
  },
+ "ai:ai-batch-06:01bbde178fda": {
+  "explanation": "'Early' واتە پێش کاتی ئاسایی؛ 'late' واتە دوای ئەو.",
+  "options": [
+   "درەنگ (late)",
+   "هێواش",
+   "خێرا",
+   "بەم زووانە"
+  ],
+  "passage": null,
+  "prompt": "پێچەوانەی 'early' (زوو) ___ە."
+ },
+ "ai:ai-batch-06:0291a572b83a": {
+  "explanation": "ڕاسپاردە (فەرمان) شێوەی بنەڕەتیی کردار بەکاردەهێنێت.",
+  "options": null,
+  "passage": null,
+  "prompt": "تکایە دەرگاکە دابخە. سەردە."
+ },
+ "ai:ai-batch-06:0362f86b12df": {
+  "explanation": "ئاوەڵناوی کورت لە بەراوردکردندا -er دەگرن.",
+  "options": null,
+  "passage": null,
+  "prompt": "براکەم لە من درێژترە."
+ },
+ "ai:ai-batch-06:0483b549e8e5": {
+  "explanation": "'Too' لە کۆتایی ڕستەی ئەرێنیدا دێت.",
+  "options": null,
+  "passage": null,
+  "prompt": "من حەزم لە مەلەکردنە و خوشکەکەشم حەزی لێیە."
+ },
+ "ai:ai-batch-06:0abf4c275668": {
+  "explanation": "سوپەرلەتیڤی 'good' دەبێتە 'the best'.",
+  "options": null,
+  "passage": null,
+  "prompt": "ئەمە باشترین ڕۆژی ژیانمە!"
+ },
+ "ai:ai-batch-06:0c20fe3c1dc9": {
+  "explanation": "نامەکان دەخرێنە سندوقی پۆستە.",
+  "options": [
+   "سەتڵی زبڵ",
+   "سندوقی پۆستە (postbox)",
+   "سەلاجە",
+   "چەکمەجە"
+  ],
+  "passage": null,
+  "prompt": "نامە لە ___ دەخەیت."
+ },
+ "ai:ai-batch-06:0dc281d6c467": {
+  "explanation": "دەربارەی کەسێک بە 'Who' پرسیار دەکەین.",
+  "options": [
+   "کەی",
+   "لە کوێ",
+   "کێ (who)",
+   "چی"
+  ],
+  "passage": null,
+  "prompt": "مامۆستاکەت ___ە؟ — خاتوو براون."
+ },
+ "ai:ai-batch-06:0fcac9ec9d8e": {
+  "explanation": "چاکەت گەرمت دەهێڵێتەوە.",
+  "options": [
+   "چاکەت (coat)",
+   "پانتۆڵی کورت",
+   "تی-شێرت",
+   "سەندەل"
+  ],
+  "passage": null,
+  "prompt": "زۆر سەردە. ___ەکەت لەبەر بکە."
+ },
+ "ai:ai-batch-06:1330414de9ce": {
+  "explanation": "چێشتخانە ئەو ژوورەیە کە خواردن تێدا لێدەنرێت.",
+  "options": [
+   "حەمام",
+   "چێشتخانە (kitchen)",
+   "باخچە",
+   "ژووری نوستن"
+  ],
+  "passage": null,
+  "prompt": "خواردن لە ___ دروست دەکەیت."
+ },
+ "ai:ai-batch-06:148ef7f7edf3": {
+  "explanation": "ویستنی خواردن واتە برسی بوون.",
+  "options": [
+   "تووڕە",
+   "خەواڵوو",
+   "تینوو",
+   "برسی (hungry)"
+  ],
+  "passage": null,
+  "prompt": "منداڵەکان ___ن. دەیانەوێت بخۆن."
+ },
+ "ai:ai-batch-06:14b6293d0f6a": {
+  "explanation": "'ئەو لە نەخۆشخانەیەک لە لیدز کار دەکات.'",
+  "options": [
+   "لە قوتابخانەیەک",
+   "لە کافێیەک",
+   "لە نەخۆشخانەیەک",
+   "لە وێستگەی شەمەندەفەر"
+  ],
+  "passage": null,
+  "prompt": "عەلی لە کوێ کار دەکات؟"
+ },
+ "ai:ai-batch-06:15f98ba62f2b": {
+  "explanation": "لەگەڵ کاتی کاتژمێردا 'at' بەکاردەهێنین.",
+  "options": null,
+  "passage": null,
+  "prompt": "فیلمەکە لە کاتژمێر هەشت دەست پێدەکات."
+ },
+ "ai:ai-batch-06:16f9252ea7b1": {
+  "explanation": "دوای 'did' شێوەی بنەڕەتی بەکاردەهێنین.",
+  "options": null,
+  "passage": null,
+  "prompt": "هەفتەی ڕابردوو سەردانی داپیرەت کرد؟"
+ },
+ "ai:ai-batch-06:170b25e028e6": {
+  "explanation": "قژ دەکرێت لوول، ڕاست، درێژ یان کورت بێت.",
+  "options": [
+   "لوول (curly)",
+   "قەڵەو",
+   "قورس",
+   "باڵابەرز"
+  ],
+  "passage": null,
+  "prompt": "قژم درێژ و ___ە."
+ },
+ "ai:ai-batch-06:17bd20f8a839": {
+  "explanation": "دوای 'didn't' شێوەی بنەڕەتی بەکاردەهێنین.",
+  "options": null,
+  "passage": null,
+  "prompt": "ئێمە نەچووینە ئاهەنگەکە."
+ },
+ "ai:ai-batch-06:186c20d322b5": {
+  "explanation": "'Cheap' واتە نرخی نزم؛ 'expensive' واتە نرخی بەرز.",
+  "options": [
+   "ئاسان",
+   "گران (expensive)",
+   "بچووک",
+   "نوێ"
+  ],
+  "passage": null,
+  "prompt": "پێچەوانەی 'cheap' (هەرزان) ___ە."
+ },
+ "ai:ai-batch-06:1b6536cdd776": {
+  "explanation": "'...لە خانووێکی بچووک لە یۆرک.'",
+  "options": [
+   "لە برایتن",
+   "لە لیدز",
+   "لە لەندەن",
+   "لە یۆرک"
+  ],
+  "passage": null,
+  "prompt": "تۆم لە کوێ دەژی؟"
+ },
+ "ai:ai-batch-06:1c9bb6ca425c": {
+  "explanation": "کچی برا یان خوشکەکەت دەبێتە 'niece'.",
+  "options": [
+   "ئامۆزا",
+   "برازای کوڕ",
+   "پوور",
+   "برازای کچ (niece)"
+  ],
+  "passage": null,
+  "prompt": "کچی خوشکەکەم ___ی منە."
+ },
+ "ai:ai-batch-06:1cbcaf9bcdc5": {
+  "explanation": "خووەکان لەگەڵ 'he': ئێستای سادە لەگەڵ -s.",
+  "options": null,
+  "passage": null,
+  "prompt": "ئەو بە زۆری پاس بۆ قوتابخانە دەگرێت."
+ },
+ "ai:ai-batch-06:1da7f7c12a72": {
+  "explanation": "'باوکی دەتوانێت لە کاتژمێر هەشت بمباتەوە ماڵەوە.'",
+  "options": [
+   "پاس دەگرێت.",
+   "باوکی سارا دەیباتەوە.",
+   "دایکی دەیباتەوە.",
+   "بە پێ دەڕوات."
+  ],
+  "passage": null,
+  "prompt": "جێس چۆن دەگاتە ماڵەوە؟"
+ },
+ "ai:ai-batch-06:1e0589990522": {
+  "explanation": "دەربارەی نرخ بە 'How much' پرسیار دەکەین.",
+  "options": null,
+  "passage": null,
+  "prompt": "ئەم جانتایە بە چەندە؟ — ١٢ پاوەندە."
+ },
+ "ai:ai-batch-06:1f499cbb0a6b": {
+  "explanation": "'باوکی تۆم شۆفێری پاسە.'",
+  "options": [
+   "فرۆشیار",
+   "مامۆستا",
+   "شۆفێری پاس (bus driver)",
+   "پزیشک"
+  ],
+  "passage": null,
+  "prompt": "کاری باوکی تۆم چییە؟"
+ },
+ "ai:ai-batch-06:1fbc5b351d5b": {
+  "explanation": "'Umbrella' بە دەنگێکی بزوێن دەست پێدەکات، بۆیە 'an' بەکاردەهێنین.",
+  "options": null,
+  "passage": null,
+  "prompt": "ئەمە چەترێکە."
+ },
+ "ai:ai-batch-06:1fe2b0d44be5": {
+  "explanation": "ناوی کۆ 'there are' دەگرێت.",
+  "options": null,
+  "passage": null,
+  "prompt": "سێ سێو لەسەر مێزەکەیە."
+ },
+ "ai:ai-batch-06:20da6616e89a": {
+  "explanation": "'یەکشەممە: ١٠ی بەیانی بۆ ٤ی ئێوارە.'",
+  "options": [
+   "کاتژمێر ٨ی بەیانی",
+   "داخراوە.",
+   "کاتژمێر ٧ی بەیانی",
+   "کاتژمێر ١٠ی بەیانی"
+  ],
+  "passage": null,
+  "prompt": "دووکانەکە ڕۆژی یەکشەممە کەی دەکرێتەوە؟"
+ },
+ "ai:ai-batch-06:21c0440835ff": {
+  "explanation": "'August' مانگێکە.",
+  "options": [
+   "دوای نیوەڕۆ",
+   "پایز",
+   "ئاب (August)",
+   "هەمیشە"
+  ],
+  "passage": null,
+  "prompt": "کام وشە ناوی مانگێکە؟"
+ },
+ "ai:ai-batch-06:225a50d57a8b": {
+  "explanation": "'تۆم بە پاسکیل دەچێتە قوتابخانە.'",
+  "options": [
+   "بە ئۆتۆمبێل",
+   "بە پێ",
+   "بە پاسکیل (by bike)",
+   "بە پاس"
+  ],
+  "passage": null,
+  "prompt": "تۆم چۆن دەچێتە قوتابخانە؟"
+ },
+ "ai:ai-batch-06:229f1b2b0e4a": {
+  "explanation": "نووسینگەی پۆستە ستامپ دەفرۆشێت.",
+  "options": [
+   "کتێبخانە",
+   "سینەما",
+   "مەلەوانگە",
+   "نووسینگەی پۆستە (post office)"
+  ],
+  "passage": null,
+  "prompt": "ستامپ لە ___ دەکڕیت."
+ },
+ "ai:ai-batch-06:23dfc79ceed3": {
+  "explanation": "فیلمەکان لە سینەما نیشان دەدرێن.",
+  "options": [
+   "وێستگە",
+   "نانەواخانە",
+   "مۆزەخانە",
+   "سینەما (cinema)"
+  ],
+  "passage": null,
+  "prompt": "دەتوانی فیلم لە ___ ببینیت."
+ },
+ "ai:ai-batch-06:26787642d040": {
+  "explanation": "'تکایە پێداویستیی مەلەکردنتان بهێنن چونکە مەلەوانگەمان هەیە.'",
+  "options": [
+   "خواردن",
+   "پێداویستیی مەلەکردن",
+   "دیاری",
+   "مۆسیقا"
+  ],
+  "passage": null,
+  "prompt": "میوانەکان دەبێت چی لەگەڵ خۆیان بهێنن؟"
+ },
+ "ai:ai-batch-06:27abe6e42fd2": {
+  "explanation": "'هەندێک پاستا لە سەلاجەدا هەیە بۆ نانی ئێوارە.'",
+  "options": [
+   "کێک",
+   "پاستا (pasta)",
+   "ماسی",
+   "شیر"
+  ],
+  "passage": null,
+  "prompt": "چی لە سەلاجەدایە؟"
+ },
+ "ai:ai-batch-06:30c330bd15ab": {
+  "explanation": "هەفتەیەک حەوت ڕۆژ هەیە.",
+  "options": [
+   "کۆتایی هەفتە",
+   "ساڵ",
+   "مانگ",
+   "هەفتە (week)"
+  ],
+  "passage": null,
+  "prompt": "حەوت ڕۆژ یەک ___ پێکدەهێنن."
+ },
+ "ai:ai-batch-06:3258912dd5ae": {
+  "explanation": "'At the moment' پێویستی بە ئێستای بەردەوام هەیە: am + -ing.",
+  "options": null,
+  "passage": null,
+  "prompt": "ئێستا تەلەفیزیۆن سەیر دەکەم."
+ },
+ "ai:ai-batch-06:352b7264ec78": {
+  "explanation": "فڕۆکەوانان فڕۆکە دەفڕێنن.",
+  "options": [
+   "پاس",
+   "کەشتی",
+   "فڕۆکە (plane)",
+   "شەمەندەفەر"
+  ],
+  "passage": null,
+  "prompt": "فڕۆکەوان ___ێک دەفڕێنێت."
+ },
+ "ai:ai-batch-06:35b0490494a8": {
+  "explanation": "'دوای قوتابخانە تۆم لە پارکەکەدا تۆپی پێ یاری دەکات.'",
+  "options": [
+   "یاریی کۆمپیوتەر دەکات.",
+   "لە دووکانێکدا کار دەکات.",
+   "لەگەڵ ئەیمی پیاسە دەکات.",
+   "تۆپی پێ یاری دەکات."
+  ],
+  "passage": null,
+  "prompt": "تۆم دوای قوتابخانە چی دەکات؟"
+ },
+ "ai:ai-batch-06:35d5d2ca62a1": {
+  "explanation": "'A park'ی تاک 'Is there' دەگرێت.",
+  "options": null,
+  "passage": null,
+  "prompt": "پارکێک لە نزیک خانووەکەتان هەیە؟"
+ },
+ "ai:ai-batch-06:3889e21301f0": {
+  "explanation": "دووشەممە، سێشەممە، چوارشەممە...",
+  "options": [
+   "چوارشەممە",
+   "پێنجشەممە",
+   "سێشەممە (Tuesday)",
+   "یەکشەممە"
+  ],
+  "passage": null,
+  "prompt": "ڕۆژی دوای دووشەممە ___ە."
+ },
+ "ai:ai-batch-06:3be271b6174f": {
+  "explanation": "'Good morning' سڵاوکردنە؛ 'Good night' پێش نوستن دەوترێت.",
+  "options": [
+   "ماڵئاوا.",
+   "شەو باش.",
+   "بەیانیت باش. (Good morning)",
+   "دەتبینمەوە."
+  ],
+  "passage": null,
+  "prompt": "کاتێک بەیانیان کەسێک دەبینیت چی دەڵێیت؟"
+ },
+ "ai:ai-batch-06:3c577e239758": {
+  "explanation": "'٣ی دوای نیوەڕۆ بۆ ٦ی ئێوارە.'",
+  "options": [
+   "٨ی ئێوارە",
+   "١٤ی حوزەیران",
+   "٦ی ئێوارە (6 pm)",
+   "٣ی دوای نیوەڕۆ"
+  ],
+  "passage": null,
+  "prompt": "ئاهەنگەکە چ کاتێک کۆتایی دێت؟"
+ },
+ "ai:ai-batch-06:44bb4dc1a0c8": {
+  "explanation": "داوای شوێن بە 'where' دەکەین.",
+  "options": [
+   "کێ",
+   "بە چەندە",
+   "چی",
+   "لە کوێ (where)"
+  ],
+  "passage": null,
+  "prompt": "ببوورە، وێستگەکە لە کوێیە؟"
+ },
+ "ai:ai-batch-06:45134378892d": {
+  "explanation": "پێش ناو ئاوەڵناوی خاوەندارێتیی 'his' بەکاردەهێنین.",
+  "options": null,
+  "passage": null,
+  "prompt": "ئەمە پێنووسی تۆیە؟ — نەخێر، نییە. پێنووسی ئەوە."
+ },
+ "ai:ai-batch-06:46728282eb5b": {
+  "explanation": "کلیل قفڵ دەکاتەوە.",
+  "options": [
+   "کلیل (key)",
+   "پێنووس",
+   "جام",
+   "یاریی کارت"
+  ],
+  "passage": null,
+  "prompt": "پێویستت بە ___ێکە بۆ کردنەوەی دەرگاکە."
+ },
+ "ai:ai-batch-06:47d4ad54cfa9": {
+  "explanation": "'My parents' کۆیە: 'are'.",
+  "options": null,
+  "passage": null,
+  "prompt": "دایک و باوکم خەڵکی سکۆتلەندن."
+ },
+ "ai:ai-batch-06:48a1ecc39752": {
+  "explanation": "'دوێنێ ماسی و پەتاتەی سوورکراومان خوارد.'",
+  "options": [
+   "بەستەنی",
+   "پیتزا",
+   "ساندویچ",
+   "ماسی و پەتاتەی سوورکراو (fish and chips)"
+  ],
+  "passage": null,
+  "prompt": "نینا و مارک دوێنێ چییان خوارد؟"
+ },
+ "ai:ai-batch-06:4942933b333b": {
+  "explanation": "'Our house' تاکە: 'has got'.",
+  "options": null,
+  "passage": null,
+  "prompt": "خانووەکەمان باخچەیەکی گەورەی هەیە."
+ },
+ "ai:ai-batch-06:4b24deef7c63": {
+  "explanation": "ڕابردووی 'be' لەگەڵ 'you' لە پرسیاردا: 'Were'.",
+  "options": null,
+  "passage": null,
+  "prompt": "دوێنێ لە قوتابخانە بووی؟"
+ },
+ "ai:ai-batch-06:4d0d1ec0c3ec": {
+  "explanation": "'Your parents' کۆیە: 'Do'.",
+  "options": null,
+  "passage": null,
+  "prompt": "دایک و باوکت بە ئینگلیزی قسە دەکەن؟"
+ },
+ "ai:ai-batch-06:53443062cc18": {
+  "explanation": "دایکی دایک یان باوکت دەبێتە داپیرت.",
+  "options": [
+   "خوشک",
+   "پوور",
+   "داپیر (grandmother)",
+   "کچ"
+  ],
+  "passage": null,
+  "prompt": "دایکی باوکت ___ی تۆیە."
+ },
+ "ai:ai-batch-06:5591661064fc": {
+  "explanation": "لەگەڵ مانگەکاندا 'in' بەکاردەهێنین.",
+  "options": null,
+  "passage": null,
+  "prompt": "لەدایکبوونم لە مانگی ئایارە."
+ },
+ "ai:ai-batch-06:56d61dcb1782": {
+  "explanation": "'Listen!' کارێک پیشان دەدات کە ئێستا ڕوودەدات: ئێستای بەردەوام.",
+  "options": null,
+  "passage": null,
+  "prompt": "گوێ بگرە! منداڵەکە دەگریێت."
+ },
+ "ai:ai-batch-06:59e68f1dfe39": {
+  "explanation": "بانگهێشتنامەکە دەڵێت 'Call Ben' و 'my birthday party'.",
+  "options": [
+   "تۆم",
+   "پارک ڕۆد",
+   "بێن (Ben)",
+   "سارا"
+  ],
+  "passage": null,
+  "prompt": "ئاهەنگی کێیە؟"
+ },
+ "ai:ai-batch-06:5a55a9f17a4d": {
+  "explanation": "چێشتلێنەر لە چێشتخانەدا خواردن لێدەنێت.",
+  "options": [
+   "گارسۆن",
+   "جوتیار",
+   "پەرستار",
+   "چێشتلێنەر (chef)"
+  ],
+  "passage": null,
+  "prompt": "ئەو لە چێشتخانەیەک کار دەکات. خواردن لێدەنێت. ئەو ___ێکە."
+ },
+ "ai:ai-batch-06:5cdc61db1afb": {
+  "explanation": "ئێستای سادە لەگەڵ 'she' -s دەگرێت: walks.",
+  "options": null,
+  "passage": null,
+  "prompt": "ئەو هەموو ڕۆژێک بە پێ دەچێتە سەر کار."
+ },
+ "ai:ai-batch-06:669aac6c2063": {
+  "explanation": "'ئەرکی ماڵەوەکەمان دەکەین.'",
+  "options": [
+   "بۆ ڕۆیشتن بۆ ماڵەوە",
+   "بۆ کردنی ئەرکی ماڵەوە",
+   "بۆ خۆراکدانی پشیلەکە",
+   "بۆ خواردنی نانی ئێوارە"
+  ],
+  "passage": null,
+  "prompt": "بۆچی جێس لە ماڵی سارایە؟"
+ },
+ "ai:ai-batch-06:68d02e896aaf": {
+  "explanation": "مامۆستا وانە دەڵێت.",
+  "options": [
+   "شۆفێر",
+   "جوتیار",
+   "قوتابی",
+   "مامۆستا (teacher)"
+  ],
+  "passage": null,
+  "prompt": "ئەو کەسەی وانە دەڵێت ___ێکە."
+ },
+ "ai:ai-batch-06:6c405dee1e48": {
+  "explanation": "'Thursday' ڕۆژێکی هەفتەیە.",
+  "options": [
+   "هەورەتریشقە",
+   "هەزار",
+   "پێنجشەممە (Thursday)",
+   "تینوو"
+  ],
+  "passage": null,
+  "prompt": "کام وشە ڕۆژێکی هەفتەیە؟"
+ },
+ "ai:ai-batch-06:6e15866c0ba7": {
+  "explanation": "دوای 'can' شێوەی بنەڕەتیی کردار بەکاردەهێنین.",
+  "options": null,
+  "passage": null,
+  "prompt": "دەتوانی پیانۆ لێبدەیت؟"
+ },
+ "ai:ai-batch-06:7551d62ec08c": {
+  "explanation": "نەرێنیی 'can' دەبێتە 'can't'.",
+  "options": null,
+  "passage": null,
+  "prompt": "ئەو دەتوانێت بە ئینگلیزی قسە بکات بەڵام ناتوانێت بە فەرەنسی قسە بکات."
+ },
+ "ai:ai-batch-06:7751f52aac03": {
+  "explanation": "'That's OK' داوای لێبوردن قبووڵ دەکات.",
+  "options": [
+   "باشە",
+   "ئێستا",
+   "کێشە نییە (OK)",
+   "باش"
+  ],
+  "passage": null,
+  "prompt": "ببوورە درەنگ هاتم. — ___."
+ },
+ "ai:ai-batch-06:78f50c991b37": {
+  "explanation": "'تۆم دوازدە ساڵانە.'",
+  "options": [
+   "دوازدە (twelve)",
+   "سێزدە",
+   "دە",
+   "یازدە"
+  ],
+  "passage": null,
+  "prompt": "تەمەنی تۆم لە دەقەکەدا چەندە؟"
+ },
+ "ai:ai-batch-06:7a17ab0db5a5": {
+  "explanation": "پزیشکان لە نەخۆشخانە کار دەکەن.",
+  "options": [
+   "چێشتخانە",
+   "بانک",
+   "نەخۆشخانە (hospital)",
+   "قوتابخانە"
+  ],
+  "passage": null,
+  "prompt": "پزیشک لە ___ کار دەکات."
+ },
+ "ai:ai-batch-06:7afe464b4796": {
+  "explanation": "بۆ پارەدان لە کافێ یان چێشتخانە داوای 'bill' دەکەیت.",
+  "options": [
+   "بلیت",
+   "پسوولەی حساب (bill)",
+   "پارە",
+   "نرخ"
+  ],
+  "passage": null,
+  "prompt": "لە کافێیەکدا بۆ پارەدان دەڵێیت: 'Can I have the ___, please?'"
+ },
+ "ai:ai-batch-06:7b50b5be82f5": {
+  "explanation": "نەرێنیی ئێستای سادە لەگەڵ 'he': doesn't + کردار.",
+  "options": null,
+  "passage": null,
+  "prompt": "ئەو حەزی لە ماسی نییە."
+ },
+ "ai:ai-batch-06:7c2be58827be": {
+  "explanation": "سەلاجە خواردن سارد ڕادەگرێت.",
+  "options": [
+   "لە دۆڵابەکە",
+   "لە فڕنەکە",
+   "لە سەلاجەکە (fridge)",
+   "لە دەستشۆرەکە"
+  ],
+  "passage": null,
+  "prompt": "شیر لە کوێ سارد ڕادەگریت؟"
+ },
+ "ai:ai-batch-06:7d034859f02f": {
+  "explanation": "'من لە برایتنم لەگەڵ ئامۆزام مارک.'",
+  "options": [
+   "لە ماڵەوە لەگەڵ لینا",
+   "لە ماڵی مارک",
+   "لە لەندەن",
+   "لە برایتن"
+  ],
+  "passage": null,
+  "prompt": "نینا لە کوێیە؟"
+ },
+ "ai:ai-batch-06:83a8b28b42ad": {
+  "explanation": "پێش ناو ئاوەڵناوی خاوەندارێتیی 'my' بەکاردەهێنین.",
+  "options": null,
+  "passage": null,
+  "prompt": "ناتوانم کلیلەکانم بدۆزمەوە. تۆ بینیوتن؟"
+ },
+ "ai:ai-batch-06:840cb25a9c00": {
+  "explanation": "دەرگا یان کراوەیە یان داخراوە.",
+  "options": [
+   "داخراو (closed)",
+   "تاریک",
+   "بێدەنگ",
+   "بەتاڵ"
+  ],
+  "passage": null,
+  "prompt": "پێچەوانەی 'open' (کراوە) ___ە."
+ },
+ "ai:ai-batch-06:841b16035405": {
+  "explanation": "لەگەڵ he/she/it 'has got' بەکاردەهێنین.",
+  "options": null,
+  "passage": null,
+  "prompt": "مامم سەگێکی گەورەی ڕەشی هەیە."
+ },
+ "ai:ai-batch-06:858f881c4cf5": {
+  "explanation": "'ناتوانم [مەلە بکەم]، بۆیە لەسەر لم دادەنیشم و دەخوێنمەوە.'",
+  "options": [
+   "دەخوێنێتەوە.",
+   "تۆپی پێ یاری دەکات.",
+   "ماسی دەفرۆشێت.",
+   "مەلە دەکات."
+  ],
+  "passage": null,
+  "prompt": "نینا لە کەنارەکە چی دەکات؟"
+ },
+ "ai:ai-batch-06:8620467687e3": {
+  "explanation": "زستانی سکۆتلەند بە زۆری سەردە.",
+  "options": [
+   "سەرد (cold)",
+   "خۆرەتاو و وشک",
+   "گەرم",
+   "زۆر گەرم"
+  ],
+  "passage": null,
+  "prompt": "لە زستاندا لە سکۆتلەندا زۆرجار ___ە."
+ },
+ "ai:ai-batch-06:8b24acf5dba2": {
+  "explanation": "'You're welcome' وەڵامی 'Thank you'ـە.",
+  "options": [
+   "باش",
+   "جوان",
+   "شایانی نییە (welcome)",
+   "باشە"
+  ],
+  "passage": null,
+  "prompt": "زۆر سوپاس! — ___."
+ },
+ "ai:ai-batch-06:8d5583e57c16": {
+  "explanation": "'قەرەوێڵەیەک لە تەنیشت پەنجەرەکە هەیە.'",
+  "options": [
+   "لە پشت دەرگاکە",
+   "لە ژێر ڕەفەکان",
+   "لە تەنیشت پەنجەرەکە",
+   "لەسەر مێزەکە"
+  ],
+  "passage": null,
+  "prompt": "قەرەوێڵەکە لە کوێیە؟"
+ },
+ "ai:ai-batch-06:9572d5a7a01a": {
+  "explanation": "ئاوەڵناوی کەشوهەوا لەگەڵ با 'windy'ـە.",
+  "options": [
+   "با (ناو)",
+   "بادار (windy)",
+   "پەنجەرەکان",
+   "زستان"
+  ],
+  "passage": null,
+  "prompt": "کەشوهەوا چۆنە؟ — ___ە."
+ },
+ "ai:ai-batch-06:960a987ff939": {
+  "explanation": "لەگەڵ ناوی کۆی ژمێردراودا 'How many' بەکاردەهێنین.",
+  "options": null,
+  "passage": null,
+  "prompt": "چەند برات هەیە؟"
+ },
+ "ai:ai-batch-06:9650672a2b36": {
+  "explanation": "کاتێک ماندوو بیت دەچیتە ناو جێگا.",
+  "options": [
+   "قوتابخانە",
+   "دووکانەکان",
+   "کار",
+   "نوستن (bed)"
+  ],
+  "passage": null,
+  "prompt": "ماندووم. دەمەوێت بچم بۆ ___."
+ },
+ "ai:ai-batch-06:973d0ae136a3": {
+  "explanation": "دەڵێین 'by train'، 'by bus'، بەڵام 'on foot'.",
+  "options": [
+   "پێ",
+   "شەمەندەفەر (train)",
+   "لێخوڕین",
+   "ڕۆیشتن"
+  ],
+  "passage": null,
+  "prompt": "بە ___ دەچمە سەر کار."
+ },
+ "ai:ai-batch-06:97b96b6efc15": {
+  "explanation": "'تکایە خۆراک بە پشیلەکە بدە!'",
+  "options": [
+   "پاستا لێنان",
+   "لێخوڕین بۆ ماڵی سارا",
+   "پەیوەندیکردن بە باوکی سارا",
+   "خۆراکدانی پشیلەکە"
+  ],
+  "passage": null,
+  "prompt": "جێس داوا لە دایکی دەکات چی بکات؟"
+ },
+ "ai:ai-batch-06:9b095c95dd6d": {
+  "explanation": "مۆز میوەیە؛ ئەوانی تر سەوزەن.",
+  "options": [
+   "مۆز (banana)",
+   "پەتاتە",
+   "گەزەر",
+   "پیاز"
+  ],
+  "passage": null,
+  "prompt": "کامیان میوەیە؟"
+ },
+ "ai:ai-batch-06:9b0d22853f36": {
+  "explanation": "'حەزی لە یاریی کۆمپیوتەر نییە.'",
+  "options": [
+   "بەڵێ، حەزی لێیە.",
+   "تەنها لە ئێوارەدا.",
+   "نەخێر، حەزی لێی نییە.",
+   "بەڵێ، زۆر."
+  ],
+  "passage": null,
+  "prompt": "تۆم حەزی لە یاریی کۆمپیوتەرە؟"
+ },
+ "ai:ai-batch-06:9cc990e2b8b3": {
+  "explanation": "'چوارشەممەکان لە ئێوارەدا دەچێتە وانەیەکی ئینگلیزی.'",
+  "options": [
+   "درەنگ کار دەکات.",
+   "شەمەندەفەر دەگرێت بۆ لیدز.",
+   "لەگەڵ هاوڕێکانی نانی بەیانی دەخوات.",
+   "دەچێتە وانەیەکی ئینگلیزی."
+  ],
+  "passage": null,
+  "prompt": "عەلی لە ئێوارەی چوارشەممەکان چی دەکات؟"
+ },
+ "ai:ai-batch-06:9d213a96df95": {
+  "explanation": "لەگەڵ ساڵەکاندا 'in' بەکاردەهێنین.",
+  "options": null,
+  "passage": null,
+  "prompt": "لە ساڵی ٢٠١٠ لەدایک بووم."
+ },
+ "ai:ai-batch-06:9d4fab0d8900": {
+  "explanation": "پێڵاو لە پێ دەکرێت.",
+  "options": [
+   "کڵاو",
+   "دەستکێش",
+   "شاڵ",
+   "پێڵاو (shoes)"
+  ],
+  "passage": null,
+  "prompt": "___ لە پێت دەکەیت."
+ },
+ "ai:ai-batch-06:a24df854dfde": {
+  "explanation": "'The shop' تاکە: 'does' لە پرسیاری ئێستای سادەدا.",
+  "options": null,
+  "passage": null,
+  "prompt": "دووکانەکە کەی دەکرێتەوە؟"
+ },
+ "ai:ai-batch-06:a31f6720419b": {
+  "explanation": "٢٠ + ٣٠ = ٥٠.",
+  "options": [
+   "پەنجا (fifty)",
+   "پازدە",
+   "شەست",
+   "چل"
+  ],
+  "passage": null,
+  "prompt": "بیست کۆی ســی دەکاتە ___."
+ },
+ "ai:ai-batch-06:a3a74b0fa69c": {
+  "explanation": "کەوچک بۆ شۆربا بەکاردەهێنرێت.",
+  "options": [
+   "قاپ",
+   "چەقۆ",
+   "چەتاڵ",
+   "کەوچک (spoon)"
+  ],
+  "passage": null,
+  "prompt": "شۆربا بە ___ دەخۆین."
+ },
+ "ai:ai-batch-06:a4404a225a47": {
+  "explanation": "ڕابردووی 'be' لەگەڵ 'we' دەبێتە 'were'.",
+  "options": null,
+  "passage": null,
+  "prompt": "ساڵی پار لە لەندەن بووین."
+ },
+ "ai:ai-batch-06:a7f34dd9fda9": {
+  "explanation": "'مارک دەتوانێت زۆر باش مەلە بکات بەڵام من ناتوانم.'",
+  "options": [
+   "مارک",
+   "لینا",
+   "نینا",
+   "نینا و مارک"
+  ],
+  "passage": null,
+  "prompt": "کێ دەتوانێت زۆر باش مەلە بکات؟"
+ },
+ "ai:ai-batch-06:aa20fb60bfca": {
+  "explanation": "'سبەی دەمانەوێت سەردانی پردەکە بکەین.'",
+  "options": [
+   "بچن بۆ مەلەکردن",
+   "سەردانی پردەکە بکەن",
+   "سەردانی لینا بکەن",
+   "بچنەوە ماڵەوە"
+  ],
+  "passage": null,
+  "prompt": "سبەی دەیانەوێت چی بکەن؟"
+ },
+ "ai:ai-batch-06:ac449c7336b3": {
+  "explanation": "'گیتارەکەم لە پشت دەرگاکەیە.'",
+  "options": [
+   "لە تەنیشت قەرەوێڵەکە",
+   "لە ژێر مێزەکە",
+   "لەسەر ڕەفەکان",
+   "لە پشت دەرگاکە"
+  ],
+  "passage": null,
+  "prompt": "گیتارەکە لە کوێیە؟"
+ },
+ "ai:ai-batch-06:addef647207a": {
+  "explanation": "داوای مۆڵەت یان پێشنیار بە 'Can' دەکەین.",
+  "options": null,
+  "passage": null,
+  "prompt": "برسیمە. دەکرێت ئێستا بخۆین؟"
+ },
+ "ai:ai-batch-06:aff0eb289ec9": {
+  "explanation": "کاتێک ناو لە دوایەوە نەبێت جێناوی خاوەندارێتیی 'hers' بەکاردەهێنین.",
+  "options": null,
+  "passage": null,
+  "prompt": "ئەم مۆبایلە هی کێیە؟ — هی ئەوە."
+ },
+ "ai:ai-batch-06:b14137f0669b": {
+  "explanation": "لەگەڵ ڕۆژەکانی هەفتەدا 'on' بەکاردەهێنین.",
+  "options": null,
+  "passage": null,
+  "prompt": "مۆزەخانەکە دووشەممەکان داخراوە."
+ },
+ "ai:ai-batch-06:b69950ca6c20": {
+  "explanation": "'No' + ناو واتە 'not any'.",
+  "options": null,
+  "passage": null,
+  "prompt": "هیچ خوشکم نییە، بەڵام دوو برام هەیە."
+ },
+ "ai:ai-batch-06:b8206c668312": {
+  "explanation": "خۆشتن لە حەمام دەکرێت.",
+  "options": [
+   "گەراج",
+   "ژووری دانیشتن",
+   "ژووری نوستن",
+   "حەمام (bathroom)"
+  ],
+  "passage": null,
+  "prompt": "دەستم لە ___ دەشۆم."
+ },
+ "ai:ai-batch-06:b86b4766c28b": {
+  "explanation": "کەسێکی ٨٠ ساڵان بەتەمەنە.",
+  "options": [
+   "نوێ",
+   "کورت",
+   "گەنج",
+   "بەتەمەن (old)"
+  ],
+  "passage": null,
+  "prompt": "داپیرم ٨٠ ساڵە. ئەو ___ە."
+ },
+ "ai:ai-batch-06:ba62703da5e0": {
+  "explanation": "'Your brother' = he، بۆیە 'Does'.",
+  "options": null,
+  "passage": null,
+  "prompt": "براکەت حەزی لە مۆسیقایە؟ — بەڵێ، حەزی لێیە."
+ },
+ "ai:ai-batch-06:bbc66e7a8734": {
+  "explanation": "چەتر لە بارانەکە وشکت دەهێڵێتەوە.",
+  "options": [
+   "چاوی لە ئاوێنە",
+   "چەتر (umbrella)",
+   "خاولی",
+   "بەستەنی"
+  ],
+  "passage": null,
+  "prompt": "باران دەبارێت. ___ێک لەگەڵ خۆت ببە."
+ },
+ "ai:ai-batch-06:bc17f3882086": {
+  "explanation": "'خێزانەکە پێکەوە لە کاتژمێر حەوت نانی ئێوارە دەخۆن.'",
+  "options": [
+   "کاتژمێر حەوت",
+   "کاتژمێر هەشت",
+   "کاتژمێر شەش",
+   "دوای تۆپی پێ"
+  ],
+  "passage": null,
+  "prompt": "خێزانەکە کەی نانی ئێوارە دەخوات؟"
+ },
+ "ai:ai-batch-06:c05994cdc571": {
+  "explanation": "دەربارەی کات بە 'When' (یان 'What time') پرسیار دەکەین.",
+  "options": [
+   "کەی (when)",
+   "لە کوێ",
+   "بە چەندە",
+   "کێ"
+  ],
+  "passage": null,
+  "prompt": "کەی دەچیتە ناو جێگا؟ — لە کاتژمێر دە."
+ },
+ "ai:ai-batch-06:cb29838b65b5": {
+  "explanation": "ڕابردووی 'be' لەگەڵ 'I' دەبێتە 'was'.",
+  "options": null,
+  "passage": null,
+  "prompt": "دوێنێ لە ماڵەوە بووم."
+ },
+ "ai:ai-batch-06:cc86b94b0406": {
+  "explanation": "'...نانی بەیانی: چا، نان و هێلکەیەک.'",
+  "options": [
+   "شەربەت",
+   "قاوە",
+   "شیر",
+   "چا (tea)"
+  ],
+  "passage": null,
+  "prompt": "عەلی لە نانی بەیانیدا چی دەخواتەوە؟"
+ },
+ "ai:ai-batch-06:ce60e4aa48e8": {
+  "explanation": "'دیوارەکان شینن.'",
+  "options": [
+   "شین (blue)",
+   "سپی",
+   "سەوز",
+   "زەرد"
+  ],
+  "passage": null,
+  "prompt": "دیوارەکان چ ڕەنگێکن؟"
+ },
+ "ai:ai-batch-06:cfc5331a5c14": {
+  "explanation": "'They' 'have got' دەگرێت؛ نەرێنییەکەی 'haven't got'ـە.",
+  "options": null,
+  "passage": null,
+  "prompt": "ئەوان ئۆتۆمبێلیان نییە."
+ },
+ "ai:ai-batch-06:d69f953e70c3": {
+  "explanation": "شتێک کە لەسەر ڕووکارێک کەوتووە 'on'ـە.",
+  "options": null,
+  "passage": null,
+  "prompt": "پشیلەکە لەسەر قەنەفەکە خەوتووە."
+ },
+ "ai:ai-batch-06:d836dd7a088d": {
+  "explanation": "کاتێک تینوو بیت شتێک دەخۆیتەوە.",
+  "options": [
+   "برنج",
+   "ئاو (water)",
+   "نان",
+   "پەنیر"
+  ],
+  "passage": null,
+  "prompt": "تینوومە. دەکرێت پەرداخێک ___م بدەیت؟"
+ },
+ "ai:ai-batch-06:d83ee4033c2b": {
+  "explanation": "کامێرا وێنە دەگرێت.",
+  "options": [
+   "کلیل",
+   "ماوسی کۆمپیوتەر",
+   "کامێرا (camera)",
+   "فڕنە"
+  ],
+  "passage": null,
+  "prompt": "بۆ وێنەگرتن ___ێک بەکاردەهێنیت."
+ },
+ "ai:ai-batch-06:dd1a4ca3c426": {
+  "explanation": "'تکایە تا چوارشەممە پێم بڵێ ئەگەر بتوانیت بێیت.'",
+  "options": [
+   "تا چوارشەممە (by Wednesday)",
+   "لە ئاهەنگەکە",
+   "ڕۆژی شەممە",
+   "تا ١٤ی حوزەیران"
+  ],
+  "passage": null,
+  "prompt": "کەی دەبێت بە بێن بڵێیت ئەگەر بتوانیت بێیت؟"
+ },
+ "ai:ai-batch-06:df16d67e9a9a": {
+  "explanation": "ڕووتینی ڕۆژانە لەگەڵ 'she': ئێستای سادەی 'has'.",
+  "options": null,
+  "passage": null,
+  "prompt": "ئەو هەموو بەیانییەک لە کاتژمێر حەوت نانی بەیانی دەخوات."
+ },
+ "ai:ai-batch-06:dfc77a3178ed": {
+  "explanation": "ڕابردووی سادەی 'do' دەبێتە 'did'.",
+  "options": null,
+  "passage": null,
+  "prompt": "دوێنێ شەو ئەرکی ماڵەوەکەم کرد."
+ },
+ "ai:ai-batch-06:dfff1ef4f4b7": {
+  "explanation": "'Between' بۆ شتێک کە لە نێوان دوو شتدایە بەکاردەهێنرێت.",
+  "options": null,
+  "passage": null,
+  "prompt": "بانکەکە لە نێوان نووسینگەی پۆستە و کافێیەکەدایە."
+ },
+ "ai:ai-batch-06:e1f6791ddaa6": {
+  "explanation": "ئاوەڵکاری دووبارەبوونەوە پێش کرداری سەرەکی دێت: 'never drinks'.",
+  "options": null,
+  "passage": null,
+  "prompt": "باوکم هەرگیز قاوە ناخواتەوە. تەنها چا دەخواتەوە."
+ },
+ "ai:ai-batch-06:e4979f12a966": {
+  "explanation": "ساڵێک دوازدە مانگ هەیە.",
+  "options": [
+   "ڕۆژ",
+   "هەفتە",
+   "ساڵ (year)",
+   "کاتژمێر"
+  ],
+  "passage": null,
+  "prompt": "دوازدە مانگ یەک ___ پێکدەهێنن."
+ },
+ "ai:ai-batch-06:ecf01a2b043f": {
+  "explanation": "'These' کۆیە، بۆیە 'are'.",
+  "options": null,
+  "passage": null,
+  "prompt": "ئەمانە هاوڕێکانمن، سام و لیۆ."
+ },
+ "ai:ai-batch-06:f0c730db4e3a": {
+  "explanation": "لە ڕستەی نەرێنیدا لەگەڵ ناوی کۆ 'any' بەکاردەهێنین.",
+  "options": null,
+  "passage": null,
+  "prompt": "هیچ برا یان خوشکم نییە."
+ },
+ "ai:ai-batch-06:f2a8c958d44a": {
+  "explanation": "'عەلی لە شەش و نیو لە خەو هەڵدەستێت.'",
+  "options": [
+   "٧:٣٠",
+   "٦:١٥",
+   "٦:٣٠ (half past six)",
+   "٧:١٥"
+  ],
+  "passage": null,
+  "prompt": "عەلی کەی لە خەو هەڵدەستێت؟"
+ },
+ "ai:ai-batch-06:f3f410701a39": {
+  "explanation": "کتێبخانە کتێب بە قەرز دەدات؛ کتێبفرۆش کتێب دەفرۆشێت.",
+  "options": [
+   "نانەواخانە",
+   "کتێبفرۆش",
+   "دەرمانخانە",
+   "کتێبخانە (library)"
+  ],
+  "passage": null,
+  "prompt": "کامیان شوێنێکە کە دەتوانیت کتێب لێ بە قەرز بگریت؟"
+ },
+ "ai:ai-batch-06:f44a6ade3590": {
+  "explanation": "دووشەممە بۆ هەینی لە کاتژمێر ٧ی بەیانی دەکرێتەوە، کە زووترین کاتە.",
+  "options": [
+   "شەممە",
+   "یەکشەممە",
+   "چوارشەممە (Wednesday)",
+   "هەموو ڕۆژەکان وەک یەکن."
+  ],
+  "passage": null,
+  "prompt": "دووکانەکە کام ڕۆژ زووترین کات دەکرێتەوە؟"
+ },
+ "ai:ai-batch-06:f494dcbb3fc1": {
+  "explanation": "کارت بۆ پارەدانی خوار ٥ پاوەند وەرناگیرێت.",
+  "options": [
+   "بە کارت",
+   "بە ستامپ",
+   "ناتوانیت بیکڕیت.",
+   "بە پارەی نەختی (cash)"
+  ],
+  "passage": null,
+  "prompt": "دەتەوێت شیر بە ٢ پاوەند بکڕیت. چۆن دەتوانیت پارە بدەیت؟"
+ },
+ "ai:ai-batch-06:f52af88fb830": {
+  "explanation": "لە ڕستەی نەرێنیدا بە زۆری 'any' بەکاردەهێنین.",
+  "options": null,
+  "passage": null,
+  "prompt": "هیچ شیر لە سەلاجەکەدا نییە."
+ },
+ "ai:ai-batch-06:fe623de1af18": {
+  "explanation": "'تەلەفیزیۆن نییە... بەڵام ڕادیۆیەک لەسەر مێزەکەیە.'",
+  "options": [
+   "تەلەفیزیۆن",
+   "قەنەفە",
+   "کۆمپیوتەر",
+   "ڕادیۆ (radio)"
+  ],
+  "passage": null,
+  "prompt": "کامیان لە ژوورەکەدایە؟"
+ },
  "ai:ai-batch-07:01b0138d5828": {
   "explanation": "مۆبایلی شکاو کار ناکات.",
   "options": [

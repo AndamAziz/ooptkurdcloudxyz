@@ -30,6 +30,9 @@ object BadgeColors {
     val Certificates = Color(0xFFF9A825)
     val Placement = Color(0xFF6A1B9A)
     val Update = Color(0xFF1E88E5)
+    /** The driving theory course: motorway-sign blue to green. */
+    val Theory = Color(0xFF00695C)
+    val TheoryEnd = Color(0xFF2E7D32)
     val UnionBlue = Color(0xFF012169)
     val UnionRed = Color(0xFFC8102E)
 }

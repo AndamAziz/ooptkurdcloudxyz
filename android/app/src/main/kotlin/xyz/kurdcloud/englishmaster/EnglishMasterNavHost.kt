@@ -23,12 +23,16 @@ import xyz.kurdcloud.englishmaster.core.model.ExamKind
 import xyz.kurdcloud.englishmaster.core.model.LifeInUkChapter
 import xyz.kurdcloud.englishmaster.core.model.LifeInUkTest
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
+import xyz.kurdcloud.englishmaster.core.model.TheoryMode
 import xyz.kurdcloud.englishmaster.core.model.Topic
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.feature.admin.ActivityViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.CertificateRequestsViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.AddQuestionScreen
 import xyz.kurdcloud.englishmaster.feature.admin.AddQuestionViewModel
+import xyz.kurdcloud.englishmaster.feature.admin.AddTheoryQuestionScreen
+import xyz.kurdcloud.englishmaster.feature.admin.AddTheoryQuestionViewModel
+import xyz.kurdcloud.englishmaster.feature.admin.TheoryAdminViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.QuestionsViewModel
 import xyz.kurdcloud.englishmaster.feature.admin.StaffScreen
 import xyz.kurdcloud.englishmaster.feature.admin.UsersViewModel
@@ -62,6 +66,11 @@ import xyz.kurdcloud.englishmaster.feature.practice.LifeInUkScreen
 import xyz.kurdcloud.englishmaster.feature.practice.LifeInUkViewModel
 import xyz.kurdcloud.englishmaster.feature.practice.MockTestScreen
 import xyz.kurdcloud.englishmaster.feature.practice.MockTestViewModel
+import xyz.kurdcloud.englishmaster.feature.practice.TheoryActions
+import xyz.kurdcloud.englishmaster.feature.practice.TheoryScreen
+import xyz.kurdcloud.englishmaster.feature.practice.TheorySessionScreen
+import xyz.kurdcloud.englishmaster.feature.practice.TheorySessionViewModel
+import xyz.kurdcloud.englishmaster.feature.practice.TheoryViewModel
 import xyz.kurdcloud.englishmaster.feature.practice.titleRes
 import xyz.kurdcloud.englishmaster.feature.practice.R as PracticeR
 import xyz.kurdcloud.englishmaster.feature.practice.HomeScreen
@@ -83,6 +92,7 @@ private object Routes {
     const val STAFF = "staff"
     const val ADD_QUESTION = "staff/new-question/{level}"
     const val EDIT_QUESTION = "staff/edit-question/{level}/{id}"
+    const val ADD_THEORY_QUESTION = "staff/new-theory-question/{slug}?name={name}"
     const val EXAM = "exam/{level}"
     const val PLACEMENT = "placement"
     const val PLACEMENT_CONFIRM = "placement/confirm"
@@ -93,6 +103,8 @@ private object Routes {
     const val LIFE_IN_UK = "life-in-uk"
     const val LIFE_IN_UK_CHAPTER = "life-in-uk/chapter/{tag}"
     const val LIFE_IN_UK_MOCK = "life-in-uk/mock-test"
+    const val THEORY = "driving-theory"
+    const val THEORY_SESSION = "driving-theory/{slug}/{mode}?name={name}"
 
     /** [notice]: a message to show on arrival (session expired, email link expired, ...). */
     fun signIn(notice: AuthMessage? = null) = "sign-in?notice=${notice?.name.orEmpty()}"
@@ -103,6 +115,13 @@ private object Routes {
     fun checkpoint(level: CefrLevel, number: Int) = "checkpoint/${level.apiValue}/$number"
     fun topic(topic: Topic) = "topic/${topic.apiValue}"
     fun lifeInUkChapter(tag: String) = "life-in-uk/chapter/$tag"
+
+    fun addTheoryQuestion(slug: String, name: String) =
+        "staff/new-theory-question/$slug?name=${Uri.encode(name)}"
+
+    /** [name]: the chapter's title, so the session screen shows it without another query. */
+    fun theorySession(slug: String, mode: TheoryMode, name: String) =
+        "driving-theory/$slug/${mode.apiValue}?name=${Uri.encode(name)}"
 }
 
 @Composable
@@ -260,6 +279,7 @@ fun EnglishMasterNavHost(
                     onCertificates = { navController.navigate(Routes.CERTIFICATES) },
                     onPractiseTopic = { navController.navigate(Routes.topic(it)) },
                     onLifeInUk = { navController.navigate(Routes.LIFE_IN_UK) },
+                    onDrivingTheory = { navController.navigate(Routes.THEORY) },
                 ),
             )
         }
@@ -297,6 +317,25 @@ fun EnglishMasterNavHost(
                 },
             )
         }
+        composable(Routes.THEORY) {
+            TheoryScreen(
+                viewModel = viewModel { TheoryViewModel(container.theory, container.network) },
+                actions = TheoryActions(
+                    onStudy = { navController.navigate(Routes.theorySession(it.slug, TheoryMode.STUDY, it.nameEn)) },
+                    onTest = { navController.navigate(Routes.theorySession(it.slug, TheoryMode.TEST, it.nameEn)) },
+                    onBack = { navController.popBackStack() },
+                ),
+            )
+        }
+        composable(Routes.THEORY_SESSION) { entry ->
+            val slug = entry.arguments?.getString("slug").orEmpty()
+            val mode = TheoryMode.entries.firstOrNull { it.apiValue == entry.arguments?.getString("mode") } ?: TheoryMode.STUDY
+            TheorySessionScreen(
+                viewModel = viewModel { TheorySessionViewModel(slug, mode, container.theory) },
+                sectionName = entry.arguments?.getString("name").orEmpty(),
+                onExit = { navController.popBackStack() },
+            )
+        }
         composable(Routes.STAFF) {
             val userId = session?.userId ?: return@composable
             // Re-read roles from the server when the screen opens; tabs follow the result.
@@ -318,6 +357,8 @@ fun EnglishMasterNavHost(
                     onAddQuestion = { navController.navigate("staff/new-question/${it.apiValue}") },
                     onEditQuestion = { level, id -> navController.navigate("staff/edit-question/${level.apiValue}/$id") },
                     certificatesViewModel = { viewModel { CertificateRequestsViewModel(container.staff) } },
+                    theoryViewModel = { viewModel { TheoryAdminViewModel(container.theory, container.staff) } },
+                    onAddTheoryQuestion = { navController.navigate(Routes.addTheoryQuestion(it.slug, it.nameEn)) },
                 )
             }
         }
@@ -326,6 +367,14 @@ fun EnglishMasterNavHost(
             val id = entry.arguments?.getString("id").orEmpty()
             AddQuestionScreen(
                 viewModel = viewModel { AddQuestionViewModel(level, container.staff, editId = id) },
+                onDone = { navController.popBackStack() },
+            )
+        }
+        composable(Routes.ADD_THEORY_QUESTION) { entry ->
+            val slug = entry.arguments?.getString("slug").orEmpty()
+            AddTheoryQuestionScreen(
+                viewModel = viewModel { AddTheoryQuestionViewModel(slug, container.staff) },
+                sectionName = entry.arguments?.getString("name").orEmpty(),
                 onDone = { navController.popBackStack() },
             )
         }

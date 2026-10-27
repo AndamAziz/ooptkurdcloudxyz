@@ -135,4 +135,35 @@
     <string name="event_question_edited">پرسیار دەستکاری کرا</string>
     <string name="event_question_deleted">پرسیار سڕایەوە</string>
     <string name="event_question_created">پرسیار زیادکرا</string>
+    <!-- تاقیکردنەوەی تیۆری شۆفێری -->
+    <string name="admin_retry">دووبارە هەوڵ بدە</string>
+    <string name="admin_tab_theory">تیۆری شۆفێری</string>
+    <string name="admin_theory_intro">هەر بەشێکی تاقیکردنەوەی تیۆری شۆفێری. پرسیارەکانی هاوردەکراو وەک ڕەشنووس دێن: بڵاویان بکەوە تا فێرخوازان بیانبینن. پێویست نییە وەڵامی هەڵە بنووسی — ئەپ هەڵبژاردەکان لە وەڵامەکانی تری هەمان بەش دروست دەکات.</string>
+    <string name="admin_theory_none">نەتوانرا بەشەکانی تیۆری بهێنرێن.</string>
+    <plurals name="admin_theory_published_count">
+        <item quantity="one">%1$d پرسیار بۆ فێرخوازان بڵاوکراوە</item>
+        <item quantity="other">%1$d پرسیار بۆ فێرخوازان بڵاوکراوە</item>
+    </plurals>
+    <string name="admin_theory_add">زیادکردنی پرسیار</string>
+    <string name="admin_theory_publish_drafts">بڵاوکردنەوەی ڕەشنووسەکان</string>
+    <plurals name="admin_theory_published">
+        <item quantity="one">%1$d ڕەشنووس بڵاوکرایەوە.</item>
+        <item quantity="other">%1$d ڕەشنووس بڵاوکرانەوە.</item>
+    </plurals>
+    <string name="admin_theory_add_title">پرسیاری نوێ: %1$s</string>
+    <string name="admin_theory_add_hint">پرسیار و وەڵامی ڕاستەکەی بنووسە. ئەپ سێ هەڵبژاردەی تر لە وەڵامەکانی پرسیارەکانی تری هەمان بەش دروست دەکات.</string>
+    <string name="admin_theory_answer">وەڵامی ڕاست</string>
+    <string name="admin_theory_need_answer">وەڵامی ڕاست بنووسە.</string>
+    <string name="admin_theory_prompt_ku">پرسیار بە کوردی (ئارەزوومەندانە)</string>
+    <string name="admin_theory_answer_ku">وەڵام بە کوردی (ئارەزوومەندانە)</string>
+    <string name="admin_theory_explanation_ku">ڕوونکردنەوە بە کوردی (ئارەزوومەندانە)</string>
+    <string name="admin_theory_picture">وێنە</string>
+    <string name="admin_theory_picture_hint">بۆ پرسیارەکانی تابلۆ، چوارڕیان یان نیشانەکانی ڕێگا وێنە زیاد بکە.</string>
+    <string name="admin_theory_image_only">پرسیارەکانی تیۆری وێنە دەگرن، نەک ڤیدیۆ.</string>
+    <string name="admin_theory_save">پاشەکەوتکردنی پرسیار</string>
+    <string name="admin_theory_saved">پرسیار پاشەکەوت کرا. فۆرمەکە ئامادەیە بۆ دانەی دواتر.</string>
+    <plurals name="admin_theory_saved_count">
+        <item quantity="one">%1$d پرسیار لەم دانیشتنەدا زیاد کراوە.</item>
+        <item quantity="other">%1$d پرسیار لەم دانیشتنەدا زیاد کراوە.</item>
+    </plurals>
 </resources>

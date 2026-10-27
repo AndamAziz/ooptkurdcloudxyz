@@ -52,6 +52,17 @@ object AppIcons {
 
     val Flag: ImageVector by lazy { icon("Flag", "M14.4,6L14,4H5v17h2v-7h5.6l0.4,2h7V6z") }
 
+    /** A car (the driving theory course). */
+    val Car: ImageVector by lazy {
+        icon(
+            "Car",
+            "M18.92,6.01C18.72,5.42 18.16,5 17.5,5h-11c-0.66,0 -1.21,0.42 -1.42,1.01L3,12v8c0,0.55 0.45,1 1,1h1" +
+                "c0.55,0 1,-0.45 1,-1v-1h12v1c0,0.55 0.45,1 1,1h1c0.55,0 1,-0.45 1,-1v-8l-2.08,-5.99zM6.5,16" +
+                "c-0.83,0 -1.5,-0.67 -1.5,-1.5S5.67,13 6.5,13s1.5,0.67 1.5,1.5S7.33,16 6.5,16zM17.5,16" +
+                "c-0.83,0 -1.5,-0.67 -1.5,-1.5s0.67,-1.5 1.5,-1.5 1.5,0.67 1.5,1.5 -0.67,1.5 -1.5,1.5zM5,11l1.5,-4.5h11L19,11H5z",
+        )
+    }
+
     val School: ImageVector by lazy { icon("School", "M5,13.18v4L12,21l7,-3.82v-4L12,17l-7,-3.82zM12,3L1,9l11,6 9,-4.91V17h2V9L12,3z") }
 
     val Refresh: ImageVector by lazy {

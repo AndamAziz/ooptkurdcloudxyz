@@ -129,3 +129,63 @@ data class PackVersionDto(
     val published: Int,
     @SerialName("last_changed_at") val lastChangedAt: String? = null,
 )
+
+// --- Driving theory test -----------------------------------------------------------------------
+
+@Serializable
+data class TheorySectionsRequest(val unused: String? = null)
+
+@Serializable
+data class TheorySectionDto(
+    val slug: String,
+    @SerialName("name_en") val nameEn: String,
+    @SerialName("name_ckb") val nameCkb: String? = null,
+    val published: Int,
+    val answered: Int,
+    val correct: Int,
+    @SerialName("sort_order") val sortOrder: Int = 0,
+)
+
+@Serializable
+data class TheoryQuestionsRequest(
+    @SerialName("p_section_slug") val section: String,
+    @SerialName("p_after") val after: String? = null,
+    @SerialName("p_limit") val limit: Int,
+)
+
+@Serializable
+data class TheoryQuestionDto(
+    val id: String,
+    @SerialName("section_slug") val sectionSlug: String,
+    @SerialName("sort_order") val sortOrder: Int = 0,
+    val prompt: String,
+    @SerialName("prompt_ckb") val promptCkb: String? = null,
+    val answer: String,
+    @SerialName("answer_ckb") val answerCkb: String? = null,
+    val explanation: String? = null,
+    @SerialName("explanation_ckb") val explanationCkb: String? = null,
+    @SerialName("media_path") val mediaPath: String? = null,
+    val version: Int,
+    @SerialName("updated_at") val updatedAt: String,
+)
+
+@Serializable
+data class SubmitTheoryResponseRequest(
+    @SerialName("p_question_id") val questionId: String,
+    @SerialName("p_is_correct") val isCorrect: Boolean,
+    @SerialName("p_mode") val mode: String,
+)
+
+@Serializable
+data class UpsertTheoryQuestionRequest(
+    @SerialName("p_section_slug") val section: String,
+    @SerialName("p_prompt") val prompt: String,
+    @SerialName("p_answer") val answer: String,
+    @SerialName("p_id") val id: String? = null,
+    @SerialName("p_prompt_ckb") val promptCkb: String? = null,
+    @SerialName("p_answer_ckb") val answerCkb: String? = null,
+    @SerialName("p_explanation") val explanation: String? = null,
+    @SerialName("p_explanation_ckb") val explanationCkb: String? = null,
+    @SerialName("p_media_path") val mediaPath: String? = null,
+    @SerialName("p_publish") val publish: Boolean,
+)

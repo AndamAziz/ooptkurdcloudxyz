@@ -249,4 +249,47 @@
     <string name="home_path_done">هەموو ئاستەکانت بڕوانامە وەرگرت. پیرۆزە!</string>
     <string name="fb_review_later">ئەم پرسیارە دەچێتە ناو هەڵەکانتەوە. دوای 24 کاتژمێر دەتوانیت پێداچوونەوەی پێدا بکەیت؛ کاتێک چاک دەبێتەوە کە لە دوو ڕۆژی جیاوازدا دوو جار ڕاست وەڵامی بدەیتەوە.</string>
     <string name="practice_show_kurdish">پیشاندانی وەرگێڕانی کوردی</string>
+    <!-- تاقیکردنەوەی تیۆری شۆفێری -->
+    <string name="theory_title">تاقیکردنەوەی تیۆری شۆفێری</string>
+    <string name="home_theory_title">تاقیکردنەوەی تیۆری شۆفێری</string>
+    <string name="home_theory_body">پرسیارەکانی تیۆری شۆفێری بەریتانیا بەش بەش فێربە: سەرەتا وەڵامەکان بخوێنە، پاشان خۆت تاقی بکەوە.</string>
+    <string name="home_theory_open">کردنەوە</string>
+    <string name="theory_header_title">تاقیکردنەوەی تیۆری شۆفێری پاس بکە</string>
+    <string name="theory_header_body">تاقیکردنەوەی ڕاستەقینە %1$d پرسیاری هەڵبژاردەیی هەیە لە %2$d خولەکدا؛ بۆ پاسکردن پێویستت بە %3$d وەڵامی ڕاست هەیە.</string>
+    <string name="theory_overall">%1$d لە %2$d تاقی کراوە · %3$d%% ڕاستی</string>
+    <string name="theory_sections_header">بەشەکان</string>
+    <string name="theory_downloading">داگرتنی بەشی %1$d لە %2$d…</string>
+    <string name="theory_download_body">پرسیارەکان یەک جار دابگرە؛ دوای ئەوە هەموو کۆرسەکە بەبێ ئینتەرنێت کار دەکات.</string>
+    <string name="theory_download">داگرتنی پرسیارەکان</string>
+    <plurals name="theory_download_done">
+        <item quantity="one">%1$d پرسیار داگیرا.</item>
+        <item quantity="other">%1$d پرسیار داگیرا.</item>
+    </plurals>
+    <plurals name="theory_pending">
+        <item quantity="one">%1$d وەڵام چاوەڕێی پاشەکەوتکردنە بۆ هەژمارەکەت.</item>
+        <item quantity="other">%1$d وەڵام چاوەڕێی پاشەکەوتکردنن بۆ هەژمارەکەت.</item>
+    </plurals>
+    <string name="theory_section_empty">هێشتا پرسیار نییە لەم بەشەدا. مامۆستاکەت دەتوانێت زیادیان بکات.</string>
+    <string name="theory_section_progress">%1$d لە %2$d تاقی کراوە · %3$d%% ڕاستی</string>
+    <string name="theory_section_not_saved">ئەم بەشە هێشتا لە مۆبایلەکەت نییە؛ بە کردنەوەی، دادەگیرێت.</string>
+    <string name="theory_study">خوێندن</string>
+    <string name="theory_test">تاقیکردنەوە</string>
+    <string name="theory_reset">ئەم بەشە لە سەرەتا دەست پێ بکەوە</string>
+    <string name="theory_reset_done">وەڵامەکانت لەم بەشەدا سڕانەوە.</string>
+    <string name="theory_official_title">تاقیکردنەوەی ڕاستەقینە</string>
+    <string name="theory_official_body">تاقیکردنەوەی ڕاستەقینە بەشێکی ناسینەوەی مەترسیش هەیە: %1$d ڤیدیۆ، نمرەی پاسکردن %2$d لە %3$d. تاقیکردنەوە تەنها لە GOV.UK تۆمار بکە.</string>
+    <string name="theory_link_book">GOV.UK: تۆمارکردنی تاقیکردنەوەی تیۆری</string>
+    <string name="theory_link_practise">GOV.UK: تاقیکردنەوەی فەرمی بەخۆڕایی</string>
+    <string name="theory_disclaimer">ئەم پرسیارانە بۆ دووبارەکردنەوەن. پرسیارەکانی فەرمی و Highway Code موڵکی DVSA‌ن؛ پێش تاقیکردنەوەکەت هەمیشە Highway Code‌ی نوێ ببینە.</string>
+    <string name="theory_session_empty">ئەم بەشە هێشتا پرسیاری نییە، یان نەتوانرا دابگیرێت. کاتێک ئینتەرنێتت هەبوو دووبارە هەوڵ بدە.</string>
+    <string name="theory_reveal">وەڵام نیشان بدە</string>
+    <string name="theory_study_hint">سەرەتا لە وەڵام بیر بکەوە، پاشان نیشانی بدە — بەم شێوەیە لە یادت دەمێنێت.</string>
+    <string name="theory_knew_it">دەمزانی</string>
+    <string name="theory_not_yet">هێشتا نا</string>
+    <string name="theory_answer_label">وەڵامی ڕاست</string>
+    <string name="theory_result_study">بەشەکە خوێندرا</string>
+    <string name="theory_result_test">تاقیکردنەوە تەواو بوو</string>
+    <string name="theory_result_score">%1$d لە %2$d ڕاست (%3$d%%)</string>
+    <string name="theory_again">خولێکی تر</string>
+    <string name="theory_back_to_chapters">گەڕانەوە بۆ بەشەکان</string>
 </resources>

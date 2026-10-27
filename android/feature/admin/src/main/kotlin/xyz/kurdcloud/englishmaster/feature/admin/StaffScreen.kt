@@ -75,6 +75,7 @@ import xyz.kurdcloud.englishmaster.core.model.CertificateRequestStatus
 import xyz.kurdcloud.englishmaster.core.model.Role
 import xyz.kurdcloud.englishmaster.core.model.StaffAccess
 import xyz.kurdcloud.englishmaster.core.model.StaffQuestion
+import xyz.kurdcloud.englishmaster.core.model.TheorySection
 import xyz.kurdcloud.englishmaster.core.model.StaffUser
 import xyz.kurdcloud.englishmaster.core.model.optionLetter
 
@@ -82,6 +83,7 @@ private enum class StaffTab(val title: Int) {
     CERTIFICATES(R.string.admin_tab_certificates),
     USERS(R.string.admin_tab_users),
     QUESTIONS(R.string.admin_tab_questions),
+    THEORY(R.string.admin_tab_theory),
     ACTIVITY(R.string.admin_tab_activity),
 }
 
@@ -101,12 +103,15 @@ fun StaffScreen(
     onAddQuestion: (CefrLevel) -> Unit = {},
     certificatesViewModel: (@Composable () -> CertificateRequestsViewModel)? = null,
     onEditQuestion: (CefrLevel, String) -> Unit = { _, _ -> },
+    theoryViewModel: (@Composable () -> TheoryAdminViewModel)? = null,
+    onAddTheoryQuestion: (TheorySection) -> Unit = {},
 ) {
     val tabs = buildList {
         // Pending certificate approvals come first: they are what learners are waiting for.
         if (access.canApproveCertificates && certificatesViewModel != null) add(StaffTab.CERTIFICATES)
         if (access.canSeeUsers) add(StaffTab.USERS)
         if (access.canReviewQuestions) add(StaffTab.QUESTIONS)
+        if (access.canReviewQuestions && theoryViewModel != null) add(StaffTab.THEORY)
         if (access.canManageUsers) add(StaffTab.ACTIVITY)
     }
     var selected by rememberSaveable { mutableIntStateOf(0) }
@@ -148,6 +153,7 @@ fun StaffScreen(
                 StaffTab.CERTIFICATES -> CertificatesTab(certificatesViewModel!!(), currentUserId, snackbar)
                 StaffTab.USERS -> UsersTab(usersViewModel(), currentUserId, access.canManageUsers, snackbar)
                 StaffTab.QUESTIONS -> QuestionsTab(questionsViewModel(), snackbar, onAddQuestion, onEditQuestion, canDelete = access.canManageUsers)
+                StaffTab.THEORY -> TheoryTab(theoryViewModel!!(), snackbar, onAddTheoryQuestion)
                 StaffTab.ACTIVITY -> ActivityTab(activityViewModel())
             }
         }
