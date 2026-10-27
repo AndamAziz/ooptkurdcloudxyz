@@ -149,7 +149,7 @@ class ResetCodeViewModel(private val email: String, private val auth: AuthReposi
 
     /** Keeps digits only: mail clients may show the code with spaces. */
     fun onCodeChange(value: String) =
-        state.update { it.copy(code = value.filter(Char::isDigit).take(CODE_LENGTH), codeError = false, message = null) }
+        state.update { it.copy(code = value.filter(Char::isDigit).take(MAX_CODE_LENGTH), codeError = false, message = null) }
 
     fun onPasswordChange(value: String) = state.update { it.copy(password = value, passwordError = false, mismatch = false, message = null) }
     fun onConfirmChange(value: String) = state.update { it.copy(confirm = value, mismatch = false, message = null) }
@@ -157,7 +157,7 @@ class ResetCodeViewModel(private val email: String, private val auth: AuthReposi
     fun submit() {
         val s = state.value
         if (s.submitting) return
-        if (s.code.length != CODE_LENGTH) {
+        if (s.code.length < MIN_CODE_LENGTH) {
             state.update { it.copy(codeError = true) }
             return
         }
@@ -182,7 +182,9 @@ class ResetCodeViewModel(private val email: String, private val auth: AuthReposi
     }
 
     companion object {
-        const val CODE_LENGTH = 6
+        /** The code's length is a server setting (six by default), so any plausible length is accepted. */
+        const val MIN_CODE_LENGTH = 6
+        const val MAX_CODE_LENGTH = 12
     }
 }
 

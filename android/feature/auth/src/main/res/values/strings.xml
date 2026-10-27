@@ -22,9 +22,9 @@
     <string name="auth_reset_explainer">Enter your account email. If an account exists, we will send you a code to reset your password.</string>
     <string name="auth_send_reset_link">Send code</string>
     <string name="auth_reset_code_title">Enter the code</string>
-    <string name="auth_reset_code_body">If an account exists for %1$s, we sent it a 6-digit code. Enter the code and choose a new password. The code is valid for one hour.</string>
-    <string name="auth_reset_code_label">6-digit code</string>
-    <string name="auth_reset_code_invalid">Enter the 6 digits from the email</string>
+    <string name="auth_reset_code_body">If an account exists for %1$s, we sent it a code. Enter the code and choose a new password. The code is valid for one hour.</string>
+    <string name="auth_reset_code_label">Code from the email</string>
+    <string name="auth_reset_code_invalid">Enter the code from the email</string>
     <string name="auth_check_email_title">Check your email</string>
     <string name="auth_check_email_confirm">We sent you a confirmation link. Open it, then sign in.</string>
     <string name="auth_check_email_reset">If an account exists for that address, a password reset link is on its way.</string>
