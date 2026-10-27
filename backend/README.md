@@ -202,8 +202,8 @@ everything is in. A translated option list is stored only when it has exactly as
 the English options, so a half-translated question shows English options rather than a mismatched
 set. It is granted to `service_role` alone — learners and staff cannot call it.
 
-Translated so far: 3,789 of 4,557 questions (A1 391, A2 385, B1 402, B2 387, C1 380, C2 378,
-Life in the UK 1,466).
+Every active question is translated: 4,509 in all (A1 511, A2 505, B1 522, B2 507, C1 500,
+C2 498, Life in the UK 1,466).
 
 ## Running the database tests locally (no Docker needed)
 
