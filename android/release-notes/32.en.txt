@@ -1,0 +1,3 @@
+- Listen in the driving theory test: the Listen button reads the English question aloud, and in test mode each of the four options with its letter. The question and the option being read light up as you follow along.
+- The answer card has its own listen button for the correct answer and the explanation.
+- The Auto and Slow listening settings you already use in English practice work here too.
