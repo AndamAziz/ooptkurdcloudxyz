@@ -22,9 +22,9 @@
     <string name="auth_reset_explainer">ئیمەیڵی هەژمارەکەت بنووسە. ئەگەر هەژمارێک هەبێت، کۆدێکت بۆ دەنێرین بۆ گۆڕینی وشەی نهێنی.</string>
     <string name="auth_send_reset_link">ناردنی کۆد</string>
     <string name="auth_reset_code_title">کۆدەکە بنووسە</string>
-    <string name="auth_reset_code_body">ئەگەر هەژمارێک بۆ %1$s هەبێت، کۆدێکی ٦ ژمارەییمان بۆ ناردووە. کۆدەکە بنووسە و وشەی نهێنیی نوێ هەڵبژێرە. کۆدەکە بۆ ماوەی کاتژمێرێک کاردەکات.</string>
-    <string name="auth_reset_code_label">کۆدی ٦ ژمارەیی</string>
-    <string name="auth_reset_code_invalid">ئەو ٦ ژمارەیە بنووسە کە لە ئیمەیڵەکەدایە</string>
+    <string name="auth_reset_code_body">ئەگەر هەژمارێک بۆ %1$s هەبێت، کۆدێکمان بۆ ناردووە. کۆدەکە بنووسە و وشەی نهێنیی نوێ هەڵبژێرە. کۆدەکە بۆ ماوەی کاتژمێرێک کاردەکات.</string>
+    <string name="auth_reset_code_label">کۆدی ناو ئیمەیڵەکە</string>
+    <string name="auth_reset_code_invalid">ئەو کۆدە بنووسە کە لە ئیمەیڵەکەدایە</string>
     <string name="auth_check_email_title">سەیری ئیمەیڵەکەت بکە</string>
     <string name="auth_check_email_confirm">بەستەرێکی پشتڕاستکردنەوەمان بۆ ناردیت. بیکەرەوە، پاشان بچۆ ژوورەوە.</string>
     <string name="auth_check_email_reset">ئەگەر هەژمارێک بەو ئیمەیڵە هەبێت، بەستەری گۆڕینی وشەی نهێنی بۆی دەنێردرێت.</string>

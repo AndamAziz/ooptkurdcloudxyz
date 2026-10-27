@@ -96,7 +96,7 @@ class AuthViewModelTest {
     fun `reset code signs the user in and then saves the new password`() {
         val vm = ResetCodeViewModel("a@b.co", repo)
 
-        // Digits only, and all six are needed before anything is sent.
+        // Digits only, and a plausible length is needed before anything is sent.
         vm.onCodeChange("12 34-5x")
         assertEquals("12345", vm.uiState.value.code)
         vm.onPasswordChange("newpass99")
@@ -118,6 +118,17 @@ class AuthViewModelTest {
         assertTrue(vm.uiState.value.done)
         assertEquals(listOf("verifyRecoveryCode:a@b.co:123456", "updatePassword"), repo.calls)
         assertEquals("", vm.uiState.value.password)
+    }
+
+    @Test
+    fun `a longer code is accepted because its length is a server setting`() {
+        val vm = ResetCodeViewModel("a@b.co", repo)
+        vm.onCodeChange("89892250")
+        vm.onPasswordChange("newpass99")
+        vm.onConfirmChange("newpass99")
+        vm.submit()
+        assertFalse(vm.uiState.value.codeError)
+        assertEquals("verifyRecoveryCode:a@b.co:89892250", repo.calls.first())
     }
 
     @Test
