@@ -1,0 +1,4 @@
+- UK Driving Theory Test: a second course with 15 topics, 520 questions, study mode and a full mock test (50 questions in 57 minutes, pass mark 43). Questions with a road sign or a photo show it, and everything works offline once you download a topic.
+- Kurdish everywhere: every practice and review question is now translated into Sorani — all 4,509 of them, plus all 520 driving theory questions. Tap «کوردی» to switch.
+- Teachers and admins can add driving theory questions, with a picture, from Staff tools, and publish their drafts topic by topic.
+- Password reset accepts a code of any length the server sends.
