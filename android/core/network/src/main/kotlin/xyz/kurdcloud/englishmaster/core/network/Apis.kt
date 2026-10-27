@@ -56,4 +56,22 @@ interface PracticeApi {
     /** Per level: published questions and the last change, to spot out-of-date packs. */
     @POST("rest/v1/rpc/get_question_pack_versions")
     suspend fun getQuestionPackVersions(@Body body: Map<String, String> = emptyMap()): List<PackVersionDto>
+
+    // --- Driving theory test ---
+
+    /** The theory chapters with the caller's standing in each. */
+    @POST("rest/v1/rpc/get_theory_sections")
+    suspend fun getTheorySections(@Body body: Map<String, String> = emptyMap()): List<TheorySectionDto>
+
+    /** One chapter's questions, for the app to keep offline. */
+    @POST("rest/v1/rpc/get_theory_questions")
+    suspend fun getTheoryQuestions(@Body body: TheoryQuestionsRequest): List<TheoryQuestionDto>
+
+    /** The app scores the answer itself (it chose the options), so it reports the outcome. */
+    @POST("rest/v1/rpc/submit_theory_response")
+    suspend fun submitTheoryResponse(@Body body: SubmitTheoryResponseRequest)
+
+    /** Forgets the caller's answers in one chapter, so it can be studied again from scratch. */
+    @POST("rest/v1/rpc/reset_theory_section")
+    suspend fun resetTheorySection(@Body body: Map<String, String>)
 }

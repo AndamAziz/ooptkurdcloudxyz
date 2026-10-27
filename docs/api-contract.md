@@ -48,6 +48,17 @@ Request `{}` → `[{"cefr_level":"A1","answered":12,"correct":9}]`
 ### `update_my_profile`
 Request `{"p_display_name":"…","p_interface_language":"ckb"}` (either may be null) → updated profile row.
 
+### Driving theory test
+
+| RPC | Body | Returns |
+|---|---|---|
+| `get_theory_sections` | `{}` | the 15 chapters: `slug`, `sort_order`, `name_en`, `name_ckb`, `published`, `answered`, `correct` |
+| `get_theory_questions` | `{"p_section_slug": "alertness", "p_after": null, "p_limit": 100}` | one chapter's published questions with `answer` and the Sorani translation; `p_limit` 1–200 |
+| `submit_theory_response` | `{"p_question_id": "<uuid>", "p_is_correct": true, "p_mode": "study"}` | nothing; the app marks the answer because it built the options |
+| `reset_theory_section` | `{"p_section_slug": "alertness"}` | how many of the caller's answers were cleared |
+| `staff_upsert_theory_question` | `{"p_section_slug", "p_prompt", "p_answer", "p_id", "p_prompt_ckb", "p_answer_ckb", "p_explanation", "p_explanation_ckb", "p_media_path", "p_publish"}` | the question's id (teacher/admin) |
+| `staff_publish_theory_drafts` | `{"p_section_slug": "alertness"}` | how many drafts were published (teacher/admin) |
+
 ## Errors
 
 PostgREST returns `{"code":"<SQLSTATE>","message":"…"}`. The client maps by `code`, never shows `message`:

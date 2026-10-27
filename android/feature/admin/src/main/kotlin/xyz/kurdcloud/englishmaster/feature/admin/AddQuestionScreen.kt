@@ -55,7 +55,7 @@ import xyz.kurdcloud.englishmaster.core.model.optionLetter
 private val SKILLS = listOf("grammar" to R.string.admin_skill_grammar, "vocabulary" to R.string.admin_skill_vocabulary, "reading" to R.string.admin_skill_reading)
 
 /** Reads a picked file (bounded by [limit]); null if it cannot be read or is larger than the limit. */
-private suspend fun readPicked(context: Context, uri: Uri, type: MediaType, limit: Int): PickedMedia? = withContext(Dispatchers.IO) {
+internal suspend fun readPicked(context: Context, uri: Uri, type: MediaType, limit: Int): PickedMedia? = withContext(Dispatchers.IO) {
     runCatching {
         val resolver = context.contentResolver
         val mime = resolver.getType(uri) ?: return@runCatching null

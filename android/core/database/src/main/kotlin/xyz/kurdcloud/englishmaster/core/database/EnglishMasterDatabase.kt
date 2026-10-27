@@ -14,13 +14,26 @@ import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
 
 @Database(
-    entities = [QuestionEntity::class, LevelPackEntity::class, ResponseEntity::class],
-    version = 4,
+    entities = [
+        QuestionEntity::class,
+        LevelPackEntity::class,
+        ResponseEntity::class,
+        TheorySectionEntity::class,
+        TheoryQuestionEntity::class,
+        TheoryResponseEntity::class,
+    ],
+    version = 5,
     exportSchema = true,
     // v2: passage and media columns on questions (all nullable, so Room migrates automatically).
     // v3: tags column on questions (defaults to an empty list until the level is downloaded again).
     // v4: Kurdish translation columns on questions and responses.
-    autoMigrations = [AutoMigration(from = 1, to = 2), AutoMigration(from = 2, to = 3), AutoMigration(from = 3, to = 4)],
+    // v5: the driving theory test's own tables (new, so nothing to carry over).
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2),
+        AutoMigration(from = 2, to = 3),
+        AutoMigration(from = 3, to = 4),
+        AutoMigration(from = 4, to = 5),
+    ],
 )
 @TypeConverters(Converters::class)
 abstract class EnglishMasterDatabase : RoomDatabase() {
@@ -28,6 +41,7 @@ abstract class EnglishMasterDatabase : RoomDatabase() {
     abstract fun levelPacks(): LevelPackDao
     abstract fun responses(): ResponseDao
     abstract fun content(): ContentDao
+    abstract fun theory(): TheoryDao
 
     /** Removes every downloaded question and saved answer (after the account was deleted). */
     suspend fun clearAll() = withContext(Dispatchers.IO) { clearAllTables() }

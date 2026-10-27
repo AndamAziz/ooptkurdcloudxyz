@@ -100,6 +100,7 @@ data class HomeActions(
     val onCertificates: () -> Unit = {},
     val onPractiseTopic: (Topic) -> Unit = {},
     val onLifeInUk: () -> Unit = {},
+    val onDrivingTheory: () -> Unit = {},
     /** Placement stage 2: confirm the level the screening test found. */
     val onConfirmPlacement: () -> Unit = {},
     val onCheckpoint: (CefrLevel, Int) -> Unit = { _, _ -> },
@@ -226,6 +227,7 @@ fun HomeScreen(
                     item { PlacementCard(profile.placementLevel, state.placementStatus, actions) }
                 }
                 item { LifeInUkCard(actions.onLifeInUk) }
+                item { DrivingTheoryCard(actions.onDrivingTheory) }
                 item { HowCertificatesWork() }
                 if (state.hasDownloads) {
                     item { TopicsSection(state.topics, actions.onPractiseTopic) }
@@ -361,6 +363,30 @@ private fun LifeInUkCard(onOpen: () -> Unit) {
                 Text(stringResource(R.string.home_lituk_body), style = MaterialTheme.typography.bodySmall, color = Color.White.copy(alpha = 0.92f))
             }
             FilledTonalButton(onClick = onOpen) { Text(stringResource(R.string.home_lituk_open)) }
+        }
+    }
+}
+
+@Composable
+private fun DrivingTheoryCard(onOpen: () -> Unit) {
+    Card(
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+        modifier = Modifier.fillMaxWidth().clickable(onClick = onOpen).testTag("home_theory"),
+    ) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .background(Brush.linearGradient(listOf(BadgeColors.Theory, BadgeColors.TheoryEnd)))
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            GlassBadge(AppIcons.Car)
+            Column(Modifier.weight(1f).padding(horizontal = 12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(stringResource(R.string.home_theory_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, color = Color.White)
+                Text(stringResource(R.string.home_theory_body), style = MaterialTheme.typography.bodySmall, color = Color.White.copy(alpha = 0.92f))
+            }
+            FilledTonalButton(onClick = onOpen) { Text(stringResource(R.string.home_theory_open)) }
         }
     }
 }

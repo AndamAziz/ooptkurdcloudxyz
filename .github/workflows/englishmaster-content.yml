@@ -1,13 +1,15 @@
 name: EnglishMaster content
 
 # Publishes question media (content/media/**) to the question-media bucket and inserts new
-# AI-drafted question batches as drafts. Existing questions are never modified.
+# question batches as drafts: the AI-drafted English questions and the driving-theory questions.
+# Existing questions are never modified.
 on:
   push:
     paths:
       - "content/**"
       - "scripts/media/upload_question_media.sh"
       - "scripts/release/publish_questions.py"
+      - "scripts/release/publish_theory_questions.py"
   workflow_dispatch:
 
 permissions:
@@ -34,3 +36,9 @@ jobs:
         run: |
           export SUPABASE_URL=$(sed -nE 's/^englishmaster.supabase.url=//p' android/gradle.properties)
           python3 scripts/release/publish_questions.py
+      - name: Insert new driving-theory question drafts
+        env:
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          export SUPABASE_URL=$(sed -nE 's/^englishmaster.supabase.url=//p' android/gradle.properties)
+          python3 scripts/release/publish_theory_questions.py

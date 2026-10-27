@@ -146,3 +146,79 @@ interface ContentDao {
         upsertPack(pack)
     }
 }
+
+@Dao
+interface TheoryDao {
+    @Query("select * from theory_sections order by sort_order")
+    fun observeSections(): Flow<List<TheorySectionEntity>>
+
+    @Upsert
+    suspend fun upsertSections(sections: List<TheorySectionEntity>)
+
+    @Query("delete from theory_sections where slug not in (:keep)")
+    suspend fun removeSectionsOtherThan(keep: List<String>)
+
+    @Query("select * from theory_questions where section_slug = :slug order by sort_order, id")
+    suspend fun questionsOf(slug: String): List<TheoryQuestionEntity>
+
+    @Query("select count(*) from theory_questions where section_slug = :slug")
+    suspend fun questionCount(slug: String): Int
+
+    /** Questions saved per chapter, so the list can say which chapters work offline. */
+    @Query("select section_slug, count(*) as count from theory_questions group by section_slug")
+    fun observeDownloadCounts(): Flow<List<TheorySectionCount>>
+
+    @Upsert
+    suspend fun upsertQuestions(questions: List<TheoryQuestionEntity>)
+
+    @Query("delete from theory_questions where section_slug = :slug and id not in (:keep)")
+    suspend fun removeQuestionsOtherThan(slug: String, keep: List<String>)
+
+    @Insert
+    suspend fun insertResponse(response: TheoryResponseEntity)
+
+    /**
+     * One row per chapter: how many of its questions have an answer, and how many of those latest
+     * answers were right. Only the newest answer per question counts.
+     */
+    @Query(
+        """
+        select section_slug, count(*) as answered, sum(case when is_correct then 1 else 0 end) as correct
+          from (
+            select section_slug, question_id, is_correct
+              from theory_responses
+             where answered_at = (
+               select max(r2.answered_at) from theory_responses r2 where r2.question_id = theory_responses.question_id
+             )
+             group by question_id
+          )
+         group by section_slug
+        """,
+    )
+    fun observeStandings(): Flow<List<TheoryStanding>>
+
+    /** The newest answer for each of [ids], so a deck can lead with what is not known yet. */
+    @Query(
+        """
+        select question_id, is_correct from theory_responses
+         where question_id in (:ids)
+           and answered_at = (
+             select max(r2.answered_at) from theory_responses r2 where r2.question_id = theory_responses.question_id
+           )
+         group by question_id
+        """,
+    )
+    suspend fun latestOf(ids: List<String>): List<TheoryVerdict>
+
+    @Query("select * from theory_responses where synced = 0 order by answered_at limit :limit")
+    suspend fun pendingResponses(limit: Int): List<TheoryResponseEntity>
+
+    @Query("update theory_responses set synced = 1 where response_id in (:ids)")
+    suspend fun markSynced(ids: List<String>)
+
+    @Query("select count(*) from theory_responses where synced = 0")
+    fun observePendingCount(): Flow<Int>
+
+    @Query("delete from theory_responses where section_slug = :slug")
+    suspend fun clearSection(slug: String)
+}

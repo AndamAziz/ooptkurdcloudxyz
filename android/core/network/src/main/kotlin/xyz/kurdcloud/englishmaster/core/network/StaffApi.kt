@@ -70,4 +70,14 @@ interface StaffApi {
 
     @POST("rest/v1/rpc/admin_recent_activity")
     suspend fun recentActivity(@Body body: RecentActivityRequest): List<ActivityDto>
+
+    // --- Driving theory test ---
+
+    /** Adds or edits a theory question; returns its id. */
+    @POST("rest/v1/rpc/staff_upsert_theory_question")
+    suspend fun upsertTheoryQuestion(@Body body: UpsertTheoryQuestionRequest): String
+
+    /** Publishes every draft question of one chapter; returns how many. */
+    @POST("rest/v1/rpc/staff_publish_theory_drafts")
+    suspend fun publishTheoryDrafts(@Body body: Map<String, String>): Int
 }

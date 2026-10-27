@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.map
 import xyz.kurdcloud.englishmaster.core.data.ContentRepository
 import xyz.kurdcloud.englishmaster.core.data.NetworkMonitor
 import xyz.kurdcloud.englishmaster.core.data.PracticeRepository
+import xyz.kurdcloud.englishmaster.core.data.TheoryRepository
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.LevelPack
 import xyz.kurdcloud.englishmaster.core.model.LevelProgress
@@ -14,6 +15,10 @@ import xyz.kurdcloud.englishmaster.core.model.PracticeAnswer
 import xyz.kurdcloud.englishmaster.core.model.Question
 import xyz.kurdcloud.englishmaster.core.model.SyncReport
 import xyz.kurdcloud.englishmaster.core.model.SyncState
+import xyz.kurdcloud.englishmaster.core.model.TheoryMode
+import xyz.kurdcloud.englishmaster.core.model.TheoryQuestion
+import xyz.kurdcloud.englishmaster.core.model.TheorySection
+import xyz.kurdcloud.englishmaster.core.model.TheoryTestItem
 import xyz.kurdcloud.englishmaster.core.model.Topic
 import xyz.kurdcloud.englishmaster.core.model.optionLetter
 import xyz.kurdcloud.englishmaster.core.network.ApiError
@@ -87,3 +92,42 @@ class FakePractice(private val network: FakeNetwork) : PracticeRepository {
 }
 
 val networkFailure: ApiResult<Int> = ApiResult.Failure(ApiError.Network)
+
+fun theoryQuestion(id: String, answer: String = "Answer $id", section: String = "alertness") =
+    TheoryQuestion(id, section, "What does $id mean?", "پرسیاری $id", answer, "وەڵامی $id", null, null, null, 1)
+
+/** Keeps chapters and answers in memory; [online] decides whether a download finds anything. */
+class FakeTheory(
+    private val chapters: Map<String, List<TheoryQuestion>> = emptyMap(),
+    sections: List<TheorySection> = emptyList(),
+) : TheoryRepository {
+    private val sectionRows = MutableStateFlow(sections)
+    private val saved = MutableStateFlow(emptyMap<String, Int>())
+    val recorded = mutableListOf<Triple<String, Boolean, TheoryMode>>()
+    var refreshResult: ApiResult<Int> = ApiResult.Success(0)
+    var downloadResult: ApiResult<Int>? = null
+    var reset: String? = null
+
+    override fun observeSections(): Flow<List<TheorySection>> = sectionRows
+    override fun observeDownloadCounts(): Flow<Map<String, Int>> = saved
+    override suspend fun refreshSections(): ApiResult<Int> = refreshResult
+    override suspend fun downloadSection(slug: String): ApiResult<Int> {
+        downloadResult?.let { return it }
+        val count = chapters[slug].orEmpty().size
+        saved.value = saved.value + (slug to count)
+        return ApiResult.Success(count)
+    }
+    override suspend fun deck(slug: String) = chapters[slug].orEmpty().takeIf { saved.value.containsKey(slug) }.orEmpty()
+    override suspend fun testRound(slug: String, count: Int) = deck(slug).take(count).map { q ->
+        TheoryTestItem.build(q, deck(slug).filter { it.id != q.id }) { it }
+    }
+    override suspend fun record(question: TheoryQuestion, isCorrect: Boolean, mode: TheoryMode) {
+        recorded += Triple(question.id, isCorrect, mode)
+    }
+    override suspend fun resetSection(slug: String): ApiResult<Unit> {
+        reset = slug
+        return ApiResult.Success(Unit)
+    }
+    override fun observePendingCount(): Flow<Int> = MutableStateFlow(0)
+    override suspend fun syncNow(): Int = 0
+}

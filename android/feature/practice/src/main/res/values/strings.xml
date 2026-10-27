@@ -249,4 +249,47 @@
     <string name="home_path_done">All levels certified. Congratulations!</string>
     <string name="fb_review_later">This question goes to your mistakes. You can review it after 24 hours; it counts as fixed after two right answers on different days.</string>
     <string name="practice_show_kurdish">Show the Kurdish translation</string>
+    <!-- UK driving theory test -->
+    <string name="theory_title">Driving theory test</string>
+    <string name="home_theory_title">Driving theory test</string>
+    <string name="home_theory_body">Learn the UK driving theory questions chapter by chapter: study the answers, then test yourself.</string>
+    <string name="home_theory_open">Open</string>
+    <string name="theory_header_title">Pass the UK driving theory test</string>
+    <string name="theory_header_body">The real test has %1$d multiple-choice questions in %2$d minutes; you need %3$d correct to pass.</string>
+    <string name="theory_overall">%1$d of %2$d attempted · %3$d%% accuracy</string>
+    <string name="theory_sections_header">Chapters</string>
+    <string name="theory_downloading">Downloading chapter %1$d of %2$d…</string>
+    <string name="theory_download_body">Download the questions once; after that the whole course works offline.</string>
+    <string name="theory_download">Download the questions</string>
+    <plurals name="theory_download_done">
+        <item quantity="one">%1$d question downloaded.</item>
+        <item quantity="other">%1$d questions downloaded.</item>
+    </plurals>
+    <plurals name="theory_pending">
+        <item quantity="one">%1$d answer waits to be saved to your account.</item>
+        <item quantity="other">%1$d answers wait to be saved to your account.</item>
+    </plurals>
+    <string name="theory_section_empty">No questions in this chapter yet. Your teacher can add them.</string>
+    <string name="theory_section_progress">%1$d of %2$d attempted · %3$d%% accuracy</string>
+    <string name="theory_section_not_saved">This chapter is not on your device yet; opening it will download it.</string>
+    <string name="theory_study">Study</string>
+    <string name="theory_test">Test</string>
+    <string name="theory_reset">Start this chapter over</string>
+    <string name="theory_reset_done">Your answers in this chapter were cleared.</string>
+    <string name="theory_official_title">The real test</string>
+    <string name="theory_official_body">The real test also has a hazard-perception part: %1$d video clips, pass mark %2$d out of %3$d. Book the test only on GOV.UK.</string>
+    <string name="theory_link_book">GOV.UK: book your theory test</string>
+    <string name="theory_link_practise">GOV.UK: free official practice test</string>
+    <string name="theory_disclaimer">These questions are for revision. The official questions and the Highway Code belong to DVSA; always check the current Highway Code before your test.</string>
+    <string name="theory_session_empty">This chapter has no questions yet, or they could not be downloaded. Try again when you are online.</string>
+    <string name="theory_reveal">Show the answer</string>
+    <string name="theory_study_hint">Think of the answer first, then reveal it — that is how it sticks.</string>
+    <string name="theory_knew_it">I knew it</string>
+    <string name="theory_not_yet">Not yet</string>
+    <string name="theory_answer_label">Correct answer</string>
+    <string name="theory_result_study">Chapter studied</string>
+    <string name="theory_result_test">Test finished</string>
+    <string name="theory_result_score">%1$d of %2$d right (%3$d%%)</string>
+    <string name="theory_again">Another round</string>
+    <string name="theory_back_to_chapters">Back to the chapters</string>
 </resources>

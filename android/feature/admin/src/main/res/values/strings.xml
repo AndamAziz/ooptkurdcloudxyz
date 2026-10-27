@@ -135,4 +135,35 @@
     <string name="event_question_edited">Question edited</string>
     <string name="event_question_deleted">Question deleted</string>
     <string name="event_question_created">Question added</string>
+    <!-- Driving theory test -->
+    <string name="admin_retry">Try again</string>
+    <string name="admin_tab_theory">Driving theory</string>
+    <string name="admin_theory_intro">Each chapter of the driving theory test. Imported questions arrive as drafts: publish them to let learners see them. Learners never see a wrong option you have to write — the app builds the options from the other answers in the chapter.</string>
+    <string name="admin_theory_none">The theory chapters could not be loaded.</string>
+    <plurals name="admin_theory_published_count">
+        <item quantity="one">%1$d question published to learners</item>
+        <item quantity="other">%1$d questions published to learners</item>
+    </plurals>
+    <string name="admin_theory_add">Add a question</string>
+    <string name="admin_theory_publish_drafts">Publish the drafts</string>
+    <plurals name="admin_theory_published">
+        <item quantity="one">%1$d draft published.</item>
+        <item quantity="other">%1$d drafts published.</item>
+    </plurals>
+    <string name="admin_theory_add_title">New question: %1$s</string>
+    <string name="admin_theory_add_hint">Type the question and its correct answer. The app makes the other three options from the answers of other questions in the same chapter.</string>
+    <string name="admin_theory_answer">Correct answer</string>
+    <string name="admin_theory_need_answer">Write the correct answer.</string>
+    <string name="admin_theory_prompt_ku">Question in Kurdish (optional)</string>
+    <string name="admin_theory_answer_ku">Answer in Kurdish (optional)</string>
+    <string name="admin_theory_explanation_ku">Explanation in Kurdish (optional)</string>
+    <string name="admin_theory_picture">Picture</string>
+    <string name="admin_theory_picture_hint">Add a picture for questions about a sign, a junction or a road marking.</string>
+    <string name="admin_theory_image_only">Theory questions take a picture, not a video.</string>
+    <string name="admin_theory_save">Save the question</string>
+    <string name="admin_theory_saved">Question saved. The form is ready for the next one.</string>
+    <plurals name="admin_theory_saved_count">
+        <item quantity="one">%1$d question added in this session.</item>
+        <item quantity="other">%1$d questions added in this session.</item>
+    </plurals>
 </resources>

@@ -20,7 +20,9 @@ import xyz.kurdcloud.englishmaster.core.data.OfflineFirstPracticeRepository
 import xyz.kurdcloud.englishmaster.core.data.PracticeRepository
 import xyz.kurdcloud.englishmaster.core.data.ResponseSyncer
 import xyz.kurdcloud.englishmaster.core.data.SessionStore
+import xyz.kurdcloud.englishmaster.core.data.OfflineFirstTheoryRepository
 import xyz.kurdcloud.englishmaster.core.data.StaffRepository
+import xyz.kurdcloud.englishmaster.core.data.TheoryRepository
 import xyz.kurdcloud.englishmaster.core.data.SupabaseStaffRepository
 import xyz.kurdcloud.englishmaster.core.data.SupabaseUpdateRepository
 import xyz.kurdcloud.englishmaster.core.data.UpdateRepository
@@ -78,4 +80,5 @@ class AppContainer(context: Context) {
     val emailLinks = MutableStateFlow<EmailLink?>(null)
     val practice: PracticeRepository =
         OfflineFirstPracticeRepository(database.responses(), syncer, { syncScheduler.requestSync() }, network)
+    val theory: TheoryRepository = OfflineFirstTheoryRepository(services.practice, database.theory(), network, media)
 }

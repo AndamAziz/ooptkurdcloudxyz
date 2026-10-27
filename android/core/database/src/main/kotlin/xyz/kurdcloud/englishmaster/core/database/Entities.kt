@@ -92,3 +92,73 @@ data class LevelCountRow(
     @ColumnInfo(name = "cefr_level") val cefrLevel: String,
     val count: Int,
 )
+
+/**
+ * A chapter of the driving theory test, as last fetched from the server. [serverAnswered] and
+ * [serverCorrect] are that fetch's standing; what the learner has answered since is in
+ * [TheoryResponseEntity], so progress still moves while offline.
+ */
+@Entity(tableName = "theory_sections")
+data class TheorySectionEntity(
+    @PrimaryKey val slug: String,
+    @ColumnInfo(name = "sort_order") val sortOrder: Int,
+    @ColumnInfo(name = "name_en") val nameEn: String,
+    @ColumnInfo(name = "name_ckb") val nameCkb: String? = null,
+    val published: Int,
+    @ColumnInfo(name = "server_answered") val serverAnswered: Int,
+    @ColumnInfo(name = "server_correct") val serverCorrect: Int,
+    @ColumnInfo(name = "fetched_at") val fetchedAtMillis: Long,
+)
+
+/** A downloaded theory question. Unlike practice questions these carry their answer. */
+@Entity(tableName = "theory_questions", indices = [Index("section_slug")])
+data class TheoryQuestionEntity(
+    @PrimaryKey val id: String,
+    @ColumnInfo(name = "section_slug") val sectionSlug: String,
+    @ColumnInfo(name = "sort_order") val sortOrder: Int,
+    val prompt: String,
+    @ColumnInfo(name = "prompt_ckb") val promptCkb: String? = null,
+    val answer: String,
+    @ColumnInfo(name = "answer_ckb") val answerCkb: String? = null,
+    val explanation: String? = null,
+    @ColumnInfo(name = "explanation_ckb") val explanationCkb: String? = null,
+    @ColumnInfo(name = "media_path") val mediaPath: String? = null,
+    /** Absolute path of the copy saved with the chapter, for offline use. */
+    @ColumnInfo(name = "media_local") val mediaLocal: String? = null,
+    val version: Int,
+    @ColumnInfo(name = "downloaded_at") val downloadedAtMillis: Long,
+)
+
+/**
+ * A learner's answer to a theory question. Kept on the device so a chapter's progress survives
+ * being offline; [synced] says whether the server has it too.
+ */
+@Entity(tableName = "theory_responses", indices = [Index("question_id"), Index("synced")])
+data class TheoryResponseEntity(
+    @PrimaryKey @ColumnInfo(name = "response_id") val responseId: String,
+    @ColumnInfo(name = "question_id") val questionId: String,
+    @ColumnInfo(name = "section_slug") val sectionSlug: String,
+    @ColumnInfo(name = "is_correct") val isCorrect: Boolean,
+    val mode: String,
+    @ColumnInfo(name = "answered_at") val answeredAtMillis: Long,
+    val synced: Boolean = false,
+)
+
+/** A chapter's standing worked out from the answers stored on the device. */
+data class TheoryStanding(
+    @ColumnInfo(name = "section_slug") val sectionSlug: String,
+    val answered: Int,
+    val correct: Int,
+)
+
+/** The latest verdict on one theory question. */
+data class TheoryVerdict(
+    @ColumnInfo(name = "question_id") val questionId: String,
+    @ColumnInfo(name = "is_correct") val isCorrect: Boolean,
+)
+
+/** How many of a chapter's questions are saved on the device. */
+data class TheorySectionCount(
+    @ColumnInfo(name = "section_slug") val sectionSlug: String,
+    val count: Int,
+)

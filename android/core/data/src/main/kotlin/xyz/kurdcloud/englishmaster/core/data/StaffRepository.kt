@@ -10,6 +10,7 @@ import xyz.kurdcloud.englishmaster.core.model.CertificateRequestStatus
 import xyz.kurdcloud.englishmaster.core.model.CredentialRules
 import xyz.kurdcloud.englishmaster.core.model.DeleteOutcome
 import xyz.kurdcloud.englishmaster.core.model.NewQuestion
+import xyz.kurdcloud.englishmaster.core.model.NewTheoryQuestion
 import xyz.kurdcloud.englishmaster.core.model.optionLetter
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.ReviewState
@@ -22,6 +23,7 @@ import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.core.network.CreateQuestionRequest
 import xyz.kurdcloud.englishmaster.core.network.DeleteQuestionRequest
 import xyz.kurdcloud.englishmaster.core.network.UpdateQuestionRequest
+import xyz.kurdcloud.englishmaster.core.network.UpsertTheoryQuestionRequest
 import xyz.kurdcloud.englishmaster.core.network.ListCertificatesRequest
 import xyz.kurdcloud.englishmaster.core.network.ReviewCertificateRequest
 import xyz.kurdcloud.englishmaster.core.network.PublishDraftsRequest
@@ -62,6 +64,12 @@ interface StaffRepository {
     /** Certificate requests with [status] (oldest pending first). Teachers and admins only. */
     suspend fun certificateRequests(status: CertificateRequestStatus): ApiResult<List<CertificateRequest>> =
         ApiResult.Failure(ApiError.Forbidden)
+
+    /** Adds a driving-theory question (teachers and admins); returns its id. */
+    suspend fun addTheoryQuestion(question: NewTheoryQuestion): ApiResult<String> = ApiResult.Failure(ApiError.Forbidden)
+
+    /** Publishes every draft question of one theory chapter; returns how many. */
+    suspend fun publishTheoryDrafts(sectionSlug: String): ApiResult<Int> = ApiResult.Failure(ApiError.Forbidden)
 
     /** Approves or rejects a pending certificate; returns the new status. */
     suspend fun reviewCertificate(id: String, approve: Boolean, note: String? = null): ApiResult<CertificateRequestStatus> =
@@ -211,6 +219,28 @@ class SupabaseStaffRepository(
             }
         }
 
+    override suspend fun addTheoryQuestion(question: NewTheoryQuestion): ApiResult<String> {
+        if (!question.isValid) return ApiResult.Failure(ApiError.Validation("22023"))
+        return restCall {
+            api.upsertTheoryQuestion(
+                UpsertTheoryQuestionRequest(
+                    section = question.sectionSlug,
+                    prompt = question.prompt.trim(),
+                    answer = question.answer.trim(),
+                    promptCkb = question.promptKu.cleaned(),
+                    answerCkb = question.answerKu.cleaned(),
+                    explanation = question.explanation.cleaned(),
+                    explanationCkb = question.explanationKu.cleaned(),
+                    mediaPath = question.mediaPath,
+                    publish = question.publish,
+                ),
+            )
+        }
+    }
+
+    override suspend fun publishTheoryDrafts(sectionSlug: String): ApiResult<Int> =
+        restCall { api.publishTheoryDrafts(mapOf("p_section_slug" to sectionSlug)) }
+
     override suspend fun reviewCertificate(id: String, approve: Boolean, note: String?): ApiResult<CertificateRequestStatus> =
         restCall { api.reviewCertificate(ReviewCertificateRequest(id, approve, note?.trim()?.takeIf { it.isNotEmpty() })) }
             .map { rows -> CertificateRequestStatus.fromApi(rows.single().status) }
@@ -220,6 +250,9 @@ class SupabaseStaffRepository(
         const val MAX_VIDEO_BYTES = 25 * 1024 * 1024
     }
 }
+
+/** An optional field the staff form left blank is sent as absent, not as an empty string. */
+private fun String?.cleaned(): String? = this?.trim()?.takeIf { it.isNotEmpty() }
 
 internal inline fun <T, R> ApiResult<T>.map(transform: (T) -> R): ApiResult<R> = when (this) {
     is ApiResult.Success -> ApiResult.Success(transform(value))
