@@ -3,6 +3,7 @@ package xyz.kurdcloud.englishmaster.feature.practice
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -26,7 +27,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,10 +47,15 @@ import xyz.kurdcloud.englishmaster.core.designsystem.KurdishPanel
 import xyz.kurdcloud.englishmaster.core.designsystem.KurdishToggle
 import xyz.kurdcloud.englishmaster.core.designsystem.KurdishType
 import xyz.kurdcloud.englishmaster.core.designsystem.LearningType
+import xyz.kurdcloud.englishmaster.core.designsystem.ListenControls
 import xyz.kurdcloud.englishmaster.core.designsystem.LoadingState
+import xyz.kurdcloud.englishmaster.core.designsystem.LocalSpeaker
 import xyz.kurdcloud.englishmaster.core.designsystem.OptionCard
 import xyz.kurdcloud.englishmaster.core.designsystem.OptionState
 import xyz.kurdcloud.englishmaster.core.designsystem.QuestionMediaView
+import xyz.kurdcloud.englishmaster.core.designsystem.SpeakButton
+import xyz.kurdcloud.englishmaster.core.designsystem.SpeechPart
+import xyz.kurdcloud.englishmaster.core.designsystem.questionSpeech
 import xyz.kurdcloud.englishmaster.core.designsystem.rememberShowKurdish
 import xyz.kurdcloud.englishmaster.core.model.TheoryMode
 import xyz.kurdcloud.englishmaster.core.model.TheoryTestItem
@@ -99,6 +107,14 @@ private fun TheoryCard(state: TheorySessionUiState, viewModel: TheorySessionView
     val question = item.question
     var showKurdish by rememberShowKurdish()
     val hasKurdish = question.promptCkb != null || question.answerCkb != null
+    // The question is read with its options in test mode; in study mode the card shows none yet.
+    val speaker = LocalSpeaker.current
+    val questionId = "theory_q_${question.id}"
+    val questionParts = remember(question.id, item.options) { questionSpeech(question.prompt, item.options) }
+    LaunchedEffect(question.id, speaker?.available) {
+        if (speaker?.autoRead == true && speaker.available) speaker.speakParts(questionId, questionParts)
+    }
+    val reading = speaker?.let { if (it.speakingId == questionId) it.speakingPart else null }
     Column(
         modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -115,17 +131,23 @@ private fun TheoryCard(state: TheorySessionUiState, viewModel: TheorySessionView
                     KurdishToggle(showKurdish, { showKurdish = !showKurdish }, stringResource(R.string.practice_show_kurdish))
                 }
             }
+            ListenControls(questionId, questionParts)
             // The questions are English: keep them left-to-right inside the Sorani interface.
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                 question.media?.let { QuestionMediaView(it, stringResource(R.string.practice_media_unavailable)) }
-                Text(question.prompt, style = LearningType.question, modifier = Modifier.testTag("theory_prompt"))
+                Text(
+                    question.prompt,
+                    style = LearningType.question,
+                    color = if (reading == "prompt") MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.testTag("theory_prompt"),
+                )
             }
             KurdishPanel(question.promptCkb, showKurdish, style = KurdishType.question, tag = "kurdish_prompt")
 
             if (viewModel.mode == TheoryMode.STUDY) {
                 StudyControls(state, viewModel, showKurdish)
             } else {
-                TestControls(state, item, viewModel, showKurdish)
+                TestControls(state, item, viewModel, showKurdish, reading)
             }
         }
     }
@@ -134,6 +156,12 @@ private fun TheoryCard(state: TheorySessionUiState, viewModel: TheorySessionView
 @Composable
 private fun StudyControls(state: TheorySessionUiState, viewModel: TheorySessionViewModel, showKurdish: Boolean) {
     val question = state.item?.question ?: return
+    val answerId = "theory_a_${question.id}"
+    val answerParts = remember(question.id) { theoryAnswerSpeech(question.answer, question.explanation) }
+    val speaker = LocalSpeaker.current
+    LaunchedEffect(question.id, state.revealed, speaker?.available) {
+        if (state.revealed && speaker?.autoRead == true && speaker.available) speaker.speakParts(answerId, answerParts)
+    }
     if (!state.revealed) {
         Button(
             onClick = viewModel::reveal,
@@ -146,7 +174,7 @@ private fun StudyControls(state: TheorySessionUiState, viewModel: TheorySessionV
         )
         return
     }
-    AnswerPanel(question.answer, question.answerCkb, question.explanation, question.explanationCkb, showKurdish)
+    AnswerPanel(answerId, answerParts, question.answer, question.answerCkb, question.explanation, question.explanationCkb, showKurdish)
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         Button(
             onClick = { viewModel.knew(true) },
@@ -165,8 +193,26 @@ private fun TestControls(
     item: TheoryTestItem,
     viewModel: TheorySessionViewModel,
     showKurdish: Boolean,
+    reading: String?,
 ) {
     val chosen = state.chosen
+    val question = item.question
+    val answerId = "theory_a_${question.id}"
+    // A right answer needs no repeating, so only the explanation is read back then.
+    val answerParts = remember(question.id, chosen) {
+        val correct = if (chosen != null && chosen != item.correctIndex) {
+            "${optionLetter(item.correctIndex)}: ${question.answer}"
+        } else {
+            null
+        }
+        theoryAnswerSpeech(correct, question.explanation)
+    }
+    val speaker = LocalSpeaker.current
+    LaunchedEffect(question.id, chosen, speaker?.available) {
+        if (chosen != null && answerParts.isNotEmpty() && speaker?.autoRead == true && speaker.available) {
+            speaker.speakParts(answerId, answerParts)
+        }
+    }
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
         Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             item.options.forEachIndexed { index, option ->
@@ -180,7 +226,7 @@ private fun TestControls(
                     letter = optionLetter(index),
                     text = option,
                     state = optionState,
-                    reading = false,
+                    reading = reading == optionLetter(index),
                     enabled = chosen == null,
                     onClick = { viewModel.choose(index) },
                     translation = item.optionsCkb.getOrNull(index),
@@ -190,11 +236,10 @@ private fun TestControls(
         }
     }
     if (chosen != null) {
-        val question = item.question
         if (chosen != item.correctIndex) {
-            AnswerPanel(question.answer, question.answerCkb, question.explanation, question.explanationCkb, showKurdish)
+            AnswerPanel(answerId, answerParts, question.answer, question.answerCkb, question.explanation, question.explanationCkb, showKurdish)
         } else if (question.explanation != null) {
-            AnswerPanel(null, null, question.explanation, question.explanationCkb, showKurdish)
+            AnswerPanel(answerId, answerParts, null, null, question.explanation, question.explanationCkb, showKurdish)
         }
         Button(onClick = viewModel::next, modifier = Modifier.fillMaxWidth().height(52.dp).testTag("theory_next")) {
             Text(stringResource(if (state.isLast) R.string.practice_finish else R.string.practice_next))
@@ -202,21 +247,37 @@ private fun TestControls(
     }
 }
 
-/** The correct answer, with its Sorani text and any explanation. */
+/** The correct answer, with its Sorani text, any explanation and a button to hear it in English. */
 @Composable
-private fun AnswerPanel(answer: String?, answerCkb: String?, explanation: String?, explanationCkb: String?, showKurdish: Boolean) {
+private fun AnswerPanel(
+    speakId: String,
+    speakParts: List<SpeechPart>,
+    answer: String?,
+    answerCkb: String?,
+    explanation: String?,
+    explanationCkb: String?,
+    showKurdish: Boolean,
+) {
     Card(
         shape = RoundedCornerShape(18.dp),
         colors = CardDefaults.cardColors(containerColor = FeedbackColors.correct().copy(alpha = 0.12f)),
         modifier = Modifier.fillMaxWidth().testTag("theory_answer"),
     ) {
         Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                if (answer != null) {
+                    Text(
+                        stringResource(R.string.theory_answer_label),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.weight(1f),
+                    )
+                } else {
+                    Spacer(Modifier.weight(1f))
+                }
+                if (speakParts.isNotEmpty()) SpeakButton(speakId, speakParts, size = 36.dp)
+            }
             if (answer != null) {
-                Text(
-                    stringResource(R.string.theory_answer_label),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                     Text(answer, style = LearningType.option, fontWeight = FontWeight.SemiBold)
                 }
