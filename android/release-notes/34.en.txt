@@ -1,0 +1,2 @@
+- Fixed: leaving a question while it was being read aloud no longer leaves the voice talking in the background. It now stops the moment you move on, go back or close the test.
+- The numbered question buttons in the mock tests are easier to hit and are now read out properly by TalkBack ("Question 7, answered").

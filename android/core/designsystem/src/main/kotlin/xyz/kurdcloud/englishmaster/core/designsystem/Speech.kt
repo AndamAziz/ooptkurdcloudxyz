@@ -339,6 +339,9 @@ fun ListenControls(id: String, parts: List<SpeechPart>, modifier: Modifier = Mod
     val speaker = LocalSpeaker.current ?: return
     if (!speaker.available) return
     val speaking = speaker.speakingId == id
+    // Leaving the question — the next one, back, closing the test — stops its audio. Without this
+    // the voice carries on reading a question the learner can no longer see.
+    DisposableEffect(speaker, id) { onDispose { if (speaker.speakingId == id) speaker.stop() } }
     Row(
         modifier = modifier.fillMaxWidth().testTag("listen_controls"),
         verticalAlignment = Alignment.CenterVertically,

@@ -144,6 +144,28 @@ class PracticeScreenTest {
     }
 
     @Test
+    @Config(qualifiers = "en")
+    fun leavingTheQuestionStopsTheVoice() {
+        val speaker = FakeSpeaker()
+        val vm = PracticeViewModel(CefrLevel.A1, "u1", FakeContent(listOf(question("q1"))), FakePractice(FakeNetwork()))
+        var onScreen by mutableStateOf(true)
+        compose.setContent {
+            EnglishMasterTheme {
+                CompositionLocalProvider(LocalSpeaker provides speaker) {
+                    if (onScreen) PracticeScreen(CefrLevel.A1, vm, onExit = {})
+                }
+            }
+        }
+        compose.onNodeWithTag("listen_pill").performClick()
+        assertEquals("question_q1", speaker.speakingId)
+
+        // Exiting the questions must silence it; it used to carry on reading off-screen.
+        onScreen = false
+        compose.waitForIdle()
+        assertEquals(null, speaker.speakingId)
+    }
+
+    @Test
     fun noListenButtonWithoutAnEnglishVoice() {
         val speaker = FakeSpeaker().apply { available = false }
         val vm = PracticeViewModel(CefrLevel.A1, "u1", FakeContent(listOf(question("q1"))), FakePractice(FakeNetwork()))
