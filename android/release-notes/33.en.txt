@@ -1,0 +1,4 @@
+- Every question in a chapter: Study and Test now go through the whole chapter instead of stopping after 20. Chapter 1's 26 questions are all there, hardest first — the ones you have never seen, then the ones you got wrong.
+- New mock theory test: 50 questions drawn 5 from each of the 10 chapters, 57 minutes on the clock, pass mark 43 — the real format. Move between questions, change an answer, and nothing is marked until you hand the paper in.
+- A new mix every time: the paper favours the questions you have not met or got wrong, so each sitting works on your weak spots instead of repeating the same test.
+- When the time runs out the paper is handed in for you, and afterwards you can go over every question you got wrong, with the correct answer and the explanation.

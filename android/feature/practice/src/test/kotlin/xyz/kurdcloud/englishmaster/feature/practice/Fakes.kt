@@ -18,6 +18,7 @@ import xyz.kurdcloud.englishmaster.core.model.SyncState
 import xyz.kurdcloud.englishmaster.core.model.TheoryMode
 import xyz.kurdcloud.englishmaster.core.model.TheoryQuestion
 import xyz.kurdcloud.englishmaster.core.model.TheorySection
+import xyz.kurdcloud.englishmaster.core.model.TheoryTest
 import xyz.kurdcloud.englishmaster.core.model.TheoryTestItem
 import xyz.kurdcloud.englishmaster.core.model.Topic
 import xyz.kurdcloud.englishmaster.core.model.optionLetter
@@ -118,9 +119,20 @@ class FakeTheory(
         return ApiResult.Success(count)
     }
     override suspend fun deck(slug: String) = chapters[slug].orEmpty().takeIf { saved.value.containsKey(slug) }.orEmpty()
-    override suspend fun testRound(slug: String, count: Int) = deck(slug).take(count).map { q ->
+    override suspend fun testRound(slug: String) = deck(slug).map { q ->
         TheoryTestItem.build(q, deck(slug).filter { it.id != q.id }) { it }
     }
+
+    /** Balanced like the real one: [TheoryTest.PER_SECTION] from each downloaded chapter. */
+    override suspend fun mockTest(): List<TheoryTestItem> {
+        val picked = saved.value.keys.flatMap { slug -> deck(slug).take(TheoryTest.PER_SECTION) }
+            .take(TheoryTest.QUESTIONS)
+        return picked.map { q ->
+            TheoryTestItem.build(q, deck(q.sectionSlug).filter { it.id != q.id }) { it }
+        }
+    }
+
+    override suspend fun savedQuestionCount(): Int = saved.value.values.sum()
     override suspend fun record(question: TheoryQuestion, isCorrect: Boolean, mode: TheoryMode) {
         recorded += Triple(question.id, isCorrect, mode)
     }

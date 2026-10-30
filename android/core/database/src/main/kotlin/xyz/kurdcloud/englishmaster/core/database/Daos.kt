@@ -164,6 +164,13 @@ interface TheoryDao {
     @Query("select count(*) from theory_questions where section_slug = :slug")
     suspend fun questionCount(slug: String): Int
 
+    /** Every saved question, for a mock exam that draws on the whole course. */
+    @Query("select * from theory_questions order by section_slug, sort_order, id")
+    suspend fun allQuestions(): List<TheoryQuestionEntity>
+
+    @Query("select count(*) from theory_questions")
+    suspend fun savedQuestionCount(): Int
+
     /** Questions saved per chapter, so the list can say which chapters work offline. */
     @Query("select section_slug, count(*) as count from theory_questions group by section_slug")
     fun observeDownloadCounts(): Flow<List<TheorySectionCount>>
