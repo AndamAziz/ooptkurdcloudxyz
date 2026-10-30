@@ -96,6 +96,17 @@ class TheoryViewModelsTest {
     }
 
     @Test
+    fun `a chapter is studied in full, however many questions it has`() = runTest {
+        // The first chapter of the real course has 26; a round used to stop at 20.
+        val big = (1..26).map { theoryQuestion("b$it", section = "big") }
+        val repo = FakeTheory(mapOf("big" to big), listOf(TheorySection("big", "Big", null, 26, 0, 0)))
+        repo.downloadSection("big")
+
+        assertEquals(26, TheorySessionViewModel("big", TheoryMode.STUDY, repo).uiState.value.total)
+        assertEquals(26, TheorySessionViewModel("big", TheoryMode.TEST, repo).uiState.value.total)
+    }
+
+    @Test
     fun `a test question borrows its wrong options from the same chapter`() = runTest {
         val repo = theory()
         repo.downloadSection("alertness")

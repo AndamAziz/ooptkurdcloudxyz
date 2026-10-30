@@ -67,6 +67,8 @@ import xyz.kurdcloud.englishmaster.feature.practice.LifeInUkViewModel
 import xyz.kurdcloud.englishmaster.feature.practice.MockTestScreen
 import xyz.kurdcloud.englishmaster.feature.practice.MockTestViewModel
 import xyz.kurdcloud.englishmaster.feature.practice.TheoryActions
+import xyz.kurdcloud.englishmaster.feature.practice.TheoryMockScreen
+import xyz.kurdcloud.englishmaster.feature.practice.TheoryMockViewModel
 import xyz.kurdcloud.englishmaster.feature.practice.TheoryScreen
 import xyz.kurdcloud.englishmaster.feature.practice.TheorySessionScreen
 import xyz.kurdcloud.englishmaster.feature.practice.TheorySessionViewModel
@@ -104,6 +106,7 @@ private object Routes {
     const val LIFE_IN_UK_CHAPTER = "life-in-uk/chapter/{tag}"
     const val LIFE_IN_UK_MOCK = "life-in-uk/mock-test"
     const val THEORY = "driving-theory"
+    const val THEORY_MOCK = "driving-theory/mock-test"
     const val THEORY_SESSION = "driving-theory/{slug}/{mode}?name={name}"
 
     /** [notice]: a message to show on arrival (session expired, email link expired, ...). */
@@ -323,8 +326,15 @@ fun EnglishMasterNavHost(
                 actions = TheoryActions(
                     onStudy = { navController.navigate(Routes.theorySession(it.slug, TheoryMode.STUDY, it.nameEn)) },
                     onTest = { navController.navigate(Routes.theorySession(it.slug, TheoryMode.TEST, it.nameEn)) },
+                    onMockTest = { navController.navigate(Routes.THEORY_MOCK) },
                     onBack = { navController.popBackStack() },
                 ),
+            )
+        }
+        composable(Routes.THEORY_MOCK) {
+            TheoryMockScreen(
+                viewModel = viewModel { TheoryMockViewModel(container.theory) },
+                onClose = { navController.popBackStack() },
             )
         }
         composable(Routes.THEORY_SESSION) { entry ->

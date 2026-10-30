@@ -62,6 +62,7 @@ import xyz.kurdcloud.englishmaster.core.model.TheoryTest
 data class TheoryActions(
     val onStudy: (TheorySection) -> Unit = {},
     val onTest: (TheorySection) -> Unit = {},
+    val onMockTest: () -> Unit = {},
     val onBack: () -> Unit = {},
 )
 
@@ -105,6 +106,7 @@ fun TheoryScreen(viewModel: TheoryViewModel, actions: TheoryActions) {
             ) {
                 item { TheoryHeaderCard(state) }
                 item { TheoryDownloadCard(state, viewModel::downloadAll) }
+                if (state.published > 0) item { TheoryMockCard(actions.onMockTest) }
                 item {
                     Text(
                         stringResource(R.string.theory_sections_header),
@@ -164,6 +166,36 @@ private fun TheoryHeaderCard(state: TheoryUiState) {
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.testTag("theory_overall"),
                 )
+            }
+        }
+    }
+}
+
+/** The way into a full mock paper, above the chapters as the official app has it. */
+@Composable
+private fun TheoryMockCard(onStart: () -> Unit) {
+    Card(
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer),
+        modifier = Modifier.fillMaxWidth().testTag("theory_mock_card"),
+    ) {
+        Column(Modifier.padding(16.dp).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(
+                stringResource(R.string.theory_mock_card_title),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+            )
+            Text(
+                stringResource(
+                    R.string.theory_mock_card_body,
+                    TheoryTest.QUESTIONS,
+                    TheoryTest.MINUTES,
+                    TheoryTest.PASS_MARK,
+                ),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Button(onClick = onStart, modifier = Modifier.testTag("theory_mock_start")) {
+                Text(stringResource(R.string.theory_mock_start))
             }
         }
     }

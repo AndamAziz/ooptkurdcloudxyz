@@ -11,6 +11,7 @@ import xyz.kurdcloud.englishmaster.core.model.MediaType
 import xyz.kurdcloud.englishmaster.core.model.TheoryMode
 import xyz.kurdcloud.englishmaster.core.model.TheoryQuestion
 import xyz.kurdcloud.englishmaster.core.model.TheorySection
+import xyz.kurdcloud.englishmaster.core.model.TheoryTest
 import xyz.kurdcloud.englishmaster.core.model.TheoryTestItem
 import xyz.kurdcloud.englishmaster.core.network.ApiError
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
@@ -45,8 +46,17 @@ interface TheoryRepository {
     /** A chapter's questions, hardest first: never seen, then got wrong, then known. */
     suspend fun deck(slug: String): List<TheoryQuestion>
 
-    /** A test round over [count] of the chapter's questions, each with borrowed wrong options. */
-    suspend fun testRound(slug: String, count: Int): List<TheoryTestItem>
+    /** The whole chapter as a test, hardest first, each question with borrowed wrong options. */
+    suspend fun testRound(slug: String): List<TheoryTestItem>
+
+    /**
+     * A mock exam drawn from the whole course: [TheoryTest.PER_SECTION] questions from each
+     * chapter, shuffled into one paper of at most [TheoryTest.QUESTIONS].
+     */
+    suspend fun mockTest(): List<TheoryTestItem>
+
+    /** How many questions are saved on the device, across every chapter. */
+    suspend fun savedQuestionCount(): Int
 
     /** Records an answer locally and, when online, sends it straight on. */
     suspend fun record(question: TheoryQuestion, isCorrect: Boolean, mode: TheoryMode)
@@ -135,13 +145,55 @@ class OfflineFirstTheoryRepository(
         return questions.sortedBy { q -> seen[q.id]?.let { if (it) 2 else 1 } ?: 0 }.map { it.toModel(media) }
     }
 
-    override suspend fun testRound(slug: String, count: Int): List<TheoryTestItem> {
+    override suspend fun testRound(slug: String): List<TheoryTestItem> {
         val chapter = dao.questionsOf(slug).map { it.toModel(media) }
         if (chapter.isEmpty()) return emptyList()
-        return deck(slug).take(count).map { question ->
-            TheoryTestItem.build(question, chapter.filter { it.id != question.id }.shuffled(), shuffle)
+        return deck(slug).map { question -> chapter.testItem(question) }
+    }
+
+    /**
+     * The paper is built chapter by chapter rather than from one big pile, so every sitting covers
+     * the whole syllabus the way the real test does.
+     *
+     * Within a chapter the questions the learner has never met come first, then the ones they got
+     * wrong, then the ones they know, and each of those groups is shuffled. So a weak area is
+     * revisited without the learner ever sitting the same paper twice.
+     *
+     * Chapters are then taken from in rounds — one question from each, then a second from each —
+     * so a course with more chapters than the paper has room for still ends up evenly spread.
+     */
+    override suspend fun mockTest(): List<TheoryTestItem> {
+        val all = dao.allQuestions().map { it.toModel(media) }
+        if (all.isEmpty()) return emptyList()
+        val seen = dao.latestOf(all.map { it.id }).associate { it.questionId to it.isCorrect }
+        val rank = { q: TheoryQuestion -> seen[q.id]?.let { if (it) 2 else 1 } ?: 0 }
+        val bySection = all.groupBy { it.sectionSlug }
+        val chapters = bySection.values.map { it.shuffled().sortedBy(rank) }
+
+        val picked = LinkedHashSet<TheoryQuestion>()
+        for (round in 0 until TheoryTest.PER_SECTION) {
+            for (chapter in chapters) {
+                if (picked.size >= TheoryTest.QUESTIONS) break
+                chapter.getOrNull(round)?.let { picked += it }
+            }
+            if (picked.size >= TheoryTest.QUESTIONS) break
+        }
+        // Too few chapters to fill a paper: top up with the next-weakest questions, wherever they are.
+        if (picked.size < TheoryTest.QUESTIONS) {
+            chapters.flatMap { it.drop(TheoryTest.PER_SECTION) }.shuffled().sortedBy(rank)
+                .forEach { if (picked.size < TheoryTest.QUESTIONS) picked += it }
+        }
+        return picked.shuffled().map { question ->
+            // Wrong options come from the question's own chapter, so they stay plausible.
+            bySection.getValue(question.sectionSlug).testItem(question)
         }
     }
+
+    override suspend fun savedQuestionCount(): Int = dao.savedQuestionCount()
+
+    /** Builds [question] into a test card, borrowing its wrong options from the rest of this list. */
+    private fun List<TheoryQuestion>.testItem(question: TheoryQuestion) =
+        TheoryTestItem.build(question, filter { it.id != question.id }.shuffled(), shuffle)
 
     override suspend fun record(question: TheoryQuestion, isCorrect: Boolean, mode: TheoryMode) {
         val row = TheoryResponseEntity(

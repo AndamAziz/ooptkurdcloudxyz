@@ -292,4 +292,31 @@
     <string name="theory_result_score">%1$d لە %2$d ڕاست (%3$d%%)</string>
     <string name="theory_again">خولێکی تر</string>
     <string name="theory_back_to_chapters">گەڕانەوە بۆ بەشەکان</string>
+    <string name="theory_mock_card_title">تاقیکردنەوەی وەرزشی تیۆری</string>
+    <string name="theory_mock_card_body">%1$d پرسیار لە هەموو بەشەکانەوە، %2$d خولەک، نمرەی دەرچوون %3$d — وەک ئەسڵەکەی. هەر جارێک تێکەڵەیەکی نوێ، زیاتر لەو پرسیارانەی هێشتا ڕاست وەڵامت نەداونەتەوە.</string>
+    <string name="theory_mock_start">دەستپێکردنی تاقیکردنەوە</string>
+    <string name="theory_mock_title">تاقیکردنەوەی وەرزشی تیۆری</string>
+    <string name="theory_mock_preparing">پرسیارەکان ئامادە دەکرێن…</string>
+    <string name="theory_mock_empty">هێشتا هیچ پرسیارێک دانەبەزێنرا. پەیوەندی بە ئینتەرنێتەوە بکە و دووبارە هەوڵ بدەرەوە.</string>
+    <string name="theory_mock_counter">پرسیاری %1$d لە %2$d</string>
+    <string name="theory_mock_finish">پێشکەشکردنی وەڵامەکان</string>
+    <string name="theory_mock_finish_title">وەڵامەکان پێشکەش بکرێن؟</string>
+    <plurals name="theory_mock_unanswered">
+        <item quantity="one">%d پرسیار هێشتا وەڵامی نییە؛ بە هەڵە ژمێردرێت.</item>
+        <item quantity="other">%d پرسیار هێشتا وەڵامیان نییە؛ بە هەڵە دەژمێردرێن.</item>
+    </plurals>
+    <string name="theory_mock_all_answered">وەڵامی هەموو پرسیارەکانت داوەتەوە.</string>
+    <string name="theory_mock_keep_going">بەردەوامبە</string>
+    <string name="theory_mock_leave_title">تاقیکردنەوەکە بەجێبهێڵیت؟</string>
+    <string name="theory_mock_leave_body">وەڵامەکانت لەم تاقیکردنەوەیەدا لەدەست دەچن.</string>
+    <string name="theory_mock_leave">بەجێهێشتن</string>
+    <string name="theory_mock_time_up">کات تەواو بوو — وەڵامەکانت بۆت پێشکەش کران.</string>
+    <string name="theory_mock_passed">دەرچوویت</string>
+    <string name="theory_mock_failed">ئەم جارە نا</string>
+    <string name="theory_mock_score">%1$d لە %2$d ڕاست (%3$d%%). پێویستت بە %4$dـە بۆ دەرچوون.</string>
+    <string name="theory_mock_review">ئەمانە دووبارە بخوێنەرەوە</string>
+    <string name="theory_mock_not_answered">ئەمەت بە بەتاڵی بەجێهێشت.</string>
+    <string name="theory_mock_your_answer">وەڵامی تۆ: %1$s</string>
+    <string name="theory_mock_again">تاقیکردنەوەیەکی تر</string>
+    <string name="theory_mock_done">تەواو</string>
 </resources>

@@ -27,8 +27,15 @@ object TheoryTest {
     const val HAZARD_TOTAL = 75
     const val HAZARD_PASS_MARK = 44
 
-    /** How many of a chapter's questions one round of study or test uses. */
-    const val ROUND = 20
+    /**
+     * How many questions a mock exam takes from each chapter. With the ten chapters the course
+     * has, that is exactly the [QUESTIONS] of a real paper.
+     */
+    const val PER_SECTION = 5
+
+    /** The pass mark for a paper of [total] questions, in proportion to the real one. */
+    fun passMarkFor(total: Int): Int =
+        if (total >= QUESTIONS) PASS_MARK else (total * PASS_MARK + QUESTIONS - 1) / QUESTIONS
 
     const val BOOK_URL = "https://www.gov.uk/book-theory-test"
     const val PRACTISE_URL = "https://www.gov.uk/take-practice-theory-test"

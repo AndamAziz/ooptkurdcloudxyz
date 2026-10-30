@@ -15,7 +15,6 @@ import xyz.kurdcloud.englishmaster.core.data.NetworkMonitor
 import xyz.kurdcloud.englishmaster.core.data.TheoryRepository
 import xyz.kurdcloud.englishmaster.core.model.TheoryMode
 import xyz.kurdcloud.englishmaster.core.model.TheorySection
-import xyz.kurdcloud.englishmaster.core.model.TheoryTest
 import xyz.kurdcloud.englishmaster.core.model.TheoryTestItem
 import xyz.kurdcloud.englishmaster.core.network.ApiError
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
@@ -196,10 +195,12 @@ class TheorySessionViewModel(
         }
     }
 
+    // A round is the whole chapter: a learner who opens chapter 1 gets all 26 of its questions,
+    // hardest first, in both modes — so nothing in the chapter is left unseen.
     private suspend fun load(): List<TheoryTestItem> = when (mode) {
         // Study mode needs no options; one card per question keeps the two modes on the same state.
-        TheoryMode.STUDY -> theory.deck(slug).take(TheoryTest.ROUND).map(TheoryTestItem::card)
-        TheoryMode.TEST -> theory.testRound(slug, TheoryTest.ROUND)
+        TheoryMode.STUDY -> theory.deck(slug).map(TheoryTestItem::card)
+        TheoryMode.TEST -> theory.testRound(slug)
     }
 
     /** Study mode: turns the card over. */
