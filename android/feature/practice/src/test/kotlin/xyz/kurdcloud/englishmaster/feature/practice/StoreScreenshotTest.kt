@@ -19,6 +19,10 @@ import xyz.kurdcloud.englishmaster.core.designsystem.EnglishMasterTheme
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
 import xyz.kurdcloud.englishmaster.core.model.KurdishText
 import xyz.kurdcloud.englishmaster.core.model.Question
+import xyz.kurdcloud.englishmaster.core.model.TheoryMode
+import xyz.kurdcloud.englishmaster.core.model.TheoryQuestion
+import xyz.kurdcloud.englishmaster.core.model.TheorySection
+import kotlinx.coroutines.runBlocking
 import java.io.File
 
 /**
@@ -72,6 +76,77 @@ class StoreScreenshotTest {
         compose.waitForIdle()
         save(name)
     }
+
+    /** A chapter of the driving theory course, with real wording and its Sorani translation. */
+    private fun drivingChapter() = listOf(
+        TheoryQuestion(
+            "t1", "alertness",
+            "You're waiting to turn right at the end of a road. Your view is blocked by parked cars. What should you do?",
+            "لە کۆتایی ڕێگایەکدا چاوەڕێی سوڕانەوەی ڕاستیت. ئۆتۆمبێلە ڕاگیراوەکان دیمەنت لێ دەشارنەوە. دەبێت چی بکەیت؟",
+            "Edge forward slowly until you can see clearly",
+            "بە هێواشی بەرەو پێش بچۆ تا بە ڕوونی دەبینیت",
+            "Moving out slowly lets you see without putting yourself in the path of traffic.",
+            "جوڵانی هێواش وا دەکات ببینیت بەبێ ئەوەی خۆت بخەیتە بەردەم هاتوچۆ.",
+            null, 1,
+        ),
+        TheoryQuestion(
+            "t2", "alertness", "What should you do before moving off?",
+            "پێش بەڕێکەوتن دەبێت چی بکەیت؟",
+            "Check the mirrors and look over your shoulder",
+            "سەیری ئاوێنەکان بکە و لەسەر شانت تەماشا بکە",
+            null, null, null, 1,
+        ),
+        TheoryQuestion(
+            "t3", "alertness", "When may you use a hand-held mobile phone while driving?",
+            "کەی دەتوانیت لە کاتی شۆفێریدا مۆبایل بە دەست بەکاربهێنیت؟",
+            "Never, unless you're safely parked with the engine off",
+            "هەرگیز، مەگەر بە سەلامەتی ڕاوەستابیت و بزوێنەر کوژاوەتەوە",
+            null, null, null, 1,
+        ),
+        TheoryQuestion(
+            "t4", "alertness", "What does a long white line along the centre of the road mean?",
+            "هێڵی سپی درێژ لە ناوەڕاستی ڕێگادا چی دەگەیەنێت؟",
+            "There's a hazard ahead — do not cross it unless it's safe",
+            "مەترسییەک لە پێشەوەیە — مەیبڕە مەگەر سەلامەت بێت",
+            null, null, null, 1,
+        ),
+    )
+
+    private val drivingSections = listOf(
+        TheorySection("alertness", "Alertness", "ئاگاداری", 26, 18, 15),
+        TheorySection("attitude", "Attitude", "هەڵسوکەوت", 38, 12, 11),
+        TheorySection("safety-and-vehicle", "Safety and your vehicle", "سەلامەتی و ئۆتۆمبێلەکەت", 82, 0, 0),
+        TheorySection("safety-margins", "Safety margins", "بۆشایی سەلامەتی", 34, 0, 0),
+        TheorySection("hazard-awareness", "Hazard awareness", "ئاگاداری لە مەترسی", 78, 0, 0),
+    )
+
+    // Every chapter has questions, so the course page shows the chapters rather than a download prompt.
+    private fun theoryRepo() = FakeTheory(drivingSections.associate { it.slug to drivingChapter() }, drivingSections)
+
+    private fun theoryCourse(name: String) {
+        val repo = theoryRepo()
+        runBlocking { drivingSections.forEach { repo.downloadSection(it.slug) } }
+        val vm = TheoryViewModel(repo, FakeNetwork())
+        compose.setContent { EnglishMasterTheme { TheoryScreen(vm, TheoryActions()) } }
+        compose.waitForIdle()
+        save(name)
+    }
+
+    private fun theoryQuestionCard(name: String, kurdish: Boolean) {
+        val repo = theoryRepo()
+        runBlocking { repo.downloadSection("alertness") }
+        val vm = TheorySessionViewModel("alertness", TheoryMode.TEST, repo)
+        compose.setContent { EnglishMasterTheme { TheorySessionScreen(vm, "Alertness", onExit = {}) } }
+        if (kurdish) compose.onNodeWithTag("kurdish_toggle").performClick()
+        compose.waitForIdle()
+        save(name)
+    }
+
+    @Test @Config(qualifiers = "en-w360dp-h640dp-xxhdpi")
+    fun drivingTheoryCourseEnglish() = theoryCourse("6-driving-theory-en")
+
+    @Test @Config(qualifiers = "b+ckb-w360dp-h640dp-xxhdpi")
+    fun drivingTheoryQuestionSorani() = theoryQuestionCard("7-driving-theory-ckb", kurdish = true)
 
     @Test @Config(qualifiers = "b+ckb-w360dp-h640dp-xxhdpi")
     fun practiceKurdishTranslation() = practiceWithKurdish("5-practice-kurdish-translation")

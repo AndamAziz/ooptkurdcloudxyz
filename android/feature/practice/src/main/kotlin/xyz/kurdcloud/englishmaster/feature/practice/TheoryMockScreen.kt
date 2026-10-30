@@ -48,6 +48,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
@@ -266,7 +268,7 @@ private fun RunningPaper(state: TheoryMockUiState, viewModel: TheoryMockViewMode
 /** Numbered chips to jump between questions; the ones already answered are filled in. */
 @Composable
 private fun QuestionStrip(state: TheoryMockUiState, onSelect: (Int) -> Unit) {
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp), modifier = Modifier.testTag("theory_mock_strip")) {
+    LazyRow(modifier = Modifier.testTag("theory_mock_strip")) {
         itemsIndexed(state.items, key = { _, it -> it.question.id }) { i, item ->
             val answered = item.question.id in state.choices
             val current = i == state.index
@@ -280,13 +282,23 @@ private fun QuestionStrip(state: TheoryMockUiState, onSelect: (Int) -> Unit) {
                 answered -> MaterialTheme.colorScheme.onPrimaryContainer
                 else -> MaterialTheme.colorScheme.onSurfaceVariant
             }
+            // A number alone tells a screen reader nothing about whether that question is done.
+            val label = stringResource(
+                if (answered) R.string.mock_chip_answered else R.string.mock_chip_blank,
+                i + 1,
+            )
+            // The circle stays small, but the tappable area is the 48dp accessibility minimum.
             Box(
                 Modifier
-                    .size(34.dp)
-                    .background(background, CircleShape)
-                    .selectable(selected = current, role = Role.Tab) { onSelect(i) },
+                    .size(48.dp)
+                    .selectable(selected = current, role = Role.Tab) { onSelect(i) }
+                    .semantics { contentDescription = label },
                 contentAlignment = Alignment.Center,
-            ) { Text("${i + 1}", color = foreground, style = MaterialTheme.typography.labelMedium) }
+            ) {
+                Box(Modifier.size(36.dp).background(background, CircleShape), contentAlignment = Alignment.Center) {
+                    Text("${i + 1}", color = foreground, style = MaterialTheme.typography.labelMedium)
+                }
+            }
         }
     }
 }

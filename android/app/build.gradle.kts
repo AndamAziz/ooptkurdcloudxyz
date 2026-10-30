@@ -36,8 +36,8 @@ android {
         applicationId = "app.englishmaster"
         minSdk = 26
         targetSdk = 36
-        versionCode = 33
-        versionName = "0.21.0"
+        versionCode = 34
+        versionName = "0.21.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SUPABASE_URL", "\"$supabaseUrl\"")
         buildConfigField("String", "SUPABASE_ANON_KEY", "\"$supabaseAnonKey\"")

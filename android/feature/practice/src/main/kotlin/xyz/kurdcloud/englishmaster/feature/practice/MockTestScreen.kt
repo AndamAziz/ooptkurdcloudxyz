@@ -54,6 +54,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
@@ -213,7 +215,7 @@ private fun RunningView(state: MockTestUiState, viewModel: MockTestViewModel, mo
 /** Numbered chips to jump between questions; answered ones are filled. */
 @Composable
 private fun QuestionStrip(state: MockTestUiState, onSelect: (Int) -> Unit) {
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+    LazyRow {
         itemsIndexed(state.questions, key = { _, q -> q.id }) { i, q ->
             val answered = q.id in state.choices
             val current = i == state.index
@@ -227,10 +229,20 @@ private fun QuestionStrip(state: MockTestUiState, onSelect: (Int) -> Unit) {
                 answered -> MaterialTheme.colorScheme.onPrimaryContainer
                 else -> MaterialTheme.colorScheme.onSurfaceVariant
             }
+            // A number alone tells a screen reader nothing about whether that question is done.
+            val label = stringResource(if (answered) R.string.mock_chip_answered else R.string.mock_chip_blank, i + 1)
+            // The circle stays small, but the tappable area is the 48dp accessibility minimum.
             Box(
-                Modifier.size(34.dp).background(bg, CircleShape).selectable(selected = current, role = Role.Tab) { onSelect(i) },
+                Modifier
+                    .size(48.dp)
+                    .selectable(selected = current, role = Role.Tab) { onSelect(i) }
+                    .semantics { contentDescription = label },
                 contentAlignment = Alignment.Center,
-            ) { Text("${i + 1}", color = fg, style = MaterialTheme.typography.labelMedium) }
+            ) {
+                Box(Modifier.size(36.dp).background(bg, CircleShape), contentAlignment = Alignment.Center) {
+                    Text("${i + 1}", color = fg, style = MaterialTheme.typography.labelMedium)
+                }
+            }
         }
     }
 }
