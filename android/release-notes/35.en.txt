@@ -1,0 +1,2 @@
+- The APK is now signed with APK Signature Scheme v3 as well as v2, which is what Android 9 and later look for when installing.
+- Every release now attaches the APK and its SHA-256 checksum to its GitHub release page, so there is a direct download link that does not depend on a chat app re-sharing the file. An APK that arrives altered or half-downloaded fails to install with only "App not installed" and no reason, and the checksum tells you that is what happened.
