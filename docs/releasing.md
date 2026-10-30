@@ -57,6 +57,39 @@ To withdraw a release, set `published = false` on its row in the Supabase table 
 Devices that still run a debug build (CI `app-debug-apk` artifact) are signed with a different key
 and cannot update in place: uninstall once, then install the published APK.
 
+## Where to download the APK
+
+Two links, both the same file:
+
+* the release page on GitHub, which carries `englishmaster-<version>-<code>.apk` and a `.sha256`
+  file beside it;
+* `https://nefpgqoykfndjvrdultp.supabase.co/storage/v1/object/public/app-releases/englishmaster-<version>-<code>.apk`,
+  which is also where the in-app updater fetches from.
+
+Hand out one of those links rather than the file itself. The in-app updater checks the size and
+SHA-256 before it installs anything; a copy passed through a chat app has nothing checking it.
+
+## "App not installed"
+
+Android gives this one dialog for several different refusals and never says which. The app's icon
+and name appearing in the dialog only means the APK could be read, not that it is intact. In order
+of how often it is the answer:
+
+1. **Something else is installed under `app.englishmaster` with a different signing key.** Most
+   often a debug build, or an APK from before the release key existed. Android will never replace
+   it with a differently signed one. Remove the app and install again — answers and progress are on
+   the server, so signing in brings them back. This is the only cause that uninstalling fixes.
+2. **The file arrived altered.** A chat app that recompressed or truncated it, or a download that
+   stopped early. The signature then fails and the install is refused. Compare the download against
+   the `.sha256` on the release page (`sha256sum` on a computer, a file manager that shows hashes on
+   a phone) and download again from one of the links above if it differs.
+3. **An older version over a newer one.** Android refuses a lower `versionCode`. Check *My account*
+   in the app for the version that is installed.
+4. **No free storage**, which Android reports the same way.
+
+To tell 1 from 2, check the checksum first: it is a definite answer either way. If the file is
+right, it is a signature clash and the app has to be removed first.
+
 ## Local signed build
 
 Create `android/keystore.properties` (git-ignored):

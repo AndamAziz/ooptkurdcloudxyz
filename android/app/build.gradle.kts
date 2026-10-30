@@ -36,8 +36,8 @@ android {
         applicationId = "app.englishmaster"
         minSdk = 26
         targetSdk = 36
-        versionCode = 34
-        versionName = "0.21.1"
+        versionCode = 35
+        versionName = "0.21.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SUPABASE_URL", "\"$supabaseUrl\"")
         buildConfigField("String", "SUPABASE_ANON_KEY", "\"$supabaseAnonKey\"")
@@ -52,6 +52,12 @@ android {
                 storePassword = signing("storePassword", "ANDROID_KEYSTORE_PASSWORD")
                 keyAlias = signing("keyAlias", "ANDROID_KEY_ALIAS")
                 keyPassword = signing("keyPassword", "ANDROID_KEY_PASSWORD")
+                // v3 as well as v2: it is what Android 9 and above look for, and it is what lets
+                // this key be rotated later without every installed copy having to be removed
+                // first. (v1 is not set: it is only read by Android 6 and below, and minSdk is 26,
+                // so AGP drops it whatever we ask for.)
+                enableV2Signing = true
+                enableV3Signing = true
             }
         }
     }

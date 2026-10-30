@@ -6,7 +6,8 @@ on:
     tags: ["v*"]
 
 permissions:
-  contents: read
+  # write: the APK is attached to the release this tag belongs to.
+  contents: write
 
 concurrency:
   group: englishmaster-release
@@ -98,6 +99,21 @@ jobs:
         with:
           name: englishmaster-${{ steps.apk.outputs.name }}
           path: android/app/build/outputs/apk/release/app-release.apk
+
+      # A workflow artifact needs a GitHub login and expires, so the APK is attached to the release
+      # as well: that is the link to hand out. The checksum is next to it, because an APK that
+      # arrives altered - truncated by a chat app, or a half-finished download - installs with
+      # nothing but "App not installed".
+      - name: Attach the APK to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          NAMED="englishmaster-${{ steps.apk.outputs.name }}-${{ steps.apk.outputs.code }}.apk"
+          cp app/build/outputs/apk/release/app-release.apk "$RUNNER_TEMP/$NAMED"
+          ( cd "$RUNNER_TEMP" && sha256sum "$NAMED" > "$NAMED.sha256" )
+          # The release exists already: the tag that started this run was pushed by publishing it.
+          gh release upload "$GITHUB_REF_NAME" "$RUNNER_TEMP/$NAMED" "$RUNNER_TEMP/$NAMED.sha256" \
+            --repo "$GITHUB_REPOSITORY" --clobber
 
       - name: Check the Play bundle
         run: |
