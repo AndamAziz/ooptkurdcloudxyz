@@ -134,6 +134,7 @@ fun EnglishMasterNavHost(
     currentLanguage: InterfaceLanguage,
     onLanguageSelected: (InterfaceLanguage) -> Unit,
     onCheckForUpdates: (() -> Unit)? = null,
+    onWhatsNew: (() -> Unit)? = null,
     navController: NavHostController = rememberNavController(),
 ) {
     val isReady by ready.collectAsStateWithLifecycle()
@@ -199,6 +200,7 @@ fun EnglishMasterNavHost(
                     onOpenPrivacy = { navController.navigate(Routes.PRIVACY) },
                     checkForUpdatesLabel = onCheckForUpdates?.let { stringResource(R.string.update_check, BuildConfig.VERSION_NAME) },
                     onCheckForUpdates = onCheckForUpdates ?: {},
+                    onWhatsNew = onWhatsNew,
                     onUpdateQuestions = container.questionUpdater::updateAll,
                 ),
                 onSignedOut = { navController.navigate(Routes.WELCOME) { popUpTo(0) } },

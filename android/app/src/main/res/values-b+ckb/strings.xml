@@ -3,6 +3,9 @@
     <string name="update_check">پشکنینی نوێکردنەوە (وەشانی %1$s)</string>
     <string name="update_checking">پشکنینی نوێکردنەوە…</string>
     <string name="update_up_to_date">نوێترین وەشانت هەیە.</string>
+    <string name="update_whats_new">چی نوێیە</string>
+    <string name="update_whats_new_in">چی نوێیە لە %1$s</string>
+    <string name="update_whats_new_none">هیچ تێبینییەک بۆ ئەم وەشانە بڵاو نەکراوەتەوە.</string>
     <string name="update_check_failed">نەتوانرا نوێکردنەوە بپشکنرێت. پەیوەندییەکەت بپشکنە و دووبارە هەوڵ بدەرەوە.</string>
     <string name="update_available_title">وەشانی %1$s بەردەستە</string>
     <string name="update_mandatory">ئەم نوێکردنەوەیە پێویستە بۆ بەردەوامبوون لە بەکارهێنانی ئەپەکە.</string>

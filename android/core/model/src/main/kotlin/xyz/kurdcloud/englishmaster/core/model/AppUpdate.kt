@@ -12,3 +12,14 @@ data class AppUpdate(
     val notesEn: String?,
     val notesCkb: String?,
 )
+
+/** What a release changed, for the "What's new" page; [versionName] is the one it describes. */
+data class ReleaseNotes(
+    val versionName: String,
+    val notesEn: String?,
+    val notesCkb: String?,
+) {
+    /** The text to show, preferring the interface language and falling back to the other. */
+    fun forSorani(sorani: Boolean): String? =
+        (if (sorani) notesCkb ?: notesEn else notesEn ?: notesCkb)?.takeIf { it.isNotBlank() }
+}

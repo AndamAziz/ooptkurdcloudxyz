@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import xyz.kurdcloud.englishmaster.core.data.DownloadResult
 import xyz.kurdcloud.englishmaster.core.data.UpdateRepository
 import xyz.kurdcloud.englishmaster.core.model.AppUpdate
+import xyz.kurdcloud.englishmaster.core.model.ReleaseNotes
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import java.io.File
 
@@ -24,6 +25,10 @@ sealed interface UpdateUiState {
     data class Installing(val update: AppUpdate) : UpdateUiState
     data class Failed(val update: AppUpdate, val reason: Reason) : UpdateUiState
 
+    /** "What's new": what the version already installed brought. */
+    data object LoadingNotes : UpdateUiState
+    data class Notes(val notes: ReleaseNotes?) : UpdateUiState
+
     enum class Reason { NETWORK, CORRUPT, STORAGE, INCOMPATIBLE, INSTALL }
 }
 
@@ -31,16 +36,23 @@ sealed interface UpdateUiState {
  * Drives in-app updates: check → download (verified) → system installer.
  * The automatic check on start is silent unless an update exists; a manual check also
  * reports "up to date" and failures. A mandatory update cannot be dismissed.
+ *
+ * It also checks again when the app comes back to the foreground, so a release reaches someone
+ * who leaves the app open for days rather than waiting for them to start it cold.
  */
 class UpdateViewModel(
     private val updates: UpdateRepository,
     private val installer: ApkInstaller,
     private val installedVersionCode: Int,
-    enabled: Boolean,
+    private val enabled: Boolean,
+    private val nowMillis: () -> Long = System::currentTimeMillis,
 ) : ViewModel() {
     private val state = MutableStateFlow<UpdateUiState>(UpdateUiState.Hidden)
     val uiState: StateFlow<UpdateUiState> = state.asStateFlow()
     private var download: Job? = null
+
+    /** When the last check finished, so returning to the app does not check over and over. */
+    private var lastCheckMillis = 0L
 
     init {
         if (enabled) check(manual = false)
@@ -61,6 +73,7 @@ class UpdateViewModel(
     fun check(manual: Boolean) {
         if (state.value is UpdateUiState.Downloading || state.value is UpdateUiState.Installing) return
         if (manual) state.value = UpdateUiState.Checking
+        lastCheckMillis = nowMillis()
         viewModelScope.launch {
             state.value = when (val r = updates.check(installedVersionCode)) {
                 is ApiResult.Success -> r.value?.let { UpdateUiState.Available(it) }
@@ -100,7 +113,25 @@ class UpdateViewModel(
     /** Called when the app returns to the foreground (e.g. from the permission screen). */
     fun onResume() {
         val s = state.value
-        if (s is UpdateUiState.NeedsPermission && installer.canRequestInstalls()) install(s.update, s.file)
+        if (s is UpdateUiState.NeedsPermission && installer.canRequestInstalls()) {
+            install(s.update, s.file)
+            return
+        }
+        // Nothing is on screen and the last check is old enough: look again, quietly.
+        val idle = s is UpdateUiState.Hidden || s is UpdateUiState.UpToDate || s is UpdateUiState.CheckFailed
+        if (enabled && idle && nowMillis() - lastCheckMillis >= RECHECK_MILLIS) check(manual = false)
+    }
+
+    /** Shows what the installed version changed, read from the release it came from. */
+    fun showWhatsNew() {
+        if (currentUpdate() != null) return
+        state.value = UpdateUiState.LoadingNotes
+        viewModelScope.launch {
+            state.value = when (val r = updates.notesFor(installedVersionCode)) {
+                is ApiResult.Success -> UpdateUiState.Notes(r.value)
+                is ApiResult.Failure -> UpdateUiState.CheckFailed
+            }
+        }
     }
 
     fun dismiss() {
@@ -117,6 +148,11 @@ class UpdateViewModel(
         }
         state.value = UpdateUiState.Installing(update)
         installer.install(file)
+    }
+
+    private companion object {
+        /** How long to leave between background checks, so coming back to the app is not a request. */
+        const val RECHECK_MILLIS = 15 * 60 * 1000L
     }
 
     private fun currentUpdate(): AppUpdate? = when (val s = state.value) {

@@ -48,6 +48,8 @@ class MainActivity : AppCompatActivity() {
                         currentLanguage = language,
                         onLanguageSelected = ::setLanguage,
                         onCheckForUpdates = if (BuildConfig.SELF_UPDATE) ({ updates.check(manual = true) }) else null,
+                        // Shown in every build: it only reads what the installed version changed.
+                        onWhatsNew = { updates.showWhatsNew() },
                     )
                     val updateState by updates.uiState.collectAsStateWithLifecycle()
                     UpdateDialog(updateState, language, updates)

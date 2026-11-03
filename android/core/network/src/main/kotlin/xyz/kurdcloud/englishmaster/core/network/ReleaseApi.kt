@@ -26,4 +26,13 @@ interface ReleaseApi {
         @Query("order") order: String = "version_code.desc",
         @Query("limit") limit: Int = 1,
     ): List<AppReleaseDto>
+
+    /** One release by its version code, for showing what the installed version brought. */
+    @GET("rest/v1/app_releases")
+    suspend fun byVersionCode(
+        @Query("version_code") versionCode: String,
+        @Query("select") select: String = "version_code,version_name,apk_path,sha256,size_bytes,min_supported_version_code,notes_en,notes_ckb",
+        @Query("published") published: String = "eq.true",
+        @Query("limit") limit: Int = 1,
+    ): List<AppReleaseDto>
 }

@@ -52,6 +52,17 @@ jobs:
           NAME=$(sed -nE 's/^ *versionName = "([^"]+)".*/\1/p' app/build.gradle.kts)
           [ "v$NAME" = "$GITHUB_REF_NAME" ] || { echo "::error::tag $GITHUB_REF_NAME does not match versionName $NAME"; exit 1; }
 
+      # Three releases went out with no notes at all, so "What's new" was blank for everyone who
+      # updated. A release without them is now a failed build rather than a silent gap.
+      - name: Release notes must exist
+        run: |
+          CODE=$(sed -nE 's/^ *versionCode = ([0-9]+).*/\1/p' app/build.gradle.kts)
+          for lang in en ckb; do
+            f="release-notes/$CODE.$lang.txt"
+            [ -s "$f" ] || { echo "::error::$f is missing or empty; every release needs its What's new text"; exit 1; }
+          done
+          echo "release notes for version code $CODE are present in both languages"
+
       - name: Decode and check the signing key
         working-directory: .
         env:

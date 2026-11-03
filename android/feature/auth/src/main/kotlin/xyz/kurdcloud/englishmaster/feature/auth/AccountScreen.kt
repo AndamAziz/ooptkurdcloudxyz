@@ -72,6 +72,8 @@ data class AccountActions(
     /** Menu label for the in-app update check; null hides it (e.g. Play builds). */
     val checkForUpdatesLabel: String? = null,
     val onCheckForUpdates: () -> Unit = {},
+    /** Shows what the installed version changed; null hides the row (e.g. Play builds). */
+    val onWhatsNew: (() -> Unit)? = null,
     /** Refreshes every question section at once; null hides the row. */
     val onUpdateQuestions: (() -> Unit)? = null,
 )
@@ -148,6 +150,14 @@ fun AccountScreen(
                     }
                     HorizontalDivider()
                     SettingsRow(title = stringResource(R.string.account_privacy_policy), tag = "account_privacy", onClick = actions.onOpenPrivacy)
+                    actions.onWhatsNew?.let { whatsNew ->
+                        HorizontalDivider()
+                        SettingsRow(
+                            title = stringResource(R.string.account_whats_new),
+                            tag = "account_whats_new",
+                            onClick = whatsNew,
+                        )
+                    }
                     HorizontalDivider()
                     SettingsRow(title = stringResource(R.string.account_version), value = versionName)
                 }

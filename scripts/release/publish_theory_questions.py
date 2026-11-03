@@ -24,6 +24,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SOURCES = [
     ROOT / "content" / "theory" / "uk-theory-questions.json",
     ROOT / "content" / "theory" / "road-and-traffic-signs.json",
+    ROOT / "content" / "theory" / "essential-documents.json",
 ]
 
 # The source names its chapters; the database keys them by slug. Keep in step with
@@ -40,6 +41,7 @@ SLUGS = {
     "Motorway Rules": "motorway-rules",
     "Rules of the Road": "rules-of-the-road",
     "Road and Traffic Signs": "road-and-traffic-signs",
+    "Essential Documents": "essential-documents",
 }
 
 URL = os.environ["SUPABASE_URL"].rstrip("/")

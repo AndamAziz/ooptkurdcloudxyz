@@ -3,6 +3,9 @@ package xyz.kurdcloud.englishmaster.update
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LinearProgressIndicator
@@ -43,6 +46,31 @@ fun UpdateDialog(state: UpdateUiState, language: InterfaceLanguage, viewModel: U
             confirmButton = {},
         )
         UpdateUiState.UpToDate -> InfoDialog(stringResource(R.string.update_up_to_date), viewModel::dismiss)
+        UpdateUiState.LoadingNotes -> AlertDialog(
+            onDismissRequest = viewModel::dismiss,
+            title = { Text(stringResource(R.string.update_whats_new)) },
+            text = { CircularProgressIndicator() },
+            confirmButton = {},
+        )
+        is UpdateUiState.Notes -> AlertDialog(
+            onDismissRequest = viewModel::dismiss,
+            modifier = Modifier.testTag("update_whats_new"),
+            title = {
+                Text(
+                    state.notes?.versionName
+                        ?.let { stringResource(R.string.update_whats_new_in, it) }
+                        ?: stringResource(R.string.update_whats_new),
+                )
+            },
+            text = {
+                Text(
+                    state.notes?.forSorani(language == InterfaceLanguage.SORANI)
+                        ?: stringResource(R.string.update_whats_new_none),
+                    modifier = Modifier.heightIn(max = 400.dp).verticalScroll(rememberScrollState()),
+                )
+            },
+            confirmButton = { TextButton(onClick = viewModel::dismiss) { Text(stringResource(R.string.update_ok)) } },
+        )
         UpdateUiState.CheckFailed -> InfoDialog(stringResource(R.string.update_check_failed), viewModel::dismiss)
         is UpdateUiState.Available -> AlertDialog(
             onDismissRequest = viewModel::dismiss,
@@ -110,7 +138,15 @@ private fun UpdateBody(update: AppUpdate, language: InterfaceLanguage, mandatory
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         mandatoryNote?.let { Text(it, color = MaterialTheme.colorScheme.error) }
         val notes = if (language == InterfaceLanguage.SORANI) update.notesCkb ?: update.notesEn else update.notesEn ?: update.notesCkb
-        notes?.let { Text(it) }
+        notes?.takeIf { it.isNotBlank() }?.let {
+            Text(
+                stringResource(R.string.update_whats_new),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary,
+            )
+            // Release notes run to several lines; let them scroll rather than push the buttons away.
+            Text(it, modifier = Modifier.heightIn(max = 280.dp).verticalScroll(rememberScrollState()))
+        }
         Text(stringResource(R.string.update_size, update.sizeBytes / 1_048_576.0), style = MaterialTheme.typography.bodySmall)
     }
 }
