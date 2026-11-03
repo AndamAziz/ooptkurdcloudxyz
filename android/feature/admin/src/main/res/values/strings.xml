@@ -140,6 +140,14 @@
     <string name="admin_tab_theory">Driving theory</string>
     <string name="admin_theory_intro">Each chapter of the driving theory test. Imported questions arrive as drafts: publish them to let learners see them. Learners never see a wrong option you have to write — the app builds the options from the other answers in the chapter.</string>
     <string name="admin_theory_none">The theory chapters could not be loaded.</string>
+    <plurals name="admin_theory_waiting_count">
+        <item quantity="one">%d question is waiting to be published</item>
+        <item quantity="other">%d questions are waiting to be published</item>
+    </plurals>
+    <plurals name="admin_theory_publish_n">
+        <item quantity="one">Publish %d question</item>
+        <item quantity="other">Publish %d questions</item>
+    </plurals>
     <plurals name="admin_theory_published_count">
         <item quantity="one">%1$d question published to learners</item>
         <item quantity="other">%1$d questions published to learners</item>

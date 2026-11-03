@@ -140,6 +140,14 @@
     <string name="admin_tab_theory">تیۆری شۆفێری</string>
     <string name="admin_theory_intro">هەر بەشێکی تاقیکردنەوەی تیۆری شۆفێری. پرسیارەکانی هاوردەکراو وەک ڕەشنووس دێن: بڵاویان بکەوە تا فێرخوازان بیانبینن. پێویست نییە وەڵامی هەڵە بنووسی — ئەپ هەڵبژاردەکان لە وەڵامەکانی تری هەمان بەش دروست دەکات.</string>
     <string name="admin_theory_none">نەتوانرا بەشەکانی تیۆری بهێنرێن.</string>
+    <plurals name="admin_theory_waiting_count">
+        <item quantity="one">%d پرسیار چاوەڕێی بڵاوکردنەوەیە</item>
+        <item quantity="other">%d پرسیار چاوەڕێی بڵاوکردنەوەن</item>
+    </plurals>
+    <plurals name="admin_theory_publish_n">
+        <item quantity="one">بڵاوکردنەوەی %d پرسیار</item>
+        <item quantity="other">بڵاوکردنەوەی %d پرسیار</item>
+    </plurals>
     <plurals name="admin_theory_published_count">
         <item quantity="one">%1$d پرسیار بۆ فێرخوازان بڵاوکراوە</item>
         <item quantity="other">%1$d پرسیار بۆ فێرخوازان بڵاوکراوە</item>
