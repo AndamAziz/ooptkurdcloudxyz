@@ -7,6 +7,9 @@
     <string name="update_check">Check for updates (version %1$s)</string>
     <string name="update_checking">Checking for updates…</string>
     <string name="update_up_to_date">You have the latest version.</string>
+    <string name="update_whats_new">What\'s new</string>
+    <string name="update_whats_new_in">What\'s new in %1$s</string>
+    <string name="update_whats_new_none">No notes were published for this version.</string>
     <string name="update_check_failed">Could not check for updates. Check your connection and try again.</string>
     <string name="update_available_title">Version %1$s is available</string>
     <string name="update_mandatory">This update is required to keep using the app.</string>

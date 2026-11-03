@@ -50,6 +50,7 @@
     <string name="account_language">App language</string>
     <string name="account_privacy_policy">Privacy policy</string>
     <string name="account_version">Version</string>
+    <string name="account_whats_new">What\'s new in this version</string>
     <string name="account_sign_out">Sign out</string>
     <string name="account_sign_out_confirm">You can sign in again at any time. Downloaded levels stay on this device.</string>
     <string name="account_role_learner">Learner</string>

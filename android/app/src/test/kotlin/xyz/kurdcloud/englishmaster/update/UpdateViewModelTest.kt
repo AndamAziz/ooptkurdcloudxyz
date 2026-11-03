@@ -15,6 +15,7 @@ import org.junit.Test
 import xyz.kurdcloud.englishmaster.core.data.DownloadResult
 import xyz.kurdcloud.englishmaster.core.data.UpdateRepository
 import xyz.kurdcloud.englishmaster.core.model.AppUpdate
+import xyz.kurdcloud.englishmaster.core.model.ReleaseNotes
 import xyz.kurdcloud.englishmaster.core.network.ApiError
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import java.io.File
@@ -30,7 +31,9 @@ class UpdateViewModelTest {
     private class FakeUpdates(var check: ApiResult<AppUpdate?>, var download: DownloadResult) : UpdateRepository {
         var gate: CompletableDeferred<Unit>? = null
         var checks = 0
+        var notes: ApiResult<ReleaseNotes?> = ApiResult.Success(ReleaseNotes("0.4.0", "What changed", "چی گۆڕا"))
         override suspend fun check(installedVersionCode: Int): ApiResult<AppUpdate?> { checks++; return check }
+        override suspend fun notesFor(versionCode: Int): ApiResult<ReleaseNotes?> = notes
         override suspend fun download(update: AppUpdate, onProgress: (Float) -> Unit): DownloadResult {
             onProgress(0.5f)
             gate?.await()
@@ -130,4 +133,70 @@ class UpdateViewModelTest {
         UpdateViewModel(updates, FakeInstaller(true), 4, enabled = false)
         assertEquals(0, updates.checks)
     }
+    @Test
+    fun `coming back to the app looks for a release again, but not on every glance`() {
+        var now = 0L
+        val updates = FakeUpdates(ApiResult.Success(null), DownloadResult.Success(apk))
+        val vm = UpdateViewModel(updates, FakeInstaller(allowed = true), installedVersionCode = 4, enabled = true) { now }
+        assertEquals(1, updates.checks)
+
+        // Straight back from the home screen: nothing new is asked of the server.
+        vm.onResume()
+        assertEquals(1, updates.checks)
+
+        // A quarter of an hour later there could be a release, so it looks again.
+        now += 15 * 60 * 1000L
+        vm.onResume()
+        assertEquals(2, updates.checks)
+    }
+
+    @Test
+    fun `a release found while the app was open is offered on return`() {
+        var now = 0L
+        val updates = FakeUpdates(ApiResult.Success(null), DownloadResult.Success(apk))
+        val vm = UpdateViewModel(updates, FakeInstaller(allowed = true), installedVersionCode = 4, enabled = true) { now }
+        assertEquals(UpdateUiState.Hidden, vm.uiState.value)
+
+        updates.check = ApiResult.Success(update)
+        now += 20 * 60 * 1000L
+        vm.onResume()
+
+        assertEquals(UpdateUiState.Available(update), vm.uiState.value)
+    }
+
+    @Test
+    fun `what's new reads the notes of the version that is installed`() {
+        val updates = FakeUpdates(ApiResult.Success(null), DownloadResult.Success(apk))
+        val vm = UpdateViewModel(updates, FakeInstaller(allowed = true), installedVersionCode = 4, enabled = false)
+
+        vm.showWhatsNew()
+
+        val state = vm.uiState.value as UpdateUiState.Notes
+        assertEquals("0.4.0", state.notes?.versionName)
+        assertEquals("What changed", state.notes?.forSorani(false))
+        assertEquals("چی گۆڕا", state.notes?.forSorani(true))
+    }
+
+    @Test
+    fun `a version published without notes says so instead of showing nothing`() {
+        val updates = FakeUpdates(ApiResult.Success(null), DownloadResult.Success(apk))
+        updates.notes = ApiResult.Success(ReleaseNotes("0.4.0", null, null))
+        val vm = UpdateViewModel(updates, FakeInstaller(allowed = true), installedVersionCode = 4, enabled = false)
+
+        vm.showWhatsNew()
+
+        assertEquals(null, (vm.uiState.value as UpdateUiState.Notes).notes?.forSorani(false))
+    }
+
+    @Test
+    fun `what's new does not interrupt an update that is being offered`() {
+        val updates = FakeUpdates(ApiResult.Success(update), DownloadResult.Success(apk))
+        val vm = UpdateViewModel(updates, FakeInstaller(allowed = true), installedVersionCode = 4, enabled = true)
+        assertEquals(UpdateUiState.Available(update), vm.uiState.value)
+
+        vm.showWhatsNew()
+
+        assertEquals(UpdateUiState.Available(update), vm.uiState.value)
+    }
+
 }

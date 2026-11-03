@@ -6,6 +6,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import xyz.kurdcloud.englishmaster.core.model.AppUpdate
+import xyz.kurdcloud.englishmaster.core.model.ReleaseNotes
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 import xyz.kurdcloud.englishmaster.core.network.ReleaseApi
 import xyz.kurdcloud.englishmaster.core.network.restCall
@@ -36,6 +37,9 @@ interface UpdateRepository {
 
     /** Downloads into app-private storage and verifies size and SHA-256 before returning. */
     suspend fun download(update: AppUpdate, onProgress: (Float) -> Unit): DownloadResult
+
+    /** What the given release changed, for "What's new"; null when that version is not published. */
+    suspend fun notesFor(versionCode: Int): ApiResult<ReleaseNotes?>
 }
 
 class SupabaseUpdateRepository(
@@ -61,6 +65,11 @@ class SupabaseUpdateRepository(
                         notesCkb = it.notesCkb,
                     )
                 }
+        }
+
+    override suspend fun notesFor(versionCode: Int): ApiResult<ReleaseNotes?> =
+        restCall { api.byVersionCode("eq.$versionCode") }.map { rows ->
+            rows.firstOrNull()?.let { ReleaseNotes(it.versionName, it.notesEn, it.notesCkb) }
         }
 
     override suspend fun download(update: AppUpdate, onProgress: (Float) -> Unit): DownloadResult = withContext(Dispatchers.IO) {

@@ -1,0 +1,4 @@
+- Chapter 11, Road and traffic signs: 150 new questions, each one a picture of a real sign with its meaning and a short explanation of the rule behind it. The chapter was empty until now.
+- Chapter 12, Essential documents: 26 new questions on insurance, MOT, vehicle tax, SORN, licences and what to show a police officer.
+- What's new: My account now has a "What's new in this version" page, so you can read what an update changed after you install it.
+- The app now looks for a new version when you come back to it, not only when you start it cold. A release reaches you the same day instead of waiting for your next restart.
