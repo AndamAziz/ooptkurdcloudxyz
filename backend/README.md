@@ -180,8 +180,15 @@ not the server, does the marking:
   admins add a question (English, Sorani, a picture) and publish a chapter's drafts. Both are logged
   (`theory.question_upsert`, `theory.drafts_published`).
 
-In test mode the app builds four options by borrowing answers from other questions in the same
-chapter, so practice feels like the real multiple-choice exam without anyone writing distractors.
+In test mode a question that carries its own `options` is shown with exactly those, shuffled. A
+question without them has four built by borrowing answers from others in the same chapter, so the
+670 questions written before this keep working.
+
+`content_sync_theory_questions(jsonb)` brings questions already in the database back in step with
+the files on every content push: inserting alone ignores a question it has seen, so a correction
+in the repository used to go nowhere. It only touches rows whose `source` still says `content:`,
+and the staff editor stamps `staff:<uid>` when a teacher changes a question, so from then on the
+question is the teacher's and the pipeline leaves it alone.
 
 Content comes from two files, both inserted as **drafts** by the **EnglishMaster content** workflow
 through `scripts/release/publish_theory_questions.py`, so nothing reaches learners until a teacher
@@ -191,7 +198,10 @@ publishes the chapter:
   Sorani translation, supplied by the project owner. `scripts/db/build_theory_seed.py` writes the
   equivalent SQL seed for local tests from this file.
 * `content/theory/essential-documents.json` — 27 questions for chapter 12 on insurance, MOT,
-  vehicle tax, SORN and licences, English with a Sorani translation and an explanation.
+  vehicle tax, SORN and licences, English with a Sorani translation and an explanation. Each one
+  also carries the four options the official test shows (`options`, `optionsKu`, `answerIndex`).
+  Two of them ask about third-party insurance and share a correct answer; only their wrong options
+  tell them apart, which is why a question may bring its own.
 * `content/theory/road-and-traffic-signs.json` — 150 questions for chapter 11, each one a picture of
   a sign with its meaning and a short explanation in both languages. The pictures live in
   `content/media/theory/signs/` and are uploaded to the `question-media` bucket by

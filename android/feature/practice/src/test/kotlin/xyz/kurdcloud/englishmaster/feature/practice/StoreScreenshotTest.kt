@@ -87,28 +87,28 @@ class StoreScreenshotTest {
             "بە هێواشی بەرەو پێش بچۆ تا بە ڕوونی دەبینیت",
             "Moving out slowly lets you see without putting yourself in the path of traffic.",
             "جوڵانی هێواش وا دەکات ببینیت بەبێ ئەوەی خۆت بخەیتە بەردەم هاتوچۆ.",
-            null, 1,
+            null, version = 1,
         ),
         TheoryQuestion(
             "t2", "alertness", "What should you do before moving off?",
             "پێش بەڕێکەوتن دەبێت چی بکەیت؟",
             "Check the mirrors and look over your shoulder",
             "سەیری ئاوێنەکان بکە و لەسەر شانت تەماشا بکە",
-            null, null, null, 1,
+            null, null, null, version = 1,
         ),
         TheoryQuestion(
             "t3", "alertness", "When may you use a hand-held mobile phone while driving?",
             "کەی دەتوانیت لە کاتی شۆفێریدا مۆبایل بە دەست بەکاربهێنیت؟",
             "Never, unless you're safely parked with the engine off",
             "هەرگیز، مەگەر بە سەلامەتی ڕاوەستابیت و بزوێنەر کوژاوەتەوە",
-            null, null, null, 1,
+            null, null, null, version = 1,
         ),
         TheoryQuestion(
             "t4", "alertness", "What does a long white line along the centre of the road mean?",
             "هێڵی سپی درێژ لە ناوەڕاستی ڕێگادا چی دەگەیەنێت؟",
             "There's a hazard ahead — do not cross it unless it's safe",
             "مەترسییەک لە پێشەوەیە — مەیبڕە مەگەر سەلامەت بێت",
-            null, null, null, 1,
+            null, null, null, version = 1,
         ),
     )
 

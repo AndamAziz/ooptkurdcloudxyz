@@ -73,8 +73,17 @@ data class TheoryQuestion(
     val explanationCkb: String?,
     /** A sign or junction picture, for the questions that need one. */
     val media: QuestionMedia?,
+    /** The official options, where the question carries them; empty means the app borrows some. */
+    val options: List<String> = emptyList(),
+    val optionsCkb: List<String> = emptyList(),
+    /** Index into [options] of the right one; null when the question has no options of its own. */
+    val correctOption: Int? = null,
     val version: Int,
-)
+) {
+    /** True when this question brings the four options the official test shows. */
+    val hasOwnOptions: Boolean
+        get() = correctOption != null && options.size >= 2 && correctOption in options.indices
+}
 
 /** One question as the test mode shows it: the answer among borrowed wrong options. */
 data class TheoryTestItem(
@@ -90,6 +99,17 @@ data class TheoryTestItem(
 
         /** A study card: the question alone, with no options to choose from. */
         fun card(question: TheoryQuestion) = TheoryTestItem(question, emptyList(), emptyList(), -1)
+
+        /**
+         * The question's own options, in the order the official test lists them, shuffled so the
+         * right one does not always sit in the same place.
+         */
+        fun official(question: TheoryQuestion, shuffle: (List<String>) -> List<String>): TheoryTestItem {
+            val correct = question.options[question.correctOption!!]
+            val ckb = question.options.indices.associate { question.options[it] to question.optionsCkb.getOrNull(it) }
+            val options = shuffle(question.options)
+            return TheoryTestItem(question, options, options.map { ckb[it] }, options.indexOf(correct))
+        }
 
         /**
          * Builds a question's options: its own answer plus up to three answers taken from

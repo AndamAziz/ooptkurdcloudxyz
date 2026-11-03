@@ -8,246 +8,597 @@
    "questions": [
     {
      "id": 1,
-     "questionEn": "What's a Statutory Off-Road Notification (SORN)?",
-     "questionKu": "ئاگادارکردنەوەی یاسایی لە دەرەوەی ڕێگا (SORN) چییە؟",
-     "correctAnswer": "A notification to tell DVLA that a vehicle is not being used or kept on a public road",
-     "correctAnswerKu": "ئاگادارکردنەوەیەکە بۆ ئەوەی بە DVLA بڵێیت ئۆتۆمبێلێک بەکارنەهێنراوە و لەسەر ڕێگای گشتی ڕانەگیراوە",
-     "explanationEn": "While a SORN is in force the vehicle must be kept off the road, on a drive or in a garage.",
-     "explanationKu": "بەدرێژایی ماوەی SORN دەبێت ئۆتۆمبێلەکە لە دەرەوەی ڕێگا بێت، لە حەوشە یان گەراج."
+     "questionEn": "What must you have when you apply to renew your vehicle tax?",
+     "questionKu": "کاتێک داوای نوێکردنەوەی باجی ئۆتۆمبێلەکەت دەکەیت دەبێت چیت هەبێت؟",
+     "options": [
+      "Valid insurance",
+      "The vehicle's chassis number",
+      "The handbook",
+      "A valid driving licence"
+     ],
+     "optionsKu": [
+      "بیمەی کارا",
+      "ژمارەی شاسیی ئۆتۆمبێلەکە",
+      "ڕێنمای ئۆتۆمبێلەکە",
+      "مۆڵەتی شۆفێری کارا"
+     ],
+     "answerIndex": 0,
+     "correctAnswer": "Valid insurance",
+     "correctAnswerKu": "بیمەی کارا",
+     "explanationEn": "The vehicle must be insured and have an MOT before it can be taxed.",
+     "explanationKu": "دەبێت ئۆتۆمبێلەکە بیمە و MOTـی هەبێت پێش ئەوەی باجی بۆ بدرێت."
     },
     {
      "id": 2,
-     "questionEn": "What's covered by third-party insurance?",
-     "questionKu": "بیمەی لایەنی سێیەم چی دەگرێتەوە؟",
-     "correctAnswer": "Injury or damage caused to other people, their vehicles, animals or property",
-     "correctAnswerKu": "برین یان زیان کە بە کەسانی تر، ئۆتۆمبێل، ئاژەڵ یان موڵکیان دەگات",
-     "explanationEn": "It pays for the harm you do to others, never for the damage to your own vehicle.",
-     "explanationKu": "ئەو زیانە دەدات کە تۆ بە کەسانی تر دەگەیەنیت، هەرگیز زیانی ئۆتۆمبێلی خۆت نا."
-    },
-    {
-     "id": 3,
-     "questionEn": "You've just passed your first practical driving or riding test. What will you have to do if you get 6 penalty points on your licence in the next 2 years?",
-     "questionKu": "تازە یەکەم تاقیکردنەوەی شۆفێری یان مۆتۆرسواریت دەرچووە. ئەگەر لە دوو ساڵی داهاتوودا ٦ خاڵی سزات لەسەر مۆڵەتەکەت کۆببێتەوە، دەبێت چی بکەیت؟",
-     "correctAnswer": "Apply for a provisional licence and retake both your theory and practical tests",
-     "correctAnswerKu": "داوای مۆڵەتی کاتی بکەیت و هەردوو تاقیکردنەوەی تیۆری و پراکتیکی دووبارە بکەیتەوە",
-     "explanationEn": "The two-year probation starts on the day you pass, and six points is enough to end it.",
-     "explanationKu": "دوو ساڵی تاقیکردنەوە لەو ڕۆژەوە دەست پێدەکات کە دەردەچیت، و شەش خاڵ بەسە بۆ کۆتاییهێنانی."
-    },
-    {
-     "id": 4,
      "questionEn": "A police officer asks to see your documents. You do not have them with you. How many days do you have to produce them at a police station?",
      "questionKu": "ئەفسەرێکی پۆلیس داوای بینینی بەڵگەنامەکانت دەکات. لەگەڵت نین. چەند ڕۆژت هەیە بۆ پیشاندانیان لە بنکەی پۆلیس؟",
+     "options": [
+      "5 days",
+      "7 days",
+      "14 days",
+      "21 days"
+     ],
+     "optionsKu": [
+      "٥ ڕۆژ",
+      "٧ ڕۆژ",
+      "١٤ ڕۆژ",
+      "٢١ ڕۆژ"
+     ],
+     "answerIndex": 1,
      "correctAnswer": "7 days",
      "correctAnswerKu": "٧ ڕۆژ",
      "explanationEn": "You choose the station when the officer asks, so pick one you can reach.",
      "explanationKu": "تۆ بنکەکە هەڵدەبژێریت کاتێک ئەفسەرەکە داوای دەکات، بۆیە ئەوە هەڵبژێرە کە دەتوانیت بگەیتێ."
     },
     {
-     "id": 5,
-     "questionEn": "For how long is an MOT certificate normally valid?",
-     "questionKu": "بڕوانامەی MOT بە ئاسایی بۆ چەند ماوەیەک کاردەکات؟",
-     "correctAnswer": "1 year after the date it was issued",
-     "correctAnswerKu": "یەک ساڵ دوای ئەو ڕۆژەی دەرچووە",
-     "explanationEn": "You may have the test up to a month early and keep the same renewal date.",
-     "explanationKu": "دەتوانیت تا مانگێک زووتر تاقیکردنەوەکە بکەیت و هەمان ڕۆژی نوێکردنەوە بهێڵیتەوە."
-    },
-    {
-     "id": 6,
-     "questionEn": "When should you update your vehicle registration certificate?",
-     "questionKu": "کەی دەبێت بڕوانامەی تۆمارکردنی ئۆتۆمبێلەکەت نوێ بکەیتەوە؟",
-     "correctAnswer": "When you move house",
-     "correctAnswerKu": "کاتێک ماڵ دەگوازیتەوە",
-     "explanationEn": "DVLA must be able to reach you about tax, recalls and penalties.",
-     "explanationKu": "دەبێت DVLA بتوانێت دەربارەی باج، گەڕاندنەوە و سزا پەیوەندیت پێوە بکات."
-    },
-    {
-     "id": 7,
-     "questionEn": "Who's legally responsible for making sure that a vehicle registration certificate (V5C) is updated?",
-     "questionKu": "بە یاسا کێ بەرپرسیارە لە دڵنیابوون لەوەی بڕوانامەی تۆمارکردنی ئۆتۆمبێل (V5C) نوێ کراوەتەوە؟",
-     "correctAnswer": "The registered vehicle keeper",
-     "correctAnswerKu": "ئەو کەسەی ئۆتۆمبێلەکە بەناویەوە تۆمارکراوە",
-     "explanationEn": "The registered keeper is not always the owner, but the duty is theirs.",
-     "explanationKu": "ئەو کەسەی تۆمارکراوە هەمیشە خاوەنەکە نییە، بەڵام ئەرکەکە هی ئەوە."
-    },
-    {
-     "id": 8,
-     "questionEn": "What must you have when you apply to renew your vehicle tax?",
-     "questionKu": "کاتێک داوای نوێکردنەوەی باجی ئۆتۆمبێلەکەت دەکەیت دەبێت چیت هەبێت؟",
-     "correctAnswer": "Your V5C registration certificate, a V5C/2 new keeper supplement, or a vehicle tax reminder",
-     "correctAnswerKu": "بڕوانامەی تۆمارکردنی V5C، پاشکۆی V5C/2 بۆ خاوەنی نوێ، یان ئاگادارکردنەوەی باجی ئۆتۆمبێل",
-     "explanationEn": "Which one you need depends on whether the vehicle has just changed hands.",
-     "explanationKu": "ئەوەی پێویستتە بەوە دیاری دەکرێت کە ئایا ئۆتۆمبێلەکە تازە دەستی گۆڕیوە یان نا."
-    },
-    {
-     "id": 9,
-     "questionEn": "What does it mean if your insurance policy has an excess of 500 pounds?",
-     "questionKu": "ئەگەر پۆلیسەی بیمەکەت ئیسکێسی ٥٠٠ پاوەندی هەبێت واتای چییە؟",
-     "correctAnswer": "You'll have to pay the first 500 pounds of the cost of any claim",
-     "correctAnswerKu": "دەبێت یەکەم ٥٠٠ پاوەندی تێچووی هەر داواکارییەک خۆت بدەیت",
-     "explanationEn": "A bigger excess lowers the premium but costs you more when you do claim.",
-     "explanationKu": "ئیسکێسی گەورەتر پارەی بیمە کەم دەکاتەوە بەڵام کاتی داواکردن زیاترت لێ دەچێت."
-    },
-    {
-     "id": 10,
-     "questionEn": "What circumstances require you to notify the Driver and Vehicle Licensing Agency (DVLA)?",
-     "questionKu": "لە چ حاڵەتێکدا پێویستە ئاگاداری دەزگای مۆڵەتی شۆفێری و ئۆتۆمبێل (DVLA) بکەیتەوە؟",
-     "correctAnswer": "When you have a notifiable medical condition or disability that affects your ability to drive safely",
-     "correctAnswerKu": "کاتێک دۆخێکی تەندروستی یان کەمئەندامییەکت هەیە کە کاریگەری لەسەر توانای شۆفێریکردنی سەلامەتت هەیە",
-     "explanationEn": "Not telling them is an offence, and your insurance may not pay out.",
-     "explanationKu": "ئاگادارنەکردنەوەیان تاوانە، و لەوانەیە بیمەکەت پارە نەدات."
-    },
-    {
-     "id": 11,
+     "id": 3,
      "questionEn": "For how long is a Statutory Off-Road Notification (SORN) valid?",
      "questionKu": "ئاگادارکردنەوەی یاسایی لە دەرەوەی ڕێگا (SORN) بۆ چەند ماوەیەک کاردەکات؟",
-     "correctAnswer": "Until the vehicle is taxed, sold, permanently exported or scrapped",
-     "correctAnswerKu": "تا ئۆتۆمبێلەکە باجی بۆ دەدرێت، دەفرۆشرێت، بە هەمیشەیی دەردەکرێت یان دەشکێنرێتەوە",
-     "explanationEn": "It no longer runs out after a year; it stays until one of those happens.",
+     "options": [
+      "Until the vehicle is taxed, sold or scrapped",
+      "Until the vehicle is insured and MOT'd",
+      "Until the vehicle is repaired or modified",
+      "Until the vehicle is used on the road"
+     ],
+     "optionsKu": [
+      "تا ئۆتۆمبێلەکە باجی بۆ دەدرێت، دەفرۆشرێت یان دەشکێنرێتەوە",
+      "تا ئۆتۆمبێلەکە بیمە و MOTـی دەبێت",
+      "تا ئۆتۆمبێلەکە چاک دەکرێتەوە یان دەگۆڕدرێت",
+      "تا ئۆتۆمبێلەکە لەسەر ڕێگا بەکاردێت"
+     ],
+     "answerIndex": 0,
+     "correctAnswer": "Until the vehicle is taxed, sold or scrapped",
+     "correctAnswerKu": "تا ئۆتۆمبێلەکە باجی بۆ دەدرێت، دەفرۆشرێت یان دەشکێنرێتەوە",
+     "explanationEn": "It no longer runs out after a year; it lasts until one of those happens.",
      "explanationKu": "چیتر دوای ساڵێک کۆتایی نایەت؛ دەمێنێتەوە تا یەکێک لەوانە ڕوودەدات."
     },
     {
-     "id": 12,
-     "questionEn": "When must you contact the Driver and Vehicle Licensing Agency (DVLA)?",
-     "questionKu": "کەی دەبێت پەیوەندی بە دەزگای مۆڵەتی شۆفێری و ئۆتۆمبێل (DVLA) بکەیت؟",
-     "correctAnswer": "When you buy, sell or transfer a vehicle, or when the registered keeper changes",
-     "correctAnswerKu": "کاتێک ئۆتۆمبێلێک دەکڕیت، دەیفرۆشیت یان دەیگوازیتەوە، یان کاتێک خاوەنی تۆمارکراو دەگۆڕێت",
-     "explanationEn": "Until they are told, the old keeper still carries the tax and the penalties.",
-     "explanationKu": "تا ئاگادار نەکرێنەوە، خاوەنی کۆن هێشتا باج و سزاکان لەسەریەتی."
-    },
-    {
-     "id": 13,
-     "questionEn": "What does third-party insurance cover?",
-     "questionKu": "بیمەی لایەنی سێیەم چی لەخۆدەگرێت؟",
-     "correctAnswer": "Injury or damage caused to other people, their vehicles, animals or property",
-     "correctAnswerKu": "برین یان زیان کە بە کەسانی تر، ئۆتۆمبێل، ئاژەڵ یان موڵکیان دەگات",
-     "explanationEn": "The same cover asked about the other way round: it is for other people, not for you.",
-     "explanationKu": "هەمان پاراستن بە شێوەیەکی تر پرسراوە: بۆ کەسانی ترە، نەک بۆ تۆ."
-    },
-    {
-     "id": 14,
-     "questionEn": "When must your vehicle have valid insurance cover?",
-     "questionKu": "کەی دەبێت ئۆتۆمبێلەکەت بیمەی کارای هەبێت؟",
-     "correctAnswer": "Before you drive or use it on a public road",
-     "correctAnswerKu": "پێش ئەوەی لەسەر ڕێگای گشتی لێی بخوڕیت یان بەکاری بهێنیت",
-     "explanationEn": "A vehicle kept on the road must be insured even when it is parked.",
-     "explanationKu": "ئۆتۆمبێلێک کە لەسەر ڕێگا ڕاگیراوە دەبێت بیمەی هەبێت تەنانەت کاتی ڕاگرتنیش."
-    },
-    {
-     "id": 15,
-     "questionEn": "When could the cost of your insurance be reduced?",
-     "questionKu": "کەی دەکرێت تێچووی بیمەکەت کەم بکرێتەوە؟",
-     "correctAnswer": "When you complete the Pass Plus scheme, if your insurer offers a discount",
-     "correctAnswerKu": "کاتێک پڕۆگرامی Pass Plus تەواو دەکەیت، ئەگەر بیمەکەرەکەت داشکاندن پێشکەش بکات",
-     "explanationEn": "Pass Plus is extra training after the test; not every insurer rewards it.",
-     "explanationKu": "Pass Plus ڕاهێنانی زیادەیە دوای تاقیکردنەوە؛ هەموو بیمەکەرێک پاداشتی نادات."
-    },
-    {
-     "id": 16,
-     "questionEn": "When will a new car need its first MOT test?",
-     "questionKu": "ئۆتۆمبێلێکی نوێ کەی پێویستی بە یەکەم تاقیکردنەوەی MOT دەبێت؟",
-     "correctAnswer": "When it's 3 years old",
-     "correctAnswerKu": "کاتێک سێ ساڵان دەبێت",
-     "explanationEn": "After that it is every year, on the anniversary of the test.",
-     "explanationKu": "دوای ئەوە ساڵانەیە، لە ساڵیادی تاقیکردنەوەکەدا."
-    },
-    {
-     "id": 17,
-     "questionEn": "What information is found on a vehicle registration document?",
-     "questionKu": "چ زانیارییەک لەسەر بەڵگەنامەی تۆمارکردنی ئۆتۆمبێل هەیە؟",
-     "correctAnswer": "The registered keeper's details and information about the vehicle",
-     "correctAnswerKu": "وردەکارییەکانی خاوەنی تۆمارکراو و زانیاری دەربارەی ئۆتۆمبێلەکە",
-     "explanationEn": "It is not proof of ownership, only of who is responsible for the vehicle.",
-     "explanationKu": "بەڵگەی خاوەندارێتی نییە، تەنها ئەوەی کێ بەرپرسە لە ئۆتۆمبێلەکە."
-    },
-    {
-     "id": 18,
-     "questionEn": "What's the maximum fine for driving or riding without insurance?",
-     "questionKu": "زۆرترین غەرامە بۆ شۆفێریکردن یان مۆتۆرسواری بەبێ بیمە چەندە؟",
-     "correctAnswer": "An unlimited fine",
-     "correctAnswerKu": "غەرامەیەکی بێ سنوور",
-     "explanationEn": "You can also get penalty points and have the vehicle seized.",
-     "explanationKu": "هەروەها دەکرێت خاڵی سزات بدرێتێ و ئۆتۆمبێلەکەت دەستبەسەردا بگیرێت."
-    },
-    {
-     "id": 19,
-     "questionEn": "What legal requirement must be met by a newly qualified driver?",
-     "questionKu": "چ مەرجێکی یاسایی دەبێت شۆفێرێکی تازە دەرچوو جێبەجێی بکات؟",
-     "correctAnswer": "They must have valid motor insurance covering their use of the vehicle",
-     "correctAnswerKu": "دەبێت بیمەی ئۆتۆمبێلی کارایان هەبێت کە بەکارهێنانیان بۆ ئۆتۆمبێلەکە بگرێتەوە",
-     "explanationEn": "Passing the test does not insure you; cover must be arranged separately.",
-     "explanationKu": "دەرچوون لە تاقیکردنەوە بیمەت ناکات؛ دەبێت بیمە بە جیا ڕێک بخرێت."
-    },
-    {
-     "id": 20,
-     "questionEn": "What's the legal minimum insurance cover you must have to drive on public roads?",
-     "questionKu": "کەمترین بیمەی یاسایی چییە کە دەبێت هەتبێت بۆ لێخوڕین لەسەر ڕێگای گشتی؟",
-     "correctAnswer": "Third-party insurance",
-     "correctAnswerKu": "بیمەی لایەنی سێیەم",
-     "explanationEn": "Third party, fire and theft and fully comprehensive both go beyond this minimum.",
-     "explanationKu": "لایەنی سێیەم لەگەڵ ئاگر و دزی، و بیمەی تەواو، هەردووکیان لەم کەمترینە زیاترن."
-    },
-    {
-     "id": 21,
-     "questionEn": "Your car needs to pass an MOT test. What may be invalidated if you drive the car without a current MOT certificate?",
-     "questionKu": "ئۆتۆمبێلەکەت پێویستە لە تاقیکردنەوەی MOT دەربچێت. ئەگەر بەبێ بڕوانامەی MOTـی کارا لێی بخوڕیت، چی لەوانەیە پووچ بێتەوە؟",
-     "correctAnswer": "Your vehicle insurance",
-     "correctAnswerKu": "بیمەی ئۆتۆمبێلەکەت",
-     "explanationEn": "Many policies require a valid MOT, so a claim could be refused.",
-     "explanationKu": "زۆرێک لە پۆلیسەکان داوای MOTـی کارا دەکەن، بۆیە لەوانەیە داواکارییەک ڕەت بکرێتەوە."
-    },
-    {
-     "id": 22,
-     "questionEn": "Who's responsible for paying the vehicle tax?",
-     "questionKu": "کێ بەرپرسیارە لە دانی باجی ئۆتۆمبێل؟",
-     "correctAnswer": "The registered keeper of the vehicle",
-     "correctAnswerKu": "ئەو کەسەی ئۆتۆمبێلەکە بەناویەوە تۆمارکراوە و لێی بەرپرسە",
-     "explanationEn": "Tax no longer transfers with the vehicle; the new keeper must tax it again.",
-     "explanationKu": "باج چیتر لەگەڵ ئۆتۆمبێلەکە ناگوازرێتەوە؛ خاوەنی نوێ دەبێت دووبارە باجی بدات."
-    },
-    {
-     "id": 23,
-     "questionEn": "In order to supervise a learner driver you need to have held a full driving licence for the same category of vehicle, for at least 3 years. What other requirement must you meet?",
-     "questionKu": "بۆ چاودێریکردنی شۆفێرێکی فێرخواز پێویستە لانیکەم سێ ساڵ مۆڵەتی تەواوی شۆفێریت بۆ هەمان جۆری ئۆتۆمبێل هەبووبێت. چ مەرجێکی تریش دەبێت جێبەجێ بکەیت؟",
-     "correctAnswer": "You must be at least 21 years old",
-     "correctAnswerKu": "دەبێت لانیکەم ٢١ ساڵان بیت",
-     "explanationEn": "Both conditions must be met; three years alone is not enough.",
-     "explanationKu": "دەبێت هەردوو مەرجەکە پێک بێن؛ سێ ساڵ بە تەنها بەس نییە."
-    },
-    {
-     "id": 24,
+     "id": 4,
      "questionEn": "Your insurer will issue you with an insurance certificate. When must you produce this document for inspection?",
      "questionKu": "بیمەکەرەکەت بڕوانامەی بیمەت پێدەدات. کەی دەبێت ئەم بەڵگەنامەیە بۆ پشکنین پیشان بدەیت؟",
+     "options": [
+      "When making a SORN",
+      "When buying or selling a vehicle",
+      "When a police officer asks you for it",
+      "When your vehicle is having an MOT test"
+     ],
+     "optionsKu": [
+      "کاتێک SORN دەکەیت",
+      "کاتێک ئۆتۆمبێل دەکڕیت یان دەفرۆشیت",
+      "کاتێک ئەفسەرێکی پۆلیس داوای لێدەکات",
+      "کاتێک ئۆتۆمبێلەکەت تاقیکردنەوەی MOTـی هەیە"
+     ],
+     "answerIndex": 2,
      "correctAnswer": "When a police officer asks you for it",
      "correctAnswerKu": "کاتێک ئەفسەرێکی پۆلیس داوای لێدەکات",
      "explanationEn": "If you do not have it on you, you have seven days to take it to a station.",
      "explanationKu": "ئەگەر لەگەڵت نەبێت، حەوت ڕۆژت هەیە بۆ بردنی بۆ بنکەیەک."
     },
     {
-     "id": 25,
-     "questionEn": "Your car requires an MOT certificate. When is it legal to drive it without an MOT certificate?",
-     "questionKu": "ئۆتۆمبێلەکەت پێویستی بە بڕوانامەی MOTـە. کەی بە یاسایی دەتوانیت بەبێ بڕوانامەی MOT لێی بخوڕیت؟",
-     "correctAnswer": "When driving to a pre-booked appointment at an MOT test centre",
-     "correctAnswerKu": "کاتێک بەرەو کاتێکی پێشتر دیاریکراو لە ناوەندی تاقیکردنەوەی MOT دەڕۆیت",
-     "explanationEn": "The vehicle must still be insured and in a safe condition to drive.",
-     "explanationKu": "هێشتا دەبێت ئۆتۆمبێلەکە بیمەی هەبێت و بۆ لێخوڕین سەلامەت بێت."
+     "id": 5,
+     "questionEn": "You've just passed your first practical driving or riding test. What will you have to do if you get 6 penalty points on your licence in the next 2 years?",
+     "questionKu": "تازە یەکەم تاقیکردنەوەی شۆفێری یان مۆتۆرسواریت دەرچووە. ئەگەر لە دوو ساڵی داهاتوودا ٦ خاڵی سزات لەسەر مۆڵەتەکەت کۆببێتەوە، دەبێت چی بکەیت؟",
+     "options": [
+      "Retake only your theory test",
+      "Retake your theory and practical tests",
+      "Retake only your practical test",
+      "Reapply for your full licence immediately"
+     ],
+     "optionsKu": [
+      "تەنها تاقیکردنەوەی تیۆری دووبارە بکەیتەوە",
+      "هەردوو تاقیکردنەوەی تیۆری و پراکتیکی دووبارە بکەیتەوە",
+      "تەنها تاقیکردنەوەی پراکتیکی دووبارە بکەیتەوە",
+      "دەستبەجێ داوای مۆڵەتی تەواو بکەیتەوە"
+     ],
+     "answerIndex": 1,
+     "correctAnswer": "Retake your theory and practical tests",
+     "correctAnswerKu": "هەردوو تاقیکردنەوەی تیۆری و پراکتیکی دووبارە بکەیتەوە",
+     "explanationEn": "The two-year probation starts on the day you pass, and six points is enough to end it.",
+     "explanationKu": "دوو ساڵی تاقیکردنەوە لەو ڕۆژەوە دەست پێدەکات کە دەردەچیت، و شەش خاڵ بەسە بۆ کۆتاییهێنانی."
     },
     {
-     "id": 26,
-     "questionEn": "What must you check before you drive someone else's vehicle?",
-     "questionKu": "پێش ئەوەی ئۆتۆمبێلی کەسێکی تر لێبخوڕیت دەبێت چی بپشکنیت؟",
-     "correctAnswer": "That the vehicle is insured for your use",
-     "correctAnswerKu": "کە ئۆتۆمبێلەکە بۆ بەکارهێنانی تۆ بیمەی هەیە",
-     "explanationEn": "Your own policy may not cover another car, and the owner's may not cover you.",
-     "explanationKu": "لەوانەیە پۆلیسەی خۆت ئۆتۆمبێلێکی تر نەگرێتەوە، و هی خاوەنەکەش تۆ نەگرێتەوە."
-    },
-    {
-     "id": 27,
+     "id": 6,
      "questionEn": "What do you need before you can legally use a motor vehicle on the road?",
      "questionKu": "پێش ئەوەی بە یاسایی ئۆتۆمبێلێک لەسەر ڕێگا بەکاربهێنیت پێویستت بە چییە؟",
+     "options": [
+      "An appropriate driving licence",
+      "Breakdown cover",
+      "Proof of your identity",
+      "A vehicle handbook"
+     ],
+     "optionsKu": [
+      "مۆڵەتی شۆفێری گونجاو",
+      "بیمەی تێکچوونی ئۆتۆمبێل",
+      "بەڵگەی ناسنامە",
+      "ڕێنمای ئۆتۆمبێل"
+     ],
+     "answerIndex": 0,
      "correctAnswer": "An appropriate driving licence",
      "correctAnswerKu": "مۆڵەتی شۆفێری گونجاو",
      "explanationEn": "A licence for the category of vehicle you are driving, not just any licence.",
      "explanationKu": "مۆڵەت بۆ ئەو جۆرە ئۆتۆمبێلەی لێی دەخوڕیت، نەک هەر مۆڵەتێک."
+    },
+    {
+     "id": 7,
+     "questionEn": "Who's responsible for paying the vehicle tax?",
+     "questionKu": "کێ بەرپرسیارە لە دانی باجی ئۆتۆمبێل؟",
+     "options": [
+      "The driver of the vehicle",
+      "The registered keeper of the vehicle",
+      "The car dealer",
+      "The Driver and Vehicle Licensing Agency (DVLA)"
+     ],
+     "optionsKu": [
+      "شۆفێری ئۆتۆمبێلەکە",
+      "ئەو کەسەی ئۆتۆمبێلەکە بەناویەوە تۆمارکراوە",
+      "فرۆشیاری ئۆتۆمبێل",
+      "دەزگای مۆڵەتی شۆفێری و ئۆتۆمبێل (DVLA)"
+     ],
+     "answerIndex": 1,
+     "correctAnswer": "The registered keeper of the vehicle",
+     "correctAnswerKu": "ئەو کەسەی ئۆتۆمبێلەکە بەناویەوە تۆمارکراوە",
+     "explanationEn": "Tax no longer transfers with the vehicle; the new keeper must tax it again.",
+     "explanationKu": "باج چیتر لەگەڵ ئۆتۆمبێلەکە ناگوازرێتەوە؛ خاوەنی نوێ دەبێت دووبارە باجی بدات."
+    },
+    {
+     "id": 8,
+     "questionEn": "What circumstances require you to notify the Driver and Vehicle Licensing Agency (DVLA)?",
+     "questionKu": "لە چ حاڵەتێکدا پێویستە ئاگاداری دەزگای مۆڵەتی شۆفێری و ئۆتۆمبێل (DVLA) بکەیتەوە؟",
+     "options": [
+      "When your health affects your driving",
+      "When you have to work abroad",
+      "When you lend your vehicle to someone",
+      "When your vehicle needs an MOT certificate"
+     ],
+     "optionsKu": [
+      "کاتێک تەندروستیت کاریگەری لەسەر شۆفێریکردنت هەیە",
+      "کاتێک دەبێت لە دەرەوەی وڵات کار بکەیت",
+      "کاتێک ئۆتۆمبێلەکەت بە کەسێک دەدەیت",
+      "کاتێک ئۆتۆمبێلەکەت پێویستی بە بڕوانامەی MOTـە"
+     ],
+     "answerIndex": 0,
+     "correctAnswer": "When your health affects your driving",
+     "correctAnswerKu": "کاتێک تەندروستیت کاریگەری لەسەر شۆفێریکردنت هەیە",
+     "explanationEn": "Not telling them is an offence, and your insurance may not pay out.",
+     "explanationKu": "ئاگادارنەکردنەوەیان تاوانە، و لەوانەیە بیمەکەت پارە نەدات."
+    },
+    {
+     "id": 9,
+     "questionEn": "What's the maximum fine for driving or riding without insurance?",
+     "questionKu": "زۆرترین غەرامە بۆ شۆفێریکردن یان مۆتۆرسواری بەبێ بیمە چەندە؟",
+     "options": [
+      "Unlimited",
+      "£500",
+      "£1,000",
+      "£5,000"
+     ],
+     "optionsKu": [
+      "بێ سنوور",
+      "٥٠٠ پاوەند",
+      "١٠٠٠ پاوەند",
+      "٥٠٠٠ پاوەند"
+     ],
+     "answerIndex": 0,
+     "correctAnswer": "Unlimited",
+     "correctAnswerKu": "بێ سنوور",
+     "explanationEn": "You can also get penalty points and have the vehicle seized.",
+     "explanationKu": "هەروەها دەکرێت خاڵی سزات بدرێتێ و ئۆتۆمبێلەکەت دەستبەسەردا بگیرێت."
+    },
+    {
+     "id": 10,
+     "questionEn": "In order to supervise a learner driver you need to have held a full driving licence for the same category of vehicle, for at least 3 years. What other requirement must you meet?",
+     "questionKu": "بۆ چاودێریکردنی شۆفێرێکی فێرخواز پێویستە لانیکەم سێ ساڵ مۆڵەتی تەواوی شۆفێریت بۆ هەمان جۆری ئۆتۆمبێل هەبووبێت. چ مەرجێکی تریش دەبێت جێبەجێ بکەیت؟",
+     "options": [
+      "To have a car with dual controls",
+      "To be at least 21 years old",
+      "To be an approved driving instructor",
+      "To hold an advanced driving certificate"
+     ],
+     "optionsKu": [
+      "ئۆتۆمبێلێکت هەبێت بە کۆنترۆڵی دووانە",
+      "لانیکەم ٢١ ساڵان بیت",
+      "مامۆستای شۆفێری پەسەندکراو بیت",
+      "بڕوانامەی شۆفێری پێشکەوتووت هەبێت"
+     ],
+     "answerIndex": 1,
+     "correctAnswer": "To be at least 21 years old",
+     "correctAnswerKu": "لانیکەم ٢١ ساڵان بیت",
+     "explanationEn": "Both conditions must be met; three years alone is not enough.",
+     "explanationKu": "دەبێت هەردوو مەرجەکە پێک بێن؛ سێ ساڵ بە تەنها بەس نییە."
+    },
+    {
+     "id": 11,
+     "questionEn": "When will a new car need its first MOT test?",
+     "questionKu": "ئۆتۆمبێلێکی نوێ کەی پێویستی بە یەکەم تاقیکردنەوەی MOT دەبێت؟",
+     "options": [
+      "When it's 1 year old",
+      "When it's 3 years old",
+      "When it's 5 years old",
+      "When it's 7 years old"
+     ],
+     "optionsKu": [
+      "کاتێک یەک ساڵان دەبێت",
+      "کاتێک سێ ساڵان دەبێت",
+      "کاتێک پێنج ساڵان دەبێت",
+      "کاتێک حەوت ساڵان دەبێت"
+     ],
+     "answerIndex": 1,
+     "correctAnswer": "When it's 3 years old",
+     "correctAnswerKu": "کاتێک سێ ساڵان دەبێت",
+     "explanationEn": "After that it is every year, on the anniversary of the test.",
+     "explanationKu": "دوای ئەوە ساڵانەیە، لە ساڵیادی تاقیکردنەوەکەدا."
+    },
+    {
+     "id": 12,
+     "questionEn": "For how long is an MOT certificate normally valid?",
+     "questionKu": "بڕوانامەی MOT بە ئاسایی بۆ چەند ماوەیەک کاردەکات؟",
+     "options": [
+      "3 years after the date it was issued",
+      "10,000 miles",
+      "1 year after the date it was issued",
+      "30,000 miles"
+     ],
+     "optionsKu": [
+      "سێ ساڵ دوای ئەو ڕۆژەی دەرچووە",
+      "١٠٠٠٠ میل",
+      "یەک ساڵ دوای ئەو ڕۆژەی دەرچووە",
+      "٣٠٠٠٠ میل"
+     ],
+     "answerIndex": 2,
+     "correctAnswer": "1 year after the date it was issued",
+     "correctAnswerKu": "یەک ساڵ دوای ئەو ڕۆژەی دەرچووە",
+     "explanationEn": "You may have the test up to a month early and keep the same renewal date.",
+     "explanationKu": "دەتوانیت تا مانگێک زووتر تاقیکردنەوەکە بکەیت و هەمان ڕۆژی نوێکردنەوە بهێڵیتەوە."
+    },
+    {
+     "id": 13,
+     "questionEn": "What does it mean if your insurance policy has an excess of £500?",
+     "questionKu": "ئەگەر پۆلیسەی بیمەکەت ئیسکێسی ٥٠٠ پاوەندی هەبێت واتای چییە؟",
+     "options": [
+      "The insurance company will pay the first £500 of any claim",
+      "You'll be paid £500 if you do not claim within 1 year",
+      "Your vehicle is insured for a value of £500 if it's stolen",
+      "You'll have to pay the first £500 of the cost of any claim"
+     ],
+     "optionsKu": [
+      "کۆمپانیای بیمە یەکەم ٥٠٠ پاوەندی هەر داواکارییەک دەدات",
+      "٥٠٠ پاوەندت پێدەدرێت ئەگەر لە ماوەی ساڵێکدا داواکاری نەکەیت",
+      "ئۆتۆمبێلەکەت بە بەهای ٥٠٠ پاوەند بیمەکراوە ئەگەر بدزرێت",
+      "دەبێت یەکەم ٥٠٠ پاوەندی تێچووی هەر داواکارییەک خۆت بدەیت"
+     ],
+     "answerIndex": 3,
+     "correctAnswer": "You'll have to pay the first £500 of the cost of any claim",
+     "correctAnswerKu": "دەبێت یەکەم ٥٠٠ پاوەندی تێچووی هەر داواکارییەک خۆت بدەیت",
+     "explanationEn": "A bigger excess lowers the premium but costs you more when you do claim.",
+     "explanationKu": "ئیسکێسی گەورەتر پارەی بیمە کەم دەکاتەوە بەڵام کاتی داواکردن زیاترت لێ دەچێت."
+    },
+    {
+     "id": 14,
+     "questionEn": "When must your vehicle have valid insurance cover?",
+     "questionKu": "کەی دەبێت ئۆتۆمبێلەکەت بیمەی کارای هەبێت؟",
+     "options": [
+      "Before you can make a SORN",
+      "Before you can sell the vehicle",
+      "Before you can scrap the vehicle",
+      "Before you can tax the vehicle"
+     ],
+     "optionsKu": [
+      "پێش ئەوەی بتوانیت SORN بکەیت",
+      "پێش ئەوەی بتوانیت ئۆتۆمبێلەکە بفرۆشیت",
+      "پێش ئەوەی بتوانیت ئۆتۆمبێلەکە بشکێنیتەوە",
+      "پێش ئەوەی بتوانیت باجی ئۆتۆمبێلەکە بدەیت"
+     ],
+     "answerIndex": 3,
+     "correctAnswer": "Before you can tax the vehicle",
+     "correctAnswerKu": "پێش ئەوەی بتوانیت باجی ئۆتۆمبێلەکە بدەیت",
+     "explanationEn": "Tax, insurance and MOT are checked together: no insurance means no tax.",
+     "explanationKu": "باج، بیمە و MOT پێکەوە دەپشکنرێن: بێ بیمە واتە بێ باج."
+    },
+    {
+     "id": 15,
+     "questionEn": "What must you check before you drive someone else's vehicle?",
+     "questionKu": "پێش ئەوەی ئۆتۆمبێلی کەسێکی تر لێبخوڕیت دەبێت چی بپشکنیت؟",
+     "options": [
+      "That the vehicle owner has third-party insurance cover",
+      "That your own vehicle has insurance cover",
+      "That the vehicle is insured for your use",
+      "That the insurance documents are in the vehicle"
+     ],
+     "optionsKu": [
+      "کە خاوەنی ئۆتۆمبێلەکە بیمەی لایەنی سێیەمی هەیە",
+      "کە ئۆتۆمبێلی خۆت بیمەی هەیە",
+      "کە ئۆتۆمبێلەکە بۆ بەکارهێنانی تۆ بیمەکراوە",
+      "کە بەڵگەنامەکانی بیمە لە ئۆتۆمبێلەکەدان"
+     ],
+     "answerIndex": 2,
+     "correctAnswer": "That the vehicle is insured for your use",
+     "correctAnswerKu": "کە ئۆتۆمبێلەکە بۆ بەکارهێنانی تۆ بیمەکراوە",
+     "explanationEn": "Your own policy may not cover another car, and the owner's may not cover you.",
+     "explanationKu": "لەوانەیە پۆلیسەی خۆت ئۆتۆمبێلێکی تر نەگرێتەوە، و هی خاوەنەکەش تۆ نەگرێتەوە."
+    },
+    {
+     "id": 16,
+     "questionEn": "What does third-party insurance cover?",
+     "questionKu": "بیمەی لایەنی سێیەم چی لەخۆدەگرێت؟",
+     "options": [
+      "Damage to your vehicle",
+      "Damage to other vehicles",
+      "Injury to yourself",
+      "All damage and injury"
+     ],
+     "optionsKu": [
+      "زیان بە ئۆتۆمبێلی خۆت",
+      "زیان بە ئۆتۆمبێلی تر",
+      "برینداربوونی خۆت",
+      "هەموو زیان و برینێک"
+     ],
+     "answerIndex": 1,
+     "correctAnswer": "Damage to other vehicles",
+     "correctAnswerKu": "زیان بە ئۆتۆمبێلی تر",
+     "explanationEn": "It pays for the harm you do to others, never for your own vehicle or injuries.",
+     "explanationKu": "ئەو زیانە دەدات کە تۆ بە کەسانی تر دەگەیەنیت، هەرگیز ئۆتۆمبێل یان برینی خۆت نا."
+    },
+    {
+     "id": 17,
+     "questionEn": "When could the cost of your insurance be reduced?",
+     "questionKu": "کەی دەکرێت تێچووی بیمەکەت کەم بکرێتەوە؟",
+     "options": [
+      "When you're under 25 years old",
+      "When you do not wear glasses",
+      "When you pass the driving test first time",
+      "When you complete the Pass Plus scheme"
+     ],
+     "optionsKu": [
+      "کاتێک خوار ٢٥ ساڵیت",
+      "کاتێک چاویلکە لەبەرناکەیت",
+      "کاتێک یەکەم جار لە تاقیکردنەوەی شۆفێری دەردەچیت",
+      "کاتێک پڕۆگرامی Pass Plus تەواو دەکەیت"
+     ],
+     "answerIndex": 3,
+     "correctAnswer": "When you complete the Pass Plus scheme",
+     "correctAnswerKu": "کاتێک پڕۆگرامی Pass Plus تەواو دەکەیت",
+     "explanationEn": "Pass Plus is extra training after the test; many insurers give a discount for it.",
+     "explanationKu": "Pass Plus ڕاهێنانی زیادەیە دوای تاقیکردنەوە؛ زۆرێک لە بیمەکەران داشکاندنی بۆ دەدەن."
+    },
+    {
+     "id": 18,
+     "questionEn": "Who's legally responsible for making sure that a vehicle registration certificate (V5C) is updated?",
+     "questionKu": "بە یاسا کێ بەرپرسیارە لە دڵنیابوون لەوەی بڕوانامەی تۆمارکردنی ئۆتۆمبێل (V5C) نوێ کراوەتەوە؟",
+     "options": [
+      "The registered vehicle keeper",
+      "The vehicle manufacturer",
+      "Your insurance company",
+      "The licensing authority"
+     ],
+     "optionsKu": [
+      "ئەو کەسەی ئۆتۆمبێلەکە بەناویەوە تۆمارکراوە",
+      "دروستکەری ئۆتۆمبێلەکە",
+      "کۆمپانیای بیمەکەت",
+      "دەسەڵاتی مۆڵەتدان"
+     ],
+     "answerIndex": 0,
+     "correctAnswer": "The registered vehicle keeper",
+     "correctAnswerKu": "ئەو کەسەی ئۆتۆمبێلەکە بەناویەوە تۆمارکراوە",
+     "explanationEn": "The registered keeper is not always the owner, but the duty is theirs.",
+     "explanationKu": "ئەو کەسەی تۆمارکراوە هەمیشە خاوەنەکە نییە، بەڵام ئەرکەکە هی ئەوە."
+    },
+    {
+     "id": 19,
+     "questionEn": "What's a Statutory Off-Road Notification (SORN)?",
+     "questionKu": "ئاگادارکردنەوەی یاسایی لە دەرەوەی ڕێگا (SORN) چییە؟",
+     "options": [
+      "A notification to tell DVSA that a vehicle does not have a current MOT",
+      "Information kept by the police about the owner of a vehicle",
+      "A notification to tell DVLA that a vehicle is not being used on the road",
+      "Information held by insurance companies to check a vehicle is insured"
+     ],
+     "optionsKu": [
+      "ئاگادارکردنەوەیەک بۆ ئەوەی بە DVSA بڵێت ئۆتۆمبێلێک MOTـی کاراى نییە",
+      "زانیاری کە پۆلیس دەربارەی خاوەنی ئۆتۆمبێلێک هەڵیدەگرێت",
+      "ئاگادارکردنەوەیەک بۆ ئەوەی بە DVLA بڵێت ئۆتۆمبێلێک لەسەر ڕێگا بەکارناهێنرێت",
+      "زانیاری کە کۆمپانیاکانی بیمە هەڵیدەگرن بۆ پشکنینی بیمەی ئۆتۆمبێل"
+     ],
+     "answerIndex": 2,
+     "correctAnswer": "A notification to tell DVLA that a vehicle is not being used on the road",
+     "correctAnswerKu": "ئاگادارکردنەوەیەک بۆ ئەوەی بە DVLA بڵێت ئۆتۆمبێلێک لەسەر ڕێگا بەکارناهێنرێت",
+     "explanationEn": "While a SORN is in force the vehicle must be kept off the road, on a drive or in a garage.",
+     "explanationKu": "بەدرێژایی ماوەی SORN دەبێت ئۆتۆمبێلەکە لە دەرەوەی ڕێگا بێت، لە حەوشە یان گەراج."
+    },
+    {
+     "id": 20,
+     "questionEn": "Your car requires an MOT certificate. When is it legal to drive it without an MOT certificate?",
+     "questionKu": "ئۆتۆمبێلەکەت پێویستی بە بڕوانامەی MOTـە. کەی بە یاسایی دەتوانیت بەبێ بڕوانامەی MOT لێی بخوڕیت؟",
+     "options": [
+      "Up to 7 days after the old certificate has run out",
+      "When driving to an MOT centre to arrange an appointment",
+      "When driving the car with the owner's permission",
+      "When driving to an appointment at an MOT centre"
+     ],
+     "optionsKu": [
+      "تا حەوت ڕۆژ دوای بەسەرچوونی بڕوانامە کۆنەکە",
+      "کاتێک بەرەو ناوەندی MOT دەڕۆیت بۆ دانانی کاتێک",
+      "کاتێک بە مۆڵەتی خاوەنەکەی لێی دەخوڕیت",
+      "کاتێک بەرەو کاتێکی دیاریکراو لە ناوەندی MOT دەڕۆیت"
+     ],
+     "answerIndex": 3,
+     "correctAnswer": "When driving to an appointment at an MOT centre",
+     "correctAnswerKu": "کاتێک بەرەو کاتێکی دیاریکراو لە ناوەندی MOT دەڕۆیت",
+     "explanationEn": "The appointment must already be booked, and the car still insured and safe to drive.",
+     "explanationKu": "دەبێت کاتەکە پێشتر دیاری کرابێت، و ئۆتۆمبێلەکە هێشتا بیمەی هەبێت و سەلامەت بێت."
+    },
+    {
+     "id": 21,
+     "questionEn": "What legal requirement must be met by a newly qualified driver?",
+     "questionKu": "چ مەرجێکی یاسایی دەبێت شۆفێرێکی تازە دەرچوو جێبەجێی بکات؟",
+     "options": [
+      "They must display green L plates",
+      "They must have a new photograph taken for their full licence",
+      "They must be accompanied on their first motorway journey",
+      "They must have valid motor insurance"
+     ],
+     "optionsKu": [
+      "دەبێت پلێتی L سەوز دابنێن",
+      "دەبێت وێنەیەکی نوێ بۆ مۆڵەتی تەواویان بگیرێت",
+      "دەبێت لە یەکەم گەشتی ئۆتۆباندا کەسێک لەگەڵیان بێت",
+      "دەبێت بیمەی ئۆتۆمبێلی کارایان هەبێت"
+     ],
+     "answerIndex": 3,
+     "correctAnswer": "They must have valid motor insurance",
+     "correctAnswerKu": "دەبێت بیمەی ئۆتۆمبێلی کارایان هەبێت",
+     "explanationEn": "Passing the test does not insure you; cover must be arranged separately.",
+     "explanationKu": "دەرچوون لە تاقیکردنەوە بیمەت ناکات؛ دەبێت بیمە بە جیا ڕێک بخرێت."
+    },
+    {
+     "id": 22,
+     "questionEn": "What's covered by third-party insurance?",
+     "questionKu": "بیمەی لایەنی سێیەم چی دەگرێتەوە؟",
+     "options": [
+      "Damage to your vehicle",
+      "Fire damage to your vehicle",
+      "Flood damage to your vehicle",
+      "Damage to other vehicles"
+     ],
+     "optionsKu": [
+      "زیان بە ئۆتۆمبێلی خۆت",
+      "زیانی ئاگر بە ئۆتۆمبێلی خۆت",
+      "زیانی لافاو بە ئۆتۆمبێلی خۆت",
+      "زیان بە ئۆتۆمبێلی تر"
+     ],
+     "answerIndex": 3,
+     "correctAnswer": "Damage to other vehicles",
+     "correctAnswerKu": "زیان بە ئۆتۆمبێلی تر",
+     "explanationEn": "Fire and flood damage to your own car needs fire and theft or comprehensive cover.",
+     "explanationKu": "زیانی ئاگر و لافاو بە ئۆتۆمبێلی خۆت پێویستی بە بیمەی ئاگر و دزی یان تەواو هەیە."
+    },
+    {
+     "id": 23,
+     "questionEn": "When must you contact the Driver and Vehicle Licensing Agency (DVLA)?",
+     "questionKu": "کەی دەبێت پەیوەندی بە دەزگای مۆڵەتی شۆفێری و ئۆتۆمبێل (DVLA) بکەیت؟",
+     "options": [
+      "When you get a parking ticket",
+      "When you change your vehicle",
+      "When you use your vehicle for work",
+      "When your vehicle's insurance is due"
+     ],
+     "optionsKu": [
+      "کاتێک سزای ڕاگرتنت بۆ دەنووسرێت",
+      "کاتێک ئۆتۆمبێلەکەت دەگۆڕیت",
+      "کاتێک ئۆتۆمبێلەکەت بۆ کار بەکاردەهێنیت",
+      "کاتێک بیمەی ئۆتۆمبێلەکەت کۆتایی دێت"
+     ],
+     "answerIndex": 1,
+     "correctAnswer": "When you change your vehicle",
+     "correctAnswerKu": "کاتێک ئۆتۆمبێلەکەت دەگۆڕیت",
+     "explanationEn": "Until they are told, the old keeper still carries the tax and the penalties.",
+     "explanationKu": "تا ئاگادار نەکرێنەوە، خاوەنی کۆن هێشتا باج و سزاکان لەسەریەتی."
+    },
+    {
+     "id": 24,
+     "questionEn": "What's the legal minimum insurance cover you must have to drive on public roads?",
+     "questionKu": "کەمترین بیمەی یاسایی چییە کە دەبێت هەتبێت بۆ لێخوڕین لەسەر ڕێگای گشتی؟",
+     "options": [
+      "Third party, fire and theft",
+      "Comprehensive",
+      "Third party only",
+      "Personal injury cover"
+     ],
+     "optionsKu": [
+      "لایەنی سێیەم، ئاگر و دزی",
+      "تەواو",
+      "تەنها لایەنی سێیەم",
+      "بیمەی برینداربوونی کەسی"
+     ],
+     "answerIndex": 2,
+     "correctAnswer": "Third party only",
+     "correctAnswerKu": "تەنها لایەنی سێیەم",
+     "explanationEn": "The other kinds go beyond the minimum; they are not what the law requires.",
+     "explanationKu": "جۆرەکانی تر لە کەمترینەکە زیاترن؛ ئەوە نین کە یاسا داوای دەکات."
+    },
+    {
+     "id": 25,
+     "questionEn": "Your car needs to pass an MOT test. What may be invalidated if you drive the car without a current MOT certificate?",
+     "questionKu": "ئۆتۆمبێلەکەت پێویستە لە تاقیکردنەوەی MOT دەربچێت. ئەگەر بەبێ بڕوانامەی MOTـی کارا لێی بخوڕیت، چی لەوانەیە پووچ بێتەوە؟",
+     "options": [
+      "The vehicle service record",
+      "The vehicle insurance",
+      "The vehicle tax",
+      "The vehicle registration document"
+     ],
+     "optionsKu": [
+      "تۆماری خزمەتگوزاری ئۆتۆمبێلەکە",
+      "بیمەی ئۆتۆمبێلەکە",
+      "باجی ئۆتۆمبێلەکە",
+      "بەڵگەنامەی تۆمارکردنی ئۆتۆمبێلەکە"
+     ],
+     "answerIndex": 1,
+     "correctAnswer": "The vehicle insurance",
+     "correctAnswerKu": "بیمەی ئۆتۆمبێلەکە",
+     "explanationEn": "Many policies require a valid MOT, so a claim could be refused.",
+     "explanationKu": "زۆرێک لە پۆلیسەکان داوای MOTـی کارا دەکەن، بۆیە لەوانەیە داواکارییەک ڕەت بکرێتەوە."
+    },
+    {
+     "id": 26,
+     "questionEn": "What information is found on a vehicle registration document?",
+     "questionKu": "چ زانیارییەک لەسەر بەڵگەنامەی تۆمارکردنی ئۆتۆمبێل هەیە؟",
+     "options": [
+      "The registered keeper",
+      "The type of insurance cover",
+      "The service history details",
+      "The date of the MOT"
+     ],
+     "optionsKu": [
+      "خاوەنی تۆمارکراو",
+      "جۆری بیمەکە",
+      "وردەکارییەکانی مێژووی خزمەتگوزاری",
+      "ڕێکەوتی MOT"
+     ],
+     "answerIndex": 0,
+     "correctAnswer": "The registered keeper",
+     "correctAnswerKu": "خاوەنی تۆمارکراو",
+     "explanationEn": "It is not proof of ownership, only of who is responsible for the vehicle.",
+     "explanationKu": "بەڵگەی خاوەندارێتی نییە، تەنها ئەوەی کێ بەرپرسە لە ئۆتۆمبێلەکە."
+    },
+    {
+     "id": 27,
+     "questionEn": "When should you update your vehicle registration certificate?",
+     "questionKu": "کەی دەبێت بڕوانامەی تۆمارکردنی ئۆتۆمبێلەکەت نوێ بکەیتەوە؟",
+     "options": [
+      "When you pass your driving test",
+      "When you move house",
+      "When your vehicle needs an MOT",
+      "When you have a collision"
+     ],
+     "optionsKu": [
+      "کاتێک لە تاقیکردنەوەی شۆفێری دەردەچیت",
+      "کاتێک ماڵ دەگوازیتەوە",
+      "کاتێک ئۆتۆمبێلەکەت پێویستی بە MOTـە",
+      "کاتێک پێکدادانێکت بۆ دەبێت"
+     ],
+     "answerIndex": 1,
+     "correctAnswer": "When you move house",
+     "correctAnswerKu": "کاتێک ماڵ دەگوازیتەوە",
+     "explanationEn": "DVLA must be able to reach you about tax, recalls and penalties.",
+     "explanationKu": "دەبێت DVLA بتوانێت دەربارەی باج، گەڕاندنەوە و سزا پەیوەندیت پێوە بکات."
     }
    ]
   }

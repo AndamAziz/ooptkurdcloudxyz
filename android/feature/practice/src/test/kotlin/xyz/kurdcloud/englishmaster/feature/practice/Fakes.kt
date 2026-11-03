@@ -95,7 +95,7 @@ class FakePractice(private val network: FakeNetwork) : PracticeRepository {
 val networkFailure: ApiResult<Int> = ApiResult.Failure(ApiError.Network)
 
 fun theoryQuestion(id: String, answer: String = "Answer $id", section: String = "alertness") =
-    TheoryQuestion(id, section, "What does $id mean?", "پرسیاری $id", answer, "وەڵامی $id", null, null, null, 1)
+    TheoryQuestion(id, section, "What does $id mean?", "پرسیاری $id", answer, "وەڵامی $id", null, null, null, version = 1)
 
 /** Keeps chapters and answers in memory; [online] decides whether a download finds anything. */
 class FakeTheory(

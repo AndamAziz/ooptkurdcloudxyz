@@ -191,9 +191,13 @@ class OfflineFirstTheoryRepository(
 
     override suspend fun savedQuestionCount(): Int = dao.savedQuestionCount()
 
-    /** Builds [question] into a test card, borrowing its wrong options from the rest of this list. */
+    /**
+     * Builds [question] into a test card. A question that carries the official options is shown
+     * with exactly those; the rest borrow their wrong options from the others in this list.
+     */
     private fun List<TheoryQuestion>.testItem(question: TheoryQuestion) =
-        TheoryTestItem.build(question, filter { it.id != question.id }.shuffled(), shuffle)
+        if (question.hasOwnOptions) TheoryTestItem.official(question, shuffle)
+        else TheoryTestItem.build(question, filter { it.id != question.id }.shuffled(), shuffle)
 
     override suspend fun record(question: TheoryQuestion, isCorrect: Boolean, mode: TheoryMode) {
         val row = TheoryResponseEntity(
@@ -262,6 +266,9 @@ private fun TheoryQuestionDto.toEntity(now: Long, mediaLocal: String?) = TheoryQ
     promptCkb = promptCkb,
     answer = answer,
     answerCkb = answerCkb,
+    options = options.orEmpty(),
+    optionsCkb = optionsCkb.orEmpty(),
+    correctOption = correctOption,
     explanation = explanation,
     explanationCkb = explanationCkb,
     mediaPath = mediaPath,
@@ -277,6 +284,9 @@ internal fun TheoryQuestionEntity.toModel(media: MediaFiles?) = TheoryQuestion(
     promptCkb = promptCkb,
     answer = answer,
     answerCkb = answerCkb,
+    options = options,
+    optionsCkb = optionsCkb,
+    correctOption = correctOption,
     explanation = explanation,
     explanationCkb = explanationCkb,
     media = questionMedia(MediaType.IMAGE.apiValue, mediaPath, null, mediaLocal, media),

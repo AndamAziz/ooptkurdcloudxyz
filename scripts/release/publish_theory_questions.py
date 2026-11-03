@@ -12,6 +12,10 @@ with the service-role key (CI secret), like publish_questions.py.
 Env: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY.
 Usage: publish_theory_questions.py [--dry-run]
   --dry-run  only reads: reports how many questions are new and how many already exist.
+
+Questions already in the database are also brought back in step with the files, so correcting a
+question in the repository reaches learners. A question a teacher has edited in Staff tools keeps
+their wording: the editor stamps it as theirs and the sync skips it.
 """
 import json
 import os
@@ -56,6 +60,24 @@ def get(path: str) -> list[dict]:
     req = urllib.request.Request(f"{URL}/rest/v1/{path}", headers=auth())
     with urllib.request.urlopen(req, timeout=60) as res:
         return json.loads(res.read() or b"[]")
+
+
+def sync(rows: list[dict]) -> int:
+    """Brings rows the repository owns up to date; teacher-edited ones are skipped server-side."""
+    body = [
+        {k: r[k] for k in (
+            "external_ref", "sort_order", "prompt", "prompt_ckb", "answer", "answer_ckb",
+            "options", "options_ckb", "correct_option", "explanation", "explanation_ckb", "media_path")}
+        for r in rows
+    ]
+    req = urllib.request.Request(
+        f"{URL}/rest/v1/rpc/content_sync_theory_questions",
+        data=json.dumps({"p_rows": body}).encode(),
+        method="POST",
+        headers={**auth(), "Content-Type": "application/json"},
+    )
+    with urllib.request.urlopen(req, timeout=120) as res:
+        return int(json.loads(res.read() or b"0") or 0)
 
 
 def post(rows: list[dict]) -> int:
@@ -109,6 +131,19 @@ def rows() -> list[dict]:
                 media = text(question.get("media"))
                 if media and not (ROOT / "content" / "media" / media).is_file():
                     raise SystemExit(f"{slug} #{question['id']} names {media}, which is not in content/media")
+                # A question may bring the official options; the app borrows some when it does not.
+                options = question.get("options")
+                options_ckb = question.get("optionsKu")
+                correct = question.get("answerIndex")
+                if options is not None:
+                    if correct is None or not 0 <= correct < len(options):
+                        raise SystemExit(f"{slug} #{question['id']} has options but no usable answerIndex")
+                    if options[correct] != answer:
+                        raise SystemExit(f"{slug} #{question['id']}: answerIndex points at {options[correct]!r}, not the answer")
+                    if options_ckb is not None and len(options_ckb) != len(options):
+                        raise SystemExit(f"{slug} #{question['id']} has {len(options_ckb)} Sorani options for {len(options)}")
+                elif correct is not None:
+                    raise SystemExit(f"{slug} #{question['id']} has an answerIndex but no options")
                 out.append(
                     {
                         "external_ref": f"theory:{slug}:{question['id']}",
@@ -118,6 +153,9 @@ def rows() -> list[dict]:
                         "prompt_ckb": text(question.get("questionKu")),
                         "answer": answer,
                         "answer_ckb": text(question.get("correctAnswerKu")),
+                        "options": options,
+                        "options_ckb": options_ckb,
+                        "correct_option": correct,
                         "explanation": text(question.get("explanationEn")),
                         "explanation_ckb": text(question.get("explanationKu")),
                         "media_path": media,
@@ -135,7 +173,11 @@ def main() -> None:
         print(f"theory: {len(questions)} questions, {len(questions) - len(present)} would be inserted, {len(present)} already present")
         return
     inserted = sum(post(questions[i:i + 50]) for i in range(0, len(questions), 50))
-    print(f"theory: {len(questions)} questions, {inserted} newly inserted, {len(questions) - inserted} already present")
+    # Inserting ignores a question already in the database, so a correction in the repository is
+    # applied separately. Questions a teacher has edited are left as the teacher left them.
+    updated = sum(sync(questions[i:i + 50]) for i in range(0, len(questions), 50))
+    print(f"theory: {len(questions)} questions, {inserted} newly inserted, "
+          f"{len(questions) - inserted} already present, {updated} brought up to date")
 
 
 if __name__ == "__main__":

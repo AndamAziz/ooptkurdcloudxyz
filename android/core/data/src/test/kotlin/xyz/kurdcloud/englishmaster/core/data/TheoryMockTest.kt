@@ -175,4 +175,70 @@ class TheoryMockTest {
         assertEquals(emptyList<Any>(), theory.mockTest())
         assertEquals(0, theory.savedQuestionCount())
     }
+    @Test
+    fun `a question with its own options is shown with exactly those`() = runTest {
+        db.theory().upsertQuestions(
+            listOf(
+                TheoryQuestionEntity(
+                    id = "own1", sectionSlug = "docs", sortOrder = 1,
+                    prompt = "What does third-party insurance cover?",
+                    answer = "Damage to other vehicles",
+                    options = listOf("Damage to your vehicle", "Damage to other vehicles",
+                                     "Injury to yourself", "All damage and injury"),
+                    optionsCkb = listOf("أ", "ب", "ج", "د"),
+                    correctOption = 1,
+                    version = 1, downloadedAtMillis = 0,
+                ),
+            ),
+        )
+        val item = theory.testRound("docs").single()
+
+        assertEquals(4, item.options.size)
+        assertEquals("Damage to other vehicles", item.options[item.correctIndex])
+        // Exactly the official four, whatever order they were shuffled into.
+        assertEquals(
+            listOf("All damage and injury", "Damage to other vehicles", "Damage to your vehicle", "Injury to yourself"),
+            item.options.sorted(),
+        )
+        // The Sorani text follows its own option through the shuffle.
+        assertEquals("ب", item.optionsCkb[item.correctIndex])
+    }
+
+    @Test
+    fun `two questions sharing an answer are told apart by their own options`() = runTest {
+        // Both of these are in the official test and both are answered "Damage to other vehicles".
+        db.theory().upsertQuestions(
+            listOf(
+                TheoryQuestionEntity(
+                    id = "p1", sectionSlug = "docs", sortOrder = 1,
+                    prompt = "What does third-party insurance cover?", answer = "Damage to other vehicles",
+                    options = listOf("Damage to your vehicle", "Damage to other vehicles",
+                                     "Injury to yourself", "All damage and injury"),
+                    correctOption = 1, version = 1, downloadedAtMillis = 0,
+                ),
+                TheoryQuestionEntity(
+                    id = "p2", sectionSlug = "docs", sortOrder = 2,
+                    prompt = "What's covered by third-party insurance?", answer = "Damage to other vehicles",
+                    options = listOf("Damage to your vehicle", "Fire damage to your vehicle",
+                                     "Flood damage to your vehicle", "Damage to other vehicles"),
+                    correctOption = 3, version = 1, downloadedAtMillis = 0,
+                ),
+            ),
+        )
+        val (first, second) = theory.testRound("docs").sortedBy { it.question.id }
+
+        assertEquals(first.question.answer, second.question.answer)
+        assertTrue("the wrong options must differ", first.options.sorted() != second.options.sorted())
+        assertEquals("Damage to other vehicles", first.options[first.correctIndex])
+        assertEquals("Damage to other vehicles", second.options[second.correctIndex])
+    }
+
+    @Test
+    fun `a question without options still borrows them from its chapter`() = runTest {
+        seed()
+        val item = theory.testRound("chapter-1").first()
+        assertEquals(4, item.options.size)
+        assertEquals(item.question.answer, item.options[item.correctIndex])
+    }
+
 }
