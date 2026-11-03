@@ -1,5 +1,7 @@
 package xyz.kurdcloud.englishmaster.core.network
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -80,4 +82,14 @@ interface StaffApi {
     /** Publishes every draft question of one chapter; returns how many. */
     @POST("rest/v1/rpc/staff_publish_theory_drafts")
     suspend fun publishTheoryDrafts(@Body body: Map<String, String>): Int
+
+    /** How many questions are waiting to be published, per chapter. */
+    @POST("rest/v1/rpc/staff_theory_draft_counts")
+    suspend fun theoryDraftCounts(): List<TheoryDraftCountDto>
 }
+
+@Serializable
+data class TheoryDraftCountDto(
+    @SerialName("section_slug") val sectionSlug: String,
+    val drafts: Int,
+)

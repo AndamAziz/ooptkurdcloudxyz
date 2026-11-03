@@ -98,6 +98,18 @@ internal fun TheoryTab(vm: TheoryAdminViewModel, snackbar: SnackbarHostState, on
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
+                        // Without this line a chapter holding imported drafts looked exactly like
+                        // an empty one, and the publish button was pressed on the wrong chapters.
+                        val waiting = state.draftsIn(section.slug)
+                        if (waiting > 0) {
+                            Text(
+                                pluralStringResource(R.plurals.admin_theory_waiting_count, waiting, waiting),
+                                style = MaterialTheme.typography.bodySmall,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.tertiary,
+                                modifier = Modifier.testTag("admin_theory_waiting_${section.slug}"),
+                            )
+                        }
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             Button(
                                 onClick = { onAddQuestion(section) },
@@ -105,9 +117,17 @@ internal fun TheoryTab(vm: TheoryAdminViewModel, snackbar: SnackbarHostState, on
                             ) { Text(stringResource(R.string.admin_theory_add)) }
                             OutlinedButton(
                                 onClick = { vm.publishDrafts(section.slug) },
-                                enabled = state.publishing == null,
+                                enabled = state.publishing == null && waiting > 0,
                                 modifier = Modifier.testTag("admin_theory_publish_${section.slug}"),
-                            ) { Text(stringResource(R.string.admin_theory_publish_drafts)) }
+                            ) {
+                                Text(
+                                    if (waiting > 0) {
+                                        pluralStringResource(R.plurals.admin_theory_publish_n, waiting, waiting)
+                                    } else {
+                                        stringResource(R.string.admin_theory_publish_drafts)
+                                    },
+                                )
+                            }
                         }
                     }
                 }

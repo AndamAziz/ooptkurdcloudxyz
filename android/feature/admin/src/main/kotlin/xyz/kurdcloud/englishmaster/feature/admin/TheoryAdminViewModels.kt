@@ -25,14 +25,19 @@ data class StaffMessage(val text: Int, val arg: Int? = null, val plural: Boolean
 data class TheoryAdminUiState(
     val loading: Boolean = true,
     val sections: List<TheorySection> = emptyList(),
+    /** Questions waiting to be published, per chapter slug; a chapter with none is absent. */
+    val drafts: Map<String, Int> = emptyMap(),
     /** Slug of the chapter whose drafts are being published, null when idle. */
     val publishing: String? = null,
     val message: StaffMessage? = null,
-)
+) {
+    fun draftsIn(slug: String): Int = drafts[slug] ?: 0
+}
 
 /**
- * The driving theory chapters as staff see them: how many questions each one publishes, a way to
- * publish the imported drafts, and the form for adding a question of their own.
+ * The driving theory chapters as staff see them: how many questions each one publishes, how many
+ * are still waiting to be published, a way to publish them, and the form for adding a question of
+ * their own.
  */
 class TheoryAdminViewModel(
     private val theory: TheoryRepository,
@@ -40,15 +45,18 @@ class TheoryAdminViewModel(
 ) : ViewModel() {
     private val transient = MutableStateFlow(Pair<String?, StaffMessage?>(null, null))
     private val loading = MutableStateFlow(true)
+    private val drafts = MutableStateFlow(emptyMap<String, Int>())
 
     val uiState: StateFlow<TheoryAdminUiState> = combine(
         theory.observeSections(),
         loading,
         transient,
-    ) { sections, isLoading, (publishing, message) ->
+        drafts,
+    ) { sections, isLoading, (publishing, message), waiting ->
         TheoryAdminUiState(
             loading = isLoading && sections.isEmpty(),
             sections = sections,
+            drafts = waiting,
             publishing = publishing,
             message = message,
         )
@@ -61,6 +69,7 @@ class TheoryAdminViewModel(
     fun refresh() {
         viewModelScope.launch {
             val result = theory.refreshSections()
+            (staff.theoryDraftCounts() as? ApiResult.Success)?.let { drafts.value = it.value }
             loading.value = false
             if (result is ApiResult.Failure) transient.update { it.copy(second = StaffMessage(result.error.message())) }
         }
@@ -74,6 +83,7 @@ class TheoryAdminViewModel(
             val message = when (val r = staff.publishTheoryDrafts(slug)) {
                 is ApiResult.Success -> {
                     theory.refreshSections()
+                    (staff.theoryDraftCounts() as? ApiResult.Success)?.let { drafts.value = it.value }
                     StaffMessage(R.plurals.admin_theory_published, r.value, plural = true)
                 }
                 is ApiResult.Failure -> StaffMessage(r.error.message())

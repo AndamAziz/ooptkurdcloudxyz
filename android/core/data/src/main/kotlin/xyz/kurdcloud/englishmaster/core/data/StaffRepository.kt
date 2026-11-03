@@ -71,6 +71,9 @@ interface StaffRepository {
     /** Publishes every draft question of one theory chapter; returns how many. */
     suspend fun publishTheoryDrafts(sectionSlug: String): ApiResult<Int> = ApiResult.Failure(ApiError.Forbidden)
 
+    /** Questions waiting to be published, per chapter slug; chapters with none are left out. */
+    suspend fun theoryDraftCounts(): ApiResult<Map<String, Int>> = ApiResult.Failure(ApiError.Forbidden)
+
     /** Approves or rejects a pending certificate; returns the new status. */
     suspend fun reviewCertificate(id: String, approve: Boolean, note: String? = null): ApiResult<CertificateRequestStatus> =
         ApiResult.Failure(ApiError.Forbidden)
@@ -240,6 +243,9 @@ class SupabaseStaffRepository(
 
     override suspend fun publishTheoryDrafts(sectionSlug: String): ApiResult<Int> =
         restCall { api.publishTheoryDrafts(mapOf("p_section_slug" to sectionSlug)) }
+
+    override suspend fun theoryDraftCounts(): ApiResult<Map<String, Int>> =
+        restCall { api.theoryDraftCounts() }.map { rows -> rows.associate { it.sectionSlug to it.drafts } }
 
     override suspend fun reviewCertificate(id: String, approve: Boolean, note: String?): ApiResult<CertificateRequestStatus> =
         restCall { api.reviewCertificate(ReviewCertificateRequest(id, approve, note?.trim()?.takeIf { it.isNotEmpty() })) }
