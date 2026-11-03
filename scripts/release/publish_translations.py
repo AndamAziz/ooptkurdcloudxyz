@@ -17,6 +17,9 @@ import sys
 import urllib.request
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from supabase_http import read as http_read
+
 ROOT = Path(__file__).resolve().parents[2]
 SRC = ROOT / "content" / "translations" / "ckb"
 BATCH = 200
@@ -37,8 +40,7 @@ def send(rows: list[dict]) -> int:
             **({} if KEY.startswith("sb_secret_") else {"Authorization": f"Bearer {KEY}"}),
         },
     )
-    with urllib.request.urlopen(req, timeout=120) as res:
-        return int(json.loads(res.read() or b"0") or 0)
+    return int(json.loads(http_read(req, timeout=120) or b"0") or 0)
 
 
 def main() -> None:

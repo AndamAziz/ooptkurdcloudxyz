@@ -16,6 +16,9 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from supabase_http import read as http_read
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "db"))
 import build_ai_question_seed as seed  # noqa: E402
 
@@ -36,8 +39,7 @@ def post(rows: list[dict]) -> int:
             **({} if KEY.startswith("sb_secret_") else {"Authorization": f"Bearer {KEY}"}),
         },
     )
-    with urllib.request.urlopen(req, timeout=60) as res:
-        return len(json.loads(res.read() or b"[]"))
+    return len(json.loads(http_read(req, timeout=60) or b"[]"))
 
 
 def existing(refs: list[str]) -> set[str]:
@@ -50,8 +52,7 @@ def existing(refs: list[str]) -> set[str]:
             f"{URL}/rest/v1/assessment_questions?{query}",
             headers={"apikey": KEY, **({} if KEY.startswith("sb_secret_") else {"Authorization": f"Bearer {KEY}"})},
         )
-        with urllib.request.urlopen(req, timeout=60) as res:
-            found |= {r["external_ref"] for r in json.loads(res.read() or b"[]")}
+        found |= {r["external_ref"] for r in json.loads(http_read(req, timeout=60) or b"[]")}
     return found
 
 

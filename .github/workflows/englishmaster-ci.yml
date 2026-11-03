@@ -43,6 +43,8 @@ jobs:
         run: |
           python3 scripts/lituk/lituk.py validate
           python3 -m unittest scripts/lituk/test_lituk.py
+      - name: Content publisher (retry on a transient Supabase failure)
+        run: python3 -m unittest discover -s scripts/release/tests
       - name: Run migrations, seed and tests
         run: scripts/db/test-local.sh
 

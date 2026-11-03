@@ -24,6 +24,9 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from supabase_http import read as http_read
+
 ROOT = Path(__file__).resolve().parents[2]
 SOURCES = [
     ROOT / "content" / "theory" / "uk-theory-questions.json",
@@ -58,8 +61,7 @@ def auth() -> dict:
 
 def get(path: str) -> list[dict]:
     req = urllib.request.Request(f"{URL}/rest/v1/{path}", headers=auth())
-    with urllib.request.urlopen(req, timeout=60) as res:
-        return json.loads(res.read() or b"[]")
+    return json.loads(http_read(req, timeout=60) or b"[]")
 
 
 def sync(rows: list[dict]) -> int:
@@ -76,8 +78,7 @@ def sync(rows: list[dict]) -> int:
         method="POST",
         headers={**auth(), "Content-Type": "application/json"},
     )
-    with urllib.request.urlopen(req, timeout=120) as res:
-        return int(json.loads(res.read() or b"0") or 0)
+    return int(json.loads(http_read(req, timeout=120) or b"0") or 0)
 
 
 def post(rows: list[dict]) -> int:
@@ -91,8 +92,7 @@ def post(rows: list[dict]) -> int:
             "Prefer": "resolution=ignore-duplicates,return=representation",
         },
     )
-    with urllib.request.urlopen(req, timeout=60) as res:
-        return len(json.loads(res.read() or b"[]"))
+    return len(json.loads(http_read(req, timeout=60) or b"[]"))
 
 
 def existing(refs: list[str]) -> set[str]:
