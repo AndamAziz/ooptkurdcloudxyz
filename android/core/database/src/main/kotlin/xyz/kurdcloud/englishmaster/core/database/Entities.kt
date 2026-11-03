@@ -120,6 +120,11 @@ data class TheoryQuestionEntity(
     @ColumnInfo(name = "prompt_ckb") val promptCkb: String? = null,
     val answer: String,
     @ColumnInfo(name = "answer_ckb") val answerCkb: String? = null,
+    /** The official options, where the question has them; empty means the app borrows some. */
+    @ColumnInfo(defaultValue = "[]") val options: List<String> = emptyList(),
+    @ColumnInfo(name = "options_ckb", defaultValue = "[]") val optionsCkb: List<String> = emptyList(),
+    /** Index into [options] of the right one, null when the question has no options of its own. */
+    @ColumnInfo(name = "correct_option") val correctOption: Int? = null,
     val explanation: String? = null,
     @ColumnInfo(name = "explanation_ckb") val explanationCkb: String? = null,
     @ColumnInfo(name = "media_path") val mediaPath: String? = null,

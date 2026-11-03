@@ -22,17 +22,19 @@ import kotlinx.serialization.json.Json
         TheoryQuestionEntity::class,
         TheoryResponseEntity::class,
     ],
-    version = 5,
+    version = 6,
     exportSchema = true,
     // v2: passage and media columns on questions (all nullable, so Room migrates automatically).
     // v3: tags column on questions (defaults to an empty list until the level is downloaded again).
     // v4: Kurdish translation columns on questions and responses.
     // v5: the driving theory test's own tables (new, so nothing to carry over).
+    // v6: a theory question may carry the official options; the old ones default to none.
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 2, to = 3),
         AutoMigration(from = 3, to = 4),
         AutoMigration(from = 4, to = 5),
+        AutoMigration(from = 5, to = 6),
     ],
 )
 @TypeConverters(Converters::class)
