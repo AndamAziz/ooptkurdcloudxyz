@@ -183,10 +183,22 @@ not the server, does the marking:
 In test mode the app builds four options by borrowing answers from other questions in the same
 chapter, so practice feels like the real multiple-choice exam without anyone writing distractors.
 
-Content: `content/theory/uk-theory-questions.json` (520 questions in 10 of the 15 chapters, English
-with a Sorani translation), supplied by the project owner. The **EnglishMaster content** workflow inserts them as **drafts** with
-`scripts/release/publish_theory_questions.py`, so nothing reaches learners until a teacher publishes
-the chapter. `scripts/db/build_theory_seed.py` writes the equivalent SQL seed for local tests.
+Content comes from two files, both inserted as **drafts** by the **EnglishMaster content** workflow
+through `scripts/release/publish_theory_questions.py`, so nothing reaches learners until a teacher
+publishes the chapter:
+
+* `content/theory/uk-theory-questions.json` — 520 questions across 10 chapters, English with a
+  Sorani translation, supplied by the project owner. `scripts/db/build_theory_seed.py` writes the
+  equivalent SQL seed for local tests from this file.
+* `content/theory/road-and-traffic-signs.json` — 150 questions for chapter 11, each one a picture of
+  a sign with its meaning and a short explanation in both languages. The pictures live in
+  `content/media/theory/signs/` and are uploaded to the `question-media` bucket by
+  `scripts/media/upload_question_media.sh` in the same workflow, before the questions are inserted;
+  the publisher refuses to insert a question whose picture is missing from `content/media`.
+
+The sign pictures are cut out of the Highway Code's traffic-signs page on GOV.UK
+(`https://www.gov.uk/guidance/the-highway-code/traffic-signs`). The caption under each sign is the
+answer, so it is deliberately left out of the picture and kept as text.
 
 ## Kurdish translations (`20261027120000_translation_content`)
 

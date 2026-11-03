@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Insert the driving-theory questions (content/theory/uk-theory-questions.json) into Supabase.
+"""Insert the driving-theory questions (content/theory/*.json) into Supabase.
+
+Road-sign questions carry a media_path into the question-media bucket, which
+scripts/media/upload_question_media.sh fills from content/media before this runs.
 
 Questions are inserted as drafts, so a teacher publishes a chapter once they have checked it
 (Staff -> Driving theory -> Publish the drafts). Rows that already exist (same external_ref) are
@@ -18,7 +21,10 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE = ROOT / "content" / "theory" / "uk-theory-questions.json"
+SOURCES = [
+    ROOT / "content" / "theory" / "uk-theory-questions.json",
+    ROOT / "content" / "theory" / "road-and-traffic-signs.json",
+]
 
 # The source names its chapters; the database keys them by slug. Keep in step with
 # scripts/db/build_theory_seed.py.
@@ -33,6 +39,7 @@ SLUGS = {
     "Vehicle Handling": "vehicle-handling",
     "Motorway Rules": "motorway-rules",
     "Rules of the Road": "rules-of-the-road",
+    "Road and Traffic Signs": "road-and-traffic-signs",
 }
 
 URL = os.environ["SUPABASE_URL"].rstrip("/")
@@ -82,32 +89,40 @@ def text(value) -> str | None:
 
 
 def rows() -> list[dict]:
-    data = json.loads(SOURCE.read_text(encoding="utf-8"))
     sections = {s["slug"]: s["id"] for s in get("theory_sections?select=id,slug")}
     out: list[dict] = []
-    for section in data["sections"]:
-        slug = SLUGS.get(section["category"])
-        if slug is None:
-            raise SystemExit(f"unknown chapter {section['category']!r}; add it to SLUGS")
-        if slug not in sections:
-            raise SystemExit(f"chapter {slug!r} is not in the database; apply the theory migration first")
-        for position, question in enumerate(section["questions"], start=1):
-            prompt, answer = text(question.get("questionEn")), text(question.get("correctAnswer"))
-            if not prompt or not answer:
-                raise SystemExit(f"{slug} #{question['id']} has an empty question or answer")
-            out.append(
-                {
-                    "external_ref": f"theory:{slug}:{question['id']}",
-                    "section_id": sections[slug],
-                    "sort_order": position,
-                    "prompt": prompt,
-                    "prompt_ckb": text(question.get("questionKu")),
-                    "answer": answer,
-                    "answer_ckb": text(question.get("correctAnswerKu")),
-                    "status": "draft",
-                    "source": "content:uk-theory-questions",
-                },
-            )
+    for path in SOURCES:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        for section in data["sections"]:
+            slug = SLUGS.get(section["category"])
+            if slug is None:
+                raise SystemExit(f"unknown chapter {section['category']!r}; add it to SLUGS")
+            if slug not in sections:
+                raise SystemExit(f"chapter {slug!r} is not in the database; apply the theory migration first")
+            for position, question in enumerate(section["questions"], start=1):
+                prompt, answer = text(question.get("questionEn")), text(question.get("correctAnswer"))
+                if not prompt or not answer:
+                    raise SystemExit(f"{slug} #{question['id']} has an empty question or answer")
+                # A sign question is the picture: without it there is nothing to answer.
+                media = text(question.get("media"))
+                if media and not (ROOT / "content" / "media" / media).is_file():
+                    raise SystemExit(f"{slug} #{question['id']} names {media}, which is not in content/media")
+                out.append(
+                    {
+                        "external_ref": f"theory:{slug}:{question['id']}",
+                        "section_id": sections[slug],
+                        "sort_order": position,
+                        "prompt": prompt,
+                        "prompt_ckb": text(question.get("questionKu")),
+                        "answer": answer,
+                        "answer_ckb": text(question.get("correctAnswerKu")),
+                        "explanation": text(question.get("explanationEn")),
+                        "explanation_ckb": text(question.get("explanationKu")),
+                        "media_path": media,
+                        "status": "draft",
+                        "source": f"content:{path.stem}",
+                    },
+                )
     return out
 
 
