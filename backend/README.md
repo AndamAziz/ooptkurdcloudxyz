@@ -190,7 +190,7 @@ publishes the chapter:
 * `content/theory/uk-theory-questions.json` — 520 questions across 10 chapters, English with a
   Sorani translation, supplied by the project owner. `scripts/db/build_theory_seed.py` writes the
   equivalent SQL seed for local tests from this file.
-* `content/theory/essential-documents.json` — 26 questions for chapter 12 on insurance, MOT,
+* `content/theory/essential-documents.json` — 27 questions for chapter 12 on insurance, MOT,
   vehicle tax, SORN and licences, English with a Sorani translation and an explanation.
 * `content/theory/road-and-traffic-signs.json` — 150 questions for chapter 11, each one a picture of
   a sign with its meaning and a short explanation in both languages. The pictures live in

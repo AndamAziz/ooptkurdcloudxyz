@@ -1,2 +1,2 @@
-- Chapter 12, Essential documents, is now live with its 26 questions on insurance, MOT, vehicle tax, SORN and licences.
+- Chapter 12, Essential documents, is now live with its 27 questions on insurance, MOT, vehicle tax, SORN and licences.
 - Staff tools now show how many questions in each chapter are still waiting to be published, and the Publish button is only active where there is something to publish. Until now a chapter full of imported questions looked exactly like an empty one, which is why chapter 12 sat unpublished.
