@@ -207,6 +207,9 @@ publishes the chapter:
   Two carry a picture from `content/media/theory/incidents/`: a warning triangle on a two-way road,
   and the four plates a tanker can carry, drawn as one picture labelled A to D, so that question
   brings its own options (the letters) instead of borrowing wrong answers.
+* `content/theory/vehicle-loading.json` — 21 questions for chapter 14 on towing, trailers, roof
+  loads and who is responsible for an overloaded vehicle, English with a Sorani translation and an
+  explanation.
 * `content/theory/road-and-traffic-signs.json` — 150 questions for chapter 11, each one a picture of
   a sign with its meaning and a short explanation in both languages. The pictures live in
   `content/media/theory/signs/` and are uploaded to the `question-media` bucket by

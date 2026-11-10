@@ -1,0 +1,201 @@
+{
+ "source": "UK driving theory test, Vehicle Loading",
+ "totalSections": 1,
+ "totalQuestions": 21,
+ "sections": [
+  {
+   "category": "Vehicle Loading",
+   "questions": [
+    {
+     "id": 1,
+     "questionEn": "What does it mean if your trailer has a maximum authorised mass (MAM) of 3,500 kg?",
+     "questionKu": "چی دەگەیەنێت ئەگەر تریلەرەکەت کێشی ڕێپێدراوی زۆرترینی (MAM) ٣٬٥٠٠ کیلۆگرام بێت؟",
+     "correctAnswer": "Your trailer and load combined cannot weigh more than 3,500 kg",
+     "correctAnswerKu": "تریلەرەکە و بارەکەی پێکەوە ناتوانن زیاتر لە ٣٬٥٠٠ کیلۆگرام بن",
+     "explanationEn": "MAM is the trailer's own weight plus everything in it, not the load alone.",
+     "explanationKu": "MAM کێشی خودی تریلەرەکە زیاد هەموو ئەو شتانەیە کە تێیدایە، نەک تەنها بارەکە."
+    },
+    {
+     "id": 2,
+     "questionEn": "What would be affected if you carry a very heavy load on your vehicle?",
+     "questionKu": "ئەگەر بارێکی زۆر قورس لەسەر ئۆتۆمبێلەکەت هەڵبگریت، چی کاری لێدەکرێت؟",
+     "correctAnswer": "The vehicle's handling",
+     "correctAnswerKu": "بەڕێوەبردنی ئۆتۆمبێلەکە",
+     "explanationEn": "Steering, braking and cornering all change once the vehicle is loaded.",
+     "explanationKu": "ئاراستە، بریک و سوڕانەوە هەموویان دەگۆڕێن کاتێک ئۆتۆمبێلەکە بارکراوە."
+    },
+    {
+     "id": 3,
+     "questionEn": "What must you do when you hitch an unbraked trailer to a towing vehicle?",
+     "questionKu": "کاتێک تریلەرێکی بێ بریک بە ئۆتۆمبێلێکەوە دەبەستیت، دەبێت چی بکەیت؟",
+     "correctAnswer": "Fit a secondary coupling device",
+     "correctAnswerKu": "ئامێرێکی بەستنەوەی دووەم دابنێ",
+     "explanationEn": "If the main hitch fails, the second one keeps the trailer attached to the car.",
+     "explanationKu": "ئەگەر بەستنەوە سەرەکییەکە شکا، ئەوەی دووەم تریلەرەکە بە ئۆتۆمبێلەکەوە دەهێڵێتەوە."
+    },
+    {
+     "id": 4,
+     "questionEn": "You're going to tow a trailer that's wider than your car. What must you fit to your car before you start towing it?",
+     "questionKu": "دەتەوێت تریلەرێک ڕابکێشیت کە لە ئۆتۆمبێلەکەت پانترە. پێش دەستپێکردن دەبێت چی بۆ ئۆتۆمبێلەکەت دابنێیت؟",
+     "correctAnswer": "Exterior towing mirrors",
+     "correctAnswerKu": "ئاوێنەی دەرەکیی ڕاکێشان",
+     "explanationEn": "Without them you cannot see down the side of the trailer at all.",
+     "explanationKu": "بەبێ ئەوان بە هیچ شێوەیەک ناتوانیت لای تریلەرەکە ببینیت."
+    },
+    {
+     "id": 5,
+     "questionEn": "What should you do if your trailer starts to swerve or snake?",
+     "questionKu": "ئەگەر تریلەرەکەت دەستی کرد بە لادان یان جوڵەی مارانە، دەبێت چی بکەیت؟",
+     "correctAnswer": "Reduce speed gently",
+     "correctAnswerKu": "بە نەرمی خێرایی کەم بکەرەوە",
+     "explanationEn": "Do not brake hard and do not steer against it: both make the swing worse.",
+     "explanationKu": "بە توندی بریک مەگرە و بە پێچەوانەشەوە ئاراستەی مەکە: هەردووکیان جوڵەکە خراپتر دەکەن."
+    },
+    {
+     "id": 6,
+     "questionEn": "How should a load be carried on your roof rack?",
+     "questionKu": "چۆن دەبێت بار لەسەر ڕەفەی سەربانی ئۆتۆمبێلەکەت هەڵبگیرێت؟",
+     "correctAnswer": "Securely fastened with suitable restraints",
+     "correctAnswerKu": "بە توندی و بە بەستەری گونجاو بەسترابێت",
+     "explanationEn": "An unsecured load can fly off and is an offence as well as a danger.",
+     "explanationKu": "باری نەبەستراو دەتوانێت بفڕێت و جگە لە مەترسی، تاوانیشە."
+    },
+    {
+     "id": 7,
+     "questionEn": "Are passengers allowed to ride in a caravan that's being towed?",
+     "questionKu": "ئایا بۆ سەرنشینان هەیە لە کاراڤانێکدا دابنیشن کە ڕادەکێشرێت؟",
+     "correctAnswer": "No, not at any time",
+     "correctAnswerKu": "نەخێر، لە هیچ کاتێکدا",
+     "explanationEn": "A caravan has no seat belts and no crash protection while it is moving.",
+     "explanationKu": "کاراڤان لە کاتی جوڵەدا نە پشتێنی سەلامەتی و نە پاراستنی پێکدادانی هەیە."
+    },
+    {
+     "id": 8,
+     "questionEn": "What's the minimum depth of tread on the tyres of a trailer?",
+     "questionKu": "کەمترین قووڵایی نەخشی تایەکانی تریلەر چەندە؟",
+     "correctAnswer": "1.6 mm",
+     "correctAnswerKu": "١.٦ ملم",
+     "explanationEn": "The same limit as a car's tyres, across the middle three-quarters of the tread.",
+     "explanationKu": "هەمان سنووری تایەکانی ئۆتۆمبێل، بەسەر سێ چارەکی ناوەڕاستی نەخشەکەدا."
+    },
+    {
+     "id": 9,
+     "questionEn": "What safety device must be fitted to a trailer braking system?",
+     "questionKu": "چ ئامێرێکی سەلامەتی دەبێت لە سیستەمی بریکی تریلەردا دابنرێت؟",
+     "correctAnswer": "Breakaway cable",
+     "correctAnswerKu": "کێبڵی جیابوونەوە",
+     "explanationEn": "If the trailer comes loose, the cable pulls its brakes on and stops it.",
+     "explanationKu": "ئەگەر تریلەرەکە جیا بووەوە، کێبڵەکە بریکەکانی ڕادەکێشێت و دەیوەستێنێت."
+    },
+    {
+     "id": 10,
+     "questionEn": "How should you load your trailer?",
+     "questionKu": "چۆن دەبێت تریلەرەکەت بار بکەیت؟",
+     "correctAnswer": "Put heavy items over the axles",
+     "correctAnswerKu": "شتە قورسەکان لەسەر تەوەرەکان دابنێ",
+     "explanationEn": "Weight at the front or the back of the trailer sets it snaking.",
+     "explanationKu": "کێش لە پێشەوە یان لە دواوەی تریلەرەکە وای لێدەکات بە شێوەی مارانە بجوڵێت."
+    },
+    {
+     "id": 11,
+     "questionEn": "You've just passed your driving test. What's the maximum authorised mass (MAM) of any trailer that you can tow?",
+     "questionKu": "تازە لە تاقیکردنەوەی شۆفێری سەرکەوتوو بوویت. زۆرترین کێشی ڕێپێدراو (MAM) ی ئەو تریلەرەی دەتوانیت ڕایبکێشیت چەندە؟",
+     "correctAnswer": "3,500 kg",
+     "correctAnswerKu": "٣٬٥٠٠ کیلۆگرام",
+     "explanationEn": "A category B licence now covers a car and trailer up to 3,500 kg MAM.",
+     "explanationKu": "مۆڵەتی پۆلی B ئێستا ئۆتۆمبێل و تریلەر دەگرێتەوە تا ٣٬٥٠٠ کیلۆگرام MAM."
+    },
+    {
+     "id": 12,
+     "questionEn": "When would you increase the pressure in your tyres so that it's above the normal value?",
+     "questionKu": "کەی پەستانی تایەکانت زیاد دەکەیت بۆ سەروو ئاستی ئاسایی؟",
+     "correctAnswer": "When carrying a heavy load",
+     "correctAnswerKu": "کاتێک باری قورس هەڵدەگریت",
+     "explanationEn": "The handbook gives a second, higher figure for a fully loaded vehicle.",
+     "explanationKu": "ڕێنمای ئۆتۆمبێلەکە ژمارەیەکی دووەمی بەرزتر دەدات بۆ ئۆتۆمبێلی بە تەواوی بارکراو."
+    },
+    {
+     "id": 13,
+     "questionEn": "You're planning to tow a caravan. What will help the handling of the combination?",
+     "questionKu": "پلانت هەیە کاراڤانێک ڕابکێشیت. چی یارمەتی بەڕێوەبردنی هەردووکیان پێکەوە دەدات؟",
+     "correctAnswer": "A stabiliser fitted to the tow bar",
+     "correctAnswerKu": "جێگیرکەرێک کە لەسەر بارەی ڕاکێشان دانراوە",
+     "explanationEn": "It damps the side-to-side movement before it turns into a snake.",
+     "explanationKu": "جوڵەی لا بۆ لا دەکوژێنێتەوە پێش ئەوەی ببێتە جوڵەی مارانە."
+    },
+    {
+     "id": 14,
+     "questionEn": "You're about to start a journey towing a trailer. What should you do if you notice that a light on your trailer is not working?",
+     "questionKu": "خەریکیت گەشتێک دەست پێبکەیت و تریلەرێک ڕادەکێشیت. ئەگەر بینیت چرایەکی تریلەرەکە کار ناکات، چی دەکەیت؟",
+     "correctAnswer": "Repair the fault before continuing with your journey",
+     "correctAnswerKu": "پێش بەردەوامبوون لە گەشتەکە عەیبەکە چاک بکە",
+     "explanationEn": "A trailer's lights are the only thing the traffic behind can see.",
+     "explanationKu": "چراکانی تریلەر تاکە شتن کە هاتوچۆی دواوە دەیانبینێت."
+    },
+    {
+     "id": 15,
+     "questionEn": "You're carrying a child under 3 years old in your car. Which restraint is suitable for a child of this age?",
+     "questionKu": "منداڵێکی خوار ٣ ساڵ لە ئۆتۆمبێلەکەتدا هەڵدەگریت. چ بەستەرێک گونجاوە بۆ ئەو تەمەنە؟",
+     "correctAnswer": "A child seat",
+     "correctAnswerKu": "کورسیی منداڵ",
+     "explanationEn": "An adult belt alone does not hold a small child safely.",
+     "explanationKu": "تەنها پشتێنی گەورەسالان منداڵێکی بچووک بە سەلامەتی ناگرێت."
+    },
+    {
+     "id": 16,
+     "questionEn": "How will a heavy load on your roof rack affect your vehicle's handling?",
+     "questionKu": "باری قورس لەسەر ڕەفەی سەربان چۆن کاریگەری لەسەر بەڕێوەبردنی ئۆتۆمبێلەکەت دەبێت؟",
+     "correctAnswer": "It will reduce stability",
+     "correctAnswerKu": "جێگیری کەم دەکاتەوە",
+     "explanationEn": "Weight up high makes the car lean more in bends and in a side wind.",
+     "explanationKu": "کێش لە بەرزاییدا وا دەکات ئۆتۆمبێلەکە لە خواروخێچ و بای لاوە زیاتر لار ببێتەوە."
+    },
+    {
+     "id": 17,
+     "questionEn": "What should you do if you're towing a trailer and it starts to swing from side to side?",
+     "questionKu": "ئەگەر تریلەرێک ڕادەکێشیت و دەستی کرد بە جوڵان لە لایەکەوە بۆ لایەکی تر، چی دەکەیت؟",
+     "correctAnswer": "Ease off the accelerator to reduce your speed",
+     "correctAnswerKu": "پێ لەسەر گازەکە هەڵگرە بۆ کەمکردنەوەی خێرایی",
+     "explanationEn": "Letting the speed fall on its own settles the trailer; braking does not.",
+     "explanationKu": "بەجێهێشتنی خێرایی بۆ ئەوەی خۆی کەم ببێتەوە تریلەرەکە هێمن دەکاتەوە؛ بریک نا."
+    },
+    {
+     "id": 18,
+     "questionEn": "What should you do before you tow a trailer for the first time?",
+     "questionKu": "پێش ئەوەی بۆ یەکەم جار تریلەرێک ڕابکێشیت، دەبێت چی بکەیت؟",
+     "correctAnswer": "Take professional training",
+     "correctAnswerKu": "ڕاهێنانی پیشەیی وەربگرە",
+     "explanationEn": "Reversing and judging the length of the combination are learned skills.",
+     "explanationKu": "گەڕانەوە بۆ دواوە و خەمڵاندنی درێژی هەردووکیان پێکەوە شارەزایین کە فێر دەبن."
+    },
+    {
+     "id": 19,
+     "questionEn": "Who's responsible for making sure that a vehicle is not overloaded?",
+     "questionKu": "کێ بەرپرسیارە لەوەی ئۆتۆمبێلێک زیاد بار نەکرابێت؟",
+     "correctAnswer": "The driver of the vehicle",
+     "correctAnswerKu": "شۆفێری ئۆتۆمبێلەکە",
+     "explanationEn": "It stays your responsibility even when somebody else loaded it.",
+     "explanationKu": "دەمێنێتەوە بە ئەستۆی تۆ تەنانەت ئەگەر کەسێکی تر بارەکەی کردبێت."
+    },
+    {
+     "id": 20,
+     "questionEn": "What restrictions apply if you're towing a trailer on a 3-lane motorway?",
+     "questionKu": "ئەگەر تریلەرێک لەسەر ئۆتۆبانێکی سێ ڕێڕەو ڕادەکێشیت، چ سنوورێک هەیە؟",
+     "correctAnswer": "You must not use the right-hand lane",
+     "correctAnswerKu": "نابێت ڕێڕەوی لای ڕاست بەکاربهێنیت",
+     "explanationEn": "Unless lanes are closed, the outside lane is closed to anything towing.",
+     "explanationKu": "مەگەر ڕێڕەوەکان داخرابن، ڕێڕەوی دەرەکی داخراوە بەڕووی هەر ئۆتۆمبێلێکی ڕاکێشەر."
+    },
+    {
+     "id": 21,
+     "questionEn": "You wish to tow a trailer. Where would you find the maximum noseweight for your vehicle's tow hitch?",
+     "questionKu": "دەتەوێت تریلەرێک ڕابکێشیت. زۆرترین کێشی لووتی بەستنەوەی ئۆتۆمبێلەکەت لەکوێ دەدۆزیتەوە؟",
+     "correctAnswer": "In the vehicle handbook",
+     "correctAnswerKu": "لە ڕێنمای ئۆتۆمبێلەکەدا",
+     "explanationEn": "Noseweight is what the trailer presses down on the tow ball, and every car has its own limit.",
+     "explanationKu": "کێشی لووت ئەوەیە کە تریلەرەکە لەسەر تۆپی ڕاکێشان دایدەگرێت، و هەر ئۆتۆمبێلێک سنووری خۆی هەیە."
+    }
+   ]
+  }
+ ]
+}
