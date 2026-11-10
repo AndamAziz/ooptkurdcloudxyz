@@ -30,12 +30,23 @@ enum class MediaType(val apiValue: String) {
 
     companion object {
         fun fromApi(value: String?): MediaType? = entries.firstOrNull { it.apiValue == value }
+
+        /**
+         * The kind of file a storage path holds. Driving-theory questions carry a path and no
+         * type of their own, so the extension is what says whether to show a picture or play a
+         * clip; anything unknown is treated as a picture, which fails visibly rather than
+         * silently.
+         */
+        fun ofPath(path: String): MediaType =
+            if (path.substringAfterLast('.', "").lowercase() in VIDEO_EXTENSIONS) VIDEO else IMAGE
+
+        private val VIDEO_EXTENSIONS = setOf("mp4", "m4v", "webm", "3gp")
     }
 }
 
 /**
  * A picture or short video attached to a question. [url] is the public storage URL; [localPath]
- * is set when the file was saved with the downloaded level pack (pictures only), so it works offline.
+ * is set when the file was saved with the downloaded pack, so it works offline.
  */
 data class QuestionMedia(val type: MediaType, val url: String, val caption: String?, val localPath: String? = null)
 

@@ -34,6 +34,7 @@ SOURCES = [
     ROOT / "content" / "theory" / "essential-documents.json",
     ROOT / "content" / "theory" / "incidents.json",
     ROOT / "content" / "theory" / "vehicle-loading.json",
+    ROOT / "content" / "theory" / "video-clips.json",
 ]
 
 # The source names its chapters; the database keys them by slug. Keep in step with
@@ -53,6 +54,7 @@ SLUGS = {
     "Essential Documents": "essential-documents",
     "Incidents, Accidents and Emergencies": "incidents",
     "Vehicle Loading": "vehicle-loading",
+    "Video Clips": "video-clips",
 }
 
 URL = os.environ["SUPABASE_URL"].rstrip("/")
@@ -131,7 +133,7 @@ def rows() -> list[dict]:
                 prompt, answer = text(question.get("questionEn")), text(question.get("correctAnswer"))
                 if not prompt or not answer:
                     raise SystemExit(f"{slug} #{question['id']} has an empty question or answer")
-                # A sign question is the picture: without it there is nothing to answer.
+                # A sign or clip question is its media: without it there is nothing to answer.
                 media = text(question.get("media"))
                 if media and not (ROOT / "content" / "media" / media).is_file():
                     raise SystemExit(f"{slug} #{question['id']} names {media}, which is not in content/media")
