@@ -29,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -134,7 +135,11 @@ private fun TheoryCard(state: TheorySessionUiState, viewModel: TheorySessionView
             ListenControls(questionId, questionParts)
             // The questions are English: keep them left-to-right inside the Sorani interface.
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-                question.media?.let { QuestionMediaView(it, stringResource(R.string.practice_media_unavailable)) }
+                // Keyed on the question so a clip shared by several questions starts again on each
+                // of them, rather than staying on the frame the question before it ended on.
+                key(question.id) {
+                    question.media?.let { QuestionMediaView(it, stringResource(R.string.practice_media_unavailable)) }
+                }
                 Text(
                     question.prompt,
                     style = LearningType.question,

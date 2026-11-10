@@ -1,0 +1,1 @@
+- Fixed the video questions: every question in chapter 15 played the first clip. Three questions share a clip and then the next clip follows, and each question now starts its own clip from the beginning.
