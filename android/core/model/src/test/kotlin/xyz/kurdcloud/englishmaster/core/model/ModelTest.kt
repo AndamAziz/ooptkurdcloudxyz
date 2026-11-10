@@ -42,4 +42,15 @@ class ModelTest {
         assertFalse(s.expiresWithin(60, nowEpochSeconds = 900))
         assertFalse(s.toString().contains("secret"))
     }
+
+    @Test
+    fun `media kind comes from the file extension`() {
+        assertEquals(MediaType.VIDEO, MediaType.ofPath("theory/clips/road-overtaking.mp4"))
+        assertEquals(MediaType.VIDEO, MediaType.ofPath("theory/clips/ROAD.MP4"))
+        assertEquals(MediaType.VIDEO, MediaType.ofPath("clip.webm"))
+        assertEquals(MediaType.IMAGE, MediaType.ofPath("theory/signs/give-way.png"))
+        assertEquals(MediaType.IMAGE, MediaType.ofPath("theory/incidents/tanker-signs.jpg"))
+        // A path with no extension at all is a picture, which fails visibly rather than silently.
+        assertEquals(MediaType.IMAGE, MediaType.ofPath("mp4"))
+    }
 }

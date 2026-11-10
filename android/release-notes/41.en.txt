@@ -1,0 +1,2 @@
+- Chapter 15, Video clips: the first video questions. You watch a short clip and answer three questions about what it showed, the way the real test asks them.
+- Driving theory questions can now carry a video, not only a picture. The clip is saved with the chapter, so it plays without a connection.

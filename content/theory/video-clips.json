@@ -1,0 +1,72 @@
+{
+ "source": "UK driving theory test, Video Clips",
+ "totalSections": 1,
+ "totalQuestions": 6,
+ "sections": [
+  {
+   "category": "Video Clips",
+   "questions": [
+    {
+     "id": 1,
+     "questionEn": "What do the white diagonal stripe markings in the middle of the road mean?",
+     "questionKu": "هێڵە سپییە لارەکانی ناوەڕاستی ڕێگا چی دەگەیەنن؟",
+     "correctAnswer": "You should not enter the area unless it's necessary and you can see it's safe",
+     "correctAnswerKu": "نابێت بچیتە ناو ئەو ناوچەیە مەگەر پێویست بێت و ببینیت کە سەلامەتە",
+     "explanationEn": "The stripes separate the two directions and give you room only when you really need it.",
+     "explanationKu": "هێڵەکان دوو ئاراستەکە لە یەک جیا دەکەنەوە و تەنها کاتێک شوێنت دەدەنێ کە بەڕاستی پێویستت بێت.",
+     "media": "theory/clips/road-overtaking.mp4"
+    },
+    {
+     "id": 2,
+     "questionEn": "What is the speed limit on this road for the car towing the caravan?",
+     "questionKu": "سنووری خێرایی لەسەر ئەم ڕێگایە چەندە بۆ ئەو ئۆتۆمبێلەی کاراڤان ڕادەکێشێت؟",
+     "correctAnswer": "50 mph",
+     "correctAnswerKu": "٥٠ میل لە کاتژمێرێکدا",
+     "explanationEn": "A single carriageway's 60 mph limit drops to 50 for anything towing.",
+     "explanationKu": "سنووری ٦٠ میلی ڕێگای تاک ڕێڕەو بۆ هەر ئۆتۆمبێلێکی ڕاکێشەر دەبێتە ٥٠.",
+     "media": "theory/clips/road-overtaking.mp4"
+    },
+    {
+     "id": 3,
+     "questionEn": "Why is it dangerous to overtake near a junction?",
+     "questionKu": "بۆچی مەترسیدارە لە نزیک چوارڕیانەوە تێپەڕاندن بکەیت؟",
+     "correctAnswer": "A driver waiting to emerge might not see you",
+     "correctAnswerKu": "لەوانەیە شۆفێرێکی چاوەڕێی دەرچوون نەتبینێت",
+     "explanationEn": "They are looking for the vehicle you are passing, not for one beside it.",
+     "explanationKu": "ئەوان چاوەڕێی ئەو ئۆتۆمبێلەن کە تۆ تێیدەپەڕێنیت، نەک ئەوەی لە تەنیشتیەوەیە.",
+     "media": "theory/clips/road-overtaking.mp4"
+    },
+    {
+     "id": 4,
+     "questionEn": "What do the yellow lines along the edge of the road mean?",
+     "questionKu": "هێڵە زەردەکانی لای ڕێگا چی دەگەیەنن؟",
+     "correctAnswer": "No waiting",
+     "correctAnswerKu": "ڕاوەستان قەدەغەیە",
+     "explanationEn": "They stop you waiting there; the plate on the kerb says during which hours.",
+     "explanationKu": "ڕێگات لێدەگرن لەوێ ڕابوەستیت؛ تابلۆکەی سەر قەراغەکە دەڵێت لە چ کاتژمێرێکدا.",
+     "media": "theory/clips/town-roundabout.mp4"
+    },
+    {
+     "id": 5,
+     "questionEn": "Why does the cyclist take the longer route around the roundabout?",
+     "questionKu": "بۆچی دوچەرخەسوارەکە ڕێگای درێژتر بە دەوری چوارڕیانە بازنەییەکەدا دەگرێت؟",
+     "correctAnswer": "Cyclists may keep to the left for safety",
+     "correctAnswerKu": "دوچەرخەسواران بۆ سەلامەتی لە لای چەپ دەمێننەوە",
+     "explanationEn": "Crossing to the right-hand lane would put them across the path of faster traffic.",
+     "explanationKu": "پەڕینەوە بۆ ڕێڕەوی لای ڕاست دەیانخاتە بەردەم هاتوچۆی خێراتر.",
+     "media": "theory/clips/town-roundabout.mp4"
+    },
+    {
+     "id": 6,
+     "questionEn": "Why has the bus driver positioned the bus on the left?",
+     "questionKu": "بۆچی شۆفێری پاسەکە پاسەکەی لە لای چەپ داناوە؟",
+     "correctAnswer": "The bus needs extra room to get around the roundabout",
+     "correctAnswerKu": "پاسەکە شوێنی زیاتری دەوێت بۆ سوڕانەوە بە دەوری چوارڕیانەکەدا",
+     "explanationEn": "A long vehicle swings wide, so never come up its inside.",
+     "explanationKu": "ئۆتۆمبێلی درێژ پان دەسوڕێتەوە، بۆیە هەرگیز لە ناوەوەیەوە مەچۆ.",
+     "media": "theory/clips/town-roundabout.mp4"
+    }
+   ]
+  }
+ ]
+}

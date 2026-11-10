@@ -41,6 +41,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import xyz.kurdcloud.englishmaster.core.model.MediaType
 import xyz.kurdcloud.englishmaster.core.model.QuestionMedia
+import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -69,8 +70,8 @@ fun PassageCard(passage: String, modifier: Modifier = Modifier, speakId: String?
 }
 
 /**
- * Picture or short video attached to a question. Pictures come from the copy saved with the level
- * pack when available, otherwise from the network; videos are streamed with the system player.
+ * Picture or short video attached to a question. Both come from the copy saved with the
+ * downloaded pack when there is one, otherwise from the network.
  */
 @Composable
 fun QuestionMediaView(media: QuestionMedia, unavailableText: String, modifier: Modifier = Modifier) {
@@ -132,7 +133,9 @@ private fun QuestionVideo(media: QuestionMedia, modifier: Modifier) {
                 val controller = MediaController(context)
                 controller.setAnchorView(this)
                 setMediaController(controller)
-                setVideoURI(Uri.parse(media.url))
+                // The copy saved with the chapter plays without a connection; the network URL
+                // is the fallback for a clip that was not saved.
+                setVideoURI(media.localPath?.let { Uri.fromFile(File(it)) } ?: Uri.parse(media.url))
                 // Short clips play once on their own; the controls (tap the video) replay them.
                 setOnPreparedListener { start() }
             }

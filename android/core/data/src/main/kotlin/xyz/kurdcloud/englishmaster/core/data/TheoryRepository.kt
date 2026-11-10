@@ -130,8 +130,8 @@ class OfflineFirstTheoryRepository(
             after = page.last().id
         }
         val now = nowMillis()
-        // Pictures are saved with the chapter so it works offline; one that fails to download is
-        // shown from the network instead.
+        // Pictures and clips are saved with the chapter so it works offline; one that fails to
+        // download is shown from the network instead.
         dao.upsertQuestions(collected.map { it.toEntity(now, it.mediaPath?.let { path -> media?.cache(path) }) })
         // Questions the chapter no longer has go; answers to them stay, as the server keeps them too.
         if (collected.isNotEmpty()) dao.removeQuestionsOtherThan(slug, collected.map { it.id })
@@ -289,6 +289,6 @@ internal fun TheoryQuestionEntity.toModel(media: MediaFiles?) = TheoryQuestion(
     correctOption = correctOption,
     explanation = explanation,
     explanationCkb = explanationCkb,
-    media = questionMedia(MediaType.IMAGE.apiValue, mediaPath, null, mediaLocal, media),
+    media = questionMedia(mediaPath?.let { MediaType.ofPath(it).apiValue }, mediaPath, null, mediaLocal, media),
     version = version,
 )
