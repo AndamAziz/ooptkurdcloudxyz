@@ -210,10 +210,13 @@ publishes the chapter:
 * `content/theory/vehicle-loading.json` — 21 questions for chapter 14 on towing, trailers, roof
   loads and who is responsible for an overloaded vehicle, English with a Sorani translation and an
   explanation.
-* `content/theory/video-clips.json` — 6 questions for chapter 15, each one about a clip in
-  `content/media/theory/clips/`. Two clips carry three questions each, as the real test does: the
+* `content/theory/video-clips.json` — 27 questions for chapter 15, each one about a clip in
+  `content/media/theory/clips/`. Nine clips carry three questions each, as the real test does: the
   learner watches the clip and answers what it showed. The app decides from the file extension
-  that the media is a clip rather than a picture, so no column says so.
+  that the media is a clip rather than a picture, so no column says so. The file is in the order
+  the questions are shown, but a question's `id` is not that order: it is what `external_ref` keys
+  the row by, so a question keeps the id it was first inserted with and the answers learners have
+  given stay with the question they answered.
 * `content/theory/road-and-traffic-signs.json` — 150 questions for chapter 11, each one a picture of
   a sign with its meaning and a short explanation in both languages. The pictures live in
   `content/media/theory/signs/` and are uploaded to the `question-media` bucket by
