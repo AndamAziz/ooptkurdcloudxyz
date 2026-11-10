@@ -40,7 +40,18 @@ data class TheoryUiState(
 
     /** Chapters that have questions on the server but are not saved on the device yet. */
     val missing: List<TheorySection> get() = sections.filter { !it.isEmpty && (saved[it.slug] ?: 0) == 0 }
+
+    /**
+     * Chapters the device does not hold in full: never downloaded, or downloaded before questions
+     * were added to them. A chapter that is only partly saved used to count as done, so questions
+     * published after a learner's download never reached them.
+     */
+    val outOfDate: List<TheorySection> get() = sections.filter { !it.isEmpty && (saved[it.slug] ?: 0) < it.published }
+
     fun isSaved(section: TheorySection): Boolean = (saved[section.slug] ?: 0) > 0
+
+    /** True when the device holds some of a chapter but not the questions added since. */
+    fun hasMore(section: TheorySection): Boolean = (saved[section.slug] ?: 0) in 1 until section.published
 }
 
 /**
@@ -105,7 +116,9 @@ class TheoryViewModel(
                     transient.update { it.copy(message = UiMessage(R.string.practice_download_failed_network)) }
                     return@launch
                 }
-                val wanted = uiState.value.sections.filter { !it.isEmpty }
+                // Only the chapters that are behind: the others are already on the device, and a
+                // chapter of video clips is megabytes to fetch again for nothing.
+                val wanted = uiState.value.outOfDate
                 var questions = 0
                 wanted.forEachIndexed { index, section ->
                     transient.update { it.copy(downloading = TheoryDownload(index, wanted.size)) }

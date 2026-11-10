@@ -1,0 +1,1 @@
+- Fixed chapters not picking up new questions. A chapter you had already downloaded counted as complete, so questions published afterwards never reached your device: chapter 15 stayed at 6 questions instead of 27. The course page now offers to fetch what is new, and downloads only the chapters that are behind.

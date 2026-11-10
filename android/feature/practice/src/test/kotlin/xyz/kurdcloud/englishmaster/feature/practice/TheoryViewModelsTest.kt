@@ -164,4 +164,33 @@ class TheoryViewModelsTest {
 
         assertEquals(TheoryPhase.EMPTY, vm.uiState.value.phase)
     }
+
+    /**
+     * A chapter the learner downloaded when it held six questions, now that the course publishes
+     * twenty-seven. It used to count as saved and was never fetched again, so the questions added
+     * since never reached the device.
+     */
+    @Test
+    fun `a chapter that gained questions is downloaded again`() = runTest {
+        val clips = (1..27).map { theoryQuestion("c$it", section = "video-clips") }
+        val repo = FakeTheory(
+            chapters = mapOf("video-clips" to clips),
+            sections = listOf(TheorySection("video-clips", "Video clips", "ڤیدیۆکان", published = 27, answered = 0, correct = 0)),
+            alreadySaved = mapOf("video-clips" to 6),
+        )
+        val vm = TheoryViewModel(repo, FakeNetwork())
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.uiState.collect {} }
+
+        val before = vm.uiState.value
+        // It is on the device, so it is not missing - but it is behind, and the card says so.
+        assertTrue(before.missing.isEmpty())
+        assertEquals(listOf("video-clips"), before.outOfDate.map { it.slug })
+        assertTrue(before.hasMore(before.sections.single()))
+
+        vm.downloadAll()
+        val after = vm.uiState.value
+        assertEquals(27, after.saved["video-clips"])
+        assertTrue(after.outOfDate.isEmpty())
+        assertFalse(after.hasMore(after.sections.single()))
+    }
 }

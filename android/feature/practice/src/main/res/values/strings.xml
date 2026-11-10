@@ -261,6 +261,8 @@
     <string name="theory_downloading">Downloading chapter %1$d of %2$d…</string>
     <string name="theory_download_body">Download the questions once; after that the whole course works offline.</string>
     <string name="theory_download">Download the questions</string>
+    <string name="theory_update_body">New questions have been added to the course. Download them to study them.</string>
+    <string name="theory_update">Get the new questions</string>
     <plurals name="theory_download_done">
         <item quantity="one">%1$d question downloaded.</item>
         <item quantity="other">%1$d questions downloaded.</item>
