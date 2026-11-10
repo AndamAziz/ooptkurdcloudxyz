@@ -205,7 +205,8 @@ private fun TheoryMockCard(onStart: () -> Unit) {
 private fun TheoryDownloadCard(state: TheoryUiState, onDownload: () -> Unit) {
     val downloading = state.downloading
     val missing = state.missing.size
-    if (downloading == null && missing == 0 && state.pending == 0) return
+    val behind = state.outOfDate.size - missing
+    if (downloading == null && missing == 0 && behind == 0 && state.pending == 0) return
     Card(shape = RoundedCornerShape(20.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh)) {
         Column(Modifier.padding(16.dp).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             when {
@@ -220,6 +221,13 @@ private fun TheoryDownloadCard(state: TheoryUiState, onDownload: () -> Unit) {
                     Text(stringResource(R.string.theory_download_body), style = MaterialTheme.typography.bodyMedium)
                     Button(onClick = onDownload, modifier = Modifier.testTag("theory_download")) {
                         Text(stringResource(R.string.theory_download))
+                    }
+                }
+                // Questions were published after this device downloaded the chapter.
+                behind > 0 -> {
+                    Text(stringResource(R.string.theory_update_body), style = MaterialTheme.typography.bodyMedium)
+                    Button(onClick = onDownload, modifier = Modifier.testTag("theory_download")) {
+                        Text(stringResource(R.string.theory_update))
                     }
                 }
                 else -> Text(

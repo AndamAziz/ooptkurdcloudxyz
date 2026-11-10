@@ -101,9 +101,11 @@ fun theoryQuestion(id: String, answer: String = "Answer $id", section: String = 
 class FakeTheory(
     private val chapters: Map<String, List<TheoryQuestion>> = emptyMap(),
     sections: List<TheorySection> = emptyList(),
+    /** What the device already holds, for a chapter downloaded before questions were added. */
+    alreadySaved: Map<String, Int> = emptyMap(),
 ) : TheoryRepository {
     private val sectionRows = MutableStateFlow(sections)
-    private val saved = MutableStateFlow(emptyMap<String, Int>())
+    private val saved = MutableStateFlow(alreadySaved)
     val recorded = mutableListOf<Triple<String, Boolean, TheoryMode>>()
     var refreshResult: ApiResult<Int> = ApiResult.Success(0)
     var downloadResult: ApiResult<Int>? = null
