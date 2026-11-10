@@ -11,6 +11,10 @@ import xyz.kurdcloud.englishmaster.core.model.LevelPack
 import xyz.kurdcloud.englishmaster.core.model.PackVersion
 import xyz.kurdcloud.englishmaster.core.model.Question
 import xyz.kurdcloud.englishmaster.core.model.QuestionUpdateState.Result
+import xyz.kurdcloud.englishmaster.core.model.TheoryMode
+import xyz.kurdcloud.englishmaster.core.model.TheoryQuestion
+import xyz.kurdcloud.englishmaster.core.model.TheorySection
+import xyz.kurdcloud.englishmaster.core.model.TheoryTestItem
 import xyz.kurdcloud.englishmaster.core.network.ApiError
 import xyz.kurdcloud.englishmaster.core.network.ApiResult
 
@@ -111,5 +115,65 @@ class QuestionUpdaterTest {
         now = QuestionUpdater.AUTO_INTERVAL_MILLIS
         u.autoUpdate(); advanceUntilIdle()
         assertEquals(2, content.downloaded.size)
+    }
+
+    /** Only what the updater reads: what each chapter publishes and what the device holds. */
+    private class Theory(private val sections: List<TheorySection>, private val saved: Map<String, Int>) : TheoryRepository {
+        val downloaded = mutableListOf<String>()
+        override fun observeSections() = kotlinx.coroutines.flow.flowOf(sections)
+        override fun observeDownloadCounts() = kotlinx.coroutines.flow.flowOf(saved)
+        override suspend fun refreshSections(): ApiResult<Int> = ApiResult.Success(sections.size)
+        override suspend fun downloadSection(slug: String): ApiResult<Int> {
+            downloaded += slug
+            return ApiResult.Success(sections.first { it.slug == slug }.published)
+        }
+        override suspend fun deck(slug: String) = emptyList<TheoryQuestion>()
+        override suspend fun testRound(slug: String) = emptyList<TheoryTestItem>()
+        override suspend fun mockTest() = emptyList<TheoryTestItem>()
+        override suspend fun savedQuestionCount() = saved.values.sum()
+        override suspend fun record(question: TheoryQuestion, isCorrect: Boolean, mode: TheoryMode) = Unit
+        override suspend fun resetSection(slug: String): ApiResult<Unit> = ApiResult.Success(Unit)
+        override fun observePendingCount() = kotlinx.coroutines.flow.flowOf(0)
+        override suspend fun syncNow() = 0
+    }
+
+    @Test
+    fun updatingAlsoFetchesTheoryChaptersThatGainedQuestions() = runTest {
+        // Every pack is current, so without the theory chapters this run would report up to date.
+        val content = Content(ApiResult.Success(server), server.toMutableList())
+        val theory = Theory(
+            sections = listOf(
+                // Downloaded at six questions, twenty-seven published since.
+                TheorySection("video-clips", "Video clips", null, published = 27, answered = 0, correct = 0),
+                TheorySection("alertness", "Alertness", null, published = 26, answered = 0, correct = 0),
+                // Never downloaded: the course page's own download is the learner's to ask for.
+                TheorySection("attitude", "Attitude", null, published = 38, answered = 0, correct = 0),
+            ),
+            saved = mapOf("video-clips" to 6, "alertness" to 26),
+        )
+        val u = QuestionUpdater(content, Online(true), this, { 0 }, theory)
+
+        u.updateAll()
+        advanceUntilIdle()
+
+        assertEquals(listOf("video-clips"), theory.downloaded)
+        assertEquals(Result.UPDATED, u.state.value.result)
+        assertEquals(27, u.state.value.updatedQuestions)
+    }
+
+    @Test
+    fun withNothingBehindTheRunStillReportsUpToDate() = runTest {
+        val content = Content(ApiResult.Success(server), server.toMutableList())
+        val theory = Theory(
+            sections = listOf(TheorySection("alertness", "Alertness", null, published = 26, answered = 0, correct = 0)),
+            saved = mapOf("alertness" to 26),
+        )
+        val u = QuestionUpdater(content, Online(true), this, { 0 }, theory)
+
+        u.updateAll()
+        advanceUntilIdle()
+
+        assertEquals(emptyList<String>(), theory.downloaded)
+        assertEquals(Result.UP_TO_DATE, u.state.value.result)
     }
 }

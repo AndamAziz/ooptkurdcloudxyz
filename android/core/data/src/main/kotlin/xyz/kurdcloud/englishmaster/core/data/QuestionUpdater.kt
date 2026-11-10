@@ -5,6 +5,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import xyz.kurdcloud.englishmaster.core.model.CefrLevel
@@ -21,12 +22,19 @@ import xyz.kurdcloud.englishmaster.core.network.ApiResult
  * changed and downloads the ones not on the device yet. [autoUpdate] runs in the background
  * when the app is online and refreshes only packs already downloaded, so newly published
  * questions reach learners without them doing anything.
+ *
+ * Driving theory chapters are kept in step too, for the chapters the learner has downloaded: a
+ * button that says it updates all the questions has to mean all of them, and a chapter that
+ * gained questions after it was downloaded would otherwise sit at the count it was downloaded
+ * at. A chapter never downloaded is left to the course page, whose own download is megabytes of
+ * video clips and is the learner's to ask for.
  */
 class QuestionUpdater(
     private val content: ContentRepository,
     private val network: NetworkMonitor,
     private val scope: CoroutineScope,
     private val clock: () -> Long = System::currentTimeMillis,
+    private val theory: TheoryRepository? = null,
 ) {
     private val mutableState = MutableStateFlow(QuestionUpdateState())
     val state: StateFlow<QuestionUpdateState> = mutableState.asStateFlow()
@@ -58,6 +66,16 @@ class QuestionUpdater(
         job = scope.launch { run(manual) }
     }
 
+    /** Theory chapters the device holds only part of, because questions were published since. */
+    private suspend fun theoryChaptersBehind(): List<String> {
+        val repo = theory ?: return emptyList()
+        if (repo.refreshSections() is ApiResult.Failure) return emptyList()
+        val saved = repo.observeDownloadCounts().first()
+        return repo.observeSections().first()
+            .filter { (saved[it.slug] ?: 0) in 1 until it.published }
+            .map { it.slug }
+    }
+
     private suspend fun run(manual: Boolean) {
         val server = when (val r = content.serverVersions()) {
             is ApiResult.Success -> r.value.associateBy { it.level }
@@ -73,13 +91,22 @@ class QuestionUpdater(
                 else -> (local[level]?.questions ?: 0) > 0
             }
         }.sortedBy { it.ordinal }
-        if (targets.isEmpty()) return finish(Result.UP_TO_DATE, 0)
+        val chapters = theoryChaptersBehind()
+        if (targets.isEmpty() && chapters.isEmpty()) return finish(Result.UP_TO_DATE, 0)
 
-        mutableState.update { it.copy(total = targets.size) }
+        mutableState.update { it.copy(total = targets.size + chapters.size) }
         var questions = 0
         targets.forEachIndexed { i, level ->
             mutableState.update { it.copy(current = level, done = i) }
             when (val r = content.downloadLevel(level)) {
+                is ApiResult.Success -> questions += r.value
+                is ApiResult.Failure -> return finish(failure(r.error), questions)
+            }
+        }
+        chapters.forEachIndexed { i, slug ->
+            // A chapter is not one of the levels, so there is no level to name while it downloads.
+            mutableState.update { it.copy(current = null, done = targets.size + i) }
+            when (val r = theory?.downloadSection(slug) ?: return@forEachIndexed) {
                 is ApiResult.Success -> questions += r.value
                 is ApiResult.Failure -> return finish(failure(r.error), questions)
             }
