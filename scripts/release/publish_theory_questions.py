@@ -33,6 +33,7 @@ SOURCES = [
     ROOT / "content" / "theory" / "road-and-traffic-signs.json",
     ROOT / "content" / "theory" / "essential-documents.json",
     ROOT / "content" / "theory" / "incidents.json",
+    ROOT / "content" / "theory" / "vehicle-loading.json",
 ]
 
 # The source names its chapters; the database keys them by slug. Keep in step with
@@ -51,6 +52,7 @@ SLUGS = {
     "Road and Traffic Signs": "road-and-traffic-signs",
     "Essential Documents": "essential-documents",
     "Incidents, Accidents and Emergencies": "incidents",
+    "Vehicle Loading": "vehicle-loading",
 }
 
 URL = os.environ["SUPABASE_URL"].rstrip("/")
