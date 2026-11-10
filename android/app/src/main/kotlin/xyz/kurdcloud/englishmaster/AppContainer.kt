@@ -61,8 +61,6 @@ class AppContainer(context: Context) {
     val content: ContentRepository = OfflineFirstContentRepository(
         services.practice, database.questions(), database.levelPacks(), database.content(), media = media,
     )
-    /** Refreshes downloaded question packs; outlives screens so an update is not cut short. */
-    val questionUpdater = QuestionUpdater(content, network, CoroutineScope(SupervisorJob() + Dispatchers.IO))
     val staff: StaffRepository = SupabaseStaffRepository(services.staff, media)
     val learning: LearningRepository = SupabaseLearningRepository(services.learning, media)
     val updates: UpdateRepository = SupabaseUpdateRepository(
@@ -81,4 +79,8 @@ class AppContainer(context: Context) {
     val practice: PracticeRepository =
         OfflineFirstPracticeRepository(database.responses(), syncer, { syncScheduler.requestSync() }, network)
     val theory: TheoryRepository = OfflineFirstTheoryRepository(services.practice, database.theory(), network, media)
+
+    /** Refreshes downloaded question packs and theory chapters; outlives screens so an update is
+     *  not cut short. */
+    val questionUpdater = QuestionUpdater(content, network, CoroutineScope(SupervisorJob() + Dispatchers.IO), theory = theory)
 }

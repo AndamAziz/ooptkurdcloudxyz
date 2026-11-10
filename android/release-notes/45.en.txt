@@ -1,0 +1,1 @@
+- "Update all questions" now updates the driving theory chapters too, and so does the background check. Until now it only covered the English levels and Life in the UK, so it reported everything up to date while a theory chapter was missing questions published after you downloaded it.
