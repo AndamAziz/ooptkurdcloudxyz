@@ -23,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -126,20 +127,26 @@ private fun QuestionImage(media: QuestionMedia, unavailableText: String, modifie
 
 @Composable
 private fun QuestionVideo(media: QuestionMedia, modifier: Modifier) {
-    AndroidView(
-        modifier = modifier.testTag("question_video").semantics { contentDescription = media.caption ?: "video" },
-        factory = { context ->
-            VideoView(context).apply {
-                val controller = MediaController(context)
-                controller.setAnchorView(this)
-                setMediaController(controller)
-                // The copy saved with the chapter plays without a connection; the network URL
-                // is the fallback for a clip that was not saved.
-                setVideoURI(media.localPath?.let { Uri.fromFile(File(it)) } ?: Uri.parse(media.url))
-                // Short clips play once on their own; the controls (tap the video) replay them.
-                setOnPreparedListener { start() }
-            }
-        },
-        onRelease = { it.stopPlayback() },
-    )
+    // The copy saved with the chapter plays without a connection; the network URL is the
+    // fallback for a clip that was not saved.
+    val uri = media.localPath?.let { Uri.fromFile(File(it)) } ?: Uri.parse(media.url)
+    // Moving to the next question reuses the player that is already on screen, and a VideoView
+    // keeps whatever clip it was built with. Keyed on the clip, a different one gets a player of
+    // its own, so a chapter of several clips does not show the first one on every question.
+    key(uri) {
+        AndroidView(
+            modifier = modifier.testTag("question_video").semantics { contentDescription = media.caption ?: "video" },
+            factory = { context ->
+                VideoView(context).apply {
+                    val controller = MediaController(context)
+                    controller.setAnchorView(this)
+                    setMediaController(controller)
+                    setVideoURI(uri)
+                    // Short clips play once on their own; the controls (tap the video) replay them.
+                    setOnPreparedListener { start() }
+                }
+            },
+            onRelease = { it.stopPlayback() },
+        )
+    }
 }
