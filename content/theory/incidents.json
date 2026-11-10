@@ -1,0 +1,531 @@
+{
+ "source": "UK driving theory test, Incidents, Accidents and Emergencies",
+ "totalSections": 1,
+ "totalQuestions": 56,
+ "sections": [
+  {
+   "category": "Incidents, Accidents and Emergencies",
+   "questions": [
+    {
+     "id": 1,
+     "questionEn": "You're asked to fetch a defibrillator (AED). What's the best way to find the nearest AED?",
+     "questionKu": "داوات لێدەکرێت دیفیبریلەیتەرێک (AED) بهێنیت. باشترین ڕێگا بۆ دۆزینەوەی نزیکترینیان چییە؟",
+     "correctAnswer": "The 999 operator will direct you",
+     "correctAnswerKu": "کارمەندی ٩٩٩ ئاراستەت دەکات",
+     "explanationEn": "They have the register of public defibrillators and the code to unlock the cabinet.",
+     "explanationKu": "ئەوان لیستی دیفیبریلەیتەرە گشتییەکان و کۆدی کردنەوەی سندوقەکەیان هەیە."
+    },
+    {
+     "id": 2,
+     "questionEn": "You arrive at the scene of a motorcycle crash. No other vehicle is involved. The rider is unconscious and lying in the middle of the road. What's the first thing you should do at the scene?",
+     "questionKu": "دەگەیتە شوێنی ڕووداوێکی مۆتۆرسیکل. هیچ ئۆتۆمبێلێکی تر تێوەگلاو نییە. سوارەکە بێهۆشە و لە ناوەڕاستی ڕێگادا کەوتووە. یەکەم کار چییە؟",
+     "correctAnswer": "Warn other traffic",
+     "correctAnswerKu": "ئاگاداری هاتوچۆی تر بکەرەوە",
+     "explanationEn": "Another vehicle hitting them would turn one casualty into several.",
+     "explanationKu": "ئۆتۆمبێلێکی تر ئەگەر لێی بدات، یەک برینداری دەکاتە چەندین."
+    },
+    {
+     "id": 3,
+     "questionEn": "You're going through a long tunnel. What will warn you of congestion or an incident ahead?",
+     "questionKu": "بەناو تونێلێکی درێژدا دەڕۆیت. چی ئاگادارت دەکاتەوە لە قەرەباڵغی یان ڕووداو لە پێشەوە؟",
+     "correctAnswer": "Variable message signs",
+     "correctAnswerKu": "تابلۆی پەیامی گۆڕاو",
+     "explanationEn": "They are updated live, so they show what is happening right now in the tunnel.",
+     "explanationKu": "ڕاستەوخۆ نوێ دەکرێنەوە، بۆیە ئەوە پیشان دەدەن کە ئێستا لە تونێلەکەدا ڕوودەدات."
+    },
+    {
+     "id": 4,
+     "questionEn": "You arrive at the scene of a motorcycle crash. The rider is injured. When should their helmet be removed?",
+     "questionKu": "دەگەیتە شوێنی ڕووداوێکی مۆتۆرسیکل. سوارەکە بریندارە. کەی دەبێت کڵاوەکەی لابدرێت؟",
+     "correctAnswer": "Only when it's essential",
+     "correctAnswerKu": "تەنها کاتێک زۆر پێویست بێت",
+     "explanationEn": "Leave it to the ambulance crew unless the airway cannot be opened any other way.",
+     "explanationKu": "بیهێڵەرەوە بۆ تیمی فریاگوزاری مەگەر بە ڕێگایەکی تر ڕێڕەوی هەناسە نەکرێتەوە."
+    },
+    {
+     "id": 5,
+     "questionEn": "There's been a collision. A motorcyclist is lying injured and unconscious. Why should you only remove their helmet if it's essential?",
+     "questionKu": "پێکدادانێک ڕوویداوە. مۆتۆرسوارێک بریندار و بێهۆش کەوتووە. بۆچی تەنها کاتی پێویست دەبێت کڵاوەکەی لابدەیت؟",
+     "correctAnswer": "Removing it could make any injuries worse",
+     "correctAnswerKu": "لابردنی دەتوانێت برینەکان خراپتر بکات",
+     "explanationEn": "A neck injury you cannot see is made worse by moving the head.",
+     "explanationKu": "برینێکی ملی کە نایبینیت، بە جوڵاندنی سەر خراپتر دەبێت."
+    },
+    {
+     "id": 6,
+     "questionEn": "At an incident, how could you help a small child who's not breathing?",
+     "questionKu": "لە ڕووداوێکدا، چۆن یارمەتی منداڵێکی بچووک دەدەیت کە هەناسە نادات؟",
+     "correctAnswer": "Open their airway and begin cardiopulmonary resuscitation (CPR)",
+     "correctAnswerKu": "ڕێڕەوی هەناسەی بکەرەوە و دەست بە زیندووکردنەوەی دڵ و سی (CPR) بکە",
+     "explanationEn": "A child's chest needs gentler, shallower compressions than an adult's.",
+     "explanationKu": "سنگی منداڵ پێویستی بە پاڵنانی نەرمتر و کەمترە لە هی گەورەسالان."
+    },
+    {
+     "id": 7,
+     "questionEn": "You need to use a defibrillator (AED) on a casualty. How will you know how to use it?",
+     "questionKu": "پێویستە دیفیبریلەیتەرێک (AED) لەسەر بریندارێک بەکاربهێنیت. چۆن دەزانیت چۆن بەکاری بهێنیت؟",
+     "correctAnswer": "The AED gives you visual and verbal instructions",
+     "correctAnswerKu": "AEDـەکە ڕێنمایی بینراو و بیستراوت پێدەدات",
+     "explanationEn": "It talks you through every step, so no training is needed to start.",
+     "explanationKu": "هەموو هەنگاوێکت پێ دەڵێت، بۆیە بۆ دەستپێکردن پێویستی بە ڕاهێنان نییە."
+    },
+    {
+     "id": 8,
+     "questionEn": "What's the first thing you must do if you have a collision while you're driving your car?",
+     "questionKu": "ئەگەر لە کاتی لێخوڕیندا پێکدادانێکت بۆ ڕوویدا، یەکەم شت چییە دەبێت بیکەیت؟",
+     "correctAnswer": "Stop at the scene of the incident",
+     "correctAnswerKu": "لە شوێنی ڕووداوەکە بوەستە",
+     "explanationEn": "Driving on is an offence, however small the damage looks.",
+     "explanationKu": "بەردەوامبوون لە ڕۆیشتن تاوانە، هەرچەندە زیانەکە بچووک دەربکەوێت."
+    },
+    {
+     "id": 9,
+     "questionEn": "At an incident, a casualty is not breathing. What should you do while helping them to start breathing again?",
+     "questionKu": "لە ڕووداوێکدا، بریندارێک هەناسە نادات. لە کاتی یارمەتیدانیدا بۆ هەناسەدانەوە دەبێت چی بکەیت؟",
+     "correctAnswer": "Open their airway",
+     "correctAnswerKu": "ڕێڕەوی هەناسەی بکەرەوە",
+     "explanationEn": "Tilt the head back and lift the chin: the tongue is the usual blockage.",
+     "explanationKu": "سەری بۆ دواوە لابدە و چەناگەی بەرز بکەرەوە: زمان بە گشتی ئەو شتەیە ڕێگا دەگرێت."
+    },
+    {
+     "id": 10,
+     "questionEn": "You're on a motorway. When can you use hazard warning lights?",
+     "questionKu": "لەسەر ئۆتۆبانیت. کەی دەتوانیت چرای ئاگادارکردنەوەی مەترسی بەکاربهێنیت؟",
+     "correctAnswer": "When you slow down quickly because of danger ahead",
+     "correctAnswerKu": "کاتێک بەخێرایی خێراییت کەم دەکەیتەوە بەهۆی مەترسی لە پێشەوە",
+     "explanationEn": "A short burst warns the drivers behind that a queue is coming.",
+     "explanationKu": "داگیرساندنێکی کورت ئاگاداری شۆفێرەکانی دواوە دەکاتەوە کە ڕیزێک دێت."
+    },
+    {
+     "id": 11,
+     "questionEn": "What should you do if your vehicle breaks down in a tunnel?",
+     "questionKu": "ئەگەر ئۆتۆمبێلەکەت لە تونێلێکدا تێکچوو دەبێت چی بکەیت؟",
+     "correctAnswer": "Switch on hazard warning lights, then go and call for help",
+     "correctAnswerKu": "چرای مەترسی داگیرسێنە، پاشان بڕۆ و داوای یارمەتی بکە",
+     "explanationEn": "Do not stay in the vehicle: a tunnel fills with smoke very fast.",
+     "explanationKu": "لە ئۆتۆمبێلەکەدا مەمێنەرەوە: تونێل زۆر بە خێرایی پڕ لە دووکەڵ دەبێت."
+    },
+    {
+     "id": 12,
+     "questionEn": "What should you do if your vehicle catches fire while you're driving through a tunnel?",
+     "questionKu": "ئەگەر ئۆتۆمبێلەکەت لە کاتی تێپەڕین بە تونێلدا ئاگری تێبەربوو دەبێت چی بکەیت؟",
+     "correctAnswer": "Drive it out of the tunnel if it's safe to do so",
+     "correctAnswerKu": "ئەگەر سەلامەت بوو، لە تونێلەکە دەریبخە",
+     "explanationEn": "A burning vehicle outside the tunnel is far less dangerous than inside it.",
+     "explanationKu": "ئۆتۆمبێلێکی سووتاو لە دەرەوەی تونێل زۆر کەمتر مەترسیدارە لە ناوەوەی."
+    },
+    {
+     "id": 13,
+     "questionEn": "An injured motorcyclist is lying unconscious in the road. The traffic has stopped and there's no further danger. What could you do to help?",
+     "questionKu": "مۆتۆرسوارێکی بریندار بێهۆش لەسەر ڕێگا کەوتووە. هاتوچۆ وەستاوە و مەترسی زیاتر نییە. چۆن یارمەتی دەدەیت؟",
+     "correctAnswer": "Seek medical assistance",
+     "correctAnswerKu": "داوای یارمەتی پزیشکی بکە",
+     "explanationEn": "With the scene safe, getting the professionals there is the next thing that matters.",
+     "explanationKu": "کاتێک شوێنەکە سەلامەتە، گەیاندنی پسپۆڕان گرنگترین کاری دواترە."
+    },
+    {
+     "id": 14,
+     "questionEn": "You arrive at an incident. A pedestrian is bleeding heavily from a leg wound. The leg is not broken and there's nothing in the wound. How could you help?",
+     "questionKu": "دەگەیتە ڕووداوێک. پیادەیەک بە توندی لە برینێکی قاچ خوێنی لێدەچێت. قاچەکە نەشکاوە و هیچ شتێک لە برینەکەدا نییە. چۆن یارمەتی دەدەیت؟",
+     "correctAnswer": "Apply firm pressure over the wound",
+     "correctAnswerKu": "پەستانێکی توند لەسەر برینەکە دابنێ",
+     "explanationEn": "Pressing stops the bleeding; a tourniquet is for the ambulance crew to decide.",
+     "explanationKu": "پەستان خوێن دەوەستێنێت؛ بەستنی توند بڕیاری تیمی فریاگوزارییە."
+    },
+    {
+     "id": 15,
+     "questionEn": "You're the first person to arrive at an incident where people are badly injured. You've switched on your hazard warning lights and checked all engines are stopped. What else should you do?",
+     "questionKu": "یەکەم کەسیت دەگەیتە ڕووداوێک کە خەڵک بە توندی بریندار بوون. چرای مەترسیت داگیرساندووە و دڵنیا بوویت هەموو بزوێنەرەکان کوژاونەتەوە. چی تریش دەبێت بکەیت؟",
+     "correctAnswer": "Make sure that an ambulance has been called",
+     "correctAnswerKu": "دڵنیابە کە فریاگوزاری بانگکراوە",
+     "explanationEn": "Someone may have assumed another person called; make sure.",
+     "explanationKu": "لەوانەیە کەسێک وابزانێت کەسێکی تر پەیوەندی کردووە؛ دڵنیابەرەوە."
+    },
+    {
+     "id": 16,
+     "questionEn": "You're performing cardiopulmonary resuscitation (CPR) on a casualty. When should you stop CPR?",
+     "questionKu": "CPR لەسەر بریندارێک ئەنجام دەدەیت. کەی دەبێت بوەستیت؟",
+     "correctAnswer": "When they start breathing or a healthcare professional takes over",
+     "correctAnswerKu": "کاتێک دەست بە هەناسەدان دەکەن یان پسپۆڕێکی تەندروستی شوێنت دەگرێتەوە",
+     "explanationEn": "Stopping early because you are tired costs them their chance.",
+     "explanationKu": "وەستانی زوو بەهۆی ماندووبوونەوە دەرفەتەکەیان لێ دەسێنێت."
+    },
+    {
+     "id": 17,
+     "questionEn": "At an incident, it's important to look after any casualties. What should you do with them when the area is safe?",
+     "questionKu": "لە ڕووداوێکدا، گرنگە چاودێری بریندارەکان بکەیت. کاتێک ناوچەکە سەلامەتە دەبێت چییان لێبکەیت؟",
+     "correctAnswer": "Keep them where they are",
+     "correctAnswerKu": "لە شوێنی خۆیان بیانهێڵەوە",
+     "explanationEn": "Moving an injured person can turn a hidden injury into a permanent one.",
+     "explanationKu": "جوڵاندنی کەسێکی بریندار دەتوانێت برینێکی شاراوە بکاتە هەمیشەیی."
+    },
+    {
+     "id": 18,
+     "questionEn": "At an incident, someone is suffering from severe burns. How could you help them?",
+     "questionKu": "لە ڕووداوێکدا، کەسێک سووتانی توندی هەیە. چۆن یارمەتی دەدەیت؟",
+     "correctAnswer": "Douse the burns with clean, cool water",
+     "correctAnswerKu": "سووتاوەکان بە ئاوی پاک و سارد تەڕ بکە",
+     "explanationEn": "Keep cooling for at least ten minutes; do not peel away stuck clothing.",
+     "explanationKu": "لانیکەم دە خولەک بەردەوام بە لە ساردکردنەوە؛ جلی نووساو لامەدە."
+    },
+    {
+     "id": 19,
+     "questionEn": "When are you allowed to use hazard warning lights?",
+     "questionKu": "کەی بۆت هەیە چرای ئاگادارکردنەوەی مەترسی بەکاربهێنیت؟",
+     "correctAnswer": "When stopped and temporarily obstructing traffic",
+     "correctAnswerKu": "کاتێک ڕاوەستاویت و بۆ ماوەیەکی کورت ڕێگا دەگریت",
+     "explanationEn": "They are not a licence to park where you should not.",
+     "explanationKu": "مۆڵەت نین بۆ ڕاگرتن لە شوێنێک کە نابێت تێیدا ڕابگریت."
+    },
+    {
+     "id": 20,
+     "questionEn": "A casualty is not breathing normally and needs cardiopulmonary resuscitation (CPR). At what rate should you press down and release on the centre of their chest?",
+     "questionKu": "بریندارێک بە ئاسایی هەناسە نادات و پێویستی بە CPRـە. بە چ ڕێژەیەک دەبێت لەسەر ناوەڕاستی سنگی پاڵ بنێیت و بەریبدەیت؟",
+     "correctAnswer": "120 times per minute",
+     "correctAnswerKu": "١٢٠ جار لە خولەکێکدا",
+     "explanationEn": "That is about the beat of a brisk song; counting out loud helps you keep it.",
+     "explanationKu": "ئەوە نزیکەی ڕیتمی گۆرانییەکی خێرایە؛ ژماردنی بە دەنگی بەرز یارمەتیت دەدات."
+    },
+    {
+     "id": 21,
+     "questionEn": "After a collision, someone is unconscious in their vehicle. When should you call the emergency services?",
+     "questionKu": "دوای پێکدادانێک، کەسێک لە ئۆتۆمبێلەکەیدا بێهۆشە. کەی دەبێت پەیوەندی بە فریاگوزارییەوە بکەیت؟",
+     "correctAnswer": "As soon as possible",
+     "correctAnswerKu": "هەر زوو کە بکرێت",
+     "explanationEn": "Every minute counts, and the operator will tell you what to do meanwhile.",
+     "explanationKu": "هەر خولەکێک گرنگە، و کارمەندەکە پێت دەڵێت لەو ماوەیەدا چی بکەیت."
+    },
+    {
+     "id": 22,
+     "questionEn": "What should you do if you have to stop while you're going through a congested tunnel?",
+     "questionKu": "ئەگەر ناچار بوویت لە تونێلێکی قەرەباڵغدا بوەستیت، دەبێت چی بکەیت؟",
+     "correctAnswer": "Keep a safe distance from the vehicle in front",
+     "correctAnswerKu": "دووری سەلامەت لە ئۆتۆمبێلی پێشەوە بهێڵەوە",
+     "explanationEn": "If the queue must be evacuated you will need room to turn or drive out.",
+     "explanationKu": "ئەگەر پێویست بکات ڕیزەکە چۆڵ بکرێت، شوێنت دەوێت بۆ سوڕانەوە یان دەرچوون."
+    },
+    {
+     "id": 23,
+     "questionEn": "An injured person has been placed in the recovery position. They're unconscious but breathing normally. What else should be done?",
+     "questionKu": "کەسێکی بریندار خراوەتە دۆخی چاکبوونەوە. بێهۆشە بەڵام بە ئاسایی هەناسە دەدات. چی تر دەبێت بکرێت؟",
+     "correctAnswer": "Check their airway remains open",
+     "correctAnswerKu": "دڵنیابە ڕێڕەوی هەناسەی کراوە دەمێنێتەوە",
+     "explanationEn": "Stay with them: a breathing casualty can stop breathing at any moment.",
+     "explanationKu": "لەگەڵیان بمێنەرەوە: بریندارێکی هەناسەدەر دەتوانێت هەر ساتێک بوەستێت."
+    },
+    {
+     "id": 24,
+     "questionEn": "What should you do before driving into a tunnel?",
+     "questionKu": "پێش چوونە ناو تونێلێک دەبێت چی بکەیت؟",
+     "correctAnswer": "Take off your sunglasses",
+     "correctAnswerKu": "چاویلکە ڕۆژییەکەت لابدە",
+     "explanationEn": "Your eyes need time to adjust, and sunglasses make the tunnel far darker.",
+     "explanationKu": "چاوەکانت کاتیان دەوێت بۆ گونجان، و چاویلکەی ڕۆژی تونێلەکە زۆر تاریکتر دەکات."
+    },
+    {
+     "id": 25,
+     "questionEn": "You arrive at an incident. There's no danger from fire or further collisions and the emergency services have been called. What's your first priority when attending to an unconscious motorcyclist?",
+     "questionKu": "دەگەیتە ڕووداوێک. مەترسی ئاگر یان پێکدانی تر نییە و فریاگوزاری بانگکراوە. یەکەم پێشینەت چییە لە چاودێری مۆتۆرسوارێکی بێهۆشدا؟",
+     "correctAnswer": "Check whether they're breathing normally",
+     "correctAnswerKu": "بپشکنە ئایا بە ئاسایی هەناسە دەدات",
+     "explanationEn": "Breathing comes before every other check once the scene is safe.",
+     "explanationKu": "هەناسەدان پێش هەموو پشکنینێکی ترە کاتێک شوێنەکە سەلامەتە."
+    },
+    {
+     "id": 26,
+     "questionEn": "An adult casualty is not breathing. To maintain circulation, cardiopulmonary resuscitation (CPR) should be given. What's the correct depth to press down on their chest?",
+     "questionKu": "بریندارێکی گەورەسال هەناسە نادات. بۆ پاراستنی خوێنبەربوون دەبێت CPR بدرێت. قووڵایی دروستی پاڵنان لەسەر سنگی چەندە؟",
+     "correctAnswer": "5 to 6 centimetres",
+     "correctAnswerKu": "٥ بۆ ٦ سانتیمەتر",
+     "explanationEn": "Shallower than that does not move blood; let the chest rise fully between presses.",
+     "explanationKu": "کەمتر لەوە خوێن ناجوڵێنێت؛ بهێڵە سنگ لە نێوان پاڵەکاندا بە تەواوی بەرز ببێتەوە."
+    },
+    {
+     "id": 27,
+     "questionEn": "A collision has just happened. An injured person is lying in a busy road. What's the first thing you should do?",
+     "questionKu": "تازە پێکدادانێک ڕوویداوە. کەسێکی بریندار لەسەر ڕێگایەکی قەرەباڵغ کەوتووە. یەکەم کار چییە؟",
+     "correctAnswer": "Warn other traffic",
+     "correctAnswerKu": "ئاگاداری هاتوچۆی تر بکەرەوە",
+     "explanationEn": "Until the traffic is stopped or slowed, nobody at the scene is safe.",
+     "explanationKu": "تا هاتوچۆ نەوەستێنرێت یان هێواش نەکرێتەوە، هیچ کەس لە شوێنەکەدا سەلامەت نییە."
+    },
+    {
+     "id": 28,
+     "questionEn": "You're performing cardiopulmonary resuscitation (CPR) on a casualty. Someone stops to help. What should you get them to do?",
+     "questionKu": "CPR لەسەر بریندارێک ئەنجام دەدەیت. کەسێک دەوەستێت بۆ یارمەتیدان. داوای چییان لێ دەکەیت؟",
+     "correctAnswer": "Fetch a defibrillator",
+     "correctAnswerKu": "دیفیبریلەیتەرێک بهێنن",
+     "explanationEn": "An AED beside the casualty is the one thing that most raises their chance.",
+     "explanationKu": "AEDـێک لەتەنیشت بریندارەکەوە ئەو شتەیە زۆرترین هیوای ژیان دەدات."
+    },
+    {
+     "id": 29,
+     "questionEn": "What should you do to reduce the risk of your vehicle catching fire?",
+     "questionKu": "بۆ کەمکردنەوەی مەترسی ئاگرگرتنی ئۆتۆمبێلەکەت دەبێت چی بکەیت؟",
+     "correctAnswer": "Check out any strong smell of fuel",
+     "correctAnswerKu": "هەر بۆنێکی توندی سووتەمەنی بپشکنە",
+     "explanationEn": "A fuel leak and a hot engine are all a fire needs.",
+     "explanationKu": "دڵۆپەی سووتەمەنی و بزوێنەرێکی گەرم تەنها ئەو دوو شتەن کە ئاگر پێویستی پێیانە."
+    },
+    {
+     "id": 30,
+     "questionEn": "You arrive at the scene of a crash where someone is bleeding heavily from a wound in their arm. Nothing is embedded in the wound. What could you do to help?",
+     "questionKu": "دەگەیتە شوێنی ڕووداوێک کە کەسێک بە توندی لە برینێکی بازوو خوێنی لێدەچێت. هیچ شتێک لە برینەکەدا نەچووەتە ناو. چۆن یارمەتی دەدەیت؟",
+     "correctAnswer": "Apply pressure over the wound",
+     "correctAnswerKu": "پەستان لەسەر برینەکە دابنێ",
+     "explanationEn": "Press with whatever clean cloth you have and raise the arm if you can.",
+     "explanationKu": "بە هەر پارچە قوماشێکی پاک کە هەتە پەستان بخەرە سەری و ئەگەر بکرێت بازووەکە بەرز بکەرەوە."
+    },
+    {
+     "id": 31,
+     "questionEn": "You're performing cardiopulmonary resuscitation (CPR) on a 6-year-old child. How's it different to performing CPR on an adult?",
+     "questionKu": "CPR لەسەر منداڵێکی ٦ ساڵان ئەنجام دەدەیت. چ جیاوازییەکی هەیە لەگەڵ گەورەسالان؟",
+     "correctAnswer": "You may only need one hand and press down 4 to 5 cm",
+     "correctAnswerKu": "لەوانەیە تەنها یەک دەستت پێویست بێت و ٤ بۆ ٥ سانتیمەتر پاڵ بنێیت",
+     "explanationEn": "A child's chest is smaller, so the same force would harm them.",
+     "explanationKu": "سنگی منداڵ بچووکترە، بۆیە هەمان هێز زیانی پێدەگەیەنێت."
+    },
+    {
+     "id": 32,
+     "questionEn": "Following a collision, a person has been injured. What would be a warning sign for shock?",
+     "questionKu": "دوای پێکدادانێک، کەسێک بریندار بووە. چ نیشانەیەک ئاگادارت دەکاتەوە لە شۆک؟",
+     "correctAnswer": "Rapid shallow breathing",
+     "correctAnswerKu": "هەناسەدانی خێرا و کەم قووڵ",
+     "explanationEn": "With it come pale skin, a fast weak pulse and cold sweat.",
+     "explanationKu": "لەگەڵیدا پێستی زەرد، لێدانی خێرا و لاواز، و ئارەقەی سارد دێت."
+    },
+    {
+     "id": 33,
+     "questionEn": "What should you do if a tyre bursts while you're driving?",
+     "questionKu": "ئەگەر لە کاتی لێخوڕیندا تایەیەکت تەقییەوە دەبێت چی بکەیت؟",
+     "correctAnswer": "Pull up slowly at the side of the road",
+     "correctAnswerKu": "بە هێواشی لە لای ڕێگا ڕابگرە",
+     "explanationEn": "Hold the steering wheel firmly and let the speed fall on its own; braking hard spins the car.",
+     "explanationKu": "ئامێری ئاراستە بە توندی بگرە و بهێڵە خێرایی خۆی کەم ببێتەوە؛ بریکی توند ئۆتۆمبێلەکە دەسوڕێنێتەوە."
+    },
+    {
+     "id": 34,
+     "questionEn": "Your vehicle has stalled in the middle of a level crossing. What should you do if the warning bells start to ring while you're trying to restart the engine?",
+     "questionKu": "ئۆتۆمبێلەکەت لە ناوەڕاستی پەڕینگەی شەمەندەفەر کوژاوەتەوە. ئەگەر زەنگی ئاگادارکردنەوە لێیدا لەکاتێکدا هەوڵی دووبارە کردنەوەی بزوێنەرەکە دەدەیت، چی بکەیت؟",
+     "correctAnswer": "Get out of the car and clear of the crossing",
+     "correctAnswerKu": "لە ئۆتۆمبێلەکە دابەزە و لە پەڕینگەکە دووربکەوە",
+     "explanationEn": "The bells mean a train is coming; nothing in the car is worth staying for.",
+     "explanationKu": "زەنگەکان واتە شەمەندەفەرێک دێت؛ هیچ شتێک لە ئۆتۆمبێلەکەدا نییە شایەنی مانەوە بێت."
+    },
+    {
+     "id": 35,
+     "questionEn": "You've broken down on a 2-way road. You have a warning triangle. At least how far from your vehicle should you place the warning triangle?",
+     "questionKu": "لەسەر ڕێگایەکی دوو ئاراستە تێکچوویت. سێگۆشەی ئاگادارکردنەوەت هەیە. لانیکەم چەند دوور لە ئۆتۆمبێلەکەت دەبێت دایبنێیت؟",
+     "correctAnswer": "45 metres (147 feet)",
+     "correctAnswerKu": "٤٥ مەتر (١٤٧ پێ)",
+     "explanationEn": "That distance gives the traffic behind time to see it and slow down. Never use one on a motorway.",
+     "explanationKu": "ئەو دوورییە کاتی پێویست دەداتە هاتوچۆی دواوە بۆ بینینی و کەمکردنەوەی خێرایی. هەرگیز لەسەر ئۆتۆبان بەکاری مەهێنە.",
+     "media": "theory/incidents/warning-triangle.jpg"
+    },
+    {
+     "id": 36,
+     "questionEn": "What should you do first if your vehicle has broken down on an automatic railway level crossing?",
+     "questionKu": "ئەگەر ئۆتۆمبێلەکەت لەسەر پەڕینگەی ئۆتۆماتیکی شەمەندەفەر تێکچوو، یەکەم کار چییە؟",
+     "correctAnswer": "Get everyone out of the vehicle and clear of the crossing",
+     "correctAnswerKu": "هەمووان لە ئۆتۆمبێلەکە دابەزێنە و لە پەڕینگەکە دووریان بخەرەوە",
+     "explanationEn": "People first, then the railway telephone, then the vehicle if there is time.",
+     "explanationKu": "سەرەتا خەڵک، پاشان تەلەفۆنی شەمەندەفەر، پاشان ئۆتۆمبێلەکە ئەگەر کات هەبوو."
+    },
+    {
+     "id": 37,
+     "questionEn": "What should you do if your vehicle has a puncture on a motorway?",
+     "questionKu": "ئەگەر تایەی ئۆتۆمبێلەکەت لەسەر ئۆتۆبان کون بوو، دەبێت چی بکەیت؟",
+     "correctAnswer": "Pull up on the hard shoulder or in an emergency area and call for assistance",
+     "correctAnswerKu": "لەسەر شانی ڕەق یان لە ناوچەی فریاگوزاری ڕابگرە و داوای یارمەتی بکە",
+     "explanationEn": "Leave by the left-hand door and wait behind the barrier, not in the vehicle.",
+     "explanationKu": "لە دەرگای چەپەوە دابەزە و لە پشت بەربەستەکە چاوەڕێ بکە، نەک لە ئۆتۆمبێلەکەدا."
+    },
+    {
+     "id": 38,
+     "questionEn": "You're at an incident. What could you do to help an unconscious casualty?",
+     "questionKu": "لە ڕووداوێکدایت. چۆن یارمەتی بریندارێکی بێهۆش دەدەیت؟",
+     "correctAnswer": "Check that they're breathing normally",
+     "correctAnswerKu": "بپشکنە ئایا بە ئاسایی هەناسە دەدات",
+     "explanationEn": "Look, listen and feel for ten seconds before you do anything else.",
+     "explanationKu": "دە چرکە سەیر بکە، گوێ بگرە و هەست پێ بکە پێش هەر کارێکی تر."
+    },
+    {
+     "id": 39,
+     "questionEn": "You're at the scene of an incident. How could you help someone who's suffering from shock?",
+     "questionKu": "لە شوێنی ڕووداوێکدایت. چۆن یارمەتی کەسێک دەدەیت کە تووشی شۆک بووە؟",
+     "correctAnswer": "Reassure them confidently",
+     "correctAnswerKu": "بە متمانەوە دڵنیایان بکەرەوە",
+     "explanationEn": "Keep them warm, keep them still, and do not give them anything to drink.",
+     "explanationKu": "گەرمیان ڕابگرە، مەیانجوڵێنە، و هیچ شتێکیان پێ مەدە بیخۆنەوە."
+    },
+    {
+     "id": 40,
+     "questionEn": "There's been a collision. How can you help a driver who's suffering from shock?",
+     "questionKu": "پێکدادانێک ڕوویداوە. چۆن یارمەتی شۆفێرێک دەدەیت کە تووشی شۆک بووە؟",
+     "correctAnswer": "Reassure them confidently",
+     "correctAnswerKu": "بە متمانەوە دڵنیایان بکەرەوە",
+     "explanationEn": "A calm voice beside them does more than anything else you can offer.",
+     "explanationKu": "دەنگێکی هێمن لەتەنیشتیانەوە لە هەر شتێکی تر کاریگەرترە."
+    },
+    {
+     "id": 41,
+     "questionEn": "You arrive at the scene of an incident. You see a casualty who's not moving. What should you do first?",
+     "questionKu": "دەگەیتە شوێنی ڕووداوێک. بریندارێک دەبینیت کە ناجوڵێت. یەکەم کار چییە؟",
+     "correctAnswer": "Check if it's safe to approach the casualty",
+     "correctAnswerKu": "بپشکنە ئایا نزیکبوونەوە لە بریندارەکە سەلامەتە",
+     "explanationEn": "A second casualty helps nobody: traffic, fuel and fire come first.",
+     "explanationKu": "برینداری دووەم یارمەتی کەس نادات: هاتوچۆ، سووتەمەنی و ئاگر پێش هەمووان دێن."
+    },
+    {
+     "id": 42,
+     "questionEn": "Which lights should you use when you're driving in a tunnel?",
+     "questionKu": "لە کاتی لێخوڕین لە تونێلدا کام چرا بەکاردەهێنیت؟",
+     "correctAnswer": "Dipped headlights",
+     "correctAnswerKu": "چرای نزم",
+     "explanationEn": "They let others see you; sidelights alone are not enough.",
+     "explanationKu": "وا دەکەن کەسانی تر ببینن؛ تەنها چرای لاتەنیشت بەس نییە."
+    },
+    {
+     "id": 43,
+     "questionEn": "What should you do if an instrument panel warning light comes on while you're driving?",
+     "questionKu": "ئەگەر لە کاتی لێخوڕیندا چرایەکی ئاگادارکردنەوە لەسەر تابلۆکە داگیرسا، دەبێت چی بکەیت؟",
+     "correctAnswer": "Check out the problem quickly and safely",
+     "correctAnswerKu": "بە خێرایی و سەلامەتی کێشەکە بپشکنە",
+     "explanationEn": "Ignoring a red light can turn a small fault into a breakdown or a fire.",
+     "explanationKu": "پشتگوێخستنی چرایەکی سوور دەتوانێت عەیبێکی بچووک بکاتە تێکچوون یان ئاگر."
+    },
+    {
+     "id": 44,
+     "questionEn": "Which document may the police ask you to produce after you've been involved in a collision?",
+     "questionKu": "دوای تێوەگلان لە پێکدادانێکدا، پۆلیس داوای پیشاندانی کام بەڵگەنامەت لێدەکات؟",
+     "correctAnswer": "Your driving licence",
+     "correctAnswerKu": "مۆڵەتی شۆفێریت",
+     "explanationEn": "Insurance and MOT may be asked for too; you have seven days to bring them.",
+     "explanationKu": "لەوانەیە داوای بیمە و MOTیشت لێبکرێت؛ حەوت ڕۆژت هەیە بۆ هێنانیان."
+    },
+    {
+     "id": 45,
+     "questionEn": "At an incident, someone is unconscious and you want to help. What would be the first thing to check?",
+     "questionKu": "لە ڕووداوێکدا، کەسێک بێهۆشە و دەتەوێت یارمەتی بدەیت. یەکەم شت چییە بیپشکنیت؟",
+     "correctAnswer": "Whether their airway is open",
+     "correctAnswerKu": "ئایا ڕێڕەوی هەناسەی کراوەیە",
+     "explanationEn": "Airway, then breathing, then circulation: that order saves lives.",
+     "explanationKu": "ڕێڕەوی هەناسە، پاشان هەناسەدان، پاشان خوێنبەربوون: ئەو ڕیزبەندییە ژیان ڕزگار دەکات."
+    },
+    {
+     "id": 46,
+     "questionEn": "What should you do if you see a large box fall from a lorry onto the motorway?",
+     "questionKu": "ئەگەر بینیت سندوقێکی گەورە لە بارهەڵگرێکەوە بکەوێتە سەر ئۆتۆبان، دەبێت چی بکەیت؟",
+     "correctAnswer": "Go to the next emergency telephone and report the hazard",
+     "correctAnswerKu": "بڕۆ بۆ تەلەفۆنی فریاگوزاری دواتر و مەترسییەکە ڕابگەیەنە",
+     "explanationEn": "Never stop on the carriageway to pick something up.",
+     "explanationKu": "هەرگیز لەسەر ڕێڕەوەکە ڕامەگرە بۆ هەڵگرتنی شتێک."
+    },
+    {
+     "id": 47,
+     "questionEn": "Which sign shows that a tanker is carrying dangerous goods?",
+     "questionKu": "کام تابلۆ پیشان دەدات کە تانکەرێک کەلوپەلی مەترسیدار هەڵدەگرێت؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 1,
+     "correctAnswer": "B",
+     "correctAnswerKu": "B",
+     "explanationEn": "The orange plate carries the numbers of the load, and the diamond says what the danger is.",
+     "explanationKu": "پلێتە پرتەقاڵییەکە ژمارەکانی بارەکە هەڵدەگرێت، و لوولەکە دەڵێت مەترسییەکە چییە.",
+     "media": "theory/incidents/tanker-signs.jpg"
+    },
+    {
+     "id": 48,
+     "questionEn": "At an incident, a casualty is unconscious but breathing. When should you move them?",
+     "questionKu": "لە ڕووداوێکدا، بریندارێک بێهۆشە بەڵام هەناسە دەدات. کەی دەبێت بیجوڵێنیت؟",
+     "correctAnswer": "When there's a risk of further danger",
+     "correctAnswerKu": "کاتێک مەترسی زیاتر هەبێت",
+     "explanationEn": "Fire or oncoming traffic is a reason to move them; nothing else is.",
+     "explanationKu": "ئاگر یان هاتوچۆی بەرەوڕوو هۆکارن بۆ جوڵاندنیان؛ هیچ شتێکی تر نا."
+    },
+    {
+     "id": 49,
+     "questionEn": "You're driving on the motorway. What should you do if luggage falls from your vehicle?",
+     "questionKu": "لەسەر ئۆتۆبان لێدەخوڕیت. ئەگەر بارێک لە ئۆتۆمبێلەکەتەوە کەوت، دەبێت چی بکەیت؟",
+     "correctAnswer": "Stop at the next emergency telephone and report the incident",
+     "correctAnswerKu": "لە تەلەفۆنی فریاگوزاری دواتر ڕابگرە و ڕووداوەکە ڕابگەیەنە",
+     "explanationEn": "The control room will stop the traffic and have it cleared safely.",
+     "explanationKu": "ژووری کۆنترۆڵ هاتوچۆ دەوەستێنێت و بە سەلامەتی لایدەبات."
+    },
+    {
+     "id": 50,
+     "questionEn": "At an incident, how could you help a casualty who has stopped breathing?",
+     "questionKu": "لە ڕووداوێکدا، چۆن یارمەتی بریندارێک دەدەیت کە هەناسەدانی وەستاوە؟",
+     "correctAnswer": "Begin cardiopulmonary resuscitation (CPR)",
+     "correctAnswerKu": "دەست بە CPR بکە",
+     "explanationEn": "Open the airway first, then press on the centre of the chest without stopping.",
+     "explanationKu": "سەرەتا ڕێڕەوی هەناسە بکەرەوە، پاشان بێ وەستان لەسەر ناوەڕاستی سنگ پاڵ بنێ."
+    },
+    {
+     "id": 51,
+     "questionEn": "What could you do to help injured people at an incident?",
+     "questionKu": "چۆن یارمەتی کەسە بریندارەکان دەدەیت لە ڕووداوێکدا؟",
+     "correctAnswer": "Keep them warm and comfortable",
+     "correctAnswerKu": "گەرم و ئاسوودە ڕایانبگرە",
+     "explanationEn": "A blanket or a coat holds off shock until the ambulance arrives.",
+     "explanationKu": "بەتانییەک یان چاکەتێک شۆک دوور دەخاتەوە تا فریاگوزاری دەگات."
+    },
+    {
+     "id": 52,
+     "questionEn": "What information should you share if you're involved in a collision that causes damage to another vehicle?",
+     "questionKu": "ئەگەر لە پێکدادانێکدا تێوەگلایت کە زیانی گەیاندە ئۆتۆمبێلێکی تر، چ زانیارییەک دەبێت بدەیت؟",
+     "correctAnswer": "Your name, address and vehicle registration number",
+     "correctAnswerKu": "ناو، ناونیشان و ژمارەی تۆمارکردنی ئۆتۆمبێلەکەت",
+     "explanationEn": "If you do not give them at the scene, report it to the police within 24 hours.",
+     "explanationKu": "ئەگەر لە شوێنەکەدا نەتدان، لە ماوەی ٢٤ کاتژمێردا بە پۆلیسی ڕابگەیەنە."
+    },
+    {
+     "id": 53,
+     "questionEn": "Who can use a public access defibrillator (AED)?",
+     "questionKu": "کێ دەتوانێت دیفیبریلەیتەری گشتی (AED) بەکاربهێنێت؟",
+     "correctAnswer": "Everyone",
+     "correctAnswerKu": "هەموو کەسێک",
+     "explanationEn": "It is made for untrained people: it checks the heart and only shocks when it should.",
+     "explanationKu": "بۆ کەسانی بێ ڕاهێنان دروستکراوە: دڵ دەپشکنێت و تەنها کاتێک پێویست بێت شۆک دەدات."
+    },
+    {
+     "id": 54,
+     "questionEn": "You lose control of your car and damage a garden wall. What must you do if the property owner is not available?",
+     "questionKu": "کۆنترۆڵی ئۆتۆمبێلەکەت لەدەست دەدەیت و زیان بە دیوارێکی باخچە دەگەیەنیت. ئەگەر خاوەن موڵکەکە ئامادە نەبوو، دەبێت چی بکەیت؟",
+     "correctAnswer": "Report the incident to the police within 24 hours",
+     "correctAnswerKu": "لە ماوەی ٢٤ کاتژمێردا ڕووداوەکە بە پۆلیس ڕابگەیەنە",
+     "explanationEn": "Damage to property is reportable even when nobody is hurt.",
+     "explanationKu": "زیانی موڵک دەبێت ڕابگەیەنرێت تەنانەت ئەگەر کەس برینداریش نەبێت."
+    },
+    {
+     "id": 55,
+     "questionEn": "You're performing cardiopulmonary resuscitation (CPR) on a casualty. How fast should chest compressions be?",
+     "questionKu": "CPR لەسەر بریندارێک ئەنجام دەدەیت. پاڵنانی سنگ دەبێت چەند خێرا بێت؟",
+     "correctAnswer": "Twice per second",
+     "correctAnswerKu": "دوو جار لە چرکەیەکدا",
+     "explanationEn": "That is the 100 to 120 a minute the ambulance service teaches.",
+     "explanationKu": "ئەوە هەمان ١٠٠ بۆ ١٢٠ـی خولەکە کە فریاگوزاری فێری دەکات."
+    },
+    {
+     "id": 56,
+     "questionEn": "Your car breaks down on a level crossing. What's the first thing you should do?",
+     "questionKu": "ئۆتۆمبێلەکەت لەسەر پەڕینگەی شەمەندەفەر تێکدەچێت. یەکەم کار چییە؟",
+     "correctAnswer": "Leave your vehicle and get everyone clear",
+     "correctAnswerKu": "لە ئۆتۆمبێلەکە دابەزە و هەمووان دوور بخەرەوە",
+     "explanationEn": "Then use the railway telephone: only the signaller can stop the trains.",
+     "explanationKu": "پاشان تەلەفۆنی شەمەندەفەر بەکاربهێنە: تەنها کارمەندی نیشانە دەتوانێت شەمەندەفەرەکان بوەستێنێت."
+    }
+   ]
+  }
+ ]
+}
