@@ -1,49 +1,229 @@
 {
  "source": "UK driving theory test, Video Clips",
  "totalSections": 1,
- "totalQuestions": 6,
+ "totalQuestions": 27,
  "sections": [
   {
    "category": "Video Clips",
    "questions": [
     {
-     "id": 1,
-     "questionEn": "What do the white diagonal stripe markings in the middle of the road mean?",
-     "questionKu": "هێڵە سپییە لارەکانی ناوەڕاستی ڕێگا چی دەگەیەنن؟",
-     "correctAnswer": "You should not enter the area unless it's necessary and you can see it's safe",
-     "correctAnswerKu": "نابێت بچیتە ناو ئەو ناوچەیە مەگەر پێویست بێت و ببینیت کە سەلامەتە",
-     "explanationEn": "The stripes separate the two directions and give you room only when you really need it.",
-     "explanationKu": "هێڵەکان دوو ئاراستەکە لە یەک جیا دەکەنەوە و تەنها کاتێک شوێنت دەدەنێ کە بەڕاستی پێویستت بێت.",
-     "media": "theory/clips/road-overtaking.mp4"
+     "id": 7,
+     "questionEn": "When are you allowed to wait on the yellow grid markings?",
+     "questionKu": "کەی بۆت هەیە لەسەر نەخشە زەردە چوارگۆشەکان ڕاوەستیت؟",
+     "correctAnswer": "When you are turning right",
+     "correctAnswerKu": "کاتێک بەرەو ڕاست دەسوڕێیتەوە",
+     "explanationEn": "That is the one exception, and only while the way out is blocked by oncoming traffic.",
+     "explanationKu": "ئەوە تاکە لێبووردنەکەیە، و تەنها کاتێک ڕێگای دەرچوون بە هاتوچۆی بەرامبەر داخرابێت.",
+     "media": "theory/clips/box-junction.mp4"
     },
     {
-     "id": 2,
-     "questionEn": "What is the speed limit on this road for the car towing the caravan?",
-     "questionKu": "سنووری خێرایی لەسەر ئەم ڕێگایە چەندە بۆ ئەو ئۆتۆمبێلەی کاراڤان ڕادەکێشێت؟",
-     "correctAnswer": "50 mph",
-     "correctAnswerKu": "٥٠ میل لە کاتژمێرێکدا",
-     "explanationEn": "A single carriageway's 60 mph limit drops to 50 for anything towing.",
-     "explanationKu": "سنووری ٦٠ میلی ڕێگای تاک ڕێڕەو بۆ هەر ئۆتۆمبێلێکی ڕاکێشەر دەبێتە ٥٠.",
-     "media": "theory/clips/road-overtaking.mp4"
+     "id": 8,
+     "questionEn": "Why did the lorry driver start turning so late?",
+     "questionKu": "بۆچی شۆفێری بارهەڵگرەکە ئەوەندە درەنگ دەستی بە سوڕانەوە کرد؟",
+     "correctAnswer": "Because the lorry needs the room to turn",
+     "correctAnswerKu": "چونکە بارهەڵگرەکە شوێنی زیاتری دەوێت بۆ سوڕانەوە",
+     "explanationEn": "A long vehicle swings wide, so never try to pass it on the side it is turning towards.",
+     "explanationKu": "ئۆتۆمبێلی درێژ پان دەسوڕێتەوە، بۆیە هەرگیز هەوڵ مەدە لەو لایەوە تێیپەڕێنیت کە بەرەو ئەو لایە دەسوڕێتەوە.",
+     "media": "theory/clips/box-junction.mp4"
     },
     {
-     "id": 3,
-     "questionEn": "Why is it dangerous to overtake near a junction?",
-     "questionKu": "بۆچی مەترسیدارە لە نزیک چوارڕیانەوە تێپەڕاندن بکەیت؟",
-     "correctAnswer": "A driver waiting to emerge might not see you",
-     "correctAnswerKu": "لەوانەیە شۆفێرێکی چاوەڕێی دەرچوون نەتبینێت",
-     "explanationEn": "They are looking for the vehicle you are passing, not for one beside it.",
-     "explanationKu": "ئەوان چاوەڕێی ئەو ئۆتۆمبێلەن کە تۆ تێیدەپەڕێنیت، نەک ئەوەی لە تەنیشتیەوەیە.",
-     "media": "theory/clips/road-overtaking.mp4"
+     "id": 9,
+     "questionEn": "When may you wait in the area marked with a cycle?",
+     "questionKu": "کەی بۆت هەیە لەو ناوچەیەدا ڕاوەستیت کە بە وێنەی دوچەرخە نیشانە کراوە؟",
+     "correctAnswer": "When the traffic lights change to amber after you've passed the first line",
+     "correctAnswerKu": "کاتێک چرای هاتوچۆ دەبێتە زەرد دوای ئەوەی لە هێڵی یەکەم تێپەڕیویت",
+     "explanationEn": "The cycle box is for cyclists; a driver stops at the first line unless the lights caught them past it.",
+     "explanationKu": "سندوقی دوچەرخە بۆ دوچەرخەسوارانە؛ شۆفێر لە هێڵی یەکەم دەوەستێت مەگەر چراکە لە دوای ئەو هێڵە گرتبێتی.",
+     "media": "theory/clips/box-junction.mp4"
     },
     {
-     "id": 4,
-     "questionEn": "What do the yellow lines along the edge of the road mean?",
-     "questionKu": "هێڵە زەردەکانی لای ڕێگا چی دەگەیەنن؟",
-     "correctAnswer": "No waiting",
-     "correctAnswerKu": "ڕاوەستان قەدەغەیە",
-     "explanationEn": "They stop you waiting there; the plate on the kerb says during which hours.",
-     "explanationKu": "ڕێگات لێدەگرن لەوێ ڕابوەستیت؛ تابلۆکەی سەر قەراغەکە دەڵێت لە چ کاتژمێرێکدا.",
+     "id": 10,
+     "questionEn": "What hazard do you need to look out for as you drive under the bridge?",
+     "questionKu": "لە کاتی تێپەڕین بە ژێر پردەکەدا چاوەڕێی چ مەترسییەک بیت؟",
+     "correctAnswer": "Pedestrians walking in the road",
+     "correctAnswerKu": "پیادە کە بەناو ڕێگادا دەڕۆن",
+     "explanationEn": "The footway runs out under the bridge, so people walk on the carriageway.",
+     "explanationKu": "ڕێڕەوی پیادە لە ژێر پردەکەدا کۆتایی دێت، بۆیە خەڵک بەسەر ڕێگاکەدا دەڕۆن.",
+     "media": "theory/clips/bridge-pedestrians.mp4"
+    },
+    {
+     "id": 11,
+     "questionEn": "What's the speed limit on this road?",
+     "questionKu": "سنووری خێرایی لەسەر ئەم ڕێگایە چەندە؟",
+     "correctAnswer": "30 mph",
+     "correctAnswerKu": "٣٠ میل لە کاتژمێرێکدا",
+     "explanationEn": "Street lights and no other sign mean 30 unless a sign says otherwise.",
+     "explanationKu": "چرای شەقام و نەبوونی تابلۆیەکی تر واتە ٣٠، مەگەر تابلۆیەک شتێکی تر بڵێت.",
+     "media": "theory/clips/bridge-pedestrians.mp4"
+    },
+    {
+     "id": 12,
+     "questionEn": "What does the single yellow line along the side of the road mean?",
+     "questionKu": "هێڵی زەردی تاک لە لای ڕێگا چی دەگەیەنێت؟",
+     "correctAnswer": "Waiting restrictions apply at certain times",
+     "correctAnswerKu": "لە هەندێک کاتدا سنووری ڕاوەستان هەیە",
+     "explanationEn": "The plate on the kerb says which times; outside them you may wait.",
+     "explanationKu": "تابلۆکەی سەر قەراغەکە دەڵێت کام کاتژمێر؛ لە دەرەوەی ئەوان دەتوانیت ڕابوەستیت.",
+     "media": "theory/clips/bridge-pedestrians.mp4"
+    },
+    {
+     "id": 13,
+     "questionEn": "What's the speed limit for the car towing the caravan on this road?",
+     "questionKu": "سنووری خێرایی ئەو ئۆتۆمبێلەی کاراڤان ڕادەکێشێت لەسەر ئەم ڕێگایە چەندە؟",
+     "correctAnswer": "60 mph",
+     "correctAnswerKu": "٦٠ میل لە کاتژمێرێکدا",
+     "explanationEn": "On a dual carriageway a towing vehicle is held to 60, ten below the rest.",
+     "explanationKu": "لەسەر ڕێگای دووانەدا ئۆتۆمبێلی ڕاکێشەر بە ٦٠ـەوە بەندە، دە کەمتر لە ئەوانی تر.",
+     "media": "theory/clips/caravan-side-winds.mp4"
+    },
+    {
+     "id": 14,
+     "questionEn": "The caravan starts to swing from side to side. What should the driver do to bring it back under control?",
+     "questionKu": "کاراڤانەکە دەست دەکات بە جوڵان لە لایەکەوە بۆ لایەکی تر. شۆفێرەکە چی بکات بۆ گەڕاندنەوەی بۆ ژێر کۆنترۆڵ؟",
+     "correctAnswer": "Ease off the accelerator to slow down",
+     "correctAnswerKu": "پێ لەسەر گازەکە هەڵگرێت بۆ کەمکردنەوەی خێرایی",
+     "explanationEn": "Braking or steering against the swing makes it worse; let the speed fall on its own.",
+     "explanationKu": "بریک یان ئاراستەکردن بە پێچەوانەی جوڵەکە خراپتری دەکات؛ بهێڵە خێرایی خۆی کەم ببێتەوە.",
+     "media": "theory/clips/caravan-side-winds.mp4"
+    },
+    {
+     "id": 15,
+     "questionEn": "Why is the caravan unstable and swinging from side to side?",
+     "questionKu": "بۆچی کاراڤانەکە ناجێگیرە و لە لایەکەوە بۆ لایەکی تر دەجوڵێت؟",
+     "correctAnswer": "Because of side winds",
+     "correctAnswerKu": "بەهۆی بای لاوە",
+     "explanationEn": "A tall caravan catches the wind, and a passing lorry pushes it as well.",
+     "explanationKu": "کاراڤانی بەرز با دەگرێت، و بارهەڵگرێکی تێپەڕیویش پاڵی پێوە دەنێت.",
+     "media": "theory/clips/caravan-side-winds.mp4"
+    },
+    {
+     "id": 16,
+     "questionEn": "Why is there a warning 'Reduce speed now'?",
+     "questionKu": "بۆچی ئاگادارکردنەوەی «Reduce speed now» هەیە؟",
+     "correctAnswer": "There's a crossroads and a double bend ahead",
+     "correctAnswerKu": "چوارڕیان و خواروخێچێکی دووانە لە پێشەوەیە",
+     "explanationEn": "The plate under the sign names the hazards the bend hides.",
+     "explanationKu": "تابلۆی ژێرەوە ئەو مەترسییانە دەناسێنێت کە خواروخێچەکە دەیشارێتەوە.",
+     "media": "theory/clips/reduce-speed-crossroads.mp4"
+    },
+    {
+     "id": 17,
+     "questionEn": "Why has the line in the centre of the road changed?",
+     "questionKu": "بۆچی هێڵی ناوەڕاستی ڕێگا گۆڕاوە؟",
+     "correctAnswer": "To warn of hazards ahead",
+     "correctAnswerKu": "بۆ ئاگادارکردنەوە لە مەترسی لە پێشەوە",
+     "explanationEn": "Longer white lines with shorter gaps are a hazard warning line.",
+     "explanationKu": "هێڵی سپی درێژتر لەگەڵ بۆشایی کورتتر هێڵی ئاگادارکردنەوەی مەترسییە.",
+     "media": "theory/clips/reduce-speed-crossroads.mp4"
+    },
+    {
+     "id": 18,
+     "questionEn": "The driver towing the caravan wants to turn right onto the dual carriageway. What should they do?",
+     "questionKu": "ئەو شۆفێرەی کاراڤان ڕادەکێشێت دەیەوێت بەرەو ڕاست بچێتە سەر ڕێگا دووانەکە. چی بکات؟",
+     "correctAnswer": "Wait until the road is clear in both directions before turning",
+     "correctAnswerKu": "چاوەڕێ بکات تا ڕێگاکە لە هەردوو ئاراستە چۆڵ دەبێت، پاشان بسوڕێتەوە",
+     "explanationEn": "The combination is long and slow, so the central reservation is not a place to wait in.",
+     "explanationKu": "ئۆتۆمبێل و کاراڤانەکە پێکەوە درێژ و هێواشن، بۆیە شوێنی ناوەڕاست جێی ڕاوەستان نییە.",
+     "media": "theory/clips/reduce-speed-crossroads.mp4"
+    },
+    {
+     "id": 19,
+     "questionEn": "What do the lines along the centre of the road mean?",
+     "questionKu": "هێڵەکانی ناوەڕاستی ڕێگا چی دەگەیەنن؟",
+     "correctAnswer": "There's a hazard ahead",
+     "correctAnswerKu": "مەترسییەک لە پێشەوەیە",
+     "explanationEn": "A hazard warning line tells you not to start an overtake here.",
+     "explanationKu": "هێڵی ئاگادارکردنەوەی مەترسی پێت دەڵێت لێرەدا دەست بە تێپەڕاندن مەکە.",
+     "media": "theory/clips/tractor-overtaking.mp4"
+    },
+    {
+     "id": 20,
+     "questionEn": "You want to overtake the tractor. What should you do?",
+     "questionKu": "دەتەوێت تراکتۆرەکە تێپەڕێنیت. چی دەکەیت؟",
+     "correctAnswer": "Stay behind and wait until you have a clear view",
+     "correctAnswerKu": "لە دواوە بمێنەرەوە تا دیمەنێکی ڕوونت دەبێت",
+     "explanationEn": "A bend or a dip hides anything coming the other way.",
+     "explanationKu": "خواروخێچ یان نشێوێک هەر شتێکی بەرەوڕوو دەشارێتەوە.",
+     "media": "theory/clips/tractor-overtaking.mp4"
+    },
+    {
+     "id": 21,
+     "questionEn": "Why has the tractor got flashing amber lights?",
+     "questionKu": "بۆچی تراکتۆرەکە چرای زەردی بریسکەداری هەیە؟",
+     "correctAnswer": "To warn you it's a slow-moving vehicle",
+     "correctAnswerKu": "بۆ ئاگادارکردنەوەت کە ئۆتۆمبێلێکی هێواشە",
+     "explanationEn": "You see it long before you can tell how slowly it is going.",
+     "explanationKu": "زۆر پێشتر دەیبینیت لەوەی بزانیت چەند هێواش دەڕوات.",
+     "media": "theory/clips/tractor-overtaking.mp4"
+    },
+    {
+     "id": 22,
+     "questionEn": "Why should you take care driving past the man with the cane?",
+     "questionKu": "بۆچی دەبێت ئاگاداربیت کاتێک بە تەنیشت ئەو پیاوەدا تێدەپەڕیت کە دارێکی پێیە؟",
+     "correctAnswer": "He's deaf and blind",
+     "correctAnswerKu": "کەڕ و نابیناییە",
+     "explanationEn": "A white cane with red bands means the person cannot hear you either.",
+     "explanationKu": "دارێکی سپی بە خەتی سوورەوە واتە ئەو کەسە گوێشی لێت نابێت.",
+     "media": "theory/clips/zebra-crossing.mp4"
+    },
+    {
+     "id": 23,
+     "questionEn": "How should you approach the zebra crossing?",
+     "questionKu": "چۆن لە پەڕینگەی زیبرا نزیک دەبیتەوە؟",
+     "correctAnswer": "Be ready to slow down or stop to allow pedestrians to cross",
+     "correctAnswerKu": "ئامادەبە خێرایی کەم بکەیتەوە یان بوەستیت تا پیادەکان دەپەڕنەوە",
+     "explanationEn": "Never wave anyone across: another driver may not have stopped.",
+     "explanationKu": "هەرگیز ئاماژە بە کەس مەکە بپەڕێتەوە: لەوانەیە شۆفێرێکی تر نەوەستابێت.",
+     "media": "theory/clips/zebra-crossing.mp4"
+    },
+    {
+     "id": 24,
+     "questionEn": "You've stopped at the zebra crossing. When may you move off?",
+     "questionKu": "لە پەڕینگەی زیبرا وەستاویت. کەی دەتوانیت بەڕێ بکەویت؟",
+     "correctAnswer": "When the pedestrians have completely crossed",
+     "correctAnswerKu": "کاتێک پیادەکان بە تەواوی پەڕیونەتەوە",
+     "explanationEn": "The crossing is theirs until they are off it, not until they pass your car.",
+     "explanationKu": "پەڕینگەکە هی ئەوانە تا لێی دەردەچن، نەک تا بە ئۆتۆمبێلەکەتدا تێدەپەڕن.",
+     "media": "theory/clips/zebra-crossing.mp4"
+    },
+    {
+     "id": 25,
+     "questionEn": "As you approach the roundabout, there's a sign showing a single white bar on a green background. What does this sign tell you?",
+     "questionKu": "لە نزیکبوونەوە لە چوارڕیانە بازنەییەکە، تابلۆیەک هەیە کە هێڵێکی سپی تاکی لەسەر پاشبنەمایەکی سەوز پیشان دەدات. ئەم تابلۆیە چیت پێ دەڵێت؟",
+     "correctAnswer": "The roundabout is 100 yards ahead",
+     "correctAnswerKu": "چوارڕیانە بازنەییەکە ١٠٠ یاردە لە پێشەوەیە",
+     "explanationEn": "Three bars mean 300 yards, two 200, one 100: the count down to the junction.",
+     "explanationKu": "سێ هێڵ واتە ٣٠٠ یارد، دوو هێڵ ٢٠٠، یەک هێڵ ١٠٠: ژماردنەوەیە بۆ چوارڕیانەکە.",
+     "media": "theory/clips/roundabout-lanes.mp4"
+    },
+    {
+     "id": 26,
+     "questionEn": "As you approach the roundabout, you want to change lanes. What routine should you follow?",
+     "questionKu": "لە نزیکبوونەوە لە چوارڕیانە بازنەییەکە دەتەوێت ڕێڕەو بگۆڕیت. چ ڕێسایەک پەیڕەو دەکەیت؟",
+     "correctAnswer": "Mirrors, signal, manoeuvre",
+     "correctAnswerKu": "ئاوێنە، ئاماژە، جوڵە",
+     "explanationEn": "Look first, tell others next, and only then move across.",
+     "explanationKu": "سەرەتا سەیر بکە، پاشان بە کەسانی تر بڵێ، تەنها پاشان بگوازەرەوە.",
+     "media": "theory/clips/roundabout-lanes.mp4"
+    },
+    {
+     "id": 27,
+     "questionEn": "You want to travel on the A61. Which lane should you use at the roundabout?",
+     "questionKu": "دەتەوێت بە ڕێگای A61دا بڕۆیت. کام ڕێڕەو لە چوارڕیانە بازنەییەکەدا بەکاردەهێنیت؟",
+     "correctAnswer": "Either the left lane or middle lane",
+     "correctAnswerKu": "یان ڕێڕەوی چەپ یان ڕێڕەوی ناوەڕاست",
+     "explanationEn": "The sign on the approach shows both lanes marked for that road.",
+     "explanationKu": "تابلۆکەی پێش چوارڕیانەکە پیشان دەدات هەردوو ڕێڕەو بۆ ئەو ڕێگایە نیشانە کراون.",
+     "media": "theory/clips/roundabout-lanes.mp4"
+    },
+    {
+     "id": 6,
+     "questionEn": "Why has the bus driver positioned the bus on the left?",
+     "questionKu": "بۆچی شۆفێری پاسەکە پاسەکەی لە لای چەپ داناوە؟",
+     "correctAnswer": "The bus needs extra room to get around the roundabout",
+     "correctAnswerKu": "پاسەکە شوێنی زیاتری دەوێت بۆ سوڕانەوە بە دەوری چوارڕیانەکەدا",
+     "explanationEn": "A long vehicle swings wide, so never come up its inside.",
+     "explanationKu": "ئۆتۆمبێلی درێژ پان دەسوڕێتەوە، بۆیە هەرگیز لە ناوەوەیەوە مەچۆ.",
      "media": "theory/clips/town-roundabout.mp4"
     },
     {
@@ -57,14 +237,44 @@
      "media": "theory/clips/town-roundabout.mp4"
     },
     {
-     "id": 6,
-     "questionEn": "Why has the bus driver positioned the bus on the left?",
-     "questionKu": "بۆچی شۆفێری پاسەکە پاسەکەی لە لای چەپ داناوە؟",
-     "correctAnswer": "The bus needs extra room to get around the roundabout",
-     "correctAnswerKu": "پاسەکە شوێنی زیاتری دەوێت بۆ سوڕانەوە بە دەوری چوارڕیانەکەدا",
-     "explanationEn": "A long vehicle swings wide, so never come up its inside.",
-     "explanationKu": "ئۆتۆمبێلی درێژ پان دەسوڕێتەوە، بۆیە هەرگیز لە ناوەوەیەوە مەچۆ.",
+     "id": 4,
+     "questionEn": "What do the yellow lines along the edge of the road mean?",
+     "questionKu": "هێڵە زەردەکانی لای ڕێگا چی دەگەیەنن؟",
+     "correctAnswer": "No waiting",
+     "correctAnswerKu": "ڕاوەستان قەدەغەیە",
+     "explanationEn": "They stop you waiting there; the plate on the kerb says during which hours.",
+     "explanationKu": "ڕێگات لێدەگرن لەوێ ڕابوەستیت؛ تابلۆکەی سەر قەراغەکە دەڵێت لە چ کاتژمێرێکدا.",
      "media": "theory/clips/town-roundabout.mp4"
+    },
+    {
+     "id": 3,
+     "questionEn": "Why is it dangerous to overtake near a junction?",
+     "questionKu": "بۆچی مەترسیدارە لە نزیک چوارڕیانەوە تێپەڕاندن بکەیت؟",
+     "correctAnswer": "A driver waiting to emerge might not see you",
+     "correctAnswerKu": "لەوانەیە شۆفێرێکی چاوەڕێی دەرچوون نەتبینێت",
+     "explanationEn": "They are looking for the vehicle you are passing, not for one beside it.",
+     "explanationKu": "ئەوان چاوەڕێی ئەو ئۆتۆمبێلەن کە تۆ تێیدەپەڕێنیت، نەک ئەوەی لە تەنیشتیەوەیە.",
+     "media": "theory/clips/road-overtaking.mp4"
+    },
+    {
+     "id": 2,
+     "questionEn": "What is the speed limit on this road for the car towing the caravan?",
+     "questionKu": "سنووری خێرایی لەسەر ئەم ڕێگایە چەندە بۆ ئەو ئۆتۆمبێلەی کاراڤان ڕادەکێشێت؟",
+     "correctAnswer": "50 mph",
+     "correctAnswerKu": "٥٠ میل لە کاتژمێرێکدا",
+     "explanationEn": "A single carriageway's 60 mph limit drops to 50 for anything towing.",
+     "explanationKu": "سنووری ٦٠ میلی ڕێگای تاک ڕێڕەو بۆ هەر ئۆتۆمبێلێکی ڕاکێشەر دەبێتە ٥٠.",
+     "media": "theory/clips/road-overtaking.mp4"
+    },
+    {
+     "id": 1,
+     "questionEn": "What do the white diagonal stripe markings in the middle of the road mean?",
+     "questionKu": "هێڵە سپییە لارەکانی ناوەڕاستی ڕێگا چی دەگەیەنن؟",
+     "correctAnswer": "You should not enter the area unless it's necessary and you can see it's safe",
+     "correctAnswerKu": "نابێت بچیتە ناو ئەو ناوچەیە مەگەر پێویست بێت و ببینیت کە سەلامەتە",
+     "explanationEn": "The stripes separate the two directions and give you room only when you really need it.",
+     "explanationKu": "هێڵەکان دوو ئاراستەکە لە یەک جیا دەکەنەوە و تەنها کاتێک شوێنت دەدەنێ کە بەڕاستی پێویستت بێت.",
+     "media": "theory/clips/road-overtaking.mp4"
     }
    ]
   }
