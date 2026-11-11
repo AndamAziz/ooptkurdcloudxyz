@@ -1,6 +1,6 @@
 {
  "totalSections": 10,
- "totalQuestions": 520,
+ "totalQuestions": 521,
  "sections": [
   {
    "section": 1,
@@ -875,6 +875,15 @@
      "correctAnswerBg": "Отбийте веднага щом е безопасно да го направите.",
      "questionFa": "مصرف الکل چگونه می‌تواند بر توانایی شما در رانندگی یا موتورسواری تأثیر بگذارد؟",
      "correctAnswerFa": "توانایی شما در تخمین سرعت کاهش می‌یابد"
+    },
+    {
+     "id": 521,
+     "questionEn": "You're travelling along a single-track road. There's a passing place on your right. What should you do if you see a vehicle coming towards you?",
+     "questionKu": "بە ڕێگایەکی تاک ڕێڕەودا دەڕۆیت. شوێنێکی تێپەڕاندن لە لای ڕاستتەوە هەیە. ئەگەر ئۆتۆمبێلێکت بینی بەرەوڕووت دێت، چی دەکەیت؟",
+     "correctAnswer": "Wait opposite the passing place",
+     "correctAnswerKu": "لە بەرامبەر شوێنی تێپەڕاندنەکە چاوەڕێ بکە",
+     "explanationEn": "Pull into a passing place on your left, or wait opposite one on your right. Do not pull onto the verge: it can hide a ditch or soft ground.",
+     "explanationKu": "بچۆرە ناو شوێنێکی تێپەڕاندن لە لای چەپت، یان لە بەرامبەر یەکێکی لای ڕاست چاوەڕێ بکە. مەچۆرە سەر کەناری ڕێگا: دەتوانێت چاڵ یان زەوی نەرم بشارێتەوە."
     }
    ]
   },
