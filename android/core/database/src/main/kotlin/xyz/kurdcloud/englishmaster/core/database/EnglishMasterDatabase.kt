@@ -22,7 +22,7 @@ import kotlinx.serialization.json.Json
         TheoryQuestionEntity::class,
         TheoryResponseEntity::class,
     ],
-    version = 6,
+    version = 7,
     exportSchema = true,
     // v2: passage and media columns on questions (all nullable, so Room migrates automatically).
     // v3: tags column on questions (defaults to an empty list until the level is downloaded again).
@@ -35,6 +35,7 @@ import kotlinx.serialization.json.Json
         AutoMigration(from = 3, to = 4),
         AutoMigration(from = 4, to = 5),
         AutoMigration(from = 5, to = 6),
+        AutoMigration(from = 6, to = 7),
     ],
 )
 @TypeConverters(Converters::class)

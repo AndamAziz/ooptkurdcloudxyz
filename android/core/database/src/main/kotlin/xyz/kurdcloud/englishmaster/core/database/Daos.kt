@@ -172,7 +172,7 @@ interface TheoryDao {
     suspend fun savedQuestionCount(): Int
 
     /** Questions saved per chapter, so the list can say which chapters work offline. */
-    @Query("select section_slug, count(*) as count from theory_questions group by section_slug")
+    @Query("select section_slug, count(*) as count, min(downloaded_at) as downloaded_at from theory_questions group by section_slug")
     fun observeDownloadCounts(): Flow<List<TheorySectionCount>>
 
     @Upsert

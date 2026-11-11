@@ -37,6 +37,14 @@ interface TheoryRepository {
     /** Questions saved on the device, per chapter slug: a chapter not listed works only online. */
     fun observeDownloadCounts(): Flow<Map<String, Int>>
 
+    /**
+     * Chapters the device does not hold as the course now publishes them: it has fewer questions
+     * than the chapter publishes, or the chapter changed after the device last saved it. Without
+     * the second rule a correction to a question - its wording, its picture - never reaches
+     * anyone who had already downloaded the chapter, because the count does not move.
+     */
+    fun observeChaptersBehind(): Flow<Set<String>>
+
     /** Refreshes the chapter list and each chapter's standing. */
     suspend fun refreshSections(): ApiResult<Int>
 
@@ -103,6 +111,16 @@ class OfflineFirstTheoryRepository(
     override fun observeDownloadCounts(): Flow<Map<String, Int>> =
         dao.observeDownloadCounts().map { rows -> rows.associate { it.sectionSlug to it.count } }
 
+    override fun observeChaptersBehind(): Flow<Set<String>> =
+        combine(dao.observeSections(), dao.observeDownloadCounts()) { sections, saved ->
+            val mine = saved.associateBy { it.sectionSlug }
+            sections.filter { row ->
+                if (row.published == 0) return@filter false
+                val held = mine[row.slug]
+                held == null || held.count < row.published || row.changedAtMillis > held.downloadedAtMillis
+            }.map { it.slug }.toSet()
+        }
+
     override suspend fun refreshSections(): ApiResult<Int> {
         val rows = when (val r = restCall { api.getTheorySections() }) {
             is ApiResult.Success -> r.value
@@ -110,7 +128,14 @@ class OfflineFirstTheoryRepository(
         }
         val now = nowMillis()
         dao.upsertSections(
-            rows.map { TheorySectionEntity(it.slug, it.sortOrder, it.nameEn, it.nameCkb, it.published, it.answered, it.correct, now) },
+            rows.map {
+                TheorySectionEntity(
+                    it.slug, it.sortOrder, it.nameEn, it.nameCkb, it.published, it.answered, it.correct, now,
+                    // A time the server could not give, or gave in a shape we cannot read,
+                    // leaves the chapter looking unchanged rather than downloading it forever.
+                    changedAtMillis = it.updatedAt?.let { t -> runCatching { epochMillis(t) }.getOrNull() } ?: 0,
+                )
+            },
         )
         // A chapter the server no longer publishes disappears from the app too.
         if (rows.isNotEmpty()) dao.removeSectionsOtherThan(rows.map { it.slug })

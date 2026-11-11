@@ -144,6 +144,8 @@ data class TheorySectionDto(
     val answered: Int,
     val correct: Int,
     @SerialName("sort_order") val sortOrder: Int = 0,
+    /** The chapter or its newest question, whichever changed last: a correction shows up here. */
+    @SerialName("updated_at") val updatedAt: String? = null,
 )
 
 @Serializable

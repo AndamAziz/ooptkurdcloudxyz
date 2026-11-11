@@ -1,0 +1,3 @@
+- Fixed the driving theory questions that could not be answered. Four asked you to pick a sign or a warning light but showed no picture at all, so the answer was the bare letter "D"; they now show the four to choose between. Five more that said "this sign" now show the sign, and nine are reworded to say in words what their missing picture showed.
+- Two questions are retired: one asked what the hazard in a photograph was, the other which plate goes with a road sign, and neither picture was ever part of the data.
+- Corrections to a question now reach you. Until now a chapter was only fetched again when it gained questions, so a correction to one you had already downloaded stayed as it was.

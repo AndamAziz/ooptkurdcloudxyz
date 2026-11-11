@@ -108,6 +108,8 @@ data class TheorySectionEntity(
     @ColumnInfo(name = "server_answered") val serverAnswered: Int,
     @ColumnInfo(name = "server_correct") val serverCorrect: Int,
     @ColumnInfo(name = "fetched_at") val fetchedAtMillis: Long,
+    /** When the chapter last changed on the server; 0 before the app started reading it. */
+    @ColumnInfo(name = "changed_at", defaultValue = "0") val changedAtMillis: Long = 0,
 )
 
 /** A downloaded theory question. Unlike practice questions these carry their answer. */
@@ -162,8 +164,10 @@ data class TheoryVerdict(
     @ColumnInfo(name = "is_correct") val isCorrect: Boolean,
 )
 
-/** How many of a chapter's questions are saved on the device. */
+/** How many of a chapter's questions are saved on the device, and when the oldest was saved. */
 data class TheorySectionCount(
     @ColumnInfo(name = "section_slug") val sectionSlug: String,
     val count: Int,
+    /** The earliest download among them, so a chapter corrected since can be spotted. */
+    @ColumnInfo(name = "downloaded_at") val downloadedAtMillis: Long = 0,
 )

@@ -150,6 +150,13 @@ def rows() -> list[dict]:
                         raise SystemExit(f"{slug} #{question['id']} has {len(options_ckb)} Sorani options for {len(options)}")
                 elif correct is not None:
                     raise SystemExit(f"{slug} #{question['id']} has an answerIndex but no options")
+                # A question whose answer is a bare letter is asking the learner to pick one of
+                # several pictures. Without the picture and its options there is nothing to pick
+                # from, and the chapter would teach the letter D.
+                if len(answer) == 1 and answer in "ABCDEF" and options is None:
+                    raise SystemExit(
+                        f"{slug} #{question['id']} answers {answer!r} but carries no options to choose it from",
+                    )
                 out.append(
                     {
                         "external_ref": f"theory:{slug}:{question['id']}",
