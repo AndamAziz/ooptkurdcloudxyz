@@ -2,7 +2,7 @@
  "source": "The Highway Code: traffic signs (GOV.UK)",
  "sourceUrl": "https://www.gov.uk/guidance/the-highway-code/traffic-signs",
  "totalSections": 1,
- "totalQuestions": 150,
+ "totalQuestions": 216,
  "sections": [
   {
    "category": "Road and Traffic Signs",
@@ -1806,6 +1806,1061 @@
      "explanationEn": "You cross to the other carriageway; keep to the speed shown.",
      "explanationKu": "دەپەڕیتەوە بۆ ڕێگاکەی تر؛ لەسەر خێرایی نیشاندراو بمێنەوە.",
      "media": "theory/signs/contraflow-crossover.png"
+    },
+    {
+     "id": 151,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-1",
+     "questionEn": "How can you identify traffic signs that give orders?",
+     "questionKu": "چۆن ئەو تابلۆیانە دەناسیتەوە کە فەرمان دەدەن؟",
+     "correctAnswer": "They're circular with a red border",
+     "correctAnswerKu": "بازنەیین و چوارچێوەیەکی سوور یان هەیە",
+     "explanationEn": "Circles give orders, triangles warn and rectangles inform. The one exception is the eight-sided stop sign.",
+     "explanationKu": "بازنە فەرمان دەدات، سێگۆشە ئاگادار دەکاتەوە و لاکێشە زانیاری دەدات. تاکە لێبووردنەکە تابلۆی هەشت لای «وەستە»ـیە."
+    },
+    {
+     "id": 152,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-27",
+     "questionEn": "What messages are given by circular traffic signs that have a blue background?",
+     "questionKu": "ئەو تابلۆ بازنەییانەی پاشبنەمایەکی شینیان هەیە چ پەیامێک دەدەن؟",
+     "correctAnswer": "They give mandatory instructions",
+     "correctAnswerKu": "فەرمانی ئەرێنی دەدەن",
+     "explanationEn": "A blue circle tells you what you must do, where a red-ringed circle tells you what you must not.",
+     "explanationKu": "بازنەی شین پێت دەڵێت دەبێت چی بکەیت، لە کاتێکدا بازنەی بە ئەڵقەی سوور پێت دەڵێت نابێت چی بکەیت.",
+     "media": "theory/signs2/blue-circle.png"
+    },
+    {
+     "id": 153,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-30",
+     "questionEn": "What does a sign with a brown background show?",
+     "questionKu": "تابلۆیەک بە پاشبنەمای قاوەیی چی پیشان دەدات؟",
+     "correctAnswer": "Tourist directions",
+     "correctAnswerKu": "ئاراستەی گەشتیاری",
+     "explanationEn": "Brown signs point to places worth visiting, and they are meant to be followed from the main road rather than cut across to.",
+     "explanationKu": "تابلۆی قاوەیی ئاماژە بە شوێنە سەردانکراوەکان دەکات، و مەبەست ئەوەیە لە ڕێگا سەرەکییەوە شوێنیان بکەویت نەک بەناوەڕاستدا بیانبڕیت.",
+     "media": "theory/signs2/brown-direction.png"
+    },
+    {
+     "id": 154,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-32",
+     "questionEn": "What's the purpose of triangular shaped signs?",
+     "questionKu": "مەبەست لە تابلۆ سێگۆشەییەکان چییە؟",
+     "correctAnswer": "To give warnings",
+     "correctAnswerKu": "بۆ ئاگادارکردنەوە",
+     "explanationEn": "A triangle always warns of something ahead; read the picture inside it and the plate under it.",
+     "explanationKu": "سێگۆشە هەمیشە ئاگادارت دەکاتەوە لە شتێک لە پێشەوە؛ وێنەی ناوی و پلێتی ژێری بخوێنەرەوە.",
+     "media": "theory/signs2/blank-triangle.png"
+    },
+    {
+     "id": 155,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-37",
+     "questionEn": "What information would be shown in a triangular road sign?",
+     "questionKu": "چ زانیارییەک لە تابلۆیەکی سێگۆشەیی ڕێگادا پیشان دەدرێت؟",
+     "correctAnswer": "Road narrows",
+     "correctAnswerKu": "ڕێگا تەنگ دەبێتەوە",
+     "explanationEn": "Triangles warn. An order such as a speed limit or a direction is never given in a triangle.",
+     "explanationKu": "سێگۆشەکان ئاگادار دەکەنەوە. فەرمانێک وەک سنووری خێرایی یان ئاراستە هەرگیز لە سێگۆشەدا نادرێت.",
+     "media": "theory/signs2/blank-triangle.png"
+    },
+    {
+     "id": 156,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-58",
+     "questionEn": "What does a red traffic light mean?",
+     "questionKu": "چرای سووری هاتوچۆ واتای چییە؟",
+     "correctAnswer": "You must stop and wait behind the stop line",
+     "correctAnswerKu": "دەبێت بوەستیت و لە پشت هێڵی وەستاندن چاوەڕێ بکەیت",
+     "explanationEn": "Red means stop, every time. Edging over the line to see better is still crossing it.",
+     "explanationKu": "سوور واتای وەستانە، هەر جارێک. چوونە پێشەوە بەسەر هێڵەکەدا بۆ باشتر بینین، هێشتا تێپەڕاندنی ئەو هێڵەیە."
+    },
+    {
+     "id": 157,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-59",
+     "questionEn": "At traffic lights, what does it mean when the amber light shows on its own?",
+     "questionKu": "لە چرای هاتوچۆدا، کاتێک چرای زەرد بە تەنها دادەگیرسێت واتای چییە؟",
+     "correctAnswer": "Stop at the stop line",
+     "correctAnswerKu": "لە هێڵی وەستاندن بوەستە",
+     "explanationEn": "Amber alone means stop, unless you are so close that stopping would be dangerous.",
+     "explanationKu": "زەردی تەنیا واتای وەستانە، مەگەر ئەوەندە نزیک بیت کە وەستان مەترسیدار بێت."
+    },
+    {
+     "id": 158,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-60",
+     "questionEn": "You're at a junction controlled by traffic lights. When should you wait at a green light?",
+     "questionKu": "لە چوارڕیانێکدایت کە بە چرای هاتوچۆ کۆنترۆڵ دەکرێت. کەی لەسەر چرای سەوز چاوەڕێ دەکەیت؟",
+     "correctAnswer": "When your exit from the junction is blocked",
+     "correctAnswerKu": "کاتێک دەرچوونەکەت لە چوارڕیانەکە داخراوە",
+     "explanationEn": "Green does not mean go if there is nowhere to go: blocking the junction holds up everyone.",
+     "explanationKu": "سەوز واتای ڕۆیشتن نییە ئەگەر شوێنی ڕۆیشتن نەبێت: داخستنی چوارڕیانەکە هەمووان ڕادەگرێت."
+    },
+    {
+     "id": 159,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-63",
+     "questionEn": "Who has priority when traffic lights are out of order?",
+     "questionKu": "کاتێک چرای هاتوچۆ کار ناکات، کێ پێشینەی هەیە؟",
+     "correctAnswer": "Nobody",
+     "correctAnswerKu": "هیچ کەس",
+     "explanationEn": "Treat it as an unmarked crossroads: nobody has priority, so approach ready to stop.",
+     "explanationKu": "وەک چوارڕیانێکی بێ نیشانە مامەڵەی لەگەڵ بکە: کەس پێشینەی نییە، بۆیە ئامادە بۆ وەستان نزیک ببەرەوە."
+    },
+    {
+     "id": 160,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-72",
+     "questionEn": "How will a police officer in a patrol vehicle signal for you to stop?",
+     "questionKu": "ئەفسەرێکی پۆلیس لە ئۆتۆمبێلی گەشتدا چۆن ئاماژەت پێدەدات بوەستیت؟",
+     "correctAnswer": "Flash the headlights, indicate left and point to the left",
+     "correctAnswerKu": "چرای پێشەوە دەگەشێنێتەوە، ئاماژەی چەپ دەدات و بەرەو چەپ ئاماژە دەکات",
+     "explanationEn": "Then pull up on the left when it is safe, and stay until they come to you.",
+     "explanationKu": "ئینجا کاتێک سەلامەت بوو لە لای چەپ ڕابگرە، و بمێنەرەوە تا دێنە لات."
+    },
+    {
+     "id": 161,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-79",
+     "questionEn": "How should the right-hand lane of a three-lane motorway be used?",
+     "questionKu": "ڕێڕەوی لای ڕاستی ئۆتۆبانێکی سێ ڕێڕەو چۆن دەبێت بەکاربهێنرێت؟",
+     "correctAnswer": "As an overtaking lane",
+     "correctAnswerKu": "وەک ڕێڕەوی تێپەڕاندن",
+     "explanationEn": "It is not a fast lane: move back to the left as soon as you have passed.",
+     "explanationKu": "ڕێڕەوی خێرایی نییە: هەر کە تێپەڕیت، بگەڕێوە بۆ لای چەپ."
+    },
+    {
+     "id": 162,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-80",
+     "questionEn": "Where can you find reflective amber studs on a motorway?",
+     "questionKu": "خاڵە تیشکدەرە زەردەکان لە ئۆتۆبان لەکوێن؟",
+     "correctAnswer": "On the right-hand edge of the road",
+     "correctAnswerKu": "لە قەراغی لای ڕاستی ڕێگا",
+     "explanationEn": "Red on the left edge, white between lanes, amber on the right, green at slip roads.",
+     "explanationKu": "سوور لە قەراغی چەپ، سپی لە نێوان ڕێڕەوەکان، زەرد لە لای ڕاست، سەوز لە ڕێگا لاوەکییەکان."
+    },
+    {
+     "id": 163,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-81",
+     "questionEn": "Where would you find green reflective studs on a motorway?",
+     "questionKu": "خاڵە تیشکدەرە سەوزەکان لە ئۆتۆبان لەکوێن؟",
+     "correctAnswer": "At slip-road entrances and exits",
+     "correctAnswerKu": "لە چوونەژوورەوە و دەرچوونی ڕێگا لاوەکییەکان",
+     "explanationEn": "Green marks where traffic joins or leaves, so expect vehicles to cross your path there.",
+     "explanationKu": "سەوز ئەو شوێنە نیشانە دەکات کە هاتوچۆ تێکەڵ دەبێت یان دەردەچێت، بۆیە چاوەڕێی ئۆتۆمبێل بە ڕێگاتدا بکە."
+    },
+    {
+     "id": 164,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-85",
+     "questionEn": "What's the national speed limit on a single carriageway road?",
+     "questionKu": "سنووری نیشتمانی خێرایی لەسەر ڕێگایەکی تاک ڕێڕەو چەندە؟",
+     "correctAnswer": "60 mph",
+     "correctAnswerKu": "٦٠ میل لە کاتژمێردا",
+     "explanationEn": "For a car with no trailer. It is a limit, not a target: the road may call for far less.",
+     "explanationKu": "بۆ ئۆتۆمبێلێک بێ تریلەر. سنوورە، نەک ئامانج: لەوانەیە ڕێگاکە داوای زۆر کەمتر بکات."
+    },
+    {
+     "id": 165,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-93",
+     "questionEn": "When may you sound your vehicle's horn?",
+     "questionKu": "کەی دەتوانیت بۆقی ئۆتۆمبێلەکەت لێبدەیت؟",
+     "correctAnswer": "To warn others of your presence",
+     "correctAnswerKu": "بۆ ئاگادارکردنەوەی کەسانی تر لە بوونت",
+     "explanationEn": "Never as a rebuke, and not in a built-up area between 11.30 pm and 7 am.",
+     "explanationKu": "هەرگیز وەک سەرزەنشت نا، و نە لە ناوچەی نیشتەجێبووندا لە نێوان ١١:٣٠ی شەو و ٧ی بەیانیدا."
+    },
+    {
+     "id": 166,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-94",
+     "questionEn": "Your vehicle is stationary. When may you use its horn?",
+     "questionKu": "ئۆتۆمبێلەکەت ڕاوەستاوە. کەی دەتوانیت بۆقەکەی بەکاربهێنیت؟",
+     "correctAnswer": "When another road user poses a danger",
+     "correctAnswerKu": "کاتێک بەکارهێنەرێکی تری ڕێگا مەترسی دروست دەکات",
+     "explanationEn": "A stationary vehicle may sound its horn only to prevent danger, not to hurry anyone.",
+     "explanationKu": "ئۆتۆمبێلی ڕاوەستاو تەنها بۆ ڕێگریکردن لە مەترسی دەتوانێت بۆق لێبدات، نەک بۆ پەلەکردنی کەس."
+    },
+    {
+     "id": 167,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-100",
+     "questionEn": "Other drivers may sometimes flash their headlights at you. What's the official meaning of this signal?",
+     "questionKu": "هەندێک جار شۆفێرانی تر چرای پێشەوەیان بۆت دەگەشێننەوە. واتای فەرمیی ئەم ئاماژەیە چییە؟",
+     "correctAnswer": "They're warning you of their presence",
+     "correctAnswerKu": "ئاگادارت دەکەنەوە لە بوونیان",
+     "explanationEn": "It means the same as the horn. It is not an invitation to go, however it is meant.",
+     "explanationKu": "هەمان واتای بۆقی هەیە. بانگهێشتی ڕۆیشتن نییە، مەبەستیان هەرچییەک بێت."
+    },
+    {
+     "id": 168,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-114",
+     "questionEn": "What should you do when you're approaching traffic lights that have red and amber showing together?",
+     "questionKu": "کاتێک لە چرای هاتوچۆ نزیک دەبیتەوە و سوور و زەرد پێکەوە داگیرساون، دەبێت چی بکەیت؟",
+     "correctAnswer": "Wait for the green light",
+     "correctAnswerKu": "چاوەڕێی چرای سەوز بکە",
+     "explanationEn": "Red and amber together means get ready; it does not mean go.",
+     "explanationKu": "سوور و زەرد پێکەوە واتای ئامادەبە؛ واتای ڕۆیشتن نییە."
+    },
+    {
+     "id": 169,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-125",
+     "questionEn": "You're approaching traffic lights and the red light is showing. What signal will show next?",
+     "questionKu": "لە چرای هاتوچۆ نزیک دەبیتەوە و چرای سوور داگیرساوە. ئاماژەی دواتر چی دەبێت؟",
+     "correctAnswer": "Red and amber",
+     "correctAnswerKu": "سوور و زەرد",
+     "explanationEn": "Red, then red and amber, then green: knowing the order lets you plan your approach.",
+     "explanationKu": "سوور، پاشان سوور و زەرد، پاشان سەوز: زانینی ڕیزبەندییەکە وا دەکات نزیکبوونەوەکەت پلان بۆ دابنێیت."
+    },
+    {
+     "id": 170,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-131",
+     "questionEn": "When may you use hazard warning lights while you're driving?",
+     "questionKu": "لە کاتی لێخوڕیندا کەی دەتوانیت چرای ئاگادارکردنەوەی مەترسی بەکاربهێنیت؟",
+     "correctAnswer": "On a motorway or unrestricted dual carriageway, to warn of a hazard ahead",
+     "correctAnswerKu": "لەسەر ئۆتۆبان یان ڕێگای دووانەی بێ سنوور، بۆ ئاگادارکردنەوە لە مەترسی لە پێشەوە",
+     "explanationEn": "A short burst warns the traffic behind of a queue. Otherwise they are for when you are stopped.",
+     "explanationKu": "داگیرساندنێکی کورت ئاگاداری هاتوچۆی دواوە دەکاتەوە لە ڕیزێک. بێجگە لەوە، بۆ کاتی ڕاوەستانن."
+    },
+    {
+     "id": 171,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-132",
+     "questionEn": "Why should you make sure that your indicators are cancelled after turning at a junction?",
+     "questionKu": "بۆچی دەبێت دڵنیابیت لەوەی ئاماژەکانت دوای سوڕانەوە لە چوارڕیان کوژاونەتەوە؟",
+     "correctAnswer": "To avoid misleading other road users",
+     "correctAnswerKu": "بۆ ئەوەی بەکارهێنەرانی تری ڕێگا هەڵنەخەڵەتێنیت",
+     "explanationEn": "An indicator left on tells everyone you are about to turn; someone may pull out in front of you.",
+     "explanationKu": "ئاماژەیەکی داگیرساو بە هەمووان دەڵێت خەریکیت دەسوڕێیتەوە؛ لەوانەیە کەسێک لە پێشتەوە بێتە دەرەوە."
+    },
+    {
+     "id": 172,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-133",
+     "questionEn": "You're driving in busy traffic. You want to pull up just after a junction on the left. When should you signal?",
+     "questionKu": "لە هاتوچۆیەکی قەرەباڵغدا لێدەخوڕیت. دەتەوێت هەر دوای چوارڕیانێکی لای چەپ ڕابگریت. کەی ئاماژە دەدەیت؟",
+     "correctAnswer": "As you're passing or just after the junction",
+     "correctAnswerKu": "لە کاتی تێپەڕین یان هەر دوای چوارڕیانەکە",
+     "explanationEn": "Signal too early and drivers waiting at the junction will think you are turning into it.",
+     "explanationKu": "ئەگەر زۆر زوو ئاماژە بدەیت، ئەو شۆفێرانەی لە چوارڕیانەکە چاوەڕێن وا دەزانن بەرەو ناوی دەسوڕێیتەوە."
+    },
+    {
+     "id": 173,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-205",
+     "questionEn": "What do the sloping bars on countdown markers represent?",
+     "questionKu": "هێڵە لارەکانی سەر نیشانەکانی ژماردنەوە چی دەگەیەنن؟",
+     "correctAnswer": "Distance",
+     "correctAnswerKu": "دووری",
+     "explanationEn": "Three bars, two, then one: each is about 100 yards to the exit or the hazard.",
+     "explanationKu": "سێ هێڵ، دوو، پاشان یەک: هەر یەکێکیان نزیکەی ١٠٠ یاردە بۆ دەرچوون یان مەترسییەکە."
+    },
+    {
+     "id": 174,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-47",
+     "questionEn": "You're about to overtake. What should you do when you see this sign?",
+     "questionKu": "خەریکیت تێپەڕاندن بکەیت. کاتێک ئەم تابلۆیە دەبینیت دەبێت چی بکەیت؟",
+     "correctAnswer": "Hold back until you can see clearly ahead",
+     "correctAnswerKu": "دوا بکەوە تا بتوانیت بە ڕوونی پێشەوە ببینیت",
+     "explanationEn": "A dip can hide an oncoming vehicle, a cyclist or a parked car until it is too late.",
+     "explanationKu": "نشێوێک دەتوانێت ئۆتۆمبێلێکی بەرەوڕوو، پاسکیلسوارێک یان ئۆتۆمبێلێکی پارککراو بشارێتەوە تا کاتی تێدەپەڕێت.",
+     "media": "theory/signs2/hidden-dip.png"
+    },
+    {
+     "id": 175,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-92",
+     "questionEn": "You're on a motorway. What should you do if there's a red cross showing on the signs above your lane only?",
+     "questionKu": "لەسەر ئۆتۆبانیت. ئەگەر خاچێکی سوور تەنها لەسەر تابلۆکانی سەروو ڕێڕەوەکەت دەرکەوت، چی دەکەیت؟",
+     "correctAnswer": "Don't continue in that lane",
+     "correctAnswerKu": "بەردەوام مەبە لەو ڕێڕەوەدا",
+     "explanationEn": "The lane is closed ahead. Move into another lane in good time, not at the last moment.",
+     "explanationKu": "ڕێڕەوەکە لە پێشەوە داخراوە. بە کاتی خۆی بچۆرە ڕێڕەوێکی تر، نەک لە دوا ساتدا."
+    },
+    {
+     "id": 176,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-103",
+     "questionEn": "A police car is following you. What should you do if the police officer flashes the headlights and points to the left?",
+     "questionKu": "ئۆتۆمبێلێکی پۆلیس بەدوات دێت. ئەگەر ئەفسەرەکە چرای پێشەوە گەشاندەوە و بەرەو چەپ ئاماژەی کرد، چی دەکەیت؟",
+     "correctAnswer": "Pull up on the left",
+     "correctAnswerKu": "لە لای چەپ ڕابگرە",
+     "explanationEn": "Pull up as soon as it is safe and switch off the engine; do not brake sharply where you are.",
+     "explanationKu": "هەر کە سەلامەت بوو ڕابگرە و بزوێنەرەکە بکوژێنەوە؛ لە شوێنی خۆت بە توندی بریک مەگرە."
+    },
+    {
+     "id": 177,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-115",
+     "questionEn": "You've stopped at a railway level crossing. What should you do if the red lights continue to flash after a train has gone by?",
+     "questionKu": "لە پەڕینگەی شەمەندەفەر وەستاویت. ئەگەر چرا سوورەکان دوای تێپەڕینی شەمەندەفەرێک هێشتا دەگەشێنەوە، چی دەکەیت؟",
+     "correctAnswer": "Wait",
+     "correctAnswerKu": "چاوەڕێ بکە",
+     "explanationEn": "Another train is coming. The lights stop flashing when it is safe to cross.",
+     "explanationKu": "شەمەندەفەرێکی تر دێت. چراکان کاتێک دەوەستن کە پەڕینەوە سەلامەت بێت."
+    },
+    {
+     "id": 178,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-216",
+     "questionEn": "You are on a red route. What does a single red line on the side of the road mean?",
+     "questionKu": "لەسەر ڕێگایەکی سووریت. هێڵێکی سووری تاک لە لای ڕێگا واتای چییە؟",
+     "correctAnswer": "No stopping at times shown",
+     "correctAnswerKu": "ڕاوەستان قەدەغەیە لەو کاتانەی دیاری کراون",
+     "explanationEn": "A double red line means no stopping at any time; the plate gives the hours for a single one.",
+     "explanationKu": "هێڵی سووری دووانە واتای ڕاوەستان قەدەغەیە لە هەموو کاتێکدا؛ پلێتەکە کاتژمێرەکانی هی تاک دیاری دەکات."
+    },
+    {
+     "id": 179,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-2",
+     "questionEn": "What shape are traffic signs giving orders?",
+     "questionKu": "تابلۆکانی فەرماندان چ شێوەیەکیان هەیە؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 1,
+     "correctAnswer": "B",
+     "correctAnswerKu": "B",
+     "explanationEn": "Orders come in circles. Triangles warn, rectangles inform, and only the stop sign is eight-sided.",
+     "explanationKu": "فەرمان بە بازنە دێت. سێگۆشە ئاگادار دەکاتەوە، لاکێشە زانیاری دەدات، و تەنها تابلۆی وەستان هەشت لایە.",
+     "media": "theory/choices/order-sign-shapes.png"
+    },
+    {
+     "id": 180,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-3",
+     "questionEn": "Which type of sign tells you what you must not do?",
+     "questionKu": "کام جۆری تابلۆ پێت دەڵێت نابێت چی بکەیت؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 0,
+     "correctAnswer": "A",
+     "correctAnswerKu": "A",
+     "explanationEn": "A red ring forbids. A blue circle does the opposite: it tells you what you must do.",
+     "explanationKu": "ئەڵقەی سوور قەدەغە دەکات. بازنەی شین پێچەوانەیە: پێت دەڵێت دەبێت چی بکەیت.",
+     "media": "theory/choices/prohibition-sign-types.png"
+    },
+    {
+     "id": 181,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-9",
+     "questionEn": "Which sign means 'no entry'?",
+     "questionKu": "کام تابلۆ واتای «چوونەژوورەوە قەدەغەیە»؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 3,
+     "correctAnswer": "D",
+     "correctAnswerKu": "D",
+     "explanationEn": "A red circle with a white bar. The blue circle with a red cross is no stopping, not no entry.",
+     "explanationKu": "بازنەیەکی سوور لەگەڵ هێڵێکی سپی. بازنەی شین بە خاچی سوور واتای ڕاوەستان قەدەغەیە، نەک چوونەژوورەوە.",
+     "media": "theory/choices/no-entry-choice.png"
+    },
+    {
+     "id": 182,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-12",
+     "questionEn": "Which sign means no motor vehicles allowed?",
+     "questionKu": "کام تابلۆ واتای ڕێگەپێنەدانی ئۆتۆمبێلی بزوێنەردارە؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 2,
+     "correctAnswer": "C",
+     "correctAnswerKu": "C",
+     "explanationEn": "The car and motorcycle together are barred; a car alone bars cars but not motorcycles.",
+     "explanationKu": "ئۆتۆمبێل و مۆتۆرسیکل پێکەوە قەدەغەن؛ ئۆتۆمبێلی تەنیا تەنها ئۆتۆمبێل قەدەغە دەکات نەک مۆتۆرسیکل.",
+     "media": "theory/choices/no-motor-vehicles-choice.png"
+    },
+    {
+     "id": 183,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-16",
+     "questionEn": "Which sign means 'no stopping'?",
+     "questionKu": "کام تابلۆ واتای «ڕاوەستان قەدەغەیە»؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 1,
+     "correctAnswer": "B",
+     "correctAnswerKu": "B",
+     "explanationEn": "The blue circle with a red cross. The one with a single red bar is no waiting, which is less strict.",
+     "explanationKu": "بازنەی شین بە خاچی سوور. ئەوەی یەک هێڵی سووری هەیە واتای چاوەڕوانی قەدەغەیە، کە کەمتر توندە.",
+     "media": "theory/choices/no-stopping-choice.png"
+    },
+    {
+     "id": 184,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-22",
+     "questionEn": "What shape is a 'stop' sign?",
+     "questionKu": "تابلۆی «وەستە» چ شێوەیەکی هەیە؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 0,
+     "correctAnswer": "A",
+     "correctAnswerKu": "A",
+     "explanationEn": "Eight sides, and no other sign has them: you can know it even when snow hides the word.",
+     "explanationKu": "هەشت لا، و هیچ تابلۆیەکی تر ئەوەی نییە: دەتوانیت بیناسیتەوە تەنانەت کاتێک بەفر وشەکە دەشارێتەوە.",
+     "media": "theory/choices/stop-sign-shape.png"
+    },
+    {
+     "id": 185,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-39",
+     "questionEn": "Which sign means that pedestrians may be walking along the road?",
+     "questionKu": "کام تابلۆ واتای ئەوەیە کە لەوانەیە خەڵک بە درێژایی ڕێگادا بڕۆن؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 3,
+     "correctAnswer": "D",
+     "correctAnswerKu": "D",
+     "explanationEn": "The adult and child walking. The one with a zebra crossing under them warns of a crossing instead.",
+     "explanationKu": "گەورەسال و منداڵێک کە دەڕۆن. ئەوەی پەڕینگەی زیبرای لە ژێرە، ئاگادارکردنەوەی پەڕینگەیە نەک ئەوە.",
+     "media": "theory/choices/pedestrians-walking-choice.png"
+    },
+    {
+     "id": 186,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-40",
+     "questionEn": "Which sign means there's a double bend ahead?",
+     "questionKu": "کام تابلۆ واتای خواروخێچێکی دووانەیە لە پێشەوە؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 1,
+     "correctAnswer": "B",
+     "correctAnswerKu": "B",
+     "explanationEn": "Two bends in one triangle. The black and white chevrons mark a single sharp bend.",
+     "explanationKu": "دوو خواروخێچ لە یەک سێگۆشەدا. هێڵە ڕەش و سپییەکان یەک خواروخێچی توند نیشانە دەکەن.",
+     "media": "theory/choices/double-bend-choice.png"
+    },
+    {
+     "id": 187,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-43",
+     "questionEn": "Which sign means the end of a dual carriageway?",
+     "questionKu": "کام تابلۆ واتای کۆتایی ڕێگای دووانەیە؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 0,
+     "correctAnswer": "A",
+     "correctAnswerKu": "A",
+     "explanationEn": "The two carriageways come back together. Where they part, the same picture is the other way up.",
+     "explanationKu": "دوو ڕێڕەوەکە دەگەڕێنەوە بۆ یەک. لەو شوێنەی لێک جیا دەبنەوە، هەمان وێنە بە پێچەوانەیە.",
+     "media": "theory/choices/end-dual-carriageway-choice.png"
+    },
+    {
+     "id": 188,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-54",
+     "questionEn": "Which is the sign for a ring road?",
+     "questionKu": "کام تابلۆی ڕێگای بازنەییە؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 2,
+     "correctAnswer": "C",
+     "correctAnswerKu": "C",
+     "explanationEn": "A green square with a white R. Ring roads carry traffic around a town instead of through it.",
+     "explanationKu": "چوارگۆشەیەکی سەوز بە Rـێکی سپییەوە. ڕێگای بازنەیی هاتوچۆ بە دەوری شارەکەدا دەبات نەک بەناویدا.",
+     "media": "theory/choices/ring-road-choice.png"
+    },
+    {
+     "id": 189,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-61",
+     "questionEn": "You're in the left-hand lane at traffic lights, waiting to turn left. Which signal means you must wait?",
+     "questionKu": "لە ڕێڕەوی لای چەپی چرای هاتوچۆدایت و چاوەڕێی سوڕانەوەی چەپیت. کام ئاماژە واتای دەبێت چاوەڕێ بکەیت؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 0,
+     "correctAnswer": "A",
+     "correctAnswerKu": "A",
+     "explanationEn": "Red and amber together: get ready, but do not move until the green shows.",
+     "explanationKu": "سوور و زەرد پێکەوە: ئامادەبە، بەڵام مەجوڵێ تا سەوز دەردەکەوێت.",
+     "media": "theory/choices/turn-left-signal-choice.png"
+    },
+    {
+     "id": 190,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-69",
+     "questionEn": "Which diagram shows a hazard warning line?",
+     "questionKu": "کام وێنە هێڵی ئاگادارکردنەوەی مەترسی پیشان دەدات؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 0,
+     "correctAnswer": "A",
+     "correctAnswerKu": "A",
+     "explanationEn": "The centre line with long marks and short gaps. Do not cross it unless the road ahead is clear.",
+     "explanationKu": "هێڵی ناوەڕاست بە نیشانەی درێژ و بۆشایی کورت. مەیبڕە مەگەر ڕێگای پێشەوە چۆڵ بێت.",
+     "media": "theory/choices/hazard-warning-line-choice.png"
+    },
+    {
+     "id": 191,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-84",
+     "questionEn": "Which sign means that the national speed limit applies?",
+     "questionKu": "کام تابلۆ واتای جێبەجێبوونی سنووری نیشتمانی خێراییە؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 3,
+     "correctAnswer": "D",
+     "correctAnswerKu": "D",
+     "explanationEn": "The white circle with a black diagonal. What that limit is depends on the road and your vehicle.",
+     "explanationKu": "بازنەی سپی بە هێڵێکی ڕەشی لاری تێدا. ئەو سنوورە چەندە، بە ڕێگاکە و ئۆتۆمبێلەکەتەوە بەستراوە.",
+     "media": "theory/choices/national-speed-limit-choice.png"
+    },
+    {
+     "id": 192,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-97",
+     "questionEn": "Which sign means you have priority over oncoming vehicles?",
+     "questionKu": "کام تابلۆ واتای ئەوەیە کە تۆ پێشینەت هەیە بەسەر ئۆتۆمبێلە بەرەوڕووەکاندا؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 0,
+     "correctAnswer": "A",
+     "correctAnswerKu": "A",
+     "explanationEn": "The blue sign with the big white arrow. The red-ringed one with the big black arrow is the opposite.",
+     "explanationKu": "تابلۆ شینەکە بە تیرە سپییە گەورەکەیەوە. ئەوەی ئەڵقەی سوور و تیری ڕەشی گەورەی هەیە پێچەوانەیە.",
+     "media": "theory/choices/priority-oncoming-choice.png"
+    },
+    {
+     "id": 193,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-107",
+     "questionEn": "Which shape is used for a 'give way' sign?",
+     "questionKu": "چ شێوەیەک بۆ تابلۆی «ڕێگا بدە» بەکاردێت؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 3,
+     "correctAnswer": "D",
+     "correctAnswerKu": "D",
+     "explanationEn": "A triangle standing on its point. No other sign has that shape.",
+     "explanationKu": "سێگۆشەیەک کە لەسەر لووتکەی خۆی ڕاوەستاوە. هیچ تابلۆیەکی تر ئەو شێوەیەی نییە.",
+     "media": "theory/choices/give-way-shape-choice.png"
+    },
+    {
+     "id": 194,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-112",
+     "questionEn": "Which sign informs you that you're coming to a 'no through road'?",
+     "questionKu": "کام تابلۆ ئاگادارت دەکاتەوە کە بەرەو «ڕێگای بێ دەرچوون» دەچیت؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 2,
+     "correctAnswer": "C",
+     "correctAnswerKu": "C",
+     "explanationEn": "The blue square with a red bar across the end of the road. It is information, not a warning.",
+     "explanationKu": "چوارگۆشەی شین بە هێڵێکی سووری بەسەر کۆتایی ڕێگاکەوە. زانیارییە، نەک ئاگادارکردنەوە.",
+     "media": "theory/choices/no-through-road-choice.png"
+    },
+    {
+     "id": 195,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-117",
+     "questionEn": "Which sign shows that you're entering a one-way system?",
+     "questionKu": "کام تابلۆ پیشان دەدات کە دەچیتە ناو سیستەمی یەک ئاراستەوە؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 3,
+     "correctAnswer": "D",
+     "correctAnswerKu": "D",
+     "explanationEn": "A blue square with one white arrow straight ahead. All the traffic goes the same way.",
+     "explanationKu": "چوارگۆشەیەکی شین بە یەک تیری سپی بەرەو پێشەوە. هەموو هاتوچۆکە بە یەک ئاراستەدا دەڕوات.",
+     "media": "theory/choices/one-way-system-choice.png"
+    },
+    {
+     "id": 196,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-119",
+     "questionEn": "Which of these signs warns you of a zebra crossing?",
+     "questionKu": "کام لەم تابلۆیانە ئاگادارت دەکاتەوە لە پەڕینگەی زیبرا؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 3,
+     "correctAnswer": "D",
+     "correctAnswerKu": "D",
+     "explanationEn": "The walker on the striped crossing. The one with an adult and child warns of people in the road.",
+     "explanationKu": "ڕێبوارەکە لەسەر پەڕینگە خەتدارەکە. ئەوەی گەورەسال و منداڵی تێدایە ئاگادارکردنەوەیە لە خەڵک لەسەر ڕێگا.",
+     "media": "theory/choices/zebra-crossing-choice.png"
+    },
+    {
+     "id": 197,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-121",
+     "questionEn": "Which sign means there will be two-way traffic crossing your route ahead?",
+     "questionKu": "کام تابلۆ واتای ئەوەیە کە هاتوچۆی دوو ئاراستە لە پێشەوە ڕێگاکەت دەبڕێت؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 2,
+     "correctAnswer": "C",
+     "correctAnswerKu": "C",
+     "explanationEn": "The two arrows pointing left and right across the triangle, not the pair pointing up and down.",
+     "explanationKu": "ئەو دوو تیرەی بەرەو چەپ و ڕاست بەناو سێگۆشەکەدا ئاماژە دەکەن، نەک ئەو جوتەی سەرەوە و خوارەوە.",
+     "media": "theory/choices/two-way-crossing-choice.png"
+    },
+    {
+     "id": 198,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-122",
+     "questionEn": "Which arm signal tells you that the car you're following is going to pull up?",
+     "questionKu": "کام ئاماژەی باڵ پێت دەڵێت ئەو ئۆتۆمبێلەی بەدوایەوەیت دەیەوێت ڕابگرێت؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 3,
+     "correctAnswer": "D",
+     "correctAnswerKu": "D",
+     "explanationEn": "The arm moving slowly up and down. A circling arm means they intend to turn right.",
+     "explanationKu": "ئەو باڵەی بە هێواشی سەرەوە و خوارەوە دەجوڵێت. باڵی سوڕاوە واتای دەیەوێت بەرەو ڕاست بسوڕێتەوە.",
+     "media": "theory/choices/pull-up-arm-signal-choice.png"
+    },
+    {
+     "id": 199,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-123",
+     "questionEn": "Which sign means turn left ahead?",
+     "questionKu": "کام تابلۆ واتای بەرەو چەپ بسوڕێوە لە پێشەوە؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 3,
+     "correctAnswer": "D",
+     "correctAnswerKu": "D",
+     "explanationEn": "The blue circle whose arrow bends to the left. A straight left arrow means keep left instead.",
+     "explanationKu": "ئەو بازنە شینەی تیرەکەی بەرەو چەپ دەچەمێتەوە. تیری ڕاستەوخۆی چەپ واتای لە چەپ بمێنەرەوە.",
+     "media": "theory/choices/turn-left-sign-choice.png"
+    },
+    {
+     "id": 200,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-129",
+     "questionEn": "How should you give an arm signal to turn left?",
+     "questionKu": "چۆن ئاماژەی باڵ دەدەیت بۆ سوڕانەوەی چەپ?",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 0,
+     "correctAnswer": "A",
+     "correctAnswerKu": "A",
+     "explanationEn": "The right arm out and circling. It is worth knowing: bright sun can hide an indicator.",
+     "explanationKu": "باڵی ڕاست بۆ دەرەوە و دەسوڕێت. شایەنی زانینە: خۆری بەهێز دەتوانێت ئاماژەکە بشارێتەوە.",
+     "media": "theory/choices/arm-signal-left-choice.png"
+    },
+    {
+     "id": 201,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-65",
+     "questionEn": "What do these zigzag white lines mean?",
+     "questionKu": "ئەم هێڵە سپییە زیگزاگانە واتای چین؟",
+     "correctAnswer": "No parking at any time",
+     "correctAnswerKu": "ڕاگرتن لە هیچ کاتێکدا قەدەغەیە",
+     "explanationEn": "They run either side of a crossing so that drivers and people crossing can see each other. Nor may you overtake the leading vehicle here.",
+     "explanationKu": "لە هەردوو لای پەڕینگەیەک دەڕۆن تا شۆفێر و ئەوانەی دەپەڕنەوە یەکتر ببینن. هەروەها لێرەدا ناتوانیت ئۆتۆمبێلی پێشەوە تێپەڕێنیت.",
+     "media": "theory/markings/zigzag-lines.jpg"
+    },
+    {
+     "id": 202,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-66",
+     "questionEn": "When may you cross a double solid white line in the middle of the road?",
+     "questionKu": "کەی دەتوانیت هێڵی سپی دووانەی ڕەقی ناوەڕاستی ڕێگا ببڕیت؟",
+     "correctAnswer": "To pass a road maintenance vehicle travelling at 10 mph or less",
+     "correctAnswerKu": "بۆ تێپەڕاندنی ئۆتۆمبێلێکی چاککردنەوەی ڕێگا کە بە ١٠ میل یان کەمتر دەڕوات",
+     "explanationEn": "Also to pass a stationary vehicle, a cyclist or a horse, or to turn into a side road or a property.",
+     "explanationKu": "هەروەها بۆ تێپەڕاندنی ئۆتۆمبێلێکی ڕاوەستاو، پاسکیلسوارێک یان ئەسپێک، یان بۆ سوڕانەوە بۆ ڕێگایەکی لاوەکی یان موڵکێک.",
+     "media": "theory/markings/double-white-line.jpg"
+    },
+    {
+     "id": 203,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-67",
+     "questionEn": "What does this road marking mean?",
+     "questionKu": "ئەم نیشانەیەی سەر ڕێگا واتای چییە؟",
+     "correctAnswer": "You're approaching a hazard",
+     "correctAnswerKu": "لە مەترسییەک نزیک دەبیتەوە",
+     "explanationEn": "When the white marks grow longer than the gaps, the line is warning you. Do not cross it unless the road ahead is clear.",
+     "explanationKu": "کاتێک نیشانە سپییەکان لە بۆشاییەکان درێژتر دەبن، هێڵەکە ئاگادارت دەکاتەوە. مەیبڕە مەگەر ڕێگای پێشەوە چۆڵ بێت.",
+     "media": "theory/markings/centre-line-hazard.jpg"
+    },
+    {
+     "id": 204,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-68",
+     "questionEn": "Where would you see this road marking?",
+     "questionKu": "ئەم نیشانەیەی سەر ڕێگا لەکوێ دەبینیت؟",
+     "correctAnswer": "On road humps",
+     "correctAnswerKu": "لەسەر بەرزاییەکانی ڕێگا",
+     "explanationEn": "White triangles painted on a hump show where it is, because a change in level is hard to see on dark tarmac.",
+     "explanationKu": "سێگۆشەی سپی کە لەسەر بەرزاییەک کێشراوە، شوێنەکەی پیشان دەدات، چونکە گۆڕانی ئاست لەسەر قیڕی تاریکدا بە ئاسانی نابینرێت.",
+     "media": "theory/markings/lane-arrows.png"
+    },
+    {
+     "id": 205,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-70",
+     "questionEn": "Why does this junction have a 'stop' sign and a stop line on the road?",
+     "questionKu": "بۆچی ئەم چوارڕیانە تابلۆی «وەستە» و هێڵی وەستانی لەسەر ڕێگاکەی هەیە؟",
+     "correctAnswer": "Visibility along the major road is restricted",
+     "correctAnswerKu": "دیمەن بە درێژایی ڕێگا سەرەکییەکە سنووردارە",
+     "explanationEn": "Where you cannot see far enough, you must stop at the line and only then edge forward to look.",
+     "explanationKu": "لەو شوێنەی ناتوانیت بەقەدەر پێویست ببینیت، دەبێت لە هێڵەکە بوەستیت و تەنها پاشان بە وردی بچیتە پێشەوە بۆ سەیرکردن.",
+     "media": "theory/markings/stop-sign-junction.jpg"
+    },
+    {
+     "id": 206,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-71",
+     "questionEn": "What does this line across the road at the entrance to a roundabout mean?",
+     "questionKu": "ئەم هێڵەی بەسەر ڕێگادا لە دەروازەی چوارڕیانە بازنەییەکە واتای چییە؟",
+     "correctAnswer": "Give way to traffic from the right",
+     "correctAnswerKu": "ڕێگا بدە بە هاتوچۆی لای ڕاست",
+     "explanationEn": "A broken line is give way, not stop: slow down, look right, and go when there is a safe gap.",
+     "explanationKu": "هێڵی پچڕاو واتای ڕێگادانە، نەک وەستان: خێرایی کەم بکەرەوە، سەیری ڕاست بکە، و بڕۆ کاتێک بۆشاییەکی سەلامەت هەیە.",
+     "media": "theory/markings/roundabout-give-way.jpg"
+    },
+    {
+     "id": 207,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-73",
+     "questionEn": "You're approaching a junction where the traffic lights aren't working. What should you do when a police officer gives this signal?",
+     "questionKu": "لە چوارڕیانێک نزیک دەبیتەوە کە چراکانی کار ناکەن. کاتێک ئەفسەرێکی پۆلیس ئەم ئاماژەیە دەدات، چی دەکەیت؟",
+     "correctAnswer": "Stop at the stop line",
+     "correctAnswerKu": "لە هێڵی وەستان بوەستە",
+     "explanationEn": "An arm held up to you means stop. A police officer's signals override the lights and the signs.",
+     "explanationKu": "باڵێک کە بەرەو تۆ بەرز کراوەتەوە واتای وەستانە. ئاماژەکانی ئەفسەری پۆلیس بەسەر چرا و تابلۆکاندا زاڵن.",
+     "media": "theory/markings/police-stop-signal.png"
+    },
+    {
+     "id": 208,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-74",
+     "questionEn": "What does this arm signal mean?",
+     "questionKu": "ئەم ئاماژەی باڵە واتای چییە؟",
+     "correctAnswer": "The driver intends to turn left",
+     "correctAnswerKu": "شۆفێرەکە دەیەوێت بەرەو چەپ بسوڕێتەوە",
+     "explanationEn": "The right arm circles towards the left. It can look like the slowing-down signal, so watch which way the arm moves.",
+     "explanationKu": "باڵی ڕاست بەرەو چەپ دەسوڕێتەوە. دەتوانێت لە ئاماژەی کەمکردنەوەی خێرایی بچێت، بۆیە سەیر بکە باڵەکە بەرەو کام لا دەجوڵێت.",
+     "media": "theory/markings/arm-signal-left.png"
+    },
+    {
+     "id": 209,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-98",
+     "questionEn": "What do the long white lines along the centre of the road mean?",
+     "questionKu": "ئەو هێڵە سپییە درێژانەی بە درێژایی ناوەڕاستی ڕێگا واتای چین؟",
+     "correctAnswer": "Hazard warning",
+     "correctAnswerKu": "ئاگادارکردنەوەی مەترسی",
+     "explanationEn": "Marks longer than the gaps mean a hazard ahead - a bend, a junction or a dip. Think twice before overtaking.",
+     "explanationKu": "نیشانەی درێژتر لە بۆشاییەکان واتای مەترسییەک لە پێشەوە — خواروخێچ، چوارڕیان یان نشێو. پێش تێپەڕاندن دوو جار بیر بکەرەوە.",
+     "media": "theory/markings/long-white-lines.jpg"
+    },
+    {
+     "id": 210,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-99",
+     "questionEn": "What's the reason for the hatched area along the centre of this road?",
+     "questionKu": "هۆکاری ئەو ناوچە خەتدارەی بە درێژایی ناوەڕاستی ئەم ڕێگایە چییە؟",
+     "correctAnswer": "It separates traffic flowing in opposite directions",
+     "correctAnswerKu": "هاتوچۆی دوو ئاراستەی پێچەوانە لە یەک جیا دەکاتەوە",
+     "explanationEn": "Where the border is solid you must not enter it at all, except in an emergency.",
+     "explanationKu": "لەو شوێنەی چوارچێوەکە ڕەقە، نابێت بە هیچ شێوەیەک بچیتە ناوی، تەنها لە دۆخی لەناکاودا نەبێت.",
+     "media": "theory/markings/hatched-area.jpg"
+    },
+    {
+     "id": 211,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-102",
+     "questionEn": "Where would you find these road markings?",
+     "questionKu": "ئەم نیشانانەی سەر ڕێگا لەکوێ دەدۆزیتەوە؟",
+     "correctAnswer": "At a mini-roundabout",
+     "correctAnswerKu": "لە چوارڕیانێکی بازنەیی بچووک",
+     "explanationEn": "The painted circle is the island: go round it, do not drive over it, and give way to the right.",
+     "explanationKu": "بازنە کێشراوەکە دوورگەکەیە: بە دەوریدا بسوڕێوە، بەسەریدا مەڕۆ، و ڕێگا بدە بە لای ڕاست.",
+     "media": "theory/markings/road-markings-mini-roundabout.png"
+    },
+    {
+     "id": 212,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-127",
+     "questionEn": "What does the white line along the side of the road indicate?",
+     "questionKu": "ئەو هێڵە سپییەی بە درێژایی لای ڕێگا چی دەگەیەنێت؟",
+     "correctAnswer": "The edge of the carriageway",
+     "correctAnswerKu": "قەراغی ڕێڕەوی ئۆتۆمبێل",
+     "explanationEn": "It shows you where the road ends when the light is poor, and it breaks at junctions and lay-bys.",
+     "explanationKu": "پیشانت دەدات ڕێگاکە لەکوێ کۆتایی دێت کاتێک ڕووناکی کەمە، و لە چوارڕیان و شوێنی ڕاوەستاندا دەپچڕێت.",
+     "media": "theory/markings/edge-white-line.jpg"
+    },
+    {
+     "id": 213,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-128",
+     "questionEn": "What does this white arrow on the road mean?",
+     "questionKu": "ئەم تیرە سپییەی سەر ڕێگا واتای چییە؟",
+     "correctAnswer": "Return to your side of the road",
+     "correctAnswerKu": "بگەڕێوە بۆ لای خۆت لە ڕێگاکە",
+     "explanationEn": "It appears where a double white line or a hatched area is about to begin: finish overtaking now.",
+     "explanationKu": "لەو شوێنەدا دەردەکەوێت کە هێڵی سپی دووانە یان ناوچەیەکی خەتدار خەریکە دەست پێبکات: ئێستا تێپەڕاندنەکە تەواو بکە.",
+     "media": "theory/markings/white-arrow-road.jpg"
+    },
+    {
+     "id": 214,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-130",
+     "questionEn": "You're waiting at a T-junction. What should you do if a vehicle is coming from the right, with its left indicator flashing?",
+     "questionKu": "لە چوارڕیانێکی Tـدا چاوەڕێیت. ئەگەر ئۆتۆمبێلێک لە لای ڕاستەوە دێت و ئاماژەی چەپی داگیرساوە، چی دەکەیت؟",
+     "correctAnswer": "Wait until the vehicle starts to turn in",
+     "correctAnswerKu": "چاوەڕێ بکە تا ئۆتۆمبێلەکە دەست بە سوڕانەوە دەکات",
+     "explanationEn": "An indicator can be left on by mistake. Wait until the car is actually turning before you pull out.",
+     "explanationKu": "لەوانەیە ئاماژەکە بە هەڵە داگیرساو مابێتەوە. چاوەڕێ بکە تا ئۆتۆمبێلەکە بەڕاستی دەسوڕێتەوە، پاشان بڕۆ.",
+     "media": "theory/markings/t-junction-diagram.png"
+    },
+    {
+     "id": 215,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-169",
+     "questionEn": "Which sign can be used together with this plate?",
+     "questionKu": "کام تابلۆ لەگەڵ ئەم پلێتەدا بەکاردێت؟",
+     "correctAnswer": "The roundabout sign",
+     "correctAnswerKu": "تابلۆی چوارڕیانە بازنەییەکە",
+     "explanationEn": "An adverse camber tilts the road the wrong way on a bend, so the plate goes under a warning of one - a roundabout or a bend.",
+     "explanationKu": "لاربوونەوەی پێچەوانە ڕێگاکە بە ئاراستەی هەڵە لار دەکاتەوە لە خواروخێچدا، بۆیە پلێتەکە لە ژێر ئاگادارکردنەوەیەکی وەهادا دادەنرێت — چوارڕیانە بازنەیی یان خواروخێچ.",
+     "media": "theory/markings/adverse-camber-plate.png"
+    },
+    {
+     "id": 216,
+     "group": "Signs, signals and markings",
+     "source": "car-pdf-206",
+     "questionEn": "You are a pedestrian at a level crossing. What does this flashing pedestrian signal indicate?",
+     "questionKu": "تۆ پیادەیت لە پەڕینگەی شەمەندەفەر. ئەم ئاماژە بریسکەدارەی پیادە چی دەگەیەنێت؟",
+     "correctAnswer": "It is not safe to cross",
+     "correctAnswerKu": "پەڕینەوە سەلامەت نییە",
+     "explanationEn": "The red figure means stop at the line. Wait for it to go out, however long the train seems to be.",
+     "explanationKu": "وێنە سوورەکە واتای لە هێڵەکە بوەستە. چاوەڕێ بکە تا دەکوژێتەوە، شەمەندەفەرەکە هەرچەندە دوور دەربکەوێت.",
+     "media": "theory/markings/pedestrian-signal.png"
     }
    ]
   }

@@ -1,7 +1,7 @@
 {
  "source": "UK driving theory test, Essential Documents",
  "totalSections": 1,
- "totalQuestions": 27,
+ "totalQuestions": 28,
  "sections": [
   {
    "category": "Essential Documents",
@@ -599,6 +599,28 @@
      "correctAnswerKu": "کاتێک ماڵ دەگوازیتەوە",
      "explanationEn": "DVLA must be able to reach you about tax, recalls and penalties.",
      "explanationKu": "دەبێت DVLA بتوانێت دەربارەی باج، گەڕاندنەوە و سزا پەیوەندیت پێوە بکات."
+    },
+    {
+     "id": 28,
+     "questionEn": "What's a cover note?",
+     "questionKu": "«cover note» چییە؟",
+     "options": [
+      "A document issued before you receive your driving licence",
+      "A document issued before you receive your MOT certificate",
+      "A document issued before you receive your registration document",
+      "A document issued before you receive your insurance certificate"
+     ],
+     "optionsKu": [
+      "بەڵگەنامەیەک کە پێش وەرگرتنی مۆڵەتی شۆفێری دەردەکرێت",
+      "بەڵگەنامەیەک کە پێش وەرگرتنی بڕوانامەی MOT دەردەکرێت",
+      "بەڵگەنامەیەک کە پێش وەرگرتنی بەڵگەنامەی تۆمارکردن دەردەکرێت",
+      "بەڵگەنامەیەک کە پێش وەرگرتنی بڕوانامەی بیمە دەردەکرێت"
+     ],
+     "answerIndex": 3,
+     "correctAnswer": "A document issued before you receive your insurance certificate",
+     "correctAnswerKu": "بەڵگەنامەیەک کە پێش وەرگرتنی بڕوانامەی بیمە دەردەکرێت",
+     "explanationEn": "It is temporary proof that you are insured, and it counts as a certificate until the real one arrives.",
+     "explanationKu": "بەڵگەیەکی کاتییە کە بیمەت هەیە، و تا ئەوەی ڕاستەقینە دێت وەک بڕوانامە دەژمێردرێت."
     }
    ]
   }
