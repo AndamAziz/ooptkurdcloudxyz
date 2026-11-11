@@ -1,6 +1,6 @@
 {
  "totalSections": 10,
- "totalQuestions": 518,
+ "totalQuestions": 520,
  "sections": [
   {
    "section": 1,
@@ -3244,6 +3244,16 @@
      "correctAnswerFa": "دو خط سمت چپ باز هستند"
     },
     {
+     "id": 245,
+     "questionEn": "What's the main hazard shown in this picture?",
+     "questionKu": "لەم وێنەیەدا مەترسی سەرەکی چییە؟",
+     "correctAnswer": "The cyclist crossing the road",
+     "correctAnswerKu": "پاسکیلسوارەکە کە بە ڕێگاکەدا دەپەڕێتەوە",
+     "explanationEn": "The cyclist appears to be trying to cross the road. Look well ahead at a junction like this, so an unexpected move does not catch you out.",
+     "explanationKu": "پاسکیلسوارەکە وادیارە دەیەوێت بە ڕێگاکەدا بپەڕێتەوە. لە چوارڕیانێکی وەک ئەمەدا باش بۆ پێشەوە سەیر بکە، تا جوڵەیەکی چاوەڕواننەکراو لەناکاو نەتگرێت.",
+     "media": "theory/hazard/cyclist-crossing.jpg"
+    },
+    {
      "id": 246,
      "questionEn": "What must you do at this junction?",
      "questionKu": "دەبێت چی بکەیت لە ئەم ڕێگا یەکتربڕەدا؟",
@@ -4782,6 +4792,29 @@
      "correctAnswerBg": "По-трудно е да се види какво има отпред",
      "questionFa": "چرا هنگام رانندگی در مه باید سرعت خود را کاهش دهید؟",
      "correctAnswerFa": "دیدن آنچه در پیش رو است دشوارتر است"
+    },
+    {
+     "id": 360,
+     "questionEn": "Which plate may appear with this road sign?",
+     "questionKu": "لەگەڵ ئەم تابلۆیەی ڕێگادا کام پلێت دەبینرێت؟",
+     "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "optionsKu": [
+      "A",
+      "B",
+      "C",
+      "D"
+     ],
+     "answerIndex": 0,
+     "correctAnswer": "A",
+     "correctAnswerKu": "A",
+     "explanationEn": "The sign warns of road humps, and the plate says how far they go on. Humps are laid where people are about - shops, schools, housing - so watch for anyone near the kerb.",
+     "explanationKu": "تابلۆکە ئاگادارت دەکاتەوە لە بەرزاییەکانی ڕێگا، و پلێتەکە دەڵێت بۆ چەند دوورییەک بەردەوامن. بەرزاییەکان لەو شوێنانەدا دادەنرێن کە خەڵکی لێیە — بازاڕ، قوتابخانە، ناوچەی نیشتەجێبوون — بۆیە چاوت لە هەر کەسێک بێت کە لە نزیک قەراغەکەیە.",
+     "media": "theory/choices/hump-plates.png"
     },
     {
      "id": 361,
