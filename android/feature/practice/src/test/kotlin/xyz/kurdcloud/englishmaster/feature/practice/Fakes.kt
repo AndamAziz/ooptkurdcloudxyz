@@ -2,6 +2,7 @@ package xyz.kurdcloud.englishmaster.feature.practice
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import xyz.kurdcloud.englishmaster.core.data.ContentRepository
@@ -113,6 +114,10 @@ class FakeTheory(
 
     override fun observeSections(): Flow<List<TheorySection>> = sectionRows
     override fun observeDownloadCounts(): Flow<Map<String, Int>> = saved
+    override fun observeChaptersBehind(): Flow<Set<String>> =
+        combine(sectionRows, saved) { sections, held ->
+            sections.filter { it.published > 0 && (held[it.slug] ?: 0) < it.published }.map { it.slug }.toSet()
+        }
     override suspend fun refreshSections(): ApiResult<Int> = refreshResult
     override suspend fun downloadSection(slug: String): ApiResult<Int> {
         downloadResult?.let { return it }

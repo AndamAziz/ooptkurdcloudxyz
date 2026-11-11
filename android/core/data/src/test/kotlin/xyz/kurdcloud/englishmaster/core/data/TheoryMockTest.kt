@@ -2,6 +2,7 @@ package xyz.kurdcloud.englishmaster.core.data
 
 import androidx.test.core.app.ApplicationProvider
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -13,6 +14,7 @@ import org.robolectric.RobolectricTestRunner
 import xyz.kurdcloud.englishmaster.core.database.EnglishMasterDatabase
 import xyz.kurdcloud.englishmaster.core.database.TheoryQuestionEntity
 import xyz.kurdcloud.englishmaster.core.database.TheoryResponseEntity
+import xyz.kurdcloud.englishmaster.core.database.TheorySectionEntity
 import xyz.kurdcloud.englishmaster.core.model.AuthSession
 import xyz.kurdcloud.englishmaster.core.model.TheoryTest
 import xyz.kurdcloud.englishmaster.core.network.NetworkFactory
@@ -241,4 +243,31 @@ class TheoryMockTest {
         assertEquals(item.question.answer, item.options[item.correctIndex])
     }
 
+    /**
+     * A chapter is behind when the device holds fewer questions than it publishes, and also when
+     * the chapter changed after the device saved it: a corrected question does not move the
+     * count, so without the second rule a correction would never reach anyone.
+     */
+    @Test
+    fun `a chapter is behind when it gains a question and when one of its questions is corrected`() = runTest {
+        seed()
+        val saved = 5_000L
+        db.theory().upsertQuestions(
+            db.theory().questionsOf("chapter-1").map { it.copy(downloadedAtMillis = saved) },
+        )
+        fun section(published: Int, changedAt: Long) =
+            TheorySectionEntity("chapter-1", 1, "Chapter 1", null, published, 0, 0, fetchedAtMillis = saved, changedAtMillis = changedAt)
+
+        // Held in full and unchanged since it was saved.
+        db.theory().upsertSections(listOf(section(published = 12, changedAt = saved - 1)))
+        assertEquals(emptySet<String>(), theory.observeChaptersBehind().first())
+
+        // A question was added to it.
+        db.theory().upsertSections(listOf(section(published = 13, changedAt = saved - 1)))
+        assertEquals(setOf("chapter-1"), theory.observeChaptersBehind().first())
+
+        // Same count, but one of its questions was corrected after the device saved the chapter.
+        db.theory().upsertSections(listOf(section(published = 12, changedAt = saved + 1)))
+        assertEquals(setOf("chapter-1"), theory.observeChaptersBehind().first())
+    }
 }

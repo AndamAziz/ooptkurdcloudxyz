@@ -28,6 +28,8 @@ data class TheoryUiState(
     val sections: List<TheorySection> = emptyList(),
     /** Questions saved on the device, per chapter slug. */
     val saved: Map<String, Int> = emptyMap(),
+    /** Chapters the device does not hold as the course now publishes them. */
+    val behind: Set<String> = emptySet(),
     val downloading: TheoryDownload? = null,
     /** Answers waiting to reach the server. */
     val pending: Int = 0,
@@ -42,16 +44,17 @@ data class TheoryUiState(
     val missing: List<TheorySection> get() = sections.filter { !it.isEmpty && (saved[it.slug] ?: 0) == 0 }
 
     /**
-     * Chapters the device does not hold in full: never downloaded, or downloaded before questions
-     * were added to them. A chapter that is only partly saved used to count as done, so questions
-     * published after a learner's download never reached them.
+     * Chapters the device does not hold as the course publishes them: never downloaded, missing
+     * questions added since, or holding a question that has been corrected. A chapter that was
+     * only partly saved used to count as done, so nothing published after a learner's download
+     * ever reached them.
      */
-    val outOfDate: List<TheorySection> get() = sections.filter { !it.isEmpty && (saved[it.slug] ?: 0) < it.published }
+    val outOfDate: List<TheorySection> get() = sections.filter { !it.isEmpty && it.slug in behind }
 
     fun isSaved(section: TheorySection): Boolean = (saved[section.slug] ?: 0) > 0
 
-    /** True when the device holds some of a chapter but not the questions added since. */
-    fun hasMore(section: TheorySection): Boolean = (saved[section.slug] ?: 0) in 1 until section.published
+    /** True when the device holds part of a chapter but not the course's current questions. */
+    fun hasMore(section: TheorySection): Boolean = isSaved(section) && section.slug in behind
 }
 
 /**
@@ -72,18 +75,25 @@ class TheoryViewModel(
         val message: UiMessage? = null,
     )
 
+    /** What the device holds of the course, read together so the three always agree. */
+    private data class Chapters(
+        val sections: List<TheorySection>,
+        val saved: Map<String, Int>,
+        val behind: Set<String>,
+    )
+
     val uiState: StateFlow<TheoryUiState> = combine(
-        theory.observeSections(),
-        theory.observeDownloadCounts(),
+        combine(theory.observeSections(), theory.observeDownloadCounts(), theory.observeChaptersBehind(), ::Chapters),
         theory.observePendingCount(),
         online,
         transient,
-    ) { sections, saved, pending, isOnline, t ->
+    ) { chapters, pending, isOnline, t ->
         TheoryUiState(
             isOnline = isOnline,
-            loading = t.loading && sections.isEmpty(),
-            sections = sections,
-            saved = saved,
+            loading = t.loading && chapters.sections.isEmpty(),
+            sections = chapters.sections,
+            saved = chapters.saved,
+            behind = chapters.behind,
             downloading = t.downloading,
             pending = pending,
             message = t.message,

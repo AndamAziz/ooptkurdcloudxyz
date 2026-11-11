@@ -122,6 +122,9 @@ class QuestionUpdaterTest {
         val downloaded = mutableListOf<String>()
         override fun observeSections() = kotlinx.coroutines.flow.flowOf(sections)
         override fun observeDownloadCounts() = kotlinx.coroutines.flow.flowOf(saved)
+        override fun observeChaptersBehind() = kotlinx.coroutines.flow.flowOf(
+            sections.filter { (saved[it.slug] ?: 0) < it.published }.map { it.slug }.toSet(),
+        )
         override suspend fun refreshSections(): ApiResult<Int> = ApiResult.Success(sections.size)
         override suspend fun downloadSection(slug: String): ApiResult<Int> {
             downloaded += slug

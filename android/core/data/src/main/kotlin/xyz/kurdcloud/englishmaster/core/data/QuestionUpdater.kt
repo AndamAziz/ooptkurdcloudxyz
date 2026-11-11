@@ -66,14 +66,16 @@ class QuestionUpdater(
         job = scope.launch { run(manual) }
     }
 
-    /** Theory chapters the device holds only part of, because questions were published since. */
+    /**
+     * Theory chapters the learner has started and the device no longer holds as the course
+     * publishes them. A chapter never downloaded is left to the course page, whose own download
+     * is megabytes of video clips and is the learner's to ask for.
+     */
     private suspend fun theoryChaptersBehind(): List<String> {
         val repo = theory ?: return emptyList()
         if (repo.refreshSections() is ApiResult.Failure) return emptyList()
         val saved = repo.observeDownloadCounts().first()
-        return repo.observeSections().first()
-            .filter { (saved[it.slug] ?: 0) in 1 until it.published }
-            .map { it.slug }
+        return repo.observeChaptersBehind().first().filter { (saved[it] ?: 0) > 0 }
     }
 
     private suspend fun run(manual: Boolean) {
